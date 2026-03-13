@@ -1,19 +1,12 @@
 <Project>
-  <Import Project="src\_PublishArtifacts.Build.props" Condition="$(IsPackable) == True" />
-  <PropertyGroup Condition="$(SignAssembly) == True OR $(IsPackable) == True OR $(MSBuildProjectName.StartsWith('Tests'))">
+  <PropertyGroup Condition="$(SignAssembly) == True OR $(IsPackable) == True">
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)\build\keys\keypair.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="$(IsPackable) == True">
     <OutDir>bin/$(Configuration)/$(TargetFramework)/</OutDir>
-    <NoWarn>1591,1572,1571,1573,1587,1570,NU5048,</NoWarn>
-    <Prefer32Bit>false</Prefer32Bit>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>portable</DebugType>
-
-    <!-- we need to referenced assemblies during the command line build so that ILRepack can pick them up -->
-    <CopyLocalLockFileAssemblies Condition="'$(TargetFramework)'=='netstandard2.0'">true</CopyLocalLockFileAssemblies>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
   </PropertyGroup>
-  
 </Project>

@@ -1,9 +1,0 @@
-@using ApiGenerator.Domain
-@inherits ApiGenerator.CodeTemplatePage<RestApiSpec>
-@{ await IncludeLegacyGeneratorNotice(); }
-
-namespace OpenSearch.Client;
-
-public abstract partial class @Raw("PlainRequestBase<TParameters>")
-{
-}
