@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -18,6 +19,8 @@ namespace OpenSearch.Client;
 /// <typeparam name="TContext">The type of context to carry. Typically <see cref="IOpenSearchClientSettings"/>.</typeparam>
 public sealed class ContextProvider<TContext> : JsonConverterFactory where TContext : class
 {
+	private static readonly ConditionalWeakTable<JsonSerializerOptions, Box> Cache = new();
+
 	private readonly TContext _context;
 
 	/// <summary>
@@ -45,12 +48,24 @@ public sealed class ContextProvider<TContext> : JsonConverterFactory where TCont
 	{
 		ArgumentNullException.ThrowIfNull(options);
 
+		if (Cache.TryGetValue(options, out var cached))
+			return cached.Value;
+
 		foreach (var converter in options.Converters)
 		{
 			if (converter is ContextProvider<TContext> provider)
+			{
+				Cache.AddOrUpdate(options, new Box(provider._context));
 				return provider._context;
+			}
 		}
 
 		return null;
+	}
+
+	// ConditionalWeakTable requires a reference-type value.
+	private sealed class Box(TContext value)
+	{
+		public TContext Value { get; } = value;
 	}
 }

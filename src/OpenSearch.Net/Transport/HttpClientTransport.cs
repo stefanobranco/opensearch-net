@@ -13,10 +13,12 @@ namespace OpenSearch.Net;
 public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 {
 	private static readonly HashSet<int> RetryableStatusCodes = [502, 503, 504];
+	private static readonly StringWithQualityHeaderValue GzipEncoding = new("gzip");
 
 	private readonly ITransportConfiguration _configuration;
 	private readonly HttpClientFactory _httpClientFactory;
 	private readonly IOpenSearchSerializer _serializer;
+	private readonly AuthenticationHeaderValue? _cachedAuthHeader;
 
 	/// <inheritdoc />
 	public IOpenSearchSerializer Serializer => _serializer;
@@ -36,7 +38,9 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 		DefaultOptions = defaultOptions;
 		_httpClientFactory = new HttpClientFactory(
 			configuration.DnsRefreshTimeout,
-			() => CreateHandler(configuration));
+			() => CreateHandler(configuration),
+			configuration.RequestTimeout);
+		_cachedAuthHeader = BuildAuthHeader(configuration);
 	}
 
 	/// <inheritdoc />
@@ -45,48 +49,48 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 		IEndpoint<TRequest, TResponse> endpoint,
 		TransportOptions? options = null)
 	{
-		var auditTrail = new RequestAuditTrail();
 		var maxRetries = _configuration.MaxRetries;
 		var nodePool = _configuration.NodePool;
 		var mergedOptions = MergeOptions(options);
+		RequestAuditTrail? auditTrail = null;
 
 		Exception? lastException = null;
+		int lastRetryableStatusCode = 0;
+		Node? lastRetryableNode = null;
 
 		for (var attempt = 0; attempt <= maxRetries; attempt++)
 		{
 			if (attempt > 0)
-				auditTrail.Add(AuditEventType.Retry);
+				GetAuditTrail(ref auditTrail).Add(AuditEventType.Retry);
 
 			var node = nodePool.SelectNode();
-			auditTrail.Add(AuditEventType.NodeSelected, node);
+			GetAuditTrail(ref auditTrail).Add(AuditEventType.NodeSelected, node);
 
 			var sw = Stopwatch.StartNew();
-			HttpClient? client = null;
 
 			try
 			{
-				client = _httpClientFactory.CreateClient();
-				client.Timeout = _configuration.RequestTimeout;
+				var client = _httpClientFactory.GetClient();
 
 				using var requestMessage = BuildRequestMessage(request, endpoint, node, mergedOptions);
-				auditTrail.Add(AuditEventType.RequestSent, node);
+				GetAuditTrail(ref auditTrail).Add(AuditEventType.RequestSent, node);
 
 				using var responseMessage = client.Send(requestMessage, HttpCompletionOption.ResponseHeadersRead);
 				sw.Stop();
 
 				var statusCode = (int)responseMessage.StatusCode;
-				auditTrail.Add(AuditEventType.ResponseReceived, node, statusCode, duration: sw.Elapsed);
+				GetAuditTrail(ref auditTrail).Add(AuditEventType.ResponseReceived, node, statusCode, duration: sw.Elapsed);
 
 				ProcessWarningHeaders(responseMessage, mergedOptions);
 
 				if (RetryableStatusCodes.Contains(statusCode) && attempt < maxRetries)
 				{
-					auditTrail.Add(AuditEventType.BadResponse, node, statusCode);
+					GetAuditTrail(ref auditTrail).Add(AuditEventType.BadResponse, node, statusCode);
 					nodePool.MarkDead(node);
-					auditTrail.Add(AuditEventType.DeadNode, node);
-					lastException = new TransportException(
-						$"Received retryable status code {statusCode} from {node.Host}",
-						statusCode, null, node);
+					GetAuditTrail(ref auditTrail).Add(AuditEventType.DeadNode, node);
+					lastRetryableStatusCode = statusCode;
+					lastRetryableNode = node;
+					lastException = null;
 					continue;
 				}
 
@@ -97,41 +101,20 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 
 				return endpoint.DeserializeResponse(statusCode, contentType, bodyStream, _serializer);
 			}
-			catch (HttpRequestException ex)
+			catch (Exception ex) when (IsRetryableException(ex, isSync: true))
 			{
 				sw.Stop();
-				auditTrail.Add(AuditEventType.BadResponse, node, exception: ex, duration: sw.Elapsed);
-				nodePool.MarkDead(node);
-				auditTrail.Add(AuditEventType.DeadNode, node);
+				HandleRetryableException(ref auditTrail, nodePool, node, ex, sw.Elapsed);
 				lastException = ex;
+				lastRetryableStatusCode = 0;
+				lastRetryableNode = null;
 
 				if (attempt >= maxRetries)
 					break;
-			}
-			catch (TaskCanceledException ex) when (ex.InnerException is TimeoutException)
-			{
-				sw.Stop();
-				auditTrail.Add(AuditEventType.BadResponse, node, exception: ex, duration: sw.Elapsed);
-				nodePool.MarkDead(node);
-				auditTrail.Add(AuditEventType.DeadNode, node);
-				lastException = ex;
-
-				if (attempt >= maxRetries)
-					break;
-			}
-			finally
-			{
-				client?.Dispose();
 			}
 		}
 
-		auditTrail.Add(AuditEventType.AllNodesDead);
-		throw new TransportException(
-			"Maximum number of retries exhausted. No healthy nodes available.",
-			lastException ?? new InvalidOperationException("No attempts were made."))
-		{
-			AuditTrail = auditTrail
-		};
+		return ThrowRetriesExhausted<TResponse>(ref auditTrail, lastException, lastRetryableStatusCode, lastRetryableNode);
 	}
 
 	/// <inheritdoc />
@@ -141,32 +124,32 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 		TransportOptions? options = null,
 		CancellationToken ct = default)
 	{
-		var auditTrail = new RequestAuditTrail();
 		var maxRetries = _configuration.MaxRetries;
 		var nodePool = _configuration.NodePool;
 		var mergedOptions = MergeOptions(options);
+		RequestAuditTrail? auditTrail = null;
 
 		Exception? lastException = null;
+		int lastRetryableStatusCode = 0;
+		Node? lastRetryableNode = null;
 
 		for (var attempt = 0; attempt <= maxRetries; attempt++)
 		{
 			if (attempt > 0)
-				auditTrail.Add(AuditEventType.Retry);
+				GetAuditTrail(ref auditTrail).Add(AuditEventType.Retry);
 
 			var node = nodePool.SelectNode();
-			auditTrail.Add(AuditEventType.NodeSelected, node);
+			GetAuditTrail(ref auditTrail).Add(AuditEventType.NodeSelected, node);
 
 			var sw = Stopwatch.StartNew();
-			HttpClient? client = null;
 
 			try
 			{
-				client = _httpClientFactory.CreateClient();
-				client.Timeout = _configuration.RequestTimeout;
+				var client = _httpClientFactory.GetClient();
 
 				using var requestMessage = await BuildRequestMessageAsync(request, endpoint, node, mergedOptions, ct)
 					.ConfigureAwait(false);
-				auditTrail.Add(AuditEventType.RequestSent, node);
+				GetAuditTrail(ref auditTrail).Add(AuditEventType.RequestSent, node);
 
 				using var responseMessage = await client
 					.SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead, ct)
@@ -174,18 +157,18 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 				sw.Stop();
 
 				var statusCode = (int)responseMessage.StatusCode;
-				auditTrail.Add(AuditEventType.ResponseReceived, node, statusCode, duration: sw.Elapsed);
+				GetAuditTrail(ref auditTrail).Add(AuditEventType.ResponseReceived, node, statusCode, duration: sw.Elapsed);
 
 				ProcessWarningHeaders(responseMessage, mergedOptions);
 
 				if (RetryableStatusCodes.Contains(statusCode) && attempt < maxRetries)
 				{
-					auditTrail.Add(AuditEventType.BadResponse, node, statusCode);
+					GetAuditTrail(ref auditTrail).Add(AuditEventType.BadResponse, node, statusCode);
 					nodePool.MarkDead(node);
-					auditTrail.Add(AuditEventType.DeadNode, node);
-					lastException = new TransportException(
-						$"Received retryable status code {statusCode} from {node.Host}",
-						statusCode, null, node);
+					GetAuditTrail(ref auditTrail).Add(AuditEventType.DeadNode, node);
+					lastRetryableStatusCode = statusCode;
+					lastRetryableNode = node;
+					lastException = null;
 					continue;
 				}
 
@@ -196,43 +179,65 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 
 				return endpoint.DeserializeResponse(statusCode, contentType, bodyStream, _serializer);
 			}
-			catch (HttpRequestException ex)
+			catch (Exception ex) when (IsRetryableException(ex, isSync: false, ct))
 			{
 				sw.Stop();
-				auditTrail.Add(AuditEventType.BadResponse, node, exception: ex, duration: sw.Elapsed);
-				nodePool.MarkDead(node);
-				auditTrail.Add(AuditEventType.DeadNode, node);
+				HandleRetryableException(ref auditTrail, nodePool, node, ex, sw.Elapsed);
 				lastException = ex;
+				lastRetryableStatusCode = 0;
+				lastRetryableNode = null;
 
 				if (attempt >= maxRetries)
 					break;
-			}
-			catch (TaskCanceledException ex) when (!ct.IsCancellationRequested)
-			{
-				// Timeout, not user cancellation.
-				sw.Stop();
-				auditTrail.Add(AuditEventType.BadResponse, node, exception: ex, duration: sw.Elapsed);
-				nodePool.MarkDead(node);
-				auditTrail.Add(AuditEventType.DeadNode, node);
-				lastException = ex;
-
-				if (attempt >= maxRetries)
-					break;
-			}
-			finally
-			{
-				client?.Dispose();
 			}
 		}
 
-		auditTrail.Add(AuditEventType.AllNodesDead);
+		return ThrowRetriesExhausted<TResponse>(ref auditTrail, lastException, lastRetryableStatusCode, lastRetryableNode);
+	}
+
+	private static bool IsRetryableException(Exception ex, bool isSync, CancellationToken ct = default) =>
+		ex is HttpRequestException
+		|| (isSync && ex is TaskCanceledException { InnerException: TimeoutException })
+		|| (!isSync && ex is TaskCanceledException && !ct.IsCancellationRequested);
+
+	private static void HandleRetryableException(
+		ref RequestAuditTrail? auditTrail,
+		NodePool nodePool,
+		Node node,
+		Exception ex,
+		TimeSpan duration)
+	{
+		GetAuditTrail(ref auditTrail).Add(AuditEventType.BadResponse, node, exception: ex, duration: duration);
+		nodePool.MarkDead(node);
+		GetAuditTrail(ref auditTrail).Add(AuditEventType.DeadNode, node);
+	}
+
+	[System.Diagnostics.CodeAnalysis.DoesNotReturn]
+	private static TResponse ThrowRetriesExhausted<TResponse>(
+		ref RequestAuditTrail? auditTrail,
+		Exception? lastException,
+		int lastRetryableStatusCode,
+		Node? lastRetryableNode)
+	{
+		GetAuditTrail(ref auditTrail).Add(AuditEventType.AllNodesDead);
+
+		// Only allocate the TransportException for retryable status codes here (deferred from the retry loop).
+		var inner = lastException
+			?? (lastRetryableStatusCode > 0
+				? new TransportException(
+					$"Received retryable status code {lastRetryableStatusCode} from {lastRetryableNode?.Host}",
+					lastRetryableStatusCode, null, lastRetryableNode)
+				: new InvalidOperationException("No attempts were made."));
+
 		throw new TransportException(
-			"Maximum number of retries exhausted. No healthy nodes available.",
-			lastException ?? new InvalidOperationException("No attempts were made."))
+			"Maximum number of retries exhausted. No healthy nodes available.", inner)
 		{
 			AuditTrail = auditTrail
 		};
 	}
+
+	private static RequestAuditTrail GetAuditTrail(ref RequestAuditTrail? auditTrail) =>
+		auditTrail ??= new RequestAuditTrail();
 
 	private HttpRequestMessage BuildRequestMessage<TRequest, TResponse>(
 		TRequest request,
@@ -240,12 +245,7 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 		Node node,
 		TransportOptions? options)
 	{
-		var method = MapHttpMethod(endpoint.Method(request));
-		var uri = BuildRequestUri(node, endpoint.RequestUrl(request), options);
-
-		var message = new HttpRequestMessage(method, uri);
-		ApplyHeaders(message, options);
-		ApplyAuthentication(message);
+		var message = CreateBaseRequestMessage(request, endpoint, node, options);
 
 		var body = endpoint.GetBody(request);
 		if (body is not null)
@@ -253,22 +253,10 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 			var stream = new MemoryStream();
 			body.WriteTo(stream, _serializer);
 			stream.Position = 0;
-
-			var content = new StreamContent(stream);
-			content.Headers.ContentType = new MediaTypeHeaderValue(body.ContentType);
-
-			if (_configuration.EnableHttpCompression)
-				message.Headers.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
-
-			message.Content = content;
-		}
-		else if (_configuration.EnableHttpCompression)
-		{
-			message.Headers.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
+			SetBodyContent(message, body.ContentType, stream);
 		}
 
 		_configuration.OnRequestCreated?.Invoke(message);
-
 		return message;
 	}
 
@@ -279,12 +267,7 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 		TransportOptions? options,
 		CancellationToken ct)
 	{
-		var method = MapHttpMethod(endpoint.Method(request));
-		var uri = BuildRequestUri(node, endpoint.RequestUrl(request), options);
-
-		var message = new HttpRequestMessage(method, uri);
-		ApplyHeaders(message, options);
-		ApplyAuthentication(message);
+		var message = CreateBaseRequestMessage(request, endpoint, node, options);
 
 		var body = endpoint.GetBody(request);
 		if (body is not null)
@@ -292,23 +275,39 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 			var stream = new MemoryStream();
 			await body.WriteToAsync(stream, _serializer, ct).ConfigureAwait(false);
 			stream.Position = 0;
-
-			var content = new StreamContent(stream);
-			content.Headers.ContentType = new MediaTypeHeaderValue(body.ContentType);
-
-			if (_configuration.EnableHttpCompression)
-				message.Headers.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
-
-			message.Content = content;
-		}
-		else if (_configuration.EnableHttpCompression)
-		{
-			message.Headers.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
+			SetBodyContent(message, body.ContentType, stream);
 		}
 
 		_configuration.OnRequestCreated?.Invoke(message);
+		return message;
+	}
+
+	private HttpRequestMessage CreateBaseRequestMessage<TRequest, TResponse>(
+		TRequest request,
+		IEndpoint<TRequest, TResponse> endpoint,
+		Node node,
+		TransportOptions? options)
+	{
+		var method = MapHttpMethod(endpoint.Method(request));
+		var uri = BuildRequestUri(node, endpoint.RequestUrl(request), options);
+
+		var message = new HttpRequestMessage(method, uri);
+		ApplyHeaders(message, options);
+
+		if (_cachedAuthHeader is not null)
+			message.Headers.Authorization = _cachedAuthHeader;
+
+		if (_configuration.EnableHttpCompression)
+			message.Headers.AcceptEncoding.Add(GzipEncoding);
 
 		return message;
+	}
+
+	private void SetBodyContent(HttpRequestMessage message, string contentType, MemoryStream stream)
+	{
+		var content = new StreamContent(stream);
+		content.Headers.ContentType = new MediaTypeHeaderValue(contentType);
+		message.Content = content;
 	}
 
 	private static Uri BuildRequestUri(Node node, string requestUrl, TransportOptions? options)
@@ -318,7 +317,7 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 
 		if (options?.QueryParameters is { Count: > 0 } queryParams)
 		{
-			var sb = new StringBuilder(path);
+			var sb = new StringBuilder(path, path.Length + queryParams.Count * 32);
 			sb.Append('?');
 			var first = true;
 			foreach (var (key, value) in queryParams)
@@ -339,12 +338,6 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 	{
 		message.Headers.Add("Accept", "application/json");
 
-		if (DefaultOptions?.Headers is { Count: > 0 } defaultHeaders)
-		{
-			foreach (var (key, value) in defaultHeaders)
-				message.Headers.TryAddWithoutValidation(key, value);
-		}
-
 		if (options?.Headers is { Count: > 0 } headers)
 		{
 			foreach (var (key, value) in headers)
@@ -352,18 +345,21 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 		}
 	}
 
-	private void ApplyAuthentication(HttpRequestMessage message)
+	private static AuthenticationHeaderValue? BuildAuthHeader(ITransportConfiguration config)
 	{
-		if (_configuration.BasicAuth is { } basic)
+		if (config.BasicAuth is { } basic)
 		{
 			var encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{basic.Username}:{basic.Password}"));
-			message.Headers.Authorization = new AuthenticationHeaderValue("Basic", encoded);
+			return new AuthenticationHeaderValue("Basic", encoded);
 		}
-		else if (_configuration.ApiKeyAuth is { } apiKey)
+
+		if (config.ApiKeyAuth is { } apiKey)
 		{
 			var encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{apiKey.Id}:{apiKey.ApiKey}"));
-			message.Headers.Authorization = new AuthenticationHeaderValue("ApiKey", encoded);
+			return new AuthenticationHeaderValue("ApiKey", encoded);
 		}
+
+		return null;
 	}
 
 	private TransportOptions? MergeOptions(TransportOptions? perRequest)
@@ -374,45 +370,33 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 		if (DefaultOptions is null)
 			return perRequest;
 
-		// Merge: per-request headers override defaults, query params are combined.
-		Dictionary<string, string>? mergedHeaders = null;
-		if (DefaultOptions.Headers is not null || perRequest.Headers is not null)
-		{
-			mergedHeaders = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-			if (DefaultOptions.Headers is not null)
-			{
-				foreach (var (key, value) in DefaultOptions.Headers)
-					mergedHeaders[key] = value;
-			}
-			if (perRequest.Headers is not null)
-			{
-				foreach (var (key, value) in perRequest.Headers)
-					mergedHeaders[key] = value;
-			}
-		}
-
-		Dictionary<string, string>? mergedQuery = null;
-		if (DefaultOptions.QueryParameters is not null || perRequest.QueryParameters is not null)
-		{
-			mergedQuery = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-			if (DefaultOptions.QueryParameters is not null)
-			{
-				foreach (var (key, value) in DefaultOptions.QueryParameters)
-					mergedQuery[key] = value;
-			}
-			if (perRequest.QueryParameters is not null)
-			{
-				foreach (var (key, value) in perRequest.QueryParameters)
-					mergedQuery[key] = value;
-			}
-		}
-
 		return new TransportOptions
 		{
-			Headers = mergedHeaders,
-			QueryParameters = mergedQuery,
+			Headers = MergeDictionaries(DefaultOptions.Headers, perRequest.Headers),
+			QueryParameters = MergeDictionaries(DefaultOptions.QueryParameters, perRequest.QueryParameters),
 			WarningsHandler = perRequest.WarningsHandler ?? DefaultOptions.WarningsHandler
 		};
+	}
+
+	private static Dictionary<string, string>? MergeDictionaries(
+		Dictionary<string, string>? defaults,
+		Dictionary<string, string>? overrides)
+	{
+		if (defaults is null && overrides is null)
+			return null;
+
+		if (defaults is null)
+			return overrides;
+
+		if (overrides is null)
+			return defaults;
+
+		var merged = new Dictionary<string, string>(defaults.Count + overrides.Count, StringComparer.OrdinalIgnoreCase);
+		foreach (var (key, value) in defaults)
+			merged[key] = value;
+		foreach (var (key, value) in overrides)
+			merged[key] = value;
+		return merged;
 	}
 
 	private static void ProcessWarningHeaders(HttpResponseMessage response, TransportOptions? options)

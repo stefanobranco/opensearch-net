@@ -21,13 +21,15 @@ namespace OpenSearch.Client;
 /// var client = new OpenSearchClient(settings);
 /// </code>
 /// </remarks>
-public sealed class OpenSearchClient
+public sealed class OpenSearchClient : IDisposable
 {
 	private readonly IOpenSearchTransport _transport;
+	private readonly bool _ownsTransport;
 	private readonly IOpenSearchClientSettings _settings;
 
 	/// <summary>
 	/// Creates a new client with the given settings and transport.
+	/// The caller is responsible for disposing the transport.
 	/// </summary>
 	public OpenSearchClient(IOpenSearchClientSettings settings, IOpenSearchTransport transport)
 	{
@@ -36,18 +38,22 @@ public sealed class OpenSearchClient
 
 		_settings = settings;
 		_transport = transport;
+		_ownsTransport = false;
 	}
 
 	/// <summary>
 	/// Creates a new client with the given settings, using a default <see cref="HttpClientTransport"/>.
+	/// The client owns and will dispose the transport.
 	/// </summary>
 	public OpenSearchClient(IOpenSearchClientSettings settings)
 		: this(settings, new HttpClientTransport(settings))
 	{
+		_ownsTransport = true;
 	}
 
 	/// <summary>
 	/// Creates a new client connecting to the specified URIs with default settings.
+	/// The client owns and will dispose the transport.
 	/// </summary>
 	public OpenSearchClient(params Uri[] uris)
 		: this(OpenSearchClientSettings.Create(uris).Build())
@@ -67,12 +73,6 @@ public sealed class OpenSearchClient
 	/// <summary>
 	/// Executes a synchronous request against the configured OpenSearch cluster.
 	/// </summary>
-	/// <typeparam name="TRequest">The request type.</typeparam>
-	/// <typeparam name="TResponse">The response type.</typeparam>
-	/// <param name="request">The request to send.</param>
-	/// <param name="endpoint">The endpoint descriptor defining the HTTP method, path, etc.</param>
-	/// <param name="options">Optional per-request overrides.</param>
-	/// <returns>The deserialized response.</returns>
 	public TResponse DoRequest<TRequest, TResponse>(
 		TRequest request,
 		IEndpoint<TRequest, TResponse> endpoint,
@@ -82,17 +82,17 @@ public sealed class OpenSearchClient
 	/// <summary>
 	/// Executes an asynchronous request against the configured OpenSearch cluster.
 	/// </summary>
-	/// <typeparam name="TRequest">The request type.</typeparam>
-	/// <typeparam name="TResponse">The response type.</typeparam>
-	/// <param name="request">The request to send.</param>
-	/// <param name="endpoint">The endpoint descriptor defining the HTTP method, path, etc.</param>
-	/// <param name="options">Optional per-request overrides.</param>
-	/// <param name="ct">Cancellation token.</param>
-	/// <returns>The deserialized response.</returns>
 	public Task<TResponse> DoRequestAsync<TRequest, TResponse>(
 		TRequest request,
 		IEndpoint<TRequest, TResponse> endpoint,
 		TransportOptions? options = null,
 		CancellationToken ct = default) =>
 		_transport.PerformRequestAsync(request, endpoint, options, ct);
+
+	/// <inheritdoc />
+	public void Dispose()
+	{
+		if (_ownsTransport && _transport is IDisposable disposable)
+			disposable.Dispose();
+	}
 }

@@ -10,49 +10,57 @@ internal sealed class HttpClientFactory : IDisposable
 	private readonly Func<HttpMessageHandler> _handlerFactory;
 	private volatile HandlerEntry _currentEntry;
 	private readonly object _rotationLock = new();
-	private bool _disposed;
+	private int _disposed;
 
-	public HttpClientFactory(TimeSpan? handlerLifetime = null, Func<HttpMessageHandler>? handlerFactory = null)
+	private readonly TimeSpan _requestTimeout;
+
+	public HttpClientFactory(
+		TimeSpan? handlerLifetime = null,
+		Func<HttpMessageHandler>? handlerFactory = null,
+		TimeSpan? requestTimeout = null)
 	{
 		_handlerLifetime = handlerLifetime ?? TimeSpan.FromMinutes(5);
 		_handlerFactory = handlerFactory ?? CreateDefaultHandler;
-		_currentEntry = new HandlerEntry(_handlerFactory(), Environment.TickCount64);
+		_requestTimeout = requestTimeout ?? TimeSpan.FromSeconds(60);
+		_currentEntry = new HandlerEntry(_handlerFactory(), _requestTimeout);
 	}
 
 	/// <summary>
-	/// Returns an <see cref="HttpClient"/> backed by the current (possibly rotated) handler.
-	/// The returned client must NOT dispose the handler.
+	/// Returns the current (possibly rotated) <see cref="HttpClient"/>.
+	/// The client is reused across requests for the lifetime of its handler.
 	/// </summary>
-	public HttpClient CreateClient()
+	public HttpClient GetClient()
 	{
+		ObjectDisposedException.ThrowIf(Volatile.Read(ref _disposed) != 0, this);
+
 		var entry = _currentEntry;
-		MaybeRotateHandler(entry);
-		return new HttpClient(_currentEntry.Handler, disposeHandler: false);
+		if (entry.IsExpired(_handlerLifetime))
+			entry = RotateHandler(entry);
+
+		return entry.Client;
 	}
 
-	private void MaybeRotateHandler(HandlerEntry entry)
+	private HandlerEntry RotateHandler(HandlerEntry staleEntry)
 	{
-		var elapsed = Environment.TickCount64 - entry.CreatedAtTicks;
-		if (elapsed < (long)_handlerLifetime.TotalMilliseconds)
-			return;
-
 		lock (_rotationLock)
 		{
 			// Double-check: another thread may have already rotated.
-			if (_currentEntry.CreatedAtTicks != entry.CreatedAtTicks)
-				return;
+			var current = _currentEntry;
+			if (current.CreatedAtTicks != staleEntry.CreatedAtTicks)
+				return current;
 
-			var oldHandler = _currentEntry.Handler;
-			_currentEntry = new HandlerEntry(_handlerFactory(), Environment.TickCount64);
+			var oldEntry = _currentEntry;
+			_currentEntry = new HandlerEntry(_handlerFactory(), _requestTimeout);
 
-			// Dispose the old handler on a background thread to avoid blocking callers
-			// that may still have in-flight requests completing on the old handler.
-			// A small delay gives those requests time to finish.
-			_ = DisposeHandlerAfterDelay(oldHandler, TimeSpan.FromSeconds(20));
+			// Dispose the old handler on a background thread to allow
+			// in-flight requests to complete.
+			_ = DisposeAfterDelay(oldEntry, TimeSpan.FromSeconds(20));
+
+			return _currentEntry;
 		}
 	}
 
-	private static async Task DisposeHandlerAfterDelay(HttpMessageHandler handler, TimeSpan delay)
+	private static async Task DisposeAfterDelay(HandlerEntry entry, TimeSpan delay)
 	{
 		try
 		{
@@ -60,7 +68,8 @@ internal sealed class HttpClientFactory : IDisposable
 		}
 		finally
 		{
-			handler.Dispose();
+			entry.Client.Dispose();
+			entry.Handler.Dispose();
 		}
 	}
 
@@ -73,12 +82,28 @@ internal sealed class HttpClientFactory : IDisposable
 
 	public void Dispose()
 	{
-		if (_disposed)
+		if (Interlocked.Exchange(ref _disposed, 1) != 0)
 			return;
 
-		_disposed = true;
-		_currentEntry.Handler.Dispose();
+		var entry = _currentEntry;
+		entry.Client.Dispose();
+		entry.Handler.Dispose();
 	}
 
-	private sealed record HandlerEntry(HttpMessageHandler Handler, long CreatedAtTicks);
+	private sealed class HandlerEntry
+	{
+		public HttpMessageHandler Handler { get; }
+		public HttpClient Client { get; }
+		public long CreatedAtTicks { get; }
+
+		public HandlerEntry(HttpMessageHandler handler, TimeSpan requestTimeout)
+		{
+			Handler = handler;
+			Client = new HttpClient(handler, disposeHandler: false) { Timeout = requestTimeout };
+			CreatedAtTicks = Environment.TickCount64;
+		}
+
+		public bool IsExpired(TimeSpan lifetime) =>
+			Environment.TickCount64 - CreatedAtTicks >= (long)lifetime.TotalMilliseconds;
+	}
 }

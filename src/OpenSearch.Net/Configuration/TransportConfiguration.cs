@@ -120,6 +120,7 @@ public sealed class TransportConfiguration : ITransportConfiguration
 		/// <summary>Sets the per-request timeout. Default is 60 seconds.</summary>
 		public Builder RequestTimeout(TimeSpan timeout)
 		{
+			ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(timeout, TimeSpan.Zero, nameof(timeout));
 			_requestTimeout = timeout;
 			return this;
 		}
@@ -127,6 +128,7 @@ public sealed class TransportConfiguration : ITransportConfiguration
 		/// <summary>Sets how often the HTTP handler is rotated for DNS refresh. Default is 5 minutes.</summary>
 		public Builder DnsRefreshTimeout(TimeSpan timeout)
 		{
+			ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(timeout, TimeSpan.Zero, nameof(timeout));
 			_dnsRefreshTimeout = timeout;
 			return this;
 		}
@@ -134,6 +136,7 @@ public sealed class TransportConfiguration : ITransportConfiguration
 		/// <summary>Sets the maximum number of retries. Default is (node count - 1).</summary>
 		public Builder MaxRetries(int retries)
 		{
+			ArgumentOutOfRangeException.ThrowIfNegative(retries, nameof(retries));
 			_maxRetries = retries;
 			return this;
 		}

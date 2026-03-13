@@ -16,10 +16,7 @@ public sealed class SourceConverter<T> : JsonConverter<T>
 	/// <inheritdoc />
 	public override T? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
 	{
-		var settings = ContextProvider<IOpenSearchClientSettings>.Get(options)
-			?? throw new InvalidOperationException(
-				$"No {nameof(IOpenSearchClientSettings)} found in JsonSerializerOptions. " +
-				$"Ensure a ContextProvider<{nameof(IOpenSearchClientSettings)}> has been added to the converters.");
+		var settings = GetSettingsOrThrow(options);
 
 		// Read the raw JSON for this value into a buffer, then hand it to the source serializer.
 		using var doc = JsonDocument.ParseValue(ref reader);
@@ -36,10 +33,7 @@ public sealed class SourceConverter<T> : JsonConverter<T>
 	/// <inheritdoc />
 	public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
 	{
-		var settings = ContextProvider<IOpenSearchClientSettings>.Get(options)
-			?? throw new InvalidOperationException(
-				$"No {nameof(IOpenSearchClientSettings)} found in JsonSerializerOptions. " +
-				$"Ensure a ContextProvider<{nameof(IOpenSearchClientSettings)}> has been added to the converters.");
+		var settings = GetSettingsOrThrow(options);
 
 		using var stream = new MemoryStream();
 		settings.SourceSerializer.Serialize(value, stream);
@@ -48,4 +42,10 @@ public sealed class SourceConverter<T> : JsonConverter<T>
 		using var doc = JsonDocument.Parse(stream);
 		doc.WriteTo(writer);
 	}
+
+	private static IOpenSearchClientSettings GetSettingsOrThrow(JsonSerializerOptions options) =>
+		ContextProvider<IOpenSearchClientSettings>.Get(options)
+		?? throw new InvalidOperationException(
+			$"No {nameof(IOpenSearchClientSettings)} found in JsonSerializerOptions. " +
+			$"Ensure a ContextProvider<{nameof(IOpenSearchClientSettings)}> has been added to the converters.");
 }

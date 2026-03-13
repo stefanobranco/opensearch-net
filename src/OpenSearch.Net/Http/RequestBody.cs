@@ -76,27 +76,21 @@ public abstract class RequestBody
 
 	private sealed class StringBody : RequestBody
 	{
-		private readonly string _content;
+		private readonly byte[] _bytes;
 		private readonly string _contentType;
 
 		public StringBody(string content, string contentType)
 		{
-			_content = content;
+			_bytes = Encoding.UTF8.GetBytes(content);
 			_contentType = contentType;
 		}
 
 		public override string ContentType => _contentType;
 
-		public override void WriteTo(Stream stream, IOpenSearchSerializer serializer)
-		{
-			var bytes = Encoding.UTF8.GetBytes(_content);
-			stream.Write(bytes);
-		}
+		public override void WriteTo(Stream stream, IOpenSearchSerializer serializer) =>
+			stream.Write(_bytes);
 
-		public override async ValueTask WriteToAsync(Stream stream, IOpenSearchSerializer serializer, CancellationToken ct)
-		{
-			var bytes = Encoding.UTF8.GetBytes(_content);
-			await stream.WriteAsync(bytes.AsMemory(), ct).ConfigureAwait(false);
-		}
+		public override async ValueTask WriteToAsync(Stream stream, IOpenSearchSerializer serializer, CancellationToken ct) =>
+			await stream.WriteAsync(_bytes.AsMemory(), ct).ConfigureAwait(false);
 	}
 }
