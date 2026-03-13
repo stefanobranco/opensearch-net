@@ -79,3 +79,4 @@ public sealed class ShrinkEndpoint : IEndpoint<ShrinkRequest, ShrinkResponse>
 		serializer.Deserialize<ShrinkResponse>(body)!;
 
 }
+

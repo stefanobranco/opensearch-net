@@ -60,3 +60,4 @@ public sealed class GetTemplateEndpoint : IEndpoint<GetTemplateRequest, GetTempl
 		serializer.Deserialize<GetTemplateResponse>(body)!;
 
 }
+

@@ -65,3 +65,4 @@ public sealed class ShardStoresEndpoint : IEndpoint<ShardStoresRequest, ShardSto
 		serializer.Deserialize<ShardStoresResponse>(body)!;
 
 }
+

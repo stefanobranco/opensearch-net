@@ -15,9 +15,17 @@ public sealed class SpecTransformer
 	/// <summary>
 	/// Transforms all operations in the given namespace into shapes.
 	/// </summary>
-	public TransformResult Transform(string targetNamespace)
+	public TransformResult Transform(string targetNamespace) => Transform(targetNamespace, null);
+
+	/// <summary>
+	/// Transforms all operations in the given namespace into shapes.
+	/// When a shared <paramref name="sharedTypeMapper"/> is provided, it is used for cross-namespace
+	/// type deduplication (e.g., enums shared between namespaces).
+	/// </summary>
+	public TransformResult Transform(string targetNamespace, TypeMapper? sharedTypeMapper)
 	{
-		var typeMapper = new TypeMapper(targetNamespace);
+		var typeMapper = sharedTypeMapper ?? new TypeMapper(targetNamespace);
+		typeMapper.SetTargetNamespace(targetNamespace);
 		var groups = OperationGrouper.Group(_spec.Operations, targetNamespace);
 		var nsName = NamingConventions.NamespaceToClassName(targetNamespace);
 
@@ -104,12 +112,52 @@ public sealed class SpecTransformer
 			requests.Add(requestShape);
 		}
 
+		// Propagate generic type parameters from child objects to parents
+		typeMapper.PropagateGenericParams();
+
+		// Recompute response type parameters after propagation (some may now reference generic objects)
+		foreach (var request in requests)
+		{
+			var responseTypeParams = typeMapper.CollectGenericParams(request.Response.Fields);
+			if (responseTypeParams.Count > 0 && !request.Response.IsGeneric)
+			{
+				// Replace the response shape with one that includes the type parameters
+				var oldResp = request.Response;
+				var newResp = new ResponseShape
+				{
+					ClassName = oldResp.ClassName,
+					Namespace = oldResp.Namespace,
+					Description = oldResp.Description,
+					Fields = oldResp.Fields,
+					DictionaryValueType = oldResp.DictionaryValueType,
+					IsHeadResponse = oldResp.IsHeadResponse,
+					TypeParameters = responseTypeParams
+				};
+				// RequestShape.Response is required init — need to create a new request
+				requests[requests.IndexOf(request)] = new RequestShape
+				{
+					ClassName = request.ClassName,
+					Namespace = request.Namespace,
+					Description = request.Description,
+					OperationGroup = request.OperationGroup,
+					HttpPaths = request.HttpPaths,
+					HttpMethod = request.HttpMethod,
+					PathParams = request.PathParams,
+					QueryParams = request.QueryParams,
+					BodyFields = request.BodyFields,
+					EndpointName = request.EndpointName,
+					Response = newResp
+				};
+			}
+		}
+
 		return new TransformResult
 		{
 			Namespace = nsName,
 			Requests = requests,
 			Enums = typeMapper.DiscoveredEnums.Values.ToList(),
-			Objects = typeMapper.DiscoveredObjects.Values.ToList()
+			Objects = typeMapper.DiscoveredObjects.Values.ToList(),
+			TaggedUnions = typeMapper.DiscoveredTaggedUnions.Values.ToList()
 		};
 	}
 
@@ -192,13 +240,34 @@ public sealed class SpecTransformer
 			CollectResponseFields(resolved, fields, required, typeMapper);
 		}
 
+		// Fix property names that clash with the enclosing class name (CS0542)
+		for (int i = 0; i < fields.Count; i++)
+		{
+			if (fields[i].Name == responseName)
+			{
+				fields[i] = new Field
+				{
+					Name = fields[i].Name + "Value",
+					WireName = fields[i].WireName,
+					Type = fields[i].Type,
+					Required = fields[i].Required,
+					Description = fields[i].Description,
+					Deprecated = fields[i].Deprecated
+				};
+			}
+		}
+
+		// Discover generic type parameters in response fields
+		var typeParams = typeMapper.CollectGenericParams(fields);
+
 		return new ResponseShape
 		{
 			ClassName = responseName,
 			Namespace = nsName,
 			Description = resolved.Description ?? group.CanonicalOperation.Description,
 			Fields = fields,
-			IsHeadResponse = false
+			IsHeadResponse = false,
+			TypeParameters = typeParams
 		};
 	}
 
@@ -222,14 +291,19 @@ public sealed class SpecTransformer
 			return;
 		}
 
+		var existingNames = new HashSet<string>(fields.Select(f => f.Name), StringComparer.OrdinalIgnoreCase);
+
 		foreach (var (name, propSchema) in schema.Properties)
 		{
 			if (name.Contains('.'))
 				continue;
+			var pascalName = NamingConventions.ToPascalCase(name);
+			if (!existingNames.Add(pascalName))
+				continue;
 			var fieldType = typeMapper.Map(propSchema);
 			fields.Add(new Field
 			{
-				Name = NamingConventions.ToPascalCase(name),
+				Name = pascalName,
 				WireName = name,
 				Type = fieldType,
 				Required = required.Contains(name),
@@ -241,13 +315,19 @@ public sealed class SpecTransformer
 
 	private static void CollectResponseFields(OpenApiSchema schema, List<Field> fields, HashSet<string> required, TypeMapper typeMapper)
 	{
+		var existingNames = new HashSet<string>(fields.Select(f => f.Name), StringComparer.OrdinalIgnoreCase);
+
 		foreach (var (name, propSchema) in schema.Properties)
 		{
 			if (name.Contains('.'))
 				continue;
+			var pascalName = NamingConventions.ToPascalCase(name);
+			// Skip duplicates from allOf merging
+			if (!existingNames.Add(pascalName))
+				continue;
 			fields.Add(new Field
 			{
-				Name = NamingConventions.ToPascalCase(name),
+				Name = pascalName,
 				WireName = name,
 				Type = typeMapper.Map(propSchema),
 				Required = required.Contains(name),

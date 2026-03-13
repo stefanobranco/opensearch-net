@@ -138,3 +138,4 @@ public sealed class PutSettingsEndpoint : IEndpoint<PutSettingsRequest, PutSetti
 		serializer.Deserialize<PutSettingsResponse>(body)!;
 
 }
+

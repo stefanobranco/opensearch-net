@@ -85,3 +85,4 @@ public sealed class ClearCacheEndpoint : IEndpoint<ClearCacheRequest, ClearCache
 		serializer.Deserialize<ClearCacheResponse>(body)!;
 
 }
+

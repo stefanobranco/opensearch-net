@@ -70,3 +70,4 @@ public sealed class UpgradeEndpoint : IEndpoint<UpgradeRequest, UpgradeResponse>
 		serializer.Deserialize<UpgradeResponse>(body)!;
 
 }
+

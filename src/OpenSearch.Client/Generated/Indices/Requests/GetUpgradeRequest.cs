@@ -60,3 +60,4 @@ public sealed class GetUpgradeEndpoint : IEndpoint<GetUpgradeRequest, GetUpgrade
 		serializer.Deserialize<GetUpgradeResponse>(body)!;
 
 }
+

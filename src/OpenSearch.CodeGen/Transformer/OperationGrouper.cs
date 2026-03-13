@@ -13,11 +13,14 @@ public static class OperationGrouper
 	/// </summary>
 	public static IReadOnlyList<OperationGroup> Group(IReadOnlyList<OpenApiOperation> operations, string targetNamespace)
 	{
-		var prefix = targetNamespace + ".";
+		// _core operations have bare group names (no dot), all other namespaces use "namespace.operation" format
+		bool isCoreNamespace = targetNamespace == "_core";
 
 		// Filter to target namespace and skip ignorable
 		var filtered = operations
-			.Where(op => op.OperationGroup.StartsWith(prefix, StringComparison.Ordinal) && !op.Ignorable)
+			.Where(op => !op.Ignorable && (isCoreNamespace
+				? !op.OperationGroup.Contains('.') // bare names belong to _core
+				: op.OperationGroup.StartsWith(targetNamespace + ".", StringComparison.Ordinal)))
 			.ToList();
 
 		// Group by x-operation-group
@@ -30,6 +33,13 @@ public static class OperationGrouper
 
 		foreach (var group in groups)
 		{
+			// Skip operation groups where ALL variants use NDJSON bodies (bulk, msearch, etc.)
+			if (group.All(op => op.IsNdjsonBody))
+			{
+				Console.WriteLine($"  Skipping NDJSON operation group: {group.Key}");
+				continue;
+			}
+
 			// Select the canonical HTTP method per CLIENT_GENERATOR_GUIDE:
 			// GET + POST → prefer POST (body-bearing)
 			// PUT + POST → prefer PUT

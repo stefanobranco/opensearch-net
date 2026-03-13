@@ -70,3 +70,4 @@ public sealed class GetMappingEndpoint : IEndpoint<GetMappingRequest, GetMapping
 		serializer.Deserialize<GetMappingResponse>(body)!;
 
 }
+

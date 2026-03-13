@@ -70,3 +70,4 @@ public sealed class GetAliasEndpoint : IEndpoint<GetAliasRequest, GetAliasRespon
 		serializer.Deserialize<GetAliasResponse>(body)!;
 
 }
+

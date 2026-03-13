@@ -56,6 +56,19 @@ public sealed class TypeRef
 		IsEnum = isEnum
 	};
 
+	/// <summary>
+	/// Creates a generic type parameter reference (e.g., TDocument).
+	/// </summary>
+	public static TypeRef GenericParam(string name) => new()
+	{
+		Kind = TypeRefKind.GenericParameter,
+		Name = name,
+		CSharpName = name
+	};
+
+	/// <summary>Whether this is a generic type parameter.</summary>
+	public bool IsGenericParameter => Kind == TypeRefKind.GenericParameter;
+
 	public TypeRef WithNullable(bool nullable) => new()
 	{
 		Kind = Kind,
@@ -102,5 +115,6 @@ public enum TypeRefKind
 	List,
 	Dictionary,
 	Named,
-	Void
+	Void,
+	GenericParameter
 }

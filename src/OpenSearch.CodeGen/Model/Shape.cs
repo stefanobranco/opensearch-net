@@ -24,6 +24,12 @@ public sealed class ObjectShape : Shape
 {
 	public required IReadOnlyList<Field> Fields { get; init; }
 	public TypeRef? AdditionalPropertiesType { get; init; }
+
+	/// <summary>Generic type parameter names (e.g., ["TDocument"]) if any field references a generic parameter.</summary>
+	public IReadOnlyList<string> TypeParameters { get; init; } = [];
+
+	/// <summary>Whether this shape is generic.</summary>
+	public bool IsGeneric => TypeParameters.Count > 0;
 }
 
 /// <summary>
@@ -46,6 +52,39 @@ public sealed class EnumVariant
 	public required string WireValue { get; init; }
 
 	public override string ToString() => $"{Name} = \"{WireValue}\"";
+}
+
+/// <summary>
+/// A property-based tagged union type (e.g., QueryContainer with ~40 optional variant properties
+/// where only one should be set at a time).
+/// </summary>
+public sealed class TaggedUnionShape : Shape
+{
+	/// <summary>The Kind enum name (e.g., "QueryKind").</summary>
+	public required string KindEnumName { get; init; }
+
+	/// <summary>The variants of the union.</summary>
+	public required IReadOnlyList<UnionVariant> Variants { get; init; }
+}
+
+/// <summary>
+/// A single variant of a property-based tagged union.
+/// </summary>
+public sealed class UnionVariant
+{
+	/// <summary>PascalCase name for the factory method and Kind enum member.</summary>
+	public required string Name { get; init; }
+
+	/// <summary>Wire name (JSON property name).</summary>
+	public required string WireName { get; init; }
+
+	/// <summary>The C# type of the variant value.</summary>
+	public required TypeRef Type { get; init; }
+
+	/// <summary>Description from the spec.</summary>
+	public string? Description { get; init; }
+
+	public override string ToString() => $"{Name}: {Type.ToCSharpPropertyType()}";
 }
 
 /// <summary>
@@ -102,4 +141,10 @@ public sealed class ResponseShape : Shape
 
 	/// <summary>Whether this is a HEAD endpoint where the response is derived from status code only.</summary>
 	public bool IsHeadResponse { get; init; }
+
+	/// <summary>Generic type parameter names (e.g., ["TDocument"]) if any field references a generic parameter.</summary>
+	public IReadOnlyList<string> TypeParameters { get; init; } = [];
+
+	/// <summary>Whether this shape is generic.</summary>
+	public bool IsGeneric => TypeParameters.Count > 0;
 }

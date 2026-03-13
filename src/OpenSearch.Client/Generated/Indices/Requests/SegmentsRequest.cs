@@ -65,3 +65,4 @@ public sealed class SegmentsEndpoint : IEndpoint<SegmentsRequest, SegmentsRespon
 		serializer.Deserialize<SegmentsResponse>(body)!;
 
 }
+

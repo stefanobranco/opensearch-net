@@ -68,3 +68,4 @@ public sealed class ExistsAliasEndpoint : IEndpoint<ExistsAliasRequest, ExistsAl
 		new() { Exists = statusCode is >= 200 and < 300 };
 
 }
+

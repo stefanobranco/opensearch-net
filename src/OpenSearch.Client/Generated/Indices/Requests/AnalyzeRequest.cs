@@ -59,3 +59,4 @@ public sealed class AnalyzeEndpoint : IEndpoint<AnalyzeRequest, AnalyzeResponse>
 		serializer.Deserialize<AnalyzeResponse>(body)!;
 
 }
+

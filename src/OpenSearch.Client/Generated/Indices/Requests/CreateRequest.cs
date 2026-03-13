@@ -3,6 +3,7 @@
 
 using System.Text.Json.Serialization;
 using OpenSearch.Net;
+using OpenSearch.Client.Common;
 
 namespace OpenSearch.Client.Indices;
 
@@ -61,3 +62,4 @@ public sealed class CreateEndpoint : IEndpoint<CreateRequest, CreateResponse>
 		serializer.Deserialize<CreateResponse>(body)!;
 
 }
+

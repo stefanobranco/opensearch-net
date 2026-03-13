@@ -67,3 +67,4 @@ public sealed class DeleteEndpoint : IEndpoint<DeleteRequest, DeleteResponse>
 		serializer.Deserialize<DeleteResponse>(body)!;
 
 }
+

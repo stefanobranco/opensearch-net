@@ -73,3 +73,4 @@ public sealed class GetFieldMappingEndpoint : IEndpoint<GetFieldMappingRequest, 
 		serializer.Deserialize<GetFieldMappingResponse>(body)!;
 
 }
+

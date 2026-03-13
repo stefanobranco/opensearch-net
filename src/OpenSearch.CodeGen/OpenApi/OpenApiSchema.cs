@@ -55,6 +55,12 @@ public sealed class OpenApiSchema
 	public bool XIgnorable => TryGetString("x-ignorable", out var v) && v == "true";
 
 	/// <summary>
+	/// Whether this schema represents a generic type parameter (x-is-generic-type-parameter: true).
+	/// Used for schemas like TDocument that should map to a C# generic type parameter.
+	/// </summary>
+	public bool IsGenericTypeParameter => TryGetString("x-is-generic-type-parameter", out var v) && v == "true";
+
+	/// <summary>
 	/// Gets the type, handling OpenAPI 3.1 type arrays like [string, "null"].
 	/// </summary>
 	private string? GetTypeString()

@@ -60,3 +60,4 @@ public sealed class RefreshEndpoint : IEndpoint<RefreshRequest, RefreshResponse>
 		serializer.Deserialize<RefreshResponse>(body)!;
 
 }
+

@@ -23,9 +23,23 @@ public sealed class CodeRenderer
 
 	public void Render(TransformResult result)
 	{
+		// Build a lookup of all discovered types for cross-namespace using computation.
+		// Includes both objects and tagged unions (which share the same namespace system).
+		var allObjects = result.Objects.ToDictionary(o => o.ClassName, o => o, StringComparer.Ordinal);
+		// Add tagged unions as pseudo-ObjectShapes for namespace resolution
+		foreach (var union in result.TaggedUnions)
+		{
+			allObjects.TryAdd(union.ClassName, new ObjectShape
+			{
+				ClassName = union.ClassName,
+				Namespace = union.Namespace,
+				Fields = []
+			});
+		}
+
 		var nsDir = Path.Combine(_outputDir, result.Namespace);
 
-		// Render enums
+		// Render enums — enums go in "Common/Enums" regardless of source namespace
 		foreach (var enumShape in result.Enums)
 		{
 			var dir = Path.Combine(_outputDir, "Common", "Enums");
@@ -33,11 +47,11 @@ public sealed class CodeRenderer
 			RenderToFile(_templates.Load("Enum.sbn"), ctx, dir, $"{enumShape.ClassName}.cs");
 		}
 
-		// Render object types
+		// Render object types — place in the namespace determined by ref path
 		foreach (var objectShape in result.Objects)
 		{
-			var dir = Path.Combine(nsDir, "Types");
-			var ctx = TemplateHelpers.BuildObjectContext(objectShape);
+			var dir = Path.Combine(_outputDir, objectShape.Namespace, "Types");
+			var ctx = TemplateHelpers.BuildObjectContext(objectShape, allObjects);
 			RenderToFile(_templates.Load("Response.sbn"), ctx, dir, $"{objectShape.ClassName}.cs");
 		}
 
@@ -46,21 +60,29 @@ public sealed class CodeRenderer
 		{
 			// Request + Endpoint
 			var reqDir = Path.Combine(nsDir, "Requests");
-			var reqCtx = TemplateHelpers.BuildRequestContext(request);
+			var reqCtx = TemplateHelpers.BuildRequestContext(request, allObjects);
 			RenderToFile(_templates.Load("Request.sbn"), reqCtx, reqDir, $"{request.ClassName}.cs");
 
 			// Response
 			var respDir = Path.Combine(nsDir, "Responses");
 			if (request.Response.IsDictionary)
 			{
-				var respCtx = TemplateHelpers.BuildDictionaryResponseContext(request.Response);
+				var respCtx = TemplateHelpers.BuildDictionaryResponseContext(request.Response, allObjects);
 				RenderToFile(_templates.Load("DictionaryResponse.sbn"), respCtx, respDir, $"{request.Response.ClassName}.cs");
 			}
 			else
 			{
-				var respCtx = TemplateHelpers.BuildResponseContext(request.Response);
+				var respCtx = TemplateHelpers.BuildResponseContext(request.Response, allObjects);
 				RenderToFile(_templates.Load("Response.sbn"), respCtx, respDir, $"{request.Response.ClassName}.cs");
 			}
+		}
+
+		// Render tagged unions
+		foreach (var union in result.TaggedUnions)
+		{
+			var dir = Path.Combine(_outputDir, union.Namespace, "Types");
+			var ctx = TemplateHelpers.BuildTaggedUnionContext(union, allObjects);
+			RenderToFile(_templates.Load("TaggedUnion.sbn"), ctx, dir, $"{union.ClassName}.cs");
 		}
 
 		// Render namespace client

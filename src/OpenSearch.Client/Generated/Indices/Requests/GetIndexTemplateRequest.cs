@@ -60,3 +60,4 @@ public sealed class GetIndexTemplateEndpoint : IEndpoint<GetIndexTemplateRequest
 		serializer.Deserialize<GetIndexTemplateResponse>(body)!;
 
 }
+

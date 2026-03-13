@@ -55,3 +55,4 @@ public sealed class DeleteAliasEndpoint : IEndpoint<DeleteAliasRequest, DeleteAl
 		serializer.Deserialize<DeleteAliasResponse>(body)!;
 
 }
+

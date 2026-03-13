@@ -9,4 +9,5 @@ public sealed class TransformResult
 	public required IReadOnlyList<RequestShape> Requests { get; init; }
 	public required IReadOnlyList<EnumShape> Enums { get; init; }
 	public required IReadOnlyList<ObjectShape> Objects { get; init; }
+	public required IReadOnlyList<TaggedUnionShape> TaggedUnions { get; init; }
 }

@@ -82,3 +82,4 @@ public sealed class OpenEndpoint : IEndpoint<OpenRequest, OpenResponse>
 		serializer.Deserialize<OpenResponse>(body)!;
 
 }
+

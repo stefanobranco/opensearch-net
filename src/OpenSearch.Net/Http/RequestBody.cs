@@ -39,6 +39,15 @@ public abstract class RequestBody
 	public static RequestBody String(string content, string contentType = "text/plain") =>
 		new StringBody(content, contentType);
 
+	/// <summary>
+	/// Creates a custom body with the specified content type and write delegates.
+	/// </summary>
+	public static RequestBody Custom(
+		string contentType,
+		Action<Stream, IOpenSearchSerializer> writeTo,
+		Func<Stream, IOpenSearchSerializer, CancellationToken, ValueTask> writeToAsync) =>
+		new CustomBody(contentType, writeTo, writeToAsync);
+
 	private sealed class JsonBody<T> : RequestBody
 	{
 		private readonly T _value;
@@ -92,5 +101,30 @@ public abstract class RequestBody
 
 		public override async ValueTask WriteToAsync(Stream stream, IOpenSearchSerializer serializer, CancellationToken ct) =>
 			await stream.WriteAsync(_bytes.AsMemory(), ct).ConfigureAwait(false);
+	}
+
+	private sealed class CustomBody : RequestBody
+	{
+		private readonly string _contentType;
+		private readonly Action<Stream, IOpenSearchSerializer> _writeTo;
+		private readonly Func<Stream, IOpenSearchSerializer, CancellationToken, ValueTask> _writeToAsync;
+
+		public CustomBody(
+			string contentType,
+			Action<Stream, IOpenSearchSerializer> writeTo,
+			Func<Stream, IOpenSearchSerializer, CancellationToken, ValueTask> writeToAsync)
+		{
+			_contentType = contentType;
+			_writeTo = writeTo;
+			_writeToAsync = writeToAsync;
+		}
+
+		public override string ContentType => _contentType;
+
+		public override void WriteTo(Stream stream, IOpenSearchSerializer serializer) =>
+			_writeTo(stream, serializer);
+
+		public override ValueTask WriteToAsync(Stream stream, IOpenSearchSerializer serializer, CancellationToken ct) =>
+			_writeToAsync(stream, serializer, ct);
 	}
 }

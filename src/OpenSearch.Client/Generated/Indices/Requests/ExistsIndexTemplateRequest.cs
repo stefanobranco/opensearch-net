@@ -57,3 +57,4 @@ public sealed class ExistsIndexTemplateEndpoint : IEndpoint<ExistsIndexTemplateR
 		new() { Exists = statusCode is >= 200 and < 300 };
 
 }
+

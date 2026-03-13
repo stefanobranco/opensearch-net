@@ -3,6 +3,7 @@
 
 using System.Text.Json.Serialization;
 using OpenSearch.Net;
+using OpenSearch.Client.Common;
 
 namespace OpenSearch.Client.Indices;
 
@@ -69,3 +70,4 @@ public sealed class PutAliasEndpoint : IEndpoint<PutAliasRequest, PutAliasRespon
 		serializer.Deserialize<PutAliasResponse>(body)!;
 
 }
+

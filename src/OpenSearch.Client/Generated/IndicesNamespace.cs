@@ -9,11 +9,12 @@ namespace OpenSearch.Client;
 /// <summary>
 /// Provides methods for the OpenSearch Indices API.
 /// </summary>
-public sealed class IndicesNamespace
+public sealed partial class IndicesNamespace
 {
 	private readonly OpenSearchClient _client;
 
 	internal IndicesNamespace(OpenSearchClient client) => _client = client;
+
 
 	/// <summary>Adds a block to an index.</summary>
 	public AddBlockResponse AddBlock(AddBlockRequest request, TransportOptions? options = null) =>
@@ -23,6 +24,7 @@ public sealed class IndicesNamespace
 	public Task<AddBlockResponse> AddBlockAsync(AddBlockRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, AddBlockEndpoint.Instance, options, ct);
 
+
 	/// <summary>Performs the analysis process on a text and return the tokens breakdown of the text.</summary>
 	public AnalyzeResponse Analyze(AnalyzeRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, AnalyzeEndpoint.Instance, options);
@@ -30,6 +32,7 @@ public sealed class IndicesNamespace
 	/// <summary>Performs the analysis process on a text and return the tokens breakdown of the text.</summary>
 	public Task<AnalyzeResponse> AnalyzeAsync(AnalyzeRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, AnalyzeEndpoint.Instance, options, ct);
+
 
 	/// <summary>Clears all or specific caches for one or more indexes.</summary>
 	public ClearCacheResponse ClearCache(ClearCacheRequest request, TransportOptions? options = null) =>
@@ -39,6 +42,7 @@ public sealed class IndicesNamespace
 	public Task<ClearCacheResponse> ClearCacheAsync(ClearCacheRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, ClearCacheEndpoint.Instance, options, ct);
 
+
 	/// <summary>Clones an index.</summary>
 	public CloneResponse Clone(CloneRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, CloneEndpoint.Instance, options);
@@ -46,6 +50,7 @@ public sealed class IndicesNamespace
 	/// <summary>Clones an index.</summary>
 	public Task<CloneResponse> CloneAsync(CloneRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, CloneEndpoint.Instance, options, ct);
+
 
 	/// <summary>Closes an index.</summary>
 	public CloseResponse Close(CloseRequest request, TransportOptions? options = null) =>
@@ -55,6 +60,7 @@ public sealed class IndicesNamespace
 	public Task<CloseResponse> CloseAsync(CloseRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, CloseEndpoint.Instance, options, ct);
 
+
 	/// <summary>Creates an index with optional settings and mappings.</summary>
 	public CreateResponse Create(CreateRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, CreateEndpoint.Instance, options);
@@ -62,6 +68,7 @@ public sealed class IndicesNamespace
 	/// <summary>Creates an index with optional settings and mappings.</summary>
 	public Task<CreateResponse> CreateAsync(CreateRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, CreateEndpoint.Instance, options, ct);
+
 
 	/// <summary>Creates or updates a data stream.</summary>
 	public CreateDataStreamResponse CreateDataStream(CreateDataStreamRequest request, TransportOptions? options = null) =>
@@ -71,6 +78,7 @@ public sealed class IndicesNamespace
 	public Task<CreateDataStreamResponse> CreateDataStreamAsync(CreateDataStreamRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, CreateDataStreamEndpoint.Instance, options, ct);
 
+
 	/// <summary>Provides statistics on operations happening in a data stream.</summary>
 	public DataStreamsStatsResponse DataStreamsStats(DataStreamsStatsRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, DataStreamsStatsEndpoint.Instance, options);
@@ -78,6 +86,7 @@ public sealed class IndicesNamespace
 	/// <summary>Provides statistics on operations happening in a data stream.</summary>
 	public Task<DataStreamsStatsResponse> DataStreamsStatsAsync(DataStreamsStatsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, DataStreamsStatsEndpoint.Instance, options, ct);
+
 
 	/// <summary>Deletes an index.</summary>
 	public DeleteResponse Delete(DeleteRequest request, TransportOptions? options = null) =>
@@ -87,6 +96,7 @@ public sealed class IndicesNamespace
 	public Task<DeleteResponse> DeleteAsync(DeleteRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, DeleteEndpoint.Instance, options, ct);
 
+
 	/// <summary>Deletes an alias.</summary>
 	public DeleteAliasResponse DeleteAlias(DeleteAliasRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, DeleteAliasEndpoint.Instance, options);
@@ -94,6 +104,7 @@ public sealed class IndicesNamespace
 	/// <summary>Deletes an alias.</summary>
 	public Task<DeleteAliasResponse> DeleteAliasAsync(DeleteAliasRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, DeleteAliasEndpoint.Instance, options, ct);
+
 
 	/// <summary>Deletes a data stream.</summary>
 	public DeleteDataStreamResponse DeleteDataStream(DeleteDataStreamRequest request, TransportOptions? options = null) =>
@@ -103,6 +114,7 @@ public sealed class IndicesNamespace
 	public Task<DeleteDataStreamResponse> DeleteDataStreamAsync(DeleteDataStreamRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, DeleteDataStreamEndpoint.Instance, options, ct);
 
+
 	/// <summary>Deletes an index template.</summary>
 	public DeleteIndexTemplateResponse DeleteIndexTemplate(DeleteIndexTemplateRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, DeleteIndexTemplateEndpoint.Instance, options);
@@ -110,6 +122,7 @@ public sealed class IndicesNamespace
 	/// <summary>Deletes an index template.</summary>
 	public Task<DeleteIndexTemplateResponse> DeleteIndexTemplateAsync(DeleteIndexTemplateRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, DeleteIndexTemplateEndpoint.Instance, options, ct);
+
 
 	/// <summary>Deletes an index template.</summary>
 	public DeleteTemplateResponse DeleteTemplate(DeleteTemplateRequest request, TransportOptions? options = null) =>
@@ -119,6 +132,7 @@ public sealed class IndicesNamespace
 	public Task<DeleteTemplateResponse> DeleteTemplateAsync(DeleteTemplateRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, DeleteTemplateEndpoint.Instance, options, ct);
 
+
 	/// <summary>Returns information about whether a particular index exists.</summary>
 	public ExistsResponse Exists(ExistsRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, ExistsEndpoint.Instance, options);
@@ -126,6 +140,7 @@ public sealed class IndicesNamespace
 	/// <summary>Returns information about whether a particular index exists.</summary>
 	public Task<ExistsResponse> ExistsAsync(ExistsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, ExistsEndpoint.Instance, options, ct);
+
 
 	/// <summary>Returns information about whether a particular alias exists.</summary>
 	public ExistsAliasResponse ExistsAlias(ExistsAliasRequest request, TransportOptions? options = null) =>
@@ -135,6 +150,7 @@ public sealed class IndicesNamespace
 	public Task<ExistsAliasResponse> ExistsAliasAsync(ExistsAliasRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, ExistsAliasEndpoint.Instance, options, ct);
 
+
 	/// <summary>Returns information about whether a particular index template exists.</summary>
 	public ExistsIndexTemplateResponse ExistsIndexTemplate(ExistsIndexTemplateRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, ExistsIndexTemplateEndpoint.Instance, options);
@@ -142,6 +158,7 @@ public sealed class IndicesNamespace
 	/// <summary>Returns information about whether a particular index template exists.</summary>
 	public Task<ExistsIndexTemplateResponse> ExistsIndexTemplateAsync(ExistsIndexTemplateRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, ExistsIndexTemplateEndpoint.Instance, options, ct);
+
 
 	/// <summary>Returns information about whether a particular index template exists.</summary>
 	public ExistsTemplateResponse ExistsTemplate(ExistsTemplateRequest request, TransportOptions? options = null) =>
@@ -151,6 +168,7 @@ public sealed class IndicesNamespace
 	public Task<ExistsTemplateResponse> ExistsTemplateAsync(ExistsTemplateRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, ExistsTemplateEndpoint.Instance, options, ct);
 
+
 	/// <summary>Performs the flush operation on one or more indexes.</summary>
 	public FlushResponse Flush(FlushRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, FlushEndpoint.Instance, options);
@@ -158,6 +176,7 @@ public sealed class IndicesNamespace
 	/// <summary>Performs the flush operation on one or more indexes.</summary>
 	public Task<FlushResponse> FlushAsync(FlushRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, FlushEndpoint.Instance, options, ct);
+
 
 	/// <summary>Performs the force merge operation on one or more indexes.</summary>
 	public ForcemergeResponse Forcemerge(ForcemergeRequest request, TransportOptions? options = null) =>
@@ -167,6 +186,7 @@ public sealed class IndicesNamespace
 	public Task<ForcemergeResponse> ForcemergeAsync(ForcemergeRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, ForcemergeEndpoint.Instance, options, ct);
 
+
 	/// <summary>Returns information about one or more indexes.</summary>
 	public GetResponse Get(GetRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetEndpoint.Instance, options);
@@ -174,6 +194,7 @@ public sealed class IndicesNamespace
 	/// <summary>Returns information about one or more indexes.</summary>
 	public Task<GetResponse> GetAsync(GetRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, GetEndpoint.Instance, options, ct);
+
 
 	/// <summary>Returns an alias.</summary>
 	public GetAliasResponse GetAlias(GetAliasRequest request, TransportOptions? options = null) =>
@@ -183,6 +204,7 @@ public sealed class IndicesNamespace
 	public Task<GetAliasResponse> GetAliasAsync(GetAliasRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, GetAliasEndpoint.Instance, options, ct);
 
+
 	/// <summary>Returns data streams.</summary>
 	public GetDataStreamResponse GetDataStream(GetDataStreamRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetDataStreamEndpoint.Instance, options);
@@ -190,6 +212,7 @@ public sealed class IndicesNamespace
 	/// <summary>Returns data streams.</summary>
 	public Task<GetDataStreamResponse> GetDataStreamAsync(GetDataStreamRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, GetDataStreamEndpoint.Instance, options, ct);
+
 
 	/// <summary>Returns mapping for one or more fields.</summary>
 	public GetFieldMappingResponse GetFieldMapping(GetFieldMappingRequest request, TransportOptions? options = null) =>
@@ -199,6 +222,7 @@ public sealed class IndicesNamespace
 	public Task<GetFieldMappingResponse> GetFieldMappingAsync(GetFieldMappingRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, GetFieldMappingEndpoint.Instance, options, ct);
 
+
 	/// <summary>Returns an index template.</summary>
 	public GetIndexTemplateResponse GetIndexTemplate(GetIndexTemplateRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetIndexTemplateEndpoint.Instance, options);
@@ -206,6 +230,7 @@ public sealed class IndicesNamespace
 	/// <summary>Returns an index template.</summary>
 	public Task<GetIndexTemplateResponse> GetIndexTemplateAsync(GetIndexTemplateRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, GetIndexTemplateEndpoint.Instance, options, ct);
+
 
 	/// <summary>Returns mappings for one or more indexes.</summary>
 	public GetMappingResponse GetMapping(GetMappingRequest request, TransportOptions? options = null) =>
@@ -215,6 +240,7 @@ public sealed class IndicesNamespace
 	public Task<GetMappingResponse> GetMappingAsync(GetMappingRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, GetMappingEndpoint.Instance, options, ct);
 
+
 	/// <summary>Returns settings for one or more indexes.</summary>
 	public GetSettingsResponse GetSettings(GetSettingsRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetSettingsEndpoint.Instance, options);
@@ -222,6 +248,7 @@ public sealed class IndicesNamespace
 	/// <summary>Returns settings for one or more indexes.</summary>
 	public Task<GetSettingsResponse> GetSettingsAsync(GetSettingsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, GetSettingsEndpoint.Instance, options, ct);
+
 
 	/// <summary>Returns an index template.</summary>
 	public GetTemplateResponse GetTemplate(GetTemplateRequest request, TransportOptions? options = null) =>
@@ -231,6 +258,7 @@ public sealed class IndicesNamespace
 	public Task<GetTemplateResponse> GetTemplateAsync(GetTemplateRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, GetTemplateEndpoint.Instance, options, ct);
 
+
 	/// <summary>The `_upgrade` API is no longer useful and will be removed.</summary>
 	public GetUpgradeResponse GetUpgrade(GetUpgradeRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetUpgradeEndpoint.Instance, options);
@@ -238,6 +266,7 @@ public sealed class IndicesNamespace
 	/// <summary>The `_upgrade` API is no longer useful and will be removed.</summary>
 	public Task<GetUpgradeResponse> GetUpgradeAsync(GetUpgradeRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, GetUpgradeEndpoint.Instance, options, ct);
+
 
 	/// <summary>Opens an index.</summary>
 	public OpenResponse Open(OpenRequest request, TransportOptions? options = null) =>
@@ -247,6 +276,7 @@ public sealed class IndicesNamespace
 	public Task<OpenResponse> OpenAsync(OpenRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, OpenEndpoint.Instance, options, ct);
 
+
 	/// <summary>Creates or updates an alias.</summary>
 	public PutAliasResponse PutAlias(PutAliasRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, PutAliasEndpoint.Instance, options);
@@ -254,6 +284,7 @@ public sealed class IndicesNamespace
 	/// <summary>Creates or updates an alias.</summary>
 	public Task<PutAliasResponse> PutAliasAsync(PutAliasRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, PutAliasEndpoint.Instance, options, ct);
+
 
 	/// <summary>Creates or updates an index template.</summary>
 	public PutIndexTemplateResponse PutIndexTemplate(PutIndexTemplateRequest request, TransportOptions? options = null) =>
@@ -263,6 +294,7 @@ public sealed class IndicesNamespace
 	public Task<PutIndexTemplateResponse> PutIndexTemplateAsync(PutIndexTemplateRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, PutIndexTemplateEndpoint.Instance, options, ct);
 
+
 	/// <summary>Updates the index mappings.</summary>
 	public PutMappingResponse PutMapping(PutMappingRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, PutMappingEndpoint.Instance, options);
@@ -270,6 +302,7 @@ public sealed class IndicesNamespace
 	/// <summary>Updates the index mappings.</summary>
 	public Task<PutMappingResponse> PutMappingAsync(PutMappingRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, PutMappingEndpoint.Instance, options, ct);
+
 
 	/// <summary>Updates the index settings.</summary>
 	public PutSettingsResponse PutSettings(PutSettingsRequest request, TransportOptions? options = null) =>
@@ -279,6 +312,7 @@ public sealed class IndicesNamespace
 	public Task<PutSettingsResponse> PutSettingsAsync(PutSettingsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, PutSettingsEndpoint.Instance, options, ct);
 
+
 	/// <summary>Creates or updates an index template.</summary>
 	public PutTemplateResponse PutTemplate(PutTemplateRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, PutTemplateEndpoint.Instance, options);
@@ -286,6 +320,7 @@ public sealed class IndicesNamespace
 	/// <summary>Creates or updates an index template.</summary>
 	public Task<PutTemplateResponse> PutTemplateAsync(PutTemplateRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, PutTemplateEndpoint.Instance, options, ct);
+
 
 	/// <summary>Returns information about ongoing index shard recoveries.</summary>
 	public RecoveryResponse Recovery(RecoveryRequest request, TransportOptions? options = null) =>
@@ -295,6 +330,7 @@ public sealed class IndicesNamespace
 	public Task<RecoveryResponse> RecoveryAsync(RecoveryRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, RecoveryEndpoint.Instance, options, ct);
 
+
 	/// <summary>Performs the refresh operation in one or more indexes.</summary>
 	public RefreshResponse Refresh(RefreshRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, RefreshEndpoint.Instance, options);
@@ -302,6 +338,7 @@ public sealed class IndicesNamespace
 	/// <summary>Performs the refresh operation in one or more indexes.</summary>
 	public Task<RefreshResponse> RefreshAsync(RefreshRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, RefreshEndpoint.Instance, options, ct);
+
 
 	/// <summary>Returns information about any matching indexes, aliases, and data streams.</summary>
 	public ResolveIndexResponse ResolveIndex(ResolveIndexRequest request, TransportOptions? options = null) =>
@@ -311,6 +348,7 @@ public sealed class IndicesNamespace
 	public Task<ResolveIndexResponse> ResolveIndexAsync(ResolveIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, ResolveIndexEndpoint.Instance, options, ct);
 
+
 	/// <summary>Updates an alias to point to a new index when the existing index is considered to be too large or too old.</summary>
 	public RolloverResponse Rollover(RolloverRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, RolloverEndpoint.Instance, options);
@@ -318,6 +356,7 @@ public sealed class IndicesNamespace
 	/// <summary>Updates an alias to point to a new index when the existing index is considered to be too large or too old.</summary>
 	public Task<RolloverResponse> RolloverAsync(RolloverRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, RolloverEndpoint.Instance, options, ct);
+
 
 	/// <summary>Provides low-level information about segments in a Lucene index.</summary>
 	public SegmentsResponse Segments(SegmentsRequest request, TransportOptions? options = null) =>
@@ -327,6 +366,7 @@ public sealed class IndicesNamespace
 	public Task<SegmentsResponse> SegmentsAsync(SegmentsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, SegmentsEndpoint.Instance, options, ct);
 
+
 	/// <summary>Provides store information for shard copies of indexes.</summary>
 	public ShardStoresResponse ShardStores(ShardStoresRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, ShardStoresEndpoint.Instance, options);
@@ -334,6 +374,7 @@ public sealed class IndicesNamespace
 	/// <summary>Provides store information for shard copies of indexes.</summary>
 	public Task<ShardStoresResponse> ShardStoresAsync(ShardStoresRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, ShardStoresEndpoint.Instance, options, ct);
+
 
 	/// <summary>Allow to shrink an existing index into a new index with fewer primary shards.</summary>
 	public ShrinkResponse Shrink(ShrinkRequest request, TransportOptions? options = null) =>
@@ -343,6 +384,7 @@ public sealed class IndicesNamespace
 	public Task<ShrinkResponse> ShrinkAsync(ShrinkRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, ShrinkEndpoint.Instance, options, ct);
 
+
 	/// <summary>Simulate matching the given index name against the index templates in the system.</summary>
 	public SimulateIndexTemplateResponse SimulateIndexTemplate(SimulateIndexTemplateRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, SimulateIndexTemplateEndpoint.Instance, options);
@@ -350,6 +392,7 @@ public sealed class IndicesNamespace
 	/// <summary>Simulate matching the given index name against the index templates in the system.</summary>
 	public Task<SimulateIndexTemplateResponse> SimulateIndexTemplateAsync(SimulateIndexTemplateRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, SimulateIndexTemplateEndpoint.Instance, options, ct);
+
 
 	/// <summary>Simulate resolving the given template name or body.</summary>
 	public SimulateTemplateResponse SimulateTemplate(SimulateTemplateRequest request, TransportOptions? options = null) =>
@@ -359,6 +402,7 @@ public sealed class IndicesNamespace
 	public Task<SimulateTemplateResponse> SimulateTemplateAsync(SimulateTemplateRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, SimulateTemplateEndpoint.Instance, options, ct);
 
+
 	/// <summary>Allows you to split an existing index into a new index with more primary shards.</summary>
 	public SplitResponse Split(SplitRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, SplitEndpoint.Instance, options);
@@ -366,6 +410,7 @@ public sealed class IndicesNamespace
 	/// <summary>Allows you to split an existing index into a new index with more primary shards.</summary>
 	public Task<SplitResponse> SplitAsync(SplitRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, SplitEndpoint.Instance, options, ct);
+
 
 	/// <summary>Provides statistics on operations happening in an index.</summary>
 	public StatsResponse Stats(StatsRequest request, TransportOptions? options = null) =>
@@ -375,6 +420,7 @@ public sealed class IndicesNamespace
 	public Task<StatsResponse> StatsAsync(StatsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, StatsEndpoint.Instance, options, ct);
 
+
 	/// <summary>Updates index aliases.</summary>
 	public UpdateAliasesResponse UpdateAliases(UpdateAliasesRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, UpdateAliasesEndpoint.Instance, options);
@@ -383,6 +429,7 @@ public sealed class IndicesNamespace
 	public Task<UpdateAliasesResponse> UpdateAliasesAsync(UpdateAliasesRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, UpdateAliasesEndpoint.Instance, options, ct);
 
+
 	/// <summary>The `_upgrade` API is no longer useful and will be removed.</summary>
 	public UpgradeResponse Upgrade(UpgradeRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, UpgradeEndpoint.Instance, options);
@@ -390,6 +437,7 @@ public sealed class IndicesNamespace
 	/// <summary>The `_upgrade` API is no longer useful and will be removed.</summary>
 	public Task<UpgradeResponse> UpgradeAsync(UpgradeRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, UpgradeEndpoint.Instance, options, ct);
+
 
 	/// <summary>Allows a user to validate a potentially expensive query without executing it.</summary>
 	public ValidateQueryResponse ValidateQuery(ValidateQueryRequest request, TransportOptions? options = null) =>

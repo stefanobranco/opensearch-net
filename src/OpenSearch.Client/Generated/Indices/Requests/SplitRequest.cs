@@ -79,3 +79,4 @@ public sealed class SplitEndpoint : IEndpoint<SplitRequest, SplitResponse>
 		serializer.Deserialize<SplitResponse>(body)!;
 
 }
+

@@ -70,3 +70,4 @@ public sealed class AddBlockEndpoint : IEndpoint<AddBlockRequest, AddBlockRespon
 		serializer.Deserialize<AddBlockResponse>(body)!;
 
 }
+

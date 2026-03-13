@@ -9,7 +9,7 @@ namespace OpenSearch.CodeGen.Renderer;
 /// </summary>
 public static class TemplateHelpers
 {
-	public static ScriptObject BuildRequestContext(RequestShape request)
+	public static ScriptObject BuildRequestContext(RequestShape request, IReadOnlyDictionary<string, ObjectShape> allObjects)
 	{
 		var obj = new ScriptObject();
 		obj["namespace"] = request.Namespace;
@@ -25,27 +25,36 @@ public static class TemplateHelpers
 		obj["query_params"] = BuildQueryParamArray(request.QueryParams);
 		obj["body_fields"] = BuildFieldArray(request.BodyFields);
 		obj["paths"] = BuildPathArray(request.HttpPaths, request.PathParams);
+		obj["extra_usings"] = ComputeExtraUsings(request.Namespace, request.BodyFields, allObjects);
+
+		// Generic endpoint support: if the response is generic, the endpoint must be generic too
+		if (request.Response.IsGeneric)
+			obj["response_type_parameters"] = new ScriptArray(request.Response.TypeParameters.Cast<object>());
 
 		return obj;
 	}
 
-	public static ScriptObject BuildResponseContext(ResponseShape response)
+	public static ScriptObject BuildResponseContext(ResponseShape response, IReadOnlyDictionary<string, ObjectShape> allObjects)
 	{
 		var obj = new ScriptObject();
 		obj["namespace"] = response.Namespace;
 		obj["class_name"] = response.ClassName;
 		obj["description"] = SanitizeDescription(response.Description);
 		obj["fields"] = BuildFieldArray(response.Fields);
+		obj["extra_usings"] = ComputeExtraUsings(response.Namespace, response.Fields, allObjects);
+		if (response.IsGeneric)
+			obj["type_parameters"] = new ScriptArray(response.TypeParameters.Cast<object>());
 		return obj;
 	}
 
-	public static ScriptObject BuildDictionaryResponseContext(ResponseShape response)
+	public static ScriptObject BuildDictionaryResponseContext(ResponseShape response, IReadOnlyDictionary<string, ObjectShape> allObjects)
 	{
 		var obj = new ScriptObject();
 		obj["namespace"] = response.Namespace;
 		obj["class_name"] = response.ClassName;
 		obj["description"] = SanitizeDescription(response.Description);
 		obj["value_type"] = response.DictionaryValueType!.ToCSharpPropertyType();
+		obj["extra_usings"] = ComputeExtraUsings(response.Namespace, response.Fields, allObjects);
 		return obj;
 	}
 
@@ -67,13 +76,16 @@ public static class TemplateHelpers
 		return obj;
 	}
 
-	public static ScriptObject BuildObjectContext(ObjectShape objectShape)
+	public static ScriptObject BuildObjectContext(ObjectShape objectShape, IReadOnlyDictionary<string, ObjectShape> allObjects)
 	{
 		var obj = new ScriptObject();
 		obj["namespace"] = objectShape.Namespace;
 		obj["class_name"] = objectShape.ClassName;
 		obj["description"] = SanitizeDescription(objectShape.Description);
 		obj["fields"] = BuildFieldArray(objectShape.Fields);
+		obj["extra_usings"] = ComputeExtraUsings(objectShape.Namespace, objectShape.Fields, allObjects);
+		if (objectShape.IsGeneric)
+			obj["type_parameters"] = new ScriptArray(objectShape.TypeParameters.Cast<object>());
 		return obj;
 	}
 
@@ -91,10 +103,52 @@ public static class TemplateHelpers
 			op["endpoint_name"] = req.EndpointName;
 			op["method_name"] = NamingConventions.OperationGroupToMethodName(req.OperationGroup);
 			op["description"] = SanitizeDescription(req.Description) ?? req.OperationGroup;
+			op["is_generic"] = req.Response.IsGeneric;
+			if (req.Response.IsGeneric)
+				op["type_parameters"] = new ScriptArray(req.Response.TypeParameters.Cast<object>());
 			ops.Add(op);
 		}
 		obj["operations"] = ops;
 		return obj;
+	}
+
+	public static ScriptObject BuildTaggedUnionContext(TaggedUnionShape union, IReadOnlyDictionary<string, ObjectShape> allObjects)
+	{
+		var obj = new ScriptObject();
+		obj["namespace"] = union.Namespace;
+		obj["class_name"] = union.ClassName;
+		obj["description"] = SanitizeDescription(union.Description);
+		obj["kind_enum_name"] = union.KindEnumName;
+
+		var variants = new ScriptArray();
+		var referencedNamespaces = new HashSet<string>(StringComparer.Ordinal);
+		foreach (var variant in union.Variants)
+		{
+			var v = new ScriptObject();
+			v["name"] = variant.Name;
+			v["wire_name"] = variant.WireName;
+			v["type"] = ComputeVariantType(variant);
+			v["type_name"] = variant.Type.CSharpName;
+			v["description"] = SanitizeDescription(variant.Description);
+			variants.Add(v);
+
+			CollectTypeNamespaces(variant.Type, allObjects, referencedNamespaces);
+		}
+		obj["variants"] = variants;
+
+		referencedNamespaces.Remove(union.Namespace);
+		var usings = new ScriptArray();
+		foreach (var ns in referencedNamespaces.OrderBy(n => n, StringComparer.Ordinal))
+			usings.Add(ns);
+		obj["extra_usings"] = usings;
+
+		return obj;
+	}
+
+	private static string ComputeVariantType(UnionVariant variant)
+	{
+		// Variant factory method parameters are NOT nullable — you're explicitly setting a value
+		return variant.Type.CSharpName;
 	}
 
 	public static ScriptObject BuildClientExtensionContext(string namespaceName)
@@ -120,6 +174,8 @@ public static class TemplateHelpers
 			f["required"] = field.Required;
 			f["description"] = SanitizeDescription(field.Description);
 			f["deprecated"] = field.Deprecated;
+			// Emit [JsonPropertyName] when the wire name won't round-trip through SnakeCaseLower
+			f["needs_json_property_name"] = NamingConventions.NeedsJsonPropertyName(field.WireName, field.Name);
 			arr.Add(f);
 		}
 		return arr;
@@ -138,6 +194,7 @@ public static class TemplateHelpers
 			f["description"] = SanitizeDescription(field.Description);
 			f["deprecated"] = field.Deprecated;
 			f["value_expr"] = ComputeQueryValueExpr(field);
+			f["needs_json_property_name"] = NamingConventions.NeedsJsonPropertyName(field.WireName, field.Name);
 			arr.Add(f);
 		}
 		return arr;
@@ -217,6 +274,46 @@ public static class TemplateHelpers
 			arr.Add(p);
 		}
 		return arr;
+	}
+
+	/// <summary>
+	/// Computes extra using directives needed for cross-namespace type references.
+	/// Returns a ScriptArray of namespace names (e.g., ["Common", "Core"]).
+	/// </summary>
+	private static ScriptArray ComputeExtraUsings(string currentNamespace, IReadOnlyList<Field> fields, IReadOnlyDictionary<string, ObjectShape> allObjects)
+	{
+		var namespaces = new HashSet<string>(StringComparer.Ordinal);
+		CollectReferencedNamespaces(fields, allObjects, namespaces);
+
+		// Remove current namespace and "Common" enums (they're in the root OpenSearch.Client namespace)
+		namespaces.Remove(currentNamespace);
+
+		var arr = new ScriptArray();
+		foreach (var ns in namespaces.OrderBy(n => n, StringComparer.Ordinal))
+			arr.Add(ns);
+		return arr;
+	}
+
+	private static void CollectReferencedNamespaces(IReadOnlyList<Field> fields, IReadOnlyDictionary<string, ObjectShape> allObjects, HashSet<string> namespaces)
+	{
+		foreach (var field in fields)
+			CollectTypeNamespaces(field.Type, allObjects, namespaces);
+	}
+
+	private static void CollectTypeNamespaces(TypeRef type, IReadOnlyDictionary<string, ObjectShape> allObjects, HashSet<string> namespaces)
+	{
+		if (type.Kind == TypeRefKind.Named && !type.IsEnum)
+		{
+			// Look up the object's namespace
+			if (allObjects.TryGetValue(type.Name, out var shape))
+				namespaces.Add(shape.Namespace);
+		}
+		if (type.ItemType is not null)
+			CollectTypeNamespaces(type.ItemType, allObjects, namespaces);
+		if (type.KeyType is not null)
+			CollectTypeNamespaces(type.KeyType, allObjects, namespaces);
+		if (type.ValueType is not null)
+			CollectTypeNamespaces(type.ValueType, allObjects, namespaces);
 	}
 
 	private static string? SanitizeDescription(string? desc)

@@ -41,3 +41,4 @@ public sealed class CreateDataStreamEndpoint : IEndpoint<CreateDataStreamRequest
 		serializer.Deserialize<CreateDataStreamResponse>(body)!;
 
 }
+

@@ -85,3 +85,4 @@ public sealed class GetSettingsEndpoint : IEndpoint<GetSettingsRequest, GetSetti
 		serializer.Deserialize<GetSettingsResponse>(body)!;
 
 }
+

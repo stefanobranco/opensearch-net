@@ -55,3 +55,4 @@ public sealed class RecoveryEndpoint : IEndpoint<RecoveryRequest, RecoveryRespon
 		serializer.Deserialize<RecoveryResponse>(body)!;
 
 }
+

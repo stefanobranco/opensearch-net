@@ -3,6 +3,9 @@
 
 using System.Text.Json.Serialization;
 using OpenSearch.Net;
+{{~ for ns in extra_usings ~}}
+using OpenSearch.Client.{{ ns }};
+{{~ end ~}}
 
 namespace OpenSearch.Client.{{ namespace }};
 
@@ -25,10 +28,57 @@ public sealed class {{ class_name }}
 {{~ end ~}}
 {{~ for field in body_fields ~}}
 	{{ if field.description }}/// <summary>{{ field.description }}</summary>
+	{{ end }}{{ if field.needs_json_property_name }}[JsonPropertyName("{{ field.wire_name }}")]
 	{{ end }}public {{ field.type }} {{ field.name }} { get; set; }
 {{~ end ~}}
 }
+{{ if response_type_parameters }}
+public sealed class {{ endpoint_name }}<{{ response_type_parameters | array.join ", " }}> : IEndpoint<{{ class_name }}, {{ response_name }}<{{ response_type_parameters | array.join ", " }}>>
+{
+	public static readonly {{ endpoint_name }}<{{ response_type_parameters | array.join ", " }}> Instance = new();
 
+	public OpenSearch.Net.HttpMethod Method({{ class_name }} r) => OpenSearch.Net.HttpMethod.{{ http_method }};
+
+	public string RequestUrl({{ class_name }} r)
+	{
+{{~ if paths.size > 1 ~}}
+		var path = {{ for path in paths }}{{ if !for.first }} : {{ end }}{{ for pname in path.parameter_names }}r.{{ pname }} is not null{{ if !for.last }} && {{ end }}{{ end }}{{ if path.parameter_names.size == 0 }}true{{ end }}
+			? $"{{ path.interpolated }}"{{ end }}
+			: throw new InvalidOperationException("No valid path for the given parameters.");
+{{~ else ~}}
+		var path = $"{{ paths[0].interpolated }}";
+{{~ end ~}}
+{{~ if query_params.size > 0 ~}}
+		var queryParts = new List<string>();
+{{~ for param in query_params ~}}
+		if (r.{{ param.name }} is not null)
+			queryParts.Add($"{{ param.wire_name }}={Uri.EscapeDataString({{ param.value_expr }})}");
+{{~ end ~}}
+		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
+{{~ else ~}}
+		return path;
+{{~ end ~}}
+	}
+
+{{ if has_body }}
+	public string? ContentType => "application/json";
+
+	public RequestBody? GetBody({{ class_name }} r) => RequestBody.Json(r);
+{{ else }}
+	public string? ContentType => null;
+
+	public RequestBody? GetBody({{ class_name }} r) => null;
+{{ end }}
+
+{{ if is_head }}
+	public {{ response_name }}<{{ response_type_parameters | array.join ", " }}> DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
+		new() { Exists = statusCode is >= 200 and < 300 };
+{{ else }}
+	public {{ response_name }}<{{ response_type_parameters | array.join ", " }}> DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
+		serializer.Deserialize<{{ response_name }}<{{ response_type_parameters | array.join ", " }}>>(body)!;
+{{ end }}
+}
+{{ else }}
 public sealed class {{ endpoint_name }} : IEndpoint<{{ class_name }}, {{ response_name }}>
 {
 	public static readonly {{ endpoint_name }} Instance = new();
@@ -74,3 +124,4 @@ public sealed class {{ endpoint_name }} : IEndpoint<{{ class_name }}, {{ respons
 		serializer.Deserialize<{{ response_name }}>(body)!;
 {{ end }}
 }
+{{ end }}

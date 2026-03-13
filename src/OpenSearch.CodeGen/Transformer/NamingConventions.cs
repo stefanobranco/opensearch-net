@@ -67,9 +67,9 @@ public static partial class NamingConventions
 
 	/// <summary>
 	/// Gets the namespace display name from a namespace prefix.
-	/// E.g., "indices" → "Indices"
+	/// E.g., "indices" → "Indices", "_core" → "Core"
 	/// </summary>
-	public static string NamespaceToClassName(string ns) => ToPascalCase(ns);
+	public static string NamespaceToClassName(string ns) => ToPascalCase(ns.TrimStart('_'));
 
 	/// <summary>
 	/// Converts a schema name from the spec to a C# class name.
@@ -104,6 +104,43 @@ public static partial class NamingConventions
 	{
 		var pascal = ToPascalCase(wireValue);
 		return SanitizeIdentifier(pascal);
+	}
+
+	/// <summary>
+	/// Returns true if a field with the given wire name and PascalCase property name
+	/// needs an explicit [JsonPropertyName] attribute. This is the case when the
+	/// STJ SnakeCaseLower naming policy would not round-trip to the original wire name.
+	/// </summary>
+	public static bool NeedsJsonPropertyName(string wireName, string pascalName)
+	{
+		var expected = PascalToSnakeLower(pascalName);
+		return !string.Equals(expected, wireName, StringComparison.Ordinal);
+	}
+
+	/// <summary>
+	/// Converts PascalCase to snake_case_lower (same algorithm as JsonNamingPolicy.SnakeCaseLower).
+	/// </summary>
+	private static string PascalToSnakeLower(string pascal)
+	{
+		if (string.IsNullOrEmpty(pascal))
+			return pascal;
+
+		var sb = new StringBuilder(pascal.Length + 4);
+		for (var i = 0; i < pascal.Length; i++)
+		{
+			var c = pascal[i];
+			if (char.IsUpper(c))
+			{
+				if (i > 0)
+					sb.Append('_');
+				sb.Append(char.ToLowerInvariant(c));
+			}
+			else
+			{
+				sb.Append(c);
+			}
+		}
+		return sb.ToString();
 	}
 
 	[GeneratedRegex(@"[^a-zA-Z0-9_]")]

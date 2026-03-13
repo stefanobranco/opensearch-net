@@ -52,3 +52,4 @@ public sealed class DeleteIndexTemplateEndpoint : IEndpoint<DeleteIndexTemplateR
 		serializer.Deserialize<DeleteIndexTemplateResponse>(body)!;
 
 }
+

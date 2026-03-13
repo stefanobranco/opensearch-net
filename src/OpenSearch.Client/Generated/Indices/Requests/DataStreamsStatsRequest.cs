@@ -44,3 +44,4 @@ public sealed class DataStreamsStatsEndpoint : IEndpoint<DataStreamsStatsRequest
 		serializer.Deserialize<DataStreamsStatsResponse>(body)!;
 
 }
+

@@ -44,3 +44,4 @@ public sealed class GetDataStreamEndpoint : IEndpoint<GetDataStreamRequest, GetD
 		serializer.Deserialize<GetDataStreamResponse>(body)!;
 
 }
+

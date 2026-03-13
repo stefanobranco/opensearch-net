@@ -85,3 +85,4 @@ public sealed class ForcemergeEndpoint : IEndpoint<ForcemergeRequest, Forcemerge
 		serializer.Deserialize<ForcemergeResponse>(body)!;
 
 }
+

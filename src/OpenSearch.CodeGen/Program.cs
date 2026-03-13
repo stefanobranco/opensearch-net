@@ -5,6 +5,19 @@ using OpenSearch.CodeGen.Renderer;
 // Parse arguments
 string specDir = args.Length > 1 && args[0] == "--spec-dir" ? args[1] : Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "Spec");
 string outputDir = args.Length > 3 && args[2] == "--output-dir" ? args[3] : Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "OpenSearch.Client", "Generated"));
+string namespacesArg = "indices";
+
+// Parse --namespaces argument (can appear after --spec-dir and --output-dir)
+for (int i = 0; i < args.Length - 1; i++)
+{
+	if (args[i] == "--namespaces")
+	{
+		namespacesArg = args[i + 1];
+		break;
+	}
+}
+
+var namespaces = namespacesArg.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
 
 // Resolve to absolute paths
 specDir = Path.GetFullPath(specDir);
@@ -12,20 +25,26 @@ outputDir = Path.GetFullPath(outputDir);
 
 Console.WriteLine($"Spec directory: {specDir}");
 Console.WriteLine($"Output directory: {outputDir}");
+Console.WriteLine($"Namespaces: {string.Join(", ", namespaces)}");
 
 // Stage 1: Parse
 Console.WriteLine("Parsing OpenAPI specification...");
 var spec = OpenApiSpecification.Load(specDir);
 Console.WriteLine($"  Loaded {spec.Operations.Count} operations from {spec.NamespaceFiles.Count} namespace files");
 
-// Stage 2: Transform
-Console.WriteLine("Transforming to shape model...");
+// Stage 2 & 3: Transform + Render per namespace (shared TypeMapper for enum dedup)
 var transformer = new SpecTransformer(spec);
-var shapes = transformer.Transform("indices");
-Console.WriteLine($"  Generated {shapes.Requests.Count} request shapes, {shapes.Enums.Count} enums, {shapes.Objects.Count} object types");
-
-// Stage 3: Render
-Console.WriteLine("Rendering C# code...");
 var renderer = new CodeRenderer(outputDir);
-renderer.Render(shapes);
+var sharedTypeMapper = new TypeMapper(namespaces[0]);
+
+foreach (var ns in namespaces)
+{
+	Console.WriteLine($"Transforming namespace '{ns}'...");
+	var shapes = transformer.Transform(ns, sharedTypeMapper);
+	Console.WriteLine($"  Generated {shapes.Requests.Count} request shapes, {shapes.Enums.Count} enums, {shapes.Objects.Count} object types");
+
+	Console.WriteLine($"Rendering C# code for '{ns}'...");
+	renderer.Render(shapes);
+}
+
 Console.WriteLine("Done!");

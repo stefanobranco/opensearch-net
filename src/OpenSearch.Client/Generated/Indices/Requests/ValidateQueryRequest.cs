@@ -3,6 +3,7 @@
 
 using System.Text.Json.Serialization;
 using OpenSearch.Net;
+using OpenSearch.Client.Common;
 
 namespace OpenSearch.Client.Indices;
 
@@ -106,3 +107,4 @@ public sealed class ValidateQueryEndpoint : IEndpoint<ValidateQueryRequest, Vali
 		serializer.Deserialize<ValidateQueryResponse>(body)!;
 
 }
+

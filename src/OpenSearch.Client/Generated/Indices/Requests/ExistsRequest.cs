@@ -77,3 +77,4 @@ public sealed class ExistsEndpoint : IEndpoint<ExistsRequest, ExistsResponse>
 		new() { Exists = statusCode is >= 200 and < 300 };
 
 }
+

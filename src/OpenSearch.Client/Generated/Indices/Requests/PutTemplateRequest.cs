@@ -3,6 +3,7 @@
 
 using System.Text.Json.Serialization;
 using OpenSearch.Net;
+using OpenSearch.Client.Common;
 
 namespace OpenSearch.Client.Indices;
 
@@ -65,3 +66,4 @@ public sealed class PutTemplateEndpoint : IEndpoint<PutTemplateRequest, PutTempl
 		serializer.Deserialize<PutTemplateResponse>(body)!;
 
 }
+

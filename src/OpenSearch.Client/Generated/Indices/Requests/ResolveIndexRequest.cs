@@ -47,3 +47,4 @@ public sealed class ResolveIndexEndpoint : IEndpoint<ResolveIndexRequest, Resolv
 		serializer.Deserialize<ResolveIndexResponse>(body)!;
 
 }
+

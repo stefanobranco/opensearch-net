@@ -51,3 +51,4 @@ public sealed class UpdateAliasesEndpoint : IEndpoint<UpdateAliasesRequest, Upda
 		serializer.Deserialize<UpdateAliasesResponse>(body)!;
 
 }
+

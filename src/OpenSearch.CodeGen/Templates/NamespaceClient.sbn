@@ -9,13 +9,22 @@ namespace OpenSearch.Client;
 /// <summary>
 /// Provides methods for the OpenSearch {{ namespace }} API.
 /// </summary>
-public sealed class {{ namespace }}Namespace
+public sealed partial class {{ namespace }}Namespace
 {
 	private readonly OpenSearchClient _client;
 
 	internal {{ namespace }}Namespace(OpenSearchClient client) => _client = client;
 
 {{~ for op in operations ~}}
+{{ if op.is_generic }}
+	/// <summary>{{ op.description }}</summary>
+	public {{ op.response_name }}<{{ op.type_parameters | array.join ", " }}> {{ op.method_name }}<{{ op.type_parameters | array.join ", " }}>({{ op.class_name }} request, TransportOptions? options = null) =>
+		_client.DoRequest(request, {{ op.endpoint_name }}<{{ op.type_parameters | array.join ", " }}>.Instance, options);
+
+	/// <summary>{{ op.description }}</summary>
+	public Task<{{ op.response_name }}<{{ op.type_parameters | array.join ", " }}>> {{ op.method_name }}Async<{{ op.type_parameters | array.join ", " }}>({{ op.class_name }} request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, {{ op.endpoint_name }}<{{ op.type_parameters | array.join ", " }}>.Instance, options, ct);
+{{ else }}
 	/// <summary>{{ op.description }}</summary>
 	public {{ op.response_name }} {{ op.method_name }}({{ op.class_name }} request, TransportOptions? options = null) =>
 		_client.DoRequest(request, {{ op.endpoint_name }}.Instance, options);
@@ -23,6 +32,6 @@ public sealed class {{ namespace }}Namespace
 	/// <summary>{{ op.description }}</summary>
 	public Task<{{ op.response_name }}> {{ op.method_name }}Async({{ op.class_name }} request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, {{ op.endpoint_name }}.Instance, options, ct);
-
+{{ end }}
 {{~ end ~}}
 }

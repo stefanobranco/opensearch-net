@@ -77,3 +77,4 @@ public sealed class GetEndpoint : IEndpoint<GetRequest, GetResponse>
 		serializer.Deserialize<GetResponse>(body)!;
 
 }
+

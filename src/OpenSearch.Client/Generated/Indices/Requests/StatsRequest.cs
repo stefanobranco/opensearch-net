@@ -95,3 +95,4 @@ public sealed class StatsEndpoint : IEndpoint<StatsRequest, StatsResponse>
 		serializer.Deserialize<StatsResponse>(body)!;
 
 }
+

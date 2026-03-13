@@ -72,3 +72,4 @@ public sealed class CloseEndpoint : IEndpoint<CloseRequest, CloseResponse>
 		serializer.Deserialize<CloseResponse>(body)!;
 
 }
+

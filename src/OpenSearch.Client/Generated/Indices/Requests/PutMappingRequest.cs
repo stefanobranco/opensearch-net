@@ -41,13 +41,17 @@ public sealed class PutMappingRequest
 		public List<string>? DynamicDateFormats { get; set; }
 	/// <summary>Specify dynamic templates for the mapping.</summary>
 		public System.Text.Json.JsonElement? DynamicTemplates { get; set; }
+	[JsonPropertyName("_field_names")]
 	public FieldNamesField? FieldNames { get; set; }
+	[JsonPropertyName("_meta")]
 	public Dictionary<string, object>? Meta { get; set; }
 	/// <summary>Automatically map strings into numeric data types for all fields.</summary>
 		public bool? NumericDetection { get; set; }
 	/// <summary>Mapping for a field. For new fields, this mapping can include: - Field name - Field data type - Mapping parameters</summary>
 		public Dictionary<string, System.Text.Json.JsonElement>? Properties { get; set; }
+	[JsonPropertyName("_routing")]
 	public RoutingField? Routing { get; set; }
+	[JsonPropertyName("_source")]
 	public SourceField? Source { get; set; }
 }
 
@@ -87,3 +91,4 @@ public sealed class PutMappingEndpoint : IEndpoint<PutMappingRequest, PutMapping
 		serializer.Deserialize<PutMappingResponse>(body)!;
 
 }
+

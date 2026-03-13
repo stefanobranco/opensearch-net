@@ -41,3 +41,4 @@ public sealed class DeleteDataStreamEndpoint : IEndpoint<DeleteDataStreamRequest
 		serializer.Deserialize<DeleteDataStreamResponse>(body)!;
 
 }
+

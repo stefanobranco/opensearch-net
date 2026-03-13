@@ -70,3 +70,4 @@ public sealed class FlushEndpoint : IEndpoint<FlushRequest, FlushResponse>
 		serializer.Deserialize<FlushResponse>(body)!;
 
 }
+

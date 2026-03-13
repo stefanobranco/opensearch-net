@@ -52,3 +52,4 @@ public sealed class DeleteTemplateEndpoint : IEndpoint<DeleteTemplateRequest, De
 		serializer.Deserialize<DeleteTemplateResponse>(body)!;
 
 }
+
