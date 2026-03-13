@@ -69,29 +69,29 @@ public sealed class ValidateQueryEndpoint : IEndpoint<ValidateQueryRequest, Vali
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();
 		if (r.AllShards is not null)
-			queryParts.Add($"all_shards={Uri.EscapeDataString(r.AllShards.ToString()!)}");
+			queryParts.Add($"all_shards={Uri.EscapeDataString((r.AllShards.Value ? "true" : "false"))}");
 		if (r.AllowNoIndices is not null)
-			queryParts.Add($"allow_no_indices={Uri.EscapeDataString(r.AllowNoIndices.ToString()!)}");
+			queryParts.Add($"allow_no_indices={Uri.EscapeDataString((r.AllowNoIndices.Value ? "true" : "false"))}");
 		if (r.AnalyzeWildcard is not null)
-			queryParts.Add($"analyze_wildcard={Uri.EscapeDataString(r.AnalyzeWildcard.ToString()!)}");
+			queryParts.Add($"analyze_wildcard={Uri.EscapeDataString((r.AnalyzeWildcard.Value ? "true" : "false"))}");
 		if (r.Analyzer is not null)
 			queryParts.Add($"analyzer={Uri.EscapeDataString(r.Analyzer!)}");
 		if (r.DefaultOperator is not null)
-			queryParts.Add($"default_operator={Uri.EscapeDataString(r.DefaultOperator.ToString()!)}");
+			queryParts.Add($"default_operator={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.DefaultOperator!.Value))}");
 		if (r.Df is not null)
 			queryParts.Add($"df={Uri.EscapeDataString(r.Df!)}");
 		if (r.ExpandWildcards is not null)
 			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(r.ExpandWildcards.ToString()!)}");
 		if (r.Explain is not null)
-			queryParts.Add($"explain={Uri.EscapeDataString(r.Explain.ToString()!)}");
+			queryParts.Add($"explain={Uri.EscapeDataString((r.Explain.Value ? "true" : "false"))}");
 		if (r.IgnoreUnavailable is not null)
-			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString(r.IgnoreUnavailable.ToString()!)}");
+			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable.Value ? "true" : "false"))}");
 		if (r.Lenient is not null)
-			queryParts.Add($"lenient={Uri.EscapeDataString(r.Lenient.ToString()!)}");
+			queryParts.Add($"lenient={Uri.EscapeDataString((r.Lenient.Value ? "true" : "false"))}");
 		if (r.Q is not null)
 			queryParts.Add($"q={Uri.EscapeDataString(r.Q!)}");
 		if (r.Rewrite is not null)
-			queryParts.Add($"rewrite={Uri.EscapeDataString(r.Rewrite.ToString()!)}");
+			queryParts.Add($"rewrite={Uri.EscapeDataString((r.Rewrite.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

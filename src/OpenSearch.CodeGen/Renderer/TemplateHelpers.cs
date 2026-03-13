@@ -137,11 +137,29 @@ public static class TemplateHelpers
 			f["required"] = field.Required;
 			f["description"] = SanitizeDescription(field.Description);
 			f["deprecated"] = field.Deprecated;
-			// All non-string types need .ToString() for Uri.EscapeDataString
-			f["to_string"] = field.Type.Name != "string" ? ".ToString()" : "";
+			f["value_expr"] = ComputeQueryValueExpr(field);
 			arr.Add(f);
 		}
 		return arr;
+	}
+
+	/// <summary>
+	/// Returns the C# expression to convert a query parameter value to a string
+	/// suitable for Uri.EscapeDataString. Handles enums, bools, and general types.
+	/// </summary>
+	private static string ComputeQueryValueExpr(Field field)
+	{
+		if (field.Type.Name == "string")
+			return $"r.{field.Name}!";
+
+		if (field.Type.Name == "bool")
+			return $"(r.{field.Name}.Value ? \"true\" : \"false\")";
+
+		if (field.Type.IsEnum)
+			return $"QueryParamSerializer.Serialize(r.{field.Name}!.Value)";
+
+		// int, long, float, double, JsonElement, etc.
+		return $"r.{field.Name}.ToString()!";
 	}
 
 	/// <summary>
@@ -166,9 +184,16 @@ public static class TemplateHelpers
 	{
 		var paramLookup = pathParams.ToDictionary(p => p.WireName, p => p.Name);
 
+		// Deduplicate paths that have the same parameter set (e.g., /_alias/{name} and /_aliases/{name}).
+		// Keep only the first (most specific) path for each unique combination of parameters.
+		var seenParamSets = new HashSet<string>();
+
 		var arr = new ScriptArray();
 		foreach (var path in paths)
 		{
+			var paramSetKey = string.Join(",", path.ParameterNames.OrderBy(n => n, StringComparer.Ordinal));
+			if (!seenParamSets.Add(paramSetKey))
+				continue;
 			var p = new ScriptObject();
 			p["template"] = path.Template;
 

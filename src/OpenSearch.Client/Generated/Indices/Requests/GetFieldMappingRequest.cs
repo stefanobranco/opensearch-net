@@ -50,15 +50,15 @@ public sealed class GetFieldMappingEndpoint : IEndpoint<GetFieldMappingRequest, 
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();
 		if (r.AllowNoIndices is not null)
-			queryParts.Add($"allow_no_indices={Uri.EscapeDataString(r.AllowNoIndices.ToString()!)}");
+			queryParts.Add($"allow_no_indices={Uri.EscapeDataString((r.AllowNoIndices.Value ? "true" : "false"))}");
 		if (r.ExpandWildcards is not null)
 			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(r.ExpandWildcards.ToString()!)}");
 		if (r.IgnoreUnavailable is not null)
-			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString(r.IgnoreUnavailable.ToString()!)}");
+			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable.Value ? "true" : "false"))}");
 		if (r.IncludeDefaults is not null)
-			queryParts.Add($"include_defaults={Uri.EscapeDataString(r.IncludeDefaults.ToString()!)}");
+			queryParts.Add($"include_defaults={Uri.EscapeDataString((r.IncludeDefaults.Value ? "true" : "false"))}");
 		if (r.Local is not null)
-			queryParts.Add($"local={Uri.EscapeDataString(r.Local.ToString()!)}");
+			queryParts.Add($"local={Uri.EscapeDataString((r.Local.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

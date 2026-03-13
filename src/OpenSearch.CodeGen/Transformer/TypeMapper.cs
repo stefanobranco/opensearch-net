@@ -187,7 +187,7 @@ public sealed class TypeMapper
 		};
 		_discoveredEnums[schemaName] = enumShape;
 
-		var typeRef = TypeRef.Named(schemaName, className);
+		var typeRef = TypeRef.Named(schemaName, className, isEnum: true);
 		_namedTypes[schemaName] = typeRef;
 		return typeRef;
 	}

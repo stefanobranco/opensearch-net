@@ -59,7 +59,7 @@ public sealed class CloneEndpoint : IEndpoint<CloneRequest, CloneResponse>
 		if (r.WaitForActiveShards is not null)
 			queryParts.Add($"wait_for_active_shards={Uri.EscapeDataString(r.WaitForActiveShards!)}");
 		if (r.WaitForCompletion is not null)
-			queryParts.Add($"wait_for_completion={Uri.EscapeDataString(r.WaitForCompletion.ToString()!)}");
+			queryParts.Add($"wait_for_completion={Uri.EscapeDataString((r.WaitForCompletion.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

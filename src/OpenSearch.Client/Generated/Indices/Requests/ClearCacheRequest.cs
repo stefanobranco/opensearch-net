@@ -13,6 +13,9 @@ namespace OpenSearch.Client.Indices;
 
 public sealed class ClearCacheRequest
 {
+	/// <summary>A comma-separated list of data streams, indexes, and aliases used to limit the request. Supports wildcards (`*`). To target all data streams and indexes, omit this parameter or use `*` or `_all`.</summary>
+	[JsonIgnore]
+	public string? Index { get; set; }
 	/// <summary>If `false`, the request returns an error if any wildcard expression, index alias, or `_all` value targets only missing or closed indexes. This behavior applies even if the request targets other open indexes.</summary>
 	[JsonIgnore]
 	public bool? AllowNoIndices { get; set; }
@@ -31,9 +34,6 @@ public sealed class ClearCacheRequest
 	/// <summary>If `false`, the request returns an error if it targets a missing or closed index.</summary>
 	[JsonIgnore]
 	public bool? IgnoreUnavailable { get; set; }
-	/// <summary>A comma-separated list of indexes; use `_all` or empty string to perform the operation on all indexes.</summary>
-	[JsonIgnore]
-	public List<string>? Index { get; set; }
 	/// <summary>If `true`, clears the query cache.</summary>
 	[JsonIgnore]
 	public bool? Query { get; set; }
@@ -56,23 +56,21 @@ public sealed class ClearCacheEndpoint : IEndpoint<ClearCacheRequest, ClearCache
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();
 		if (r.AllowNoIndices is not null)
-			queryParts.Add($"allow_no_indices={Uri.EscapeDataString(r.AllowNoIndices.ToString()!)}");
+			queryParts.Add($"allow_no_indices={Uri.EscapeDataString((r.AllowNoIndices.Value ? "true" : "false"))}");
 		if (r.ExpandWildcards is not null)
 			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(r.ExpandWildcards.ToString()!)}");
 		if (r.Fielddata is not null)
-			queryParts.Add($"fielddata={Uri.EscapeDataString(r.Fielddata.ToString()!)}");
+			queryParts.Add($"fielddata={Uri.EscapeDataString((r.Fielddata.Value ? "true" : "false"))}");
 		if (r.Fields is not null)
 			queryParts.Add($"fields={Uri.EscapeDataString(r.Fields!)}");
 		if (r.File is not null)
-			queryParts.Add($"file={Uri.EscapeDataString(r.File.ToString()!)}");
+			queryParts.Add($"file={Uri.EscapeDataString((r.File.Value ? "true" : "false"))}");
 		if (r.IgnoreUnavailable is not null)
-			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString(r.IgnoreUnavailable.ToString()!)}");
-		if (r.Index is not null)
-			queryParts.Add($"index={Uri.EscapeDataString(r.Index.ToString()!)}");
+			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable.Value ? "true" : "false"))}");
 		if (r.Query is not null)
-			queryParts.Add($"query={Uri.EscapeDataString(r.Query.ToString()!)}");
+			queryParts.Add($"query={Uri.EscapeDataString((r.Query.Value ? "true" : "false"))}");
 		if (r.Request is not null)
-			queryParts.Add($"request={Uri.EscapeDataString(r.Request.ToString()!)}");
+			queryParts.Add($"request={Uri.EscapeDataString((r.Request.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

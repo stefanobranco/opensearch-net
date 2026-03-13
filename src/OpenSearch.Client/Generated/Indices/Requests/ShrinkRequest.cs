@@ -56,7 +56,7 @@ public sealed class ShrinkEndpoint : IEndpoint<ShrinkRequest, ShrinkResponse>
 		if (r.ClusterManagerTimeout is not null)
 			queryParts.Add($"cluster_manager_timeout={Uri.EscapeDataString(r.ClusterManagerTimeout!)}");
 		if (r.CopySettings is not null)
-			queryParts.Add($"copy_settings={Uri.EscapeDataString(r.CopySettings.ToString()!)}");
+			queryParts.Add($"copy_settings={Uri.EscapeDataString((r.CopySettings.Value ? "true" : "false"))}");
 		if (r.TaskExecutionTimeout is not null)
 			queryParts.Add($"task_execution_timeout={Uri.EscapeDataString(r.TaskExecutionTimeout!)}");
 		if (r.Timeout is not null)
@@ -64,7 +64,7 @@ public sealed class ShrinkEndpoint : IEndpoint<ShrinkRequest, ShrinkResponse>
 		if (r.WaitForActiveShards is not null)
 			queryParts.Add($"wait_for_active_shards={Uri.EscapeDataString(r.WaitForActiveShards!)}");
 		if (r.WaitForCompletion is not null)
-			queryParts.Add($"wait_for_completion={Uri.EscapeDataString(r.WaitForCompletion.ToString()!)}");
+			queryParts.Add($"wait_for_completion={Uri.EscapeDataString((r.WaitForCompletion.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

@@ -15,7 +15,7 @@ public sealed class StatsRequest
 {
 	/// <summary>Limit the information returned the specific metrics.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? Metric { get; set; }
+	public string? Metric { get; set; }
 	/// <summary>A comma-separated list of index names; use `_all` or empty string to perform the operation on all indexes</summary>
 	[JsonIgnore]
 	public string? Index { get; set; }
@@ -72,15 +72,15 @@ public sealed class StatsEndpoint : IEndpoint<StatsRequest, StatsResponse>
 		if (r.Fields is not null)
 			queryParts.Add($"fields={Uri.EscapeDataString(r.Fields!)}");
 		if (r.ForbidClosedIndices is not null)
-			queryParts.Add($"forbid_closed_indices={Uri.EscapeDataString(r.ForbidClosedIndices.ToString()!)}");
+			queryParts.Add($"forbid_closed_indices={Uri.EscapeDataString((r.ForbidClosedIndices.Value ? "true" : "false"))}");
 		if (r.Groups is not null)
 			queryParts.Add($"groups={Uri.EscapeDataString(r.Groups!)}");
 		if (r.IncludeSegmentFileSizes is not null)
-			queryParts.Add($"include_segment_file_sizes={Uri.EscapeDataString(r.IncludeSegmentFileSizes.ToString()!)}");
+			queryParts.Add($"include_segment_file_sizes={Uri.EscapeDataString((r.IncludeSegmentFileSizes.Value ? "true" : "false"))}");
 		if (r.IncludeUnloadedSegments is not null)
-			queryParts.Add($"include_unloaded_segments={Uri.EscapeDataString(r.IncludeUnloadedSegments.ToString()!)}");
+			queryParts.Add($"include_unloaded_segments={Uri.EscapeDataString((r.IncludeUnloadedSegments.Value ? "true" : "false"))}");
 		if (r.Level is not null)
-			queryParts.Add($"level={Uri.EscapeDataString(r.Level.ToString()!)}");
+			queryParts.Add($"level={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.Level!.Value))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

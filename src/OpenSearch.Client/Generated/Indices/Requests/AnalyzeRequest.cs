@@ -13,7 +13,7 @@ namespace OpenSearch.Client.Indices;
 
 public sealed class AnalyzeRequest
 {
-	/// <summary>The name of the index to scope the operation.</summary>
+	/// <summary>Index used to derive the analyzer. If specified, the `analyzer` or field parameter overrides this value. If no index is specified or the index does not have a default analyzer, the analyze API uses the standard analyzer.</summary>
 	[JsonIgnore]
 	public string? Index { get; set; }
 	/// <summary>The name of the analyzer that should be applied to the provided `text`. This could be a built-in analyzer, or an analyzer that's been configured in the index.</summary>
@@ -45,10 +45,7 @@ public sealed class AnalyzeEndpoint : IEndpoint<AnalyzeRequest, AnalyzeResponse>
 			? $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_analyze" : true
 			? $"/_analyze"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
-		var queryParts = new List<string>();
-		if (r.Index is not null)
-			queryParts.Add($"index={Uri.EscapeDataString(r.Index!)}");
-		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
+		return path;
 	}
 
 

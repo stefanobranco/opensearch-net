@@ -47,15 +47,15 @@ public sealed class FlushEndpoint : IEndpoint<FlushRequest, FlushResponse>
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();
 		if (r.AllowNoIndices is not null)
-			queryParts.Add($"allow_no_indices={Uri.EscapeDataString(r.AllowNoIndices.ToString()!)}");
+			queryParts.Add($"allow_no_indices={Uri.EscapeDataString((r.AllowNoIndices.Value ? "true" : "false"))}");
 		if (r.ExpandWildcards is not null)
 			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(r.ExpandWildcards.ToString()!)}");
 		if (r.Force is not null)
-			queryParts.Add($"force={Uri.EscapeDataString(r.Force.ToString()!)}");
+			queryParts.Add($"force={Uri.EscapeDataString((r.Force.Value ? "true" : "false"))}");
 		if (r.IgnoreUnavailable is not null)
-			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString(r.IgnoreUnavailable.ToString()!)}");
+			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable.Value ? "true" : "false"))}");
 		if (r.WaitIfOngoing is not null)
-			queryParts.Add($"wait_if_ongoing={Uri.EscapeDataString(r.WaitIfOngoing.ToString()!)}");
+			queryParts.Add($"wait_if_ongoing={Uri.EscapeDataString((r.WaitIfOngoing.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

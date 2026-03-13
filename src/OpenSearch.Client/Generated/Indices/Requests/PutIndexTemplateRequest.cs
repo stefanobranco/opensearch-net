@@ -51,7 +51,7 @@ public sealed class PutIndexTemplateEndpoint : IEndpoint<PutIndexTemplateRequest
 		if (r.ClusterManagerTimeout is not null)
 			queryParts.Add($"cluster_manager_timeout={Uri.EscapeDataString(r.ClusterManagerTimeout!)}");
 		if (r.Create is not null)
-			queryParts.Add($"create={Uri.EscapeDataString(r.Create.ToString()!)}");
+			queryParts.Add($"create={Uri.EscapeDataString((r.Create.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

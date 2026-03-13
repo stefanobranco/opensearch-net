@@ -15,7 +15,7 @@ public sealed class GetDataStreamRequest
 {
 	/// <summary>A comma-separated list of data stream names used to limit the request. Wildcard (`*`) expressions are supported. If omitted, all data streams are returned.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? Name { get; set; }
+	public string? Name { get; set; }
 }
 
 public sealed class GetDataStreamEndpoint : IEndpoint<GetDataStreamRequest, GetDataStreamResponse>

@@ -45,13 +45,22 @@ public static class OperationGrouper
 				.Distinct()
 				.ToList();
 
-			// Collect all parameters across all variants
+			// Collect all parameters across all variants.
+			// If a param appears as both path and query in different variants, prefer path.
 			var allParams = new Dictionary<string, OpenApiParameter>(StringComparer.Ordinal);
 			foreach (var op in group)
 			{
 				foreach (var param in op.Parameters)
 				{
-					allParams.TryAdd(param.Name, param);
+					if (allParams.TryGetValue(param.Name, out var existing))
+					{
+						if (param.IsPath && existing.IsQuery)
+							allParams[param.Name] = param;
+					}
+					else
+					{
+						allParams[param.Name] = param;
+					}
 				}
 			}
 

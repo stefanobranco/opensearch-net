@@ -47,6 +47,11 @@ public sealed class SpecTransformer
 					continue;
 
 				var fieldType = typeMapper.Map(param.Schema);
+
+				// Path params are always stringified in URLs — never use JsonElement
+				if (param.IsPath && fieldType.CSharpName == "System.Text.Json.JsonElement")
+					fieldType = TypeRef.String();
+
 				var field = new Field
 				{
 					Name = NamingConventions.ToPascalCase(param.Name),

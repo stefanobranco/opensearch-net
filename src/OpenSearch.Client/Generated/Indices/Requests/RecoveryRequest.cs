@@ -38,9 +38,9 @@ public sealed class RecoveryEndpoint : IEndpoint<RecoveryRequest, RecoveryRespon
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();
 		if (r.ActiveOnly is not null)
-			queryParts.Add($"active_only={Uri.EscapeDataString(r.ActiveOnly.ToString()!)}");
+			queryParts.Add($"active_only={Uri.EscapeDataString((r.ActiveOnly.Value ? "true" : "false"))}");
 		if (r.Detailed is not null)
-			queryParts.Add($"detailed={Uri.EscapeDataString(r.Detailed.ToString()!)}");
+			queryParts.Add($"detailed={Uri.EscapeDataString((r.Detailed.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

@@ -55,7 +55,7 @@ public sealed class RolloverEndpoint : IEndpoint<RolloverRequest, RolloverRespon
 		if (r.ClusterManagerTimeout is not null)
 			queryParts.Add($"cluster_manager_timeout={Uri.EscapeDataString(r.ClusterManagerTimeout!)}");
 		if (r.DryRun is not null)
-			queryParts.Add($"dry_run={Uri.EscapeDataString(r.DryRun.ToString()!)}");
+			queryParts.Add($"dry_run={Uri.EscapeDataString((r.DryRun.Value ? "true" : "false"))}");
 		if (r.Timeout is not null)
 			queryParts.Add($"timeout={Uri.EscapeDataString(r.Timeout!)}");
 		if (r.WaitForActiveShards is not null)

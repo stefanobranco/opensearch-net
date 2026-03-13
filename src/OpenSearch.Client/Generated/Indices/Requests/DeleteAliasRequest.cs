@@ -35,10 +35,7 @@ public sealed class DeleteAliasEndpoint : IEndpoint<DeleteAliasRequest, DeleteAl
 
 	public string RequestUrl(DeleteAliasRequest r)
 	{
-		var path = r.Index is not null && r.Name is not null
-			? $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_alias/{Uri.EscapeDataString(r.Name!.ToString()!)}" : r.Index is not null && r.Name is not null
-			? $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_aliases/{Uri.EscapeDataString(r.Name!.ToString()!)}"
-			: throw new InvalidOperationException("No valid path for the given parameters.");
+		var path = $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_alias/{Uri.EscapeDataString(r.Name!.ToString()!)}";
 		var queryParts = new List<string>();
 		if (r.ClusterManagerTimeout is not null)
 			queryParts.Add($"cluster_manager_timeout={Uri.EscapeDataString(r.ClusterManagerTimeout!)}");

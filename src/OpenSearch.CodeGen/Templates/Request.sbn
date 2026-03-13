@@ -48,7 +48,7 @@ public sealed class {{ endpoint_name }} : IEndpoint<{{ class_name }}, {{ respons
 		var queryParts = new List<string>();
 {{~ for param in query_params ~}}
 		if (r.{{ param.name }} is not null)
-			queryParts.Add($"{{ param.wire_name }}={Uri.EscapeDataString(r.{{ param.name }}{{ param.to_string }}!)}");
+			queryParts.Add($"{{ param.wire_name }}={Uri.EscapeDataString({{ param.value_expr }})}");
 {{~ end ~}}
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 {{~ else ~}}

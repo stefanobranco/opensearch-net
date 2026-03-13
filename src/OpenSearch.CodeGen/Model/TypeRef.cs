@@ -12,6 +12,7 @@ public sealed class TypeRef
 	public TypeRef? KeyType { get; init; }
 	public TypeRef? ValueType { get; init; }
 	public bool IsNullable { get; init; }
+	public bool IsEnum { get; init; }
 
 	/// <summary>
 	/// The shape this type refers to, if it's a named type.
@@ -47,11 +48,12 @@ public sealed class TypeRef
 		ValueType = valueType
 	};
 
-	public static TypeRef Named(string name, string csharpName) => new()
+	public static TypeRef Named(string name, string csharpName, bool isEnum = false) => new()
 	{
 		Kind = TypeRefKind.Named,
 		Name = name,
-		CSharpName = csharpName
+		CSharpName = csharpName,
+		IsEnum = isEnum
 	};
 
 	public TypeRef WithNullable(bool nullable) => new()
@@ -63,6 +65,7 @@ public sealed class TypeRef
 		KeyType = KeyType,
 		ValueType = ValueType,
 		IsNullable = nullable,
+		IsEnum = IsEnum,
 		Shape = Shape
 	};
 

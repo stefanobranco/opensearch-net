@@ -15,7 +15,7 @@ public sealed class DeleteDataStreamRequest
 {
 	/// <summary>A comma-separated list of data streams to delete. Wildcard (`*`) expressions are supported.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? Name { get; set; }
+	public string? Name { get; set; }
 }
 
 public sealed class DeleteDataStreamEndpoint : IEndpoint<DeleteDataStreamRequest, DeleteDataStreamResponse>

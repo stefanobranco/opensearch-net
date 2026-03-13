@@ -13,6 +13,9 @@ namespace OpenSearch.Client.Indices;
 
 public sealed class GetMappingRequest
 {
+	/// <summary>A comma-separated list of data streams, indexes, and aliases used to limit the request. Supports wildcards (`*`). To target all data streams and indexes, omit this parameter or use `*` or `_all`.</summary>
+	[JsonIgnore]
+	public string? Index { get; set; }
 	/// <summary>If `false`, the request returns an error if any wildcard expression, index alias, or `_all` value targets only missing or closed indexes. This behavior applies even if the request targets other open indexes.</summary>
 	[JsonIgnore]
 	public bool? AllowNoIndices { get; set; }
@@ -25,9 +28,6 @@ public sealed class GetMappingRequest
 	/// <summary>If `false`, the request returns an error if it targets a missing or closed index.</summary>
 	[JsonIgnore]
 	public bool? IgnoreUnavailable { get; set; }
-	/// <summary>A comma-separated list of data streams, indexes, and aliases used to limit the request. Supports wildcards (`*`). To target all data streams and indexes, omit this parameter or use `*` or `_all`.</summary>
-	[JsonIgnore]
-	public string? Index { get; set; }
 	/// <summary>If `true`, the request retrieves information from the local node only.</summary>
 	[JsonIgnore]
 	public bool? Local { get; set; }
@@ -47,17 +47,15 @@ public sealed class GetMappingEndpoint : IEndpoint<GetMappingRequest, GetMapping
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();
 		if (r.AllowNoIndices is not null)
-			queryParts.Add($"allow_no_indices={Uri.EscapeDataString(r.AllowNoIndices.ToString()!)}");
+			queryParts.Add($"allow_no_indices={Uri.EscapeDataString((r.AllowNoIndices.Value ? "true" : "false"))}");
 		if (r.ClusterManagerTimeout is not null)
 			queryParts.Add($"cluster_manager_timeout={Uri.EscapeDataString(r.ClusterManagerTimeout!)}");
 		if (r.ExpandWildcards is not null)
 			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(r.ExpandWildcards.ToString()!)}");
 		if (r.IgnoreUnavailable is not null)
-			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString(r.IgnoreUnavailable.ToString()!)}");
-		if (r.Index is not null)
-			queryParts.Add($"index={Uri.EscapeDataString(r.Index!)}");
+			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable.Value ? "true" : "false"))}");
 		if (r.Local is not null)
-			queryParts.Add($"local={Uri.EscapeDataString(r.Local.ToString()!)}");
+			queryParts.Add($"local={Uri.EscapeDataString((r.Local.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

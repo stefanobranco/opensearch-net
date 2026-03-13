@@ -47,15 +47,15 @@ public sealed class UpgradeEndpoint : IEndpoint<UpgradeRequest, UpgradeResponse>
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();
 		if (r.AllowNoIndices is not null)
-			queryParts.Add($"allow_no_indices={Uri.EscapeDataString(r.AllowNoIndices.ToString()!)}");
+			queryParts.Add($"allow_no_indices={Uri.EscapeDataString((r.AllowNoIndices.Value ? "true" : "false"))}");
 		if (r.ExpandWildcards is not null)
 			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(r.ExpandWildcards.ToString()!)}");
 		if (r.IgnoreUnavailable is not null)
-			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString(r.IgnoreUnavailable.ToString()!)}");
+			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable.Value ? "true" : "false"))}");
 		if (r.OnlyAncientSegments is not null)
-			queryParts.Add($"only_ancient_segments={Uri.EscapeDataString(r.OnlyAncientSegments.ToString()!)}");
+			queryParts.Add($"only_ancient_segments={Uri.EscapeDataString((r.OnlyAncientSegments.Value ? "true" : "false"))}");
 		if (r.WaitForCompletion is not null)
-			queryParts.Add($"wait_for_completion={Uri.EscapeDataString(r.WaitForCompletion.ToString()!)}");
+			queryParts.Add($"wait_for_completion={Uri.EscapeDataString((r.WaitForCompletion.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
