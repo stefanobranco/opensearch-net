@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.RegularExpressions;
+using OpenSearch.CodeGen.Model;
 
 namespace OpenSearch.CodeGen.Transformer;
 
@@ -141,6 +142,28 @@ public static partial class NamingConventions
 			}
 		}
 		return sb.ToString();
+	}
+
+	/// <summary>
+	/// Renames any field whose PascalCase name clashes with the enclosing class name (CS0542).
+	/// </summary>
+	public static void FixFieldNameClash(List<Field> fields, string className)
+	{
+		for (int i = 0; i < fields.Count; i++)
+		{
+			if (fields[i].Name == className)
+			{
+				fields[i] = new Field
+				{
+					Name = fields[i].Name + "Value",
+					WireName = fields[i].WireName,
+					Type = fields[i].Type,
+					Required = fields[i].Required,
+					Description = fields[i].Description,
+					Deprecated = fields[i].Deprecated
+				};
+			}
+		}
 	}
 
 	[GeneratedRegex(@"[^a-zA-Z0-9_]")]

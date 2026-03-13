@@ -116,25 +116,14 @@ public sealed class SpecTransformer
 		typeMapper.PropagateGenericParams();
 
 		// Recompute response type parameters after propagation (some may now reference generic objects)
-		foreach (var request in requests)
+		for (int i = 0; i < requests.Count; i++)
 		{
+			var request = requests[i];
 			var responseTypeParams = typeMapper.CollectGenericParams(request.Response.Fields);
 			if (responseTypeParams.Count > 0 && !request.Response.IsGeneric)
 			{
-				// Replace the response shape with one that includes the type parameters
 				var oldResp = request.Response;
-				var newResp = new ResponseShape
-				{
-					ClassName = oldResp.ClassName,
-					Namespace = oldResp.Namespace,
-					Description = oldResp.Description,
-					Fields = oldResp.Fields,
-					DictionaryValueType = oldResp.DictionaryValueType,
-					IsHeadResponse = oldResp.IsHeadResponse,
-					TypeParameters = responseTypeParams
-				};
-				// RequestShape.Response is required init — need to create a new request
-				requests[requests.IndexOf(request)] = new RequestShape
+				requests[i] = new RequestShape
 				{
 					ClassName = request.ClassName,
 					Namespace = request.Namespace,
@@ -146,7 +135,16 @@ public sealed class SpecTransformer
 					QueryParams = request.QueryParams,
 					BodyFields = request.BodyFields,
 					EndpointName = request.EndpointName,
-					Response = newResp
+					Response = new ResponseShape
+					{
+						ClassName = oldResp.ClassName,
+						Namespace = oldResp.Namespace,
+						Description = oldResp.Description,
+						Fields = oldResp.Fields,
+						DictionaryValueType = oldResp.DictionaryValueType,
+						IsHeadResponse = oldResp.IsHeadResponse,
+						TypeParameters = responseTypeParams
+					}
 				};
 			}
 		}
@@ -240,22 +238,7 @@ public sealed class SpecTransformer
 			CollectResponseFields(resolved, fields, required, typeMapper);
 		}
 
-		// Fix property names that clash with the enclosing class name (CS0542)
-		for (int i = 0; i < fields.Count; i++)
-		{
-			if (fields[i].Name == responseName)
-			{
-				fields[i] = new Field
-				{
-					Name = fields[i].Name + "Value",
-					WireName = fields[i].WireName,
-					Type = fields[i].Type,
-					Required = fields[i].Required,
-					Description = fields[i].Description,
-					Deprecated = fields[i].Deprecated
-				};
-			}
-		}
+		NamingConventions.FixFieldNameClash(fields, responseName);
 
 		// Discover generic type parameters in response fields
 		var typeParams = typeMapper.CollectGenericParams(fields);

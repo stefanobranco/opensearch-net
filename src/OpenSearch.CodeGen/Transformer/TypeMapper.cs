@@ -256,25 +256,9 @@ public sealed class TypeMapper
 		if (schema.AdditionalProperties is not null)
 			additionalPropsType = Map(schema.AdditionalProperties);
 
-		var ns = namespaceOverride
-			?? (_targetNamespace.Equals("_common", StringComparison.OrdinalIgnoreCase) ? "Common" : NamingConventions.NamespaceToClassName(_targetNamespace));
+		var ns = ResolveNamespace(namespaceOverride);
 
-		// Fix property names that clash with the enclosing class name (CS0542)
-		for (int i = 0; i < fields.Count; i++)
-		{
-			if (fields[i].Name == className)
-			{
-				fields[i] = new Field
-				{
-					Name = fields[i].Name + "Value",
-					WireName = fields[i].WireName,
-					Type = fields[i].Type,
-					Required = fields[i].Required,
-					Description = fields[i].Description,
-					Deprecated = fields[i].Deprecated
-				};
-			}
-		}
+		NamingConventions.FixFieldNameClash(fields, className);
 
 		// Discover generic type parameters referenced by any field
 		var typeParams = CollectGenericParams(fields);
@@ -365,8 +349,7 @@ public sealed class TypeMapper
 			});
 		}
 
-		var ns = namespaceOverride
-			?? (_targetNamespace.Equals("_common", StringComparison.OrdinalIgnoreCase) ? "Common" : NamingConventions.NamespaceToClassName(_targetNamespace));
+		var ns = ResolveNamespace(namespaceOverride);
 
 		var unionShape = new TaggedUnionShape
 		{
@@ -401,7 +384,7 @@ public sealed class TypeMapper
 			result.Add(type.Name);
 		// Check if this is a Named type that references a generic object
 		if (type.Kind == TypeRefKind.Named && !type.IsEnum
-			&& _discoveredObjects.Values.FirstOrDefault(o => o.ClassName == NamingConventions.SchemaNameToClassName(type.Name)) is { IsGeneric: true } genObj)
+			&& _discoveredObjects.TryGetValue(type.Name, out var genObj) && genObj.IsGeneric)
 		{
 			foreach (var tp in genObj.TypeParameters)
 			{
@@ -457,18 +440,18 @@ public sealed class TypeMapper
 		// Phase 2: Update all field TypeRefs to reference the final generic CSharpNames
 		foreach (var obj in _discoveredObjects.Values)
 		{
-			UpdateFieldTypeRefs(obj.Fields);
+			UpdateFieldTypeRefs((List<Field>)obj.Fields);
 		}
 	}
 
-	private void UpdateFieldTypeRefs(IReadOnlyList<Field> fields)
+	private void UpdateFieldTypeRefs(List<Field> fields)
 	{
 		for (int i = 0; i < fields.Count; i++)
 		{
 			var updated = UpdateTypeRef(fields[i].Type);
 			if (updated != fields[i].Type)
 			{
-				((List<Field>)fields)[i] = new Field
+				fields[i] = new Field
 				{
 					Name = fields[i].Name,
 					WireName = fields[i].WireName,
@@ -502,6 +485,12 @@ public sealed class TypeMapper
 		}
 		return type;
 	}
+
+	private string ResolveNamespace(string? namespaceOverride) =>
+		namespaceOverride
+		?? (_targetNamespace.Equals("_common", StringComparison.OrdinalIgnoreCase)
+			? "Common"
+			: NamingConventions.NamespaceToClassName(_targetNamespace));
 
 	/// <summary>
 	/// Extracts the C# namespace from a $ref file path.

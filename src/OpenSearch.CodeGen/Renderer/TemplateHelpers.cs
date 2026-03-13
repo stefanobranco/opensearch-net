@@ -121,34 +121,20 @@ public static class TemplateHelpers
 		obj["kind_enum_name"] = union.KindEnumName;
 
 		var variants = new ScriptArray();
-		var referencedNamespaces = new HashSet<string>(StringComparer.Ordinal);
 		foreach (var variant in union.Variants)
 		{
 			var v = new ScriptObject();
 			v["name"] = variant.Name;
 			v["wire_name"] = variant.WireName;
-			v["type"] = ComputeVariantType(variant);
+			v["type"] = variant.Type.CSharpName;
 			v["type_name"] = variant.Type.CSharpName;
 			v["description"] = SanitizeDescription(variant.Description);
 			variants.Add(v);
-
-			CollectTypeNamespaces(variant.Type, allObjects, referencedNamespaces);
 		}
 		obj["variants"] = variants;
-
-		referencedNamespaces.Remove(union.Namespace);
-		var usings = new ScriptArray();
-		foreach (var ns in referencedNamespaces.OrderBy(n => n, StringComparer.Ordinal))
-			usings.Add(ns);
-		obj["extra_usings"] = usings;
+		obj["extra_usings"] = ComputeExtraUsings(union.Namespace, union.Variants.Select(v => v.Type).ToList(), allObjects);
 
 		return obj;
-	}
-
-	private static string ComputeVariantType(UnionVariant variant)
-	{
-		// Variant factory method parameters are NOT nullable — you're explicitly setting a value
-		return variant.Type.CSharpName;
 	}
 
 	public static ScriptObject BuildClientExtensionContext(string namespaceName)
@@ -294,6 +280,18 @@ public static class TemplateHelpers
 		return arr;
 	}
 
+	private static ScriptArray ComputeExtraUsings(string currentNamespace, IReadOnlyList<TypeRef> types, IReadOnlyDictionary<string, ObjectShape> allObjects)
+	{
+		var namespaces = new HashSet<string>(StringComparer.Ordinal);
+		foreach (var type in types)
+			CollectTypeNamespaces(type, allObjects, namespaces);
+		namespaces.Remove(currentNamespace);
+		var arr = new ScriptArray();
+		foreach (var ns in namespaces.OrderBy(n => n, StringComparer.Ordinal))
+			arr.Add(ns);
+		return arr;
+	}
+
 	private static void CollectReferencedNamespaces(IReadOnlyList<Field> fields, IReadOnlyDictionary<string, ObjectShape> allObjects, HashSet<string> namespaces)
 	{
 		foreach (var field in fields)
@@ -304,8 +302,8 @@ public static class TemplateHelpers
 	{
 		if (type.Kind == TypeRefKind.Named && !type.IsEnum)
 		{
-			// Look up the object's namespace
-			if (allObjects.TryGetValue(type.Name, out var shape))
+			// Look up by schema name first, then by class name (dictionary may be keyed by either)
+			if (allObjects.TryGetValue(type.Name, out var shape) || allObjects.TryGetValue(type.CSharpName, out shape))
 				namespaces.Add(shape.Namespace);
 		}
 		if (type.ItemType is not null)

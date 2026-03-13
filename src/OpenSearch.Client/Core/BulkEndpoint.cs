@@ -27,7 +27,7 @@ public sealed class BulkEndpoint : IEndpoint<BulkRequest, BulkResponse>
 		if (r.Timeout is not null)
 			queryParts.Add($"timeout={Uri.EscapeDataString(r.Timeout)}");
 		if (r.RequireAlias is not null)
-			queryParts.Add($"require_alias={( r.RequireAlias.Value ? "true" : "false")}");
+			queryParts.Add($"require_alias={Uri.EscapeDataString(r.RequireAlias.Value ? "true" : "false")}");
 
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
