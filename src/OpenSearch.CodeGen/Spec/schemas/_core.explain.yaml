@@ -1,0 +1,23 @@
+openapi: 3.1.0
+info:
+  title: Schemas of `_core.explain` Category
+  description: Schemas of `_core.explain` category.
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    Explanation:
+      type: object
+      properties:
+        description:
+          type: string
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/Explanation'
+        value:
+          type: number
+          format: float
+      required:
+        - description
+        - value

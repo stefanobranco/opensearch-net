@@ -1,0 +1,54 @@
+openapi: 3.1.0
+info:
+  title: Schemas of `cluster._common` Category
+  description: Schemas of `cluster._common` category.
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    WaitForNodes:
+      description: Waits until the specified number of nodes (`N`) is available. Accepts `>=N`, `<=N`, `>N`, and `<N`. You can also use `ge(N)`, `le(N)`, `gt(N)`, and `lt(N)` notation.
+      oneOf:
+        - title: count
+          type: integer
+          format: int32
+        - title: comparison
+          type: string
+    ComponentTemplate:
+      type: object
+      properties:
+        name:
+          $ref: '_common.yaml#/components/schemas/Name'
+        component_template:
+          $ref: '#/components/schemas/ComponentTemplateNode'
+      required:
+        - component_template
+        - name
+    ComponentTemplateNode:
+      type: object
+      properties:
+        template:
+          $ref: '#/components/schemas/ComponentTemplateSummary'
+        version:
+          $ref: '_common.yaml#/components/schemas/VersionNumber'
+        _meta:
+          $ref: '_common.yaml#/components/schemas/Metadata'
+      required:
+        - template
+    ComponentTemplateSummary:
+      type: object
+      properties:
+        _meta:
+          $ref: '_common.yaml#/components/schemas/Metadata'
+        version:
+          $ref: '_common.yaml#/components/schemas/VersionNumber'
+        settings:
+          type: object
+          additionalProperties:
+            $ref: 'indices._common.yaml#/components/schemas/IndexSettings'
+        mappings:
+          $ref: '_common.mapping.yaml#/components/schemas/TypeMapping'
+        aliases:
+          type: object
+          additionalProperties:
+            $ref: 'indices._common.yaml#/components/schemas/AliasDefinition'

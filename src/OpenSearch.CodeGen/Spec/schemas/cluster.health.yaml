@@ -1,0 +1,195 @@
+openapi: 3.1.0
+info:
+  title: Schemas of `cluster.health` Category
+  description: Schemas of `cluster.health` category.
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    HealthResponseBody:
+      type: object
+      properties:
+        active_primary_shards:
+          description: The number of active primary shards.
+          type: integer
+          format: int32
+        active_shards:
+          description: The total number of active primary and replica shards.
+          type: integer
+          format: int32
+        active_shards_percent:
+          $ref: '_common.yaml#/components/schemas/PercentageString'
+        active_shards_percent_as_number:
+          $ref: '_common.yaml#/components/schemas/PercentageNumber'
+        awareness_attributes:
+          description: Cluster health information for each awareness attribute.
+          type: object
+          x-version-added: '2.5'
+          additionalProperties:
+            $ref: '#/components/schemas/AwarenessAttributeStats'
+        cluster_name:
+          $ref: '_common.yaml#/components/schemas/Name'
+        delayed_unassigned_shards:
+          description: The number of shards whose allocation has been delayed by the timeout settings.
+          type: integer
+          format: int32
+        discovered_master:
+          description: True if the cluster-manager node has been discovered.
+          type: boolean
+          x-version-deprecated: '2.0'
+        discovered_cluster_manager:
+          description: True if the cluster-manager node has been discovered.
+          type: boolean
+          x-version-added: '2.0'
+        indices:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/IndexHealthStats'
+        initializing_shards:
+          description: The number of shards that are under initialization.
+          type: integer
+          format: int32
+        number_of_data_nodes:
+          description: The number of nodes that are dedicated data nodes.
+          type: integer
+          format: int32
+        number_of_in_flight_fetch:
+          description: The number of unfinished fetches.
+          type: integer
+          format: int32
+        number_of_nodes:
+          description: The number of nodes within the cluster.
+          type: integer
+          format: int32
+        number_of_pending_tasks:
+          description: The number of cluster-level changes that have not yet been executed.
+          type: integer
+          format: int32
+        relocating_shards:
+          description: The number of shards that are under relocation.
+          type: integer
+          format: int32
+        status:
+          $ref: '_common.yaml#/components/schemas/HealthStatus'
+        task_max_waiting_in_queue:
+          $ref: '_common.yaml#/components/schemas/Duration'
+        task_max_waiting_in_queue_millis:
+          $ref: '_common.yaml#/components/schemas/DurationValueUnitMillis'
+        timed_out:
+          description: If `false` the response returned within the period of time that is specified by the timeout parameter (`30s` by default).
+          type: boolean
+        unassigned_shards:
+          description: The number of shards that are not allocated.
+          type: integer
+          format: int32
+      required:
+        - active_primary_shards
+        - active_shards
+        - active_shards_percent_as_number
+        - cluster_name
+        - delayed_unassigned_shards
+        - initializing_shards
+        - number_of_data_nodes
+        - number_of_in_flight_fetch
+        - number_of_nodes
+        - number_of_pending_tasks
+        - relocating_shards
+        - status
+        - task_max_waiting_in_queue_millis
+        - timed_out
+        - unassigned_shards
+    IndexHealthStats:
+      type: object
+      properties:
+        active_primary_shards:
+          type: integer
+          format: int32
+        active_shards:
+          type: integer
+          format: int32
+        initializing_shards:
+          type: integer
+          format: int32
+        number_of_replicas:
+          type: integer
+          format: int32
+        number_of_shards:
+          type: integer
+          format: int32
+        relocating_shards:
+          type: integer
+          format: int32
+        shards:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ShardHealthStats'
+        status:
+          $ref: '_common.yaml#/components/schemas/HealthStatus'
+        unassigned_shards:
+          type: integer
+          format: int32
+      required:
+        - active_primary_shards
+        - active_shards
+        - initializing_shards
+        - number_of_replicas
+        - number_of_shards
+        - relocating_shards
+        - status
+        - unassigned_shards
+    Level:
+      description: Controls the amount of detail included in the cluster health response.
+      type: string
+      enum:
+        - awareness_attributes
+        - cluster
+        - indices
+        - shards
+    AwarenessAttributeStats:
+      type: object
+      x-version-added: '2.5'
+      properties:
+        active_shards:
+          type: integer
+          format: int32
+        initializing_shards:
+          type: integer
+          format: int32
+        relocating_shards:
+          type: integer
+          format: int32
+        unassigned_shards:
+          type: integer
+          format: int32
+        data_nodes:
+          type: integer
+          format: int32
+        weight:
+          type: integer
+          format: int32
+    ShardHealthStats:
+      type: object
+      properties:
+        active_shards:
+          type: integer
+          format: int32
+        initializing_shards:
+          type: integer
+          format: int32
+        primary_active:
+          type: boolean
+        relocating_shards:
+          type: integer
+          format: int32
+        status:
+          $ref: '_common.yaml#/components/schemas/HealthStatus'
+        unassigned_shards:
+          type: integer
+          format: int32
+      required:
+        - active_shards
+        - initializing_shards
+        - primary_active
+        - relocating_shards
+        - status
+        - unassigned_shards

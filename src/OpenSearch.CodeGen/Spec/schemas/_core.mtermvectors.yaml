@@ -1,0 +1,69 @@
+openapi: 3.1.0
+info:
+  title: Schemas of `_core.mtermvectors` Category
+  description: Schemas of `_core.mtermvectors` category.
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    Operation:
+      type: object
+      properties:
+        _id:
+          $ref: '_common.yaml#/components/schemas/Id'
+        _index:
+          $ref: '_common.yaml#/components/schemas/IndexName'
+        doc:
+          description: An artificial document for which you want to retrieve term vectors.
+        fields:
+          $ref: '_common.yaml#/components/schemas/Fields'
+        field_statistics:
+          description: When `true`, the response includes the document count, the sum of the document frequencies, and the sum of the term frequencies.
+          type: boolean
+        filter:
+          $ref: '_core.termvectors.yaml#/components/schemas/Filter'
+        offsets:
+          description: When `true`, the response includes the term offsets.
+          type: boolean
+        payloads:
+          description: When `true`, the response includes the term payloads.
+          type: boolean
+        positions:
+          description: When `true`, the response includes the term positions.
+          type: boolean
+        routing:
+          $ref: '_common.yaml#/components/schemas/Routing'
+        term_statistics:
+          description: When `true`, the response includes the term frequency and the document frequency.
+          type: boolean
+        version:
+          $ref: '_common.yaml#/components/schemas/VersionNumber'
+        version_type:
+          $ref: '_common.yaml#/components/schemas/VersionType'
+      required:
+        - _id
+    TermVectorsResult:
+      type: object
+      properties:
+        _id:
+          $ref: '_common.yaml#/components/schemas/Id'
+        _index:
+          $ref: '_common.yaml#/components/schemas/IndexName'
+        _version:
+          $ref: '_common.yaml#/components/schemas/VersionNumber'
+        took:
+          type: integer
+          format: int64
+        found:
+          type: boolean
+        term_vectors:
+          type: object
+          additionalProperties:
+            $ref: '_core.termvectors.yaml#/components/schemas/TermVector'
+        error:
+          $ref: '_common.yaml#/components/schemas/ErrorCause'
+        _type:
+          $ref: '_common.yaml#/components/schemas/Type'
+      required:
+        - _id
+        - _index

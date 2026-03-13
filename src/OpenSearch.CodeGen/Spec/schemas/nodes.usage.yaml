@@ -1,0 +1,32 @@
+openapi: 3.1.0
+info:
+  title: Schemas of `nodes.usage` Category
+  description: Schemas of `nodes.usage` category.
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    Metric:
+      type: string
+      enum:
+        - _all
+        - aggregations
+        - rest_actions
+    NodeUsage:
+      type: object
+      properties:
+        rest_actions:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+        since:
+          $ref: '_common.yaml#/components/schemas/EpochTimeUnitMillis'
+        timestamp:
+          $ref: '_common.yaml#/components/schemas/EpochTimeUnitMillis'
+        aggregations:
+          type: object
+          additionalProperties: true
+      required:
+        - since
+        - timestamp

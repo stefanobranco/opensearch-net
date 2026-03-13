@@ -1,0 +1,223 @@
+openapi: 3.1.0
+info:
+  title: OpenSearch Tasks API
+  description: OpenSearch Tasks API.
+  version: 1.0.0
+paths:
+  /_tasks:
+    get:
+      operationId: tasks.list.0
+      x-operation-group: tasks.list
+      x-version-added: '1.0'
+      description: Returns a list of tasks.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/api-reference/tasks/
+      parameters:
+        - $ref: '#/components/parameters/tasks.list::query.actions'
+        - $ref: '#/components/parameters/tasks.list::query.detailed'
+        - $ref: '#/components/parameters/tasks.list::query.group_by'
+        - $ref: '#/components/parameters/tasks.list::query.nodes'
+        - $ref: '#/components/parameters/tasks.list::query.parent_task_id'
+        - $ref: '#/components/parameters/tasks.list::query.timeout'
+        - $ref: '#/components/parameters/tasks.list::query.wait_for_completion'
+      responses:
+        '200':
+          $ref: '#/components/responses/tasks.list@200'
+  /_tasks/_cancel:
+    post:
+      operationId: tasks.cancel.0
+      x-operation-group: tasks.cancel
+      x-version-added: '1.0'
+      description: Cancels a task, if it can be cancelled through an API.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/api-reference/tasks/#task-canceling
+      parameters:
+        - $ref: '#/components/parameters/tasks.cancel::query.actions'
+        - $ref: '#/components/parameters/tasks.cancel::query.nodes'
+        - $ref: '#/components/parameters/tasks.cancel::query.parent_task_id'
+        - $ref: '#/components/parameters/tasks.cancel::query.wait_for_completion'
+      responses:
+        '200':
+          $ref: '#/components/responses/tasks.cancel@200'
+  /_tasks/{task_id}:
+    get:
+      operationId: tasks.get.0
+      x-operation-group: tasks.get
+      x-version-added: '1.0'
+      description: Returns information about a task.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/api-reference/tasks/
+      parameters:
+        - $ref: '#/components/parameters/tasks.get::path.task_id'
+        - $ref: '#/components/parameters/tasks.get::query.timeout'
+        - $ref: '#/components/parameters/tasks.get::query.wait_for_completion'
+      responses:
+        '200':
+          $ref: '#/components/responses/tasks.get@200'
+  /_tasks/{task_id}/_cancel:
+    post:
+      operationId: tasks.cancel.1
+      x-operation-group: tasks.cancel
+      x-version-added: '1.0'
+      description: Cancels a task, if it can be cancelled through an API.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/api-reference/tasks/#task-canceling
+      parameters:
+        - $ref: '#/components/parameters/tasks.cancel::path.task_id'
+        - $ref: '#/components/parameters/tasks.cancel::query.actions'
+        - $ref: '#/components/parameters/tasks.cancel::query.nodes'
+        - $ref: '#/components/parameters/tasks.cancel::query.parent_task_id'
+        - $ref: '#/components/parameters/tasks.cancel::query.wait_for_completion'
+      responses:
+        '200':
+          $ref: '#/components/responses/tasks.cancel@200'
+components:
+  requestBodies: {}
+  responses:
+    tasks.cancel@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/tasks._common.yaml#/components/schemas/TaskListResponseBase'
+    tasks.get@200:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              completed:
+                type: boolean
+              task:
+                $ref: '../schemas/tasks._common.yaml#/components/schemas/TaskInfo'
+              response:
+                $ref: '../schemas/tasks._common.yaml#/components/schemas/TaskResponse'
+              error:
+                $ref: '../schemas/_common.yaml#/components/schemas/ErrorCause'
+            required:
+              - completed
+              - task
+    tasks.list@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/tasks._common.yaml#/components/schemas/TaskListResponseBase'
+  parameters:
+    tasks.cancel::path.task_id:
+      in: path
+      name: task_id
+      description: The task ID.
+      required: true
+      schema:
+        $ref: '../schemas/_common.yaml#/components/schemas/TaskId'
+      style: simple
+    tasks.cancel::query.actions:
+      in: query
+      name: actions
+      description: A comma-separated list of actions that should be returned. Keep empty to return all.
+      schema:
+        $ref: '../schemas/_common.yaml#/components/schemas/StringOrStringArray'
+      style: form
+    tasks.cancel::query.nodes:
+      in: query
+      name: nodes
+      description: A comma-separated list of node IDs or names used to limit the returned information. Use `_local` to return information from the node you're connecting to, specify the node name to get information from a specific node, or keep the parameter empty to get information from all nodes.
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+    tasks.cancel::query.parent_task_id:
+      in: query
+      name: parent_task_id
+      description: Returns tasks with a specified parent task ID (`node_id:task_number`). Keep empty or set to -1 to return all.
+      schema:
+        type: string
+      style: form
+    tasks.cancel::query.wait_for_completion:
+      in: query
+      name: wait_for_completion
+      description: Waits for the matching task to complete. When `true`, the request is blocked until the task has completed.
+      schema:
+        type: boolean
+        default: false
+      style: form
+    tasks.get::path.task_id:
+      in: path
+      name: task_id
+      description: The task ID.
+      required: true
+      schema:
+        $ref: '../schemas/_common.yaml#/components/schemas/Id'
+      style: simple
+    tasks.get::query.timeout:
+      in: query
+      name: timeout
+      description: The amount of time to wait for a response. 
+      schema:
+        default: 30s
+        $ref: '../schemas/_common.yaml#/components/schemas/Duration'
+      style: form
+    tasks.get::query.wait_for_completion:
+      in: query
+      name: wait_for_completion
+      description: Waits for the matching task to complete. When `true`, the request is blocked until the task has completed.
+      schema:
+        type: boolean
+        default: false
+      style: form
+    tasks.list::query.actions:
+      in: query
+      name: actions
+      description: A comma-separated list of actions that should be returned. Keep empty to return all.
+      schema:
+        $ref: '../schemas/_common.yaml#/components/schemas/StringOrStringArray'
+      style: form
+    tasks.list::query.detailed:
+      in: query
+      name: detailed
+      description: When `true`, the response includes detailed information about shard recoveries.
+      schema:
+        type: boolean
+        default: false
+      style: form
+    tasks.list::query.group_by:
+      in: query
+      name: group_by
+      description: Groups tasks by parent/child relationships or nodes.
+      schema:
+        $ref: '../schemas/tasks._common.yaml#/components/schemas/GroupBy'
+        default: nodes
+      style: form
+    tasks.list::query.nodes:
+      name: nodes
+      in: query
+      description: A comma-separated list of node IDs or names used to limit the returned information. Use `_local` to return information from the node you're connecting to, specify the node name to get information from a specific node, or keep the parameter empty to get information from all nodes.
+      style: form
+      schema:
+        type: array
+        items:
+          type: string
+        description: A comma-separated list of node IDs or names used to limit the returned information. Use `_local` to return information from the node you're connecting to, specify the node name to get information from a specific node, or keep the parameter empty to get information from all nodes.
+      explode: true
+    tasks.list::query.parent_task_id:
+      in: query
+      name: parent_task_id
+      description: Returns tasks with a specified parent task ID (`node_id:task_number`). Keep empty or set to -1 to return all.
+      schema:
+        $ref: '../schemas/_common.yaml#/components/schemas/Id'
+      style: form
+    tasks.list::query.timeout:
+      in: query
+      name: timeout
+      description: The amount of time to wait for a response. 
+      schema:
+        $ref: '../schemas/_common.yaml#/components/schemas/Duration'
+      style: form
+    tasks.list::query.wait_for_completion:
+      in: query
+      name: wait_for_completion
+      description: Waits for the matching task to complete. When `true`, the request is blocked until the task has completed.
+      schema:
+        type: boolean
+        default: false
+      style: form

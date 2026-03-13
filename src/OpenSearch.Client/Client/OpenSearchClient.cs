@@ -21,7 +21,7 @@ namespace OpenSearch.Client;
 /// var client = new OpenSearchClient(settings);
 /// </code>
 /// </remarks>
-public sealed class OpenSearchClient : IDisposable
+public sealed partial class OpenSearchClient : IDisposable
 {
 	private readonly IOpenSearchTransport _transport;
 	private readonly bool _ownsTransport;

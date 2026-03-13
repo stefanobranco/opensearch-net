@@ -1,0 +1,1288 @@
+openapi: 3.1.0
+info:
+  title: Schemas of `_common.mapping` Category
+  description: Schemas of `_common.mapping` category.
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    TypeMapping:
+      type: object
+      properties:
+        all_field:
+          $ref: '#/components/schemas/AllField'
+        date_detection:
+          type: boolean
+        dynamic:
+          $ref: '#/components/schemas/DynamicMapping'
+        dynamic_date_formats:
+          type: array
+          items:
+            type: string
+        dynamic_templates:
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              $ref: '#/components/schemas/DynamicTemplate'
+        _field_names:
+          $ref: '#/components/schemas/FieldNamesField'
+        index_field:
+          $ref: '#/components/schemas/IndexField'
+        _meta:
+          $ref: '_common.yaml#/components/schemas/Metadata'
+        numeric_detection:
+          type: boolean
+        properties:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Property'
+        _routing:
+          $ref: '#/components/schemas/RoutingField'
+        _size:
+          $ref: '#/components/schemas/SizeField'
+        _source:
+          $ref: '#/components/schemas/SourceField'
+        enabled:
+          type: boolean
+        _data_stream_timestamp:
+          $ref: '#/components/schemas/DataStreamTimestamp'
+    AllField:
+      type: object
+      properties:
+        analyzer:
+          type: string
+        enabled:
+          type: boolean
+        omit_norms:
+          type: boolean
+        search_analyzer:
+          type: string
+        similarity:
+          type: string
+        store:
+          type: boolean
+        store_term_vector_offsets:
+          type: boolean
+        store_term_vector_payloads:
+          type: boolean
+        store_term_vector_positions:
+          type: boolean
+        store_term_vectors:
+          type: boolean
+      required:
+        - analyzer
+        - enabled
+        - omit_norms
+        - search_analyzer
+        - similarity
+        - store
+        - store_term_vector_offsets
+        - store_term_vector_payloads
+        - store_term_vector_positions
+        - store_term_vectors
+    DynamicMapping:
+      oneOf:
+        - type: string
+          enum:
+            - 'false'
+            - strict
+            - strict_allow_templates
+            - 'true'
+        - type: boolean
+    DynamicTemplate:
+      type: object
+      properties:
+        mapping:
+          $ref: '#/components/schemas/Property'
+        match:
+          type: string
+        match_mapping_type:
+          type: string
+        match_pattern:
+          $ref: '#/components/schemas/MatchType'
+        path_match:
+          type: string
+        path_unmatch:
+          type: string
+        unmatch:
+          type: string
+    FieldType:
+      type: string
+      enum:
+        - aggregate_metric_double
+        - alias
+        - binary
+        - boolean
+        - byte
+        - completion
+        - constant_keyword
+        - date
+        - date_nanos
+        - date_range
+        - double
+        - double_range
+        - flat_object
+        - float
+        - float_range
+        - geo_point
+        - geo_shape
+        - half_float
+        - histogram
+        - icu_collation_keyword
+        - integer
+        - integer_range
+        - ip
+        - ip_range
+        - join
+        - keyword
+        - knn_vector
+        - long
+        - long_range
+        - match_only_text
+        - murmur3
+        - nested
+        - object
+        - percolator
+        - rank_feature
+        - rank_features
+        - scaled_float
+        - search_as_you_type
+        - semantic
+        - short
+        - text
+        - token_count
+        - unsigned_long
+        - version
+        - wildcard
+        - xy_point
+        - xy_shape
+    Property:
+      type: object
+      discriminator:
+        propertyName: type
+        x-default: object
+      oneOf:
+        - $ref: '#/components/schemas/BinaryProperty'
+        - $ref: '#/components/schemas/BooleanProperty'
+        - $ref: '#/components/schemas/JoinProperty'
+        - $ref: '#/components/schemas/KeywordProperty'
+        - $ref: '#/components/schemas/MatchOnlyTextProperty'
+        - $ref: '#/components/schemas/PercolatorProperty'
+        - $ref: '#/components/schemas/RankFeatureProperty'
+        - $ref: '#/components/schemas/RankFeaturesProperty'
+        - $ref: '#/components/schemas/SearchAsYouTypeProperty'
+        - $ref: '#/components/schemas/TextProperty'
+        - $ref: '#/components/schemas/VersionProperty'
+        - $ref: '#/components/schemas/WildcardProperty'
+        - $ref: '#/components/schemas/DateNanosProperty'
+        - $ref: '#/components/schemas/DateProperty'
+        - $ref: '#/components/schemas/AggregateMetricDoubleProperty'
+        - $ref: '#/components/schemas/FlatObjectProperty'
+        - $ref: '#/components/schemas/NestedProperty'
+        - $ref: '#/components/schemas/ObjectProperty'
+        - $ref: '#/components/schemas/CompletionProperty'
+        - $ref: '#/components/schemas/ConstantKeywordProperty'
+        - $ref: '#/components/schemas/FieldAliasProperty'
+        - $ref: '#/components/schemas/HistogramProperty'
+        - $ref: '#/components/schemas/IpProperty'
+        - $ref: '#/components/schemas/Murmur3HashProperty'
+        - $ref: '#/components/schemas/TokenCountProperty'
+        - $ref: '#/components/schemas/GeoPointProperty'
+        - $ref: '#/components/schemas/GeoShapeProperty'
+        - $ref: '#/components/schemas/XyPointProperty'
+        - $ref: '#/components/schemas/XyShapeProperty'
+        - $ref: '#/components/schemas/ByteNumberProperty'
+        - $ref: '#/components/schemas/DoubleNumberProperty'
+        - $ref: '#/components/schemas/FloatNumberProperty'
+        - $ref: '#/components/schemas/HalfFloatNumberProperty'
+        - $ref: '#/components/schemas/IntegerNumberProperty'
+        - $ref: '#/components/schemas/LongNumberProperty'
+        - $ref: '#/components/schemas/ScaledFloatNumberProperty'
+        - $ref: '#/components/schemas/SemanticProperty'
+        - $ref: '#/components/schemas/ShortNumberProperty'
+        - $ref: '#/components/schemas/UnsignedLongNumberProperty'
+        - $ref: '#/components/schemas/DateRangeProperty'
+        - $ref: '#/components/schemas/DoubleRangeProperty'
+        - $ref: '#/components/schemas/FloatRangeProperty'
+        - $ref: '#/components/schemas/IntegerRangeProperty'
+        - $ref: '#/components/schemas/IpRangeProperty'
+        - $ref: '#/components/schemas/LongRangeProperty'
+        - $ref: '#/components/schemas/KnnVectorProperty'
+        - $ref: '#/components/schemas/IcuCollationKeywordProperty'
+    BinaryProperty:
+      allOf:
+        - $ref: '#/components/schemas/DocValuesPropertyBase'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - binary
+          required:
+            - type
+    DocValuesPropertyBase:
+      allOf:
+        - $ref: '#/components/schemas/CorePropertyBase'
+        - type: object
+          properties:
+            doc_values:
+              type: boolean
+    CorePropertyBase:
+      allOf:
+        - $ref: '#/components/schemas/PropertyBase'
+        - type: object
+          properties:
+            copy_to:
+              $ref: '_common.yaml#/components/schemas/Fields'
+            similarity:
+              type: string
+            store:
+              type: boolean
+    PropertyBase:
+      type: object
+      properties:
+        meta:
+          description: Metadata about the field.
+          type: object
+          additionalProperties:
+            type: string
+        properties:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Property'
+        ignore_above:
+          type: integer
+        dynamic:
+          $ref: '#/components/schemas/DynamicMapping'
+        fields:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Property'
+    BooleanProperty:
+      allOf:
+        - $ref: '#/components/schemas/DocValuesPropertyBase'
+        - type: object
+          properties:
+            boost:
+              type: number
+              format: double
+            fielddata:
+              $ref: 'indices._common.yaml#/components/schemas/NumericFielddata'
+            index:
+              type: boolean
+            null_value:
+              type: boolean
+            type:
+              type: string
+              enum:
+                - boolean
+          required:
+            - type
+    IndexOptions:
+      type: string
+      enum:
+        - docs
+        - freqs
+        - offsets
+        - positions
+    TextIndexPrefixes:
+      type: object
+      properties:
+        max_chars:
+          type: integer
+        min_chars:
+          type: integer
+      required:
+        - max_chars
+        - min_chars
+    TermVectorOption:
+      type: string
+      enum:
+        - no
+        - with_offsets
+        - with_positions
+        - with_positions_offsets
+        - with_positions_offsets_payloads
+        - with_positions_payloads
+        - yes
+    JoinProperty:
+      allOf:
+        - $ref: '#/components/schemas/PropertyBase'
+        - type: object
+          properties:
+            relations:
+              type: object
+              additionalProperties:
+                oneOf:
+                  - $ref: '_common.yaml#/components/schemas/RelationName'
+                  - type: array
+                    items:
+                      $ref: '_common.yaml#/components/schemas/RelationName'
+            eager_global_ordinals:
+              type: boolean
+            type:
+              type: string
+              enum:
+                - join
+          required:
+            - type
+    KeywordProperty:
+      allOf:
+        - $ref: '#/components/schemas/DocValuesPropertyBase'
+        - type: object
+          properties:
+            boost:
+              type: number
+              format: double
+            eager_global_ordinals:
+              type: boolean
+            index:
+              type: boolean
+            index_options:
+              $ref: '#/components/schemas/IndexOptions'
+            normalizer:
+              type: string
+            norms:
+              type: boolean
+            null_value:
+              type: string
+            split_queries_on_whitespace:
+              type: boolean
+            type:
+              type: string
+              enum:
+                - keyword
+          required:
+            - type
+    MatchOnlyTextProperty:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - match_only_text
+        fields:
+          description: |-
+            Multi-fields allow the same string value to be indexed in multiple ways for different purposes, such as one
+            field for search and a multi-field for sorting and aggregations, or the same string value analyzed by different analyzers.
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Property'
+        meta:
+          description: Metadata about the field.
+          type: object
+          additionalProperties:
+            type: string
+        copy_to:
+          $ref: '_common.yaml#/components/schemas/Fields'
+      required:
+        - type
+    PercolatorProperty:
+      allOf:
+        - $ref: '#/components/schemas/PropertyBase'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - percolator
+          required:
+            - type
+    RankFeatureProperty:
+      allOf:
+        - $ref: '#/components/schemas/PropertyBase'
+        - type: object
+          properties:
+            positive_score_impact:
+              type: boolean
+            type:
+              type: string
+              enum:
+                - rank_feature
+          required:
+            - type
+    RankFeaturesProperty:
+      allOf:
+        - $ref: '#/components/schemas/PropertyBase'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - rank_features
+          required:
+            - type
+    SearchAsYouTypeProperty:
+      allOf:
+        - $ref: '#/components/schemas/CorePropertyBase'
+        - type: object
+          properties:
+            analyzer:
+              type: string
+            index:
+              type: boolean
+            index_options:
+              $ref: '#/components/schemas/IndexOptions'
+            max_shingle_size:
+              type: integer
+            norms:
+              type: boolean
+            search_analyzer:
+              type: string
+            search_quote_analyzer:
+              type: string
+            term_vector:
+              $ref: '#/components/schemas/TermVectorOption'
+            type:
+              type: string
+              enum:
+                - search_as_you_type
+          required:
+            - type
+    TextProperty:
+      allOf:
+        - $ref: '#/components/schemas/CorePropertyBase'
+        - type: object
+          properties:
+            analyzer:
+              type: string
+            boost:
+              type: number
+              format: double
+            eager_global_ordinals:
+              type: boolean
+            fielddata:
+              type: boolean
+            fielddata_frequency_filter:
+              $ref: 'indices._common.yaml#/components/schemas/FielddataFrequencyFilter'
+            index:
+              type: boolean
+            index_options:
+              $ref: '#/components/schemas/IndexOptions'
+            index_phrases:
+              type: boolean
+            index_prefixes:
+              $ref: '#/components/schemas/TextIndexPrefixes'
+            norms:
+              type: boolean
+            position_increment_gap:
+              type: integer
+            search_analyzer:
+              type: string
+            search_quote_analyzer:
+              type: string
+            term_vector:
+              $ref: '#/components/schemas/TermVectorOption'
+            type:
+              type: string
+              enum:
+                - text
+          required:
+            - type
+    VersionProperty:
+      allOf:
+        - $ref: '#/components/schemas/DocValuesPropertyBase'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - version
+          required:
+            - type
+    WildcardProperty:
+      allOf:
+        - $ref: '#/components/schemas/DocValuesPropertyBase'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - wildcard
+            null_value:
+              type: string
+            normalizer:
+              type: string
+          required:
+            - type
+    DateNanosProperty:
+      allOf:
+        - $ref: '#/components/schemas/DocValuesPropertyBase'
+        - type: object
+          properties:
+            boost:
+              type: number
+              format: double
+            format:
+              type: string
+            ignore_malformed:
+              type: boolean
+            index:
+              type: boolean
+            null_value:
+              $ref: '_common.yaml#/components/schemas/DateTime'
+            precision_step:
+              type: integer
+            type:
+              type: string
+              enum:
+                - date_nanos
+          required:
+            - type
+    DateProperty:
+      allOf:
+        - $ref: '#/components/schemas/DocValuesPropertyBase'
+        - type: object
+          properties:
+            boost:
+              type: number
+              format: double
+            fielddata:
+              $ref: 'indices._common.yaml#/components/schemas/NumericFielddata'
+            format:
+              type: string
+            ignore_malformed:
+              type: boolean
+            index:
+              type: boolean
+            null_value:
+              $ref: '_common.yaml#/components/schemas/DateTime'
+            precision_step:
+              type: integer
+            locale:
+              type: string
+            type:
+              type: string
+              enum:
+                - date
+          required:
+            - type
+    AggregateMetricDoubleProperty:
+      allOf:
+        - $ref: '#/components/schemas/PropertyBase'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - aggregate_metric_double
+            default_metric:
+              type: string
+            metrics:
+              type: array
+              items:
+                type: string
+          required:
+            - default_metric
+            - metrics
+            - type
+    FlatObjectProperty:
+      allOf:
+        - $ref: '#/components/schemas/PropertyBase'
+        - type: object
+          properties:
+            searchable:
+              type: boolean
+            aggregatable:
+              type: boolean
+            type:
+              type: string
+              enum:
+                - flat_object
+          required:
+            - type
+    NestedProperty:
+      allOf:
+        - $ref: '#/components/schemas/CorePropertyBase'
+        - type: object
+          properties:
+            enabled:
+              type: boolean
+            include_in_parent:
+              type: boolean
+            include_in_root:
+              type: boolean
+            type:
+              type: string
+              enum:
+                - nested
+          required:
+            - type
+    ObjectProperty:
+      allOf:
+        - $ref: '#/components/schemas/CorePropertyBase'
+        - type: object
+          properties:
+            enabled:
+              type: boolean
+            type:
+              type: string
+              enum:
+                - object
+    CompletionProperty:
+      allOf:
+        - $ref: '#/components/schemas/DocValuesPropertyBase'
+        - type: object
+          properties:
+            analyzer:
+              type: string
+            contexts:
+              type: array
+              items:
+                $ref: '#/components/schemas/SuggestContext'
+            max_input_length:
+              type: integer
+            preserve_position_increments:
+              type: boolean
+            preserve_separators:
+              type: boolean
+            search_analyzer:
+              type: string
+            type:
+              type: string
+              enum:
+                - completion
+          required:
+            - type
+    SuggestContext:
+      type: object
+      properties:
+        name:
+          $ref: '_common.yaml#/components/schemas/Name'
+        path:
+          $ref: '_common.yaml#/components/schemas/Field'
+        type:
+          type: string
+        precision:
+          oneOf:
+            - type: number
+            - type: string
+      required:
+        - name
+        - type
+    ConstantKeywordProperty:
+      allOf:
+        - $ref: '#/components/schemas/PropertyBase'
+        - type: object
+          properties:
+            value: {}
+            type:
+              type: string
+              enum:
+                - constant_keyword
+          required:
+            - type
+    FieldAliasProperty:
+      allOf:
+        - $ref: '#/components/schemas/PropertyBase'
+        - type: object
+          properties:
+            path:
+              $ref: '_common.yaml#/components/schemas/Field'
+            type:
+              type: string
+              enum:
+                - alias
+          required:
+            - type
+    HistogramProperty:
+      allOf:
+        - $ref: '#/components/schemas/PropertyBase'
+        - type: object
+          properties:
+            ignore_malformed:
+              type: boolean
+            type:
+              type: string
+              enum:
+                - histogram
+          required:
+            - type
+    IpProperty:
+      allOf:
+        - $ref: '#/components/schemas/DocValuesPropertyBase'
+        - type: object
+          properties:
+            boost:
+              type: number
+              format: double
+            index:
+              type: boolean
+            ignore_malformed:
+              type: boolean
+            null_value:
+              type: string
+            type:
+              type: string
+              enum:
+                - ip
+          required:
+            - type
+    Murmur3HashProperty:
+      allOf:
+        - $ref: '#/components/schemas/DocValuesPropertyBase'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - murmur3
+          required:
+            - type
+    TokenCountProperty:
+      allOf:
+        - $ref: '#/components/schemas/DocValuesPropertyBase'
+        - type: object
+          properties:
+            analyzer:
+              type: string
+            boost:
+              type: number
+              format: double
+            index:
+              type: boolean
+            null_value:
+              type: number
+              format: double
+            enable_position_increments:
+              type: boolean
+            type:
+              type: string
+              enum:
+                - token_count
+          required:
+            - type
+    GeoPointProperty:
+      allOf:
+        - $ref: '#/components/schemas/DocValuesPropertyBase'
+        - type: object
+          properties:
+            ignore_malformed:
+              type: boolean
+            ignore_z_value:
+              type: boolean
+            null_value:
+              $ref: '_common.yaml#/components/schemas/GeoLocation'
+            type:
+              type: string
+              enum:
+                - geo_point
+          required:
+            - type
+    GeoShapeProperty:
+      allOf:
+        - $ref: '#/components/schemas/DocValuesPropertyBase'
+        - type: object
+          properties:
+            coerce:
+              type: boolean
+            ignore_malformed:
+              type: boolean
+            ignore_z_value:
+              type: boolean
+            orientation:
+              $ref: '#/components/schemas/GeoOrientation'
+            strategy:
+              $ref: '#/components/schemas/GeoStrategy'
+              deprecated: true
+            distance_error_pct:
+              type: number
+              format: double
+              deprecated: true
+            type:
+              type: string
+              enum:
+                - geo_shape
+          required:
+            - type
+    GeoOrientation:
+      oneOf:
+        # eslint-disable yml/sort-sequence-values
+        - title: left
+          type: string
+          enum:
+            - left
+            - LEFT
+            - clockwise
+            - cw
+        - title: right
+          type: string
+          enum:
+            - right
+            - RIGHT
+            - counterclockwise
+            - ccw
+        # eslint-enable yml/sort-sequence-values
+    GeoStrategy:
+      type: string
+      enum:
+        - recursive
+        - term
+    XyPointProperty:
+      x-version-added: '2.4'
+      allOf:
+        - $ref: '#/components/schemas/DocValuesPropertyBase'
+        - type: object
+          properties:
+            ignore_malformed:
+              type: boolean
+            ignore_z_value:
+              type: boolean
+            null_value:
+              $ref: '_common.yaml#/components/schemas/XyLocation'
+            type:
+              type: string
+              enum:
+                - xy_point
+          required:
+            - type
+    XyShapeProperty:
+      x-version-added: '2.4'
+      allOf:
+        - $ref: '#/components/schemas/DocValuesPropertyBase'
+        - type: object
+          properties:
+            coerce:
+              type: boolean
+            ignore_malformed:
+              type: boolean
+            ignore_z_value:
+              type: boolean
+            orientation:
+              $ref: '#/components/schemas/GeoOrientation'
+            type:
+              type: string
+              enum:
+                - xy_shape
+          required:
+            - type
+    ByteNumberProperty:
+      allOf:
+        - $ref: '#/components/schemas/NumberPropertyBase'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - byte
+            null_value:
+              $ref: '_common.yaml#/components/schemas/byte'
+          required:
+            - type
+    NumberPropertyBase:
+      allOf:
+        - $ref: '#/components/schemas/DocValuesPropertyBase'
+        - type: object
+          properties:
+            boost:
+              type: number
+              format: double
+            coerce:
+              type: boolean
+            ignore_malformed:
+              type: boolean
+            index:
+              type: boolean
+    DoubleNumberProperty:
+      allOf:
+        - $ref: '#/components/schemas/NumberPropertyBase'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - double
+            null_value:
+              type: number
+              format: double
+          required:
+            - type
+    FloatNumberProperty:
+      allOf:
+        - $ref: '#/components/schemas/NumberPropertyBase'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - float
+            null_value:
+              type: number
+              format: float
+          required:
+            - type
+    HalfFloatNumberProperty:
+      allOf:
+        - $ref: '#/components/schemas/NumberPropertyBase'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - half_float
+            null_value:
+              type: number
+              format: float
+          required:
+            - type
+    IntegerNumberProperty:
+      allOf:
+        - $ref: '#/components/schemas/NumberPropertyBase'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - integer
+            null_value:
+              type: integer
+          required:
+            - type
+    LongNumberProperty:
+      allOf:
+        - $ref: '#/components/schemas/NumberPropertyBase'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - long
+            null_value:
+              type: integer
+              format: int64
+          required:
+            - type
+    ScaledFloatNumberProperty:
+      allOf:
+        - $ref: '#/components/schemas/NumberPropertyBase'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - scaled_float
+            null_value:
+              type: number
+              format: double
+            scaling_factor:
+              type: number
+              format: double
+          required:
+            - type
+    SemanticProperty:
+      x-version-added: '3.1'
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - semantic
+        raw_field_type:
+          type: string
+        model_id:
+          type: string
+        search_model_id:
+          type: string
+        semantic_info_field_name:
+          type: string
+        chunking:
+          oneOf:
+            - type: boolean
+            - type: array
+              items:
+                $ref: '#/components/schemas/SemanticChunkingStrategy'
+        semantic_field_search_analyzer:
+          type: string
+        dense_embedding_config:
+          $ref: '#/components/schemas/SemanticDenseEmbeddingConfig'
+        sparse_encoding_config:
+          $ref: '#/components/schemas/SemanticSparseEncodingConfig'
+        skip_existing_embedding:
+          type: boolean
+          default: false
+      required:
+        - model_id
+        - type
+    ShortNumberProperty:
+      allOf:
+        - $ref: '#/components/schemas/NumberPropertyBase'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - short
+            null_value:
+              $ref: '_common.yaml#/components/schemas/short'
+          required:
+            - type
+    UnsignedLongNumberProperty:
+      allOf:
+        - $ref: '#/components/schemas/NumberPropertyBase'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - unsigned_long
+            null_value:
+              $ref: '_common.yaml#/components/schemas/ulong'
+          required:
+            - type
+    DateRangeProperty:
+      allOf:
+        - $ref: '#/components/schemas/RangePropertyBase'
+        - type: object
+          properties:
+            format:
+              type: string
+            type:
+              type: string
+              enum:
+                - date_range
+          required:
+            - type
+    RangePropertyBase:
+      allOf:
+        - $ref: '#/components/schemas/DocValuesPropertyBase'
+        - type: object
+          properties:
+            boost:
+              type: number
+              format: double
+            coerce:
+              type: boolean
+            index:
+              type: boolean
+    KnnVectorMethod:
+      type: object
+      properties:
+        name:
+          type: string
+        space_type:
+          type: string
+        engine:
+          type: string
+        parameters:
+          type: object
+          additionalProperties: {}
+      required:
+        - name
+    DoubleRangeProperty:
+      allOf:
+        - $ref: '#/components/schemas/RangePropertyBase'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - double_range
+          required:
+            - type
+    FloatRangeProperty:
+      allOf:
+        - $ref: '#/components/schemas/RangePropertyBase'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - float_range
+          required:
+            - type
+    IntegerRangeProperty:
+      allOf:
+        - $ref: '#/components/schemas/RangePropertyBase'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - integer_range
+          required:
+            - type
+    IpRangeProperty:
+      allOf:
+        - $ref: '#/components/schemas/RangePropertyBase'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - ip_range
+          required:
+            - type
+    LongRangeProperty:
+      allOf:
+        - $ref: '#/components/schemas/RangePropertyBase'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - long_range
+          required:
+            - type
+    KnnVectorProperty:
+      allOf:
+        - $ref: '#/components/schemas/DocValuesPropertyBase'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - knn_vector
+            dimension:
+              type: integer
+            space_type:
+              type: string
+            data_type:
+              type: string
+            mode:
+              type: string
+            compression_level:
+              type: string
+            method:
+              $ref: '#/components/schemas/KnnVectorMethod'
+            model_id:
+              type: string
+          required:
+            - dimension
+            - type
+    IcuCollationKeywordProperty:
+      allOf:
+        - $ref: '#/components/schemas/DocValuesPropertyBase'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - icu_collation_keyword
+            index:
+              type: boolean
+            null_value:
+              type: string
+            alternate:
+              $ref: '_common.analysis.yaml#/components/schemas/IcuCollationAlternate'
+            case_level:
+              type: boolean
+            case_first:
+              $ref: '_common.analysis.yaml#/components/schemas/IcuCollationCaseFirst'
+            decomposition:
+              $ref: '_common.analysis.yaml#/components/schemas/IcuCollationDecomposition'
+            hiragana_quaternary_mode:
+              type: boolean
+            numeric:
+              type: boolean
+            strength:
+              $ref: '_common.analysis.yaml#/components/schemas/IcuCollationStrength'
+            variable_top:
+              type: string
+            country:
+              type: string
+            language:
+              type: string
+            variant:
+              type: string
+          required:
+            - type
+    MatchType:
+      type: string
+      enum:
+        - regex
+        - simple
+    FieldNamesField:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+      required:
+        - enabled
+    IndexField:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+      required:
+        - enabled
+    RoutingField:
+      type: object
+      properties:
+        required:
+          type: boolean
+      required:
+        - required
+    SizeField:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+      required:
+        - enabled
+    SourceField:
+      type: object
+      properties:
+        compress:
+          type: boolean
+        compress_threshold:
+          type: string
+        enabled:
+          type: boolean
+        excludes:
+          type: array
+          items:
+            type: string
+        includes:
+          type: array
+          items:
+            type: string
+    DataStreamTimestamp:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+      required:
+        - enabled
+    FieldMapping:
+      type: object
+      properties:
+        full_name:
+          type: string
+        mapping:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Property'
+          minProperties: 1
+          maxProperties: 1
+      required:
+        - full_name
+        - mapping
+    SemanticChunkingStrategy:
+      type: object
+      properties:
+        algorithm:
+          type: string
+        parameters:
+          type: object
+          additionalProperties: {}
+      required:
+        - algorithm
+    SemanticDenseEmbeddingConfig:
+      type: object
+      properties:
+        data_type:
+          type: string
+        mode:
+          type: string
+        compression_level:
+          type: string
+        method:
+          $ref: '#/components/schemas/KnnVectorMethod'
+    SemanticSparseEncodingConfig:
+      type: object
+      properties:
+        prune_type:
+          type: string
+        prune_ratio:
+          type: number

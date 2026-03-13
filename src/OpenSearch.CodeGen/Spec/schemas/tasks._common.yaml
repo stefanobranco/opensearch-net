@@ -1,0 +1,140 @@
+openapi: 3.1.0
+info:
+  title: Schemas of `tasks._common` Category
+  description: Schemas of `tasks._common` category.
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    TaskListResponseBase:
+      type: object
+      properties:
+        node_failures:
+          type: array
+          items:
+            $ref: '_common.yaml#/components/schemas/ErrorCause'
+        task_failures:
+          type: array
+          items:
+            $ref: '_common.yaml#/components/schemas/TaskFailure'
+        nodes:
+          description: Task information grouped by node, if `group_by` was set to `node` (the default).
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/TaskExecutingNode'
+        tasks:
+          $ref: '#/components/schemas/TaskInfos'
+    TaskExecutingNode:
+      allOf:
+        - $ref: '_common.yaml#/components/schemas/BaseNode'
+        - type: object
+          properties:
+            tasks:
+              type: object
+              additionalProperties:
+                $ref: '#/components/schemas/TaskInfo'
+          required:
+            - tasks
+    TaskInfoBase:
+      type: object
+      properties:
+        action:
+          type: string
+        cancelled:
+          type: boolean
+        cancellable:
+          type: boolean
+        cancellation_time_millis:
+          $ref: '_common.yaml#/components/schemas/EpochTimeUnitMillis'
+        description:
+          type: string
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+        id:
+          type: integer
+          format: int64
+        node:
+          $ref: '_common.yaml#/components/schemas/NodeId'
+        running_time:
+          $ref: '_common.yaml#/components/schemas/Duration'
+        running_time_in_nanos:
+          $ref: '_common.yaml#/components/schemas/DurationValueUnitNanos'
+        start_time_in_millis:
+          $ref: '_common.yaml#/components/schemas/EpochTimeUnitMillis'
+        status:
+          $ref: '#/components/schemas/Status'
+        type:
+          type: string
+        parent_task_id:
+          $ref: '_common.yaml#/components/schemas/TaskId'
+        resource_stats:
+          $ref: '_common.yaml#/components/schemas/ResourceStats'          
+      required:
+        - action
+        - cancellable
+        - headers
+        - id
+        - node
+        - running_time_in_nanos
+        - start_time_in_millis
+        - type
+    TaskInfo:
+      allOf:
+        - $ref: '#/components/schemas/TaskInfoBase'
+        - type: object
+          properties: {}
+    TaskInfos:
+      oneOf:
+        - title: grouped_by_none
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskInfo'
+        - title: grouped_by_parents
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/TaskGroup'
+    TaskGroup:
+      allOf:
+        - $ref: '#/components/schemas/TaskInfoBase'
+        - type: object
+          properties:
+            children:
+              type: array
+              items:
+                $ref: '#/components/schemas/TaskGroup'
+    GroupBy:
+      type: string
+      enum:
+        - nodes
+        - none
+        - parents
+    Status:
+      description: Task status information can vary wildly from task to task.
+      anyOf:
+        - $ref: '#/components/schemas/ReplicationTaskStatus'
+        - $ref: '_common.yaml#/components/schemas/BulkByScrollTaskStatus'
+        - $ref: '#/components/schemas/PersistentTaskStatus'
+        - $ref: '#/components/schemas/RawTaskStatus'
+    ReplicationTaskStatus:
+      type: object
+      properties:
+        phase:
+          type: string
+      required:
+        - phase
+    PersistentTaskStatus:
+      type: object
+      properties:
+        state:
+          type: string
+      required:
+        - state
+    RawTaskStatus:
+      type: object
+      additionalProperties:
+        title: metadata
+    TaskResponse:
+      anyOf:
+        - $ref: '_common.yaml#/components/schemas/BulkByScrollResponseBase'

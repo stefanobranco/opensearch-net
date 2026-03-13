@@ -1,0 +1,20 @@
+openapi: 3.1.0
+info:
+  title: Schemas of `cluster.state` Category
+  description: Schemas of `cluster.state` category.
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    Metric:
+      type: string
+      enum:
+        - _all
+        - blocks
+        - cluster_manager_node
+        - master_node
+        - metadata
+        - nodes
+        - routing_nodes
+        - routing_table
+        - version

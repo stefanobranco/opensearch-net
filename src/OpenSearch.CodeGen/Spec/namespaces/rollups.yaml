@@ -1,0 +1,194 @@
+openapi: 3.1.0
+info:
+  title: OpenSearch Index Rollups API
+  description: OpenSearch Index Rollups API.
+  version: 1.0.0
+paths:
+  /_plugins/_rollup/jobs/{id}:
+    get:
+      operationId: rollups.get.0
+      x-operation-group: rollups.get
+      x-version-added: '1.0'
+      description: Retrieves an index rollup job configuration by ID.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/im-plugin/index-rollups/rollup-api/#get-an-index-rollup-job
+      parameters:
+        - $ref: '#/components/parameters/rollups.get::path.id'
+      responses:
+        '200':
+          $ref: '#/components/responses/rollups.get@200'
+    put:
+      operationId: rollups.put.0
+      x-operation-group: rollups.put
+      x-version-added: '1.0'
+      description: Creates or updates an index rollup job configuration.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/im-plugin/index-rollups/rollup-api/#create-or-update-an-index-rollup-job
+      responses:
+        '201':
+          $ref: '#/components/responses/rollups.put@201'
+      parameters:
+        - $ref: '#/components/parameters/rollups.put::path.id'
+        - $ref: '#/components/parameters/rollups.put::query.if_primary_term'
+        - $ref: '#/components/parameters/rollups.put::query.if_seq_no'
+      requestBody:
+        $ref: '#/components/requestBodies/rollups.put'
+    delete:
+      operationId: rollups.delete.0
+      x-operation-group: rollups.delete
+      x-version-added: '1.0'
+      description: Deletes an index rollup job configuration.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/im-plugin/index-rollups/rollup-api/#delete-an-index-rollup-job
+      responses:
+        '200':
+          $ref: '#/components/responses/rollups.delete@200'
+      parameters:
+        - $ref: '#/components/parameters/rollups.delete::path.id'
+  /_plugins/_rollup/jobs/{id}/_start:
+    post:
+      operationId: rollups.start.0
+      x-operation-group: rollups.start
+      x-version-added: '1.0'
+      description: Starts the execution of an index rollup job.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/im-plugin/index-rollups/rollup-api/#start-or-stop-an-index-rollup-job
+      parameters:
+        - $ref: '#/components/parameters/rollups.start::path.id'
+      responses:
+        '200':
+          $ref: '#/components/responses/rollups.start@200'
+  /_plugins/_rollup/jobs/{id}/_stop:
+    post:
+      operationId: rollups.stop.0
+      x-operation-group: rollups.stop
+      x-version-added: '1.0'
+      description: Stops the execution of an index rollup job.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/im-plugin/index-rollups/rollup-api/#start-or-stop-an-index-rollup-job
+      parameters:
+        - $ref: '#/components/parameters/rollups.stop::path.id'
+      responses:
+        '200':
+          $ref: '#/components/responses/rollups.stop@200'
+  /_plugins/_rollup/jobs/{id}/_explain:
+    get:
+      operationId: rollups.explain.0
+      x-operation-group: rollups.explain
+      x-version-added: '1.0'
+      description: Retrieves the execution status information for an index rollup job.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/im-plugin/index-rollups/rollup-api/#explain-an-index-rollup-job
+      parameters:
+        - $ref: '#/components/parameters/rollups.explain::path.id'
+      responses:
+        '200':
+          $ref: '#/components/responses/rollups.explain@200'
+components:
+  requestBodies:
+    rollups.put:
+      description: Updates the rollup job configuration.
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/rollups._common.yaml#/components/schemas/RollupEntity'
+  responses:
+    rollups.get@200:
+      description: Returns the requested rollup job configuration.
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/rollups._common.yaml#/components/schemas/RollupEntity'
+    rollups.put@201:
+      description: Returns the created or updated rollup job configuration.
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/rollups._common.yaml#/components/schemas/RollupEntity'
+    rollups.delete@200:
+      description: Confirms the successful deletion of the rollup job.
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/_common.yaml#/components/schemas/WriteResponseBase'
+    rollups.start@200:
+      description: Confirms the successful start of the rollup job.
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/_common.yaml#/components/schemas/AcknowledgedResponseBase'
+    rollups.stop@200:
+      description: Confirms the successful stop of the rollup job.
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/_common.yaml#/components/schemas/AcknowledgedResponseBase'
+    rollups.explain@200:
+      description: Returns any status information about the rollup job.
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/rollups._common.yaml#/components/schemas/ExplainEntities'
+  parameters:
+    rollups.get::path.id:
+      name: id
+      in: path
+      description: The ID of the rollup job.
+      required: true
+      schema:
+        $ref: '../schemas/_common.yaml#/components/schemas/Id'
+      style: simple
+    rollups.put::path.id:
+      name: id
+      in: path
+      description: The ID of the rollup job.
+      required: true
+      schema:
+        $ref: '../schemas/_common.yaml#/components/schemas/Id'
+      style: simple
+    rollups.delete::path.id:
+      name: id
+      in: path
+      description: The ID of the rollup job.
+      required: true
+      schema:
+        $ref: '../schemas/_common.yaml#/components/schemas/Id'
+      style: simple
+    rollups.start::path.id:
+      name: id
+      in: path
+      description: The ID of the rollup job.
+      required: true
+      schema:
+        $ref: '../schemas/_common.yaml#/components/schemas/Id'
+      style: simple
+    rollups.stop::path.id:
+      name: id
+      in: path
+      description: The ID of the rollup job.
+      required: true
+      schema:
+        $ref: '../schemas/_common.yaml#/components/schemas/Id'
+      style: simple
+    rollups.explain::path.id:
+      name: id
+      in: path
+      description: The ID of the rollup job.
+      required: true
+      schema:
+        $ref: '../schemas/_common.yaml#/components/schemas/Id'
+      style: simple
+    rollups.put::query.if_seq_no:
+      name: if_seq_no
+      in: query
+      description: Only performs the operation if the document has the specified sequence number.
+      schema:
+        $ref: '../schemas/_common.yaml#/components/schemas/SequenceNumber'
+      style: form
+    rollups.put::query.if_primary_term:
+      name: if_primary_term
+      in: query
+      description: Only performs the operation if the document has the specified primary term.
+      schema:
+        type: number
+      style: form
