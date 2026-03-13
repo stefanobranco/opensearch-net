@@ -100,4 +100,19 @@ public sealed class RefResolver
 	/// </summary>
 	public YamlMappingNode ResolveMapping(string refString, string contextFile) =>
 		(YamlMappingNode)Resolve(refString, contextFile);
+
+	/// <summary>
+	/// Given a $ref string and the file it appeared in, returns the updated context file
+	/// that should be used for further resolution of refs within the resolved node.
+	/// </summary>
+	public string ResolveContextFile(string refString, string contextFile)
+	{
+		var hashIndex = refString.IndexOf('#');
+		if (hashIndex <= 0)
+			return contextFile;
+
+		var relPath = refString[..hashIndex];
+		var contextDir = Path.GetDirectoryName(contextFile) ?? _specDir;
+		return Path.GetFullPath(Path.Combine(contextDir, relPath));
+	}
 }

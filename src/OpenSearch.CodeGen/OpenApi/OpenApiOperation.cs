@@ -1,5 +1,4 @@
 using YamlDotNet.RepresentationModel;
-using IOPath = System.IO.Path;
 
 namespace OpenSearch.CodeGen.OpenApi;
 
@@ -27,11 +26,11 @@ public sealed class OpenApiOperation
 		RefResolver resolver,
 		string contextFile)
 	{
-		var operationId = GetScalar(node, "operationId") ?? "";
-		var operationGroup = GetScalar(node, "x-operation-group") ?? "";
-		var description = GetScalar(node, "description");
-		var deprecated = GetScalar(node, "deprecated") == "true";
-		var ignorable = GetScalar(node, "x-ignorable") == "true";
+		var operationId = node.GetScalar("operationId") ?? "";
+		var operationGroup = node.GetScalar("x-operation-group") ?? "";
+		var description = node.GetScalar("description");
+		var deprecated = node.GetScalar("deprecated") == "true";
+		var ignorable = node.GetScalar("x-ignorable") == "true";
 
 		// Parse parameters
 		var parameters = new List<OpenApiParameter>();
@@ -47,7 +46,7 @@ public sealed class OpenApiOperation
 		OpenApiSchema? requestBody = null;
 		if (node.Children.TryGetValue(new YamlScalarNode("requestBody"), out var bodyNode))
 		{
-			requestBody = ResolveRequestBody(bodyNode, resolver, contextFile);
+			requestBody = ResolveBodySchema(bodyNode, resolver, contextFile);
 		}
 
 		// Parse response (use first 2xx response)
@@ -59,7 +58,7 @@ public sealed class OpenApiOperation
 				var statusCode = ((YamlScalarNode)kv.Key).Value!;
 				if (statusCode.StartsWith('2'))
 				{
-					responseSchema = ResolveResponseBody(kv.Value, resolver, contextFile);
+					responseSchema = ResolveBodySchema(kv.Value, resolver, contextFile);
 					break;
 				}
 			}
@@ -81,20 +80,14 @@ public sealed class OpenApiOperation
 		};
 	}
 
-	private static OpenApiSchema? ResolveRequestBody(YamlNode node, RefResolver resolver, string contextFile)
+	private static OpenApiSchema? ResolveBodySchema(YamlNode node, RefResolver resolver, string contextFile)
 	{
 		// Handle $ref
 		if (node is YamlMappingNode mapping && mapping.Children.TryGetValue(new YamlScalarNode("$ref"), out var refNode))
 		{
 			var refStr = ((YamlScalarNode)refNode).Value!;
 			node = resolver.Resolve(refStr, contextFile);
-			var hashIndex = refStr.IndexOf('#');
-			if (hashIndex > 0)
-			{
-				var relPath = refStr[..hashIndex];
-				var contextDir = IOPath.GetDirectoryName(contextFile) ?? "";
-				contextFile = IOPath.GetFullPath(IOPath.Combine(contextDir, relPath));
-			}
+			contextFile = resolver.ResolveContextFile(refStr, contextFile);
 			mapping = (YamlMappingNode)node;
 		}
 		else if (node is not YamlMappingNode)
@@ -117,46 +110,4 @@ public sealed class OpenApiOperation
 		return new OpenApiSchema(schemaNode, resolver, contextFile);
 	}
 
-	private static OpenApiSchema? ResolveResponseBody(YamlNode node, RefResolver resolver, string contextFile)
-	{
-		// Handle $ref
-		if (node is YamlMappingNode mapping && mapping.Children.TryGetValue(new YamlScalarNode("$ref"), out var refNode))
-		{
-			var refStr = ((YamlScalarNode)refNode).Value!;
-			node = resolver.Resolve(refStr, contextFile);
-			var hashIndex = refStr.IndexOf('#');
-			if (hashIndex > 0)
-			{
-				var relPath = refStr[..hashIndex];
-				var contextDir = IOPath.GetDirectoryName(contextFile) ?? "";
-				contextFile = IOPath.GetFullPath(IOPath.Combine(contextDir, relPath));
-			}
-			mapping = (YamlMappingNode)node;
-		}
-		else if (node is not YamlMappingNode)
-			return null;
-		else
-			mapping = (YamlMappingNode)node;
-
-		// Navigate: content -> application/json -> schema
-		if (!mapping.Children.TryGetValue(new YamlScalarNode("content"), out var contentNode))
-			return null;
-		if (contentNode is not YamlMappingNode contentMapping)
-			return null;
-		if (!contentMapping.Children.TryGetValue(new YamlScalarNode("application/json"), out var jsonNode))
-			return null;
-		if (jsonNode is not YamlMappingNode jsonMapping)
-			return null;
-		if (!jsonMapping.Children.TryGetValue(new YamlScalarNode("schema"), out var schemaNode))
-			return null;
-
-		return new OpenApiSchema(schemaNode, resolver, contextFile);
-	}
-
-	private static string? GetScalar(YamlMappingNode node, string key)
-	{
-		if (node.Children.TryGetValue(new YamlScalarNode(key), out var child) && child is YamlScalarNode scalar)
-			return scalar.Value;
-		return null;
-	}
 }

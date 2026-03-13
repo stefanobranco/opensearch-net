@@ -38,7 +38,7 @@ public sealed class CodeRenderer
 		{
 			var dir = Path.Combine(nsDir, "Types");
 			var ctx = TemplateHelpers.BuildObjectContext(objectShape);
-			RenderToFile(_templates.Load("Object.sbn"), ctx, dir, $"{objectShape.ClassName}.cs");
+			RenderToFile(_templates.Load("Response.sbn"), ctx, dir, $"{objectShape.ClassName}.cs");
 		}
 
 		// Render requests + responses
@@ -56,14 +56,8 @@ public sealed class CodeRenderer
 				var respCtx = TemplateHelpers.BuildDictionaryResponseContext(request.Response);
 				RenderToFile(_templates.Load("DictionaryResponse.sbn"), respCtx, respDir, $"{request.Response.ClassName}.cs");
 			}
-			else if (!request.Response.IsHeadResponse)
-			{
-				var respCtx = TemplateHelpers.BuildResponseContext(request.Response);
-				RenderToFile(_templates.Load("Response.sbn"), respCtx, respDir, $"{request.Response.ClassName}.cs");
-			}
 			else
 			{
-				// HEAD response — still render a response class with the Exists property
 				var respCtx = TemplateHelpers.BuildResponseContext(request.Response);
 				RenderToFile(_templates.Load("Response.sbn"), respCtx, respDir, $"{request.Response.ClassName}.cs");
 			}

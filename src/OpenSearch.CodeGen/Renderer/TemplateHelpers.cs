@@ -15,7 +15,7 @@ public static class TemplateHelpers
 		obj["namespace"] = request.Namespace;
 		obj["class_name"] = request.ClassName;
 		obj["description"] = SanitizeDescription(request.Description);
-		obj["endpoint_name"] = request.ClassName.Replace("Request", "Endpoint");
+		obj["endpoint_name"] = request.EndpointName;
 		obj["response_name"] = request.Response.ClassName;
 		obj["http_method"] = request.HttpMethod;
 		obj["has_body"] = request.HasBody;
@@ -88,7 +88,7 @@ public static class TemplateHelpers
 			var op = new ScriptObject();
 			op["class_name"] = req.ClassName;
 			op["response_name"] = req.Response.ClassName;
-			op["endpoint_name"] = req.ClassName.Replace("Request", "Endpoint");
+			op["endpoint_name"] = req.EndpointName;
 			op["method_name"] = NamingConventions.OperationGroupToMethodName(req.OperationGroup);
 			op["description"] = SanitizeDescription(req.Description) ?? req.OperationGroup;
 			ops.Add(op);
@@ -151,10 +151,8 @@ public static class TemplateHelpers
 	private static string ComputePropertyType(Field field)
 	{
 		var baseName = field.Type.CSharpName;
-		var isValueType = field.Type.Kind == TypeRefKind.Primitive
-			&& field.Type.Name is "bool" or "int" or "long" or "float" or "double";
 
-		if (isValueType)
+		if (field.Type.IsValueType)
 		{
 			// Required value types stay non-nullable; optional value types get ?
 			return field.Required ? baseName : baseName + "?";

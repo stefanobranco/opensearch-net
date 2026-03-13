@@ -88,7 +88,7 @@ public sealed class TypeRef
 		return name;
 	}
 
-	private bool IsValueType => Kind == TypeRefKind.Primitive && Name is "bool" or "int" or "long" or "float" or "double";
+	internal bool IsValueType => Kind == TypeRefKind.Primitive && Name is "bool" or "int" or "long" or "float" or "double";
 
 	public override string ToString() => CSharpName;
 }

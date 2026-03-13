@@ -77,6 +77,9 @@ public sealed class RequestShape : Shape
 	/// <summary>Whether this is a HEAD request (response has no body).</summary>
 	public bool IsHead => HttpMethod == "Head";
 
+	/// <summary>The endpoint class name (e.g., "CreateEndpoint").</summary>
+	public required string EndpointName { get; init; }
+
 	/// <summary>The response shape for this request.</summary>
 	public required ResponseShape Response { get; init; }
 }

@@ -24,22 +24,15 @@ public sealed class OpenApiParameter
 		{
 			var refStr = ((YamlScalarNode)refNode).Value!;
 			node = resolver.Resolve(refStr, contextFile);
-			// Update context file if ref is cross-file
-			var hashIndex = refStr.IndexOf('#');
-			if (hashIndex > 0)
-			{
-				var relPath = refStr[..hashIndex];
-				var contextDir = Path.GetDirectoryName(contextFile) ?? "";
-				contextFile = Path.GetFullPath(Path.Combine(contextDir, relPath));
-			}
+			contextFile = resolver.ResolveContextFile(refStr, contextFile);
 		}
 
 		var m = (YamlMappingNode)node;
-		var name = GetScalar(m, "name")!;
-		var inValue = GetScalar(m, "in")!;
-		var required = GetScalar(m, "required") == "true";
-		var deprecated = GetScalar(m, "deprecated") == "true";
-		var description = GetScalar(m, "description");
+		var name = m.GetScalar("name")!;
+		var inValue = m.GetScalar("in")!;
+		var required = m.GetScalar("required") == "true";
+		var deprecated = m.GetScalar("deprecated") == "true";
+		var description = m.GetScalar("description");
 
 		OpenApiSchema schema;
 		if (m.Children.TryGetValue(new YamlScalarNode("schema"), out var schemaNode))
@@ -58,10 +51,4 @@ public sealed class OpenApiParameter
 		};
 	}
 
-	private static string? GetScalar(YamlMappingNode node, string key)
-	{
-		if (node.Children.TryGetValue(new YamlScalarNode(key), out var child) && child is YamlScalarNode scalar)
-			return scalar.Value;
-		return null;
-	}
 }

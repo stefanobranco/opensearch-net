@@ -92,6 +92,7 @@ public sealed class SpecTransformer
 				PathParams = pathParams,
 				QueryParams = queryParams,
 				BodyFields = bodyFields,
+				EndpointName = endpointName,
 				Response = responseShape
 			};
 
@@ -178,38 +179,12 @@ public sealed class SpecTransformer
 				var memberResolved = allOfMember.Resolved();
 				foreach (var r in memberResolved.Required)
 					required.Add(r);
-				foreach (var (name, propSchema) in memberResolved.Properties)
-				{
-					if (name.Contains('.'))
-						continue;
-					fields.Add(new Field
-					{
-						Name = NamingConventions.ToPascalCase(name),
-						WireName = name,
-						Type = typeMapper.Map(propSchema),
-						Required = required.Contains(name),
-						Description = propSchema.Description,
-						Deprecated = propSchema.Deprecated
-					});
-				}
+				CollectResponseFields(memberResolved, fields, required, typeMapper);
 			}
 		}
 		else
 		{
-			foreach (var (name, propSchema) in resolved.Properties)
-			{
-				if (name.Contains('.'))
-					continue;
-				fields.Add(new Field
-				{
-					Name = NamingConventions.ToPascalCase(name),
-					WireName = name,
-					Type = typeMapper.Map(propSchema),
-					Required = required.Contains(name),
-					Description = propSchema.Description,
-					Deprecated = propSchema.Deprecated
-				});
-			}
+			CollectResponseFields(resolved, fields, required, typeMapper);
 		}
 
 		return new ResponseShape
@@ -222,9 +197,14 @@ public sealed class SpecTransformer
 		};
 	}
 
-	private void CollectBodyFields(OpenApiSchema schema, List<Field> fields, TypeMapper typeMapper)
+	private void CollectBodyFields(OpenApiSchema schema, List<Field> fields, TypeMapper typeMapper, HashSet<string>? parentRequired = null)
 	{
 		var required = new HashSet<string>(schema.Required);
+		if (parentRequired is not null)
+		{
+			foreach (var r in parentRequired)
+				required.Add(r);
+		}
 
 		// Handle allOf in body schemas
 		if (schema.AllOf.Count > 0)
@@ -232,7 +212,7 @@ public sealed class SpecTransformer
 			foreach (var allOfMember in schema.AllOf)
 			{
 				var resolved = allOfMember.Resolved();
-				CollectBodyFields(resolved, fields, typeMapper);
+				CollectBodyFields(resolved, fields, typeMapper, required);
 			}
 			return;
 		}
@@ -247,6 +227,24 @@ public sealed class SpecTransformer
 				Name = NamingConventions.ToPascalCase(name),
 				WireName = name,
 				Type = fieldType,
+				Required = required.Contains(name),
+				Description = propSchema.Description,
+				Deprecated = propSchema.Deprecated
+			});
+		}
+	}
+
+	private static void CollectResponseFields(OpenApiSchema schema, List<Field> fields, HashSet<string> required, TypeMapper typeMapper)
+	{
+		foreach (var (name, propSchema) in schema.Properties)
+		{
+			if (name.Contains('.'))
+				continue;
+			fields.Add(new Field
+			{
+				Name = NamingConventions.ToPascalCase(name),
+				WireName = name,
+				Type = typeMapper.Map(propSchema),
 				Required = required.Contains(name),
 				Description = propSchema.Description,
 				Deprecated = propSchema.Deprecated
