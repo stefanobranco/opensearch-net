@@ -41,9 +41,12 @@ public sealed class AwsSigV4HttpMessageHandler : DelegatingHandler
 		HttpMessageHandler? innerHandler = null)
 		: base(innerHandler ?? new HttpClientHandler())
 	{
-		_credentials = credentials ?? throw new ArgumentNullException(nameof(credentials));
-		_region = region ?? throw new ArgumentNullException(nameof(region));
-		_service = service ?? throw new ArgumentNullException(nameof(service));
+		ArgumentNullException.ThrowIfNull(credentials);
+		ArgumentNullException.ThrowIfNull(region);
+		ArgumentNullException.ThrowIfNull(service);
+		_credentials = credentials;
+		_region = region;
+		_service = service;
 	}
 
 	/// <inheritdoc />
@@ -69,16 +72,12 @@ public sealed class AwsSigV4HttpMessageHandler : DelegatingHandler
 		var dateStamp = now.ToString("yyyyMMdd");
 		var amzDate = now.ToString("yyyyMMddTHHmmssZ");
 
-		// Read body bytes for signing.
 		byte[] bodyBytes = [];
 		if (request.Content is not null)
-		{
 			bodyBytes = await request.Content.ReadAsByteArrayAsync(ct).ConfigureAwait(false);
-		}
 
 		var bodyHash = HashSha256(bodyBytes);
 
-		// Set required headers.
 		request.Headers.Remove("x-amz-date");
 		request.Headers.TryAddWithoutValidation("x-amz-date", amzDate);
 		request.Headers.Remove("x-amz-content-sha256");
@@ -90,15 +89,12 @@ public sealed class AwsSigV4HttpMessageHandler : DelegatingHandler
 			request.Headers.TryAddWithoutValidation("x-amz-security-token", immutableCredentials.Token);
 		}
 
-		// Ensure Host header is present.
 		if (request.Headers.Host is null && request.RequestUri is not null)
 			request.Headers.Host = request.RequestUri.Host;
 
-		// Build canonical request.
 		var canonicalUri = request.RequestUri!.AbsolutePath;
 		var canonicalQueryString = BuildCanonicalQueryString(request.RequestUri);
 
-		// Canonical headers: sorted by lowercase header name.
 		var signedHeaders = new SortedDictionary<string, string>(StringComparer.Ordinal)
 		{
 			["host"] = request.Headers.Host ?? request.RequestUri.Host,
@@ -120,7 +116,6 @@ public sealed class AwsSigV4HttpMessageHandler : DelegatingHandler
 			signedHeaderNames,
 			bodyHash);
 
-		// Build string to sign.
 		var credentialScope = $"{dateStamp}/{_region}/{_service}/aws4_request";
 		var stringToSign = string.Join("\n",
 			"AWS4-HMAC-SHA256",
@@ -128,18 +123,15 @@ public sealed class AwsSigV4HttpMessageHandler : DelegatingHandler
 			credentialScope,
 			HashSha256(Encoding.UTF8.GetBytes(canonicalRequest)));
 
-		// Calculate signature.
 		var signingKey = GetSigningKey(immutableCredentials.SecretKey, dateStamp, _region, _service);
 		var signature = HmacSha256Hex(signingKey, stringToSign);
 
-		// Set Authorization header.
 		var authorization =
 			$"AWS4-HMAC-SHA256 Credential={immutableCredentials.AccessKey}/{credentialScope}, " +
 			$"SignedHeaders={signedHeaderNames}, Signature={signature}";
 		request.Headers.Remove("Authorization");
 		request.Headers.TryAddWithoutValidation("Authorization", authorization);
 
-		// Re-set content if we consumed it for signing.
 		if (bodyBytes.Length > 0)
 		{
 			var contentType = request.Content?.Headers.ContentType;

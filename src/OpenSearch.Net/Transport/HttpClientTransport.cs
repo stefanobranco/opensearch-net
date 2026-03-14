@@ -99,12 +99,7 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 
 				var method = endpoint.Method(request);
 
-				// Detect server errors (4xx/5xx) and throw, except for:
-				// - HEAD requests (status already handled in DeserializeResponse)
-				// - GET 404 (valid "not found" response with Found=false)
-				if (statusCode >= 400
-					&& method != HttpMethod.Head
-					&& !(method == HttpMethod.Get && statusCode == 404))
+				if (IsServerError(statusCode, method))
 				{
 					using var errorStream = responseMessage.Content.ReadAsStream();
 					ThrowServerError(statusCode, errorStream, node);
@@ -190,13 +185,10 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 
 				var method = endpoint.Method(request);
 
-				if (statusCode >= 400
-					&& method != HttpMethod.Head
-					&& !(method == HttpMethod.Get && statusCode == 404))
+				if (IsServerError(statusCode, method))
 				{
-					var errorStream = await responseMessage.Content.ReadAsStreamAsync(ct).ConfigureAwait(false);
-					using (errorStream)
-						ThrowServerError(statusCode, errorStream, node);
+					using var errorStream = await responseMessage.Content.ReadAsStreamAsync(ct).ConfigureAwait(false);
+					ThrowServerError(statusCode, errorStream, node);
 				}
 
 				var bodyStream = await responseMessage.Content.ReadAsStreamAsync(ct).ConfigureAwait(false);
@@ -219,6 +211,15 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 
 		return ThrowRetriesExhausted<TResponse>(ref auditTrail, lastException, lastRetryableStatusCode, lastRetryableNode);
 	}
+
+	/// <summary>
+	/// Returns true for 4xx/5xx responses that should throw, excluding HEAD requests
+	/// (status conveyed via deserialization) and GET 404 (valid "not found" with Found=false).
+	/// </summary>
+	private static bool IsServerError(int statusCode, HttpMethod method) =>
+		statusCode >= 400
+		&& method != HttpMethod.Head
+		&& (method != HttpMethod.Get || statusCode != 404);
 
 	[System.Diagnostics.CodeAnalysis.DoesNotReturn]
 	private static void ThrowServerError(int statusCode, Stream body, Node node)
@@ -247,7 +248,7 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 		}
 		catch
 		{
-			// If we can't parse the error body, throw with whatever we have
+			// Body may not be valid JSON; throw with whatever we have.
 		}
 
 		throw new OpenSearchServerException(errorType, reason, statusCode, null, node);
@@ -279,13 +280,15 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 	{
 		GetAuditTrail(ref auditTrail).Add(AuditEventType.AllNodesDead);
 
-		// Only allocate the TransportException for retryable status codes here (deferred from the retry loop).
-		var inner = lastException
-			?? (lastRetryableStatusCode > 0
-				? new TransportException(
-					$"Received retryable status code {lastRetryableStatusCode} from {lastRetryableNode?.Host}",
-					lastRetryableStatusCode, null, lastRetryableNode)
-				: new InvalidOperationException("No attempts were made."));
+		Exception inner;
+		if (lastException is not null)
+			inner = lastException;
+		else if (lastRetryableStatusCode > 0)
+			inner = new TransportException(
+				$"Received retryable status code {lastRetryableStatusCode} from {lastRetryableNode?.Host}",
+				lastRetryableStatusCode, null, lastRetryableNode);
+		else
+			inner = new InvalidOperationException("No attempts were made.");
 
 		throw new TransportException(
 			"Maximum number of retries exhausted. No healthy nodes available.", inner)

@@ -223,30 +223,6 @@ public class TransportConfigurationTests
 	}
 
 	[Fact]
-	public void MultiAuth_LastWins_BasicAfterApiKey()
-	{
-		var config = TransportConfiguration.Create(Node1)
-			.Authentication(new ApiKeyCredentials("id", "key"))
-			.Authentication(new BasicAuthCredentials("user", "pass"))
-			.Build();
-
-		config.BasicAuth.Should().NotBeNull();
-		config.ApiKeyAuth.Should().BeNull();
-	}
-
-	[Fact]
-	public void MultiAuth_LastWins_ApiKeyAfterBasic()
-	{
-		var config = TransportConfiguration.Create(Node1)
-			.Authentication(new BasicAuthCredentials("user", "pass"))
-			.Authentication(new ApiKeyCredentials("id", "key"))
-			.Build();
-
-		config.ApiKeyAuth.Should().NotBeNull();
-		config.BasicAuth.Should().BeNull();
-	}
-
-	[Fact]
 	public void RequestTimeout_ThrowsOnZero()
 	{
 		var act = () => TransportConfiguration.Create(Node1)

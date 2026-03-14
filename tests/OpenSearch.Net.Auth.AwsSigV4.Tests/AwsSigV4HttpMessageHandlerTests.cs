@@ -12,59 +12,36 @@ public class AwsSigV4HttpMessageHandlerTests
 	private static readonly BasicAWSCredentials TestCredentials =
 		new("AKIAIOSFODNN7EXAMPLE", "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY");
 
+	private const string TestEndpoint = "https://search-domain.us-east-1.es.amazonaws.com/";
+
 	[Fact]
 	public async Task SignedRequest_HasAuthorizationHeader()
 	{
-		HttpRequestMessage? capturedRequest = null;
-		var inner = new TestHandler(req =>
-		{
-			capturedRequest = req;
-			return new HttpResponseMessage(HttpStatusCode.OK);
-		});
+		var (capturedRequest, client) = CreateSigningClient(TestCredentials, "us-east-1");
+		using (client) await client.GetAsync(TestEndpoint);
 
-		var handler = new AwsSigV4HttpMessageHandler(TestCredentials, "us-east-1", "es", inner);
-		using var client = new HttpClient(handler);
-		await client.GetAsync("https://search-domain.us-east-1.es.amazonaws.com/");
-
-		capturedRequest.Should().NotBeNull();
-		capturedRequest!.Headers.TryGetValues("Authorization", out var authValues).Should().BeTrue();
-		var authHeader = authValues!.First();
-		authHeader.Should().StartWith("AWS4-HMAC-SHA256 ");
+		capturedRequest.Message.Should().NotBeNull();
+		capturedRequest.Message!.Headers.TryGetValues("Authorization", out var authValues).Should().BeTrue();
+		authValues!.First().Should().StartWith("AWS4-HMAC-SHA256 ");
 	}
 
 	[Fact]
 	public async Task SignedRequest_HasDateHeader()
 	{
-		HttpRequestMessage? capturedRequest = null;
-		var inner = new TestHandler(req =>
-		{
-			capturedRequest = req;
-			return new HttpResponseMessage(HttpStatusCode.OK);
-		});
+		var (capturedRequest, client) = CreateSigningClient(TestCredentials, "us-east-1");
+		using (client) await client.GetAsync(TestEndpoint);
 
-		var handler = new AwsSigV4HttpMessageHandler(TestCredentials, "us-east-1", "es", inner);
-		using var client = new HttpClient(handler);
-		await client.GetAsync("https://search-domain.us-east-1.es.amazonaws.com/");
-
-		capturedRequest!.Headers.TryGetValues("x-amz-date", out var dateValues).Should().BeTrue();
+		capturedRequest.Message!.Headers.TryGetValues("x-amz-date", out var dateValues).Should().BeTrue();
 		dateValues!.First().Should().MatchRegex(@"^\d{8}T\d{6}Z$");
 	}
 
 	[Fact]
 	public async Task SignedRequest_HasContentSha256Header()
 	{
-		HttpRequestMessage? capturedRequest = null;
-		var inner = new TestHandler(req =>
-		{
-			capturedRequest = req;
-			return new HttpResponseMessage(HttpStatusCode.OK);
-		});
+		var (capturedRequest, client) = CreateSigningClient(TestCredentials, "us-east-1");
+		using (client) await client.GetAsync(TestEndpoint);
 
-		var handler = new AwsSigV4HttpMessageHandler(TestCredentials, "us-east-1", "es", inner);
-		using var client = new HttpClient(handler);
-		await client.GetAsync("https://search-domain.us-east-1.es.amazonaws.com/");
-
-		capturedRequest!.Headers.TryGetValues("x-amz-content-sha256", out var values).Should().BeTrue();
+		capturedRequest.Message!.Headers.TryGetValues("x-amz-content-sha256", out var values).Should().BeTrue();
 		values!.First().Should().HaveLength(64); // SHA-256 hex string
 	}
 
@@ -72,43 +49,28 @@ public class AwsSigV4HttpMessageHandlerTests
 	public async Task SignedRequest_WithSessionToken_HasSecurityTokenHeader()
 	{
 		var sessionCredentials = new SessionAWSCredentials("AKID", "SECRET", "SESSION_TOKEN");
-		HttpRequestMessage? capturedRequest = null;
-		var inner = new TestHandler(req =>
-		{
-			capturedRequest = req;
-			return new HttpResponseMessage(HttpStatusCode.OK);
-		});
+		var (capturedRequest, client) = CreateSigningClient(sessionCredentials, "us-east-1");
+		using (client) await client.GetAsync(TestEndpoint);
 
-		var handler = new AwsSigV4HttpMessageHandler(sessionCredentials, "us-east-1", "es", inner);
-		using var client = new HttpClient(handler);
-		await client.GetAsync("https://search-domain.us-east-1.es.amazonaws.com/");
-
-		capturedRequest!.Headers.TryGetValues("x-amz-security-token", out var values).Should().BeTrue();
+		capturedRequest.Message!.Headers.TryGetValues("x-amz-security-token", out var values).Should().BeTrue();
 		values!.First().Should().Be("SESSION_TOKEN");
 	}
 
 	[Fact]
 	public async Task SignedRequest_WithBody_SignsBody()
 	{
-		HttpRequestMessage? capturedRequest = null;
-		var inner = new TestHandler(req =>
+		var (capturedRequest, client) = CreateSigningClient(TestCredentials, "us-east-1");
+		using (client)
 		{
-			capturedRequest = req;
-			return new HttpResponseMessage(HttpStatusCode.OK);
-		});
+			var content = new StringContent("""{"query":{"match_all":{}}}""", Encoding.UTF8, "application/json");
+			await client.PostAsync(TestEndpoint + "_search", content);
+		}
 
-		var handler = new AwsSigV4HttpMessageHandler(TestCredentials, "us-east-1", "es", inner);
-		using var client = new HttpClient(handler);
-
-		var content = new StringContent("""{"query":{"match_all":{}}}""", Encoding.UTF8, "application/json");
-		await client.PostAsync("https://search-domain.us-east-1.es.amazonaws.com/_search", content);
-
-		capturedRequest.Should().NotBeNull();
-		capturedRequest!.Headers.TryGetValues("Authorization", out var authValues).Should().BeTrue();
+		capturedRequest.Message.Should().NotBeNull();
+		capturedRequest.Message!.Headers.TryGetValues("Authorization", out var authValues).Should().BeTrue();
 		authValues!.First().Should().StartWith("AWS4-HMAC-SHA256 ");
 
-		// Body hash should NOT be the empty-body hash.
-		capturedRequest.Headers.TryGetValues("x-amz-content-sha256", out var values).Should().BeTrue();
+		capturedRequest.Message.Headers.TryGetValues("x-amz-content-sha256", out var values).Should().BeTrue();
 		values!.First().Should()
 			.NotBe("e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855");
 	}
@@ -116,18 +78,10 @@ public class AwsSigV4HttpMessageHandlerTests
 	[Fact]
 	public async Task SignedRequest_AuthorizationContainsCredentialAndSignedHeaders()
 	{
-		HttpRequestMessage? capturedRequest = null;
-		var inner = new TestHandler(req =>
-		{
-			capturedRequest = req;
-			return new HttpResponseMessage(HttpStatusCode.OK);
-		});
+		var (capturedRequest, client) = CreateSigningClient(TestCredentials, "us-east-1");
+		using (client) await client.GetAsync(TestEndpoint);
 
-		var handler = new AwsSigV4HttpMessageHandler(TestCredentials, "us-east-1", "es", inner);
-		using var client = new HttpClient(handler);
-		await client.GetAsync("https://search-domain.us-east-1.es.amazonaws.com/");
-
-		var authValue = capturedRequest!.Headers.GetValues("Authorization").First();
+		var authValue = capturedRequest.Message!.Headers.GetValues("Authorization").First();
 		authValue.Should().Contain("Credential=AKIAIOSFODNN7EXAMPLE/");
 		authValue.Should().Contain("SignedHeaders=");
 		authValue.Should().Contain("Signature=");
@@ -136,39 +90,21 @@ public class AwsSigV4HttpMessageHandlerTests
 	[Fact]
 	public async Task SignedRequest_WithQueryString_SortsParameters()
 	{
-		HttpRequestMessage? capturedRequest = null;
-		var inner = new TestHandler(req =>
-		{
-			capturedRequest = req;
-			return new HttpResponseMessage(HttpStatusCode.OK);
-		});
+		var (capturedRequest, client) = CreateSigningClient(TestCredentials, "us-east-1");
+		using (client) await client.GetAsync(TestEndpoint + "_search?size=10&from=0");
 
-		var handler = new AwsSigV4HttpMessageHandler(TestCredentials, "us-east-1", "es", inner);
-		using var client = new HttpClient(handler);
-		await client.GetAsync("https://search-domain.us-east-1.es.amazonaws.com/_search?size=10&from=0");
-
-		// The request should still be signed successfully.
-		capturedRequest.Should().NotBeNull();
-		capturedRequest!.Headers.TryGetValues("Authorization", out var authValues).Should().BeTrue();
+		capturedRequest.Message.Should().NotBeNull();
+		capturedRequest.Message!.Headers.TryGetValues("Authorization", out var authValues).Should().BeTrue();
 		authValues!.First().Should().StartWith("AWS4-HMAC-SHA256 ");
 	}
 
 	[Fact]
 	public async Task SignedRequest_UsesCorrectServiceName()
 	{
-		HttpRequestMessage? capturedRequest = null;
-		var inner = new TestHandler(req =>
-		{
-			capturedRequest = req;
-			return new HttpResponseMessage(HttpStatusCode.OK);
-		});
+		var (capturedRequest, client) = CreateSigningClient(TestCredentials, "us-west-2", "aoss");
+		using (client) await client.GetAsync("https://collection.us-west-2.aoss.amazonaws.com/");
 
-		// Use "aoss" for OpenSearch Serverless.
-		var handler = new AwsSigV4HttpMessageHandler(TestCredentials, "us-west-2", "aoss", inner);
-		using var client = new HttpClient(handler);
-		await client.GetAsync("https://collection.us-west-2.aoss.amazonaws.com/");
-
-		var authValue = capturedRequest!.Headers.GetValues("Authorization").First();
+		var authValue = capturedRequest.Message!.Headers.GetValues("Authorization").First();
 		authValue.Should().Contain("/us-west-2/aoss/aws4_request");
 	}
 
@@ -189,21 +125,36 @@ public class AwsSigV4HttpMessageHandlerTests
 	[Fact]
 	public async Task SignedRequest_PreservesContentType()
 	{
-		HttpRequestMessage? capturedRequest = null;
+		var (capturedRequest, client) = CreateSigningClient(TestCredentials, "us-east-1");
+		using (client)
+		{
+			var content = new StringContent("""{"query":{"match_all":{}}}""", Encoding.UTF8, "application/json");
+			await client.PostAsync(TestEndpoint + "_search", content);
+		}
+
+		capturedRequest.Message!.Content.Should().NotBeNull();
+		capturedRequest.Message.Content!.Headers.ContentType!.MediaType.Should().Be("application/json");
+	}
+
+	// --- Helpers ---
+
+	private static (CapturedRequest Captured, HttpClient Client) CreateSigningClient(
+		AWSCredentials credentials, string region, string service = "es")
+	{
+		var captured = new CapturedRequest();
 		var inner = new TestHandler(req =>
 		{
-			capturedRequest = req;
+			captured.Message = req;
 			return new HttpResponseMessage(HttpStatusCode.OK);
 		});
 
-		var handler = new AwsSigV4HttpMessageHandler(TestCredentials, "us-east-1", "es", inner);
-		using var client = new HttpClient(handler);
+		var handler = new AwsSigV4HttpMessageHandler(credentials, region, service, inner);
+		return (captured, new HttpClient(handler));
+	}
 
-		var content = new StringContent("""{"query":{"match_all":{}}}""", Encoding.UTF8, "application/json");
-		await client.PostAsync("https://search-domain.us-east-1.es.amazonaws.com/_search", content);
-
-		capturedRequest!.Content.Should().NotBeNull();
-		capturedRequest.Content!.Headers.ContentType!.MediaType.Should().Be("application/json");
+	private sealed class CapturedRequest
+	{
+		public HttpRequestMessage? Message { get; set; }
 	}
 
 	private sealed class TestHandler : HttpMessageHandler

@@ -228,10 +228,7 @@ public sealed class OpenSearchClientSettings : IOpenSearchClientSettings
 				NumberHandling = JsonNumberHandling.AllowReadingFromString,
 			};
 
-			// Build transport configuration.
 			var transport = _transportBuilder.Build();
-
-			// Create serializers.
 			var requestResponseSerializer = new SystemTextJsonSerializer(jsonOptions);
 			var sourceSerializer = _sourceSerializerFactory?.Invoke() ?? requestResponseSerializer;
 
