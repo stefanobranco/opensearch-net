@@ -10,7 +10,7 @@ public static class ExternallyTaggedUnion
 	/// <summary>
 	/// Parses a <c>"type#name"</c> key into its type and optional name components.
 	/// If the key does not contain a <c>#</c>, the entire key is treated as the type
-	/// and <paramref name="Name"/> will be <c>null</c>.
+	/// and the name component will be <c>null</c>.
 	/// </summary>
 	/// <param name="key">The typed_keys key to parse.</param>
 	/// <returns>A tuple of (Type, Name) where Name may be null.</returns>
