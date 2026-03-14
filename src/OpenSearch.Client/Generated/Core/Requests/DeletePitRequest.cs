@@ -15,7 +15,6 @@ public sealed class DeletePitRequest
 {
 	public List<string>? PitId { get; set; }
 }
-
 public sealed class DeletePitEndpoint : IEndpoint<DeletePitRequest, DeletePitResponse>
 {
 	public static readonly DeletePitEndpoint Instance = new();
@@ -28,15 +27,10 @@ public sealed class DeletePitEndpoint : IEndpoint<DeletePitRequest, DeletePitRes
 		return path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(DeletePitRequest r) => RequestBody.Json(r);
 
-
-
 	public DeletePitResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<DeletePitResponse>(body)!;
-
 }
-

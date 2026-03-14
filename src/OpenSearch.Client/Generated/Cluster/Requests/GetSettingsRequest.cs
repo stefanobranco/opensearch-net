@@ -26,7 +26,6 @@ public sealed class GetSettingsRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 }
-
 public sealed class GetSettingsEndpoint : IEndpoint<GetSettingsRequest, GetSettingsResponse>
 {
 	public static readonly GetSettingsEndpoint Instance = new();
@@ -48,15 +47,10 @@ public sealed class GetSettingsEndpoint : IEndpoint<GetSettingsRequest, GetSetti
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(GetSettingsRequest r) => null;
 
-
-
 	public GetSettingsResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<GetSettingsResponse>(body)!;
-
 }
-

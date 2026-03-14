@@ -19,6 +19,7 @@ public static class TemplateHelpers
 		obj["response_name"] = request.Response.ClassName;
 		obj["http_method"] = request.HttpMethod;
 		obj["has_body"] = request.HasBody;
+		obj["is_raw_body"] = request.IsRawBody;
 		obj["is_head"] = request.IsHead;
 
 		obj["path_params"] = BuildFieldArray(request.PathParams);
@@ -178,8 +179,9 @@ public static class TemplateHelpers
 			var f = new ScriptObject();
 			f["name"] = field.Name;
 			f["wire_name"] = field.WireName;
-			f["type"] = ComputePropertyType(field);
-			f["required"] = field.Required;
+			// Query params are always nullable — the template generates `is not null` checks
+			f["type"] = ComputeQueryParamType(field);
+			f["required"] = false;
 			f["description"] = SanitizeDescription(field.Description);
 			f["deprecated"] = field.Deprecated;
 			f["value_expr"] = ComputeQueryValueExpr(field);
@@ -207,6 +209,12 @@ public static class TemplateHelpers
 		// int, long, float, double, JsonElement, etc.
 		return $"r.{field.Name}.ToString()!";
 	}
+
+	/// <summary>
+	/// Returns the C# type for a query parameter — always nullable since query params are optional on the wire.
+	/// </summary>
+	private static string ComputeQueryParamType(Field field) =>
+		field.Type.CSharpName + (field.Type.CSharpName.EndsWith("?") ? "" : "?");
 
 	/// <summary>
 	/// Returns the full C# property type string, including ? suffix where needed.

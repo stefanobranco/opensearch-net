@@ -41,7 +41,6 @@ public sealed class AllocationRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
-
 public sealed class AllocationEndpoint : IEndpoint<AllocationRequest, AllocationResponse>
 {
 	public static readonly AllocationEndpoint Instance = new();
@@ -76,15 +75,10 @@ public sealed class AllocationEndpoint : IEndpoint<AllocationRequest, Allocation
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(AllocationRequest r) => null;
 
-
-
 	public AllocationResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<AllocationResponse>(body)!;
-
 }
-

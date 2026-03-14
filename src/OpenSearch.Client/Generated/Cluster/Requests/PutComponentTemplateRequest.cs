@@ -33,7 +33,6 @@ public sealed class PutComponentTemplateRequest
 	[JsonPropertyName("_meta")]
 	public Dictionary<string, object>? Meta { get; set; }
 }
-
 public sealed class PutComponentTemplateEndpoint : IEndpoint<PutComponentTemplateRequest, PutComponentTemplateResponse>
 {
 	public static readonly PutComponentTemplateEndpoint Instance = new();
@@ -53,15 +52,10 @@ public sealed class PutComponentTemplateEndpoint : IEndpoint<PutComponentTemplat
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(PutComponentTemplateRequest r) => RequestBody.Json(r);
 
-
-
 	public PutComponentTemplateResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<PutComponentTemplateResponse>(body)!;
-
 }
-

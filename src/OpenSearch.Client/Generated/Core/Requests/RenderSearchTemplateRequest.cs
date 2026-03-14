@@ -21,7 +21,6 @@ public sealed class RenderSearchTemplateRequest
 	/// <summary>An inline search template. Supports the same parameters as the search API request body. These parameters also support Mustache variables. If no `id` or `<templated-id>` is specified, this parameter is required.</summary>
 		public string? Source { get; set; }
 }
-
 public sealed class RenderSearchTemplateEndpoint : IEndpoint<RenderSearchTemplateRequest, RenderSearchTemplateResponse>
 {
 	public static readonly RenderSearchTemplateEndpoint Instance = new();
@@ -37,15 +36,10 @@ public sealed class RenderSearchTemplateEndpoint : IEndpoint<RenderSearchTemplat
 		return path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(RenderSearchTemplateRequest r) => RequestBody.Json(r);
 
-
-
 	public RenderSearchTemplateResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<RenderSearchTemplateResponse>(body)!;
-
 }
-

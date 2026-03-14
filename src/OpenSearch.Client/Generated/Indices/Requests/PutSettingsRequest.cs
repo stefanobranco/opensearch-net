@@ -96,7 +96,6 @@ public sealed class PutSettingsRequest
 	public string? Knn { get; set; }
 	public IngestionSource? IngestionSource { get; set; }
 }
-
 public sealed class PutSettingsEndpoint : IEndpoint<PutSettingsRequest, PutSettingsResponse>
 {
 	public static readonly PutSettingsEndpoint Instance = new();
@@ -127,15 +126,10 @@ public sealed class PutSettingsEndpoint : IEndpoint<PutSettingsRequest, PutSetti
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(PutSettingsRequest r) => RequestBody.Json(r);
 
-
-
 	public PutSettingsResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<PutSettingsResponse>(body)!;
-
 }
-

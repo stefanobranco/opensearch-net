@@ -35,7 +35,6 @@ public sealed class ClusterManagerRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
-
 public sealed class ClusterManagerEndpoint : IEndpoint<ClusterManagerRequest, ClusterManagerResponse>
 {
 	public static readonly ClusterManagerEndpoint Instance = new();
@@ -65,15 +64,10 @@ public sealed class ClusterManagerEndpoint : IEndpoint<ClusterManagerRequest, Cl
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(ClusterManagerRequest r) => null;
 
-
-
 	public ClusterManagerResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<ClusterManagerResponse>(body)!;
-
 }
-

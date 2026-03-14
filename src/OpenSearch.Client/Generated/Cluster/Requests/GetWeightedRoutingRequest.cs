@@ -17,7 +17,6 @@ public sealed class GetWeightedRoutingRequest
 	[JsonIgnore]
 	public string? Attribute { get; set; }
 }
-
 public sealed class GetWeightedRoutingEndpoint : IEndpoint<GetWeightedRoutingRequest, GetWeightedRoutingResponse>
 {
 	public static readonly GetWeightedRoutingEndpoint Instance = new();
@@ -30,15 +29,10 @@ public sealed class GetWeightedRoutingEndpoint : IEndpoint<GetWeightedRoutingReq
 		return path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(GetWeightedRoutingRequest r) => null;
 
-
-
 	public GetWeightedRoutingResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<GetWeightedRoutingResponse>(body)!;
-
 }
-

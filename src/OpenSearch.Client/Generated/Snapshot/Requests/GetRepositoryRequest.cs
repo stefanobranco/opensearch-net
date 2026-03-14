@@ -23,7 +23,6 @@ public sealed class GetRepositoryRequest
 	[JsonIgnore]
 	public bool? Local { get; set; }
 }
-
 public sealed class GetRepositoryEndpoint : IEndpoint<GetRepositoryRequest, GetRepositoryResponse>
 {
 	public static readonly GetRepositoryEndpoint Instance = new();
@@ -44,15 +43,10 @@ public sealed class GetRepositoryEndpoint : IEndpoint<GetRepositoryRequest, GetR
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(GetRepositoryRequest r) => null;
 
-
-
 	public GetRepositoryResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<GetRepositoryResponse>(body)!;
-
 }
-

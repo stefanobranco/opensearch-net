@@ -20,7 +20,6 @@ public sealed class DeleteByQueryRethrottleRequest
 	[JsonIgnore]
 	public float? RequestsPerSecond { get; set; }
 }
-
 public sealed class DeleteByQueryRethrottleEndpoint : IEndpoint<DeleteByQueryRethrottleRequest, DeleteByQueryRethrottleResponse>
 {
 	public static readonly DeleteByQueryRethrottleEndpoint Instance = new();
@@ -36,15 +35,10 @@ public sealed class DeleteByQueryRethrottleEndpoint : IEndpoint<DeleteByQueryRet
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(DeleteByQueryRethrottleRequest r) => null;
 
-
-
 	public DeleteByQueryRethrottleResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<DeleteByQueryRethrottleResponse>(body)!;
-
 }
-

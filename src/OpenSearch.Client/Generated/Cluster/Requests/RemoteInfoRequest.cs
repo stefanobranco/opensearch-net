@@ -14,7 +14,6 @@ namespace OpenSearch.Client.Cluster;
 public sealed class RemoteInfoRequest
 {
 }
-
 public sealed class RemoteInfoEndpoint : IEndpoint<RemoteInfoRequest, RemoteInfoResponse>
 {
 	public static readonly RemoteInfoEndpoint Instance = new();
@@ -27,15 +26,10 @@ public sealed class RemoteInfoEndpoint : IEndpoint<RemoteInfoRequest, RemoteInfo
 		return path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(RemoteInfoRequest r) => null;
 
-
-
 	public RemoteInfoResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<RemoteInfoResponse>(body)!;
-
 }
-

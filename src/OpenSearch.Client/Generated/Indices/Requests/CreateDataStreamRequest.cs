@@ -16,8 +16,10 @@ public sealed class CreateDataStreamRequest
 	/// <summary>Name of the data stream, which must meet the following criteria: Lowercase only; Cannot include `\`, `/`, `*`, `?`, `"`, `<`, `>`, `|`, `,`, `#`, `:`, or a space character; Cannot start with `-`, `_`, `+`, or `.ds-`; Cannot be `.` or `..`; Cannot be longer than 255 bytes. Multi-byte characters count towards this limit faster.</summary>
 	[JsonIgnore]
 	public string? Name { get; set; }
+	/// <summary>The document to index.</summary>
+	[JsonIgnore]
+	public object? Body { get; set; }
 }
-
 public sealed class CreateDataStreamEndpoint : IEndpoint<CreateDataStreamRequest, CreateDataStreamResponse>
 {
 	public static readonly CreateDataStreamEndpoint Instance = new();
@@ -30,15 +32,10 @@ public sealed class CreateDataStreamEndpoint : IEndpoint<CreateDataStreamRequest
 		return path;
 	}
 
+	public string? ContentType => "application/json";
 
-	public string? ContentType => null;
-
-	public RequestBody? GetBody(CreateDataStreamRequest r) => null;
-
-
+	public RequestBody? GetBody(CreateDataStreamRequest r) => r.Body is not null ? RequestBody.Json(r.Body) : null;
 
 	public CreateDataStreamResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<CreateDataStreamResponse>(body)!;
-
 }
-

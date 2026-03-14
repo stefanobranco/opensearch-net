@@ -20,9 +20,8 @@ public sealed class UpdateAliasesRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 	/// <summary>Actions to perform.</summary>
-		public List<Action>? Actions { get; set; }
+		public List<IndexAction>? Actions { get; set; }
 }
-
 public sealed class UpdateAliasesEndpoint : IEndpoint<UpdateAliasesRequest, UpdateAliasesResponse>
 {
 	public static readonly UpdateAliasesEndpoint Instance = new();
@@ -40,15 +39,10 @@ public sealed class UpdateAliasesEndpoint : IEndpoint<UpdateAliasesRequest, Upda
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(UpdateAliasesRequest r) => RequestBody.Json(r);
 
-
-
 	public UpdateAliasesResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<UpdateAliasesResponse>(body)!;
-
 }
-

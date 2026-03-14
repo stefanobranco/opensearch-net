@@ -17,7 +17,6 @@ public sealed class ClearScrollRequest
 	[JsonIgnore]
 	public string? ScrollId { get; set; }
 }
-
 public sealed class ClearScrollEndpoint : IEndpoint<ClearScrollRequest, ClearScrollResponse>
 {
 	public static readonly ClearScrollEndpoint Instance = new();
@@ -33,15 +32,10 @@ public sealed class ClearScrollEndpoint : IEndpoint<ClearScrollRequest, ClearScr
 		return path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(ClearScrollRequest r) => null;
 
-
-
 	public ClearScrollResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<ClearScrollResponse>(body)!;
-
 }
-

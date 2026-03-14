@@ -14,7 +14,6 @@ namespace OpenSearch.Client.Cluster;
 public sealed class DeleteDecommissionAwarenessRequest
 {
 }
-
 public sealed class DeleteDecommissionAwarenessEndpoint : IEndpoint<DeleteDecommissionAwarenessRequest, DeleteDecommissionAwarenessResponse>
 {
 	public static readonly DeleteDecommissionAwarenessEndpoint Instance = new();
@@ -27,15 +26,10 @@ public sealed class DeleteDecommissionAwarenessEndpoint : IEndpoint<DeleteDecomm
 		return path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(DeleteDecommissionAwarenessRequest r) => null;
 
-
-
 	public DeleteDecommissionAwarenessResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<DeleteDecommissionAwarenessResponse>(body)!;
-
 }
-

@@ -42,7 +42,6 @@ public sealed class ShrinkRequest
 	/// <summary>Configuration options for the target index.</summary>
 		public Dictionary<string, object>? Settings { get; set; }
 }
-
 public sealed class ShrinkEndpoint : IEndpoint<ShrinkRequest, ShrinkResponse>
 {
 	public static readonly ShrinkEndpoint Instance = new();
@@ -68,15 +67,10 @@ public sealed class ShrinkEndpoint : IEndpoint<ShrinkRequest, ShrinkResponse>
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(ShrinkRequest r) => RequestBody.Json(r);
 
-
-
 	public ShrinkResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<ShrinkResponse>(body)!;
-
 }
-

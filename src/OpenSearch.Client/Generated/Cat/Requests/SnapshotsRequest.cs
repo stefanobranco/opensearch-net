@@ -41,7 +41,6 @@ public sealed class SnapshotsRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
-
 public sealed class SnapshotsEndpoint : IEndpoint<SnapshotsRequest, SnapshotsResponse>
 {
 	public static readonly SnapshotsEndpoint Instance = new();
@@ -76,15 +75,10 @@ public sealed class SnapshotsEndpoint : IEndpoint<SnapshotsRequest, SnapshotsRes
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(SnapshotsRequest r) => null;
 
-
-
 	public SnapshotsResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<SnapshotsResponse>(body)!;
-
 }
-

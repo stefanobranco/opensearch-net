@@ -29,7 +29,6 @@ public sealed class SegmentsRequest
 	[JsonIgnore]
 	public bool? Verbose { get; set; }
 }
-
 public sealed class SegmentsEndpoint : IEndpoint<SegmentsRequest, SegmentsResponse>
 {
 	public static readonly SegmentsEndpoint Instance = new();
@@ -54,15 +53,10 @@ public sealed class SegmentsEndpoint : IEndpoint<SegmentsRequest, SegmentsRespon
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(SegmentsRequest r) => null;
 
-
-
 	public SegmentsResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<SegmentsResponse>(body)!;
-
 }
-

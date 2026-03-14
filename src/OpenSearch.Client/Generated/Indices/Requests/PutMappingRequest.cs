@@ -54,7 +54,6 @@ public sealed class PutMappingRequest
 	[JsonPropertyName("_source")]
 	public SourceField? Source { get; set; }
 }
-
 public sealed class PutMappingEndpoint : IEndpoint<PutMappingRequest, PutMappingResponse>
 {
 	public static readonly PutMappingEndpoint Instance = new();
@@ -80,15 +79,10 @@ public sealed class PutMappingEndpoint : IEndpoint<PutMappingRequest, PutMapping
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(PutMappingRequest r) => RequestBody.Json(r);
 
-
-
 	public PutMappingResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<PutMappingResponse>(body)!;
-
 }
-

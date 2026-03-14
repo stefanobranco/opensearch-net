@@ -32,7 +32,6 @@ public sealed class SimulateIndexTemplateRequest
 	[JsonPropertyName("_meta")]
 	public Dictionary<string, object>? Meta { get; set; }
 }
-
 public sealed class SimulateIndexTemplateEndpoint : IEndpoint<SimulateIndexTemplateRequest, SimulateIndexTemplateResponse>
 {
 	public static readonly SimulateIndexTemplateEndpoint Instance = new();
@@ -48,15 +47,10 @@ public sealed class SimulateIndexTemplateEndpoint : IEndpoint<SimulateIndexTempl
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(SimulateIndexTemplateRequest r) => RequestBody.Json(r);
 
-
-
 	public SimulateIndexTemplateResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<SimulateIndexTemplateResponse>(body)!;
-
 }
-

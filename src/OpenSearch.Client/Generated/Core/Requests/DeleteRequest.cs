@@ -44,7 +44,6 @@ public sealed class DeleteRequest
 	[JsonIgnore]
 	public string? WaitForActiveShards { get; set; }
 }
-
 public sealed class DeleteEndpoint : IEndpoint<DeleteRequest, DeleteResponse>
 {
 	public static readonly DeleteEndpoint Instance = new();
@@ -74,15 +73,10 @@ public sealed class DeleteEndpoint : IEndpoint<DeleteRequest, DeleteResponse>
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(DeleteRequest r) => null;
 
-
-
 	public DeleteResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<DeleteResponse>(body)!;
-
 }
-

@@ -56,7 +56,6 @@ public sealed class IndicesRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
-
 public sealed class IndicesEndpoint : IEndpoint<IndicesRequest, IndicesResponse>
 {
 	public static readonly IndicesEndpoint Instance = new();
@@ -101,15 +100,10 @@ public sealed class IndicesEndpoint : IEndpoint<IndicesRequest, IndicesResponse>
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(IndicesRequest r) => null;
 
-
-
 	public IndicesResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<IndicesResponse>(body)!;
-
 }
-

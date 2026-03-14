@@ -32,7 +32,6 @@ public sealed class GetMappingRequest
 	[JsonIgnore]
 	public bool? Local { get; set; }
 }
-
 public sealed class GetMappingEndpoint : IEndpoint<GetMappingRequest, GetMappingResponse>
 {
 	public static readonly GetMappingEndpoint Instance = new();
@@ -59,15 +58,10 @@ public sealed class GetMappingEndpoint : IEndpoint<GetMappingRequest, GetMapping
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(GetMappingRequest r) => null;
 
-
-
 	public GetMappingResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<GetMappingResponse>(body)!;
-
 }
-

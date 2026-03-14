@@ -35,7 +35,6 @@ public sealed class FielddataRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
-
 public sealed class FielddataEndpoint : IEndpoint<FielddataRequest, FielddataResponse>
 {
 	public static readonly FielddataEndpoint Instance = new();
@@ -66,15 +65,10 @@ public sealed class FielddataEndpoint : IEndpoint<FielddataRequest, FielddataRes
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(FielddataRequest r) => null;
 
-
-
 	public FielddataResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<FielddataResponse>(body)!;
-
 }
-

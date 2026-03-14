@@ -26,7 +26,6 @@ public sealed class GetIndexTemplateRequest
 	[JsonIgnore]
 	public bool? Local { get; set; }
 }
-
 public sealed class GetIndexTemplateEndpoint : IEndpoint<GetIndexTemplateRequest, GetIndexTemplateResponse>
 {
 	public static readonly GetIndexTemplateEndpoint Instance = new();
@@ -49,15 +48,10 @@ public sealed class GetIndexTemplateEndpoint : IEndpoint<GetIndexTemplateRequest
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(GetIndexTemplateRequest r) => null;
 
-
-
 	public GetIndexTemplateResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<GetIndexTemplateResponse>(body)!;
-
 }
-

@@ -42,7 +42,6 @@ public sealed class SplitRequest
 	/// <summary>Configuration options for the target index.</summary>
 		public Dictionary<string, object>? Settings { get; set; }
 }
-
 public sealed class SplitEndpoint : IEndpoint<SplitRequest, SplitResponse>
 {
 	public static readonly SplitEndpoint Instance = new();
@@ -68,15 +67,10 @@ public sealed class SplitEndpoint : IEndpoint<SplitRequest, SplitResponse>
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(SplitRequest r) => RequestBody.Json(r);
 
-
-
 	public SplitResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<SplitResponse>(body)!;
-
 }
-

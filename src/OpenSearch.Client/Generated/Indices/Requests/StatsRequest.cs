@@ -47,7 +47,6 @@ public sealed class StatsRequest
 	[JsonIgnore]
 	public Level? Level { get; set; }
 }
-
 public sealed class StatsEndpoint : IEndpoint<StatsRequest, StatsResponse>
 {
 	public static readonly StatsEndpoint Instance = new();
@@ -84,15 +83,10 @@ public sealed class StatsEndpoint : IEndpoint<StatsRequest, StatsResponse>
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(StatsRequest r) => null;
 
-
-
 	public StatsResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<StatsResponse>(body)!;
-
 }
-

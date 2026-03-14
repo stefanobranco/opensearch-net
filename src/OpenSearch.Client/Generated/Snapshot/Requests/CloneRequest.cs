@@ -27,7 +27,6 @@ public sealed class CloneRequest
 	public string? ClusterManagerTimeout { get; set; }
 	public string? Indices { get; set; }
 }
-
 public sealed class CloneEndpoint : IEndpoint<CloneRequest, CloneResponse>
 {
 	public static readonly CloneEndpoint Instance = new();
@@ -43,15 +42,10 @@ public sealed class CloneEndpoint : IEndpoint<CloneRequest, CloneResponse>
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(CloneRequest r) => RequestBody.Json(r);
 
-
-
 	public CloneResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<CloneResponse>(body)!;
-
 }
-

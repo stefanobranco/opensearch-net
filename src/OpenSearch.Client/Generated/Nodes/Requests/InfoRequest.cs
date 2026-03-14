@@ -29,7 +29,6 @@ public sealed class InfoRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 }
-
 public sealed class InfoEndpoint : IEndpoint<InfoRequest, InfoResponse>
 {
 	public static readonly InfoEndpoint Instance = new();
@@ -51,15 +50,10 @@ public sealed class InfoEndpoint : IEndpoint<InfoRequest, InfoResponse>
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(InfoRequest r) => null;
 
-
-
 	public InfoResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<InfoResponse>(body)!;
-
 }
-

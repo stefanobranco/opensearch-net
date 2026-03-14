@@ -23,7 +23,6 @@ public sealed class RecoveryRequest
 	[JsonIgnore]
 	public bool? Detailed { get; set; }
 }
-
 public sealed class RecoveryEndpoint : IEndpoint<RecoveryRequest, RecoveryResponse>
 {
 	public static readonly RecoveryEndpoint Instance = new();
@@ -44,15 +43,10 @@ public sealed class RecoveryEndpoint : IEndpoint<RecoveryRequest, RecoveryRespon
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(RecoveryRequest r) => null;
 
-
-
 	public RecoveryResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<RecoveryResponse>(body)!;
-
 }
-

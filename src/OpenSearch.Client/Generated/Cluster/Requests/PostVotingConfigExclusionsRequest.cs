@@ -23,7 +23,6 @@ public sealed class PostVotingConfigExclusionsRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 }
-
 public sealed class PostVotingConfigExclusionsEndpoint : IEndpoint<PostVotingConfigExclusionsRequest, PostVotingConfigExclusionsResponse>
 {
 	public static readonly PostVotingConfigExclusionsEndpoint Instance = new();
@@ -43,15 +42,10 @@ public sealed class PostVotingConfigExclusionsEndpoint : IEndpoint<PostVotingCon
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(PostVotingConfigExclusionsRequest r) => null;
 
-
-
 	public PostVotingConfigExclusionsResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<PostVotingConfigExclusionsResponse>(body)!;
-
 }
-

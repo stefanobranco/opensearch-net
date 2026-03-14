@@ -52,7 +52,6 @@ public sealed class RestoreRequest
 	/// <summary>Where will be the authoritative store of the restored indexes' data. A value of `local` indicates that all snapshot metadata and index data will be downloaded to local storage. A value of `remote_snapshot` indicates that snapshot metadata will be downloaded to the cluster, but the remote repository will remain the authoritative store of the index data. Data will be downloaded and cached as necessary to service queries. At least one node in the cluster must be configured with the search role in order to restore a snapshot using the type `remote_snapshot`.</summary>
 		public string? StorageType { get; set; }
 }
-
 public sealed class RestoreEndpoint : IEndpoint<RestoreRequest, RestoreResponse>
 {
 	public static readonly RestoreEndpoint Instance = new();
@@ -70,15 +69,10 @@ public sealed class RestoreEndpoint : IEndpoint<RestoreRequest, RestoreResponse>
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(RestoreRequest r) => RequestBody.Json(r);
 
-
-
 	public RestoreResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<RestoreResponse>(body)!;
-
 }
-

@@ -35,7 +35,6 @@ public sealed class HotThreadsRequest
 	[JsonIgnore]
 	public string? Type { get; set; }
 }
-
 public sealed class HotThreadsEndpoint : IEndpoint<HotThreadsRequest, HotThreadsResponse>
 {
 	public static readonly HotThreadsEndpoint Instance = new();
@@ -64,15 +63,10 @@ public sealed class HotThreadsEndpoint : IEndpoint<HotThreadsRequest, HotThreads
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(HotThreadsRequest r) => null;
 
-
-
 	public HotThreadsResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<HotThreadsResponse>(body)!;
-
 }
-

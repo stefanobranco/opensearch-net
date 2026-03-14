@@ -41,27 +41,43 @@ internal static class NdjsonWriter
 	}
 
 	/// <summary>Writes msearch items as NDJSON (header line + body line per item).</summary>
-	public static void WriteMsearch(Stream stream, IReadOnlyList<MsearchItem> items, IOpenSearchSerializer serializer)
+	public static void WriteMsearch(Stream stream, IReadOnlyList<MsearchItem> items, IOpenSearchSerializer serializer) =>
+		WriteHeaderBodyPairs(stream, items, static i => i.Header, static i => i.Body, serializer);
+
+	/// <summary>Asynchronously writes msearch items as NDJSON (header line + body line per item).</summary>
+	public static ValueTask WriteMsearchAsync(Stream stream, IReadOnlyList<MsearchItem> items, IOpenSearchSerializer serializer, CancellationToken ct = default) =>
+		WriteHeaderBodyPairsAsync(stream, items, static i => i.Header, static i => i.Body, serializer, ct);
+
+	/// <summary>Writes msearch_template items as NDJSON (header line + template body line per item).</summary>
+	public static void WriteMsearchTemplate(Stream stream, IReadOnlyList<MsearchTemplateItem> items, IOpenSearchSerializer serializer) =>
+		WriteHeaderBodyPairs(stream, items, static i => i.Header, static i => i.Body, serializer);
+
+	/// <summary>Asynchronously writes msearch_template items as NDJSON.</summary>
+	public static ValueTask WriteMsearchTemplateAsync(Stream stream, IReadOnlyList<MsearchTemplateItem> items, IOpenSearchSerializer serializer, CancellationToken ct = default) =>
+		WriteHeaderBodyPairsAsync(stream, items, static i => i.Header, static i => i.Body, serializer, ct);
+
+	/// <summary>Writes NDJSON header + body pairs using projector functions.</summary>
+	private static void WriteHeaderBodyPairs<T>(Stream stream, IReadOnlyList<T> items, Func<T, object> header, Func<T, object> body, IOpenSearchSerializer serializer)
 	{
 		foreach (var item in items)
 		{
-			serializer.Serialize(item.Header, stream);
+			serializer.Serialize(header(item), stream);
 			stream.Write(s_newline);
 
-			serializer.Serialize(item.Body, stream);
+			serializer.Serialize(body(item), stream);
 			stream.Write(s_newline);
 		}
 	}
 
-	/// <summary>Asynchronously writes msearch items as NDJSON (header line + body line per item).</summary>
-	public static async ValueTask WriteMsearchAsync(Stream stream, IReadOnlyList<MsearchItem> items, IOpenSearchSerializer serializer, CancellationToken ct = default)
+	/// <summary>Asynchronously writes NDJSON header + body pairs using projector functions.</summary>
+	private static async ValueTask WriteHeaderBodyPairsAsync<T>(Stream stream, IReadOnlyList<T> items, Func<T, object> header, Func<T, object> body, IOpenSearchSerializer serializer, CancellationToken ct = default)
 	{
 		foreach (var item in items)
 		{
-			await serializer.SerializeAsync(item.Header, stream, ct).ConfigureAwait(false);
+			await serializer.SerializeAsync(header(item), stream, ct).ConfigureAwait(false);
 			await stream.WriteAsync(s_newline, ct).ConfigureAwait(false);
 
-			await serializer.SerializeAsync(item.Body, stream, ct).ConfigureAwait(false);
+			await serializer.SerializeAsync(body(item), stream, ct).ConfigureAwait(false);
 			await stream.WriteAsync(s_newline, ct).ConfigureAwait(false);
 		}
 	}

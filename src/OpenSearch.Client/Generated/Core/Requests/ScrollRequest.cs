@@ -23,7 +23,6 @@ public sealed class ScrollRequest
 	[JsonIgnore]
 	public string? Scroll { get; set; }
 }
-
 public sealed class ScrollEndpoint<TDocument> : IEndpoint<ScrollRequest, ScrollResponse<TDocument>>
 {
 	public static readonly ScrollEndpoint<TDocument> Instance = new();
@@ -44,15 +43,10 @@ public sealed class ScrollEndpoint<TDocument> : IEndpoint<ScrollRequest, ScrollR
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(ScrollRequest r) => null;
 
-
-
 	public ScrollResponse<TDocument> DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<ScrollResponse<TDocument>>(body)!;
-
 }
-

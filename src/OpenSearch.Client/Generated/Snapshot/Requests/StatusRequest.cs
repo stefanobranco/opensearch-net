@@ -26,7 +26,6 @@ public sealed class StatusRequest
 	[JsonIgnore]
 	public bool? IgnoreUnavailable { get; set; }
 }
-
 public sealed class StatusEndpoint : IEndpoint<StatusRequest, StatusResponse>
 {
 	public static readonly StatusEndpoint Instance = new();
@@ -48,15 +47,10 @@ public sealed class StatusEndpoint : IEndpoint<StatusRequest, StatusResponse>
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(StatusRequest r) => null;
 
-
-
 	public StatusResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<StatusResponse>(body)!;
-
 }
-

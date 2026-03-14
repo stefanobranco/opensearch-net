@@ -35,7 +35,6 @@ public sealed class GetFieldMappingRequest
 	[JsonIgnore]
 	public bool? Local { get; set; }
 }
-
 public sealed class GetFieldMappingEndpoint : IEndpoint<GetFieldMappingRequest, GetFieldMappingResponse>
 {
 	public static readonly GetFieldMappingEndpoint Instance = new();
@@ -62,15 +61,10 @@ public sealed class GetFieldMappingEndpoint : IEndpoint<GetFieldMappingRequest, 
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(GetFieldMappingRequest r) => null;
 
-
-
 	public GetFieldMappingResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<GetFieldMappingResponse>(body)!;
-
 }
-

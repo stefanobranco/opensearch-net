@@ -20,7 +20,6 @@ public sealed class PutDecommissionAwarenessRequest
 	[JsonIgnore]
 	public string? AwarenessAttributeValue { get; set; }
 }
-
 public sealed class PutDecommissionAwarenessEndpoint : IEndpoint<PutDecommissionAwarenessRequest, PutDecommissionAwarenessResponse>
 {
 	public static readonly PutDecommissionAwarenessEndpoint Instance = new();
@@ -33,15 +32,10 @@ public sealed class PutDecommissionAwarenessEndpoint : IEndpoint<PutDecommission
 		return path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(PutDecommissionAwarenessRequest r) => null;
 
-
-
 	public PutDecommissionAwarenessResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<PutDecommissionAwarenessResponse>(body)!;
-
 }
-

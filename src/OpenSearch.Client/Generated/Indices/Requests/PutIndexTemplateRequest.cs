@@ -36,7 +36,6 @@ public sealed class PutIndexTemplateRequest
 	[JsonPropertyName("_meta")]
 	public Dictionary<string, object>? Meta { get; set; }
 }
-
 public sealed class PutIndexTemplateEndpoint : IEndpoint<PutIndexTemplateRequest, PutIndexTemplateResponse>
 {
 	public static readonly PutIndexTemplateEndpoint Instance = new();
@@ -56,15 +55,10 @@ public sealed class PutIndexTemplateEndpoint : IEndpoint<PutIndexTemplateRequest
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(PutIndexTemplateRequest r) => RequestBody.Json(r);
 
-
-
 	public PutIndexTemplateResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<PutIndexTemplateResponse>(body)!;
-
 }
-

@@ -44,7 +44,6 @@ public sealed class ShardsRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
-
 public sealed class ShardsEndpoint : IEndpoint<ShardsRequest, ShardsResponse>
 {
 	public static readonly ShardsEndpoint Instance = new();
@@ -81,15 +80,10 @@ public sealed class ShardsEndpoint : IEndpoint<ShardsRequest, ShardsResponse>
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(ShardsRequest r) => null;
 
-
-
 	public ShardsResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<ShardsResponse>(body)!;
-
 }
-

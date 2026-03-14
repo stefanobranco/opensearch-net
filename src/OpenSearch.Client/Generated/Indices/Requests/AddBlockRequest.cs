@@ -35,7 +35,6 @@ public sealed class AddBlockRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 }
-
 public sealed class AddBlockEndpoint : IEndpoint<AddBlockRequest, AddBlockResponse>
 {
 	public static readonly AddBlockEndpoint Instance = new();
@@ -59,15 +58,10 @@ public sealed class AddBlockEndpoint : IEndpoint<AddBlockRequest, AddBlockRespon
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(AddBlockRequest r) => null;
 
-
-
 	public AddBlockResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<AddBlockResponse>(body)!;
-
 }
-

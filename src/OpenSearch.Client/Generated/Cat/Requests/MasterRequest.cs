@@ -35,7 +35,6 @@ public sealed class MasterRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
-
 public sealed class MasterEndpoint : IEndpoint<MasterRequest, MasterResponse>
 {
 	public static readonly MasterEndpoint Instance = new();
@@ -65,15 +64,10 @@ public sealed class MasterEndpoint : IEndpoint<MasterRequest, MasterResponse>
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(MasterRequest r) => null;
 
-
-
 	public MasterResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<MasterResponse>(body)!;
-
 }
-

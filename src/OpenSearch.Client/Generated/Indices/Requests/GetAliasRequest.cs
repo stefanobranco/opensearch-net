@@ -32,7 +32,6 @@ public sealed class GetAliasRequest
 	[JsonIgnore]
 	public bool? Local { get; set; }
 }
-
 public sealed class GetAliasEndpoint : IEndpoint<GetAliasRequest, GetAliasResponse>
 {
 	public static readonly GetAliasEndpoint Instance = new();
@@ -59,15 +58,10 @@ public sealed class GetAliasEndpoint : IEndpoint<GetAliasRequest, GetAliasRespon
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(GetAliasRequest r) => null;
 
-
-
 	public GetAliasResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<GetAliasResponse>(body)!;
-
 }
-

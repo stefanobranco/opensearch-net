@@ -41,7 +41,6 @@ public sealed class ForcemergeRequest
 	[JsonIgnore]
 	public bool? WaitForCompletion { get; set; }
 }
-
 public sealed class ForcemergeEndpoint : IEndpoint<ForcemergeRequest, ForcemergeResponse>
 {
 	public static readonly ForcemergeEndpoint Instance = new();
@@ -74,15 +73,10 @@ public sealed class ForcemergeEndpoint : IEndpoint<ForcemergeRequest, Forcemerge
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(ForcemergeRequest r) => null;
 
-
-
 	public ForcemergeResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<ForcemergeResponse>(body)!;
-
 }
-

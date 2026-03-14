@@ -26,7 +26,6 @@ public sealed class GetComponentTemplateRequest
 	[JsonIgnore]
 	public bool? Local { get; set; }
 }
-
 public sealed class GetComponentTemplateEndpoint : IEndpoint<GetComponentTemplateRequest, GetComponentTemplateResponse>
 {
 	public static readonly GetComponentTemplateEndpoint Instance = new();
@@ -49,15 +48,10 @@ public sealed class GetComponentTemplateEndpoint : IEndpoint<GetComponentTemplat
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(GetComponentTemplateRequest r) => null;
 
-
-
 	public GetComponentTemplateResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<GetComponentTemplateResponse>(body)!;
-
 }
-

@@ -58,7 +58,6 @@ public sealed class TermvectorsRequest
 	/// <summary>Overrides the default per-field analyzer.</summary>
 		public Dictionary<string, string>? PerFieldAnalyzer { get; set; }
 }
-
 public sealed class TermvectorsEndpoint : IEndpoint<TermvectorsRequest, TermvectorsResponse>
 {
 	public static readonly TermvectorsEndpoint Instance = new();
@@ -97,15 +96,10 @@ public sealed class TermvectorsEndpoint : IEndpoint<TermvectorsRequest, Termvect
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(TermvectorsRequest r) => RequestBody.Json(r);
 
-
-
 	public TermvectorsResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<TermvectorsResponse>(body)!;
-
 }
-

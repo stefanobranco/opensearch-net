@@ -32,7 +32,6 @@ public sealed class ExistsAliasRequest
 	[JsonIgnore]
 	public bool? Local { get; set; }
 }
-
 public sealed class ExistsAliasEndpoint : IEndpoint<ExistsAliasRequest, ExistsAliasResponse>
 {
 	public static readonly ExistsAliasEndpoint Instance = new();
@@ -57,15 +56,10 @@ public sealed class ExistsAliasEndpoint : IEndpoint<ExistsAliasRequest, ExistsAl
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(ExistsAliasRequest r) => null;
 
-
-
 	public ExistsAliasResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		new() { Exists = statusCode is >= 200 and < 300 };
-
 }
-

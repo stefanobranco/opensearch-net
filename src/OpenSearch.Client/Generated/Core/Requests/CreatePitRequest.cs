@@ -32,7 +32,6 @@ public sealed class CreatePitRequest
 	[JsonIgnore]
 	public System.Text.Json.JsonElement? Routing { get; set; }
 }
-
 public sealed class CreatePitEndpoint : IEndpoint<CreatePitRequest, CreatePitResponse>
 {
 	public static readonly CreatePitEndpoint Instance = new();
@@ -56,15 +55,10 @@ public sealed class CreatePitEndpoint : IEndpoint<CreatePitRequest, CreatePitRes
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(CreatePitRequest r) => null;
 
-
-
 	public CreatePitResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<CreatePitResponse>(body)!;
-
 }
-

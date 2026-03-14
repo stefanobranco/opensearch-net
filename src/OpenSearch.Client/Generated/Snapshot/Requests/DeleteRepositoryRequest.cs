@@ -23,7 +23,6 @@ public sealed class DeleteRepositoryRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 }
-
 public sealed class DeleteRepositoryEndpoint : IEndpoint<DeleteRepositoryRequest, DeleteRepositoryResponse>
 {
 	public static readonly DeleteRepositoryEndpoint Instance = new();
@@ -41,15 +40,10 @@ public sealed class DeleteRepositoryEndpoint : IEndpoint<DeleteRepositoryRequest
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(DeleteRepositoryRequest r) => null;
 
-
-
 	public DeleteRepositoryResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<DeleteRepositoryResponse>(body)!;
-
 }
-

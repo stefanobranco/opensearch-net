@@ -35,7 +35,6 @@ public sealed class HealthRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
-
 public sealed class HealthEndpoint : IEndpoint<HealthRequest, HealthResponse>
 {
 	public static readonly HealthEndpoint Instance = new();
@@ -65,15 +64,10 @@ public sealed class HealthEndpoint : IEndpoint<HealthRequest, HealthResponse>
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(HealthRequest r) => null;
 
-
-
 	public HealthResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<HealthResponse>(body)!;
-
 }
-

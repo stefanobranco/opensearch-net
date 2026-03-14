@@ -41,7 +41,6 @@ public sealed class ClearCacheRequest
 	[JsonIgnore]
 	public bool? Request { get; set; }
 }
-
 public sealed class ClearCacheEndpoint : IEndpoint<ClearCacheRequest, ClearCacheResponse>
 {
 	public static readonly ClearCacheEndpoint Instance = new();
@@ -74,15 +73,10 @@ public sealed class ClearCacheEndpoint : IEndpoint<ClearCacheRequest, ClearCache
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(ClearCacheRequest r) => null;
 
-
-
 	public ClearCacheResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<ClearCacheResponse>(body)!;
-
 }
-

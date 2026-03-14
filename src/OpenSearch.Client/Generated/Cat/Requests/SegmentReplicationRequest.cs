@@ -65,7 +65,6 @@ public sealed class SegmentReplicationRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
-
 public sealed class SegmentReplicationEndpoint : IEndpoint<SegmentReplicationRequest, SegmentReplicationResponse>
 {
 	public static readonly SegmentReplicationEndpoint Instance = new();
@@ -116,15 +115,10 @@ public sealed class SegmentReplicationEndpoint : IEndpoint<SegmentReplicationReq
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(SegmentReplicationRequest r) => null;
 
-
-
 	public SegmentReplicationResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<SegmentReplicationResponse>(body)!;
-
 }
-

@@ -23,7 +23,6 @@ public sealed class ExistsComponentTemplateRequest
 	[JsonIgnore]
 	public bool? Local { get; set; }
 }
-
 public sealed class ExistsComponentTemplateEndpoint : IEndpoint<ExistsComponentTemplateRequest, ExistsComponentTemplateResponse>
 {
 	public static readonly ExistsComponentTemplateEndpoint Instance = new();
@@ -41,15 +40,10 @@ public sealed class ExistsComponentTemplateEndpoint : IEndpoint<ExistsComponentT
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(ExistsComponentTemplateRequest r) => null;
 
-
-
 	public ExistsComponentTemplateResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		new() { Exists = statusCode is >= 200 and < 300 };
-
 }
-

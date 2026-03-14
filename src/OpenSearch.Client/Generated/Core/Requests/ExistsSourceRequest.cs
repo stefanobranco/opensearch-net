@@ -47,7 +47,6 @@ public sealed class ExistsSourceRequest
 	[JsonIgnore]
 	public System.Text.Json.JsonElement? VersionType { get; set; }
 }
-
 public sealed class ExistsSourceEndpoint : IEndpoint<ExistsSourceRequest, ExistsSourceResponse>
 {
 	public static readonly ExistsSourceEndpoint Instance = new();
@@ -79,15 +78,10 @@ public sealed class ExistsSourceEndpoint : IEndpoint<ExistsSourceRequest, Exists
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(ExistsSourceRequest r) => null;
 
-
-
 	public ExistsSourceResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		new() { Exists = statusCode is >= 200 and < 300 };
-
 }
-

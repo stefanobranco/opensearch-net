@@ -78,11 +78,19 @@ public sealed class SpecTransformer
 
 			// Collect body fields (excluding any that clash with path/query params)
 			var bodyFields = new List<Field>();
+			var isRawBody = false;
 			var bodySchema = group.CanonicalOperation.RequestBody;
 			if (bodySchema is not null)
 			{
 				var resolved = bodySchema.Ref is not null ? bodySchema.Resolved() : bodySchema;
 				CollectBodyFields(resolved, bodyFields, typeMapper);
+
+				// Bare object body (type: object, no properties, no allOf) → raw document body
+				if (resolved.Properties.Count == 0 && resolved.AllOf.Count == 0
+					&& resolved.Type is "object")
+				{
+					isRawBody = true;
+				}
 
 				var existingNames = new HashSet<string>(
 					pathParams.Select(p => p.Name).Concat(queryParams.Select(p => p.Name)),
@@ -105,6 +113,7 @@ public sealed class SpecTransformer
 				PathParams = pathParams,
 				QueryParams = queryParams,
 				BodyFields = bodyFields,
+				IsRawBody = isRawBody,
 				EndpointName = endpointName,
 				Response = responseShape
 			};
@@ -134,6 +143,7 @@ public sealed class SpecTransformer
 					PathParams = request.PathParams,
 					QueryParams = request.QueryParams,
 					BodyFields = request.BodyFields,
+					IsRawBody = request.IsRawBody,
 					EndpointName = request.EndpointName,
 					Response = new ResponseShape
 					{

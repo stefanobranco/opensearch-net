@@ -35,7 +35,6 @@ public sealed class CloseRequest
 	[JsonIgnore]
 	public string? WaitForActiveShards { get; set; }
 }
-
 public sealed class CloseEndpoint : IEndpoint<CloseRequest, CloseResponse>
 {
 	public static readonly CloseEndpoint Instance = new();
@@ -61,15 +60,10 @@ public sealed class CloseEndpoint : IEndpoint<CloseRequest, CloseResponse>
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(CloseRequest r) => null;
 
-
-
 	public CloseResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<CloseResponse>(body)!;
-
 }
-

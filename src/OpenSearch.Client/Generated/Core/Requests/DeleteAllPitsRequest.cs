@@ -14,7 +14,6 @@ namespace OpenSearch.Client.Core;
 public sealed class DeleteAllPitsRequest
 {
 }
-
 public sealed class DeleteAllPitsEndpoint : IEndpoint<DeleteAllPitsRequest, DeleteAllPitsResponse>
 {
 	public static readonly DeleteAllPitsEndpoint Instance = new();
@@ -27,15 +26,10 @@ public sealed class DeleteAllPitsEndpoint : IEndpoint<DeleteAllPitsRequest, Dele
 		return path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(DeleteAllPitsRequest r) => null;
 
-
-
 	public DeleteAllPitsResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<DeleteAllPitsResponse>(body)!;
-
 }
-

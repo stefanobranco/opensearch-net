@@ -55,7 +55,6 @@ public sealed class ValidateQueryRequest
 	public bool? Rewrite { get; set; }
 	public QueryContainer? Query { get; set; }
 }
-
 public sealed class ValidateQueryEndpoint : IEndpoint<ValidateQueryRequest, ValidateQueryResponse>
 {
 	public static readonly ValidateQueryEndpoint Instance = new();
@@ -96,15 +95,10 @@ public sealed class ValidateQueryEndpoint : IEndpoint<ValidateQueryRequest, Vali
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(ValidateQueryRequest r) => RequestBody.Json(r);
 
-
-
 	public ValidateQueryResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<ValidateQueryResponse>(body)!;
-
 }
-

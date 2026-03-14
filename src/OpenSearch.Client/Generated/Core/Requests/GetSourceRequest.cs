@@ -47,7 +47,6 @@ public sealed class GetSourceRequest
 	[JsonIgnore]
 	public System.Text.Json.JsonElement? VersionType { get; set; }
 }
-
 public sealed class GetSourceEndpoint : IEndpoint<GetSourceRequest, GetSourceResponse>
 {
 	public static readonly GetSourceEndpoint Instance = new();
@@ -79,15 +78,10 @@ public sealed class GetSourceEndpoint : IEndpoint<GetSourceRequest, GetSourceRes
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(GetSourceRequest r) => null;
 
-
-
 	public GetSourceResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<GetSourceResponse>(body)!;
-
 }
-

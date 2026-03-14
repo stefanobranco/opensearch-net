@@ -14,7 +14,6 @@ namespace OpenSearch.Client.Core;
 public sealed class GetScriptContextRequest
 {
 }
-
 public sealed class GetScriptContextEndpoint : IEndpoint<GetScriptContextRequest, GetScriptContextResponse>
 {
 	public static readonly GetScriptContextEndpoint Instance = new();
@@ -27,15 +26,10 @@ public sealed class GetScriptContextEndpoint : IEndpoint<GetScriptContextRequest
 		return path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(GetScriptContextRequest r) => null;
 
-
-
 	public GetScriptContextResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<GetScriptContextResponse>(body)!;
-
 }
-

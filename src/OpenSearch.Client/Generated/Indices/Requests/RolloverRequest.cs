@@ -39,7 +39,6 @@ public sealed class RolloverRequest
 	/// <summary>Configuration options for the index. Data streams do not support this parameter.</summary>
 		public Dictionary<string, object>? Settings { get; set; }
 }
-
 public sealed class RolloverEndpoint : IEndpoint<RolloverRequest, RolloverResponse>
 {
 	public static readonly RolloverEndpoint Instance = new();
@@ -64,15 +63,10 @@ public sealed class RolloverEndpoint : IEndpoint<RolloverRequest, RolloverRespon
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(RolloverRequest r) => RequestBody.Json(r);
 
-
-
 	public RolloverResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<RolloverResponse>(body)!;
-
 }
-

@@ -17,7 +17,6 @@ public sealed class DeleteVotingConfigExclusionsRequest
 	[JsonIgnore]
 	public bool? WaitForRemoval { get; set; }
 }
-
 public sealed class DeleteVotingConfigExclusionsEndpoint : IEndpoint<DeleteVotingConfigExclusionsRequest, DeleteVotingConfigExclusionsResponse>
 {
 	public static readonly DeleteVotingConfigExclusionsEndpoint Instance = new();
@@ -33,15 +32,10 @@ public sealed class DeleteVotingConfigExclusionsEndpoint : IEndpoint<DeleteVotin
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(DeleteVotingConfigExclusionsRequest r) => null;
 
-
-
 	public DeleteVotingConfigExclusionsResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<DeleteVotingConfigExclusionsResponse>(body)!;
-
 }
-

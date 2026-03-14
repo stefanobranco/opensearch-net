@@ -17,7 +17,6 @@ public sealed class DeleteDataStreamRequest
 	[JsonIgnore]
 	public string? Name { get; set; }
 }
-
 public sealed class DeleteDataStreamEndpoint : IEndpoint<DeleteDataStreamRequest, DeleteDataStreamResponse>
 {
 	public static readonly DeleteDataStreamEndpoint Instance = new();
@@ -30,15 +29,10 @@ public sealed class DeleteDataStreamEndpoint : IEndpoint<DeleteDataStreamRequest
 		return path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(DeleteDataStreamRequest r) => null;
 
-
-
 	public DeleteDataStreamResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<DeleteDataStreamResponse>(body)!;
-
 }
-

@@ -38,7 +38,6 @@ public sealed class AliasesRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
-
 public sealed class AliasesEndpoint : IEndpoint<AliasesRequest, AliasesResponse>
 {
 	public static readonly AliasesEndpoint Instance = new();
@@ -71,15 +70,10 @@ public sealed class AliasesEndpoint : IEndpoint<AliasesRequest, AliasesResponse>
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(AliasesRequest r) => null;
 
-
-
 	public AliasesResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<AliasesResponse>(body)!;
-
 }
-

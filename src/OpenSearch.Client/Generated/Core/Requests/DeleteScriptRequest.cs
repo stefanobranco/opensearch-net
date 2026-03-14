@@ -23,7 +23,6 @@ public sealed class DeleteScriptRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 }
-
 public sealed class DeleteScriptEndpoint : IEndpoint<DeleteScriptRequest, DeleteScriptResponse>
 {
 	public static readonly DeleteScriptEndpoint Instance = new();
@@ -41,15 +40,10 @@ public sealed class DeleteScriptEndpoint : IEndpoint<DeleteScriptRequest, Delete
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(DeleteScriptRequest r) => null;
 
-
-
 	public DeleteScriptResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<DeleteScriptResponse>(body)!;
-
 }
-

@@ -20,7 +20,6 @@ public sealed class GetScriptRequest
 	[JsonIgnore]
 	public string? ClusterManagerTimeout { get; set; }
 }
-
 public sealed class GetScriptEndpoint : IEndpoint<GetScriptRequest, GetScriptResponse>
 {
 	public static readonly GetScriptEndpoint Instance = new();
@@ -36,15 +35,10 @@ public sealed class GetScriptEndpoint : IEndpoint<GetScriptRequest, GetScriptRes
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(GetScriptRequest r) => null;
 
-
-
 	public GetScriptResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<GetScriptResponse>(body)!;
-
 }
-

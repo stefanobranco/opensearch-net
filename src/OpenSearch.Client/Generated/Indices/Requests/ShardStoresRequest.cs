@@ -29,7 +29,6 @@ public sealed class ShardStoresRequest
 	[JsonIgnore]
 	public System.Text.Json.JsonElement? Status { get; set; }
 }
-
 public sealed class ShardStoresEndpoint : IEndpoint<ShardStoresRequest, ShardStoresResponse>
 {
 	public static readonly ShardStoresEndpoint Instance = new();
@@ -54,15 +53,10 @@ public sealed class ShardStoresEndpoint : IEndpoint<ShardStoresRequest, ShardSto
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(ShardStoresRequest r) => null;
 
-
-
 	public ShardStoresResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<ShardStoresResponse>(body)!;
-
 }
-

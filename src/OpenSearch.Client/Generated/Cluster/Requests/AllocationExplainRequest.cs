@@ -27,7 +27,6 @@ public sealed class AllocationExplainRequest
 	/// <summary>Specifies the ID of the shard that you would like an explanation for.</summary>
 		public int? Shard { get; set; }
 }
-
 public sealed class AllocationExplainEndpoint : IEndpoint<AllocationExplainRequest, AllocationExplainResponse>
 {
 	public static readonly AllocationExplainEndpoint Instance = new();
@@ -45,15 +44,10 @@ public sealed class AllocationExplainEndpoint : IEndpoint<AllocationExplainReque
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(AllocationExplainRequest r) => RequestBody.Json(r);
 
-
-
 	public AllocationExplainResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<AllocationExplainResponse>(body)!;
-
 }
-

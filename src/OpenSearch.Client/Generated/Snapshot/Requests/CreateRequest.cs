@@ -36,7 +36,6 @@ public sealed class CreateRequest
 	/// <summary>When `true`, enables the restoration of a partial snapshot from indexes with unavailable shards. Only shards that were successfully included in the snapshot will be restored. All missing shards will be recreated as empty. When `false`, the entire restore operation will fail if one or more indexes included in the snapshot do not have all primary shards available.</summary>
 		public bool? Partial { get; set; }
 }
-
 public sealed class CreateEndpoint : IEndpoint<CreateRequest, CreateResponse>
 {
 	public static readonly CreateEndpoint Instance = new();
@@ -54,15 +53,10 @@ public sealed class CreateEndpoint : IEndpoint<CreateRequest, CreateResponse>
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(CreateRequest r) => RequestBody.Json(r);
 
-
-
 	public CreateResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<CreateResponse>(body)!;
-
 }
-

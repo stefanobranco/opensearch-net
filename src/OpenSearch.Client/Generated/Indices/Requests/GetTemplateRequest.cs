@@ -26,7 +26,6 @@ public sealed class GetTemplateRequest
 	[JsonIgnore]
 	public bool? Local { get; set; }
 }
-
 public sealed class GetTemplateEndpoint : IEndpoint<GetTemplateRequest, GetTemplateResponse>
 {
 	public static readonly GetTemplateEndpoint Instance = new();
@@ -49,15 +48,10 @@ public sealed class GetTemplateEndpoint : IEndpoint<GetTemplateRequest, GetTempl
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(GetTemplateRequest r) => null;
 
-
-
 	public GetTemplateResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<GetTemplateResponse>(body)!;
-
 }
-

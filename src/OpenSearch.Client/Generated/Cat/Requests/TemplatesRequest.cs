@@ -38,7 +38,6 @@ public sealed class TemplatesRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
-
 public sealed class TemplatesEndpoint : IEndpoint<TemplatesRequest, TemplatesResponse>
 {
 	public static readonly TemplatesEndpoint Instance = new();
@@ -71,15 +70,10 @@ public sealed class TemplatesEndpoint : IEndpoint<TemplatesRequest, TemplatesRes
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(TemplatesRequest r) => null;
 
-
-
 	public TemplatesResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<TemplatesResponse>(body)!;
-
 }
-

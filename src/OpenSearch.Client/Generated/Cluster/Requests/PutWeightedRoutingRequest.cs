@@ -20,7 +20,6 @@ public sealed class PutWeightedRoutingRequest
 	public long? Version { get; set; }
 	public Dictionary<string, string>? Weights { get; set; }
 }
-
 public sealed class PutWeightedRoutingEndpoint : IEndpoint<PutWeightedRoutingRequest, PutWeightedRoutingResponse>
 {
 	public static readonly PutWeightedRoutingEndpoint Instance = new();
@@ -33,15 +32,10 @@ public sealed class PutWeightedRoutingEndpoint : IEndpoint<PutWeightedRoutingReq
 		return path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(PutWeightedRoutingRequest r) => RequestBody.Json(r);
 
-
-
 	public PutWeightedRoutingResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<PutWeightedRoutingResponse>(body)!;
-
 }
-

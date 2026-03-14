@@ -110,8 +110,11 @@ public sealed class RequestShape : Shape
 	/// <summary>Body fields (properties serialized as JSON body).</summary>
 	public required IReadOnlyList<Field> BodyFields { get; init; }
 
+	/// <summary>Whether the body is the raw user document (e.g., index, create — bare type:object with no properties).</summary>
+	public bool IsRawBody { get; init; }
+
 	/// <summary>Whether this operation has a request body.</summary>
-	public bool HasBody => BodyFields.Count > 0;
+	public bool HasBody => BodyFields.Count > 0 || IsRawBody;
 
 	/// <summary>Whether this is a HEAD request (response has no body).</summary>
 	public bool IsHead => HttpMethod == "Head";

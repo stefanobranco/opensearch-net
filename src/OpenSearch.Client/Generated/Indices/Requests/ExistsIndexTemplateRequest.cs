@@ -26,7 +26,6 @@ public sealed class ExistsIndexTemplateRequest
 	[JsonIgnore]
 	public bool? Local { get; set; }
 }
-
 public sealed class ExistsIndexTemplateEndpoint : IEndpoint<ExistsIndexTemplateRequest, ExistsIndexTemplateResponse>
 {
 	public static readonly ExistsIndexTemplateEndpoint Instance = new();
@@ -46,15 +45,10 @@ public sealed class ExistsIndexTemplateEndpoint : IEndpoint<ExistsIndexTemplateR
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(ExistsIndexTemplateRequest r) => null;
 
-
-
 	public ExistsIndexTemplateResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		new() { Exists = statusCode is >= 200 and < 300 };
-
 }
-

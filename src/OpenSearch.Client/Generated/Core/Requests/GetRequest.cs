@@ -50,7 +50,6 @@ public sealed class GetRequest
 	[JsonIgnore]
 	public System.Text.Json.JsonElement? VersionType { get; set; }
 }
-
 public sealed class GetEndpoint<TDocument> : IEndpoint<GetRequest, GetResponse<TDocument>>
 {
 	public static readonly GetEndpoint<TDocument> Instance = new();
@@ -84,15 +83,10 @@ public sealed class GetEndpoint<TDocument> : IEndpoint<GetRequest, GetResponse<T
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(GetRequest r) => null;
 
-
-
 	public GetResponse<TDocument> DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<GetResponse<TDocument>>(body)!;
-
 }
-

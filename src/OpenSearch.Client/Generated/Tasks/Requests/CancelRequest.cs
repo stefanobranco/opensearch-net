@@ -29,7 +29,6 @@ public sealed class CancelRequest
 	[JsonIgnore]
 	public bool? WaitForCompletion { get; set; }
 }
-
 public sealed class CancelEndpoint : IEndpoint<CancelRequest, CancelResponse>
 {
 	public static readonly CancelEndpoint Instance = new();
@@ -54,15 +53,10 @@ public sealed class CancelEndpoint : IEndpoint<CancelRequest, CancelResponse>
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(CancelRequest r) => null;
 
-
-
 	public CancelResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<CancelResponse>(body)!;
-
 }
-

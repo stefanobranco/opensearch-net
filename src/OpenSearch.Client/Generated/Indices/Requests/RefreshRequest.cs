@@ -26,7 +26,6 @@ public sealed class RefreshRequest
 	[JsonIgnore]
 	public bool? IgnoreUnavailable { get; set; }
 }
-
 public sealed class RefreshEndpoint : IEndpoint<RefreshRequest, RefreshResponse>
 {
 	public static readonly RefreshEndpoint Instance = new();
@@ -49,15 +48,10 @@ public sealed class RefreshEndpoint : IEndpoint<RefreshRequest, RefreshResponse>
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(RefreshRequest r) => null;
 
-
-
 	public RefreshResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<RefreshResponse>(body)!;
-
 }
-

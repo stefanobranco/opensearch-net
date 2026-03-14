@@ -28,7 +28,6 @@ public sealed class PutRequest
 	public List<System.Text.Json.JsonElement>? ResponseProcessors { get; set; }
 	public List<System.Text.Json.JsonElement>? PhaseResultsProcessors { get; set; }
 }
-
 public sealed class PutEndpoint : IEndpoint<PutRequest, PutResponse>
 {
 	public static readonly PutEndpoint Instance = new();
@@ -46,15 +45,10 @@ public sealed class PutEndpoint : IEndpoint<PutRequest, PutResponse>
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(PutRequest r) => RequestBody.Json(r);
 
-
-
 	public PutResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<PutResponse>(body)!;
-
 }
-

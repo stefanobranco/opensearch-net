@@ -67,7 +67,6 @@ public sealed class UpdateRequest
 	/// <summary>If the document does not already exist, the contents of 'upsert' are inserted as a new document. If the document exists, the 'script' is executed.</summary>
 		public System.Text.Json.JsonElement? Upsert { get; set; }
 }
-
 public sealed class UpdateEndpoint<TDocument> : IEndpoint<UpdateRequest, UpdateResponse<TDocument>>
 {
 	public static readonly UpdateEndpoint<TDocument> Instance = new();
@@ -105,15 +104,10 @@ public sealed class UpdateEndpoint<TDocument> : IEndpoint<UpdateRequest, UpdateR
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(UpdateRequest r) => RequestBody.Json(r);
 
-
-
 	public UpdateResponse<TDocument> DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<UpdateResponse<TDocument>>(body)!;
-
 }
-

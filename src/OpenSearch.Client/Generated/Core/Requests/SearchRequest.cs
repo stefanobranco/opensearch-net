@@ -187,7 +187,6 @@ public sealed class SearchRequest
 	public PointInTimeReference? Pit { get; set; }
 	public Dictionary<string, DerivedField>? Derived { get; set; }
 }
-
 public sealed class SearchEndpoint<TDocument> : IEndpoint<SearchRequest, SearchResponse<TDocument>>
 {
 	public static readonly SearchEndpoint<TDocument> Instance = new();
@@ -298,15 +297,10 @@ public sealed class SearchEndpoint<TDocument> : IEndpoint<SearchRequest, SearchR
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(SearchRequest r) => RequestBody.Json(r);
 
-
-
 	public SearchResponse<TDocument> DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<SearchResponse<TDocument>>(body)!;
-
 }
-

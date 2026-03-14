@@ -23,7 +23,6 @@ public sealed class DeleteIndexTemplateRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 }
-
 public sealed class DeleteIndexTemplateEndpoint : IEndpoint<DeleteIndexTemplateRequest, DeleteIndexTemplateResponse>
 {
 	public static readonly DeleteIndexTemplateEndpoint Instance = new();
@@ -41,15 +40,10 @@ public sealed class DeleteIndexTemplateEndpoint : IEndpoint<DeleteIndexTemplateR
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(DeleteIndexTemplateRequest r) => null;
 
-
-
 	public DeleteIndexTemplateResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<DeleteIndexTemplateResponse>(body)!;
-
 }
-

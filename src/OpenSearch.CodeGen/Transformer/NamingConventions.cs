@@ -21,7 +21,7 @@ public static partial class NamingConventions
 		var capitalizeNext = true;
 		foreach (var c in snakeCase)
 		{
-			if (c == '_' || c == '.')
+			if (c is '_' or '.' or '-')
 			{
 				capitalizeNext = true;
 				continue;
@@ -72,6 +72,12 @@ public static partial class NamingConventions
 	/// </summary>
 	public static string NamespaceToClassName(string ns) => ToPascalCase(ns.TrimStart('_'));
 
+	// Class names that collide with System types (e.g., System.Action)
+	private static readonly Dictionary<string, string> s_classNameRenames = new(StringComparer.Ordinal)
+	{
+		["Action"] = "IndexAction",
+	};
+
 	/// <summary>
 	/// Converts a schema name from the spec to a C# class name.
 	/// Handles prefixed names like "indices._common.Alias" → "Alias"
@@ -81,7 +87,8 @@ public static partial class NamingConventions
 		// Take just the last part after any dots
 		var lastDot = schemaName.LastIndexOf('.');
 		var name = lastDot >= 0 ? schemaName[(lastDot + 1)..] : schemaName;
-		return ToPascalCase(name);
+		var pascal = ToPascalCase(name);
+		return s_classNameRenames.GetValueOrDefault(pascal, pascal);
 	}
 
 	/// <summary>

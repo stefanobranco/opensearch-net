@@ -35,7 +35,6 @@ public sealed class NodeattrsRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
-
 public sealed class NodeattrsEndpoint : IEndpoint<NodeattrsRequest, NodeattrsResponse>
 {
 	public static readonly NodeattrsEndpoint Instance = new();
@@ -65,15 +64,10 @@ public sealed class NodeattrsEndpoint : IEndpoint<NodeattrsRequest, NodeattrsRes
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(NodeattrsRequest r) => null;
 
-
-
 	public NodeattrsResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<NodeattrsResponse>(body)!;
-
 }
-

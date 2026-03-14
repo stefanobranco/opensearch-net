@@ -123,7 +123,6 @@ public sealed class UpdateByQueryRequest
 	public System.Text.Json.JsonElement? Script { get; set; }
 	public SlicedScroll? Slice { get; set; }
 }
-
 public sealed class UpdateByQueryEndpoint : IEndpoint<UpdateByQueryRequest, UpdateByQueryResponse>
 {
 	public static readonly UpdateByQueryEndpoint Instance = new();
@@ -205,15 +204,10 @@ public sealed class UpdateByQueryEndpoint : IEndpoint<UpdateByQueryRequest, Upda
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(UpdateByQueryRequest r) => RequestBody.Json(r);
 
-
-
 	public UpdateByQueryResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<UpdateByQueryResponse>(body)!;
-
 }
-

@@ -32,7 +32,6 @@ public sealed class AllPitSegmentsRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
-
 public sealed class AllPitSegmentsEndpoint : IEndpoint<AllPitSegmentsRequest, AllPitSegmentsResponse>
 {
 	public static readonly AllPitSegmentsEndpoint Instance = new();
@@ -60,15 +59,10 @@ public sealed class AllPitSegmentsEndpoint : IEndpoint<AllPitSegmentsRequest, Al
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(AllPitSegmentsRequest r) => null;
 
-
-
 	public AllPitSegmentsResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<AllPitSegmentsResponse>(body)!;
-
 }
-

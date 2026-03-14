@@ -18,7 +18,6 @@ public sealed class ScriptsPainlessExecuteRequest
 	public PainlessContextSetup? ContextSetup { get; set; }
 	public System.Text.Json.JsonElement? Script { get; set; }
 }
-
 public sealed class ScriptsPainlessExecuteEndpoint<TResult> : IEndpoint<ScriptsPainlessExecuteRequest, ScriptsPainlessExecuteResponse<TResult>>
 {
 	public static readonly ScriptsPainlessExecuteEndpoint<TResult> Instance = new();
@@ -31,15 +30,10 @@ public sealed class ScriptsPainlessExecuteEndpoint<TResult> : IEndpoint<ScriptsP
 		return path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(ScriptsPainlessExecuteRequest r) => RequestBody.Json(r);
 
-
-
 	public ScriptsPainlessExecuteResponse<TResult> DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<ScriptsPainlessExecuteResponse<TResult>>(body)!;
-
 }
-

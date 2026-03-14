@@ -38,7 +38,6 @@ public sealed class PendingTasksRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
-
 public sealed class PendingTasksEndpoint : IEndpoint<PendingTasksRequest, PendingTasksResponse>
 {
 	public static readonly PendingTasksEndpoint Instance = new();
@@ -70,15 +69,10 @@ public sealed class PendingTasksEndpoint : IEndpoint<PendingTasksRequest, Pendin
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(PendingTasksRequest r) => null;
 
-
-
 	public PendingTasksResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<PendingTasksResponse>(body)!;
-
 }
-

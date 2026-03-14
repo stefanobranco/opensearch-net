@@ -16,7 +16,6 @@ public sealed class DeleteWeightedRoutingRequest
 	[JsonPropertyName("_version")]
 	public long? Version { get; set; }
 }
-
 public sealed class DeleteWeightedRoutingEndpoint : IEndpoint<DeleteWeightedRoutingRequest, DeleteWeightedRoutingResponse>
 {
 	public static readonly DeleteWeightedRoutingEndpoint Instance = new();
@@ -29,15 +28,10 @@ public sealed class DeleteWeightedRoutingEndpoint : IEndpoint<DeleteWeightedRout
 		return path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(DeleteWeightedRoutingRequest r) => RequestBody.Json(r);
 
-
-
 	public DeleteWeightedRoutingResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<DeleteWeightedRoutingResponse>(body)!;
-
 }
-

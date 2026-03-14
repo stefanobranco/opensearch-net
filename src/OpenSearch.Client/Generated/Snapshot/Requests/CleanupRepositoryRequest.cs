@@ -23,7 +23,6 @@ public sealed class CleanupRepositoryRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 }
-
 public sealed class CleanupRepositoryEndpoint : IEndpoint<CleanupRepositoryRequest, CleanupRepositoryResponse>
 {
 	public static readonly CleanupRepositoryEndpoint Instance = new();
@@ -41,15 +40,10 @@ public sealed class CleanupRepositoryEndpoint : IEndpoint<CleanupRepositoryReque
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(CleanupRepositoryRequest r) => null;
 
-
-
 	public CleanupRepositoryResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<CleanupRepositoryResponse>(body)!;
-
 }
-

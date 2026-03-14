@@ -21,7 +21,6 @@ public sealed class ReloadSecureSettingsRequest
 	public string? Timeout { get; set; }
 	public string? SecureSettingsPassword { get; set; }
 }
-
 public sealed class ReloadSecureSettingsEndpoint : IEndpoint<ReloadSecureSettingsRequest, ReloadSecureSettingsResponse>
 {
 	public static readonly ReloadSecureSettingsEndpoint Instance = new();
@@ -40,15 +39,10 @@ public sealed class ReloadSecureSettingsEndpoint : IEndpoint<ReloadSecureSetting
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(ReloadSecureSettingsRequest r) => RequestBody.Json(r);
 
-
-
 	public ReloadSecureSettingsResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<ReloadSecureSettingsResponse>(body)!;
-
 }
-

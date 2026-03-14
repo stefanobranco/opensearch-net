@@ -36,7 +36,6 @@ public sealed class PutAliasRequest
 	/// <summary>If `true`, the alias will be hidden`.</summary>
 		public bool? IsHidden { get; set; }
 }
-
 public sealed class PutAliasEndpoint : IEndpoint<PutAliasRequest, PutAliasResponse>
 {
 	public static readonly PutAliasEndpoint Instance = new();
@@ -59,15 +58,10 @@ public sealed class PutAliasEndpoint : IEndpoint<PutAliasRequest, PutAliasRespon
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(PutAliasRequest r) => RequestBody.Json(r);
 
-
-
 	public PutAliasResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<PutAliasResponse>(body)!;
-
 }
-

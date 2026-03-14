@@ -46,7 +46,6 @@ public sealed class ReindexRequest
 	public int? Size { get; set; }
 	public Source? Source { get; set; }
 }
-
 public sealed class ReindexEndpoint : IEndpoint<ReindexRequest, ReindexResponse>
 {
 	public static readonly ReindexEndpoint Instance = new();
@@ -78,15 +77,10 @@ public sealed class ReindexEndpoint : IEndpoint<ReindexRequest, ReindexResponse>
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(ReindexRequest r) => RequestBody.Json(r);
 
-
-
 	public ReindexResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<ReindexResponse>(body)!;
-
 }
-

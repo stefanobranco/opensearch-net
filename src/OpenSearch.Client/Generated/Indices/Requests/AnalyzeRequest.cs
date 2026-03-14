@@ -32,7 +32,6 @@ public sealed class AnalyzeRequest
 	public System.Text.Json.JsonElement? Text { get; set; }
 	public System.Text.Json.JsonElement? Tokenizer { get; set; }
 }
-
 public sealed class AnalyzeEndpoint : IEndpoint<AnalyzeRequest, AnalyzeResponse>
 {
 	public static readonly AnalyzeEndpoint Instance = new();
@@ -48,15 +47,10 @@ public sealed class AnalyzeEndpoint : IEndpoint<AnalyzeRequest, AnalyzeResponse>
 		return path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(AnalyzeRequest r) => RequestBody.Json(r);
 
-
-
 	public AnalyzeResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<AnalyzeResponse>(body)!;
-
 }
-

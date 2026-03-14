@@ -14,7 +14,6 @@ namespace OpenSearch.Client.Core;
 public sealed class InfoRequest
 {
 }
-
 public sealed class InfoEndpoint : IEndpoint<InfoRequest, InfoResponse>
 {
 	public static readonly InfoEndpoint Instance = new();
@@ -27,15 +26,10 @@ public sealed class InfoEndpoint : IEndpoint<InfoRequest, InfoResponse>
 		return path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(InfoRequest r) => null;
 
-
-
 	public InfoResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<InfoResponse>(body)!;
-
 }
-

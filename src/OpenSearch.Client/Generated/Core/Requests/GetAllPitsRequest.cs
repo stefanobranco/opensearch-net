@@ -14,7 +14,6 @@ namespace OpenSearch.Client.Core;
 public sealed class GetAllPitsRequest
 {
 }
-
 public sealed class GetAllPitsEndpoint : IEndpoint<GetAllPitsRequest, GetAllPitsResponse>
 {
 	public static readonly GetAllPitsEndpoint Instance = new();
@@ -27,15 +26,10 @@ public sealed class GetAllPitsEndpoint : IEndpoint<GetAllPitsRequest, GetAllPits
 		return path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(GetAllPitsRequest r) => null;
 
-
-
 	public GetAllPitsResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<GetAllPitsResponse>(body)!;
-
 }
-

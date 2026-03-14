@@ -31,7 +31,6 @@ public sealed class CreateRequest
 	public TypeMapping? Mappings { get; set; }
 	public IndexSettings? Settings { get; set; }
 }
-
 public sealed class CreateEndpoint : IEndpoint<CreateRequest, CreateResponse>
 {
 	public static readonly CreateEndpoint Instance = new();
@@ -51,15 +50,10 @@ public sealed class CreateEndpoint : IEndpoint<CreateRequest, CreateResponse>
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(CreateRequest r) => RequestBody.Json(r);
 
-
-
 	public CreateResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<CreateResponse>(body)!;
-
 }
-

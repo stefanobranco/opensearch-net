@@ -23,7 +23,6 @@ public sealed class UsageRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 }
-
 public sealed class UsageEndpoint : IEndpoint<UsageRequest, UsageResponse>
 {
 	public static readonly UsageEndpoint Instance = new();
@@ -44,15 +43,10 @@ public sealed class UsageEndpoint : IEndpoint<UsageRequest, UsageResponse>
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(UsageRequest r) => null;
 
-
-
 	public UsageResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<UsageResponse>(body)!;
-
 }
-

@@ -35,7 +35,6 @@ public sealed class ListRequest
 	[JsonIgnore]
 	public bool? WaitForCompletion { get; set; }
 }
-
 public sealed class ListEndpoint : IEndpoint<ListRequest, ListResponse>
 {
 	public static readonly ListEndpoint Instance = new();
@@ -63,15 +62,10 @@ public sealed class ListEndpoint : IEndpoint<ListRequest, ListResponse>
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(ListRequest r) => null;
 
-
-
 	public ListResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<ListResponse>(body)!;
-
 }
-

@@ -34,7 +34,6 @@ public sealed class FieldCapsRequest
 	public bool? IncludeUnmapped { get; set; }
 	public QueryContainer? IndexFilter { get; set; }
 }
-
 public sealed class FieldCapsEndpoint : IEndpoint<FieldCapsRequest, FieldCapsResponse>
 {
 	public static readonly FieldCapsEndpoint Instance = new();
@@ -61,15 +60,10 @@ public sealed class FieldCapsEndpoint : IEndpoint<FieldCapsRequest, FieldCapsRes
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(FieldCapsRequest r) => RequestBody.Json(r);
 
-
-
 	public FieldCapsResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<FieldCapsResponse>(body)!;
-
 }
-

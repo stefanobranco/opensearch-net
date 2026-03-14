@@ -23,7 +23,6 @@ public sealed class VerifyRepositoryRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 }
-
 public sealed class VerifyRepositoryEndpoint : IEndpoint<VerifyRepositoryRequest, VerifyRepositoryResponse>
 {
 	public static readonly VerifyRepositoryEndpoint Instance = new();
@@ -41,15 +40,10 @@ public sealed class VerifyRepositoryEndpoint : IEndpoint<VerifyRepositoryRequest
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(VerifyRepositoryRequest r) => null;
 
-
-
 	public VerifyRepositoryResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<VerifyRepositoryResponse>(body)!;
-
 }
-

@@ -44,7 +44,6 @@ public sealed class StateRequest
 	[JsonIgnore]
 	public string? WaitForTimeout { get; set; }
 }
-
 public sealed class StateEndpoint : IEndpoint<StateRequest, StateResponse>
 {
 	public static readonly StateEndpoint Instance = new();
@@ -78,15 +77,10 @@ public sealed class StateEndpoint : IEndpoint<StateRequest, StateResponse>
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(StateRequest r) => null;
 
-
-
 	public StateResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<StateResponse>(body)!;
-
 }
-

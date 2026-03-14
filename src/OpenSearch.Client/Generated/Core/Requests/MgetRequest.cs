@@ -44,7 +44,6 @@ public sealed class MgetRequest
 		public List<Operation>? Docs { get; set; }
 	public string? Ids { get; set; }
 }
-
 public sealed class MgetEndpoint : IEndpoint<MgetRequest, MgetResponse>
 {
 	public static readonly MgetEndpoint Instance = new();
@@ -77,15 +76,10 @@ public sealed class MgetEndpoint : IEndpoint<MgetRequest, MgetResponse>
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(MgetRequest r) => RequestBody.Json(r);
 
-
-
 	public MgetResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<MgetResponse>(body)!;
-
 }
-

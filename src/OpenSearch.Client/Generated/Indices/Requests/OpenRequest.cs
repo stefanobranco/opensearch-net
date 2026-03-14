@@ -41,7 +41,6 @@ public sealed class OpenRequest
 	[JsonIgnore]
 	public bool? WaitForCompletion { get; set; }
 }
-
 public sealed class OpenEndpoint : IEndpoint<OpenRequest, OpenResponse>
 {
 	public static readonly OpenEndpoint Instance = new();
@@ -71,15 +70,10 @@ public sealed class OpenEndpoint : IEndpoint<OpenRequest, OpenResponse>
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(OpenRequest r) => null;
 
-
-
 	public OpenResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<OpenResponse>(body)!;
-
 }
-

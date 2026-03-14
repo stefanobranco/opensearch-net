@@ -32,7 +32,6 @@ public sealed class FlushRequest
 	[JsonIgnore]
 	public bool? WaitIfOngoing { get; set; }
 }
-
 public sealed class FlushEndpoint : IEndpoint<FlushRequest, FlushResponse>
 {
 	public static readonly FlushEndpoint Instance = new();
@@ -59,15 +58,10 @@ public sealed class FlushEndpoint : IEndpoint<FlushRequest, FlushResponse>
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(FlushRequest r) => null;
 
-
-
 	public FlushResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<FlushResponse>(body)!;
-
 }
-

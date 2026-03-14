@@ -14,7 +14,6 @@ namespace OpenSearch.Client.Core;
 public sealed class PingRequest
 {
 }
-
 public sealed class PingEndpoint : IEndpoint<PingRequest, PingResponse>
 {
 	public static readonly PingEndpoint Instance = new();
@@ -27,15 +26,10 @@ public sealed class PingEndpoint : IEndpoint<PingRequest, PingResponse>
 		return path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(PingRequest r) => null;
 
-
-
 	public PingResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		new() { Exists = statusCode is >= 200 and < 300 };
-
 }
-

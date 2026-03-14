@@ -41,7 +41,6 @@ public sealed class ThreadPoolRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
-
 public sealed class ThreadPoolEndpoint : IEndpoint<ThreadPoolRequest, ThreadPoolResponse>
 {
 	public static readonly ThreadPoolEndpoint Instance = new();
@@ -76,15 +75,10 @@ public sealed class ThreadPoolEndpoint : IEndpoint<ThreadPoolRequest, ThreadPool
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(ThreadPoolRequest r) => null;
 
-
-
 	public ThreadPoolResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<ThreadPoolResponse>(body)!;
-
 }
-

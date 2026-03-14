@@ -32,7 +32,6 @@ public sealed class RankEvalRequest
 		public List<RankEvalRequestItem>? Requests { get; set; }
 	public RankEvalMetric? Metric { get; set; }
 }
-
 public sealed class RankEvalEndpoint : IEndpoint<RankEvalRequest, RankEvalResponse>
 {
 	public static readonly RankEvalEndpoint Instance = new();
@@ -57,15 +56,10 @@ public sealed class RankEvalEndpoint : IEndpoint<RankEvalRequest, RankEvalRespon
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(RankEvalRequest r) => RequestBody.Json(r);
 
-
-
 	public RankEvalResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<RankEvalResponse>(body)!;
-
 }
-

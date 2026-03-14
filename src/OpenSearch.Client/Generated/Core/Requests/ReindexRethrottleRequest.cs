@@ -20,7 +20,6 @@ public sealed class ReindexRethrottleRequest
 	[JsonIgnore]
 	public float? RequestsPerSecond { get; set; }
 }
-
 public sealed class ReindexRethrottleEndpoint : IEndpoint<ReindexRethrottleRequest, ReindexRethrottleResponse>
 {
 	public static readonly ReindexRethrottleEndpoint Instance = new();
@@ -36,15 +35,10 @@ public sealed class ReindexRethrottleEndpoint : IEndpoint<ReindexRethrottleReque
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(ReindexRethrottleRequest r) => null;
 
-
-
 	public ReindexRethrottleResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<ReindexRethrottleResponse>(body)!;
-
 }
-

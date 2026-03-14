@@ -20,7 +20,6 @@ public sealed class GetPipelineRequest
 	[JsonIgnore]
 	public string? ClusterManagerTimeout { get; set; }
 }
-
 public sealed class GetPipelineEndpoint : IEndpoint<GetPipelineRequest, GetPipelineResponse>
 {
 	public static readonly GetPipelineEndpoint Instance = new();
@@ -39,15 +38,10 @@ public sealed class GetPipelineEndpoint : IEndpoint<GetPipelineRequest, GetPipel
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(GetPipelineRequest r) => null;
 
-
-
 	public GetPipelineResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<GetPipelineResponse>(body)!;
-
 }
-

@@ -17,7 +17,6 @@ public sealed class ProcessorGrokRequest
 	[JsonIgnore]
 	public bool? S { get; set; }
 }
-
 public sealed class ProcessorGrokEndpoint : IEndpoint<ProcessorGrokRequest, ProcessorGrokResponse>
 {
 	public static readonly ProcessorGrokEndpoint Instance = new();
@@ -33,15 +32,10 @@ public sealed class ProcessorGrokEndpoint : IEndpoint<ProcessorGrokRequest, Proc
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(ProcessorGrokRequest r) => null;
 
-
-
 	public ProcessorGrokResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<ProcessorGrokResponse>(body)!;
-
 }
-

@@ -32,7 +32,6 @@ public sealed class CountRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
-
 public sealed class CountEndpoint : IEndpoint<CountRequest, CountResponse>
 {
 	public static readonly CountEndpoint Instance = new();
@@ -61,15 +60,10 @@ public sealed class CountEndpoint : IEndpoint<CountRequest, CountResponse>
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(CountRequest r) => null;
 
-
-
 	public CountResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<CountResponse>(body)!;
-
 }
-

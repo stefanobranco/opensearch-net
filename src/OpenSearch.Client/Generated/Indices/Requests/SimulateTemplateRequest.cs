@@ -38,7 +38,6 @@ public sealed class SimulateTemplateRequest
 		public bool? AllowAutoCreate { get; set; }
 	public IndexTemplateDataStreamConfiguration? DataStream { get; set; }
 }
-
 public sealed class SimulateTemplateEndpoint : IEndpoint<SimulateTemplateRequest, SimulateTemplateResponse>
 {
 	public static readonly SimulateTemplateEndpoint Instance = new();
@@ -61,15 +60,10 @@ public sealed class SimulateTemplateEndpoint : IEndpoint<SimulateTemplateRequest
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(SimulateTemplateRequest r) => RequestBody.Json(r);
 
-
-
 	public SimulateTemplateResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<SimulateTemplateResponse>(body)!;
-
 }
-

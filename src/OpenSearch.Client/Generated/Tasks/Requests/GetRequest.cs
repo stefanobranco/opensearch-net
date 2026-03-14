@@ -23,7 +23,6 @@ public sealed class GetRequest
 	[JsonIgnore]
 	public bool? WaitForCompletion { get; set; }
 }
-
 public sealed class GetEndpoint : IEndpoint<GetRequest, GetResponse>
 {
 	public static readonly GetEndpoint Instance = new();
@@ -41,15 +40,10 @@ public sealed class GetEndpoint : IEndpoint<GetRequest, GetResponse>
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(GetRequest r) => null;
 
-
-
 	public GetResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<GetResponse>(body)!;
-
 }
-

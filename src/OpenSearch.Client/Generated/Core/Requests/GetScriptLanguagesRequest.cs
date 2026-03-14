@@ -14,7 +14,6 @@ namespace OpenSearch.Client.Core;
 public sealed class GetScriptLanguagesRequest
 {
 }
-
 public sealed class GetScriptLanguagesEndpoint : IEndpoint<GetScriptLanguagesRequest, GetScriptLanguagesResponse>
 {
 	public static readonly GetScriptLanguagesEndpoint Instance = new();
@@ -27,15 +26,10 @@ public sealed class GetScriptLanguagesEndpoint : IEndpoint<GetScriptLanguagesReq
 		return path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(GetScriptLanguagesRequest r) => null;
 
-
-
 	public GetScriptLanguagesResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<GetScriptLanguagesResponse>(body)!;
-
 }
-

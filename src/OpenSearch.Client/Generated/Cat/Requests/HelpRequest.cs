@@ -14,7 +14,6 @@ namespace OpenSearch.Client.Cat;
 public sealed class HelpRequest
 {
 }
-
 public sealed class HelpEndpoint : IEndpoint<HelpRequest, HelpResponse>
 {
 	public static readonly HelpEndpoint Instance = new();
@@ -27,15 +26,10 @@ public sealed class HelpEndpoint : IEndpoint<HelpRequest, HelpResponse>
 		return path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(HelpRequest r) => null;
 
-
-
 	public HelpResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<HelpResponse>(body)!;
-
 }
-

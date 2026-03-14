@@ -23,7 +23,6 @@ public sealed class SimulateRequest
 		public List<Document>? Docs { get; set; }
 	public Pipeline? Pipeline { get; set; }
 }
-
 public sealed class SimulateEndpoint : IEndpoint<SimulateRequest, SimulateResponse>
 {
 	public static readonly SimulateEndpoint Instance = new();
@@ -42,15 +41,10 @@ public sealed class SimulateEndpoint : IEndpoint<SimulateRequest, SimulateRespon
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(SimulateRequest r) => RequestBody.Json(r);
 
-
-
 	public SimulateResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<SimulateResponse>(body)!;
-
 }
-

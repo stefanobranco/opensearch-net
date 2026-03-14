@@ -33,7 +33,6 @@ public sealed class PitSegmentsRequest
 	public bool? V { get; set; }
 	public List<string>? PitId { get; set; }
 }
-
 public sealed class PitSegmentsEndpoint : IEndpoint<PitSegmentsRequest, PitSegmentsResponse>
 {
 	public static readonly PitSegmentsEndpoint Instance = new();
@@ -61,15 +60,10 @@ public sealed class PitSegmentsEndpoint : IEndpoint<PitSegmentsRequest, PitSegme
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(PitSegmentsRequest r) => RequestBody.Json(r);
 
-
-
 	public PitSegmentsResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<PitSegmentsResponse>(body)!;
-
 }
-

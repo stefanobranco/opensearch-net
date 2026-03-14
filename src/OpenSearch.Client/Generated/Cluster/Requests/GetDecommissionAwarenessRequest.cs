@@ -17,7 +17,6 @@ public sealed class GetDecommissionAwarenessRequest
 	[JsonIgnore]
 	public string? AwarenessAttributeName { get; set; }
 }
-
 public sealed class GetDecommissionAwarenessEndpoint : IEndpoint<GetDecommissionAwarenessRequest, GetDecommissionAwarenessResponse>
 {
 	public static readonly GetDecommissionAwarenessEndpoint Instance = new();
@@ -30,15 +29,10 @@ public sealed class GetDecommissionAwarenessEndpoint : IEndpoint<GetDecommission
 		return path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(GetDecommissionAwarenessRequest r) => null;
 
-
-
 	public GetDecommissionAwarenessResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<GetDecommissionAwarenessResponse>(body)!;
-
 }
-

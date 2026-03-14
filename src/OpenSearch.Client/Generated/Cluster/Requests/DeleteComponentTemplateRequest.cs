@@ -23,7 +23,6 @@ public sealed class DeleteComponentTemplateRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 }
-
 public sealed class DeleteComponentTemplateEndpoint : IEndpoint<DeleteComponentTemplateRequest, DeleteComponentTemplateResponse>
 {
 	public static readonly DeleteComponentTemplateEndpoint Instance = new();
@@ -41,15 +40,10 @@ public sealed class DeleteComponentTemplateEndpoint : IEndpoint<DeleteComponentT
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(DeleteComponentTemplateRequest r) => null;
 
-
-
 	public DeleteComponentTemplateResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<DeleteComponentTemplateResponse>(body)!;
-
 }
-

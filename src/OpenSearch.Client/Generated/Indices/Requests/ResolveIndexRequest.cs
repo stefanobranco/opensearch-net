@@ -20,7 +20,6 @@ public sealed class ResolveIndexRequest
 	[JsonIgnore]
 	public System.Text.Json.JsonElement? ExpandWildcards { get; set; }
 }
-
 public sealed class ResolveIndexEndpoint : IEndpoint<ResolveIndexRequest, ResolveIndexResponse>
 {
 	public static readonly ResolveIndexEndpoint Instance = new();
@@ -36,15 +35,10 @@ public sealed class ResolveIndexEndpoint : IEndpoint<ResolveIndexRequest, Resolv
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(ResolveIndexRequest r) => null;
 
-
-
 	public ResolveIndexResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<ResolveIndexResponse>(body)!;
-
 }
-

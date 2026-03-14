@@ -119,7 +119,6 @@ public sealed class DeleteByQueryRequest
 	public QueryContainer? Query { get; set; }
 	public SlicedScroll? Slice { get; set; }
 }
-
 public sealed class DeleteByQueryEndpoint : IEndpoint<DeleteByQueryRequest, DeleteByQueryResponse>
 {
 	public static readonly DeleteByQueryEndpoint Instance = new();
@@ -199,15 +198,10 @@ public sealed class DeleteByQueryEndpoint : IEndpoint<DeleteByQueryRequest, Dele
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(DeleteByQueryRequest r) => RequestBody.Json(r);
 
-
-
 	public DeleteByQueryResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<DeleteByQueryResponse>(body)!;
-
 }
-

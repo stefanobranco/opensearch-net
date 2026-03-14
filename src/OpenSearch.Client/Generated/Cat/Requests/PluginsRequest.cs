@@ -35,7 +35,6 @@ public sealed class PluginsRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
-
 public sealed class PluginsEndpoint : IEndpoint<PluginsRequest, PluginsResponse>
 {
 	public static readonly PluginsEndpoint Instance = new();
@@ -65,15 +64,10 @@ public sealed class PluginsEndpoint : IEndpoint<PluginsRequest, PluginsResponse>
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(PluginsRequest r) => null;
 
-
-
 	public PluginsResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<PluginsResponse>(body)!;
-
 }
-

@@ -37,7 +37,6 @@ public sealed class SearchShardsRequest
 	public System.Text.Json.JsonElement? Routing { get; set; }
 	public SlicedScroll? Slice { get; set; }
 }
-
 public sealed class SearchShardsEndpoint : IEndpoint<SearchShardsRequest, SearchShardsResponse>
 {
 	public static readonly SearchShardsEndpoint Instance = new();
@@ -66,15 +65,10 @@ public sealed class SearchShardsEndpoint : IEndpoint<SearchShardsRequest, Search
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(SearchShardsRequest r) => RequestBody.Json(r);
 
-
-
 	public SearchShardsResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<SearchShardsResponse>(body)!;
-
 }
-

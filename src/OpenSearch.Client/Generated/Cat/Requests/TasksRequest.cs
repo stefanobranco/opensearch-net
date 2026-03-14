@@ -44,7 +44,6 @@ public sealed class TasksRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
-
 public sealed class TasksEndpoint : IEndpoint<TasksRequest, TasksResponse>
 {
 	public static readonly TasksEndpoint Instance = new();
@@ -80,15 +79,10 @@ public sealed class TasksEndpoint : IEndpoint<TasksRequest, TasksResponse>
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(TasksRequest r) => null;
 
-
-
 	public TasksResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<TasksResponse>(body)!;
-
 }
-

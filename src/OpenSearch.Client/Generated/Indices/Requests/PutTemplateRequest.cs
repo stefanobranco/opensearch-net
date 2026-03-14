@@ -35,7 +35,6 @@ public sealed class PutTemplateRequest
 		public Dictionary<string, object>? Settings { get; set; }
 	public long? Version { get; set; }
 }
-
 public sealed class PutTemplateEndpoint : IEndpoint<PutTemplateRequest, PutTemplateResponse>
 {
 	public static readonly PutTemplateEndpoint Instance = new();
@@ -55,15 +54,10 @@ public sealed class PutTemplateEndpoint : IEndpoint<PutTemplateRequest, PutTempl
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(PutTemplateRequest r) => RequestBody.Json(r);
 
-
-
 	public PutTemplateResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<PutTemplateResponse>(body)!;
-
 }
-

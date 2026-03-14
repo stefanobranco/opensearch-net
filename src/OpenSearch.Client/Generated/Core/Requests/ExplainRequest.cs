@@ -58,7 +58,6 @@ public sealed class ExplainRequest
 	public string? StoredFields { get; set; }
 	public QueryContainer? Query { get; set; }
 }
-
 public sealed class ExplainEndpoint<TDocument> : IEndpoint<ExplainRequest, ExplainResponse<TDocument>>
 {
 	public static readonly ExplainEndpoint<TDocument> Instance = new();
@@ -96,15 +95,10 @@ public sealed class ExplainEndpoint<TDocument> : IEndpoint<ExplainRequest, Expla
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(ExplainRequest r) => RequestBody.Json(r);
 
-
-
 	public ExplainResponse<TDocument> DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<ExplainResponse<TDocument>>(body)!;
-
 }
-

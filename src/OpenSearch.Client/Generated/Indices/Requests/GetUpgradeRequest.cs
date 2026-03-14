@@ -26,7 +26,6 @@ public sealed class GetUpgradeRequest
 	[JsonIgnore]
 	public bool? IgnoreUnavailable { get; set; }
 }
-
 public sealed class GetUpgradeEndpoint : IEndpoint<GetUpgradeRequest, GetUpgradeResponse>
 {
 	public static readonly GetUpgradeEndpoint Instance = new();
@@ -49,15 +48,10 @@ public sealed class GetUpgradeEndpoint : IEndpoint<GetUpgradeRequest, GetUpgrade
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(GetUpgradeRequest r) => null;
 
-
-
 	public GetUpgradeResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<GetUpgradeResponse>(body)!;
-
 }
-

@@ -55,7 +55,6 @@ public sealed class MtermvectorsRequest
 	/// <summary>Array of existing or artificial documents.</summary>
 		public List<Operation>? Docs { get; set; }
 }
-
 public sealed class MtermvectorsEndpoint : IEndpoint<MtermvectorsRequest, MtermvectorsResponse>
 {
 	public static readonly MtermvectorsEndpoint Instance = new();
@@ -96,15 +95,10 @@ public sealed class MtermvectorsEndpoint : IEndpoint<MtermvectorsRequest, Mtermv
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(MtermvectorsRequest r) => RequestBody.Json(r);
 
-
-
 	public MtermvectorsResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<MtermvectorsResponse>(body)!;
-
 }
-

@@ -17,7 +17,6 @@ public sealed class DataStreamsStatsRequest
 	[JsonIgnore]
 	public string? Name { get; set; }
 }
-
 public sealed class DataStreamsStatsEndpoint : IEndpoint<DataStreamsStatsRequest, DataStreamsStatsResponse>
 {
 	public static readonly DataStreamsStatsEndpoint Instance = new();
@@ -33,15 +32,10 @@ public sealed class DataStreamsStatsEndpoint : IEndpoint<DataStreamsStatsRequest
 		return path;
 	}
 
-
 	public string? ContentType => null;
 
 	public RequestBody? GetBody(DataStreamsStatsRequest r) => null;
 
-
-
 	public DataStreamsStatsResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<DataStreamsStatsResponse>(body)!;
-
 }
-

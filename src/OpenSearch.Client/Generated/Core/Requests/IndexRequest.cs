@@ -52,8 +52,10 @@ public sealed class IndexRequest
 	/// <summary>The number of shard copies that must be active before proceeding with the operation. Set to all or any positive integer up to the total number of shards in the index (`number_of_replicas+1`).</summary>
 	[JsonIgnore]
 	public string? WaitForActiveShards { get; set; }
+	/// <summary>The document to index.</summary>
+	[JsonIgnore]
+	public object? Body { get; set; }
 }
-
 public sealed class IndexEndpoint : IEndpoint<IndexRequest, IndexResponse>
 {
 	public static readonly IndexEndpoint Instance = new();
@@ -92,15 +94,10 @@ public sealed class IndexEndpoint : IEndpoint<IndexRequest, IndexResponse>
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
+	public string? ContentType => "application/json";
 
-	public string? ContentType => null;
-
-	public RequestBody? GetBody(IndexRequest r) => null;
-
-
+	public RequestBody? GetBody(IndexRequest r) => r.Body is not null ? RequestBody.Json(r.Body) : null;
 
 	public IndexResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<IndexResponse>(body)!;
-
 }
-

@@ -34,7 +34,6 @@ public sealed class RerouteRequest
 	/// <summary>Defines the reroute commands to perform, either `move`, `cancel`, or `allocate`.</summary>
 		public List<Command>? Commands { get; set; }
 }
-
 public sealed class RerouteEndpoint : IEndpoint<RerouteRequest, RerouteResponse>
 {
 	public static readonly RerouteEndpoint Instance = new();
@@ -60,15 +59,10 @@ public sealed class RerouteEndpoint : IEndpoint<RerouteRequest, RerouteResponse>
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(RerouteRequest r) => RequestBody.Json(r);
 
-
-
 	public RerouteResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<RerouteResponse>(body)!;
-
 }
-

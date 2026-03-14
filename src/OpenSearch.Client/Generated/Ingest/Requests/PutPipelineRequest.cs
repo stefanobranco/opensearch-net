@@ -32,7 +32,6 @@ public sealed class PutPipelineRequest
 		public List<ProcessorContainer>? Processors { get; set; }
 	public long? Version { get; set; }
 }
-
 public sealed class PutPipelineEndpoint : IEndpoint<PutPipelineRequest, PutPipelineResponse>
 {
 	public static readonly PutPipelineEndpoint Instance = new();
@@ -50,15 +49,10 @@ public sealed class PutPipelineEndpoint : IEndpoint<PutPipelineRequest, PutPipel
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(PutPipelineRequest r) => RequestBody.Json(r);
 
-
-
 	public PutPipelineResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<PutPipelineResponse>(body)!;
-
 }
-

@@ -28,7 +28,6 @@ public sealed class CreateRepositoryRequest
 	public string? Type { get; set; }
 	public RepositorySettings? Settings { get; set; }
 }
-
 public sealed class CreateRepositoryEndpoint : IEndpoint<CreateRepositoryRequest, CreateRepositoryResponse>
 {
 	public static readonly CreateRepositoryEndpoint Instance = new();
@@ -48,15 +47,10 @@ public sealed class CreateRepositoryEndpoint : IEndpoint<CreateRepositoryRequest
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-
 	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(CreateRepositoryRequest r) => RequestBody.Json(r);
 
-
-
 	public CreateRepositoryResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<CreateRepositoryResponse>(body)!;
-
 }
-
