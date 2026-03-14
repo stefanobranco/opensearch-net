@@ -3,25 +3,18 @@ using System.Text.Json.Serialization;
 
 namespace OpenSearch.Client.Core;
 
-/// <summary>
-/// Request for the msearch API. Contains a list of <see cref="MsearchItem"/> items
-/// that are serialized as NDJSON (header + body pairs).
-/// </summary>
+/// <summary>Request for the msearch API. Items are serialized as NDJSON (header + body pairs).</summary>
 public sealed class MsearchRequest
 {
 	/// <summary>Default index for searches that don't specify one.</summary>
 	[JsonIgnore]
 	public string? Index { get; set; }
 
-	/// <summary>
-	/// When true, returns partial results if there are shard request timeouts or shard failures.
-	/// </summary>
+	/// <summary>When true, returns partial results on shard request timeouts or failures.</summary>
 	[JsonIgnore]
 	public bool? AllowPartialResults { get; set; }
 
-	/// <summary>
-	/// When true, network round-trips between the coordinating node and remote clusters are minimized for cross-cluster search requests.
-	/// </summary>
+	/// <summary>When true, minimizes network round-trips for cross-cluster search requests.</summary>
 	[JsonIgnore]
 	public bool? CcsMinimizeRoundtrips { get; set; }
 
@@ -54,22 +47,15 @@ public sealed class MsearchRequest
 	public List<MsearchItem> Searches { get; set; } = [];
 }
 
-/// <summary>
-/// A single search within a multi-search request.
-/// Each item has a header (routing metadata) and a body (search request fields).
-/// </summary>
+/// <summary>A single search within a multi-search request (header + body pair).</summary>
 public sealed class MsearchItem
 {
-	/// <summary>The header specifying target index, routing, and other metadata.</summary>
 	public MsearchHeader Header { get; set; } = new();
 
-	/// <summary>The search body containing query, size, sort, etc.</summary>
 	public MsearchBody Body { get; set; } = new();
 }
 
-/// <summary>
-/// The header line for a multi-search item. Specifies target indices and routing options.
-/// </summary>
+/// <summary>Header line for a multi-search item specifying target indices and routing.</summary>
 public sealed class MsearchHeader
 {
 	[JsonPropertyName("index")]
@@ -106,9 +92,7 @@ public sealed class MsearchHeader
 	public bool? IgnoreThrottled { get; set; }
 }
 
-/// <summary>
-/// The body of a multi-search item. Contains the search query and options.
-/// </summary>
+/// <summary>Body of a multi-search item containing the search query and options.</summary>
 public sealed class MsearchBody
 {
 	[JsonPropertyName("query")]

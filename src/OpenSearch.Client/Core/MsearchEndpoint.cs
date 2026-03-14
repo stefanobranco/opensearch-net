@@ -2,9 +2,7 @@ using OpenSearch.Net;
 
 namespace OpenSearch.Client.Core;
 
-/// <summary>
-/// Endpoint for the msearch API. Serializes search items as NDJSON (header + body pairs).
-/// </summary>
+/// <summary>Endpoint for the msearch API. Serializes search items as NDJSON (header + body pairs).</summary>
 public sealed class MsearchEndpoint : IEndpoint<MsearchRequest, MsearchResponse>
 {
 	public static readonly MsearchEndpoint Instance = new();

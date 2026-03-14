@@ -3,26 +3,17 @@ using OpenSearch.Net;
 
 namespace OpenSearch.Client;
 
-/// <summary>
-/// An <see cref="IOpenSearchSerializer"/> implementation backed by <see cref="System.Text.Json"/>.
-/// Uses the provided <see cref="JsonSerializerOptions"/> for all serialization and deserialization.
-/// </summary>
+/// <summary><see cref="IOpenSearchSerializer"/> backed by <see cref="System.Text.Json"/>.</summary>
 public sealed class SystemTextJsonSerializer : IOpenSearchSerializer
 {
 	private readonly JsonSerializerOptions _options;
 
-	/// <summary>
-	/// Creates a new serializer with the specified options.
-	/// </summary>
 	public SystemTextJsonSerializer(JsonSerializerOptions options)
 	{
 		ArgumentNullException.ThrowIfNull(options);
 		_options = options;
 	}
 
-	/// <summary>
-	/// The <see cref="JsonSerializerOptions"/> used by this serializer.
-	/// </summary>
 	public JsonSerializerOptions Options => _options;
 
 	/// <inheritdoc />
