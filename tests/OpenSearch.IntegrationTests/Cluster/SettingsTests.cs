@@ -9,7 +9,7 @@ public class SettingsTests : IntegrationTestBase
 	[SkipIfNoCluster]
 	public void GetClusterSettings()
 	{
-		var response = Client.Cluster.GetSettings(new GetSettingsRequest());
+		var response = Client.Cluster.GetSettings(new GetSettingsClusterRequest());
 
 		// Persistent and transient should not be null (they may be empty dicts)
 		response.Persistent.Should().NotBeNull();
@@ -20,7 +20,7 @@ public class SettingsTests : IntegrationTestBase
 	public void PutAndRevertTransientClusterSetting()
 	{
 		// Set a transient cluster setting
-		var putResponse = Client.Cluster.PutSettings(new PutSettingsRequest
+		var putResponse = Client.Cluster.PutSettings(new PutSettingsClusterRequest
 		{
 			Transient = new Dictionary<string, object>
 			{
@@ -32,11 +32,11 @@ public class SettingsTests : IntegrationTestBase
 		putResponse.Transient.Should().NotBeNull();
 
 		// Verify the setting via GetSettings
-		var getResponse = Client.Cluster.GetSettings(new GetSettingsRequest { FlatSettings = true });
+		var getResponse = Client.Cluster.GetSettings(new GetSettingsClusterRequest { FlatSettings = true });
 		getResponse.Transient.Should().NotBeNull();
 
 		// Revert: set to null to clear
-		var revertResponse = Client.Cluster.PutSettings(new PutSettingsRequest
+		var revertResponse = Client.Cluster.PutSettings(new PutSettingsClusterRequest
 		{
 			Transient = new Dictionary<string, object>
 			{

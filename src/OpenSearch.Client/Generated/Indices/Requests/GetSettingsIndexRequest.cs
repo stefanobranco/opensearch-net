@@ -50,9 +50,9 @@ public sealed class GetSettingsIndexEndpoint : IEndpoint<GetSettingsIndexRequest
 	public string RequestUrl(GetSettingsIndexRequest r)
 	{
 		var path = r.Index is not null && r.Name is not null
-			? $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_settings/{Uri.EscapeDataString(r.Name!.ToString()!)}" : r.Name is not null
-			? $"/_settings/{Uri.EscapeDataString(r.Name!.ToString()!)}" : r.Index is not null
-			? $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_settings" : true
+			? $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}/_settings/{Uri.EscapeDataString(string.Join(",", r.Name!))}" : r.Name is not null
+			? $"/_settings/{Uri.EscapeDataString(string.Join(",", r.Name!))}" : r.Index is not null
+			? $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}/_settings" : true
 			? $"/_settings"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

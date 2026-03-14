@@ -41,7 +41,7 @@ public sealed class CountCatEndpoint : IEndpoint<CountCatRequest, CountCatRespon
 	public string RequestUrl(CountCatRequest r)
 	{
 		var path = r.Index is not null
-			? $"/_cat/count/{Uri.EscapeDataString(r.Index!.ToString()!)}" : true
+			? $"/_cat/count/{Uri.EscapeDataString(string.Join(",", r.Index!))}" : true
 			? $"/_cat/count"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

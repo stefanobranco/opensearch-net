@@ -13,6 +13,8 @@ public sealed class TermsQueryDescriptor
 	public TermsQueryDescriptor Boost(float? value) { _value.Boost = value; return this; }
 	/// <summary>Specifies the types of values used for filtering. Valid values are `default` and `bitmap`. Default is `default`.</summary>
 		public TermsQueryDescriptor ValueType(TermsQueryValueType? value) { _value.ValueType = value; return this; }
+	/// <summary>Additional properties not captured by named fields.</summary>
+	public TermsQueryDescriptor AdditionalProperties(Dictionary<string, System.Text.Json.JsonElement>? value) { _value.AdditionalProperties = value; return this; }
 
 	public static implicit operator TermsQuery(TermsQueryDescriptor descriptor) => descriptor._value;
 }

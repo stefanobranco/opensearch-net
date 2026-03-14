@@ -6,7 +6,7 @@ namespace OpenSearch.Net;
 /// Manages a pool of OpenSearch nodes with round-robin selection and dead-node tracking.
 /// Thread-safe for concurrent access.
 /// </summary>
-public sealed class NodePool
+public sealed class NodePool : INodePool
 {
 	private readonly IReadOnlyList<Node> _nodes;
 	private readonly ConcurrentDictionary<Uri, DeadNodeState> _deadNodes = new();

@@ -28,7 +28,7 @@ public sealed class ResolveIndexIndexEndpoint : IEndpoint<ResolveIndexIndexReque
 
 	public string RequestUrl(ResolveIndexIndexRequest r)
 	{
-		var path = $"/_resolve/index/{Uri.EscapeDataString(r.Name!.ToString()!)}";
+		var path = $"/_resolve/index/{Uri.EscapeDataString(string.Join(",", r.Name!))}";
 		var queryParts = new List<string>();
 		if (r.ExpandWildcards is not null)
 			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(string.Join(",", r.ExpandWildcards!))}");

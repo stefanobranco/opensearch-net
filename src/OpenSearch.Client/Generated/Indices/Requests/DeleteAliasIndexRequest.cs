@@ -34,7 +34,7 @@ public sealed class DeleteAliasIndexEndpoint : IEndpoint<DeleteAliasIndexRequest
 
 	public string RequestUrl(DeleteAliasIndexRequest r)
 	{
-		var path = $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_alias/{Uri.EscapeDataString(r.Name!.ToString()!)}";
+		var path = $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}/_alias/{Uri.EscapeDataString(string.Join(",", r.Name!))}";
 		var queryParts = new List<string>();
 		if (r.ClusterManagerTimeout is not null)
 			queryParts.Add($"cluster_manager_timeout={Uri.EscapeDataString(r.ClusterManagerTimeout!)}");

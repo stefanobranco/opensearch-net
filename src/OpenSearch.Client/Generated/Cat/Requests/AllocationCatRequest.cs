@@ -50,7 +50,7 @@ public sealed class AllocationCatEndpoint : IEndpoint<AllocationCatRequest, Allo
 	public string RequestUrl(AllocationCatRequest r)
 	{
 		var path = r.NodeId is not null
-			? $"/_cat/allocation/{Uri.EscapeDataString(r.NodeId!.ToString()!)}" : true
+			? $"/_cat/allocation/{Uri.EscapeDataString(string.Join(",", r.NodeId!))}" : true
 			? $"/_cat/allocation"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

@@ -50,7 +50,7 @@ public sealed class SnapshotsCatEndpoint : IEndpoint<SnapshotsCatRequest, Snapsh
 	public string RequestUrl(SnapshotsCatRequest r)
 	{
 		var path = r.Repository is not null
-			? $"/_cat/snapshots/{Uri.EscapeDataString(r.Repository!.ToString()!)}" : true
+			? $"/_cat/snapshots/{Uri.EscapeDataString(string.Join(",", r.Repository!))}" : true
 			? $"/_cat/snapshots"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

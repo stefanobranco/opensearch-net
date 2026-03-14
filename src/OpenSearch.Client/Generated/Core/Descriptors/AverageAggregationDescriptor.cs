@@ -9,6 +9,8 @@ public sealed class AverageAggregationDescriptor
 {
 	internal AverageAggregation _value = new();
 
+	public AverageAggregationDescriptor Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
+	public AverageAggregationDescriptor Format(string? value) { _value.Format = value; return this; }
 
 	public static implicit operator AverageAggregation(AverageAggregationDescriptor descriptor) => descriptor._value;
 }

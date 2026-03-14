@@ -41,7 +41,7 @@ public sealed class RankEvalEndpoint : IEndpoint<RankEvalRequest, RankEvalRespon
 	public string RequestUrl(RankEvalRequest r)
 	{
 		var path = r.Index is not null
-			? $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_rank_eval" : true
+			? $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}/_rank_eval" : true
 			? $"/_rank_eval"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

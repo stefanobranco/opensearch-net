@@ -9,6 +9,7 @@ public sealed class ScriptedMetricAggregationDescriptor
 {
 	internal ScriptedMetricAggregation _value = new();
 
+	public ScriptedMetricAggregationDescriptor Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
 	public ScriptedMetricAggregationDescriptor CombineScript(System.Text.Json.JsonElement? value) { _value.CombineScript = value; return this; }
 	public ScriptedMetricAggregationDescriptor InitScript(System.Text.Json.JsonElement? value) { _value.InitScript = value; return this; }
 	public ScriptedMetricAggregationDescriptor MapScript(System.Text.Json.JsonElement? value) { _value.MapScript = value; return this; }

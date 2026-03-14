@@ -10,6 +10,7 @@ public sealed class TopHitsAggregationDescriptor
 {
 	internal TopHitsAggregation _value = new();
 
+	public TopHitsAggregationDescriptor Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
 	public TopHitsAggregationDescriptor DocvalueFields(List<string>? value) { _value.DocvalueFields = value; return this; }
 	/// <summary>If `true`, returns detailed information about score computation as part of a hit.</summary>
 		public TopHitsAggregationDescriptor Explain(bool? value) { _value.Explain = value; return this; }

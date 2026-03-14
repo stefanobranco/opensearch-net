@@ -9,6 +9,16 @@ public sealed class GeoShapePropertyDescriptor
 {
 	internal GeoShapeProperty _value = new();
 
+	/// <summary>Metadata about the field.</summary>
+		public GeoShapePropertyDescriptor Meta(Dictionary<string, string>? value) { _value.Meta = value; return this; }
+	public GeoShapePropertyDescriptor Properties(Dictionary<string, Property>? value) { _value.Properties = value; return this; }
+	public GeoShapePropertyDescriptor IgnoreAbove(int? value) { _value.IgnoreAbove = value; return this; }
+	public GeoShapePropertyDescriptor Dynamic(string? value) { _value.Dynamic = value; return this; }
+	public GeoShapePropertyDescriptor Fields(Dictionary<string, Property>? value) { _value.Fields = value; return this; }
+	public GeoShapePropertyDescriptor CopyTo(List<string>? value) { _value.CopyTo = value; return this; }
+	public GeoShapePropertyDescriptor Similarity(string? value) { _value.Similarity = value; return this; }
+	public GeoShapePropertyDescriptor Store(bool? value) { _value.Store = value; return this; }
+	public GeoShapePropertyDescriptor DocValues(bool? value) { _value.DocValues = value; return this; }
 	public GeoShapePropertyDescriptor Coerce(bool? value) { _value.Coerce = value; return this; }
 	public GeoShapePropertyDescriptor IgnoreMalformed(bool? value) { _value.IgnoreMalformed = value; return this; }
 	public GeoShapePropertyDescriptor IgnoreZValue(bool? value) { _value.IgnoreZValue = value; return this; }

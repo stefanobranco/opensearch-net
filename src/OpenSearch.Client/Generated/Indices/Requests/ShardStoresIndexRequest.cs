@@ -38,7 +38,7 @@ public sealed class ShardStoresIndexEndpoint : IEndpoint<ShardStoresIndexRequest
 	public string RequestUrl(ShardStoresIndexRequest r)
 	{
 		var path = r.Index is not null
-			? $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_shard_stores" : true
+			? $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}/_shard_stores" : true
 			? $"/_shard_stores"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

@@ -18,6 +18,8 @@ public sealed class GeoDistanceQueryDescriptor
 	public GeoDistanceQueryDescriptor IgnoreUnmapped(bool? value) { _value.IgnoreUnmapped = value; return this; }
 	/// <summary>The unit of distance measurement.</summary>
 		public GeoDistanceQueryDescriptor Unit(string? value) { _value.Unit = value; return this; }
+	/// <summary>Additional properties not captured by named fields.</summary>
+	public GeoDistanceQueryDescriptor AdditionalProperties(Dictionary<string, System.Text.Json.JsonElement>? value) { _value.AdditionalProperties = value; return this; }
 
 	public static implicit operator GeoDistanceQuery(GeoDistanceQueryDescriptor descriptor) => descriptor._value;
 }

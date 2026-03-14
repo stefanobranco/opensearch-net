@@ -69,12 +69,30 @@ public class NamingConventionsTests
     }
 
     [Fact]
-    public void OperationGroupToNames_ProducesCorrectNames()
+    public void OperationGroupToNames_IndicesNamespace_AppendsSuffix()
     {
         var (req, resp, ep) = NamingConventions.OperationGroupToNames("indices.create");
-        req.Should().Be("CreateRequest");
-        resp.Should().Be("CreateResponse");
-        ep.Should().Be("CreateEndpoint");
+        req.Should().Be("CreateIndexRequest");
+        resp.Should().Be("CreateIndexResponse");
+        ep.Should().Be("CreateIndexEndpoint");
+    }
+
+    [Fact]
+    public void OperationGroupToNames_IndicesExists_AppendsSuffix()
+    {
+        var (req, resp, ep) = NamingConventions.OperationGroupToNames("indices.exists");
+        req.Should().Be("ExistsIndexRequest");
+        resp.Should().Be("ExistsIndexResponse");
+        ep.Should().Be("ExistsIndexEndpoint");
+    }
+
+    [Fact]
+    public void OperationGroupToNames_CoreNamespace_BareNames()
+    {
+        var (req, resp, ep) = NamingConventions.OperationGroupToNames("_core.search");
+        req.Should().Be("SearchRequest");
+        resp.Should().Be("SearchResponse");
+        ep.Should().Be("SearchEndpoint");
     }
 
     [Fact]
@@ -84,6 +102,24 @@ public class NamingConventionsTests
         req.Should().Be("SearchRequest");
         resp.Should().Be("SearchResponse");
         ep.Should().Be("SearchEndpoint");
+    }
+
+    [Fact]
+    public void OperationGroupToNames_ClusterNamespace()
+    {
+        var (req, resp, ep) = NamingConventions.OperationGroupToNames("cluster.health");
+        req.Should().Be("HealthClusterRequest");
+        resp.Should().Be("HealthClusterResponse");
+        ep.Should().Be("HealthClusterEndpoint");
+    }
+
+    [Fact]
+    public void OperationGroupToNames_NodesNamespace()
+    {
+        var (req, resp, ep) = NamingConventions.OperationGroupToNames("nodes.stats");
+        req.Should().Be("StatsNodeRequest");
+        resp.Should().Be("StatsNodeResponse");
+        ep.Should().Be("StatsNodeEndpoint");
     }
 
     [Fact]

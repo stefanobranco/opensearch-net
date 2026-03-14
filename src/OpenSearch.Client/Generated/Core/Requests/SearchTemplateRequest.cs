@@ -76,7 +76,7 @@ public sealed class SearchTemplateEndpoint<TDocument> : IEndpoint<SearchTemplate
 	public string RequestUrl(SearchTemplateRequest r)
 	{
 		var path = r.Index is not null
-			? $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_search/template" : true
+			? $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}/_search/template" : true
 			? $"/_search/template"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

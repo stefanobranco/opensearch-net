@@ -12,41 +12,41 @@ namespace OpenSearch.Client.Common;
 [JsonEnum]
 public enum AnalyzerKind
 {
-	[EnumMember(Value = "CustomAnalyzer")]
+	[EnumMember(Value = "custom")]
 	CustomAnalyzer,
-	[EnumMember(Value = "FingerprintAnalyzer")]
+	[EnumMember(Value = "fingerprint")]
 	FingerprintAnalyzer,
-	[EnumMember(Value = "KeywordAnalyzer")]
+	[EnumMember(Value = "keyword")]
 	KeywordAnalyzer,
-	[EnumMember(Value = "LanguageAnalyzer")]
+	[EnumMember(Value = "language")]
 	LanguageAnalyzer,
-	[EnumMember(Value = "NoriAnalyzer")]
+	[EnumMember(Value = "nori")]
 	NoriAnalyzer,
-	[EnumMember(Value = "PatternAnalyzer")]
+	[EnumMember(Value = "pattern")]
 	PatternAnalyzer,
-	[EnumMember(Value = "SimpleAnalyzer")]
+	[EnumMember(Value = "simple")]
 	SimpleAnalyzer,
-	[EnumMember(Value = "StandardAnalyzer")]
+	[EnumMember(Value = "standard")]
 	StandardAnalyzer,
-	[EnumMember(Value = "StopAnalyzer")]
+	[EnumMember(Value = "stop")]
 	StopAnalyzer,
-	[EnumMember(Value = "WhitespaceAnalyzer")]
+	[EnumMember(Value = "whitespace")]
 	WhitespaceAnalyzer,
-	[EnumMember(Value = "IcuAnalyzer")]
+	[EnumMember(Value = "icu_analyzer")]
 	IcuAnalyzer,
-	[EnumMember(Value = "KuromojiAnalyzer")]
+	[EnumMember(Value = "kuromoji")]
 	KuromojiAnalyzer,
-	[EnumMember(Value = "SnowballAnalyzer")]
+	[EnumMember(Value = "snowball")]
 	SnowballAnalyzer,
-	[EnumMember(Value = "DutchAnalyzer")]
+	[EnumMember(Value = "dutch")]
 	DutchAnalyzer,
-	[EnumMember(Value = "SmartcnAnalyzer")]
+	[EnumMember(Value = "smartcn")]
 	SmartcnAnalyzer,
-	[EnumMember(Value = "CjkAnalyzer")]
+	[EnumMember(Value = "cjk")]
 	CjkAnalyzer,
-	[EnumMember(Value = "PhoneAnalyzer")]
+	[EnumMember(Value = "phone")]
 	PhoneAnalyzer,
-	[EnumMember(Value = "PhoneSearchAnalyzer")]
+	[EnumMember(Value = "phone-search")]
 	PhoneSearchAnalyzer
 }
 
@@ -94,50 +94,52 @@ public sealed class Analyzer : TaggedUnion<AnalyzerKind, object>
 	public static Analyzer PhoneSearchAnalyzer(PhoneSearchAnalyzer value) => new(AnalyzerKind.PhoneSearchAnalyzer, value);
 }
 
-public sealed class AnalyzerConverter : TaggedUnionConverter<Analyzer, AnalyzerKind>
+public sealed class AnalyzerConverter : InternallyTaggedUnionConverter<Analyzer, AnalyzerKind>
 {
+	protected override string DiscriminatorProperty => "type";
+
 	private static readonly Dictionary<string, (AnalyzerKind Kind, Type Type)> s_kindByName = new(StringComparer.Ordinal)
 	{
-		["CustomAnalyzer"] = (AnalyzerKind.CustomAnalyzer, typeof(CustomAnalyzer)),
-		["FingerprintAnalyzer"] = (AnalyzerKind.FingerprintAnalyzer, typeof(FingerprintAnalyzer)),
-		["KeywordAnalyzer"] = (AnalyzerKind.KeywordAnalyzer, typeof(KeywordAnalyzer)),
-		["LanguageAnalyzer"] = (AnalyzerKind.LanguageAnalyzer, typeof(LanguageAnalyzer)),
-		["NoriAnalyzer"] = (AnalyzerKind.NoriAnalyzer, typeof(NoriAnalyzer)),
-		["PatternAnalyzer"] = (AnalyzerKind.PatternAnalyzer, typeof(PatternAnalyzer)),
-		["SimpleAnalyzer"] = (AnalyzerKind.SimpleAnalyzer, typeof(SimpleAnalyzer)),
-		["StandardAnalyzer"] = (AnalyzerKind.StandardAnalyzer, typeof(StandardAnalyzer)),
-		["StopAnalyzer"] = (AnalyzerKind.StopAnalyzer, typeof(StopAnalyzer)),
-		["WhitespaceAnalyzer"] = (AnalyzerKind.WhitespaceAnalyzer, typeof(WhitespaceAnalyzer)),
-		["IcuAnalyzer"] = (AnalyzerKind.IcuAnalyzer, typeof(IcuAnalyzer)),
-		["KuromojiAnalyzer"] = (AnalyzerKind.KuromojiAnalyzer, typeof(KuromojiAnalyzer)),
-		["SnowballAnalyzer"] = (AnalyzerKind.SnowballAnalyzer, typeof(SnowballAnalyzer)),
-		["DutchAnalyzer"] = (AnalyzerKind.DutchAnalyzer, typeof(DutchAnalyzer)),
-		["SmartcnAnalyzer"] = (AnalyzerKind.SmartcnAnalyzer, typeof(SmartcnAnalyzer)),
-		["CjkAnalyzer"] = (AnalyzerKind.CjkAnalyzer, typeof(CjkAnalyzer)),
-		["PhoneAnalyzer"] = (AnalyzerKind.PhoneAnalyzer, typeof(PhoneAnalyzer)),
-		["PhoneSearchAnalyzer"] = (AnalyzerKind.PhoneSearchAnalyzer, typeof(PhoneSearchAnalyzer)),
+		["custom"] = (AnalyzerKind.CustomAnalyzer, typeof(CustomAnalyzer)),
+		["fingerprint"] = (AnalyzerKind.FingerprintAnalyzer, typeof(FingerprintAnalyzer)),
+		["keyword"] = (AnalyzerKind.KeywordAnalyzer, typeof(KeywordAnalyzer)),
+		["language"] = (AnalyzerKind.LanguageAnalyzer, typeof(LanguageAnalyzer)),
+		["nori"] = (AnalyzerKind.NoriAnalyzer, typeof(NoriAnalyzer)),
+		["pattern"] = (AnalyzerKind.PatternAnalyzer, typeof(PatternAnalyzer)),
+		["simple"] = (AnalyzerKind.SimpleAnalyzer, typeof(SimpleAnalyzer)),
+		["standard"] = (AnalyzerKind.StandardAnalyzer, typeof(StandardAnalyzer)),
+		["stop"] = (AnalyzerKind.StopAnalyzer, typeof(StopAnalyzer)),
+		["whitespace"] = (AnalyzerKind.WhitespaceAnalyzer, typeof(WhitespaceAnalyzer)),
+		["icu_analyzer"] = (AnalyzerKind.IcuAnalyzer, typeof(IcuAnalyzer)),
+		["kuromoji"] = (AnalyzerKind.KuromojiAnalyzer, typeof(KuromojiAnalyzer)),
+		["snowball"] = (AnalyzerKind.SnowballAnalyzer, typeof(SnowballAnalyzer)),
+		["dutch"] = (AnalyzerKind.DutchAnalyzer, typeof(DutchAnalyzer)),
+		["smartcn"] = (AnalyzerKind.SmartcnAnalyzer, typeof(SmartcnAnalyzer)),
+		["cjk"] = (AnalyzerKind.CjkAnalyzer, typeof(CjkAnalyzer)),
+		["phone"] = (AnalyzerKind.PhoneAnalyzer, typeof(PhoneAnalyzer)),
+		["phone-search"] = (AnalyzerKind.PhoneSearchAnalyzer, typeof(PhoneSearchAnalyzer)),
 	};
 
 	private static readonly Dictionary<AnalyzerKind, string> s_nameByKind = new()
 	{
-		[AnalyzerKind.CustomAnalyzer] = "CustomAnalyzer",
-		[AnalyzerKind.FingerprintAnalyzer] = "FingerprintAnalyzer",
-		[AnalyzerKind.KeywordAnalyzer] = "KeywordAnalyzer",
-		[AnalyzerKind.LanguageAnalyzer] = "LanguageAnalyzer",
-		[AnalyzerKind.NoriAnalyzer] = "NoriAnalyzer",
-		[AnalyzerKind.PatternAnalyzer] = "PatternAnalyzer",
-		[AnalyzerKind.SimpleAnalyzer] = "SimpleAnalyzer",
-		[AnalyzerKind.StandardAnalyzer] = "StandardAnalyzer",
-		[AnalyzerKind.StopAnalyzer] = "StopAnalyzer",
-		[AnalyzerKind.WhitespaceAnalyzer] = "WhitespaceAnalyzer",
-		[AnalyzerKind.IcuAnalyzer] = "IcuAnalyzer",
-		[AnalyzerKind.KuromojiAnalyzer] = "KuromojiAnalyzer",
-		[AnalyzerKind.SnowballAnalyzer] = "SnowballAnalyzer",
-		[AnalyzerKind.DutchAnalyzer] = "DutchAnalyzer",
-		[AnalyzerKind.SmartcnAnalyzer] = "SmartcnAnalyzer",
-		[AnalyzerKind.CjkAnalyzer] = "CjkAnalyzer",
-		[AnalyzerKind.PhoneAnalyzer] = "PhoneAnalyzer",
-		[AnalyzerKind.PhoneSearchAnalyzer] = "PhoneSearchAnalyzer",
+		[AnalyzerKind.CustomAnalyzer] = "custom",
+		[AnalyzerKind.FingerprintAnalyzer] = "fingerprint",
+		[AnalyzerKind.KeywordAnalyzer] = "keyword",
+		[AnalyzerKind.LanguageAnalyzer] = "language",
+		[AnalyzerKind.NoriAnalyzer] = "nori",
+		[AnalyzerKind.PatternAnalyzer] = "pattern",
+		[AnalyzerKind.SimpleAnalyzer] = "simple",
+		[AnalyzerKind.StandardAnalyzer] = "standard",
+		[AnalyzerKind.StopAnalyzer] = "stop",
+		[AnalyzerKind.WhitespaceAnalyzer] = "whitespace",
+		[AnalyzerKind.IcuAnalyzer] = "icu_analyzer",
+		[AnalyzerKind.KuromojiAnalyzer] = "kuromoji",
+		[AnalyzerKind.SnowballAnalyzer] = "snowball",
+		[AnalyzerKind.DutchAnalyzer] = "dutch",
+		[AnalyzerKind.SmartcnAnalyzer] = "smartcn",
+		[AnalyzerKind.CjkAnalyzer] = "cjk",
+		[AnalyzerKind.PhoneAnalyzer] = "phone",
+		[AnalyzerKind.PhoneSearchAnalyzer] = "phone-search",
 	};
 
 	protected override Analyzer CreateFromKind(AnalyzerKind kind, object value) => kind switch
@@ -163,12 +165,12 @@ public sealed class AnalyzerConverter : TaggedUnionConverter<Analyzer, AnalyzerK
 		_ => throw new JsonException($"Unknown AnalyzerKind: {kind}")
 	};
 
-	protected override (AnalyzerKind Kind, Type ValueType) ResolveKind(string propertyName) =>
-		s_kindByName.TryGetValue(propertyName, out var result)
+	protected override (AnalyzerKind Kind, Type ValueType) ResolveKind(string discriminatorValue) =>
+		s_kindByName.TryGetValue(discriminatorValue, out var result)
 			? result
-			: throw new JsonException($"Unknown Analyzer variant: '{propertyName}'.");
+			: throw new JsonException($"Unknown Analyzer variant: '{discriminatorValue}'.");
 
-	protected override string ResolvePropertyName(AnalyzerKind kind) =>
+	protected override string ResolveDiscriminatorValue(AnalyzerKind kind) =>
 		s_nameByKind.TryGetValue(kind, out var name)
 			? name
 			: throw new JsonException($"No wire name for AnalyzerKind.{kind}.");

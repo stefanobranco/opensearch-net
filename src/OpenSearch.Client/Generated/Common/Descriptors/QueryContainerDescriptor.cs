@@ -32,6 +32,16 @@ public sealed class QueryContainerDescriptor
 	}
 	/// <summary>Creates a Common variant.</summary>
 	public QueryContainerDescriptor Common(Dictionary<string, CommonTermsQuery> value) { _value = QueryContainer.Common(value); return this; }
+	/// <summary>Creates a Common variant for a single field.</summary>
+	public QueryContainerDescriptor Common(string field, CommonTermsQuery value) { _value = QueryContainer.Common(field, value); return this; }
+	/// <summary>Creates a Common variant for a single field using a descriptor.</summary>
+	public QueryContainerDescriptor Common(string field, Action<CommonTermsQueryDescriptor> configure)
+	{
+		var descriptor = new CommonTermsQueryDescriptor();
+		configure(descriptor);
+		_value = QueryContainer.Common(field, ((CommonTermsQuery)descriptor)!);
+		return this;
+	}
 	/// <summary>Creates a CombinedFields variant.</summary>
 	public QueryContainerDescriptor CombinedFields(CombinedFieldsQuery value) { _value = QueryContainer.CombinedFields(value); return this; }
 	/// <summary>Creates a CombinedFields variant.</summary>
@@ -94,6 +104,16 @@ public sealed class QueryContainerDescriptor
 	}
 	/// <summary>Creates a Fuzzy variant.</summary>
 	public QueryContainerDescriptor Fuzzy(Dictionary<string, FuzzyQuery> value) { _value = QueryContainer.Fuzzy(value); return this; }
+	/// <summary>Creates a Fuzzy variant for a single field.</summary>
+	public QueryContainerDescriptor Fuzzy(string field, FuzzyQuery value) { _value = QueryContainer.Fuzzy(field, value); return this; }
+	/// <summary>Creates a Fuzzy variant for a single field using a descriptor.</summary>
+	public QueryContainerDescriptor Fuzzy(string field, Action<FuzzyQueryDescriptor> configure)
+	{
+		var descriptor = new FuzzyQueryDescriptor();
+		configure(descriptor);
+		_value = QueryContainer.Fuzzy(field, ((FuzzyQuery)descriptor)!);
+		return this;
+	}
 	/// <summary>Creates a GeoBoundingBox variant.</summary>
 	public QueryContainerDescriptor GeoBoundingBox(GeoBoundingBoxQuery value) { _value = QueryContainer.GeoBoundingBox(value); return this; }
 	/// <summary>Creates a GeoBoundingBox variant.</summary>
@@ -176,10 +196,40 @@ public sealed class QueryContainerDescriptor
 	}
 	/// <summary>Creates a Intervals variant.</summary>
 	public QueryContainerDescriptor Intervals(Dictionary<string, IntervalsQuery> value) { _value = QueryContainer.Intervals(value); return this; }
+	/// <summary>Creates a Intervals variant for a single field.</summary>
+	public QueryContainerDescriptor Intervals(string field, IntervalsQuery value) { _value = QueryContainer.Intervals(field, value); return this; }
+	/// <summary>Creates a Intervals variant for a single field using a descriptor.</summary>
+	public QueryContainerDescriptor Intervals(string field, Action<IntervalsQueryDescriptor> configure)
+	{
+		var descriptor = new IntervalsQueryDescriptor();
+		configure(descriptor);
+		_value = QueryContainer.Intervals(field, ((IntervalsQuery)descriptor)!);
+		return this;
+	}
 	/// <summary>Creates a Knn variant.</summary>
 	public QueryContainerDescriptor Knn(Dictionary<string, KnnQuery> value) { _value = QueryContainer.Knn(value); return this; }
+	/// <summary>Creates a Knn variant for a single field.</summary>
+	public QueryContainerDescriptor Knn(string field, KnnQuery value) { _value = QueryContainer.Knn(field, value); return this; }
+	/// <summary>Creates a Knn variant for a single field using a descriptor.</summary>
+	public QueryContainerDescriptor Knn(string field, Action<KnnQueryDescriptor> configure)
+	{
+		var descriptor = new KnnQueryDescriptor();
+		configure(descriptor);
+		_value = QueryContainer.Knn(field, ((KnnQuery)descriptor)!);
+		return this;
+	}
 	/// <summary>Creates a Match variant.</summary>
 	public QueryContainerDescriptor Match(Dictionary<string, MatchQuery> value) { _value = QueryContainer.Match(value); return this; }
+	/// <summary>Creates a Match variant for a single field.</summary>
+	public QueryContainerDescriptor Match(string field, MatchQuery value) { _value = QueryContainer.Match(field, value); return this; }
+	/// <summary>Creates a Match variant for a single field using a descriptor.</summary>
+	public QueryContainerDescriptor Match(string field, Action<MatchQueryDescriptor> configure)
+	{
+		var descriptor = new MatchQueryDescriptor();
+		configure(descriptor);
+		_value = QueryContainer.Match(field, ((MatchQuery)descriptor)!);
+		return this;
+	}
 	/// <summary>Creates a MatchAll variant.</summary>
 	public QueryContainerDescriptor MatchAll(MatchAllQuery value) { _value = QueryContainer.MatchAll(value); return this; }
 	/// <summary>Creates a MatchAll variant.</summary>
@@ -192,6 +242,16 @@ public sealed class QueryContainerDescriptor
 	}
 	/// <summary>Creates a MatchBoolPrefix variant.</summary>
 	public QueryContainerDescriptor MatchBoolPrefix(Dictionary<string, MatchBoolPrefixQuery> value) { _value = QueryContainer.MatchBoolPrefix(value); return this; }
+	/// <summary>Creates a MatchBoolPrefix variant for a single field.</summary>
+	public QueryContainerDescriptor MatchBoolPrefix(string field, MatchBoolPrefixQuery value) { _value = QueryContainer.MatchBoolPrefix(field, value); return this; }
+	/// <summary>Creates a MatchBoolPrefix variant for a single field using a descriptor.</summary>
+	public QueryContainerDescriptor MatchBoolPrefix(string field, Action<MatchBoolPrefixQueryDescriptor> configure)
+	{
+		var descriptor = new MatchBoolPrefixQueryDescriptor();
+		configure(descriptor);
+		_value = QueryContainer.MatchBoolPrefix(field, ((MatchBoolPrefixQuery)descriptor)!);
+		return this;
+	}
 	/// <summary>Creates a MatchNone variant.</summary>
 	public QueryContainerDescriptor MatchNone(MatchNoneQuery value) { _value = QueryContainer.MatchNone(value); return this; }
 	/// <summary>Creates a MatchNone variant.</summary>
@@ -204,8 +264,28 @@ public sealed class QueryContainerDescriptor
 	}
 	/// <summary>Creates a MatchPhrase variant.</summary>
 	public QueryContainerDescriptor MatchPhrase(Dictionary<string, MatchPhraseQuery> value) { _value = QueryContainer.MatchPhrase(value); return this; }
+	/// <summary>Creates a MatchPhrase variant for a single field.</summary>
+	public QueryContainerDescriptor MatchPhrase(string field, MatchPhraseQuery value) { _value = QueryContainer.MatchPhrase(field, value); return this; }
+	/// <summary>Creates a MatchPhrase variant for a single field using a descriptor.</summary>
+	public QueryContainerDescriptor MatchPhrase(string field, Action<MatchPhraseQueryDescriptor> configure)
+	{
+		var descriptor = new MatchPhraseQueryDescriptor();
+		configure(descriptor);
+		_value = QueryContainer.MatchPhrase(field, ((MatchPhraseQuery)descriptor)!);
+		return this;
+	}
 	/// <summary>Creates a MatchPhrasePrefix variant.</summary>
 	public QueryContainerDescriptor MatchPhrasePrefix(Dictionary<string, MatchPhrasePrefixQuery> value) { _value = QueryContainer.MatchPhrasePrefix(value); return this; }
+	/// <summary>Creates a MatchPhrasePrefix variant for a single field.</summary>
+	public QueryContainerDescriptor MatchPhrasePrefix(string field, MatchPhrasePrefixQuery value) { _value = QueryContainer.MatchPhrasePrefix(field, value); return this; }
+	/// <summary>Creates a MatchPhrasePrefix variant for a single field using a descriptor.</summary>
+	public QueryContainerDescriptor MatchPhrasePrefix(string field, Action<MatchPhrasePrefixQueryDescriptor> configure)
+	{
+		var descriptor = new MatchPhrasePrefixQueryDescriptor();
+		configure(descriptor);
+		_value = QueryContainer.MatchPhrasePrefix(field, ((MatchPhrasePrefixQuery)descriptor)!);
+		return this;
+	}
 	/// <summary>Creates a MoreLikeThis variant.</summary>
 	public QueryContainerDescriptor MoreLikeThis(MoreLikeThisQuery value) { _value = QueryContainer.MoreLikeThis(value); return this; }
 	/// <summary>Creates a MoreLikeThis variant.</summary>
@@ -238,6 +318,16 @@ public sealed class QueryContainerDescriptor
 	}
 	/// <summary>Creates a Neural variant.</summary>
 	public QueryContainerDescriptor Neural(Dictionary<string, NeuralQuery> value) { _value = QueryContainer.Neural(value); return this; }
+	/// <summary>Creates a Neural variant for a single field.</summary>
+	public QueryContainerDescriptor Neural(string field, NeuralQuery value) { _value = QueryContainer.Neural(field, value); return this; }
+	/// <summary>Creates a Neural variant for a single field using a descriptor.</summary>
+	public QueryContainerDescriptor Neural(string field, Action<NeuralQueryDescriptor> configure)
+	{
+		var descriptor = new NeuralQueryDescriptor();
+		configure(descriptor);
+		_value = QueryContainer.Neural(field, ((NeuralQuery)descriptor)!);
+		return this;
+	}
 	/// <summary>Creates a ParentId variant.</summary>
 	public QueryContainerDescriptor ParentId(ParentIdQuery value) { _value = QueryContainer.ParentId(value); return this; }
 	/// <summary>Creates a ParentId variant.</summary>
@@ -260,6 +350,16 @@ public sealed class QueryContainerDescriptor
 	}
 	/// <summary>Creates a Prefix variant.</summary>
 	public QueryContainerDescriptor Prefix(Dictionary<string, PrefixQuery> value) { _value = QueryContainer.Prefix(value); return this; }
+	/// <summary>Creates a Prefix variant for a single field.</summary>
+	public QueryContainerDescriptor Prefix(string field, PrefixQuery value) { _value = QueryContainer.Prefix(field, value); return this; }
+	/// <summary>Creates a Prefix variant for a single field using a descriptor.</summary>
+	public QueryContainerDescriptor Prefix(string field, Action<PrefixQueryDescriptor> configure)
+	{
+		var descriptor = new PrefixQueryDescriptor();
+		configure(descriptor);
+		_value = QueryContainer.Prefix(field, ((PrefixQuery)descriptor)!);
+		return this;
+	}
 	/// <summary>Creates a QueryString variant.</summary>
 	public QueryContainerDescriptor QueryString(QueryStringQuery value) { _value = QueryContainer.QueryString(value); return this; }
 	/// <summary>Creates a QueryString variant.</summary>
@@ -272,6 +372,8 @@ public sealed class QueryContainerDescriptor
 	}
 	/// <summary>Creates a Range variant.</summary>
 	public QueryContainerDescriptor Range(Dictionary<string, System.Text.Json.JsonElement> value) { _value = QueryContainer.Range(value); return this; }
+	/// <summary>Creates a Range variant for a single field.</summary>
+	public QueryContainerDescriptor Range(string field, System.Text.Json.JsonElement value) { _value = QueryContainer.Range(field, value); return this; }
 	/// <summary>Creates a RankFeature variant.</summary>
 	public QueryContainerDescriptor RankFeature(RankFeatureQuery value) { _value = QueryContainer.RankFeature(value); return this; }
 	/// <summary>Creates a RankFeature variant.</summary>
@@ -284,6 +386,16 @@ public sealed class QueryContainerDescriptor
 	}
 	/// <summary>Creates a Regexp variant.</summary>
 	public QueryContainerDescriptor Regexp(Dictionary<string, RegexpQuery> value) { _value = QueryContainer.Regexp(value); return this; }
+	/// <summary>Creates a Regexp variant for a single field.</summary>
+	public QueryContainerDescriptor Regexp(string field, RegexpQuery value) { _value = QueryContainer.Regexp(field, value); return this; }
+	/// <summary>Creates a Regexp variant for a single field using a descriptor.</summary>
+	public QueryContainerDescriptor Regexp(string field, Action<RegexpQueryDescriptor> configure)
+	{
+		var descriptor = new RegexpQueryDescriptor();
+		configure(descriptor);
+		_value = QueryContainer.Regexp(field, ((RegexpQuery)descriptor)!);
+		return this;
+	}
 	/// <summary>Creates a Script variant.</summary>
 	public QueryContainerDescriptor Script(ScriptQuery value) { _value = QueryContainer.Script(value); return this; }
 	/// <summary>Creates a Script variant.</summary>
@@ -386,6 +498,16 @@ public sealed class QueryContainerDescriptor
 	}
 	/// <summary>Creates a SpanTerm variant.</summary>
 	public QueryContainerDescriptor SpanTerm(Dictionary<string, SpanTermQuery> value) { _value = QueryContainer.SpanTerm(value); return this; }
+	/// <summary>Creates a SpanTerm variant for a single field.</summary>
+	public QueryContainerDescriptor SpanTerm(string field, SpanTermQuery value) { _value = QueryContainer.SpanTerm(field, value); return this; }
+	/// <summary>Creates a SpanTerm variant for a single field using a descriptor.</summary>
+	public QueryContainerDescriptor SpanTerm(string field, Action<SpanTermQueryDescriptor> configure)
+	{
+		var descriptor = new SpanTermQueryDescriptor();
+		configure(descriptor);
+		_value = QueryContainer.SpanTerm(field, ((SpanTermQuery)descriptor)!);
+		return this;
+	}
 	/// <summary>Creates a SpanWithin variant.</summary>
 	public QueryContainerDescriptor SpanWithin(SpanWithinQuery value) { _value = QueryContainer.SpanWithin(value); return this; }
 	/// <summary>Creates a SpanWithin variant.</summary>
@@ -398,8 +520,20 @@ public sealed class QueryContainerDescriptor
 	}
 	/// <summary>Creates a Template variant.</summary>
 	public QueryContainerDescriptor Template(Dictionary<string, object> value) { _value = QueryContainer.Template(value); return this; }
+	/// <summary>Creates a Template variant for a single field.</summary>
+	public QueryContainerDescriptor Template(string field, object value) { _value = QueryContainer.Template(field, value); return this; }
 	/// <summary>Creates a Term variant.</summary>
 	public QueryContainerDescriptor Term(Dictionary<string, TermQuery> value) { _value = QueryContainer.Term(value); return this; }
+	/// <summary>Creates a Term variant for a single field.</summary>
+	public QueryContainerDescriptor Term(string field, TermQuery value) { _value = QueryContainer.Term(field, value); return this; }
+	/// <summary>Creates a Term variant for a single field using a descriptor.</summary>
+	public QueryContainerDescriptor Term(string field, Action<TermQueryDescriptor> configure)
+	{
+		var descriptor = new TermQueryDescriptor();
+		configure(descriptor);
+		_value = QueryContainer.Term(field, ((TermQuery)descriptor)!);
+		return this;
+	}
 	/// <summary>Creates a Terms variant.</summary>
 	public QueryContainerDescriptor Terms(TermsQuery value) { _value = QueryContainer.Terms(value); return this; }
 	/// <summary>Creates a Terms variant.</summary>
@@ -412,6 +546,16 @@ public sealed class QueryContainerDescriptor
 	}
 	/// <summary>Creates a TermsSet variant.</summary>
 	public QueryContainerDescriptor TermsSet(Dictionary<string, TermsSetQuery> value) { _value = QueryContainer.TermsSet(value); return this; }
+	/// <summary>Creates a TermsSet variant for a single field.</summary>
+	public QueryContainerDescriptor TermsSet(string field, TermsSetQuery value) { _value = QueryContainer.TermsSet(field, value); return this; }
+	/// <summary>Creates a TermsSet variant for a single field using a descriptor.</summary>
+	public QueryContainerDescriptor TermsSet(string field, Action<TermsSetQueryDescriptor> configure)
+	{
+		var descriptor = new TermsSetQueryDescriptor();
+		configure(descriptor);
+		_value = QueryContainer.TermsSet(field, ((TermsSetQuery)descriptor)!);
+		return this;
+	}
 	/// <summary>Creates a Type variant.</summary>
 	public QueryContainerDescriptor Type(TypeQuery value) { _value = QueryContainer.Type(value); return this; }
 	/// <summary>Creates a Type variant.</summary>
@@ -424,6 +568,16 @@ public sealed class QueryContainerDescriptor
 	}
 	/// <summary>Creates a Wildcard variant.</summary>
 	public QueryContainerDescriptor Wildcard(Dictionary<string, WildcardQuery> value) { _value = QueryContainer.Wildcard(value); return this; }
+	/// <summary>Creates a Wildcard variant for a single field.</summary>
+	public QueryContainerDescriptor Wildcard(string field, WildcardQuery value) { _value = QueryContainer.Wildcard(field, value); return this; }
+	/// <summary>Creates a Wildcard variant for a single field using a descriptor.</summary>
+	public QueryContainerDescriptor Wildcard(string field, Action<WildcardQueryDescriptor> configure)
+	{
+		var descriptor = new WildcardQueryDescriptor();
+		configure(descriptor);
+		_value = QueryContainer.Wildcard(field, ((WildcardQuery)descriptor)!);
+		return this;
+	}
 	/// <summary>Creates a Wrapper variant.</summary>
 	public QueryContainerDescriptor Wrapper(WrapperQuery value) { _value = QueryContainer.Wrapper(value); return this; }
 	/// <summary>Creates a Wrapper variant.</summary>

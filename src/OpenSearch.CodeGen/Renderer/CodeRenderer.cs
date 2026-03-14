@@ -99,7 +99,7 @@ public sealed class CodeRenderer
 			if (!_renderedTypes.Add($"Union:{union.Namespace}:{union.ClassName}"))
 				continue;
 			var dir = Path.Combine(_outputDir, union.Namespace, "Types");
-			var ctx = TemplateHelpers.BuildTaggedUnionContext(union, allObjects);
+			var ctx = TemplateHelpers.BuildTaggedUnionContext(union, allObjects, _globalUnions);
 			RenderToFile(_templates.Load("TaggedUnion.sbn"), ctx, dir, $"{union.ClassName}.cs");
 		}
 
@@ -125,12 +125,12 @@ public sealed class CodeRenderer
 			RenderToFile(_templates.Load("TaggedUnionDescriptor.sbn"), ctx, dir, $"{union.ClassName}Descriptor.cs");
 		}
 
-		// Render request descriptors
+		// Render request descriptors (uses same template as object descriptors)
 		foreach (var request in result.Requests)
 		{
 			var dir = Path.Combine(nsDir, "Descriptors");
 			var ctx = TemplateHelpers.BuildRequestDescriptorContext(request, allObjects, _globalUnions);
-			RenderToFile(_templates.Load("RequestDescriptor.sbn"), ctx, dir, $"{request.ClassName}Descriptor.cs");
+			RenderToFile(_templates.Load("ObjectDescriptor.sbn"), ctx, dir, $"{request.ClassName}Descriptor.cs");
 		}
 
 		// Render namespace client

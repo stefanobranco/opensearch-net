@@ -38,9 +38,9 @@ public sealed class StatsClusterEndpoint : IEndpoint<StatsClusterRequest, StatsC
 	public string RequestUrl(StatsClusterRequest r)
 	{
 		var path = r.Metric is not null && r.IndexMetric is not null && r.NodeId is not null
-			? $"/_cluster/stats/{Uri.EscapeDataString(r.Metric!.ToString()!)}/{Uri.EscapeDataString(r.IndexMetric!.ToString()!)}/nodes/{Uri.EscapeDataString(r.NodeId!.ToString()!)}" : r.Metric is not null && r.NodeId is not null
-			? $"/_cluster/stats/{Uri.EscapeDataString(r.Metric!.ToString()!)}/nodes/{Uri.EscapeDataString(r.NodeId!.ToString()!)}" : r.NodeId is not null
-			? $"/_cluster/stats/nodes/{Uri.EscapeDataString(r.NodeId!.ToString()!)}" : true
+			? $"/_cluster/stats/{Uri.EscapeDataString(string.Join(",", r.Metric!))}/{Uri.EscapeDataString(string.Join(",", r.IndexMetric!))}/nodes/{Uri.EscapeDataString(string.Join(",", r.NodeId!))}" : r.Metric is not null && r.NodeId is not null
+			? $"/_cluster/stats/{Uri.EscapeDataString(string.Join(",", r.Metric!))}/nodes/{Uri.EscapeDataString(string.Join(",", r.NodeId!))}" : r.NodeId is not null
+			? $"/_cluster/stats/nodes/{Uri.EscapeDataString(string.Join(",", r.NodeId!))}" : true
 			? $"/_cluster/stats"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

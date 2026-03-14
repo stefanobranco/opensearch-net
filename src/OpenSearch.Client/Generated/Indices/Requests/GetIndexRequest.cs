@@ -46,7 +46,7 @@ public sealed class GetIndexEndpoint : IEndpoint<GetIndexRequest, GetIndexRespon
 
 	public string RequestUrl(GetIndexRequest r)
 	{
-		var path = $"/{Uri.EscapeDataString(r.Index!.ToString()!)}";
+		var path = $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}";
 		var queryParts = new List<string>();
 		if (r.AllowNoIndices is not null)
 			queryParts.Add($"allow_no_indices={Uri.EscapeDataString((r.AllowNoIndices.Value ? "true" : "false"))}");

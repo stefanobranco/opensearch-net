@@ -53,7 +53,7 @@ public sealed class ShardsCatEndpoint : IEndpoint<ShardsCatRequest, ShardsCatRes
 	public string RequestUrl(ShardsCatRequest r)
 	{
 		var path = r.Index is not null
-			? $"/_cat/shards/{Uri.EscapeDataString(r.Index!.ToString()!)}" : true
+			? $"/_cat/shards/{Uri.EscapeDataString(string.Join(",", r.Index!))}" : true
 			? $"/_cat/shards"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

@@ -9,6 +9,8 @@ public sealed class MaxAggregationDescriptor
 {
 	internal MaxAggregation _value = new();
 
+	public MaxAggregationDescriptor Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
+	public MaxAggregationDescriptor Format(string? value) { _value.Format = value; return this; }
 	public MaxAggregationDescriptor ValueType(ValueType? value) { _value.ValueType = value; return this; }
 
 	public static implicit operator MaxAggregation(MaxAggregationDescriptor descriptor) => descriptor._value;

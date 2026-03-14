@@ -12,7 +12,7 @@ public class SearchTests : IntegrationTestBase
 		var index = UniqueIndex();
 
 		// Create index
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
 
 		// Index documents via bulk with refresh
 		var bulkResponse = Client.Core.Bulk(new BulkRequest
@@ -32,7 +32,7 @@ public class SearchTests : IntegrationTestBase
 		// Search all documents
 		var searchResponse = Client.Core.Search<SearchDoc>(new SearchRequest
 		{
-			Index = index,
+			Index = [index],
 			Size = 10,
 		});
 
@@ -47,7 +47,7 @@ public class SearchTests : IntegrationTestBase
 	{
 		var index = UniqueIndex();
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
 
 		Client.Core.Bulk(new BulkRequest
 		{
@@ -63,7 +63,7 @@ public class SearchTests : IntegrationTestBase
 		// Search with query string
 		var searchResponse = Client.Core.Search<SearchDoc>(new SearchRequest
 		{
-			Index = index,
+			Index = [index],
 			Q = "Alice",
 		});
 

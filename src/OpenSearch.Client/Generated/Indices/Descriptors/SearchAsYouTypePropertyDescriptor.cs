@@ -9,6 +9,15 @@ public sealed class SearchAsYouTypePropertyDescriptor
 {
 	internal SearchAsYouTypeProperty _value = new();
 
+	/// <summary>Metadata about the field.</summary>
+		public SearchAsYouTypePropertyDescriptor Meta(Dictionary<string, string>? value) { _value.Meta = value; return this; }
+	public SearchAsYouTypePropertyDescriptor Properties(Dictionary<string, Property>? value) { _value.Properties = value; return this; }
+	public SearchAsYouTypePropertyDescriptor IgnoreAbove(int? value) { _value.IgnoreAbove = value; return this; }
+	public SearchAsYouTypePropertyDescriptor Dynamic(string? value) { _value.Dynamic = value; return this; }
+	public SearchAsYouTypePropertyDescriptor Fields(Dictionary<string, Property>? value) { _value.Fields = value; return this; }
+	public SearchAsYouTypePropertyDescriptor CopyTo(List<string>? value) { _value.CopyTo = value; return this; }
+	public SearchAsYouTypePropertyDescriptor Similarity(string? value) { _value.Similarity = value; return this; }
+	public SearchAsYouTypePropertyDescriptor Store(bool? value) { _value.Store = value; return this; }
 	public SearchAsYouTypePropertyDescriptor Analyzer(string? value) { _value.Analyzer = value; return this; }
 	public SearchAsYouTypePropertyDescriptor Index(bool? value) { _value.Index = value; return this; }
 	public SearchAsYouTypePropertyDescriptor IndexOptions(IndexOptions? value) { _value.IndexOptions = value; return this; }

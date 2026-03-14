@@ -51,6 +51,23 @@ public sealed class OpenApiSchema
 	public string? Description => TryGetString("description", out var v) ? v : null;
 	public string? Title => TryGetString("title", out var v) ? v : null;
 	public bool Deprecated => TryGetString("deprecated", out var v) && v == "true";
+
+	/// <summary>
+	/// Returns the discriminator property name (e.g., "type" for Property union).
+	/// </summary>
+	public string? DiscriminatorPropertyName
+	{
+		get
+		{
+			if (!TryGetNode("discriminator", out var node) || node is not YamlMappingNode mapping)
+				return null;
+			var key = new YamlScalarNode("propertyName");
+			if (mapping.Children.TryGetValue(key, out var child) && child is YamlScalarNode scalar)
+				return scalar.Value;
+			return null;
+		}
+	}
+	public string? Const => TryGetString("const", out var v) ? v : null;
 	public string? XOperationGroup => TryGetString("x-operation-group", out var v) ? v : null;
 	public bool XIgnorable => TryGetString("x-ignorable", out var v) && v == "true";
 

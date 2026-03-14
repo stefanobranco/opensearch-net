@@ -8,6 +8,15 @@ namespace OpenSearch.Client.Indices;
 
 public sealed class SearchAsYouTypeProperty
 {
+	/// <summary>Metadata about the field.</summary>
+		public Dictionary<string, string>? Meta { get; set; }
+	public Dictionary<string, Property>? Properties { get; set; }
+	public int? IgnoreAbove { get; set; }
+	public string? Dynamic { get; set; }
+	public Dictionary<string, Property>? Fields { get; set; }
+	public List<string>? CopyTo { get; set; }
+	public string? Similarity { get; set; }
+	public bool? Store { get; set; }
 	public string? Analyzer { get; set; }
 	public bool? Index { get; set; }
 	public IndexOptions? IndexOptions { get; set; }

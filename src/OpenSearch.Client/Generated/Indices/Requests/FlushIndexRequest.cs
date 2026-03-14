@@ -41,7 +41,7 @@ public sealed class FlushIndexEndpoint : IEndpoint<FlushIndexRequest, FlushIndex
 	public string RequestUrl(FlushIndexRequest r)
 	{
 		var path = r.Index is not null
-			? $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_flush" : true
+			? $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}/_flush" : true
 			? $"/_flush"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

@@ -32,7 +32,7 @@ public sealed class RecoveryIndexEndpoint : IEndpoint<RecoveryIndexRequest, Reco
 	public string RequestUrl(RecoveryIndexRequest r)
 	{
 		var path = r.Index is not null
-			? $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_recovery" : true
+			? $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}/_recovery" : true
 			? $"/_recovery"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

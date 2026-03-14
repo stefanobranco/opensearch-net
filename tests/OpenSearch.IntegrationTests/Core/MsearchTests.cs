@@ -11,7 +11,7 @@ public class MsearchTests : IntegrationTestBase
 	public void MsearchWithTwoQueries()
 	{
 		var index = UniqueIndex();
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
 
 		// Bulk index test data
 		Client.Core.Bulk(new BulkRequest

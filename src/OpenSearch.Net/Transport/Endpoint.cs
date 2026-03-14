@@ -17,11 +17,6 @@ public interface IEndpoint<TRequest, TResponse>
 	string RequestUrl(TRequest request);
 
 	/// <summary>
-	/// The content type for the request body, or null if the endpoint has no body.
-	/// </summary>
-	string? ContentType { get; }
-
-	/// <summary>
 	/// Returns the request body, or null if the endpoint sends no body.
 	/// </summary>
 	RequestBody? GetBody(TRequest request);
@@ -42,7 +37,6 @@ public sealed class SimpleEndpoint<TRequest, TResponse> : IEndpoint<TRequest, TR
 	private readonly Func<TRequest, string> _requestUrl;
 	private readonly Func<TRequest, RequestBody?>? _getBody;
 	private readonly Func<int, string?, Stream, IOpenSearchSerializer, TResponse> _deserialize;
-	private readonly string? _contentType;
 
 	/// <summary>
 	/// Creates a new <see cref="SimpleEndpoint{TRequest, TResponse}"/> from delegate functions.
@@ -51,7 +45,6 @@ public sealed class SimpleEndpoint<TRequest, TResponse> : IEndpoint<TRequest, TR
 		Func<TRequest, HttpMethod> method,
 		Func<TRequest, string> requestUrl,
 		Func<int, string?, Stream, IOpenSearchSerializer, TResponse> deserialize,
-		string? contentType = null,
 		Func<TRequest, RequestBody?>? getBody = null)
 	{
 		ArgumentNullException.ThrowIfNull(method);
@@ -61,7 +54,6 @@ public sealed class SimpleEndpoint<TRequest, TResponse> : IEndpoint<TRequest, TR
 		_method = method;
 		_requestUrl = requestUrl;
 		_deserialize = deserialize;
-		_contentType = contentType;
 		_getBody = getBody;
 	}
 
@@ -70,9 +62,6 @@ public sealed class SimpleEndpoint<TRequest, TResponse> : IEndpoint<TRequest, TR
 
 	/// <inheritdoc />
 	public string RequestUrl(TRequest request) => _requestUrl(request);
-
-	/// <inheritdoc />
-	public string? ContentType => _contentType;
 
 	/// <inheritdoc />
 	public RequestBody? GetBody(TRequest request) => _getBody?.Invoke(request);

@@ -24,4 +24,6 @@ public sealed class GeoDistanceSort
 	/// <summary>The unit of distance measurement.</summary>
 		public string? Unit { get; set; }
 	public GeoValidationMethod? ValidationMethod { get; set; }
+	[JsonExtensionData]
+	public Dictionary<string, System.Text.Json.JsonElement>? AdditionalProperties { get; set; }
 }

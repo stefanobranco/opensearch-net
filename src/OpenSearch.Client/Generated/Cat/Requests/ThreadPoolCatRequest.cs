@@ -50,7 +50,7 @@ public sealed class ThreadPoolCatEndpoint : IEndpoint<ThreadPoolCatRequest, Thre
 	public string RequestUrl(ThreadPoolCatRequest r)
 	{
 		var path = r.ThreadPoolPatterns is not null
-			? $"/_cat/thread_pool/{Uri.EscapeDataString(r.ThreadPoolPatterns!.ToString()!)}" : true
+			? $"/_cat/thread_pool/{Uri.EscapeDataString(string.Join(",", r.ThreadPoolPatterns!))}" : true
 			? $"/_cat/thread_pool"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

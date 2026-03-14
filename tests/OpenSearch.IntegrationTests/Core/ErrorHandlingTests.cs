@@ -14,7 +14,7 @@ public class ErrorHandlingTests : IntegrationTestBase
 		// with an index_not_found_exception error type
 		var act = () => Client.Core.Search<ErrorDoc>(new SearchRequest
 		{
-			Index = "this-index-does-not-exist-" + Guid.NewGuid().ToString("N")
+			Index = ["this-index-does-not-exist-" + Guid.NewGuid().ToString("N")]
 		});
 
 		var ex = act.Should().Throw<OpenSearchServerException>().Which;
@@ -26,7 +26,7 @@ public class ErrorHandlingTests : IntegrationTestBase
 	{
 		var index = UniqueIndex("err");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
 
 		// GET on non-existent doc returns found=false (not an exception)
 		var getResponse = Client.Core.Get<ErrorDoc>(new GetRequest { Index = index, Id = "does-not-exist" });
@@ -38,7 +38,7 @@ public class ErrorHandlingTests : IntegrationTestBase
 	{
 		var index = UniqueIndex("err");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
 
 		var existsResponse = Client.Core.Exists(new ExistsRequest { Index = index, Id = "does-not-exist" });
 		existsResponse.Exists.Should().BeFalse();
@@ -49,7 +49,7 @@ public class ErrorHandlingTests : IntegrationTestBase
 	{
 		var index = UniqueIndex("err");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
 
 		Client.Core.Bulk(new BulkRequest
 		{

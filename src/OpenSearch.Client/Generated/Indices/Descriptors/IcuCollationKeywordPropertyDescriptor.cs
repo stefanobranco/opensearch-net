@@ -9,6 +9,16 @@ public sealed class IcuCollationKeywordPropertyDescriptor
 {
 	internal IcuCollationKeywordProperty _value = new();
 
+	/// <summary>Metadata about the field.</summary>
+		public IcuCollationKeywordPropertyDescriptor Meta(Dictionary<string, string>? value) { _value.Meta = value; return this; }
+	public IcuCollationKeywordPropertyDescriptor Properties(Dictionary<string, Property>? value) { _value.Properties = value; return this; }
+	public IcuCollationKeywordPropertyDescriptor IgnoreAbove(int? value) { _value.IgnoreAbove = value; return this; }
+	public IcuCollationKeywordPropertyDescriptor Dynamic(string? value) { _value.Dynamic = value; return this; }
+	public IcuCollationKeywordPropertyDescriptor Fields(Dictionary<string, Property>? value) { _value.Fields = value; return this; }
+	public IcuCollationKeywordPropertyDescriptor CopyTo(List<string>? value) { _value.CopyTo = value; return this; }
+	public IcuCollationKeywordPropertyDescriptor Similarity(string? value) { _value.Similarity = value; return this; }
+	public IcuCollationKeywordPropertyDescriptor Store(bool? value) { _value.Store = value; return this; }
+	public IcuCollationKeywordPropertyDescriptor DocValues(bool? value) { _value.DocValues = value; return this; }
 	public IcuCollationKeywordPropertyDescriptor Type(string? value) { _value.Type = value; return this; }
 	public IcuCollationKeywordPropertyDescriptor Index(bool? value) { _value.Index = value; return this; }
 	public IcuCollationKeywordPropertyDescriptor NullValue(string? value) { _value.NullValue = value; return this; }

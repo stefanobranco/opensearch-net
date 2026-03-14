@@ -44,8 +44,8 @@ public sealed class GetFieldMappingIndexEndpoint : IEndpoint<GetFieldMappingInde
 	public string RequestUrl(GetFieldMappingIndexRequest r)
 	{
 		var path = r.Index is not null && r.Fields is not null
-			? $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_mapping/field/{Uri.EscapeDataString(r.Fields!.ToString()!)}" : r.Fields is not null
-			? $"/_mapping/field/{Uri.EscapeDataString(r.Fields!.ToString()!)}"
+			? $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}/_mapping/field/{Uri.EscapeDataString(string.Join(",", r.Fields!))}" : r.Fields is not null
+			? $"/_mapping/field/{Uri.EscapeDataString(string.Join(",", r.Fields!))}"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();
 		if (r.AllowNoIndices is not null)

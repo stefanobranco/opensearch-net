@@ -53,7 +53,7 @@ public sealed class RecoveryCatEndpoint : IEndpoint<RecoveryCatRequest, Recovery
 	public string RequestUrl(RecoveryCatRequest r)
 	{
 		var path = r.Index is not null
-			? $"/_cat/recovery/{Uri.EscapeDataString(r.Index!.ToString()!)}" : true
+			? $"/_cat/recovery/{Uri.EscapeDataString(string.Join(",", r.Index!))}" : true
 			? $"/_cat/recovery"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

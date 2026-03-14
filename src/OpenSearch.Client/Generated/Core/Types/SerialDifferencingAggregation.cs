@@ -8,6 +8,10 @@ namespace OpenSearch.Client.Core;
 
 public sealed class SerialDifferencingAggregation
 {
+	public System.Text.Json.JsonElement? BucketsPath { get; set; }
+	/// <summary>`DecimalFormat` pattern for the output value. If specified, the formatted value is returned in the aggregation's `value_as_string` property.</summary>
+		public string? Format { get; set; }
+	public GapPolicy? GapPolicy { get; set; }
 	/// <summary>The historical bucket to subtract from the current value. Must be a positive, non-zero integer.</summary>
 		public int? Lag { get; set; }
 }

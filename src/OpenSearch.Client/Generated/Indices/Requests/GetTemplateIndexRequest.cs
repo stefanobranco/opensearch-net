@@ -35,7 +35,7 @@ public sealed class GetTemplateIndexEndpoint : IEndpoint<GetTemplateIndexRequest
 	public string RequestUrl(GetTemplateIndexRequest r)
 	{
 		var path = r.Name is not null
-			? $"/_template/{Uri.EscapeDataString(r.Name!.ToString()!)}" : true
+			? $"/_template/{Uri.EscapeDataString(string.Join(",", r.Name!))}" : true
 			? $"/_template"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

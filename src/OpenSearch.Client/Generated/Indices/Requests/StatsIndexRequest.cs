@@ -56,9 +56,9 @@ public sealed class StatsIndexEndpoint : IEndpoint<StatsIndexRequest, StatsIndex
 	public string RequestUrl(StatsIndexRequest r)
 	{
 		var path = r.Index is not null && r.Metric is not null
-			? $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_stats/{Uri.EscapeDataString(r.Metric!.ToString()!)}" : r.Metric is not null
-			? $"/_stats/{Uri.EscapeDataString(r.Metric!.ToString()!)}" : r.Index is not null
-			? $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_stats" : true
+			? $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}/_stats/{Uri.EscapeDataString(string.Join(",", r.Metric!))}" : r.Metric is not null
+			? $"/_stats/{Uri.EscapeDataString(string.Join(",", r.Metric!))}" : r.Index is not null
+			? $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}/_stats" : true
 			? $"/_stats"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

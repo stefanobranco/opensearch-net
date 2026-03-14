@@ -47,7 +47,7 @@ public sealed class AliasesCatEndpoint : IEndpoint<AliasesCatRequest, AliasesCat
 	public string RequestUrl(AliasesCatRequest r)
 	{
 		var path = r.Name is not null
-			? $"/_cat/aliases/{Uri.EscapeDataString(r.Name!.ToString()!)}" : true
+			? $"/_cat/aliases/{Uri.EscapeDataString(string.Join(",", r.Name!))}" : true
 			? $"/_cat/aliases"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

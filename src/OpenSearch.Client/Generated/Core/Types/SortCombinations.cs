@@ -31,8 +31,12 @@ public sealed class SortCombinations : TaggedUnion<SortCombinationsKind, object>
 	public static SortCombinations Field(string value) => new(SortCombinationsKind.Field, value);
 	/// <summary>Creates a FieldWithDirection variant.</summary>
 	public static SortCombinations FieldWithDirection(Dictionary<string, SortOrder> value) => new(SortCombinationsKind.FieldWithDirection, value);
+	/// <summary>Creates a FieldWithDirection variant for a single field.</summary>
+	public static SortCombinations FieldWithDirection(string field, SortOrder value) => new(SortCombinationsKind.FieldWithDirection, new Dictionary<string, SortOrder> { [field] = value });
 	/// <summary>Creates a FieldWithOrder variant.</summary>
 	public static SortCombinations FieldWithOrder(Dictionary<string, FieldSort> value) => new(SortCombinationsKind.FieldWithOrder, value);
+	/// <summary>Creates a FieldWithOrder variant for a single field.</summary>
+	public static SortCombinations FieldWithOrder(string field, FieldSort value) => new(SortCombinationsKind.FieldWithOrder, new Dictionary<string, FieldSort> { [field] = value });
 	/// <summary>Creates a Options variant.</summary>
 	public static SortCombinations Options(SortOptions value) => new(SortCombinationsKind.Options, value);
 }

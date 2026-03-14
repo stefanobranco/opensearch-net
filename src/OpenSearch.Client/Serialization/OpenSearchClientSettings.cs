@@ -40,7 +40,7 @@ public sealed class OpenSearchClientSettings : IOpenSearchClientSettings
 	// --- ITransportConfiguration delegation ---
 
 	/// <inheritdoc />
-	public NodePool NodePool => _transport.NodePool;
+	public INodePool NodePool => _transport.NodePool;
 
 	/// <inheritdoc />
 	public IOpenSearchSerializer? Serializer => RequestResponseSerializer;

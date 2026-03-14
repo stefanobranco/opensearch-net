@@ -25,7 +25,7 @@ public sealed class WarmupKnnEndpoint : IEndpoint<WarmupKnnRequest, WarmupKnnRes
 
 	public string RequestUrl(WarmupKnnRequest r)
 	{
-		var path = $"/_plugins/_knn/warmup/{Uri.EscapeDataString(r.Index!.ToString()!)}";
+		var path = $"/_plugins/_knn/warmup/{Uri.EscapeDataString(string.Join(",", r.Index!))}";
 		return path;
 	}
 

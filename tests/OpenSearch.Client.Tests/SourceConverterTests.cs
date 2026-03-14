@@ -69,7 +69,7 @@ public class SourceConverterTests
 		public IOpenSearchSerializer RequestResponseSerializer { get; }
 		public IOpenSearchSerializer SourceSerializer { get; }
 		public JsonSerializerOptions RequestResponseOptions { get; }
-		public NodePool NodePool => new(new[] { new Uri("http://localhost:9200") });
+		public INodePool NodePool => new NodePool(new[] { new Uri("http://localhost:9200") });
 		public IOpenSearchSerializer? Serializer => RequestResponseSerializer;
 		public TimeSpan RequestTimeout => TimeSpan.FromSeconds(60);
 		public TimeSpan DnsRefreshTimeout => TimeSpan.FromMinutes(5);

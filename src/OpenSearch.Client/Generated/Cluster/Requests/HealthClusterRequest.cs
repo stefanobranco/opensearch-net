@@ -62,7 +62,7 @@ public sealed class HealthClusterEndpoint : IEndpoint<HealthClusterRequest, Heal
 	public string RequestUrl(HealthClusterRequest r)
 	{
 		var path = r.Index is not null
-			? $"/_cluster/health/{Uri.EscapeDataString(r.Index!.ToString()!)}" : true
+			? $"/_cluster/health/{Uri.EscapeDataString(string.Join(",", r.Index!))}" : true
 			? $"/_cluster/health"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

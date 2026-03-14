@@ -10,7 +10,7 @@ public class IndexDocumentTests : IntegrationTestBase
 	public void IndexDocumentViaIndexApi()
 	{
 		var index = UniqueIndex();
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
 
 		var doc = new IndexDoc { Title = "Via Index API", Score = 99 };
 
@@ -20,12 +20,12 @@ public class IndexDocumentTests : IntegrationTestBase
 			Index = index,
 			Id = "idx-1",
 			Body = doc,
-			Refresh = System.Text.Json.JsonSerializer.SerializeToElement("true")
+			Refresh = "true"
 		});
 
 		indexResponse.Should().NotBeNull();
 		indexResponse.Result.Should().NotBeNull();
-		indexResponse.Result!.Value.GetString().Should().Be("created");
+		indexResponse.Result.Should().Be("created");
 
 		// Verify via GET
 		var getResponse = Client.Core.Get<IndexDoc>(new GetRequest
@@ -44,7 +44,7 @@ public class IndexDocumentTests : IntegrationTestBase
 	public void IndexDocumentWithoutId()
 	{
 		var index = UniqueIndex();
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
 
 		var doc = new IndexDoc { Title = "Auto ID", Score = 7 };
 
@@ -52,12 +52,12 @@ public class IndexDocumentTests : IntegrationTestBase
 		{
 			Index = index,
 			Body = doc,
-			Refresh = System.Text.Json.JsonSerializer.SerializeToElement("true")
+			Refresh = "true"
 		});
 
 		indexResponse.Should().NotBeNull();
 		indexResponse.Result.Should().NotBeNull();
-		indexResponse.Result!.Value.GetString().Should().Be("created");
+		indexResponse.Result.Should().Be("created");
 		indexResponse.Id.Should().NotBeNullOrEmpty();
 	}
 
@@ -65,7 +65,7 @@ public class IndexDocumentTests : IntegrationTestBase
 	public void CreateDocumentViaCreateApi()
 	{
 		var index = UniqueIndex();
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
 
 		var doc = new IndexDoc { Title = "Via Create API", Score = 55 };
 
@@ -74,12 +74,12 @@ public class IndexDocumentTests : IntegrationTestBase
 			Index = index,
 			Id = "create-1",
 			Body = doc,
-			Refresh = System.Text.Json.JsonSerializer.SerializeToElement("true")
+			Refresh = "true"
 		});
 
 		createResponse.Should().NotBeNull();
 		createResponse.Result.Should().NotBeNull();
-		createResponse.Result!.Value.GetString().Should().Be("created");
+		createResponse.Result.Should().Be("created");
 
 		// Verify via GET
 		var getResponse = Client.Core.Get<IndexDoc>(new GetRequest

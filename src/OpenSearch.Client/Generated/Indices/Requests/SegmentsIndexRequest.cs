@@ -38,7 +38,7 @@ public sealed class SegmentsIndexEndpoint : IEndpoint<SegmentsIndexRequest, Segm
 	public string RequestUrl(SegmentsIndexRequest r)
 	{
 		var path = r.Index is not null
-			? $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_segments" : true
+			? $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}/_segments" : true
 			? $"/_segments"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

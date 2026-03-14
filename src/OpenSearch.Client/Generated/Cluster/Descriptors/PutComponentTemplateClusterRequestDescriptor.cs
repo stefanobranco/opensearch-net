@@ -2,7 +2,6 @@
 #nullable enable
 
 using System.Text.Json.Serialization;
-using OpenSearch.Net;
 using OpenSearch.Client.Common;
 
 namespace OpenSearch.Client.Cluster;

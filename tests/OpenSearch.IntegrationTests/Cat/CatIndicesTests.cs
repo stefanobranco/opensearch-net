@@ -12,7 +12,7 @@ public class CatIndicesTests : IntegrationTestBase
 	{
 		var index = UniqueIndex("catidx");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
 
 		// Index a document so the index is not empty
 		Client.Core.Bulk(new BulkRequest
@@ -26,7 +26,7 @@ public class CatIndicesTests : IntegrationTestBase
 		});
 
 		// Cat indices should not throw - the response type is empty but the request succeeds
-		var act = () => Client.Cat.Indices(new IndicesRequest { Index = index });
+		var act = () => Client.Cat.Indices(new IndicesCatRequest { Index = [index] });
 		act.Should().NotThrow();
 	}
 
@@ -34,7 +34,7 @@ public class CatIndicesTests : IntegrationTestBase
 	public void CatIndicesAllIndices()
 	{
 		// Calling cat indices without a specific index should not throw
-		var act = () => Client.Cat.Indices(new IndicesRequest());
+		var act = () => Client.Cat.Indices(new IndicesCatRequest());
 		act.Should().NotThrow();
 	}
 

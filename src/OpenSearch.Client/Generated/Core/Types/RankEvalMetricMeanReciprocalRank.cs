@@ -8,4 +8,8 @@ namespace OpenSearch.Client.Core;
 
 public sealed class RankEvalMetricMeanReciprocalRank
 {
+	/// <summary>Sets the maximum number of documents retrieved per query. This value replaces the `size` parameter in the query.</summary>
+		public int? K { get; set; }
+	/// <summary>Sets the rating threshold above which documents are considered to be relevant.</summary>
+		public int? RelevantRatingThreshold { get; set; }
 }

@@ -11,7 +11,7 @@ public class DeleteTests : IntegrationTestBase
 	{
 		var index = UniqueIndex("delete");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
 
 		Client.Core.Bulk(new BulkRequest
 		{
@@ -30,7 +30,7 @@ public class DeleteTests : IntegrationTestBase
 		// Delete it
 		var deleteResponse = Client.Core.Delete(new DeleteRequest { Index = index, Id = "1" });
 		deleteResponse.Result.Should().NotBeNull();
-		deleteResponse.Result!.Value.GetString().Should().Be("deleted");
+		deleteResponse.Result.Should().Be("deleted");
 
 		// Verify it's gone
 		var getAfterDelete = Client.Core.Get<DeleteDoc>(new GetRequest { Index = index, Id = "1" });
@@ -42,12 +42,12 @@ public class DeleteTests : IntegrationTestBase
 	{
 		var index = UniqueIndex("delete");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
 
 		// DELETE on non-existent doc returns result "not_found" (404 is not thrown for DELETE)
 		var response = Client.Core.Delete(new DeleteRequest { Index = index, Id = "nonexistent" });
 		response.Result.Should().NotBeNull();
-		response.Result!.Value.GetString().Should().Be("not_found");
+		response.Result.Should().Be("not_found");
 	}
 
 	[SkipIfNoCluster]
@@ -55,7 +55,7 @@ public class DeleteTests : IntegrationTestBase
 	{
 		var index = UniqueIndex("dbq");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
 
 		Client.Core.Bulk(new BulkRequest
 		{
@@ -72,13 +72,13 @@ public class DeleteTests : IntegrationTestBase
 		// Delete by query using the Q parameter
 		Client.Core.DeleteByQuery(new DeleteByQueryRequest
 		{
-			Index = index,
+			Index = [index],
 			Q = "name:remove",
-			Refresh = System.Text.Json.JsonSerializer.SerializeToElement("true")
+			Refresh = "true"
 		});
 
 		// Verify only the "keep" doc remains
-		var searchResponse = Client.Core.Search<DeleteDoc>(new SearchRequest { Index = index, Size = 10 });
+		var searchResponse = Client.Core.Search<DeleteDoc>(new SearchRequest { Index = [index], Size = 10 });
 		searchResponse.Hits.Should().NotBeNull();
 		searchResponse.Hits!.Hits.Should().HaveCount(1);
 		searchResponse.Hits.Hits![0].Source!.Name.Should().Be("keep");

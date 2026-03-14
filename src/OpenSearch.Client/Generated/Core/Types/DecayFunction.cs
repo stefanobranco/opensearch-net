@@ -9,4 +9,6 @@ namespace OpenSearch.Client.Core;
 public sealed class DecayFunction
 {
 	public MultiValueMode? MultiValueMode { get; set; }
+	[JsonExtensionData]
+	public Dictionary<string, System.Text.Json.JsonElement>? AdditionalProperties { get; set; }
 }

@@ -9,6 +9,16 @@ public sealed class KnnVectorPropertyDescriptor
 {
 	internal KnnVectorProperty _value = new();
 
+	/// <summary>Metadata about the field.</summary>
+		public KnnVectorPropertyDescriptor Meta(Dictionary<string, string>? value) { _value.Meta = value; return this; }
+	public KnnVectorPropertyDescriptor Properties(Dictionary<string, Property>? value) { _value.Properties = value; return this; }
+	public KnnVectorPropertyDescriptor IgnoreAbove(int? value) { _value.IgnoreAbove = value; return this; }
+	public KnnVectorPropertyDescriptor Dynamic(string? value) { _value.Dynamic = value; return this; }
+	public KnnVectorPropertyDescriptor Fields(Dictionary<string, Property>? value) { _value.Fields = value; return this; }
+	public KnnVectorPropertyDescriptor CopyTo(List<string>? value) { _value.CopyTo = value; return this; }
+	public KnnVectorPropertyDescriptor Similarity(string? value) { _value.Similarity = value; return this; }
+	public KnnVectorPropertyDescriptor Store(bool? value) { _value.Store = value; return this; }
+	public KnnVectorPropertyDescriptor DocValues(bool? value) { _value.DocValues = value; return this; }
 	public KnnVectorPropertyDescriptor Type(string? value) { _value.Type = value; return this; }
 	public KnnVectorPropertyDescriptor Dimension(int value) { _value.Dimension = value; return this; }
 	public KnnVectorPropertyDescriptor SpaceType(string? value) { _value.SpaceType = value; return this; }

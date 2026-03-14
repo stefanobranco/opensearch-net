@@ -11,7 +11,7 @@ public class MgetTests : IntegrationTestBase
 	{
 		var index = UniqueIndex("mget");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
 
 		Client.Core.Bulk(new BulkRequest
 		{
@@ -52,7 +52,7 @@ public class MgetTests : IntegrationTestBase
 	{
 		var index = UniqueIndex("mget");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
 
 		Client.Core.Bulk(new BulkRequest
 		{

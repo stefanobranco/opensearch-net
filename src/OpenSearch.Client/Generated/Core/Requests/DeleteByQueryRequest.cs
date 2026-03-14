@@ -127,7 +127,7 @@ public sealed class DeleteByQueryEndpoint : IEndpoint<DeleteByQueryRequest, Dele
 
 	public string RequestUrl(DeleteByQueryRequest r)
 	{
-		var path = $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_delete_by_query";
+		var path = $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}/_delete_by_query";
 		var queryParts = new List<string>();
 		if (r.Source is not null)
 			queryParts.Add($"_source={Uri.EscapeDataString(r.Source.ToString()!)}");

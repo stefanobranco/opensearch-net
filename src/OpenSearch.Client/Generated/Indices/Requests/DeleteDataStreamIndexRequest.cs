@@ -25,7 +25,7 @@ public sealed class DeleteDataStreamIndexEndpoint : IEndpoint<DeleteDataStreamIn
 
 	public string RequestUrl(DeleteDataStreamIndexRequest r)
 	{
-		var path = $"/_data_stream/{Uri.EscapeDataString(r.Name!.ToString()!)}";
+		var path = $"/_data_stream/{Uri.EscapeDataString(string.Join(",", r.Name!))}";
 		return path;
 	}
 

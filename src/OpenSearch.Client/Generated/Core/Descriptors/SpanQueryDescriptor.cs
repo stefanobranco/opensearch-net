@@ -41,6 +41,8 @@ public sealed class SpanQueryDescriptor
 	}
 	/// <summary>Creates a SpanGap variant.</summary>
 	public SpanQueryDescriptor SpanGap(Dictionary<string, int> value) { _value = SpanQuery.SpanGap(value); return this; }
+	/// <summary>Creates a SpanGap variant for a single field.</summary>
+	public SpanQueryDescriptor SpanGap(string field, int value) { _value = SpanQuery.SpanGap(field, value); return this; }
 	/// <summary>Creates a SpanMulti variant.</summary>
 	public SpanQueryDescriptor SpanMulti(SpanMultiTermQuery value) { _value = SpanQuery.SpanMulti(value); return this; }
 	/// <summary>Creates a SpanMulti variant.</summary>
@@ -83,6 +85,16 @@ public sealed class SpanQueryDescriptor
 	}
 	/// <summary>Creates a SpanTerm variant.</summary>
 	public SpanQueryDescriptor SpanTerm(Dictionary<string, SpanTermQuery> value) { _value = SpanQuery.SpanTerm(value); return this; }
+	/// <summary>Creates a SpanTerm variant for a single field.</summary>
+	public SpanQueryDescriptor SpanTerm(string field, SpanTermQuery value) { _value = SpanQuery.SpanTerm(field, value); return this; }
+	/// <summary>Creates a SpanTerm variant for a single field using a descriptor.</summary>
+	public SpanQueryDescriptor SpanTerm(string field, Action<SpanTermQueryDescriptor> configure)
+	{
+		var descriptor = new SpanTermQueryDescriptor();
+		configure(descriptor);
+		_value = SpanQuery.SpanTerm(field, ((SpanTermQuery)descriptor)!);
+		return this;
+	}
 	/// <summary>Creates a SpanWithin variant.</summary>
 	public SpanQueryDescriptor SpanWithin(SpanWithinQuery value) { _value = SpanQuery.SpanWithin(value); return this; }
 	/// <summary>Creates a SpanWithin variant.</summary>

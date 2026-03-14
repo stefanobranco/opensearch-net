@@ -44,7 +44,7 @@ public sealed class FielddataCatEndpoint : IEndpoint<FielddataCatRequest, Fieldd
 	public string RequestUrl(FielddataCatRequest r)
 	{
 		var path = r.Fields is not null
-			? $"/_cat/fielddata/{Uri.EscapeDataString(r.Fields!.ToString()!)}" : true
+			? $"/_cat/fielddata/{Uri.EscapeDataString(string.Join(",", r.Fields!))}" : true
 			? $"/_cat/fielddata"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

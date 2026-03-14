@@ -74,7 +74,7 @@ public sealed class SegmentReplicationCatEndpoint : IEndpoint<SegmentReplication
 	public string RequestUrl(SegmentReplicationCatRequest r)
 	{
 		var path = r.Index is not null
-			? $"/_cat/segment_replication/{Uri.EscapeDataString(r.Index!.ToString()!)}" : true
+			? $"/_cat/segment_replication/{Uri.EscapeDataString(string.Join(",", r.Index!))}" : true
 			? $"/_cat/segment_replication"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

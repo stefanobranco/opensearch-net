@@ -12,8 +12,8 @@ public class ReindexTests : IntegrationTestBase
 		var sourceIndex = UniqueIndex("reindex-src");
 		var destIndex = UniqueIndex("reindex-dst");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateRequest { Index = sourceIndex });
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateRequest { Index = destIndex });
+		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = sourceIndex });
+		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = destIndex });
 
 		// Index 3 documents in the source
 		Client.Core.Bulk(new BulkRequest
@@ -31,15 +31,15 @@ public class ReindexTests : IntegrationTestBase
 		// Reindex from source to destination
 		Client.Core.Reindex(new ReindexRequest
 		{
-			Source = new Source { Index = sourceIndex },
+			Source = new Source { Index = [sourceIndex] },
 			Dest = new Destination { Index = destIndex },
-			Refresh = System.Text.Json.JsonSerializer.SerializeToElement("true")
+			Refresh = "true"
 		});
 
 		// Verify all documents are in the destination index
 		var searchResponse = Client.Core.Search<ReindexDoc>(new SearchRequest
 		{
-			Index = destIndex,
+			Index = [destIndex],
 			Size = 10
 		});
 

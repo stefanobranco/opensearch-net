@@ -11,99 +11,99 @@ namespace OpenSearch.Client.Indices;
 [JsonEnum]
 public enum PropertyKind
 {
-	[EnumMember(Value = "BinaryProperty")]
+	[EnumMember(Value = "binary")]
 	BinaryProperty,
-	[EnumMember(Value = "BooleanProperty")]
+	[EnumMember(Value = "boolean")]
 	BooleanProperty,
-	[EnumMember(Value = "JoinProperty")]
+	[EnumMember(Value = "join")]
 	JoinProperty,
-	[EnumMember(Value = "KeywordProperty")]
+	[EnumMember(Value = "keyword")]
 	KeywordProperty,
-	[EnumMember(Value = "MatchOnlyTextProperty")]
+	[EnumMember(Value = "match_only_text")]
 	MatchOnlyTextProperty,
-	[EnumMember(Value = "PercolatorProperty")]
+	[EnumMember(Value = "percolator")]
 	PercolatorProperty,
-	[EnumMember(Value = "RankFeatureProperty")]
+	[EnumMember(Value = "rank_feature")]
 	RankFeatureProperty,
-	[EnumMember(Value = "RankFeaturesProperty")]
+	[EnumMember(Value = "rank_features")]
 	RankFeaturesProperty,
-	[EnumMember(Value = "SearchAsYouTypeProperty")]
+	[EnumMember(Value = "search_as_you_type")]
 	SearchAsYouTypeProperty,
-	[EnumMember(Value = "TextProperty")]
+	[EnumMember(Value = "text")]
 	TextProperty,
-	[EnumMember(Value = "VersionProperty")]
+	[EnumMember(Value = "version")]
 	VersionProperty,
-	[EnumMember(Value = "WildcardProperty")]
+	[EnumMember(Value = "wildcard")]
 	WildcardProperty,
-	[EnumMember(Value = "DateNanosProperty")]
+	[EnumMember(Value = "date_nanos")]
 	DateNanosProperty,
-	[EnumMember(Value = "DateProperty")]
+	[EnumMember(Value = "date")]
 	DateProperty,
-	[EnumMember(Value = "AggregateMetricDoubleProperty")]
+	[EnumMember(Value = "aggregate_metric_double")]
 	AggregateMetricDoubleProperty,
-	[EnumMember(Value = "FlatObjectProperty")]
+	[EnumMember(Value = "flat_object")]
 	FlatObjectProperty,
-	[EnumMember(Value = "NestedProperty")]
+	[EnumMember(Value = "nested")]
 	NestedProperty,
-	[EnumMember(Value = "ObjectProperty")]
+	[EnumMember(Value = "object")]
 	ObjectProperty,
-	[EnumMember(Value = "CompletionProperty")]
+	[EnumMember(Value = "completion")]
 	CompletionProperty,
-	[EnumMember(Value = "ConstantKeywordProperty")]
+	[EnumMember(Value = "constant_keyword")]
 	ConstantKeywordProperty,
-	[EnumMember(Value = "FieldAliasProperty")]
+	[EnumMember(Value = "alias")]
 	FieldAliasProperty,
-	[EnumMember(Value = "HistogramProperty")]
+	[EnumMember(Value = "histogram")]
 	HistogramProperty,
-	[EnumMember(Value = "IpProperty")]
+	[EnumMember(Value = "ip")]
 	IpProperty,
-	[EnumMember(Value = "Murmur3HashProperty")]
+	[EnumMember(Value = "murmur3")]
 	Murmur3HashProperty,
-	[EnumMember(Value = "TokenCountProperty")]
+	[EnumMember(Value = "token_count")]
 	TokenCountProperty,
-	[EnumMember(Value = "GeoPointProperty")]
+	[EnumMember(Value = "geo_point")]
 	GeoPointProperty,
-	[EnumMember(Value = "GeoShapeProperty")]
+	[EnumMember(Value = "geo_shape")]
 	GeoShapeProperty,
-	[EnumMember(Value = "XyPointProperty")]
+	[EnumMember(Value = "xy_point")]
 	XyPointProperty,
-	[EnumMember(Value = "XyShapeProperty")]
+	[EnumMember(Value = "xy_shape")]
 	XyShapeProperty,
-	[EnumMember(Value = "ByteNumberProperty")]
+	[EnumMember(Value = "byte")]
 	ByteNumberProperty,
-	[EnumMember(Value = "DoubleNumberProperty")]
+	[EnumMember(Value = "double")]
 	DoubleNumberProperty,
-	[EnumMember(Value = "FloatNumberProperty")]
+	[EnumMember(Value = "float")]
 	FloatNumberProperty,
-	[EnumMember(Value = "HalfFloatNumberProperty")]
+	[EnumMember(Value = "half_float")]
 	HalfFloatNumberProperty,
-	[EnumMember(Value = "IntegerNumberProperty")]
+	[EnumMember(Value = "integer")]
 	IntegerNumberProperty,
-	[EnumMember(Value = "LongNumberProperty")]
+	[EnumMember(Value = "long")]
 	LongNumberProperty,
-	[EnumMember(Value = "ScaledFloatNumberProperty")]
+	[EnumMember(Value = "scaled_float")]
 	ScaledFloatNumberProperty,
-	[EnumMember(Value = "SemanticProperty")]
+	[EnumMember(Value = "semantic")]
 	SemanticProperty,
-	[EnumMember(Value = "ShortNumberProperty")]
+	[EnumMember(Value = "short")]
 	ShortNumberProperty,
-	[EnumMember(Value = "UnsignedLongNumberProperty")]
+	[EnumMember(Value = "unsigned_long")]
 	UnsignedLongNumberProperty,
-	[EnumMember(Value = "DateRangeProperty")]
+	[EnumMember(Value = "date_range")]
 	DateRangeProperty,
-	[EnumMember(Value = "DoubleRangeProperty")]
+	[EnumMember(Value = "double_range")]
 	DoubleRangeProperty,
-	[EnumMember(Value = "FloatRangeProperty")]
+	[EnumMember(Value = "float_range")]
 	FloatRangeProperty,
-	[EnumMember(Value = "IntegerRangeProperty")]
+	[EnumMember(Value = "integer_range")]
 	IntegerRangeProperty,
-	[EnumMember(Value = "IpRangeProperty")]
+	[EnumMember(Value = "ip_range")]
 	IpRangeProperty,
-	[EnumMember(Value = "LongRangeProperty")]
+	[EnumMember(Value = "long_range")]
 	LongRangeProperty,
-	[EnumMember(Value = "KnnVectorProperty")]
+	[EnumMember(Value = "knn_vector")]
 	KnnVectorProperty,
-	[EnumMember(Value = "IcuCollationKeywordProperty")]
+	[EnumMember(Value = "icu_collation_keyword")]
 	IcuCollationKeywordProperty
 }
 
@@ -209,108 +209,110 @@ public sealed class Property : TaggedUnion<PropertyKind, object>
 	public static Property IcuCollationKeywordProperty(IcuCollationKeywordProperty value) => new(PropertyKind.IcuCollationKeywordProperty, value);
 }
 
-public sealed class PropertyConverter : TaggedUnionConverter<Property, PropertyKind>
+public sealed class PropertyConverter : InternallyTaggedUnionConverter<Property, PropertyKind>
 {
+	protected override string DiscriminatorProperty => "type";
+
 	private static readonly Dictionary<string, (PropertyKind Kind, Type Type)> s_kindByName = new(StringComparer.Ordinal)
 	{
-		["BinaryProperty"] = (PropertyKind.BinaryProperty, typeof(BinaryProperty)),
-		["BooleanProperty"] = (PropertyKind.BooleanProperty, typeof(BooleanProperty)),
-		["JoinProperty"] = (PropertyKind.JoinProperty, typeof(JoinProperty)),
-		["KeywordProperty"] = (PropertyKind.KeywordProperty, typeof(KeywordProperty)),
-		["MatchOnlyTextProperty"] = (PropertyKind.MatchOnlyTextProperty, typeof(MatchOnlyTextProperty)),
-		["PercolatorProperty"] = (PropertyKind.PercolatorProperty, typeof(PercolatorProperty)),
-		["RankFeatureProperty"] = (PropertyKind.RankFeatureProperty, typeof(RankFeatureProperty)),
-		["RankFeaturesProperty"] = (PropertyKind.RankFeaturesProperty, typeof(RankFeaturesProperty)),
-		["SearchAsYouTypeProperty"] = (PropertyKind.SearchAsYouTypeProperty, typeof(SearchAsYouTypeProperty)),
-		["TextProperty"] = (PropertyKind.TextProperty, typeof(TextProperty)),
-		["VersionProperty"] = (PropertyKind.VersionProperty, typeof(VersionProperty)),
-		["WildcardProperty"] = (PropertyKind.WildcardProperty, typeof(WildcardProperty)),
-		["DateNanosProperty"] = (PropertyKind.DateNanosProperty, typeof(DateNanosProperty)),
-		["DateProperty"] = (PropertyKind.DateProperty, typeof(DateProperty)),
-		["AggregateMetricDoubleProperty"] = (PropertyKind.AggregateMetricDoubleProperty, typeof(AggregateMetricDoubleProperty)),
-		["FlatObjectProperty"] = (PropertyKind.FlatObjectProperty, typeof(FlatObjectProperty)),
-		["NestedProperty"] = (PropertyKind.NestedProperty, typeof(NestedProperty)),
-		["ObjectProperty"] = (PropertyKind.ObjectProperty, typeof(ObjectProperty)),
-		["CompletionProperty"] = (PropertyKind.CompletionProperty, typeof(CompletionProperty)),
-		["ConstantKeywordProperty"] = (PropertyKind.ConstantKeywordProperty, typeof(ConstantKeywordProperty)),
-		["FieldAliasProperty"] = (PropertyKind.FieldAliasProperty, typeof(FieldAliasProperty)),
-		["HistogramProperty"] = (PropertyKind.HistogramProperty, typeof(HistogramProperty)),
-		["IpProperty"] = (PropertyKind.IpProperty, typeof(IpProperty)),
-		["Murmur3HashProperty"] = (PropertyKind.Murmur3HashProperty, typeof(Murmur3HashProperty)),
-		["TokenCountProperty"] = (PropertyKind.TokenCountProperty, typeof(TokenCountProperty)),
-		["GeoPointProperty"] = (PropertyKind.GeoPointProperty, typeof(GeoPointProperty)),
-		["GeoShapeProperty"] = (PropertyKind.GeoShapeProperty, typeof(GeoShapeProperty)),
-		["XyPointProperty"] = (PropertyKind.XyPointProperty, typeof(XyPointProperty)),
-		["XyShapeProperty"] = (PropertyKind.XyShapeProperty, typeof(XyShapeProperty)),
-		["ByteNumberProperty"] = (PropertyKind.ByteNumberProperty, typeof(ByteNumberProperty)),
-		["DoubleNumberProperty"] = (PropertyKind.DoubleNumberProperty, typeof(DoubleNumberProperty)),
-		["FloatNumberProperty"] = (PropertyKind.FloatNumberProperty, typeof(FloatNumberProperty)),
-		["HalfFloatNumberProperty"] = (PropertyKind.HalfFloatNumberProperty, typeof(HalfFloatNumberProperty)),
-		["IntegerNumberProperty"] = (PropertyKind.IntegerNumberProperty, typeof(IntegerNumberProperty)),
-		["LongNumberProperty"] = (PropertyKind.LongNumberProperty, typeof(LongNumberProperty)),
-		["ScaledFloatNumberProperty"] = (PropertyKind.ScaledFloatNumberProperty, typeof(ScaledFloatNumberProperty)),
-		["SemanticProperty"] = (PropertyKind.SemanticProperty, typeof(SemanticProperty)),
-		["ShortNumberProperty"] = (PropertyKind.ShortNumberProperty, typeof(ShortNumberProperty)),
-		["UnsignedLongNumberProperty"] = (PropertyKind.UnsignedLongNumberProperty, typeof(UnsignedLongNumberProperty)),
-		["DateRangeProperty"] = (PropertyKind.DateRangeProperty, typeof(DateRangeProperty)),
-		["DoubleRangeProperty"] = (PropertyKind.DoubleRangeProperty, typeof(DoubleRangeProperty)),
-		["FloatRangeProperty"] = (PropertyKind.FloatRangeProperty, typeof(FloatRangeProperty)),
-		["IntegerRangeProperty"] = (PropertyKind.IntegerRangeProperty, typeof(IntegerRangeProperty)),
-		["IpRangeProperty"] = (PropertyKind.IpRangeProperty, typeof(IpRangeProperty)),
-		["LongRangeProperty"] = (PropertyKind.LongRangeProperty, typeof(LongRangeProperty)),
-		["KnnVectorProperty"] = (PropertyKind.KnnVectorProperty, typeof(KnnVectorProperty)),
-		["IcuCollationKeywordProperty"] = (PropertyKind.IcuCollationKeywordProperty, typeof(IcuCollationKeywordProperty)),
+		["binary"] = (PropertyKind.BinaryProperty, typeof(BinaryProperty)),
+		["boolean"] = (PropertyKind.BooleanProperty, typeof(BooleanProperty)),
+		["join"] = (PropertyKind.JoinProperty, typeof(JoinProperty)),
+		["keyword"] = (PropertyKind.KeywordProperty, typeof(KeywordProperty)),
+		["match_only_text"] = (PropertyKind.MatchOnlyTextProperty, typeof(MatchOnlyTextProperty)),
+		["percolator"] = (PropertyKind.PercolatorProperty, typeof(PercolatorProperty)),
+		["rank_feature"] = (PropertyKind.RankFeatureProperty, typeof(RankFeatureProperty)),
+		["rank_features"] = (PropertyKind.RankFeaturesProperty, typeof(RankFeaturesProperty)),
+		["search_as_you_type"] = (PropertyKind.SearchAsYouTypeProperty, typeof(SearchAsYouTypeProperty)),
+		["text"] = (PropertyKind.TextProperty, typeof(TextProperty)),
+		["version"] = (PropertyKind.VersionProperty, typeof(VersionProperty)),
+		["wildcard"] = (PropertyKind.WildcardProperty, typeof(WildcardProperty)),
+		["date_nanos"] = (PropertyKind.DateNanosProperty, typeof(DateNanosProperty)),
+		["date"] = (PropertyKind.DateProperty, typeof(DateProperty)),
+		["aggregate_metric_double"] = (PropertyKind.AggregateMetricDoubleProperty, typeof(AggregateMetricDoubleProperty)),
+		["flat_object"] = (PropertyKind.FlatObjectProperty, typeof(FlatObjectProperty)),
+		["nested"] = (PropertyKind.NestedProperty, typeof(NestedProperty)),
+		["object"] = (PropertyKind.ObjectProperty, typeof(ObjectProperty)),
+		["completion"] = (PropertyKind.CompletionProperty, typeof(CompletionProperty)),
+		["constant_keyword"] = (PropertyKind.ConstantKeywordProperty, typeof(ConstantKeywordProperty)),
+		["alias"] = (PropertyKind.FieldAliasProperty, typeof(FieldAliasProperty)),
+		["histogram"] = (PropertyKind.HistogramProperty, typeof(HistogramProperty)),
+		["ip"] = (PropertyKind.IpProperty, typeof(IpProperty)),
+		["murmur3"] = (PropertyKind.Murmur3HashProperty, typeof(Murmur3HashProperty)),
+		["token_count"] = (PropertyKind.TokenCountProperty, typeof(TokenCountProperty)),
+		["geo_point"] = (PropertyKind.GeoPointProperty, typeof(GeoPointProperty)),
+		["geo_shape"] = (PropertyKind.GeoShapeProperty, typeof(GeoShapeProperty)),
+		["xy_point"] = (PropertyKind.XyPointProperty, typeof(XyPointProperty)),
+		["xy_shape"] = (PropertyKind.XyShapeProperty, typeof(XyShapeProperty)),
+		["byte"] = (PropertyKind.ByteNumberProperty, typeof(ByteNumberProperty)),
+		["double"] = (PropertyKind.DoubleNumberProperty, typeof(DoubleNumberProperty)),
+		["float"] = (PropertyKind.FloatNumberProperty, typeof(FloatNumberProperty)),
+		["half_float"] = (PropertyKind.HalfFloatNumberProperty, typeof(HalfFloatNumberProperty)),
+		["integer"] = (PropertyKind.IntegerNumberProperty, typeof(IntegerNumberProperty)),
+		["long"] = (PropertyKind.LongNumberProperty, typeof(LongNumberProperty)),
+		["scaled_float"] = (PropertyKind.ScaledFloatNumberProperty, typeof(ScaledFloatNumberProperty)),
+		["semantic"] = (PropertyKind.SemanticProperty, typeof(SemanticProperty)),
+		["short"] = (PropertyKind.ShortNumberProperty, typeof(ShortNumberProperty)),
+		["unsigned_long"] = (PropertyKind.UnsignedLongNumberProperty, typeof(UnsignedLongNumberProperty)),
+		["date_range"] = (PropertyKind.DateRangeProperty, typeof(DateRangeProperty)),
+		["double_range"] = (PropertyKind.DoubleRangeProperty, typeof(DoubleRangeProperty)),
+		["float_range"] = (PropertyKind.FloatRangeProperty, typeof(FloatRangeProperty)),
+		["integer_range"] = (PropertyKind.IntegerRangeProperty, typeof(IntegerRangeProperty)),
+		["ip_range"] = (PropertyKind.IpRangeProperty, typeof(IpRangeProperty)),
+		["long_range"] = (PropertyKind.LongRangeProperty, typeof(LongRangeProperty)),
+		["knn_vector"] = (PropertyKind.KnnVectorProperty, typeof(KnnVectorProperty)),
+		["icu_collation_keyword"] = (PropertyKind.IcuCollationKeywordProperty, typeof(IcuCollationKeywordProperty)),
 	};
 
 	private static readonly Dictionary<PropertyKind, string> s_nameByKind = new()
 	{
-		[PropertyKind.BinaryProperty] = "BinaryProperty",
-		[PropertyKind.BooleanProperty] = "BooleanProperty",
-		[PropertyKind.JoinProperty] = "JoinProperty",
-		[PropertyKind.KeywordProperty] = "KeywordProperty",
-		[PropertyKind.MatchOnlyTextProperty] = "MatchOnlyTextProperty",
-		[PropertyKind.PercolatorProperty] = "PercolatorProperty",
-		[PropertyKind.RankFeatureProperty] = "RankFeatureProperty",
-		[PropertyKind.RankFeaturesProperty] = "RankFeaturesProperty",
-		[PropertyKind.SearchAsYouTypeProperty] = "SearchAsYouTypeProperty",
-		[PropertyKind.TextProperty] = "TextProperty",
-		[PropertyKind.VersionProperty] = "VersionProperty",
-		[PropertyKind.WildcardProperty] = "WildcardProperty",
-		[PropertyKind.DateNanosProperty] = "DateNanosProperty",
-		[PropertyKind.DateProperty] = "DateProperty",
-		[PropertyKind.AggregateMetricDoubleProperty] = "AggregateMetricDoubleProperty",
-		[PropertyKind.FlatObjectProperty] = "FlatObjectProperty",
-		[PropertyKind.NestedProperty] = "NestedProperty",
-		[PropertyKind.ObjectProperty] = "ObjectProperty",
-		[PropertyKind.CompletionProperty] = "CompletionProperty",
-		[PropertyKind.ConstantKeywordProperty] = "ConstantKeywordProperty",
-		[PropertyKind.FieldAliasProperty] = "FieldAliasProperty",
-		[PropertyKind.HistogramProperty] = "HistogramProperty",
-		[PropertyKind.IpProperty] = "IpProperty",
-		[PropertyKind.Murmur3HashProperty] = "Murmur3HashProperty",
-		[PropertyKind.TokenCountProperty] = "TokenCountProperty",
-		[PropertyKind.GeoPointProperty] = "GeoPointProperty",
-		[PropertyKind.GeoShapeProperty] = "GeoShapeProperty",
-		[PropertyKind.XyPointProperty] = "XyPointProperty",
-		[PropertyKind.XyShapeProperty] = "XyShapeProperty",
-		[PropertyKind.ByteNumberProperty] = "ByteNumberProperty",
-		[PropertyKind.DoubleNumberProperty] = "DoubleNumberProperty",
-		[PropertyKind.FloatNumberProperty] = "FloatNumberProperty",
-		[PropertyKind.HalfFloatNumberProperty] = "HalfFloatNumberProperty",
-		[PropertyKind.IntegerNumberProperty] = "IntegerNumberProperty",
-		[PropertyKind.LongNumberProperty] = "LongNumberProperty",
-		[PropertyKind.ScaledFloatNumberProperty] = "ScaledFloatNumberProperty",
-		[PropertyKind.SemanticProperty] = "SemanticProperty",
-		[PropertyKind.ShortNumberProperty] = "ShortNumberProperty",
-		[PropertyKind.UnsignedLongNumberProperty] = "UnsignedLongNumberProperty",
-		[PropertyKind.DateRangeProperty] = "DateRangeProperty",
-		[PropertyKind.DoubleRangeProperty] = "DoubleRangeProperty",
-		[PropertyKind.FloatRangeProperty] = "FloatRangeProperty",
-		[PropertyKind.IntegerRangeProperty] = "IntegerRangeProperty",
-		[PropertyKind.IpRangeProperty] = "IpRangeProperty",
-		[PropertyKind.LongRangeProperty] = "LongRangeProperty",
-		[PropertyKind.KnnVectorProperty] = "KnnVectorProperty",
-		[PropertyKind.IcuCollationKeywordProperty] = "IcuCollationKeywordProperty",
+		[PropertyKind.BinaryProperty] = "binary",
+		[PropertyKind.BooleanProperty] = "boolean",
+		[PropertyKind.JoinProperty] = "join",
+		[PropertyKind.KeywordProperty] = "keyword",
+		[PropertyKind.MatchOnlyTextProperty] = "match_only_text",
+		[PropertyKind.PercolatorProperty] = "percolator",
+		[PropertyKind.RankFeatureProperty] = "rank_feature",
+		[PropertyKind.RankFeaturesProperty] = "rank_features",
+		[PropertyKind.SearchAsYouTypeProperty] = "search_as_you_type",
+		[PropertyKind.TextProperty] = "text",
+		[PropertyKind.VersionProperty] = "version",
+		[PropertyKind.WildcardProperty] = "wildcard",
+		[PropertyKind.DateNanosProperty] = "date_nanos",
+		[PropertyKind.DateProperty] = "date",
+		[PropertyKind.AggregateMetricDoubleProperty] = "aggregate_metric_double",
+		[PropertyKind.FlatObjectProperty] = "flat_object",
+		[PropertyKind.NestedProperty] = "nested",
+		[PropertyKind.ObjectProperty] = "object",
+		[PropertyKind.CompletionProperty] = "completion",
+		[PropertyKind.ConstantKeywordProperty] = "constant_keyword",
+		[PropertyKind.FieldAliasProperty] = "alias",
+		[PropertyKind.HistogramProperty] = "histogram",
+		[PropertyKind.IpProperty] = "ip",
+		[PropertyKind.Murmur3HashProperty] = "murmur3",
+		[PropertyKind.TokenCountProperty] = "token_count",
+		[PropertyKind.GeoPointProperty] = "geo_point",
+		[PropertyKind.GeoShapeProperty] = "geo_shape",
+		[PropertyKind.XyPointProperty] = "xy_point",
+		[PropertyKind.XyShapeProperty] = "xy_shape",
+		[PropertyKind.ByteNumberProperty] = "byte",
+		[PropertyKind.DoubleNumberProperty] = "double",
+		[PropertyKind.FloatNumberProperty] = "float",
+		[PropertyKind.HalfFloatNumberProperty] = "half_float",
+		[PropertyKind.IntegerNumberProperty] = "integer",
+		[PropertyKind.LongNumberProperty] = "long",
+		[PropertyKind.ScaledFloatNumberProperty] = "scaled_float",
+		[PropertyKind.SemanticProperty] = "semantic",
+		[PropertyKind.ShortNumberProperty] = "short",
+		[PropertyKind.UnsignedLongNumberProperty] = "unsigned_long",
+		[PropertyKind.DateRangeProperty] = "date_range",
+		[PropertyKind.DoubleRangeProperty] = "double_range",
+		[PropertyKind.FloatRangeProperty] = "float_range",
+		[PropertyKind.IntegerRangeProperty] = "integer_range",
+		[PropertyKind.IpRangeProperty] = "ip_range",
+		[PropertyKind.LongRangeProperty] = "long_range",
+		[PropertyKind.KnnVectorProperty] = "knn_vector",
+		[PropertyKind.IcuCollationKeywordProperty] = "icu_collation_keyword",
 	};
 
 	protected override Property CreateFromKind(PropertyKind kind, object value) => kind switch
@@ -365,12 +367,12 @@ public sealed class PropertyConverter : TaggedUnionConverter<Property, PropertyK
 		_ => throw new JsonException($"Unknown PropertyKind: {kind}")
 	};
 
-	protected override (PropertyKind Kind, Type ValueType) ResolveKind(string propertyName) =>
-		s_kindByName.TryGetValue(propertyName, out var result)
+	protected override (PropertyKind Kind, Type ValueType) ResolveKind(string discriminatorValue) =>
+		s_kindByName.TryGetValue(discriminatorValue, out var result)
 			? result
-			: throw new JsonException($"Unknown Property variant: '{propertyName}'.");
+			: throw new JsonException($"Unknown Property variant: '{discriminatorValue}'.");
 
-	protected override string ResolvePropertyName(PropertyKind kind) =>
+	protected override string ResolveDiscriminatorValue(PropertyKind kind) =>
 		s_nameByKind.TryGetValue(kind, out var name)
 			? name
 			: throw new JsonException($"No wire name for PropertyKind.{kind}.");

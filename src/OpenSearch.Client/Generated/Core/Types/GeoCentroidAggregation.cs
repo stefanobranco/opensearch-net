@@ -8,6 +8,7 @@ namespace OpenSearch.Client.Core;
 
 public sealed class GeoCentroidAggregation
 {
+	public System.Text.Json.JsonElement? Missing { get; set; }
 	public long? Count { get; set; }
 	public System.Text.Json.JsonElement? Location { get; set; }
 }

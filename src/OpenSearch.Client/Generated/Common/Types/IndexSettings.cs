@@ -72,4 +72,6 @@ public sealed class IndexSettings
 	public IndexSettingsStore? Store { get; set; }
 	public string? Knn { get; set; }
 	public IngestionSource? IngestionSource { get; set; }
+	[JsonExtensionData]
+	public Dictionary<string, System.Text.Json.JsonElement>? AdditionalProperties { get; set; }
 }

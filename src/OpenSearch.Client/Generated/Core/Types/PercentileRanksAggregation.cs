@@ -8,6 +8,8 @@ namespace OpenSearch.Client.Core;
 
 public sealed class PercentileRanksAggregation
 {
+	public System.Text.Json.JsonElement? Missing { get; set; }
+	public string? Format { get; set; }
 	/// <summary>By default, the aggregation associates a unique string key with each bucket and returns the ranges as a hash rather than an array. Set to `false` to disable this behavior.</summary>
 		public bool? Keyed { get; set; }
 	/// <summary>An array of values for which to calculate the percentile ranks.</summary>

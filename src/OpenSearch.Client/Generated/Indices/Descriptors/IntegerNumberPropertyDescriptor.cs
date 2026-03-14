@@ -9,6 +9,20 @@ public sealed class IntegerNumberPropertyDescriptor
 {
 	internal IntegerNumberProperty _value = new();
 
+	/// <summary>Metadata about the field.</summary>
+		public IntegerNumberPropertyDescriptor Meta(Dictionary<string, string>? value) { _value.Meta = value; return this; }
+	public IntegerNumberPropertyDescriptor Properties(Dictionary<string, Property>? value) { _value.Properties = value; return this; }
+	public IntegerNumberPropertyDescriptor IgnoreAbove(int? value) { _value.IgnoreAbove = value; return this; }
+	public IntegerNumberPropertyDescriptor Dynamic(string? value) { _value.Dynamic = value; return this; }
+	public IntegerNumberPropertyDescriptor Fields(Dictionary<string, Property>? value) { _value.Fields = value; return this; }
+	public IntegerNumberPropertyDescriptor CopyTo(List<string>? value) { _value.CopyTo = value; return this; }
+	public IntegerNumberPropertyDescriptor Similarity(string? value) { _value.Similarity = value; return this; }
+	public IntegerNumberPropertyDescriptor Store(bool? value) { _value.Store = value; return this; }
+	public IntegerNumberPropertyDescriptor DocValues(bool? value) { _value.DocValues = value; return this; }
+	public IntegerNumberPropertyDescriptor Boost(double? value) { _value.Boost = value; return this; }
+	public IntegerNumberPropertyDescriptor Coerce(bool? value) { _value.Coerce = value; return this; }
+	public IntegerNumberPropertyDescriptor IgnoreMalformed(bool? value) { _value.IgnoreMalformed = value; return this; }
+	public IntegerNumberPropertyDescriptor Index(bool? value) { _value.Index = value; return this; }
 	public IntegerNumberPropertyDescriptor Type(string? value) { _value.Type = value; return this; }
 	public IntegerNumberPropertyDescriptor NullValue(int? value) { _value.NullValue = value; return this; }
 

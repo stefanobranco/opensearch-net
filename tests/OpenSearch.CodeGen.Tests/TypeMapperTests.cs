@@ -262,7 +262,7 @@ public class TypeMapperTests
     }
 
     // ---------------------------------------------------------------
-    // 8. Known string aliases (IndexName, Duration, etc.)
+    // 8. Auto-detected string aliases (type: string, no enum/properties)
     // ---------------------------------------------------------------
 
     [Theory]
@@ -271,7 +271,7 @@ public class TypeMapperTests
     [InlineData("Field")]
     [InlineData("Routing")]
     [InlineData("ScrollId")]
-    public void Map_KnownStringAlias_ReturnsStringTypeRef(string aliasName)
+    public void Map_StringAlias_ReturnsStringTypeRef(string aliasName)
     {
         // Build a root with the alias schema and a $ref to it
         var aliasNode = new YamlMappingNode { { "type", "string" } };
@@ -376,29 +376,39 @@ public class TypeMapperTests
     [Fact]
     public void Map_QueryContainer_CreatesTaggedUnionShape()
     {
+        // Build variant type schemas that will be referenced by $ref
+        var variantSchemas = new YamlMappingNode();
+        var variantNames = new[] { "match", "term", "bool", "range", "prefix", "wildcard", "regexp", "fuzzy", "exists", "ids", "nested", "match_all" };
+        foreach (var name in variantNames)
+        {
+            variantSchemas.Add(name + "_query", new YamlMappingNode
+            {
+                { "type", "object" },
+                { "properties", new YamlMappingNode { { "value", new YamlMappingNode { { "type", "string" } } } } }
+            });
+        }
+
+        // Build QueryContainer with $ref properties (to trigger the heuristic: 10+ optional $ref props)
+        var propsNode = new YamlMappingNode();
+        foreach (var name in variantNames)
+        {
+            propsNode.Add(name, new YamlMappingNode
+            {
+                { "$ref", $"#/components/schemas/{name}_query" }
+            });
+        }
+
         var queryContainerNode = new YamlMappingNode
         {
             { "type", "object" },
-            { "properties", new YamlMappingNode
-                {
-                    { "match", new YamlMappingNode { { "type", "object" } } },
-                    { "term", new YamlMappingNode { { "type", "object" } } },
-                    { "bool", new YamlMappingNode { { "type", "object" } } }
-                }
-            }
+            { "properties", propsNode }
         };
+
+        variantSchemas.Add("QueryContainer", queryContainerNode);
 
         var root = new YamlMappingNode
         {
-            { "components", new YamlMappingNode
-                {
-                    { "schemas", new YamlMappingNode
-                        {
-                            { "QueryContainer", queryContainerNode }
-                        }
-                    }
-                }
-            }
+            { "components", new YamlMappingNode { { "schemas", variantSchemas } } }
         };
 
         var tempDir = Path.Combine(Path.GetTempPath(), "codegen_test_" + Guid.NewGuid().ToString("N"));
@@ -429,7 +439,7 @@ public class TypeMapperTests
             var union = mapper.DiscoveredTaggedUnions["QueryContainer"];
             union.ClassName.Should().Be("QueryContainer");
             union.KindEnumName.Should().Be("QueryKind");
-            union.Variants.Should().HaveCount(3);
+            union.Variants.Should().HaveCount(12);
             union.Variants.Select(v => v.Name).Should().Contain("Match");
             union.Variants.Select(v => v.Name).Should().Contain("Term");
             union.Variants.Select(v => v.Name).Should().Contain("Bool");

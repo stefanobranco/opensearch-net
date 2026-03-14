@@ -9,6 +9,16 @@ public sealed class IpPropertyDescriptor
 {
 	internal IpProperty _value = new();
 
+	/// <summary>Metadata about the field.</summary>
+		public IpPropertyDescriptor Meta(Dictionary<string, string>? value) { _value.Meta = value; return this; }
+	public IpPropertyDescriptor Properties(Dictionary<string, Property>? value) { _value.Properties = value; return this; }
+	public IpPropertyDescriptor IgnoreAbove(int? value) { _value.IgnoreAbove = value; return this; }
+	public IpPropertyDescriptor Dynamic(string? value) { _value.Dynamic = value; return this; }
+	public IpPropertyDescriptor Fields(Dictionary<string, Property>? value) { _value.Fields = value; return this; }
+	public IpPropertyDescriptor CopyTo(List<string>? value) { _value.CopyTo = value; return this; }
+	public IpPropertyDescriptor Similarity(string? value) { _value.Similarity = value; return this; }
+	public IpPropertyDescriptor Store(bool? value) { _value.Store = value; return this; }
+	public IpPropertyDescriptor DocValues(bool? value) { _value.DocValues = value; return this; }
 	public IpPropertyDescriptor Boost(double? value) { _value.Boost = value; return this; }
 	public IpPropertyDescriptor Index(bool? value) { _value.Index = value; return this; }
 	public IpPropertyDescriptor IgnoreMalformed(bool? value) { _value.IgnoreMalformed = value; return this; }

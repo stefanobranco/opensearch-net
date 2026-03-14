@@ -1,4 +1,5 @@
 using System.Text;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using OpenSearch.CodeGen.Model;
 
@@ -37,11 +38,36 @@ public static partial class NamingConventions
 		return result;
 	}
 
+	// Singularized namespace names for class name suffixes
+	private static readonly Dictionary<string, string> s_namespaceSingular = new(StringComparer.OrdinalIgnoreCase)
+	{
+		["indices"] = "Index",
+		["nodes"] = "Node",
+		["tasks"] = "Task",
+		["ingest"] = "Ingest",
+		["cluster"] = "Cluster",
+		["snapshot"] = "Snapshot",
+		["cat"] = "Cat",
+		["dangling_indices"] = "DanglingIndex",
+		["search_pipeline"] = "SearchPipeline",
+		["ubi"] = "Ubi",
+		["ingestion"] = "Ingestion",
+		["geospatial"] = "Geospatial",
+		["ism"] = "Ism",
+		["knn"] = "Knn",
+		["search_relevance"] = "SearchRelevance",
+		["ltr"] = "Ltr",
+		["ml"] = "Ml",
+		["security"] = "Security",
+	};
+
 	/// <summary>
 	/// Converts an operation group to request/response class names.
-	/// E.g., "indices.create" → ("CreateIndexRequest", "CreateIndexResponse")
-	/// "indices.get_alias" → ("GetAliasRequest", "GetAliasResponse")
-	/// "indices.exists" → ("ExistsIndexRequest", "ExistsIndexResponse")
+	/// For <c>_core</c> namespace operations, produces bare names: "search" → "SearchRequest".
+	/// For namespaced operations, appends a singularized namespace suffix:
+	/// "indices.create" → "CreateIndexRequest", "indices.exists" → "ExistsIndexRequest".
+	/// If the action already contains the namespace concept, the suffix is still appended
+	/// for consistency and collision avoidance.
 	/// </summary>
 	public static (string RequestName, string ResponseName, string EndpointName) OperationGroupToNames(string operationGroup)
 	{
@@ -50,8 +76,16 @@ public static partial class NamingConventions
 		if (parts.Length < 2)
 			return (ToPascalCase(parts[0]) + "Request", ToPascalCase(parts[0]) + "Response", ToPascalCase(parts[0]) + "Endpoint");
 
+		var ns = parts[0];
 		var action = ToPascalCase(parts[1]);
-		var baseName = action;
+
+		// _core namespace: bare names (SearchRequest, IndexRequest, etc.)
+		if (ns == "_core")
+			return (action + "Request", action + "Response", action + "Endpoint");
+
+		// Other namespaces: append singularized namespace suffix
+		var suffix = SingularizeNamespace(ns);
+		var baseName = action + suffix;
 
 		return (baseName + "Request", baseName + "Response", baseName + "Endpoint");
 	}
@@ -59,12 +93,19 @@ public static partial class NamingConventions
 	/// <summary>
 	/// Converts an operation group to a method name for the namespace client.
 	/// E.g., "indices.create" → "Create", "indices.get_alias" → "GetAlias"
+	/// Method names on namespace clients don't need the suffix (they're already scoped).
 	/// </summary>
 	public static string OperationGroupToMethodName(string operationGroup)
 	{
 		var parts = operationGroup.Split('.');
 		return parts.Length < 2 ? ToPascalCase(parts[0]) : ToPascalCase(parts[1]);
 	}
+
+	/// <summary>
+	/// Returns the singular form of a namespace name for use as a class name suffix.
+	/// </summary>
+	private static string SingularizeNamespace(string ns) =>
+		s_namespaceSingular.GetValueOrDefault(ns, ToPascalCase(ns));
 
 	/// <summary>
 	/// Gets the namespace display name from a namespace prefix.
@@ -126,30 +167,11 @@ public static partial class NamingConventions
 	}
 
 	/// <summary>
-	/// Converts PascalCase to snake_case_lower (same algorithm as JsonNamingPolicy.SnakeCaseLower).
+	/// Converts PascalCase to snake_case_lower using STJ's built-in policy
+	/// to ensure exact match with runtime serialization behavior.
 	/// </summary>
-	private static string PascalToSnakeLower(string pascal)
-	{
-		if (string.IsNullOrEmpty(pascal))
-			return pascal;
-
-		var sb = new StringBuilder(pascal.Length + 4);
-		for (var i = 0; i < pascal.Length; i++)
-		{
-			var c = pascal[i];
-			if (char.IsUpper(c))
-			{
-				if (i > 0)
-					sb.Append('_');
-				sb.Append(char.ToLowerInvariant(c));
-			}
-			else
-			{
-				sb.Append(c);
-			}
-		}
-		return sb.ToString();
-	}
+	private static string PascalToSnakeLower(string pascal) =>
+		string.IsNullOrEmpty(pascal) ? pascal : JsonNamingPolicy.SnakeCaseLower.ConvertName(pascal);
 
 	/// <summary>
 	/// Renames any field whose PascalCase name clashes with the enclosing class name (CS0542).

@@ -11,15 +11,15 @@ namespace OpenSearch.Client.Core;
 [JsonEnum]
 public enum MovingAverageAggregationKind
 {
-	[EnumMember(Value = "LinearMovingAverageAggregation")]
+	[EnumMember(Value = "linear")]
 	LinearMovingAverageAggregation,
-	[EnumMember(Value = "SimpleMovingAverageAggregation")]
+	[EnumMember(Value = "simple")]
 	SimpleMovingAverageAggregation,
-	[EnumMember(Value = "EwmaMovingAverageAggregation")]
+	[EnumMember(Value = "ewma")]
 	EwmaMovingAverageAggregation,
-	[EnumMember(Value = "HoltMovingAverageAggregation")]
+	[EnumMember(Value = "holt")]
 	HoltMovingAverageAggregation,
-	[EnumMember(Value = "HoltWintersMovingAverageAggregation")]
+	[EnumMember(Value = "holt_winters")]
 	HoltWintersMovingAverageAggregation
 }
 
@@ -41,24 +41,26 @@ public sealed class MovingAverageAggregation : TaggedUnion<MovingAverageAggregat
 	public static MovingAverageAggregation HoltWintersMovingAverageAggregation(HoltWintersMovingAverageAggregation value) => new(MovingAverageAggregationKind.HoltWintersMovingAverageAggregation, value);
 }
 
-public sealed class MovingAverageAggregationConverter : TaggedUnionConverter<MovingAverageAggregation, MovingAverageAggregationKind>
+public sealed class MovingAverageAggregationConverter : InternallyTaggedUnionConverter<MovingAverageAggregation, MovingAverageAggregationKind>
 {
+	protected override string DiscriminatorProperty => "model";
+
 	private static readonly Dictionary<string, (MovingAverageAggregationKind Kind, Type Type)> s_kindByName = new(StringComparer.Ordinal)
 	{
-		["LinearMovingAverageAggregation"] = (MovingAverageAggregationKind.LinearMovingAverageAggregation, typeof(LinearMovingAverageAggregation)),
-		["SimpleMovingAverageAggregation"] = (MovingAverageAggregationKind.SimpleMovingAverageAggregation, typeof(SimpleMovingAverageAggregation)),
-		["EwmaMovingAverageAggregation"] = (MovingAverageAggregationKind.EwmaMovingAverageAggregation, typeof(EwmaMovingAverageAggregation)),
-		["HoltMovingAverageAggregation"] = (MovingAverageAggregationKind.HoltMovingAverageAggregation, typeof(HoltMovingAverageAggregation)),
-		["HoltWintersMovingAverageAggregation"] = (MovingAverageAggregationKind.HoltWintersMovingAverageAggregation, typeof(HoltWintersMovingAverageAggregation)),
+		["linear"] = (MovingAverageAggregationKind.LinearMovingAverageAggregation, typeof(LinearMovingAverageAggregation)),
+		["simple"] = (MovingAverageAggregationKind.SimpleMovingAverageAggregation, typeof(SimpleMovingAverageAggregation)),
+		["ewma"] = (MovingAverageAggregationKind.EwmaMovingAverageAggregation, typeof(EwmaMovingAverageAggregation)),
+		["holt"] = (MovingAverageAggregationKind.HoltMovingAverageAggregation, typeof(HoltMovingAverageAggregation)),
+		["holt_winters"] = (MovingAverageAggregationKind.HoltWintersMovingAverageAggregation, typeof(HoltWintersMovingAverageAggregation)),
 	};
 
 	private static readonly Dictionary<MovingAverageAggregationKind, string> s_nameByKind = new()
 	{
-		[MovingAverageAggregationKind.LinearMovingAverageAggregation] = "LinearMovingAverageAggregation",
-		[MovingAverageAggregationKind.SimpleMovingAverageAggregation] = "SimpleMovingAverageAggregation",
-		[MovingAverageAggregationKind.EwmaMovingAverageAggregation] = "EwmaMovingAverageAggregation",
-		[MovingAverageAggregationKind.HoltMovingAverageAggregation] = "HoltMovingAverageAggregation",
-		[MovingAverageAggregationKind.HoltWintersMovingAverageAggregation] = "HoltWintersMovingAverageAggregation",
+		[MovingAverageAggregationKind.LinearMovingAverageAggregation] = "linear",
+		[MovingAverageAggregationKind.SimpleMovingAverageAggregation] = "simple",
+		[MovingAverageAggregationKind.EwmaMovingAverageAggregation] = "ewma",
+		[MovingAverageAggregationKind.HoltMovingAverageAggregation] = "holt",
+		[MovingAverageAggregationKind.HoltWintersMovingAverageAggregation] = "holt_winters",
 	};
 
 	protected override MovingAverageAggregation CreateFromKind(MovingAverageAggregationKind kind, object value) => kind switch
@@ -71,12 +73,12 @@ public sealed class MovingAverageAggregationConverter : TaggedUnionConverter<Mov
 		_ => throw new JsonException($"Unknown MovingAverageAggregationKind: {kind}")
 	};
 
-	protected override (MovingAverageAggregationKind Kind, Type ValueType) ResolveKind(string propertyName) =>
-		s_kindByName.TryGetValue(propertyName, out var result)
+	protected override (MovingAverageAggregationKind Kind, Type ValueType) ResolveKind(string discriminatorValue) =>
+		s_kindByName.TryGetValue(discriminatorValue, out var result)
 			? result
-			: throw new JsonException($"Unknown MovingAverageAggregation variant: '{propertyName}'.");
+			: throw new JsonException($"Unknown MovingAverageAggregation variant: '{discriminatorValue}'.");
 
-	protected override string ResolvePropertyName(MovingAverageAggregationKind kind) =>
+	protected override string ResolveDiscriminatorValue(MovingAverageAggregationKind kind) =>
 		s_nameByKind.TryGetValue(kind, out var name)
 			? name
 			: throw new JsonException($"No wire name for MovingAverageAggregationKind.{kind}.");

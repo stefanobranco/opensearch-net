@@ -43,7 +43,7 @@ public sealed class FieldCapsEndpoint : IEndpoint<FieldCapsRequest, FieldCapsRes
 	public string RequestUrl(FieldCapsRequest r)
 	{
 		var path = r.Index is not null
-			? $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_field_caps" : true
+			? $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}/_field_caps" : true
 			? $"/_field_caps"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

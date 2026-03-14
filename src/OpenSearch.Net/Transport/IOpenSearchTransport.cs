@@ -24,13 +24,4 @@ public interface IOpenSearchTransport
 		TransportOptions? options = null,
 		CancellationToken ct = default);
 
-	/// <summary>
-	/// The serializer used by this transport for request and response bodies.
-	/// </summary>
-	IOpenSearchSerializer Serializer { get; }
-
-	/// <summary>
-	/// Default transport-level options applied to every request unless overridden.
-	/// </summary>
-	TransportOptions? DefaultOptions { get; }
 }

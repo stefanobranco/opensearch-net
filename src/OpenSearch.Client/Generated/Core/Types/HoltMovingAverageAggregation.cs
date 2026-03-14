@@ -8,6 +8,13 @@ namespace OpenSearch.Client.Core;
 
 public sealed class HoltMovingAverageAggregation
 {
+	public System.Text.Json.JsonElement? BucketsPath { get; set; }
+	/// <summary>`DecimalFormat` pattern for the output value. If specified, the formatted value is returned in the aggregation's `value_as_string` property.</summary>
+		public string? Format { get; set; }
+	public GapPolicy? GapPolicy { get; set; }
+	public bool? Minimize { get; set; }
+	public int? Predict { get; set; }
+	public int? Window { get; set; }
 	public string? Model { get; set; }
 	public HoltLinearModelSettings? Settings { get; set; }
 }

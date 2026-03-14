@@ -41,7 +41,7 @@ public sealed class UpgradeIndexEndpoint : IEndpoint<UpgradeIndexRequest, Upgrad
 	public string RequestUrl(UpgradeIndexRequest r)
 	{
 		var path = r.Index is not null
-			? $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_upgrade" : true
+			? $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}/_upgrade" : true
 			? $"/_upgrade"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

@@ -9,6 +9,10 @@ public sealed class CumulativeSumAggregationDescriptor
 {
 	internal CumulativeSumAggregation _value = new();
 
+	public CumulativeSumAggregationDescriptor BucketsPath(System.Text.Json.JsonElement? value) { _value.BucketsPath = value; return this; }
+	/// <summary>`DecimalFormat` pattern for the output value. If specified, the formatted value is returned in the aggregation's `value_as_string` property.</summary>
+		public CumulativeSumAggregationDescriptor Format(string? value) { _value.Format = value; return this; }
+	public CumulativeSumAggregationDescriptor GapPolicy(GapPolicy? value) { _value.GapPolicy = value; return this; }
 
 	public static implicit operator CumulativeSumAggregation(CumulativeSumAggregationDescriptor descriptor) => descriptor._value;
 }

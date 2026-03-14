@@ -9,6 +9,8 @@ public sealed class StatsAggregationDescriptor
 {
 	internal StatsAggregation _value = new();
 
+	public StatsAggregationDescriptor Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
+	public StatsAggregationDescriptor Format(string? value) { _value.Format = value; return this; }
 
 	public static implicit operator StatsAggregation(StatsAggregationDescriptor descriptor) => descriptor._value;
 }

@@ -47,7 +47,7 @@ public sealed class SegmentsCatEndpoint : IEndpoint<SegmentsCatRequest, Segments
 	public string RequestUrl(SegmentsCatRequest r)
 	{
 		var path = r.Index is not null
-			? $"/_cat/segments/{Uri.EscapeDataString(r.Index!.ToString()!)}" : true
+			? $"/_cat/segments/{Uri.EscapeDataString(string.Join(",", r.Index!))}" : true
 			? $"/_cat/segments"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

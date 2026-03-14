@@ -8,32 +8,23 @@ namespace OpenSearch.CodeGen.Transformer;
 /// </summary>
 public sealed class TypeMapper
 {
-	// Common type aliases that map to simple C# types
-	private static readonly HashSet<string> s_stringAliases = new(StringComparer.OrdinalIgnoreCase)
-	{
-		"IndexName", "Indices", "Id", "Ids", "Name", "Names",
-		"Duration", "Field", "Fields", "Routing", "Uuid",
-		"IndexAlias", "ScrollId", "TaskId", "NodeId", "NodeIds",
-		"PipelineName", "VersionString",
-		"Percentage", "HumanReadableByteCount", "ByteCount",
-		"DateTime", "DateString", "StringifiedInteger",
-		"StringifiedBoolean", "StringifiedLong",
-		"StringifiedEpochTimeUnitMillis", "StringifiedEpochTimeUnitSeconds",
-		"EpochTimeUnitMillis", "EpochTimeUnitSeconds",
-		"DurationLarge", "UriReference", "Host", "Ip",
-		"ScrollIds", "StringOrStringArray", "Suggestion",
-		"Type", "Username", "Password",
-		"Namespace", "BulkByScrollTaskStatusOrException",
-		"ExpandWildcardOptions", "WaitForActiveShards"
-	};
-
-	// Common type aliases that map to long (numeric types serialized as JSON numbers)
+	// Explicit numeric aliases that can't be auto-detected from schema shape
+	// (VersionNumber is type: integer in the spec but we want to map it to long)
 	private static readonly HashSet<string> s_longAliases = new(StringComparer.OrdinalIgnoreCase)
 	{
 		"VersionNumber"
 	};
 
-	// Known property-based union types (all properties optional, only one set at a time)
+	/// <summary>
+	/// Minimum number of optional properties for a schema to be considered a property-keyed tagged union.
+	/// </summary>
+	private const int PropertyKeyedUnionMinProperties = 10;
+
+	/// <summary>
+	/// Schemas that are known to be property-keyed tagged unions but can't be
+	/// reliably auto-detected (e.g., because they have inline object properties
+	/// that look like regular object fields to the heuristic).
+	/// </summary>
 	private static readonly HashSet<string> s_knownTaggedUnions = new(StringComparer.OrdinalIgnoreCase)
 	{
 		"QueryContainer"
@@ -43,6 +34,7 @@ public sealed class TypeMapper
 	private readonly Dictionary<string, EnumShape> _discoveredEnums = new(StringComparer.Ordinal);
 	private readonly Dictionary<string, ObjectShape> _discoveredObjects = new(StringComparer.Ordinal);
 	private readonly Dictionary<string, TaggedUnionShape> _discoveredTaggedUnions = new(StringComparer.Ordinal);
+	private readonly List<string> _oneOfFallbacks = new();
 	private string _targetNamespace;
 
 	public TypeMapper(string targetNamespace)
@@ -59,6 +51,7 @@ public sealed class TypeMapper
 	public IReadOnlyDictionary<string, EnumShape> DiscoveredEnums => _discoveredEnums;
 	public IReadOnlyDictionary<string, ObjectShape> DiscoveredObjects => _discoveredObjects;
 	public IReadOnlyDictionary<string, TaggedUnionShape> DiscoveredTaggedUnions => _discoveredTaggedUnions;
+	public IReadOnlyList<string> OneOfFallbacks => _oneOfFallbacks;
 
 	/// <summary>
 	/// Maps an OpenAPI schema to a TypeRef.
@@ -80,13 +73,14 @@ public sealed class TypeMapper
 		// Extract the schema name from the ref
 		var schemaName = ExtractSchemaName(refString);
 
-		// Check if it's a common string alias
-		if (s_stringAliases.Contains(schemaName))
-			return TypeRef.String();
-
-		// Check if it's a numeric alias
+		// Check if it's a numeric alias (explicit override)
 		if (s_longAliases.Contains(schemaName))
 			return TypeRef.Long();
+
+		// Auto-detect string aliases: a $ref to a schema that is type: string
+		// with no enum values and no properties is a string alias
+		if (IsStringAlias(resolved))
+			return TypeRef.String();
 
 		// Check for generic type parameter (e.g., TDocument, TBucket)
 		if (resolved.IsGenericTypeParameter)
@@ -128,6 +122,10 @@ public sealed class TypeMapper
 				return GetOrCreateObject(schemaName, resolved, nsFromRef);
 			}
 
+			// Named schema that IS a oneOf (e.g., DecayPlacement, RangeQuery, Script)
+			if (resolved.OneOf.Count > 0)
+				return MapOneOf(resolved.OneOf, schemaName, nsFromRef, resolved.DiscriminatorPropertyName);
+
 			// Empty object or complex type → JsonElement for MVP
 			return TypeRef.JsonElement();
 		}
@@ -146,9 +144,9 @@ public sealed class TypeMapper
 		var type = schema.Type;
 		var nullable = schema.IsNullable;
 
-		// oneOf → simplify to most general type for MVP
+		// oneOf → dispatch to pattern-matching resolver
 		if (schema.OneOf.Count > 0)
-			return TypeRef.JsonElement();
+			return MapOneOf(schema.OneOf);
 
 		// allOf → follow the first $ref member if available, otherwise JsonElement
 		if (schema.AllOf.Count > 0)
@@ -205,6 +203,333 @@ public sealed class TypeMapper
 		return TypeRef.JsonElement();
 	}
 
+	/// <summary>
+	/// Pattern-matches oneOf alternatives and returns the best TypeRef.
+	/// When called from MapResolved, schemaName and ns are available for creating named types.
+	/// When called from MapDirect (inline oneOf), they are null.
+	/// </summary>
+	private TypeRef MapOneOf(IReadOnlyList<OpenApiSchema> schemas, string? schemaName = null, string? ns = null, string? discriminatorProperty = null)
+	{
+		// Pattern 1: Nullable wrapper — 2 members, one is type: 'null'
+		if (schemas.Count == 2)
+		{
+			var nullIndex = -1;
+			for (int i = 0; i < 2; i++)
+			{
+				if (schemas[i].Type == "null")
+				{
+					nullIndex = i;
+					break;
+				}
+			}
+			if (nullIndex >= 0)
+			{
+				var nonNull = schemas[1 - nullIndex];
+				return Map(nonNull).WithNullable(true);
+			}
+		}
+
+		// Pattern 2: Single-or-array — $ref + array with same items.$ref
+		if (schemas.Count == 2)
+		{
+			OpenApiSchema? singleSchema = null;
+			OpenApiSchema? arraySchema = null;
+			for (int i = 0; i < 2; i++)
+			{
+				if (schemas[i].Type == "array")
+					arraySchema = schemas[i];
+				else
+					singleSchema = schemas[i];
+			}
+			if (singleSchema is not null && arraySchema?.Items is not null)
+			{
+				var singleRef = singleSchema.Ref;
+				var arrayItemRef = arraySchema.Items.Ref;
+				if (singleRef is not null && arrayItemRef is not null
+					&& string.Equals(singleRef, arrayItemRef, StringComparison.Ordinal))
+				{
+					var itemType = Map(singleSchema);
+					return TypeRef.ListOf(itemType);
+				}
+			}
+		}
+
+		// Pattern 3: Primitive union — all members are inline primitives, string among them
+		{
+			var allPrimitives = true;
+			var hasString = false;
+			foreach (var s in schemas)
+			{
+				var t = s.Type;
+				if (t is not ("string" or "integer" or "number" or "boolean"))
+				{
+					allPrimitives = false;
+					break;
+				}
+				if (t == "string") hasString = true;
+			}
+			if (allPrimitives && hasString)
+				return TypeRef.String();
+		}
+
+		// Pattern 4: Shorthand-or-expanded — 2 members: simple type + allOf with properties
+		if (schemas.Count == 2)
+		{
+			OpenApiSchema? expanded = null;
+			for (int i = 0; i < 2; i++)
+			{
+				if (schemas[i].AllOf.Count > 0)
+				{
+					expanded = schemas[i];
+					break;
+				}
+			}
+			if (expanded is not null)
+			{
+				if (schemaName is not null)
+				{
+					// Create a named object from the expanded allOf form
+					return GetOrCreateObject(schemaName, expanded, ns);
+				}
+				// No name available — follow the first $ref in allOf
+				foreach (var member in expanded.AllOf)
+				{
+					if (member.Ref is not null)
+						return Map(member);
+				}
+			}
+		}
+
+		// Pattern 5: All-refs union (3+) — all members are $ref to named types
+		if (schemas.Count >= 3 && schemaName is not null)
+		{
+			var allRefs = true;
+			foreach (var s in schemas)
+			{
+				if (s.Ref is null)
+				{
+					allRefs = false;
+					break;
+				}
+			}
+			if (allRefs)
+				return GetOrCreateOneOfTaggedUnion(schemaName, schemas, ns, discriminatorProperty);
+		}
+
+		// Pattern 6: Fallback → JsonElement + record warning
+		var context = schemaName ?? "inline";
+		var memberDescs = string.Join(", ", schemas.Select(s =>
+			s.Ref is not null ? $"$ref:{ExtractSchemaName(s.Ref)}" :
+			s.Type is not null ? $"type:{s.Type}" :
+			s.AllOf.Count > 0 ? "allOf" : "unknown"));
+		_oneOfFallbacks.Add($"{context}: oneOf[{memberDescs}]");
+		return TypeRef.JsonElement();
+	}
+
+	/// <summary>
+	/// Creates a TaggedUnion from a oneOf where all members are $ref to named types.
+	/// When a discriminator property is present (e.g., "type" for Property), extracts
+	/// the actual wire value from each variant's schema instead of using the class name.
+	/// </summary>
+	private TypeRef GetOrCreateOneOfTaggedUnion(string schemaName, IReadOnlyList<OpenApiSchema> oneOfSchemas, string? namespaceOverride, string? discriminatorProperty = null)
+	{
+		if (_namedTypes.TryGetValue(schemaName, out var existing))
+			return existing;
+
+		var variants = new List<UnionVariant>();
+		foreach (var member in oneOfSchemas)
+		{
+			if (member.Ref is null) continue;
+			var variantSchemaName = ExtractSchemaName(member.Ref);
+			var variantType = Map(member);
+			var title = member.Title;
+
+			// When a discriminator is present, extract the wire value from the variant's
+			// discriminator field enum (e.g., KeywordProperty's "type" enum: ["keyword"])
+			string wireName;
+			if (discriminatorProperty is not null)
+			{
+				wireName = ExtractDiscriminatorValue(member.Resolved(), discriminatorProperty)
+					?? title ?? variantSchemaName;
+			}
+			else
+			{
+				wireName = title ?? variantSchemaName;
+			}
+
+			variants.Add(new UnionVariant
+			{
+				Name = NamingConventions.ToPascalCase(title ?? variantSchemaName),
+				WireName = wireName,
+				Type = variantType,
+				Description = member.Description
+			});
+		}
+
+		return RegisterTaggedUnion(schemaName, namespaceOverride, null, variants, discriminatorProperty);
+	}
+
+	/// <summary>
+	/// Extracts the discriminator field's enum value from a variant schema.
+	/// Searches the schema's allOf chain for a member that defines the discriminator
+	/// property with a single enum value (e.g., type: { enum: ["keyword"] }).
+	/// </summary>
+	private static string? ExtractDiscriminatorValue(OpenApiSchema variantSchema, string discriminatorProperty)
+	{
+		// Check direct properties first
+		var value = FindDiscriminatorEnum(variantSchema, discriminatorProperty);
+		if (value is not null) return value;
+
+		// Search allOf members
+		foreach (var allOfMember in variantSchema.AllOf)
+		{
+			var resolved = allOfMember.Resolved();
+			value = FindDiscriminatorEnum(resolved, discriminatorProperty);
+			if (value is not null) return value;
+
+			// Recurse into nested allOf
+			value = ExtractDiscriminatorValue(resolved, discriminatorProperty);
+			if (value is not null) return value;
+		}
+
+		return null;
+	}
+
+	private static string? FindDiscriminatorEnum(OpenApiSchema schema, string discriminatorProperty)
+	{
+		foreach (var (name, propSchema) in schema.Properties)
+		{
+			if (name != discriminatorProperty) continue;
+			var resolved = propSchema.Resolved();
+			var enumValues = resolved.EnumValues;
+			if (enumValues.Count == 1)
+				return enumValues[0];
+			// Also check for const value
+			if (resolved.Const is not null)
+				return resolved.Const;
+		}
+		return null;
+	}
+
+	/// <summary>
+	/// Detects allOf schemas where one member contains a oneOf (e.g., AggregationContainer).
+	/// Extracts variants and builds a TaggedUnionShape.
+	/// </summary>
+	private bool TryExtractAllOfOneOfUnion(string schemaName, OpenApiSchema schema, string? ns, out TypeRef typeRef)
+	{
+		typeRef = TypeRef.JsonElement();
+
+		if (schema.AllOf.Count == 0) return false;
+
+		// Find an allOf member with oneOf
+		OpenApiSchema? oneOfMember = null;
+		foreach (var member in schema.AllOf)
+		{
+			var resolved = member.Resolved();
+			if (resolved.OneOf.Count > 0)
+			{
+				oneOfMember = resolved;
+				break;
+			}
+		}
+
+		if (oneOfMember is null) return false;
+
+		var variants = new List<UnionVariant>();
+
+		foreach (var variant in oneOfMember.OneOf)
+		{
+			if (variant.Ref is not null)
+			{
+				// Direct $ref variant — drill into the referenced schema to find the wire name
+				var resolved = variant.Resolved();
+				ExtractVariantFromRefSchema(resolved, variants);
+			}
+			else if (variant.Properties.Count > 0)
+			{
+				// Inline properties variant — the property name IS the wire name
+				foreach (var (propName, propSchema) in variant.Properties)
+				{
+					var variantType = Map(propSchema);
+					variants.Add(new UnionVariant
+					{
+						Name = NamingConventions.ToPascalCase(propName),
+						WireName = propName,
+						Type = variantType,
+						Description = propSchema.Description
+					});
+					break; // Only the first property
+				}
+			}
+		}
+
+		// Erase generic type params on variants — the union itself isn't generic,
+		// so factory methods can't reference undeclared type params like T.
+		for (int i = 0; i < variants.Count; i++)
+		{
+			if (IsGenericTypeRef(variants[i].Type))
+			{
+				variants[i] = new UnionVariant
+				{
+					Name = variants[i].Name,
+					WireName = variants[i].WireName,
+					Type = TypeRef.JsonElement(),
+					Description = variants[i].Description
+				};
+			}
+		}
+
+		typeRef = RegisterTaggedUnion(schemaName, ns, schema.Description, variants);
+		return true;
+	}
+
+	/// <summary>
+	/// Extracts the wire name and variant type from a $ref schema used in an allOf+oneOf union.
+	/// Skips $ref base type members (like BucketAggregationBase) and looks at inline members
+	/// that have a required property — the required property is the discriminating wire name.
+	/// </summary>
+	private void ExtractVariantFromRefSchema(OpenApiSchema resolved, List<UnionVariant> variants)
+	{
+		if (resolved.AllOf.Count > 0)
+		{
+			foreach (var member in resolved.AllOf)
+			{
+				if (member.Ref is not null) continue; // Skip base types
+				if (TryAddVariantFromRequired(member.Resolved(), variants))
+					return;
+			}
+		}
+
+		// Fallback: check direct properties with required
+		TryAddVariantFromRequired(resolved, variants);
+	}
+
+	/// <summary>
+	/// If the schema has both properties and a required list, adds a variant
+	/// using the first required property as the wire name.
+	/// </summary>
+	private bool TryAddVariantFromRequired(OpenApiSchema schema, List<UnionVariant> variants)
+	{
+		var required = schema.Required;
+		if (required.Count == 0) return false;
+
+		var properties = schema.Properties;
+		if (properties.Count == 0) return false;
+
+		var requiredName = required[0];
+		var matchingProp = properties.FirstOrDefault(p => p.Name == requiredName);
+		if (matchingProp.Schema is null) return false;
+
+		variants.Add(new UnionVariant
+		{
+			Name = NamingConventions.ToPascalCase(requiredName),
+			WireName = requiredName,
+			Type = Map(matchingProp.Schema),
+			Description = matchingProp.Schema.Description
+		});
+		return true;
+	}
+
 	private TypeRef GetOrCreateEnum(string schemaName, OpenApiSchema schema, string? namespaceOverride = null)
 	{
 		var className = NamingConventions.SchemaNameToClassName(schemaName);
@@ -237,9 +562,14 @@ public sealed class TypeMapper
 		if (_namedTypes.TryGetValue(schemaName, out var existing))
 			return existing;
 
-		// Check if this is a known tagged union type
-		if (s_knownTaggedUnions.Contains(schemaName))
+		// Detect property-keyed tagged unions:
+		// either explicitly known, or auto-detected from schema shape.
+		if (s_knownTaggedUnions.Contains(schemaName) || IsPropertyKeyedUnion(schema))
 			return GetOrCreateTaggedUnion(schemaName, schema, namespaceOverride);
+
+		// Detect allOf+oneOf unions (e.g., AggregationContainer)
+		if (TryExtractAllOfOneOfUnion(schemaName, schema, namespaceOverride, out var unionRef))
+			return unionRef;
 
 		// Reserve the name first to prevent infinite recursion
 		var typeRef = TypeRef.Named(schemaName, className);
@@ -247,6 +577,7 @@ public sealed class TypeMapper
 
 		var fields = new List<Field>();
 		var required = new HashSet<string>(schema.Required);
+		TypeRef? additionalPropsType = null;
 
 		// Handle allOf by flattening
 		if (schema.AllOf.Count > 0)
@@ -255,6 +586,10 @@ public sealed class TypeMapper
 			{
 				var resolved = allOfMember.Resolved();
 				CollectFields(resolved, fields, required);
+
+				// Capture additionalProperties from allOf members (e.g., DecayFunction)
+				if (additionalPropsType is null && resolved.AdditionalProperties is not null)
+					additionalPropsType = Map(resolved.AdditionalProperties);
 			}
 		}
 		else
@@ -262,7 +597,7 @@ public sealed class TypeMapper
 			CollectFields(schema, fields, required);
 		}
 
-		TypeRef? additionalPropsType = null;
+		// Top-level additionalProperties takes precedence
 		if (schema.AdditionalProperties is not null)
 			additionalPropsType = Map(schema.AdditionalProperties);
 
@@ -300,6 +635,18 @@ public sealed class TypeMapper
 		foreach (var r in schema.Required)
 			required.Add(r);
 
+		// Recursively flatten allOf members first (handles inheritance chains
+		// like IntegerNumberProperty → NumberPropertyBase → DocValuesPropertyBase → ...)
+		if (schema.AllOf.Count > 0)
+		{
+			foreach (var allOfMember in schema.AllOf)
+			{
+				var resolved = allOfMember.Resolved();
+				CollectFields(resolved, fields, required);
+			}
+		}
+
+		// Then collect this schema's own direct properties
 		var existingNames = new HashSet<string>(fields.Select(f => f.Name), StringComparer.OrdinalIgnoreCase);
 
 		foreach (var (name, propSchema) in schema.Properties)
@@ -326,6 +673,64 @@ public sealed class TypeMapper
 		}
 	}
 
+	/// <summary>
+	/// Detects property-keyed tagged unions: objects with many optional properties,
+	/// no required list, where nearly all properties are $ref to distinct types.
+	/// Examples: QueryContainer (query DSL), Property (mappings).
+	/// Objects like IndexSettings are excluded because they have a significant mix of
+	/// $ref and inline primitive/string properties.
+	/// </summary>
+	private static bool IsPropertyKeyedUnion(OpenApiSchema schema)
+	{
+		// Must be an object type with enough properties
+		if (schema.Properties.Count < PropertyKeyedUnionMinProperties)
+			return false;
+
+		// Must have no required properties (all optional = only one set at a time)
+		if (schema.Required.Count > 0)
+			return false;
+
+		// Count $ref properties vs total. True unions like QueryContainer have nearly
+		// all $ref properties (with maybe 1-2 deprecated inline exceptions).
+		// Config objects like IndexSettings have many inline string/primitive properties.
+		var refCount = 0;
+		var inlineStringOrPrimitiveCount = 0;
+		foreach (var (_, propSchema) in schema.Properties)
+		{
+			if (propSchema.Ref is not null)
+			{
+				refCount++;
+			}
+			else
+			{
+				// Inline properties that are simple types (string, boolean, integer, etc.)
+				// strongly indicate a config object, not a union.
+				var resolved = propSchema.Resolved();
+				if (resolved.Type is "string" or "boolean" or "integer" or "number")
+					inlineStringOrPrimitiveCount++;
+			}
+		}
+
+		// Reject if there are any inline primitive/string properties — config objects
+		// always have at least some. True unions only have inline $ref or inline objects.
+		if (inlineStringOrPrimitiveCount > 0)
+			return false;
+
+		// Require at least 90% $ref properties
+		return refCount * 10 >= schema.Properties.Count * 9;
+	}
+
+	/// <summary>
+	/// Returns true if the resolved schema is a simple string alias:
+	/// type: string with no enum values, no properties, and no allOf/oneOf.
+	/// </summary>
+	private static bool IsStringAlias(OpenApiSchema resolved) =>
+		resolved.Type is "string"
+		&& resolved.EnumValues.Count == 0
+		&& resolved.Properties.Count == 0
+		&& resolved.AllOf.Count == 0
+		&& resolved.OneOf.Count == 0;
+
 	private static string ExtractSchemaName(string refString)
 	{
 		// "../schemas/_common.yaml#/components/schemas/IndexName" → "IndexName"
@@ -336,13 +741,6 @@ public sealed class TypeMapper
 
 	private TypeRef GetOrCreateTaggedUnion(string schemaName, OpenApiSchema schema, string? namespaceOverride)
 	{
-		var className = NamingConventions.SchemaNameToClassName(schemaName);
-		var kindEnumName = className.Replace("Container", "") + "Kind";
-
-		// Reserve the name
-		var typeRef = TypeRef.Named(schemaName, className);
-		_namedTypes[schemaName] = typeRef;
-
 		var variants = new List<UnionVariant>();
 		foreach (var (name, propSchema) in schema.Properties)
 		{
@@ -359,20 +757,44 @@ public sealed class TypeMapper
 			});
 		}
 
-		var ns = ResolveNamespace(namespaceOverride);
+		return RegisterTaggedUnion(schemaName, namespaceOverride, schema.Description, variants);
+	}
 
-		var unionShape = new TaggedUnionShape
+	/// <summary>
+	/// Shared helper: reserves the name, builds the TaggedUnionShape, registers it, and returns the TypeRef.
+	/// Used by all three union-creation paths (property-keyed, oneOf-refs, allOf+oneOf).
+	/// </summary>
+	private TypeRef RegisterTaggedUnion(string schemaName, string? namespaceOverride, string? description, List<UnionVariant> variants, string? discriminatorProperty = null)
+	{
+		var className = NamingConventions.SchemaNameToClassName(schemaName);
+		var kindEnumName = className.Replace("Container", "") + "Kind";
+
+		var typeRef = TypeRef.Named(schemaName, className);
+		_namedTypes[schemaName] = typeRef;
+
+		var ns = ResolveNamespace(namespaceOverride);
+		_discoveredTaggedUnions[schemaName] = new TaggedUnionShape
 		{
 			ClassName = className,
 			Namespace = ns,
-			Description = schema.Description,
+			Description = description,
 			KindEnumName = kindEnumName,
-			Variants = variants
+			Variants = variants,
+			DiscriminatorProperty = discriminatorProperty
 		};
-		_discoveredTaggedUnions[schemaName] = unionShape;
 
 		return typeRef;
 	}
+
+	/// <summary>
+	/// Returns true if a TypeRef references generic type parameters (structurally, not via string matching).
+	/// </summary>
+	private bool IsGenericTypeRef(TypeRef type) =>
+		type.IsGenericParameter
+		|| (type.Kind == TypeRefKind.Named && !type.IsEnum
+			&& _discoveredObjects.TryGetValue(type.Name, out var obj) && obj.IsGeneric)
+		|| (type.ItemType is not null && IsGenericTypeRef(type.ItemType))
+		|| (type.ValueType is not null && IsGenericTypeRef(type.ValueType));
 
 	/// <summary>
 	/// Collects generic type parameter names from a list of fields.

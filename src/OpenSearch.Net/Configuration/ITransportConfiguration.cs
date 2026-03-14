@@ -8,7 +8,7 @@ public interface ITransportConfiguration
 	/// <summary>
 	/// The pool of nodes that the transport will send requests to.
 	/// </summary>
-	NodePool NodePool { get; }
+	INodePool NodePool { get; }
 
 	/// <summary>
 	/// The serializer used to serialize request bodies and deserialize response bodies.

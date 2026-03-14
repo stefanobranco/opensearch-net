@@ -8,6 +8,8 @@ namespace OpenSearch.Client.Core;
 
 public sealed class ExtendedStatsAggregation
 {
+	public System.Text.Json.JsonElement? Missing { get; set; }
+	public string? Format { get; set; }
 	/// <summary>The number of standard deviations above/below the mean to display.</summary>
 		public double? Sigma { get; set; }
 }

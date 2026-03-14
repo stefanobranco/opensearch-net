@@ -40,7 +40,6 @@ public class EndpointTests
 			method: _ => HttpMethod.Post,
 			requestUrl: _ => "/test",
 			deserialize: (_, _, _, _) => "result",
-			contentType: "application/json",
 			getBody: _ => body);
 
 		endpoint.GetBody("request").Should().BeSameAs(body);
@@ -67,29 +66,6 @@ public class EndpointTests
 			getBody: _ => null);
 
 		endpoint.GetBody("request").Should().BeNull();
-	}
-
-	[Fact]
-	public void ContentType_ReturnsConfiguredValue()
-	{
-		var endpoint = new SimpleEndpoint<string, string>(
-			method: _ => HttpMethod.Post,
-			requestUrl: _ => "/test",
-			deserialize: (_, _, _, _) => "result",
-			contentType: "application/json");
-
-		endpoint.ContentType.Should().Be("application/json");
-	}
-
-	[Fact]
-	public void ContentType_ReturnsNullWhenNotConfigured()
-	{
-		var endpoint = new SimpleEndpoint<string, string>(
-			method: _ => HttpMethod.Get,
-			requestUrl: _ => "/test",
-			deserialize: (_, _, _, _) => "result");
-
-		endpoint.ContentType.Should().BeNull();
 	}
 
 	[Fact]

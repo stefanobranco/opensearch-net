@@ -9,6 +9,8 @@ public sealed class RateAggregationDescriptor
 {
 	internal RateAggregation _value = new();
 
+	public RateAggregationDescriptor Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
+	public RateAggregationDescriptor Format(string? value) { _value.Format = value; return this; }
 	public RateAggregationDescriptor Unit(string? value) { _value.Unit = value; return this; }
 	public RateAggregationDescriptor Mode(RateMode? value) { _value.Mode = value; return this; }
 

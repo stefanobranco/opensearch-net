@@ -41,9 +41,9 @@ public sealed class GetAliasIndexEndpoint : IEndpoint<GetAliasIndexRequest, GetA
 	public string RequestUrl(GetAliasIndexRequest r)
 	{
 		var path = r.Index is not null && r.Name is not null
-			? $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_alias/{Uri.EscapeDataString(r.Name!.ToString()!)}" : r.Name is not null
-			? $"/_alias/{Uri.EscapeDataString(r.Name!.ToString()!)}" : r.Index is not null
-			? $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_alias" : true
+			? $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}/_alias/{Uri.EscapeDataString(string.Join(",", r.Name!))}" : r.Name is not null
+			? $"/_alias/{Uri.EscapeDataString(string.Join(",", r.Name!))}" : r.Index is not null
+			? $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}/_alias" : true
 			? $"/_alias"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

@@ -15,40 +15,37 @@ public class PipelineTests : IntegrationTestBase
 		try
 		{
 			// Create pipeline with a "set" processor
-			var putResponse = Client.Ingest.PutPipeline(new PutPipelineRequest
+			var putResponse = Client.Ingest.PutPipeline(new PutPipelineIngestRequest
 			{
 				Id = pipelineId,
 				Description = "Test pipeline for integration tests",
 				Processors =
 				[
-					new ProcessorContainer
+					ProcessorContainer.Set(new SetProcessor
 					{
-						Set = new SetProcessor
-						{
-							Field = "test_field",
-							Value = JsonSerializer.SerializeToElement("test_value")
-						}
-					}
+						Field = "test_field",
+						Value = JsonSerializer.SerializeToElement("test_value")
+					})
 				]
 			});
 
 			putResponse.Acknowledged.Should().BeTrue();
 
 			// Get the pipeline
-			var getResponse = Client.Ingest.GetPipeline(new GetPipelineRequest { Id = pipelineId });
+			var getResponse = Client.Ingest.GetPipeline(new GetPipelineIngestRequest { Id = pipelineId });
 
 			getResponse.Should().ContainKey(pipelineId);
 			getResponse[pipelineId].Description.Should().Be("Test pipeline for integration tests");
 
 			// Delete the pipeline
-			var deleteResponse = Client.Ingest.DeletePipeline(new DeletePipelineRequest { Id = pipelineId });
+			var deleteResponse = Client.Ingest.DeletePipeline(new DeletePipelineIngestRequest { Id = pipelineId });
 
 			deleteResponse.Acknowledged.Should().BeTrue();
 		}
 		catch
 		{
 			// Best effort cleanup
-			try { Client.Ingest.DeletePipeline(new DeletePipelineRequest { Id = pipelineId }); } catch { }
+			try { Client.Ingest.DeletePipeline(new DeletePipelineIngestRequest { Id = pipelineId }); } catch { }
 			throw;
 		}
 	}

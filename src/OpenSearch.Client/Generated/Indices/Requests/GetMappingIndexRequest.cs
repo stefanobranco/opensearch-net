@@ -41,7 +41,7 @@ public sealed class GetMappingIndexEndpoint : IEndpoint<GetMappingIndexRequest, 
 	public string RequestUrl(GetMappingIndexRequest r)
 	{
 		var path = r.Index is not null
-			? $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_mapping" : true
+			? $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}/_mapping" : true
 			? $"/_mapping"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

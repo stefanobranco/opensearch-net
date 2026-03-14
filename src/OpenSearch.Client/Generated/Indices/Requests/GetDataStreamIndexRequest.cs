@@ -26,7 +26,7 @@ public sealed class GetDataStreamIndexEndpoint : IEndpoint<GetDataStreamIndexReq
 	public string RequestUrl(GetDataStreamIndexRequest r)
 	{
 		var path = r.Name is not null
-			? $"/_data_stream/{Uri.EscapeDataString(r.Name!.ToString()!)}" : true
+			? $"/_data_stream/{Uri.EscapeDataString(string.Join(",", r.Name!))}" : true
 			? $"/_data_stream"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		return path;

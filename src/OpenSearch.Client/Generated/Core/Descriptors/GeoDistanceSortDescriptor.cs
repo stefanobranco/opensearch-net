@@ -28,6 +28,8 @@ public sealed class GeoDistanceSortDescriptor
 	/// <summary>The unit of distance measurement.</summary>
 		public GeoDistanceSortDescriptor Unit(string? value) { _value.Unit = value; return this; }
 	public GeoDistanceSortDescriptor ValidationMethod(GeoValidationMethod? value) { _value.ValidationMethod = value; return this; }
+	/// <summary>Additional properties not captured by named fields.</summary>
+	public GeoDistanceSortDescriptor AdditionalProperties(Dictionary<string, System.Text.Json.JsonElement>? value) { _value.AdditionalProperties = value; return this; }
 
 	public static implicit operator GeoDistanceSort(GeoDistanceSortDescriptor descriptor) => descriptor._value;
 }

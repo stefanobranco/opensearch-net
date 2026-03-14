@@ -11,7 +11,7 @@ public class BulkTests : IntegrationTestBase
 	{
 		var index = UniqueIndex();
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
 
 		// Bulk index 10 documents
 		var operations = Enumerable.Range(1, 10).Select(i =>
@@ -34,7 +34,7 @@ public class BulkTests : IntegrationTestBase
 		// Verify all documents are searchable
 		var searchResponse = Client.Core.Search<BulkDoc>(new SearchRequest
 		{
-			Index = index,
+			Index = [index],
 			Size = 20,
 		});
 
@@ -47,7 +47,7 @@ public class BulkTests : IntegrationTestBase
 	{
 		var index = UniqueIndex();
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
 
 		// First bulk: create two documents
 		Client.Core.Bulk(new BulkRequest

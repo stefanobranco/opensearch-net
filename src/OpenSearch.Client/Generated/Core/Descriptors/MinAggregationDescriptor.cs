@@ -9,6 +9,8 @@ public sealed class MinAggregationDescriptor
 {
 	internal MinAggregation _value = new();
 
+	public MinAggregationDescriptor Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
+	public MinAggregationDescriptor Format(string? value) { _value.Format = value; return this; }
 	public MinAggregationDescriptor ValueType(ValueType? value) { _value.ValueType = value; return this; }
 
 	public static implicit operator MinAggregation(MinAggregationDescriptor descriptor) => descriptor._value;

@@ -13,4 +13,6 @@ public sealed class GeoShapeQuery
 	[JsonPropertyName("_name")]
 	public string? Name { get; set; }
 	public bool? IgnoreUnmapped { get; set; }
+	[JsonExtensionData]
+	public Dictionary<string, System.Text.Json.JsonElement>? AdditionalProperties { get; set; }
 }

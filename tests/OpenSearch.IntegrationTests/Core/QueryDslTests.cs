@@ -14,7 +14,7 @@ public class QueryDslTests : IntegrationTestBase
 	{
 		var index = UniqueIndex("querydsl");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateRequest { Index = index });
+		Client.Indices.Create(new CreateIndexRequest { Index = index });
 
 		Client.Core.Bulk(new BulkRequest
 		{
@@ -28,15 +28,12 @@ public class QueryDslTests : IntegrationTestBase
 			]
 		});
 
-		// Match query via tagged union
+		// Match query via field-keyed convenience overload
 		var searchResponse = Client.Core.Search<QueryDoc>(new SearchRequest
 		{
-			Index = index,
+			Index = [index],
 			Size = 10,
-			Query = QueryContainer.Match(new Dictionary<string, JsonElement>
-			{
-				["category"] = JsonSerializer.SerializeToElement("engineering")
-			})
+			Query = QueryContainer.Match("category", new OpenSearch.Client.Core.MatchQuery { Query = JsonSerializer.SerializeToElement("engineering") })
 		});
 
 		searchResponse.Hits.Should().NotBeNull();
@@ -50,14 +47,14 @@ public class QueryDslTests : IntegrationTestBase
 	{
 		var index = UniqueIndex("querydsl");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateRequest
+		Client.Indices.Create(new CreateIndexRequest
 		{
 			Index = index,
 			Mappings = new TypeMapping
 			{
-				Properties = new Dictionary<string, JsonElement>
+				Properties = new Dictionary<string, Property>
 				{
-					["status"] = JsonSerializer.SerializeToElement(new { type = "keyword" })
+					["status"] = Property.KeywordProperty(new KeywordProperty())
 				}
 			}
 		});
@@ -73,15 +70,12 @@ public class QueryDslTests : IntegrationTestBase
 			]
 		});
 
-		// Term query via tagged union
+		// Term query via field-keyed convenience overload
 		var searchResponse = Client.Core.Search<QueryDoc>(new SearchRequest
 		{
-			Index = index,
+			Index = [index],
 			Size = 10,
-			Query = QueryContainer.Term(new Dictionary<string, JsonElement>
-			{
-				["status"] = JsonSerializer.SerializeToElement(new { value = "active" })
-			})
+			Query = QueryContainer.Term("status", new OpenSearch.Client.Core.TermQuery { Value = JsonSerializer.SerializeToElement("active") })
 		});
 
 		searchResponse.Hits.Should().NotBeNull();
@@ -94,7 +88,7 @@ public class QueryDslTests : IntegrationTestBase
 	{
 		var index = UniqueIndex("querydsl");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateRequest { Index = index });
+		Client.Indices.Create(new CreateIndexRequest { Index = index });
 
 		Client.Core.Bulk(new BulkRequest
 		{
@@ -109,18 +103,18 @@ public class QueryDslTests : IntegrationTestBase
 			]
 		});
 
-		// Bool query: must match engineering AND age >= 30
+		// Bool query: must match engineering AND age >= 30 (using field-keyed convenience overloads)
 		var searchResponse = Client.Core.Search<QueryDoc>(new SearchRequest
 		{
-			Index = index,
+			Index = [index],
 			Size = 10,
-			Query = QueryContainer.Bool(new BoolQuery
+			Query = QueryContainer.Bool(new OpenSearch.Client.Core.BoolQuery
 			{
-				Must = JsonSerializer.SerializeToElement(new object[]
-				{
-					new { match = new { category = "engineering" } },
-					new { range = new { age = new { gte = 30 } } }
-				})
+				Must =
+				[
+					QueryContainer.Match("category", new OpenSearch.Client.Core.MatchQuery { Query = JsonSerializer.SerializeToElement("engineering") }),
+					QueryContainer.Range("age", JsonSerializer.SerializeToElement(new { gte = 30 }))
+				]
 			})
 		});
 
@@ -135,7 +129,7 @@ public class QueryDslTests : IntegrationTestBase
 	{
 		var index = UniqueIndex("querydsl");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateRequest { Index = index });
+		Client.Indices.Create(new CreateIndexRequest { Index = index });
 
 		Client.Core.Bulk(new BulkRequest
 		{
@@ -151,9 +145,9 @@ public class QueryDslTests : IntegrationTestBase
 		// Exists query: find docs where "category" field exists
 		var searchResponse = Client.Core.Search<QueryDoc>(new SearchRequest
 		{
-			Index = index,
+			Index = [index],
 			Size = 10,
-			Query = QueryContainer.Exists(new ExistsQuery { Field = "category" })
+			Query = QueryContainer.Exists(new OpenSearch.Client.Core.ExistsQuery { Field = "category" })
 		});
 
 		searchResponse.Hits.Should().NotBeNull();
@@ -166,7 +160,7 @@ public class QueryDslTests : IntegrationTestBase
 	{
 		var index = UniqueIndex("querydsl");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateRequest { Index = index });
+		Client.Indices.Create(new CreateIndexRequest { Index = index });
 
 		Client.Core.Bulk(new BulkRequest
 		{
@@ -181,9 +175,9 @@ public class QueryDslTests : IntegrationTestBase
 
 		var searchResponse = Client.Core.Search<QueryDoc>(new SearchRequest
 		{
-			Index = index,
+			Index = [index],
 			Size = 10,
-			Query = QueryContainer.MatchAll(new MatchAllQuery())
+			Query = QueryContainer.MatchAll(new OpenSearch.Client.Core.MatchAllQuery())
 		});
 
 		searchResponse.Hits.Should().NotBeNull();

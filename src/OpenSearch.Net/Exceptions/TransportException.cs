@@ -12,11 +12,6 @@ public class TransportException : Exception
 	public int? StatusCode { get; }
 
 	/// <summary>
-	/// The raw HTTP response associated with this exception, if available.
-	/// </summary>
-	public OpenSearchHttpResponse? Response { get; }
-
-	/// <summary>
 	/// The node that the failed request was sent to, if available.
 	/// </summary>
 	public Node? Node { get; }
@@ -39,22 +34,20 @@ public class TransportException : Exception
 	/// <summary>
 	/// Creates a new <see cref="TransportException"/> with full context from a failed request.
 	/// </summary>
-	public TransportException(string message, int statusCode, OpenSearchHttpResponse? response, Node? node)
+	public TransportException(string message, int statusCode, Node? node)
 		: base(message)
 	{
 		StatusCode = statusCode;
-		Response = response;
 		Node = node;
 	}
 
 	/// <summary>
 	/// Creates a new <see cref="TransportException"/> with full context and an inner exception.
 	/// </summary>
-	public TransportException(string message, int statusCode, OpenSearchHttpResponse? response, Node? node, Exception innerException)
+	public TransportException(string message, int statusCode, Node? node, Exception innerException)
 		: base(message, innerException)
 	{
 		StatusCode = statusCode;
-		Response = response;
 		Node = node;
 	}
 }

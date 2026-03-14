@@ -9,6 +9,7 @@ public sealed class CardinalityAggregationDescriptor
 {
 	internal CardinalityAggregation _value = new();
 
+	public CardinalityAggregationDescriptor Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
 	/// <summary>A unique count below which counts are expected to be close to accurate. This allows to trade memory for accuracy.</summary>
 		public CardinalityAggregationDescriptor PrecisionThreshold(int? value) { _value.PrecisionThreshold = value; return this; }
 	public CardinalityAggregationDescriptor ExecutionHint(CardinalityExecutionMode? value) { _value.ExecutionHint = value; return this; }

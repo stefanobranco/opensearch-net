@@ -8,4 +8,8 @@ namespace OpenSearch.Client.Core;
 
 public sealed class SumBucketAggregation
 {
+	public System.Text.Json.JsonElement? BucketsPath { get; set; }
+	/// <summary>`DecimalFormat` pattern for the output value. If specified, the formatted value is returned in the aggregation's `value_as_string` property.</summary>
+		public string? Format { get; set; }
+	public GapPolicy? GapPolicy { get; set; }
 }

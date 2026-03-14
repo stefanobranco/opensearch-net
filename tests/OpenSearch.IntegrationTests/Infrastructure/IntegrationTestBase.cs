@@ -33,7 +33,7 @@ public abstract class IntegrationTestBase : IDisposable
 		{
 			try
 			{
-				Client.Indices.Delete(new OpenSearch.Client.Indices.DeleteRequest { Index = index });
+				Client.Indices.Delete(new OpenSearch.Client.Indices.DeleteIndexRequest { Index = [index] });
 			}
 			catch
 			{

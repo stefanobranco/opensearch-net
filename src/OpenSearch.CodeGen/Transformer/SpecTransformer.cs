@@ -338,6 +338,6 @@ public sealed class SpecTransformer
 		"delete" => "Delete",
 		"head" => "Head",
 		"patch" => "Patch",
-		_ => "Post"
+		_ => throw new ArgumentOutOfRangeException(nameof(method), method, $"Unsupported HTTP method: {method}")
 	};
 }

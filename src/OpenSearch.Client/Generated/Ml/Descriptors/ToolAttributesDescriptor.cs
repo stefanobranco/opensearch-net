@@ -11,6 +11,8 @@ public sealed class ToolAttributesDescriptor
 
 	public ToolAttributesDescriptor InputSchema(string? value) { _value.InputSchema = value; return this; }
 	public ToolAttributesDescriptor Strict(bool? value) { _value.Strict = value; return this; }
+	/// <summary>Additional properties not captured by named fields.</summary>
+	public ToolAttributesDescriptor AdditionalProperties(Dictionary<string, System.Text.Json.JsonElement>? value) { _value.AdditionalProperties = value; return this; }
 
 	public static implicit operator ToolAttributes(ToolAttributesDescriptor descriptor) => descriptor._value;
 }

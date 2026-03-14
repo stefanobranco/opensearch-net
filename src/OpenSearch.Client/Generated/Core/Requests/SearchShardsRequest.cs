@@ -46,7 +46,7 @@ public sealed class SearchShardsEndpoint : IEndpoint<SearchShardsRequest, Search
 	public string RequestUrl(SearchShardsRequest r)
 	{
 		var path = r.Index is not null
-			? $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_search_shards" : true
+			? $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}/_search_shards" : true
 			? $"/_search_shards"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

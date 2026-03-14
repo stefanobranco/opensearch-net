@@ -131,7 +131,7 @@ public sealed class UpdateByQueryEndpoint : IEndpoint<UpdateByQueryRequest, Upda
 
 	public string RequestUrl(UpdateByQueryRequest r)
 	{
-		var path = $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_update_by_query";
+		var path = $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}/_update_by_query";
 		var queryParts = new List<string>();
 		if (r.Source is not null)
 			queryParts.Add($"_source={Uri.EscapeDataString(r.Source.ToString()!)}");

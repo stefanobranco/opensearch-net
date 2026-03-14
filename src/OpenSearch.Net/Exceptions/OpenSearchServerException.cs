@@ -22,9 +22,8 @@ public sealed class OpenSearchServerException : TransportException
 		string? errorType,
 		string? reason,
 		int statusCode,
-		OpenSearchHttpResponse? response,
 		Node? node)
-		: base(FormatMessage(errorType, reason, statusCode), statusCode, response, node)
+		: base(FormatMessage(errorType, reason, statusCode), statusCode, node)
 	{
 		ErrorType = errorType;
 		Reason = reason;

@@ -55,6 +55,7 @@ public static class TemplateHelpers
 		obj["type_parameters"] = response.IsGeneric
 			? new ScriptArray(response.TypeParameters.Cast<object>())
 			: null;
+		obj["has_additional_properties"] = false;
 		return obj;
 	}
 
@@ -98,18 +99,11 @@ public static class TemplateHelpers
 		obj["type_parameters"] = objectShape.IsGeneric
 			? new ScriptArray(objectShape.TypeParameters.Cast<object>())
 			: null;
+		obj["has_additional_properties"] = objectShape.AdditionalPropertiesType is not null;
 		return obj;
 	}
 
-	public static ScriptObject BuildNamespaceClientContext(string namespaceName, IReadOnlyList<RequestShape> requests)
-	{
-		// Legacy overload without descriptor support — delegates with empty lookups
-		return BuildNamespaceClientContext(namespaceName, requests,
-			new Dictionary<string, ObjectShape>(StringComparer.Ordinal),
-			new Dictionary<string, TaggedUnionShape>(StringComparer.Ordinal));
-	}
-
-	public static ScriptObject BuildTaggedUnionContext(TaggedUnionShape union, IReadOnlyDictionary<string, ObjectShape> allObjects)
+	public static ScriptObject BuildTaggedUnionContext(TaggedUnionShape union, IReadOnlyDictionary<string, ObjectShape> allObjects, IReadOnlyDictionary<string, TaggedUnionShape> allUnions)
 	{
 		var obj = new ScriptObject();
 		obj["namespace"] = union.Namespace;
@@ -126,10 +120,26 @@ public static class TemplateHelpers
 			v["type"] = variant.Type.CSharpName;
 			v["type_name"] = variant.Type.CSharpName;
 			v["description"] = SanitizeDescription(variant.Description);
+
+			// Detect field-keyed variants: Dictionary<string, T> where T has a descriptor
+			if (variant.Type.Kind == TypeRefKind.Dictionary
+				&& variant.Type.KeyType?.Name == "string"
+				&& variant.Type.ValueType is not null)
+			{
+				v["is_field_keyed"] = true;
+				v["field_value_type"] = variant.Type.ValueType.CSharpName;
+			}
+			else
+			{
+				v["is_field_keyed"] = false;
+				v["field_value_type"] = "";
+			}
+
 			variants.Add(v);
 		}
 		obj["variants"] = variants;
 		obj["extra_usings"] = ComputeExtraUsings(union.Namespace, union.Variants.Select(v => v.Type).ToList(), allObjects);
+		obj["discriminator_property"] = union.DiscriminatorProperty;
 
 		return obj;
 	}
@@ -259,9 +269,14 @@ public static class TemplateHelpers
 			foreach (var pname in path.ParameterNames)
 			{
 				var csharpName = paramLookup.GetValueOrDefault(pname, NamingConventions.ToPascalCase(pname));
+				var paramField = pathParams.FirstOrDefault(f => f.WireName == pname);
+				var isListParam = paramField?.Type.Kind == TypeRefKind.List;
+				var valueExpr = isListParam
+					? "string.Join(\",\", r." + csharpName + "!)"
+					: "r." + csharpName + "!.ToString()!";
 				interpolated = interpolated.Replace(
 					"{" + pname + "}",
-					"{Uri.EscapeDataString(r." + csharpName + "!.ToString()!)}");
+					"{Uri.EscapeDataString(" + valueExpr + ")}");
 			}
 			p["interpolated"] = interpolated;
 			arr.Add(p);
@@ -367,16 +382,13 @@ public static class TemplateHelpers
 
 	public static ScriptObject BuildObjectDescriptorContext(ObjectShape objectShape, IReadOnlyDictionary<string, ObjectShape> allObjects, IReadOnlyDictionary<string, TaggedUnionShape> allUnions)
 	{
-		var obj = new ScriptObject();
-		obj["namespace"] = objectShape.Namespace;
-		obj["class_name"] = objectShape.ClassName;
-		obj["descriptor_name"] = objectShape.ClassName + "Descriptor";
-		obj["fields"] = BuildDescriptorFieldArray(objectShape.Fields, allObjects, allUnions);
-		obj["extra_usings"] = ComputeExtraUsings(objectShape.Namespace, objectShape.Fields, allObjects);
-		obj["type_parameters"] = objectShape.IsGeneric
+		var typeParams = objectShape.IsGeneric
 			? new ScriptArray(objectShape.TypeParameters.Cast<object>())
 			: null;
-		return obj;
+		var ctx = BuildDescriptorContext(objectShape.Namespace, objectShape.ClassName, objectShape.Fields, typeParams,
+			isRawBody: false, allObjects, allUnions);
+		ctx["has_additional_properties"] = objectShape.AdditionalPropertiesType is not null;
+		return ctx;
 	}
 
 	public static ScriptObject BuildTaggedUnionDescriptorContext(TaggedUnionShape union, IReadOnlyDictionary<string, ObjectShape> allObjects, IReadOnlyDictionary<string, TaggedUnionShape> allUnions)
@@ -405,6 +417,33 @@ public static class TemplateHelpers
 				v["variant_kind"] = "simple";
 				v["descriptor_name"] = "";
 			}
+
+			// Detect field-keyed variants: Dictionary<string, T> where T has a descriptor
+			if (variant.Type.Kind == TypeRefKind.Dictionary
+				&& variant.Type.KeyType?.Name == "string"
+				&& variant.Type.ValueType is not null)
+			{
+				v["is_field_keyed"] = true;
+				v["field_value_type"] = variant.Type.ValueType.CSharpName;
+				if (HasDescriptor(variant.Type.ValueType, allObjects, allUnions))
+				{
+					v["field_has_descriptor"] = true;
+					v["field_value_descriptor_name"] = GetDescriptorName(variant.Type.ValueType);
+				}
+				else
+				{
+					v["field_has_descriptor"] = false;
+					v["field_value_descriptor_name"] = "";
+				}
+			}
+			else
+			{
+				v["is_field_keyed"] = false;
+				v["field_value_type"] = "";
+				v["field_has_descriptor"] = false;
+				v["field_value_descriptor_name"] = "";
+			}
+
 			variants.Add(v);
 		}
 		obj["variants"] = variants;
@@ -414,12 +453,6 @@ public static class TemplateHelpers
 
 	public static ScriptObject BuildRequestDescriptorContext(RequestShape request, IReadOnlyDictionary<string, ObjectShape> allObjects, IReadOnlyDictionary<string, TaggedUnionShape> allUnions)
 	{
-		var obj = new ScriptObject();
-		obj["namespace"] = request.Namespace;
-		obj["class_name"] = request.ClassName;
-		obj["descriptor_name"] = request.ClassName + "Descriptor";
-		obj["is_raw_body"] = request.IsRawBody;
-
 		// Query params are always nullable in the POCO (ComputeQueryParamType always adds ?),
 		// so force Required=false so ComputePropertyType matches.
 		var queryParamsAsOptional = request.QueryParams.Select(qp => new Field
@@ -437,13 +470,8 @@ public static class TemplateHelpers
 		allFields.AddRange(queryParamsAsOptional);
 		allFields.AddRange(request.BodyFields);
 
-		obj["fields"] = BuildDescriptorFieldArray(allFields, allObjects, allUnions);
-		obj["extra_usings"] = ComputeExtraUsings(request.Namespace, allFields, allObjects);
-
-		// Request descriptors are always non-generic
-		obj["type_parameters"] = null;
-
-		return obj;
+		return BuildDescriptorContext(request.Namespace, request.ClassName, allFields, typeParameters: null,
+			request.IsRawBody, allObjects, allUnions);
 	}
 
 	public static ScriptObject BuildNamespaceClientContext(string namespaceName, IReadOnlyList<RequestShape> requests, IReadOnlyDictionary<string, ObjectShape> allObjects, IReadOnlyDictionary<string, TaggedUnionShape> allUnions)
@@ -471,6 +499,22 @@ public static class TemplateHelpers
 		return obj;
 	}
 
+	private static ScriptObject BuildDescriptorContext(
+		string ns, string className, IReadOnlyList<Field> fields, ScriptArray? typeParameters,
+		bool isRawBody, IReadOnlyDictionary<string, ObjectShape> allObjects, IReadOnlyDictionary<string, TaggedUnionShape> allUnions)
+	{
+		var obj = new ScriptObject();
+		obj["namespace"] = ns;
+		obj["class_name"] = className;
+		obj["descriptor_name"] = className + "Descriptor";
+		obj["fields"] = BuildDescriptorFieldArray(fields, allObjects, allUnions);
+		obj["extra_usings"] = ComputeExtraUsings(ns, fields, allObjects);
+		obj["type_parameters"] = typeParameters;
+		obj["is_raw_body"] = isRawBody;
+		obj["has_additional_properties"] = false;
+		return obj;
+	}
+
 	private static ScriptArray BuildDescriptorFieldArray(IReadOnlyList<Field> fields, IReadOnlyDictionary<string, ObjectShape> allObjects, IReadOnlyDictionary<string, TaggedUnionShape> allUnions)
 	{
 		var arr = new ScriptArray();
@@ -479,9 +523,7 @@ public static class TemplateHelpers
 			var f = new ScriptObject();
 			f["name"] = field.Name;
 			f["description"] = SanitizeDescription(field.Description);
-
-			// Use the same type computation as for POCO properties — always nullable for descriptors
-			f["poco_type"] = ComputeDescriptorParamType(field);
+			f["poco_type"] = ComputePropertyType(field);
 			f["descriptor_kind"] = ComputeDescriptorKind(field, allObjects, allUnions);
 
 			if (HasDescriptor(field.Type, allObjects, allUnions))
@@ -505,11 +547,6 @@ public static class TemplateHelpers
 		}
 		return arr;
 	}
-
-	/// <summary>
-	/// Returns the type string matching the POCO property type — descriptor setters must be assignment-compatible.
-	/// </summary>
-	private static string ComputeDescriptorParamType(Field field) => ComputePropertyType(field);
 
 	private static string? SanitizeDescription(string? desc)
 	{

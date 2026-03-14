@@ -50,7 +50,7 @@ public sealed class ForcemergeIndexEndpoint : IEndpoint<ForcemergeIndexRequest, 
 	public string RequestUrl(ForcemergeIndexRequest r)
 	{
 		var path = r.Index is not null
-			? $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_forcemerge" : true
+			? $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}/_forcemerge" : true
 			? $"/_forcemerge"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

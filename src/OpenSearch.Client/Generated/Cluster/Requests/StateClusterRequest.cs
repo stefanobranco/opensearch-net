@@ -53,8 +53,8 @@ public sealed class StateClusterEndpoint : IEndpoint<StateClusterRequest, StateC
 	public string RequestUrl(StateClusterRequest r)
 	{
 		var path = r.Metric is not null && r.Index is not null
-			? $"/_cluster/state/{Uri.EscapeDataString(r.Metric!.ToString()!)}/{Uri.EscapeDataString(r.Index!.ToString()!)}" : r.Metric is not null
-			? $"/_cluster/state/{Uri.EscapeDataString(r.Metric!.ToString()!)}" : true
+			? $"/_cluster/state/{Uri.EscapeDataString(string.Join(",", r.Metric!))}/{Uri.EscapeDataString(string.Join(",", r.Index!))}" : r.Metric is not null
+			? $"/_cluster/state/{Uri.EscapeDataString(string.Join(",", r.Metric!))}" : true
 			? $"/_cluster/state"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

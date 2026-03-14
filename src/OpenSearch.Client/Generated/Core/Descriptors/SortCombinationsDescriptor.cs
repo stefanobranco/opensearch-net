@@ -13,8 +13,20 @@ public sealed class SortCombinationsDescriptor
 	public SortCombinationsDescriptor Field(string value) { _value = SortCombinations.Field(value); return this; }
 	/// <summary>Creates a FieldWithDirection variant.</summary>
 	public SortCombinationsDescriptor FieldWithDirection(Dictionary<string, SortOrder> value) { _value = SortCombinations.FieldWithDirection(value); return this; }
+	/// <summary>Creates a FieldWithDirection variant for a single field.</summary>
+	public SortCombinationsDescriptor FieldWithDirection(string field, SortOrder value) { _value = SortCombinations.FieldWithDirection(field, value); return this; }
 	/// <summary>Creates a FieldWithOrder variant.</summary>
 	public SortCombinationsDescriptor FieldWithOrder(Dictionary<string, FieldSort> value) { _value = SortCombinations.FieldWithOrder(value); return this; }
+	/// <summary>Creates a FieldWithOrder variant for a single field.</summary>
+	public SortCombinationsDescriptor FieldWithOrder(string field, FieldSort value) { _value = SortCombinations.FieldWithOrder(field, value); return this; }
+	/// <summary>Creates a FieldWithOrder variant for a single field using a descriptor.</summary>
+	public SortCombinationsDescriptor FieldWithOrder(string field, Action<FieldSortDescriptor> configure)
+	{
+		var descriptor = new FieldSortDescriptor();
+		configure(descriptor);
+		_value = SortCombinations.FieldWithOrder(field, ((FieldSort)descriptor)!);
+		return this;
+	}
 	/// <summary>Creates a Options variant.</summary>
 	public SortCombinationsDescriptor Options(SortOptions value) { _value = SortCombinations.Options(value); return this; }
 	/// <summary>Creates a Options variant.</summary>

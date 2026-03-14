@@ -12,7 +12,7 @@ public class IndexAndGetTests : IntegrationTestBase
 		var index = UniqueIndex();
 
 		// Create index first
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
 
 		// Index a document via bulk
 		var doc = new TestDocument { Title = "Hello OpenSearch", Count = 42 };

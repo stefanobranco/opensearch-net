@@ -50,7 +50,7 @@ public sealed class ClearCacheIndexEndpoint : IEndpoint<ClearCacheIndexRequest, 
 	public string RequestUrl(ClearCacheIndexRequest r)
 	{
 		var path = r.Index is not null
-			? $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_cache/clear" : true
+			? $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}/_cache/clear" : true
 			? $"/_cache/clear"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

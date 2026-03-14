@@ -106,7 +106,7 @@ public sealed class PutSettingsIndexEndpoint : IEndpoint<PutSettingsIndexRequest
 	public string RequestUrl(PutSettingsIndexRequest r)
 	{
 		var path = r.Index is not null
-			? $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_settings" : true
+			? $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}/_settings" : true
 			? $"/_settings"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

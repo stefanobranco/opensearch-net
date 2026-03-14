@@ -64,7 +64,7 @@ public sealed class ValidateQueryIndexEndpoint : IEndpoint<ValidateQueryIndexReq
 	public string RequestUrl(ValidateQueryIndexRequest r)
 	{
 		var path = r.Index is not null
-			? $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_validate/query" : true
+			? $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}/_validate/query" : true
 			? $"/_validate/query"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

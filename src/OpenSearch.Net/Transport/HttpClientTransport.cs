@@ -21,10 +21,14 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 	private readonly IOpenSearchSerializer _serializer;
 	private readonly AuthenticationHeaderValue? _cachedAuthHeader;
 
-	/// <inheritdoc />
+	/// <summary>
+	/// The serializer used by this transport for request and response bodies.
+	/// </summary>
 	public IOpenSearchSerializer Serializer => _serializer;
 
-	/// <inheritdoc />
+	/// <summary>
+	/// Default transport-level options applied to every request unless overridden.
+	/// </summary>
 	public TransportOptions? DefaultOptions { get; }
 
 	/// <summary>
@@ -251,7 +255,7 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 			// Body may not be valid JSON; throw with whatever we have.
 		}
 
-		throw new OpenSearchServerException(errorType, reason, statusCode, null, node);
+		throw new OpenSearchServerException(errorType, reason, statusCode, node);
 	}
 
 	private static bool IsRetryableException(Exception ex, bool isSync, CancellationToken ct = default) =>
@@ -261,7 +265,7 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 
 	private static void HandleRetryableException(
 		ref RequestAuditTrail? auditTrail,
-		NodePool nodePool,
+		INodePool nodePool,
 		Node node,
 		Exception ex,
 		TimeSpan duration)
@@ -286,7 +290,7 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 		else if (lastRetryableStatusCode > 0)
 			inner = new TransportException(
 				$"Received retryable status code {lastRetryableStatusCode} from {lastRetryableNode?.Host}",
-				lastRetryableStatusCode, null, lastRetryableNode);
+				lastRetryableStatusCode, lastRetryableNode);
 		else
 			inner = new InvalidOperationException("No attempts were made.");
 
@@ -310,37 +314,22 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 
 		var body = endpoint.GetBody(request);
 		if (body is not null)
-		{
-			var stream = new MemoryStream();
-			body.WriteTo(stream, _serializer);
-			stream.Position = 0;
-			SetBodyContent(message, body.ContentType, stream);
-		}
+			message.Content = new RequestBodyContent(body, _serializer);
 
 		_configuration.OnRequestCreated?.Invoke(message);
 		return message;
 	}
 
-	private async ValueTask<HttpRequestMessage> BuildRequestMessageAsync<TRequest, TResponse>(
+	private ValueTask<HttpRequestMessage> BuildRequestMessageAsync<TRequest, TResponse>(
 		TRequest request,
 		IEndpoint<TRequest, TResponse> endpoint,
 		Node node,
 		TransportOptions? options,
 		CancellationToken ct)
 	{
-		var message = CreateBaseRequestMessage(request, endpoint, node, options);
-
-		var body = endpoint.GetBody(request);
-		if (body is not null)
-		{
-			var stream = new MemoryStream();
-			await body.WriteToAsync(stream, _serializer, ct).ConfigureAwait(false);
-			stream.Position = 0;
-			SetBodyContent(message, body.ContentType, stream);
-		}
-
-		_configuration.OnRequestCreated?.Invoke(message);
-		return message;
+		// Body serialization is now deferred to the HttpContent stream write,
+		// so async pre-serialization is no longer needed.
+		return new ValueTask<HttpRequestMessage>(BuildRequestMessage(request, endpoint, node, options));
 	}
 
 	private HttpRequestMessage CreateBaseRequestMessage<TRequest, TResponse>(
@@ -362,13 +351,6 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 			message.Headers.AcceptEncoding.Add(GzipEncoding);
 
 		return message;
-	}
-
-	private void SetBodyContent(HttpRequestMessage message, string contentType, MemoryStream stream)
-	{
-		var content = new StreamContent(stream);
-		content.Headers.ContentType = new MediaTypeHeaderValue(contentType);
-		message.Content = content;
 	}
 
 	private static Uri BuildRequestUri(Node node, string requestUrl, TransportOptions? options)

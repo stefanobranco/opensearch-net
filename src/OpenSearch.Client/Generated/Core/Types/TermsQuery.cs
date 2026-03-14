@@ -13,4 +13,6 @@ public sealed class TermsQuery
 	public float? Boost { get; set; }
 	/// <summary>Specifies the types of values used for filtering. Valid values are `default` and `bitmap`. Default is `default`.</summary>
 		public TermsQueryValueType? ValueType { get; set; }
+	[JsonExtensionData]
+	public Dictionary<string, System.Text.Json.JsonElement>? AdditionalProperties { get; set; }
 }

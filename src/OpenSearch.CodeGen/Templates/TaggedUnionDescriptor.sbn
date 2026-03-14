@@ -28,6 +28,20 @@ public sealed class {{ descriptor_name }}
 		return this;
 	}
 {{~ end ~}}
+{{~ if variant.is_field_keyed ~}}
+	/// <summary>Creates a {{ variant.name }} variant for a single field.</summary>
+	public {{ descriptor_name }} {{ variant.name }}(string field, {{ variant.field_value_type }} value) { _value = {{ class_name }}.{{ variant.name }}(field, value); return this; }
+{{~ if variant.field_has_descriptor ~}}
+	/// <summary>Creates a {{ variant.name }} variant for a single field using a descriptor.</summary>
+	public {{ descriptor_name }} {{ variant.name }}(string field, Action<{{ variant.field_value_descriptor_name }}> configure)
+	{
+		var descriptor = new {{ variant.field_value_descriptor_name }}();
+		configure(descriptor);
+		_value = {{ class_name }}.{{ variant.name }}(field, (({{ variant.field_value_type }})descriptor)!);
+		return this;
+	}
+{{~ end ~}}
+{{~ end ~}}
 {{~ end ~}}
 
 	public static implicit operator {{ class_name }}?({{ descriptor_name }} descriptor) => descriptor._value;

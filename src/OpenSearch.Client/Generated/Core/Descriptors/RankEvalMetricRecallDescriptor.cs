@@ -9,6 +9,10 @@ public sealed class RankEvalMetricRecallDescriptor
 {
 	internal RankEvalMetricRecall _value = new();
 
+	/// <summary>Sets the maximum number of documents retrieved per query. This value replaces the `size` parameter in the query.</summary>
+		public RankEvalMetricRecallDescriptor K(int? value) { _value.K = value; return this; }
+	/// <summary>Sets the rating threshold above which documents are considered to be relevant.</summary>
+		public RankEvalMetricRecallDescriptor RelevantRatingThreshold(int? value) { _value.RelevantRatingThreshold = value; return this; }
 
 	public static implicit operator RankEvalMetricRecall(RankEvalMetricRecallDescriptor descriptor) => descriptor._value;
 }

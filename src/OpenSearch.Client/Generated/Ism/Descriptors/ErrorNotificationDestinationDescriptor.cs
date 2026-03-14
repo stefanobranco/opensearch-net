@@ -13,6 +13,8 @@ public sealed class ErrorNotificationDestinationDescriptor
 		public ErrorNotificationDestinationDescriptor Name(string? value) { _value.Name = value; return this; }
 	/// <summary>When the notification destination was last updated.</summary>
 		public ErrorNotificationDestinationDescriptor LastUpdateTime(int? value) { _value.LastUpdateTime = value; return this; }
+	/// <summary>Additional properties not captured by named fields.</summary>
+	public ErrorNotificationDestinationDescriptor AdditionalProperties(Dictionary<string, System.Text.Json.JsonElement>? value) { _value.AdditionalProperties = value; return this; }
 
 	public static implicit operator ErrorNotificationDestination(ErrorNotificationDestinationDescriptor descriptor) => descriptor._value;
 }

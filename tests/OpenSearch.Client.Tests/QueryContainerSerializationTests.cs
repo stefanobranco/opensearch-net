@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 using FluentAssertions;
 using OpenSearch.Client;
 using OpenSearch.Client.Common;
-using OpenSearch.Client.Indices;
+using OpenSearch.Client.Core;
 using Xunit;
 
 namespace OpenSearch.Client.Tests;
@@ -143,27 +143,28 @@ public class QueryContainerSerializationTests
 	[Fact]
 	public void Serialize_IdsQuery_IncludesValues()
 	{
-		var query = QueryContainer.Ids(new IdsQuery { Values = "1,2,3" });
+		var query = QueryContainer.Ids(new IdsQuery { Values = ["1", "2", "3"] });
 
 		var json = JsonSerializer.Serialize(query, JsonOptions);
 		var doc = JsonDocument.Parse(json);
 
 		doc.RootElement.TryGetProperty("ids", out var ids).Should().BeTrue();
 		ids.TryGetProperty("values", out var values).Should().BeTrue();
-		values.GetString().Should().Be("1,2,3");
+		values.GetArrayLength().Should().Be(3);
 	}
 
 	[Fact]
 	public void Deserialize_IdsQuery_ParsesValues()
 	{
-		var json = """{ "ids": { "values": "doc-a,doc-b" } }""";
+		var json = """{ "ids": { "values": ["doc-a", "doc-b"] } }""";
 
 		var query = JsonSerializer.Deserialize<QueryContainer>(json, JsonOptions);
 
 		query.Should().NotBeNull();
 		query!.Kind.Should().Be(QueryKind.Ids);
 		var ids = query.Get<IdsQuery>();
-		ids.Values.Should().Be("doc-a,doc-b");
+		ids.Values.Should().NotBeNull();
+		ids.Values.Should().BeEquivalentTo(new[] { "doc-a", "doc-b" });
 	}
 
 	// ── Bool query ──

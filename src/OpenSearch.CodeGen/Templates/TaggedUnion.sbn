@@ -38,9 +38,51 @@ public sealed class {{ class_name }} : TaggedUnion<{{ kind_enum_name }}, object>
 {{~ for variant in variants ~}}
 	/// <summary>Creates a {{ variant.name }} variant.</summary>
 	public static {{ class_name }} {{ variant.name }}({{ variant.type }} value) => new({{ kind_enum_name }}.{{ variant.name }}, value);
+{{~ if variant.is_field_keyed ~}}
+	/// <summary>Creates a {{ variant.name }} variant for a single field.</summary>
+	public static {{ class_name }} {{ variant.name }}(string field, {{ variant.field_value_type }} value) => new({{ kind_enum_name }}.{{ variant.name }}, new Dictionary<string, {{ variant.field_value_type }}> { [field] = value });
+{{~ end ~}}
 {{~ end ~}}
 }
 
+{{~ if discriminator_property ~}}
+public sealed class {{ class_name }}Converter : InternallyTaggedUnionConverter<{{ class_name }}, {{ kind_enum_name }}>
+{
+	protected override string DiscriminatorProperty => "{{ discriminator_property }}";
+
+	private static readonly Dictionary<string, ({{ kind_enum_name }} Kind, Type Type)> s_kindByName = new(StringComparer.Ordinal)
+	{
+{{~ for variant in variants ~}}
+		["{{ variant.wire_name }}"] = ({{ kind_enum_name }}.{{ variant.name }}, typeof({{ variant.type_name }})),
+{{~ end ~}}
+	};
+
+	private static readonly Dictionary<{{ kind_enum_name }}, string> s_nameByKind = new()
+	{
+{{~ for variant in variants ~}}
+		[{{ kind_enum_name }}.{{ variant.name }}] = "{{ variant.wire_name }}",
+{{~ end ~}}
+	};
+
+	protected override {{ class_name }} CreateFromKind({{ kind_enum_name }} kind, object value) => kind switch
+	{
+{{~ for variant in variants ~}}
+		{{ kind_enum_name }}.{{ variant.name }} => {{ class_name }}.{{ variant.name }}(({{ variant.type_name }})value),
+{{~ end ~}}
+		_ => throw new JsonException($"Unknown {{ kind_enum_name }}: {kind}")
+	};
+
+	protected override ({{ kind_enum_name }} Kind, Type ValueType) ResolveKind(string discriminatorValue) =>
+		s_kindByName.TryGetValue(discriminatorValue, out var result)
+			? result
+			: throw new JsonException($"Unknown {{ class_name }} variant: '{discriminatorValue}'.");
+
+	protected override string ResolveDiscriminatorValue({{ kind_enum_name }} kind) =>
+		s_nameByKind.TryGetValue(kind, out var name)
+			? name
+			: throw new JsonException($"No wire name for {{ kind_enum_name }}.{kind}.");
+}
+{{~ else ~}}
 public sealed class {{ class_name }}Converter : TaggedUnionConverter<{{ class_name }}, {{ kind_enum_name }}>
 {
 	private static readonly Dictionary<string, ({{ kind_enum_name }} Kind, Type Type)> s_kindByName = new(StringComparer.Ordinal)
@@ -75,3 +117,4 @@ public sealed class {{ class_name }}Converter : TaggedUnionConverter<{{ class_na
 			? name
 			: throw new JsonException($"No wire name for {{ kind_enum_name }}.{kind}.");
 }
+{{~ end ~}}

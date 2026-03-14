@@ -8,6 +8,10 @@ namespace OpenSearch.Client.Core;
 
 public sealed class MovingPercentilesAggregation
 {
+	public System.Text.Json.JsonElement? BucketsPath { get; set; }
+	/// <summary>`DecimalFormat` pattern for the output value. If specified, the formatted value is returned in the aggregation's `value_as_string` property.</summary>
+		public string? Format { get; set; }
+	public GapPolicy? GapPolicy { get; set; }
 	/// <summary>The size of window to "slide" across the histogram.</summary>
 		public int? Window { get; set; }
 	/// <summary>By default, the window consists of the last n values excluding the current bucket. Increasing `shift` by 1, moves the starting window position by 1 to the right.</summary>

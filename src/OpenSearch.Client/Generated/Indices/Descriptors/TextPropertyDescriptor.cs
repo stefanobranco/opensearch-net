@@ -10,6 +10,15 @@ public sealed class TextPropertyDescriptor
 {
 	internal TextProperty _value = new();
 
+	/// <summary>Metadata about the field.</summary>
+		public TextPropertyDescriptor Meta(Dictionary<string, string>? value) { _value.Meta = value; return this; }
+	public TextPropertyDescriptor Properties(Dictionary<string, Property>? value) { _value.Properties = value; return this; }
+	public TextPropertyDescriptor IgnoreAbove(int? value) { _value.IgnoreAbove = value; return this; }
+	public TextPropertyDescriptor Dynamic(string? value) { _value.Dynamic = value; return this; }
+	public TextPropertyDescriptor Fields(Dictionary<string, Property>? value) { _value.Fields = value; return this; }
+	public TextPropertyDescriptor CopyTo(List<string>? value) { _value.CopyTo = value; return this; }
+	public TextPropertyDescriptor Similarity(string? value) { _value.Similarity = value; return this; }
+	public TextPropertyDescriptor Store(bool? value) { _value.Store = value; return this; }
 	public TextPropertyDescriptor Analyzer(string? value) { _value.Analyzer = value; return this; }
 	public TextPropertyDescriptor Boost(double? value) { _value.Boost = value; return this; }
 	public TextPropertyDescriptor EagerGlobalOrdinals(bool? value) { _value.EagerGlobalOrdinals = value; return this; }

@@ -20,4 +20,8 @@ public sealed class {{ class_name }}{{ if type_parameters }}<{{ type_parameters 
 	{{ end }}{{ if field.needs_json_property_name }}[JsonPropertyName("{{ field.wire_name }}")]
 	{{ end }}public {{ field.type }} {{ field.name }} { get; set; }
 {{~ end ~}}
+{{~ if has_additional_properties ~}}
+	[JsonExtensionData]
+	public Dictionary<string, System.Text.Json.JsonElement>? AdditionalProperties { get; set; }
+{{~ end ~}}
 }

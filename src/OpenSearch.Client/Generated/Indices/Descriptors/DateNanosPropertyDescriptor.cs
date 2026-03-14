@@ -9,6 +9,16 @@ public sealed class DateNanosPropertyDescriptor
 {
 	internal DateNanosProperty _value = new();
 
+	/// <summary>Metadata about the field.</summary>
+		public DateNanosPropertyDescriptor Meta(Dictionary<string, string>? value) { _value.Meta = value; return this; }
+	public DateNanosPropertyDescriptor Properties(Dictionary<string, Property>? value) { _value.Properties = value; return this; }
+	public DateNanosPropertyDescriptor IgnoreAbove(int? value) { _value.IgnoreAbove = value; return this; }
+	public DateNanosPropertyDescriptor Dynamic(string? value) { _value.Dynamic = value; return this; }
+	public DateNanosPropertyDescriptor Fields(Dictionary<string, Property>? value) { _value.Fields = value; return this; }
+	public DateNanosPropertyDescriptor CopyTo(List<string>? value) { _value.CopyTo = value; return this; }
+	public DateNanosPropertyDescriptor Similarity(string? value) { _value.Similarity = value; return this; }
+	public DateNanosPropertyDescriptor Store(bool? value) { _value.Store = value; return this; }
+	public DateNanosPropertyDescriptor DocValues(bool? value) { _value.DocValues = value; return this; }
 	public DateNanosPropertyDescriptor Boost(double? value) { _value.Boost = value; return this; }
 	public DateNanosPropertyDescriptor Format(string? value) { _value.Format = value; return this; }
 	public DateNanosPropertyDescriptor IgnoreMalformed(bool? value) { _value.IgnoreMalformed = value; return this; }

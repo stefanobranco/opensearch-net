@@ -9,6 +9,16 @@ public sealed class KeywordPropertyDescriptor
 {
 	internal KeywordProperty _value = new();
 
+	/// <summary>Metadata about the field.</summary>
+		public KeywordPropertyDescriptor Meta(Dictionary<string, string>? value) { _value.Meta = value; return this; }
+	public KeywordPropertyDescriptor Properties(Dictionary<string, Property>? value) { _value.Properties = value; return this; }
+	public KeywordPropertyDescriptor IgnoreAbove(int? value) { _value.IgnoreAbove = value; return this; }
+	public KeywordPropertyDescriptor Dynamic(string? value) { _value.Dynamic = value; return this; }
+	public KeywordPropertyDescriptor Fields(Dictionary<string, Property>? value) { _value.Fields = value; return this; }
+	public KeywordPropertyDescriptor CopyTo(List<string>? value) { _value.CopyTo = value; return this; }
+	public KeywordPropertyDescriptor Similarity(string? value) { _value.Similarity = value; return this; }
+	public KeywordPropertyDescriptor Store(bool? value) { _value.Store = value; return this; }
+	public KeywordPropertyDescriptor DocValues(bool? value) { _value.DocValues = value; return this; }
 	public KeywordPropertyDescriptor Boost(double? value) { _value.Boost = value; return this; }
 	public KeywordPropertyDescriptor EagerGlobalOrdinals(bool? value) { _value.EagerGlobalOrdinals = value; return this; }
 	public KeywordPropertyDescriptor Index(bool? value) { _value.Index = value; return this; }

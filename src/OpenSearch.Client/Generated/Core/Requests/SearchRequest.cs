@@ -195,7 +195,7 @@ public sealed class SearchEndpoint<TDocument> : IEndpoint<SearchRequest, SearchR
 	public string RequestUrl(SearchRequest r)
 	{
 		var path = r.Index is not null
-			? $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_search" : true
+			? $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}/_search" : true
 			? $"/_search"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

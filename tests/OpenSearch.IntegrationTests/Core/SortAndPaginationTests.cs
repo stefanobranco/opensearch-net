@@ -2,7 +2,6 @@ using System.Text.Json;
 using FluentAssertions;
 using OpenSearch.Client.Common;
 using OpenSearch.Client.Core;
-using OpenSearch.Client.Indices;
 using OpenSearch.IntegrationTests.Infrastructure;
 
 namespace OpenSearch.IntegrationTests.Core;
@@ -14,7 +13,7 @@ public class SortAndPaginationTests : IntegrationTestBase
 	{
 		var index = UniqueIndex("paging");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
 
 		// Index 5 documents
 		var operations = Enumerable.Range(1, 5).Select(i =>
@@ -34,10 +33,10 @@ public class SortAndPaginationTests : IntegrationTestBase
 		// Page 1: from=0, size=2
 		var page1 = Client.Core.Search<PageDoc>(new SearchRequest
 		{
-			Index = index,
+			Index = [index],
 			From = 0,
 			Size = 2,
-			Sort = "score:asc"
+			Sort = JsonSerializer.SerializeToElement("score:asc")
 		});
 
 		page1.Hits.Should().NotBeNull();
@@ -48,10 +47,10 @@ public class SortAndPaginationTests : IntegrationTestBase
 		// Page 2: from=2, size=2
 		var page2 = Client.Core.Search<PageDoc>(new SearchRequest
 		{
-			Index = index,
+			Index = [index],
 			From = 2,
 			Size = 2,
-			Sort = "score:asc"
+			Sort = JsonSerializer.SerializeToElement("score:asc")
 		});
 
 		page2.Hits.Should().NotBeNull();
@@ -62,10 +61,10 @@ public class SortAndPaginationTests : IntegrationTestBase
 		// Page 3: from=4, size=2 (only 1 remaining)
 		var page3 = Client.Core.Search<PageDoc>(new SearchRequest
 		{
-			Index = index,
+			Index = [index],
 			From = 4,
 			Size = 2,
-			Sort = "score:asc"
+			Sort = JsonSerializer.SerializeToElement("score:asc")
 		});
 
 		page3.Hits.Should().NotBeNull();
@@ -78,7 +77,7 @@ public class SortAndPaginationTests : IntegrationTestBase
 	{
 		var index = UniqueIndex("sort");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
 
 		Client.Core.Bulk(new BulkRequest
 		{
@@ -94,9 +93,9 @@ public class SortAndPaginationTests : IntegrationTestBase
 
 		var searchResponse = Client.Core.Search<PageDoc>(new SearchRequest
 		{
-			Index = index,
+			Index = [index],
 			Size = 10,
-			Sort = "score:desc"
+			Sort = JsonSerializer.SerializeToElement("score:desc")
 		});
 
 		searchResponse.Hits.Should().NotBeNull();
@@ -111,7 +110,7 @@ public class SortAndPaginationTests : IntegrationTestBase
 	{
 		var index = UniqueIndex("count");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
 
 		Client.Core.Bulk(new BulkRequest
 		{
@@ -125,7 +124,7 @@ public class SortAndPaginationTests : IntegrationTestBase
 			]
 		});
 
-		var countResponse = Client.Core.Count(new CountRequest { Index = index });
+		var countResponse = Client.Core.Count(new CountRequest { Index = [index] });
 		countResponse.Count.Should().Be(3);
 	}
 
@@ -134,7 +133,7 @@ public class SortAndPaginationTests : IntegrationTestBase
 	{
 		var index = UniqueIndex("count");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
 
 		Client.Core.Bulk(new BulkRequest
 		{
@@ -150,11 +149,8 @@ public class SortAndPaginationTests : IntegrationTestBase
 
 		var countResponse = Client.Core.Count(new CountRequest
 		{
-			Index = index,
-			Query = QueryContainer.Term(new Dictionary<string, JsonElement>
-			{
-				["name.keyword"] = JsonSerializer.SerializeToElement("Alice")
-			})
+			Index = [index],
+			Query = QueryContainer.Term("name.keyword", new OpenSearch.Client.Core.TermQuery { Value = JsonSerializer.SerializeToElement("Alice") })
 		});
 
 		countResponse.Count.Should().Be(1);

@@ -70,7 +70,7 @@ public sealed class CountEndpoint : IEndpoint<CountRequest, CountResponse>
 	public string RequestUrl(CountRequest r)
 	{
 		var path = r.Index is not null
-			? $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_count" : true
+			? $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}/_count" : true
 			? $"/_count"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

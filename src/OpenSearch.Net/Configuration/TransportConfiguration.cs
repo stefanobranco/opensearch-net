@@ -7,7 +7,7 @@ namespace OpenSearch.Net;
 public sealed class TransportConfiguration : ITransportConfiguration
 {
 	/// <inheritdoc />
-	public NodePool NodePool { get; }
+	public INodePool NodePool { get; }
 
 	/// <inheritdoc />
 	public IOpenSearchSerializer? Serializer { get; }
@@ -49,7 +49,7 @@ public sealed class TransportConfiguration : ITransportConfiguration
 	public Func<HttpMessageHandler, HttpMessageHandler>? HttpMessageHandlerFactory { get; }
 
 	private TransportConfiguration(
-		NodePool nodePool,
+		INodePool nodePool,
 		IOpenSearchSerializer? serializer,
 		TimeSpan requestTimeout,
 		TimeSpan dnsRefreshTimeout,

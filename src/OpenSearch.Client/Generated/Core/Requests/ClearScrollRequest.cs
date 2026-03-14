@@ -26,7 +26,7 @@ public sealed class ClearScrollEndpoint : IEndpoint<ClearScrollRequest, ClearScr
 	public string RequestUrl(ClearScrollRequest r)
 	{
 		var path = r.ScrollId is not null
-			? $"/_search/scroll/{Uri.EscapeDataString(r.ScrollId!.ToString()!)}" : true
+			? $"/_search/scroll/{Uri.EscapeDataString(string.Join(",", r.ScrollId!))}" : true
 			? $"/_search/scroll"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		return path;

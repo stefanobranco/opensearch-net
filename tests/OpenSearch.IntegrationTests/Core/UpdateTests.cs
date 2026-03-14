@@ -12,7 +12,7 @@ public class UpdateTests : IntegrationTestBase
 	{
 		var index = UniqueIndex("update");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
 
 		// Index a document
 		Client.Core.Bulk(new BulkRequest
@@ -35,11 +35,11 @@ public class UpdateTests : IntegrationTestBase
 			Index = index,
 			Id = "1",
 			Doc = JsonSerializer.SerializeToElement(new { value = 42 }),
-			Refresh = JsonSerializer.SerializeToElement("true")
+			Refresh = "true"
 		});
 
 		updateResponse.Result.Should().NotBeNull();
-		updateResponse.Result!.Value.GetString().Should().Be("updated");
+		updateResponse.Result.Should().Be("updated");
 
 		// Verify the update
 		var getResponse = Client.Core.Get<UpdateDoc>(new GetRequest { Index = index, Id = "1" });
@@ -53,7 +53,7 @@ public class UpdateTests : IntegrationTestBase
 	{
 		var index = UniqueIndex("update");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
 
 		Client.Core.Bulk(new BulkRequest
 		{
@@ -80,11 +80,11 @@ public class UpdateTests : IntegrationTestBase
 				lang = "painless",
 				@params = new { increment = 5 }
 			}),
-			Refresh = JsonSerializer.SerializeToElement("true")
+			Refresh = "true"
 		});
 
 		updateResponse.Result.Should().NotBeNull();
-		updateResponse.Result!.Value.GetString().Should().Be("updated");
+		updateResponse.Result.Should().Be("updated");
 
 		// Verify the script update
 		var getResponse = Client.Core.Get<UpdateDoc>(new GetRequest { Index = index, Id = "1" });
@@ -97,7 +97,7 @@ public class UpdateTests : IntegrationTestBase
 	{
 		var index = UniqueIndex("update");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
 
 		// Upsert: doc doesn't exist, so upsert value is used
 		var updateResponse = Client.Core.Update<UpdateDoc>(new UpdateRequest
@@ -106,11 +106,11 @@ public class UpdateTests : IntegrationTestBase
 			Id = "new-doc",
 			Doc = JsonSerializer.SerializeToElement(new { name = "Updated", value = 99 }),
 			Upsert = JsonSerializer.SerializeToElement(new { name = "Upserted", value = 1 }),
-			Refresh = JsonSerializer.SerializeToElement("true")
+			Refresh = "true"
 		});
 
 		updateResponse.Result.Should().NotBeNull();
-		updateResponse.Result!.Value.GetString().Should().Be("created");
+		updateResponse.Result.Should().Be("created");
 
 		// Verify the upsert created the document
 		var getResponse = Client.Core.Get<UpdateDoc>(new GetRequest { Index = index, Id = "new-doc" });

@@ -8,4 +8,6 @@ namespace OpenSearch.Client.Core;
 
 public sealed class ValueCountAggregation
 {
+	public System.Text.Json.JsonElement? Missing { get; set; }
+	public string? Format { get; set; }
 }

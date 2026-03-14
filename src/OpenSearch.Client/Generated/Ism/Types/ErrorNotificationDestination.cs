@@ -12,4 +12,6 @@ public sealed class ErrorNotificationDestination
 		public string? Name { get; set; }
 	/// <summary>When the notification destination was last updated.</summary>
 		public int? LastUpdateTime { get; set; }
+	[JsonExtensionData]
+	public Dictionary<string, System.Text.Json.JsonElement>? AdditionalProperties { get; set; }
 }

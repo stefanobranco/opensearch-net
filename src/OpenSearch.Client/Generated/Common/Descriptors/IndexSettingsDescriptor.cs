@@ -223,6 +223,8 @@ public sealed class IndexSettingsDescriptor
 		_value.IngestionSource = descriptor;
 		return this;
 	}
+	/// <summary>Additional properties not captured by named fields.</summary>
+	public IndexSettingsDescriptor AdditionalProperties(Dictionary<string, System.Text.Json.JsonElement>? value) { _value.AdditionalProperties = value; return this; }
 
 	public static implicit operator IndexSettings(IndexSettingsDescriptor descriptor) => descriptor._value;
 }

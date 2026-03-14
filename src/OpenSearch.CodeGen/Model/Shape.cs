@@ -65,6 +65,12 @@ public sealed class TaggedUnionShape : Shape
 
 	/// <summary>The variants of the union.</summary>
 	public required IReadOnlyList<UnionVariant> Variants { get; init; }
+
+	/// <summary>
+	/// The discriminator property name for internally-tagged unions (e.g., "type" for Property).
+	/// Null for externally-tagged unions like QueryContainer.
+	/// </summary>
+	public string? DiscriminatorProperty { get; init; }
 }
 
 /// <summary>

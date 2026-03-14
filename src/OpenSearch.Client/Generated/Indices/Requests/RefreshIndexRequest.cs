@@ -35,7 +35,7 @@ public sealed class RefreshIndexEndpoint : IEndpoint<RefreshIndexRequest, Refres
 	public string RequestUrl(RefreshIndexRequest r)
 	{
 		var path = r.Index is not null
-			? $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_refresh" : true
+			? $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}/_refresh" : true
 			? $"/_refresh"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

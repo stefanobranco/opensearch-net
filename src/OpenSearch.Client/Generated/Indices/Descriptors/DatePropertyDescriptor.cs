@@ -10,6 +10,16 @@ public sealed class DatePropertyDescriptor
 {
 	internal DateProperty _value = new();
 
+	/// <summary>Metadata about the field.</summary>
+		public DatePropertyDescriptor Meta(Dictionary<string, string>? value) { _value.Meta = value; return this; }
+	public DatePropertyDescriptor Properties(Dictionary<string, Property>? value) { _value.Properties = value; return this; }
+	public DatePropertyDescriptor IgnoreAbove(int? value) { _value.IgnoreAbove = value; return this; }
+	public DatePropertyDescriptor Dynamic(string? value) { _value.Dynamic = value; return this; }
+	public DatePropertyDescriptor Fields(Dictionary<string, Property>? value) { _value.Fields = value; return this; }
+	public DatePropertyDescriptor CopyTo(List<string>? value) { _value.CopyTo = value; return this; }
+	public DatePropertyDescriptor Similarity(string? value) { _value.Similarity = value; return this; }
+	public DatePropertyDescriptor Store(bool? value) { _value.Store = value; return this; }
+	public DatePropertyDescriptor DocValues(bool? value) { _value.DocValues = value; return this; }
 	public DatePropertyDescriptor Boost(double? value) { _value.Boost = value; return this; }
 	public DatePropertyDescriptor Fielddata(NumericFielddata? value) { _value.Fielddata = value; return this; }
 	public DatePropertyDescriptor Fielddata(Action<NumericFielddataDescriptor> configure)

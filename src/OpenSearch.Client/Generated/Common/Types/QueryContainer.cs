@@ -140,6 +140,8 @@ public sealed class QueryContainer : TaggedUnion<QueryKind, object>
 	public static QueryContainer Boosting(BoostingQuery value) => new(QueryKind.Boosting, value);
 	/// <summary>Creates a Common variant.</summary>
 	public static QueryContainer Common(Dictionary<string, CommonTermsQuery> value) => new(QueryKind.Common, value);
+	/// <summary>Creates a Common variant for a single field.</summary>
+	public static QueryContainer Common(string field, CommonTermsQuery value) => new(QueryKind.Common, new Dictionary<string, CommonTermsQuery> { [field] = value });
 	/// <summary>Creates a CombinedFields variant.</summary>
 	public static QueryContainer CombinedFields(CombinedFieldsQuery value) => new(QueryKind.CombinedFields, value);
 	/// <summary>Creates a ConstantScore variant.</summary>
@@ -154,6 +156,8 @@ public sealed class QueryContainer : TaggedUnion<QueryKind, object>
 	public static QueryContainer FunctionScore(FunctionScoreQuery value) => new(QueryKind.FunctionScore, value);
 	/// <summary>Creates a Fuzzy variant.</summary>
 	public static QueryContainer Fuzzy(Dictionary<string, FuzzyQuery> value) => new(QueryKind.Fuzzy, value);
+	/// <summary>Creates a Fuzzy variant for a single field.</summary>
+	public static QueryContainer Fuzzy(string field, FuzzyQuery value) => new(QueryKind.Fuzzy, new Dictionary<string, FuzzyQuery> { [field] = value });
 	/// <summary>Creates a GeoBoundingBox variant.</summary>
 	public static QueryContainer GeoBoundingBox(GeoBoundingBoxQuery value) => new(QueryKind.GeoBoundingBox, value);
 	/// <summary>Creates a GeoDistance variant.</summary>
@@ -172,20 +176,32 @@ public sealed class QueryContainer : TaggedUnion<QueryKind, object>
 	public static QueryContainer Ids(IdsQuery value) => new(QueryKind.Ids, value);
 	/// <summary>Creates a Intervals variant.</summary>
 	public static QueryContainer Intervals(Dictionary<string, IntervalsQuery> value) => new(QueryKind.Intervals, value);
+	/// <summary>Creates a Intervals variant for a single field.</summary>
+	public static QueryContainer Intervals(string field, IntervalsQuery value) => new(QueryKind.Intervals, new Dictionary<string, IntervalsQuery> { [field] = value });
 	/// <summary>Creates a Knn variant.</summary>
 	public static QueryContainer Knn(Dictionary<string, KnnQuery> value) => new(QueryKind.Knn, value);
+	/// <summary>Creates a Knn variant for a single field.</summary>
+	public static QueryContainer Knn(string field, KnnQuery value) => new(QueryKind.Knn, new Dictionary<string, KnnQuery> { [field] = value });
 	/// <summary>Creates a Match variant.</summary>
 	public static QueryContainer Match(Dictionary<string, MatchQuery> value) => new(QueryKind.Match, value);
+	/// <summary>Creates a Match variant for a single field.</summary>
+	public static QueryContainer Match(string field, MatchQuery value) => new(QueryKind.Match, new Dictionary<string, MatchQuery> { [field] = value });
 	/// <summary>Creates a MatchAll variant.</summary>
 	public static QueryContainer MatchAll(MatchAllQuery value) => new(QueryKind.MatchAll, value);
 	/// <summary>Creates a MatchBoolPrefix variant.</summary>
 	public static QueryContainer MatchBoolPrefix(Dictionary<string, MatchBoolPrefixQuery> value) => new(QueryKind.MatchBoolPrefix, value);
+	/// <summary>Creates a MatchBoolPrefix variant for a single field.</summary>
+	public static QueryContainer MatchBoolPrefix(string field, MatchBoolPrefixQuery value) => new(QueryKind.MatchBoolPrefix, new Dictionary<string, MatchBoolPrefixQuery> { [field] = value });
 	/// <summary>Creates a MatchNone variant.</summary>
 	public static QueryContainer MatchNone(MatchNoneQuery value) => new(QueryKind.MatchNone, value);
 	/// <summary>Creates a MatchPhrase variant.</summary>
 	public static QueryContainer MatchPhrase(Dictionary<string, MatchPhraseQuery> value) => new(QueryKind.MatchPhrase, value);
+	/// <summary>Creates a MatchPhrase variant for a single field.</summary>
+	public static QueryContainer MatchPhrase(string field, MatchPhraseQuery value) => new(QueryKind.MatchPhrase, new Dictionary<string, MatchPhraseQuery> { [field] = value });
 	/// <summary>Creates a MatchPhrasePrefix variant.</summary>
 	public static QueryContainer MatchPhrasePrefix(Dictionary<string, MatchPhrasePrefixQuery> value) => new(QueryKind.MatchPhrasePrefix, value);
+	/// <summary>Creates a MatchPhrasePrefix variant for a single field.</summary>
+	public static QueryContainer MatchPhrasePrefix(string field, MatchPhrasePrefixQuery value) => new(QueryKind.MatchPhrasePrefix, new Dictionary<string, MatchPhrasePrefixQuery> { [field] = value });
 	/// <summary>Creates a MoreLikeThis variant.</summary>
 	public static QueryContainer MoreLikeThis(MoreLikeThisQuery value) => new(QueryKind.MoreLikeThis, value);
 	/// <summary>Creates a MultiMatch variant.</summary>
@@ -194,20 +210,28 @@ public sealed class QueryContainer : TaggedUnion<QueryKind, object>
 	public static QueryContainer Nested(NestedQuery value) => new(QueryKind.Nested, value);
 	/// <summary>Creates a Neural variant.</summary>
 	public static QueryContainer Neural(Dictionary<string, NeuralQuery> value) => new(QueryKind.Neural, value);
+	/// <summary>Creates a Neural variant for a single field.</summary>
+	public static QueryContainer Neural(string field, NeuralQuery value) => new(QueryKind.Neural, new Dictionary<string, NeuralQuery> { [field] = value });
 	/// <summary>Creates a ParentId variant.</summary>
 	public static QueryContainer ParentId(ParentIdQuery value) => new(QueryKind.ParentId, value);
 	/// <summary>Creates a Percolate variant.</summary>
 	public static QueryContainer Percolate(PercolateQuery value) => new(QueryKind.Percolate, value);
 	/// <summary>Creates a Prefix variant.</summary>
 	public static QueryContainer Prefix(Dictionary<string, PrefixQuery> value) => new(QueryKind.Prefix, value);
+	/// <summary>Creates a Prefix variant for a single field.</summary>
+	public static QueryContainer Prefix(string field, PrefixQuery value) => new(QueryKind.Prefix, new Dictionary<string, PrefixQuery> { [field] = value });
 	/// <summary>Creates a QueryString variant.</summary>
 	public static QueryContainer QueryString(QueryStringQuery value) => new(QueryKind.QueryString, value);
 	/// <summary>Creates a Range variant.</summary>
 	public static QueryContainer Range(Dictionary<string, System.Text.Json.JsonElement> value) => new(QueryKind.Range, value);
+	/// <summary>Creates a Range variant for a single field.</summary>
+	public static QueryContainer Range(string field, System.Text.Json.JsonElement value) => new(QueryKind.Range, new Dictionary<string, System.Text.Json.JsonElement> { [field] = value });
 	/// <summary>Creates a RankFeature variant.</summary>
 	public static QueryContainer RankFeature(RankFeatureQuery value) => new(QueryKind.RankFeature, value);
 	/// <summary>Creates a Regexp variant.</summary>
 	public static QueryContainer Regexp(Dictionary<string, RegexpQuery> value) => new(QueryKind.Regexp, value);
+	/// <summary>Creates a Regexp variant for a single field.</summary>
+	public static QueryContainer Regexp(string field, RegexpQuery value) => new(QueryKind.Regexp, new Dictionary<string, RegexpQuery> { [field] = value });
 	/// <summary>Creates a Script variant.</summary>
 	public static QueryContainer Script(ScriptQuery value) => new(QueryKind.Script, value);
 	/// <summary>Creates a ScriptScore variant.</summary>
@@ -230,20 +254,30 @@ public sealed class QueryContainer : TaggedUnion<QueryKind, object>
 	public static QueryContainer SpanOr(SpanOrQuery value) => new(QueryKind.SpanOr, value);
 	/// <summary>Creates a SpanTerm variant.</summary>
 	public static QueryContainer SpanTerm(Dictionary<string, SpanTermQuery> value) => new(QueryKind.SpanTerm, value);
+	/// <summary>Creates a SpanTerm variant for a single field.</summary>
+	public static QueryContainer SpanTerm(string field, SpanTermQuery value) => new(QueryKind.SpanTerm, new Dictionary<string, SpanTermQuery> { [field] = value });
 	/// <summary>Creates a SpanWithin variant.</summary>
 	public static QueryContainer SpanWithin(SpanWithinQuery value) => new(QueryKind.SpanWithin, value);
 	/// <summary>Creates a Template variant.</summary>
 	public static QueryContainer Template(Dictionary<string, object> value) => new(QueryKind.Template, value);
+	/// <summary>Creates a Template variant for a single field.</summary>
+	public static QueryContainer Template(string field, object value) => new(QueryKind.Template, new Dictionary<string, object> { [field] = value });
 	/// <summary>Creates a Term variant.</summary>
 	public static QueryContainer Term(Dictionary<string, TermQuery> value) => new(QueryKind.Term, value);
+	/// <summary>Creates a Term variant for a single field.</summary>
+	public static QueryContainer Term(string field, TermQuery value) => new(QueryKind.Term, new Dictionary<string, TermQuery> { [field] = value });
 	/// <summary>Creates a Terms variant.</summary>
 	public static QueryContainer Terms(TermsQuery value) => new(QueryKind.Terms, value);
 	/// <summary>Creates a TermsSet variant.</summary>
 	public static QueryContainer TermsSet(Dictionary<string, TermsSetQuery> value) => new(QueryKind.TermsSet, value);
+	/// <summary>Creates a TermsSet variant for a single field.</summary>
+	public static QueryContainer TermsSet(string field, TermsSetQuery value) => new(QueryKind.TermsSet, new Dictionary<string, TermsSetQuery> { [field] = value });
 	/// <summary>Creates a Type variant.</summary>
 	public static QueryContainer Type(TypeQuery value) => new(QueryKind.Type, value);
 	/// <summary>Creates a Wildcard variant.</summary>
 	public static QueryContainer Wildcard(Dictionary<string, WildcardQuery> value) => new(QueryKind.Wildcard, value);
+	/// <summary>Creates a Wildcard variant for a single field.</summary>
+	public static QueryContainer Wildcard(string field, WildcardQuery value) => new(QueryKind.Wildcard, new Dictionary<string, WildcardQuery> { [field] = value });
 	/// <summary>Creates a Wrapper variant.</summary>
 	public static QueryContainer Wrapper(WrapperQuery value) => new(QueryKind.Wrapper, value);
 	/// <summary>Creates a XyShape variant.</summary>

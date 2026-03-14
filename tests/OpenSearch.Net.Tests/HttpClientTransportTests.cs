@@ -262,7 +262,6 @@ public class HttpClientTransportTests : IDisposable
 			requestUrl: _ => "/my-index/_doc",
 			deserialize: (_, _, body, serializer) =>
 				serializer.Deserialize<TestResponse>(body) ?? new TestResponse(),
-			contentType: "application/json",
 			getBody: _ => RequestBody.Json(new { title = "test" }));
 
 		transport.PerformRequest("request", endpoint);

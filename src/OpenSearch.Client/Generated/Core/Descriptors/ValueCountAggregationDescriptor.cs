@@ -9,6 +9,8 @@ public sealed class ValueCountAggregationDescriptor
 {
 	internal ValueCountAggregation _value = new();
 
+	public ValueCountAggregationDescriptor Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
+	public ValueCountAggregationDescriptor Format(string? value) { _value.Format = value; return this; }
 
 	public static implicit operator ValueCountAggregation(ValueCountAggregationDescriptor descriptor) => descriptor._value;
 }

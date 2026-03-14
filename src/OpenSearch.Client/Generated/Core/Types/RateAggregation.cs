@@ -8,6 +8,8 @@ namespace OpenSearch.Client.Core;
 
 public sealed class RateAggregation
 {
+	public System.Text.Json.JsonElement? Missing { get; set; }
+	public string? Format { get; set; }
 	public string? Unit { get; set; }
 	public RateMode? Mode { get; set; }
 }

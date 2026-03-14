@@ -62,7 +62,7 @@ public sealed class PutMappingIndexEndpoint : IEndpoint<PutMappingIndexRequest, 
 
 	public string RequestUrl(PutMappingIndexRequest r)
 	{
-		var path = $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_mapping";
+		var path = $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}/_mapping";
 		var queryParts = new List<string>();
 		if (r.AllowNoIndices is not null)
 			queryParts.Add($"allow_no_indices={Uri.EscapeDataString((r.AllowNoIndices.Value ? "true" : "false"))}");

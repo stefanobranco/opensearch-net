@@ -41,8 +41,8 @@ public sealed class ExistsAliasIndexEndpoint : IEndpoint<ExistsAliasIndexRequest
 	public string RequestUrl(ExistsAliasIndexRequest r)
 	{
 		var path = r.Index is not null && r.Name is not null
-			? $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_alias/{Uri.EscapeDataString(r.Name!.ToString()!)}" : r.Name is not null
-			? $"/_alias/{Uri.EscapeDataString(r.Name!.ToString()!)}"
+			? $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}/_alias/{Uri.EscapeDataString(string.Join(",", r.Name!))}" : r.Name is not null
+			? $"/_alias/{Uri.EscapeDataString(string.Join(",", r.Name!))}"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();
 		if (r.AllowNoIndices is not null)

@@ -35,10 +35,7 @@ public static class OperationGrouper
 		{
 			// Skip operation groups where ALL variants use NDJSON bodies (bulk, msearch, etc.)
 			if (group.All(op => op.IsNdjsonBody))
-			{
-				Console.WriteLine($"  Skipping NDJSON operation group: {group.Key}");
 				continue;
-			}
 
 			// Select the canonical HTTP method per CLIENT_GENERATOR_GUIDE:
 			// GET + POST → prefer POST (body-bearing)

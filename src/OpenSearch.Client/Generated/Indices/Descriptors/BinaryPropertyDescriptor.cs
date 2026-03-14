@@ -9,6 +9,16 @@ public sealed class BinaryPropertyDescriptor
 {
 	internal BinaryProperty _value = new();
 
+	/// <summary>Metadata about the field.</summary>
+		public BinaryPropertyDescriptor Meta(Dictionary<string, string>? value) { _value.Meta = value; return this; }
+	public BinaryPropertyDescriptor Properties(Dictionary<string, Property>? value) { _value.Properties = value; return this; }
+	public BinaryPropertyDescriptor IgnoreAbove(int? value) { _value.IgnoreAbove = value; return this; }
+	public BinaryPropertyDescriptor Dynamic(string? value) { _value.Dynamic = value; return this; }
+	public BinaryPropertyDescriptor Fields(Dictionary<string, Property>? value) { _value.Fields = value; return this; }
+	public BinaryPropertyDescriptor CopyTo(List<string>? value) { _value.CopyTo = value; return this; }
+	public BinaryPropertyDescriptor Similarity(string? value) { _value.Similarity = value; return this; }
+	public BinaryPropertyDescriptor Store(bool? value) { _value.Store = value; return this; }
+	public BinaryPropertyDescriptor DocValues(bool? value) { _value.DocValues = value; return this; }
 	public BinaryPropertyDescriptor Type(string? value) { _value.Type = value; return this; }
 
 	public static implicit operator BinaryProperty(BinaryPropertyDescriptor descriptor) => descriptor._value;

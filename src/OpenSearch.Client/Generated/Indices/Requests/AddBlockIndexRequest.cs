@@ -43,7 +43,7 @@ public sealed class AddBlockIndexEndpoint : IEndpoint<AddBlockIndexRequest, AddB
 
 	public string RequestUrl(AddBlockIndexRequest r)
 	{
-		var path = $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_block/{Uri.EscapeDataString(r.Block!.ToString()!)}";
+		var path = $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}/_block/{Uri.EscapeDataString(r.Block!.ToString()!)}";
 		var queryParts = new List<string>();
 		if (r.AllowNoIndices is not null)
 			queryParts.Add($"allow_no_indices={Uri.EscapeDataString((r.AllowNoIndices.Value ? "true" : "false"))}");

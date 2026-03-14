@@ -9,6 +9,13 @@ public sealed class LinearMovingAverageAggregationDescriptor
 {
 	internal LinearMovingAverageAggregation _value = new();
 
+	public LinearMovingAverageAggregationDescriptor BucketsPath(System.Text.Json.JsonElement? value) { _value.BucketsPath = value; return this; }
+	/// <summary>`DecimalFormat` pattern for the output value. If specified, the formatted value is returned in the aggregation's `value_as_string` property.</summary>
+		public LinearMovingAverageAggregationDescriptor Format(string? value) { _value.Format = value; return this; }
+	public LinearMovingAverageAggregationDescriptor GapPolicy(GapPolicy? value) { _value.GapPolicy = value; return this; }
+	public LinearMovingAverageAggregationDescriptor Minimize(bool? value) { _value.Minimize = value; return this; }
+	public LinearMovingAverageAggregationDescriptor Predict(int? value) { _value.Predict = value; return this; }
+	public LinearMovingAverageAggregationDescriptor Window(int? value) { _value.Window = value; return this; }
 	public LinearMovingAverageAggregationDescriptor Model(string? value) { _value.Model = value; return this; }
 	public LinearMovingAverageAggregationDescriptor Settings(System.Text.Json.JsonElement? value) { _value.Settings = value; return this; }
 

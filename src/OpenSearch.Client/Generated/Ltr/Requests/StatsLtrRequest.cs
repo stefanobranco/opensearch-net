@@ -32,9 +32,9 @@ public sealed class StatsLtrEndpoint : IEndpoint<StatsLtrRequest, StatsLtrRespon
 	public string RequestUrl(StatsLtrRequest r)
 	{
 		var path = r.NodeId is not null && r.Stat is not null
-			? $"/_plugins/_ltr/{Uri.EscapeDataString(r.NodeId!.ToString()!)}/stats/{Uri.EscapeDataString(r.Stat!.ToString()!)}" : r.Stat is not null
-			? $"/_plugins/_ltr/stats/{Uri.EscapeDataString(r.Stat!.ToString()!)}" : r.NodeId is not null
-			? $"/_plugins/_ltr/{Uri.EscapeDataString(r.NodeId!.ToString()!)}/stats" : true
+			? $"/_plugins/_ltr/{Uri.EscapeDataString(string.Join(",", r.NodeId!))}/stats/{Uri.EscapeDataString(string.Join(",", r.Stat!))}" : r.Stat is not null
+			? $"/_plugins/_ltr/stats/{Uri.EscapeDataString(string.Join(",", r.Stat!))}" : r.NodeId is not null
+			? $"/_plugins/_ltr/{Uri.EscapeDataString(string.Join(",", r.NodeId!))}/stats" : true
 			? $"/_plugins/_ltr/stats"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

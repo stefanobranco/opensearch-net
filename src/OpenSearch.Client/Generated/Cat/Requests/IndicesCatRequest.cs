@@ -65,7 +65,7 @@ public sealed class IndicesCatEndpoint : IEndpoint<IndicesCatRequest, IndicesCat
 	public string RequestUrl(IndicesCatRequest r)
 	{
 		var path = r.Index is not null
-			? $"/_cat/indices/{Uri.EscapeDataString(r.Index!.ToString()!)}" : true
+			? $"/_cat/indices/{Uri.EscapeDataString(string.Join(",", r.Index!))}" : true
 			? $"/_cat/indices"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

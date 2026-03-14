@@ -9,6 +9,16 @@ public sealed class CompletionPropertyDescriptor
 {
 	internal CompletionProperty _value = new();
 
+	/// <summary>Metadata about the field.</summary>
+		public CompletionPropertyDescriptor Meta(Dictionary<string, string>? value) { _value.Meta = value; return this; }
+	public CompletionPropertyDescriptor Properties(Dictionary<string, Property>? value) { _value.Properties = value; return this; }
+	public CompletionPropertyDescriptor IgnoreAbove(int? value) { _value.IgnoreAbove = value; return this; }
+	public CompletionPropertyDescriptor Dynamic(string? value) { _value.Dynamic = value; return this; }
+	public CompletionPropertyDescriptor Fields(Dictionary<string, Property>? value) { _value.Fields = value; return this; }
+	public CompletionPropertyDescriptor CopyTo(List<string>? value) { _value.CopyTo = value; return this; }
+	public CompletionPropertyDescriptor Similarity(string? value) { _value.Similarity = value; return this; }
+	public CompletionPropertyDescriptor Store(bool? value) { _value.Store = value; return this; }
+	public CompletionPropertyDescriptor DocValues(bool? value) { _value.DocValues = value; return this; }
 	public CompletionPropertyDescriptor Analyzer(string? value) { _value.Analyzer = value; return this; }
 	public CompletionPropertyDescriptor Contexts(List<SuggestContext>? value) { _value.Contexts = value; return this; }
 	public CompletionPropertyDescriptor Contexts(params Action<SuggestContextDescriptor>[] configure)

@@ -9,6 +9,10 @@ public sealed class DerivativeAggregationDescriptor
 {
 	internal DerivativeAggregation _value = new();
 
+	public DerivativeAggregationDescriptor BucketsPath(System.Text.Json.JsonElement? value) { _value.BucketsPath = value; return this; }
+	/// <summary>`DecimalFormat` pattern for the output value. If specified, the formatted value is returned in the aggregation's `value_as_string` property.</summary>
+		public DerivativeAggregationDescriptor Format(string? value) { _value.Format = value; return this; }
+	public DerivativeAggregationDescriptor GapPolicy(GapPolicy? value) { _value.GapPolicy = value; return this; }
 
 	public static implicit operator DerivativeAggregation(DerivativeAggregationDescriptor descriptor) => descriptor._value;
 }

@@ -10,4 +10,6 @@ public sealed class ToolAttributes
 {
 	public string? InputSchema { get; set; }
 	public bool? Strict { get; set; }
+	[JsonExtensionData]
+	public Dictionary<string, System.Text.Json.JsonElement>? AdditionalProperties { get; set; }
 }

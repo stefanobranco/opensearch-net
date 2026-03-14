@@ -26,7 +26,7 @@ public sealed class DataStreamsStatsIndexEndpoint : IEndpoint<DataStreamsStatsIn
 	public string RequestUrl(DataStreamsStatsIndexRequest r)
 	{
 		var path = r.Name is not null
-			? $"/_data_stream/{Uri.EscapeDataString(r.Name!.ToString()!)}/_stats" : true
+			? $"/_data_stream/{Uri.EscapeDataString(string.Join(",", r.Name!))}/_stats" : true
 			? $"/_data_stream/_stats"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		return path;

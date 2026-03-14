@@ -82,17 +82,12 @@ public sealed class {{ endpoint_name }} : IEndpoint<{{ class_name }}, {{ respons
 	}
 
 {{~ if has_body ~}}
-	public string? ContentType => "application/json";
 {{~ if is_raw_body ~}}
-
 	public RequestBody? GetBody({{ class_name }} r) => r.Body is not null ? RequestBody.Json(r.Body) : null;
 {{~ else ~}}
-
 	public RequestBody? GetBody({{ class_name }} r) => RequestBody.Json(r);
 {{~ end ~}}
 {{~ else ~}}
-	public string? ContentType => null;
-
 	public RequestBody? GetBody({{ class_name }} r) => null;
 {{~ end ~}}
 
