@@ -10,11 +10,11 @@ public sealed class DiskUsage
 {
 	public string? Path { get; set; }
 	public string? Total { get; set; }
-	public string? TotalBytes { get; set; }
+	public long TotalBytes { get; set; }
 	public string? Used { get; set; }
-	public string? UsedBytes { get; set; }
+	public long UsedBytes { get; set; }
 	public string? Free { get; set; }
-	public string? FreeBytes { get; set; }
+	public long FreeBytes { get; set; }
 	public double FreeDiskPercent { get; set; }
 	public double UsedDiskPercent { get; set; }
 }

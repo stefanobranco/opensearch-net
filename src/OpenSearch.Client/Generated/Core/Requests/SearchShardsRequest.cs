@@ -16,13 +16,13 @@ public sealed class SearchShardsRequest
 {
 	/// <summary>Returns the indexes and shards that a search request would be executed against.</summary>
 	[JsonIgnore]
-	public string? Index { get; set; }
+	public List<string>? Index { get; set; }
 	/// <summary>If `false`, the request returns an error if any wildcard expression, index alias, or `_all` value targets only missing or closed indexes. This behavior applies even if the request targets other open indexes. For example, a request targeting `foo*,bar*` returns an error if an index starts with `foo` but no index starts with `bar`.</summary>
 	[JsonIgnore]
 	public bool? AllowNoIndices { get; set; }
 	/// <summary>Type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values, such as `open,hidden`. Valid values are: `all`, `open`, `closed`, `hidden`, `none`.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? ExpandWildcards { get; set; }
+	public List<string>? ExpandWildcards { get; set; }
 	/// <summary>If `false`, the request returns an error if it targets a missing or closed index.</summary>
 	[JsonIgnore]
 	public bool? IgnoreUnavailable { get; set; }
@@ -53,7 +53,7 @@ public sealed class SearchShardsEndpoint : IEndpoint<SearchShardsRequest, Search
 		if (r.AllowNoIndices is not null)
 			queryParts.Add($"allow_no_indices={Uri.EscapeDataString((r.AllowNoIndices.Value ? "true" : "false"))}");
 		if (r.ExpandWildcards is not null)
-			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(r.ExpandWildcards.ToString()!)}");
+			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(string.Join(",", r.ExpandWildcards!))}");
 		if (r.IgnoreUnavailable is not null)
 			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable.Value ? "true" : "false"))}");
 		if (r.Local is not null)
@@ -64,8 +64,6 @@ public sealed class SearchShardsEndpoint : IEndpoint<SearchShardsRequest, Search
 			queryParts.Add($"routing={Uri.EscapeDataString(r.Routing.ToString()!)}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
-
-	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(SearchShardsRequest r) => RequestBody.Json(r);
 

@@ -15,7 +15,7 @@ public sealed class Operation
 	public string? Routing { get; set; }
 	[JsonPropertyName("_source")]
 	public System.Text.Json.JsonElement? Source { get; set; }
-	public string? StoredFields { get; set; }
+	public List<string>? StoredFields { get; set; }
 	public long? Version { get; set; }
-	public System.Text.Json.JsonElement? VersionType { get; set; }
+	public string? VersionType { get; set; }
 }

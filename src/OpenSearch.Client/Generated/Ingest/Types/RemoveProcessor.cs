@@ -18,7 +18,7 @@ public sealed class RemoveProcessor
 		public List<ProcessorContainer>? OnFailure { get; set; }
 	/// <summary>Identifier for the processor. Useful for debugging and metrics.</summary>
 		public string? Tag { get; set; }
-	public string? Field { get; set; }
+	public List<string>? Field { get; set; }
 	/// <summary>If `true` and `field` does not exist or is `null`, the processor quietly exits without modifying the document.</summary>
 		public bool? IgnoreMissing { get; set; }
 }

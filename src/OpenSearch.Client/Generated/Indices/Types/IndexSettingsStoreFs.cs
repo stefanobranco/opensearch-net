@@ -12,5 +12,5 @@ namespace OpenSearch.Client.Indices;
 
 public sealed class IndexSettingsStoreFs
 {
-	public System.Text.Json.JsonElement? FsLock { get; set; }
+	public string? FsLock { get; set; }
 }

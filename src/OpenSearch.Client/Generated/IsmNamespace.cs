@@ -17,110 +17,302 @@ public sealed partial class IsmNamespace
 
 
 	/// <summary>Adds a policy to an index.</summary>
-	public AddPolicyResponse AddPolicy(AddPolicyRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, AddPolicyEndpoint.Instance, options);
+	public AddPolicyIsmResponse AddPolicy(AddPolicyIsmRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, AddPolicyIsmEndpoint.Instance, options);
 
 	/// <summary>Adds a policy to an index.</summary>
-	public Task<AddPolicyResponse> AddPolicyAsync(AddPolicyRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, AddPolicyEndpoint.Instance, options, ct);
+	public Task<AddPolicyIsmResponse> AddPolicyAsync(AddPolicyIsmRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, AddPolicyIsmEndpoint.Instance, options, ct);
+
+	/// <summary>Adds a policy to an index.</summary>
+	public AddPolicyIsmResponse AddPolicy(Action<AddPolicyIsmRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new AddPolicyIsmRequestDescriptor();
+		configure(descriptor);
+		return AddPolicy((AddPolicyIsmRequest)descriptor, options);
+	}
+
+	/// <summary>Adds a policy to an index.</summary>
+	public Task<AddPolicyIsmResponse> AddPolicyAsync(Action<AddPolicyIsmRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new AddPolicyIsmRequestDescriptor();
+		configure(descriptor);
+		return AddPolicyAsync((AddPolicyIsmRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Updates the managed index policy to a new policy.</summary>
-	public ChangePolicyResponse ChangePolicy(ChangePolicyRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, ChangePolicyEndpoint.Instance, options);
+	public ChangePolicyIsmResponse ChangePolicy(ChangePolicyIsmRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, ChangePolicyIsmEndpoint.Instance, options);
 
 	/// <summary>Updates the managed index policy to a new policy.</summary>
-	public Task<ChangePolicyResponse> ChangePolicyAsync(ChangePolicyRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, ChangePolicyEndpoint.Instance, options, ct);
+	public Task<ChangePolicyIsmResponse> ChangePolicyAsync(ChangePolicyIsmRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, ChangePolicyIsmEndpoint.Instance, options, ct);
+
+	/// <summary>Updates the managed index policy to a new policy.</summary>
+	public ChangePolicyIsmResponse ChangePolicy(Action<ChangePolicyIsmRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new ChangePolicyIsmRequestDescriptor();
+		configure(descriptor);
+		return ChangePolicy((ChangePolicyIsmRequest)descriptor, options);
+	}
+
+	/// <summary>Updates the managed index policy to a new policy.</summary>
+	public Task<ChangePolicyIsmResponse> ChangePolicyAsync(Action<ChangePolicyIsmRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new ChangePolicyIsmRequestDescriptor();
+		configure(descriptor);
+		return ChangePolicyAsync((ChangePolicyIsmRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Deletes a policy.</summary>
-	public DeletePolicyResponse DeletePolicy(DeletePolicyRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, DeletePolicyEndpoint.Instance, options);
+	public DeletePolicyIsmResponse DeletePolicy(DeletePolicyIsmRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, DeletePolicyIsmEndpoint.Instance, options);
 
 	/// <summary>Deletes a policy.</summary>
-	public Task<DeletePolicyResponse> DeletePolicyAsync(DeletePolicyRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, DeletePolicyEndpoint.Instance, options, ct);
+	public Task<DeletePolicyIsmResponse> DeletePolicyAsync(DeletePolicyIsmRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, DeletePolicyIsmEndpoint.Instance, options, ct);
+
+	/// <summary>Deletes a policy.</summary>
+	public DeletePolicyIsmResponse DeletePolicy(Action<DeletePolicyIsmRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new DeletePolicyIsmRequestDescriptor();
+		configure(descriptor);
+		return DeletePolicy((DeletePolicyIsmRequest)descriptor, options);
+	}
+
+	/// <summary>Deletes a policy.</summary>
+	public Task<DeletePolicyIsmResponse> DeletePolicyAsync(Action<DeletePolicyIsmRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new DeletePolicyIsmRequestDescriptor();
+		configure(descriptor);
+		return DeletePolicyAsync((DeletePolicyIsmRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Checks for the existence of a policy.</summary>
-	public ExistsPolicyResponse ExistsPolicy(ExistsPolicyRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, ExistsPolicyEndpoint.Instance, options);
+	public ExistsPolicyIsmResponse ExistsPolicy(ExistsPolicyIsmRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, ExistsPolicyIsmEndpoint.Instance, options);
 
 	/// <summary>Checks for the existence of a policy.</summary>
-	public Task<ExistsPolicyResponse> ExistsPolicyAsync(ExistsPolicyRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, ExistsPolicyEndpoint.Instance, options, ct);
+	public Task<ExistsPolicyIsmResponse> ExistsPolicyAsync(ExistsPolicyIsmRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, ExistsPolicyIsmEndpoint.Instance, options, ct);
+
+	/// <summary>Checks for the existence of a policy.</summary>
+	public ExistsPolicyIsmResponse ExistsPolicy(Action<ExistsPolicyIsmRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new ExistsPolicyIsmRequestDescriptor();
+		configure(descriptor);
+		return ExistsPolicy((ExistsPolicyIsmRequest)descriptor, options);
+	}
+
+	/// <summary>Checks for the existence of a policy.</summary>
+	public Task<ExistsPolicyIsmResponse> ExistsPolicyAsync(Action<ExistsPolicyIsmRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new ExistsPolicyIsmRequestDescriptor();
+		configure(descriptor);
+		return ExistsPolicyAsync((ExistsPolicyIsmRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Retrieves the currently applied policy on the specified indexes.</summary>
-	public ExplainPolicyResponse ExplainPolicy(ExplainPolicyRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, ExplainPolicyEndpoint.Instance, options);
+	public ExplainPolicyIsmResponse ExplainPolicy(ExplainPolicyIsmRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, ExplainPolicyIsmEndpoint.Instance, options);
 
 	/// <summary>Retrieves the currently applied policy on the specified indexes.</summary>
-	public Task<ExplainPolicyResponse> ExplainPolicyAsync(ExplainPolicyRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, ExplainPolicyEndpoint.Instance, options, ct);
+	public Task<ExplainPolicyIsmResponse> ExplainPolicyAsync(ExplainPolicyIsmRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, ExplainPolicyIsmEndpoint.Instance, options, ct);
+
+	/// <summary>Retrieves the currently applied policy on the specified indexes.</summary>
+	public ExplainPolicyIsmResponse ExplainPolicy(Action<ExplainPolicyIsmRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new ExplainPolicyIsmRequestDescriptor();
+		configure(descriptor);
+		return ExplainPolicy((ExplainPolicyIsmRequest)descriptor, options);
+	}
+
+	/// <summary>Retrieves the currently applied policy on the specified indexes.</summary>
+	public Task<ExplainPolicyIsmResponse> ExplainPolicyAsync(Action<ExplainPolicyIsmRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new ExplainPolicyIsmRequestDescriptor();
+		configure(descriptor);
+		return ExplainPolicyAsync((ExplainPolicyIsmRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Retrieves the policies.</summary>
-	public GetPoliciesResponse GetPolicies(GetPoliciesRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetPoliciesEndpoint.Instance, options);
+	public GetPoliciesIsmResponse GetPolicies(GetPoliciesIsmRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetPoliciesIsmEndpoint.Instance, options);
 
 	/// <summary>Retrieves the policies.</summary>
-	public Task<GetPoliciesResponse> GetPoliciesAsync(GetPoliciesRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetPoliciesEndpoint.Instance, options, ct);
+	public Task<GetPoliciesIsmResponse> GetPoliciesAsync(GetPoliciesIsmRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetPoliciesIsmEndpoint.Instance, options, ct);
+
+	/// <summary>Retrieves the policies.</summary>
+	public GetPoliciesIsmResponse GetPolicies(Action<GetPoliciesIsmRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetPoliciesIsmRequestDescriptor();
+		configure(descriptor);
+		return GetPolicies((GetPoliciesIsmRequest)descriptor, options);
+	}
+
+	/// <summary>Retrieves the policies.</summary>
+	public Task<GetPoliciesIsmResponse> GetPoliciesAsync(Action<GetPoliciesIsmRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetPoliciesIsmRequestDescriptor();
+		configure(descriptor);
+		return GetPoliciesAsync((GetPoliciesIsmRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Retrieves a specific policy.</summary>
-	public GetPolicyResponse GetPolicy(GetPolicyRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetPolicyEndpoint.Instance, options);
+	public GetPolicyIsmResponse GetPolicy(GetPolicyIsmRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetPolicyIsmEndpoint.Instance, options);
 
 	/// <summary>Retrieves a specific policy.</summary>
-	public Task<GetPolicyResponse> GetPolicyAsync(GetPolicyRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetPolicyEndpoint.Instance, options, ct);
+	public Task<GetPolicyIsmResponse> GetPolicyAsync(GetPolicyIsmRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetPolicyIsmEndpoint.Instance, options, ct);
+
+	/// <summary>Retrieves a specific policy.</summary>
+	public GetPolicyIsmResponse GetPolicy(Action<GetPolicyIsmRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetPolicyIsmRequestDescriptor();
+		configure(descriptor);
+		return GetPolicy((GetPolicyIsmRequest)descriptor, options);
+	}
+
+	/// <summary>Retrieves a specific policy.</summary>
+	public Task<GetPolicyIsmResponse> GetPolicyAsync(Action<GetPolicyIsmRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetPolicyIsmRequestDescriptor();
+		configure(descriptor);
+		return GetPolicyAsync((GetPolicyIsmRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Creates or updates policies.</summary>
-	public PutPoliciesResponse PutPolicies(PutPoliciesRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, PutPoliciesEndpoint.Instance, options);
+	public PutPoliciesIsmResponse PutPolicies(PutPoliciesIsmRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, PutPoliciesIsmEndpoint.Instance, options);
 
 	/// <summary>Creates or updates policies.</summary>
-	public Task<PutPoliciesResponse> PutPoliciesAsync(PutPoliciesRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, PutPoliciesEndpoint.Instance, options, ct);
+	public Task<PutPoliciesIsmResponse> PutPoliciesAsync(PutPoliciesIsmRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, PutPoliciesIsmEndpoint.Instance, options, ct);
+
+	/// <summary>Creates or updates policies.</summary>
+	public PutPoliciesIsmResponse PutPolicies(Action<PutPoliciesIsmRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new PutPoliciesIsmRequestDescriptor();
+		configure(descriptor);
+		return PutPolicies((PutPoliciesIsmRequest)descriptor, options);
+	}
+
+	/// <summary>Creates or updates policies.</summary>
+	public Task<PutPoliciesIsmResponse> PutPoliciesAsync(Action<PutPoliciesIsmRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new PutPoliciesIsmRequestDescriptor();
+		configure(descriptor);
+		return PutPoliciesAsync((PutPoliciesIsmRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Creates or updates a policy.</summary>
-	public PutPolicyResponse PutPolicy(PutPolicyRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, PutPolicyEndpoint.Instance, options);
+	public PutPolicyIsmResponse PutPolicy(PutPolicyIsmRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, PutPolicyIsmEndpoint.Instance, options);
 
 	/// <summary>Creates or updates a policy.</summary>
-	public Task<PutPolicyResponse> PutPolicyAsync(PutPolicyRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, PutPolicyEndpoint.Instance, options, ct);
+	public Task<PutPolicyIsmResponse> PutPolicyAsync(PutPolicyIsmRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, PutPolicyIsmEndpoint.Instance, options, ct);
+
+	/// <summary>Creates or updates a policy.</summary>
+	public PutPolicyIsmResponse PutPolicy(Action<PutPolicyIsmRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new PutPolicyIsmRequestDescriptor();
+		configure(descriptor);
+		return PutPolicy((PutPolicyIsmRequest)descriptor, options);
+	}
+
+	/// <summary>Creates or updates a policy.</summary>
+	public Task<PutPolicyIsmResponse> PutPolicyAsync(Action<PutPolicyIsmRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new PutPolicyIsmRequestDescriptor();
+		configure(descriptor);
+		return PutPolicyAsync((PutPolicyIsmRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Refreshes search analyzers in real time.</summary>
-	public RefreshSearchAnalyzersResponse RefreshSearchAnalyzers(RefreshSearchAnalyzersRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, RefreshSearchAnalyzersEndpoint.Instance, options);
+	public RefreshSearchAnalyzersIsmResponse RefreshSearchAnalyzers(RefreshSearchAnalyzersIsmRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, RefreshSearchAnalyzersIsmEndpoint.Instance, options);
 
 	/// <summary>Refreshes search analyzers in real time.</summary>
-	public Task<RefreshSearchAnalyzersResponse> RefreshSearchAnalyzersAsync(RefreshSearchAnalyzersRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, RefreshSearchAnalyzersEndpoint.Instance, options, ct);
+	public Task<RefreshSearchAnalyzersIsmResponse> RefreshSearchAnalyzersAsync(RefreshSearchAnalyzersIsmRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, RefreshSearchAnalyzersIsmEndpoint.Instance, options, ct);
+
+	/// <summary>Refreshes search analyzers in real time.</summary>
+	public RefreshSearchAnalyzersIsmResponse RefreshSearchAnalyzers(Action<RefreshSearchAnalyzersIsmRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new RefreshSearchAnalyzersIsmRequestDescriptor();
+		configure(descriptor);
+		return RefreshSearchAnalyzers((RefreshSearchAnalyzersIsmRequest)descriptor, options);
+	}
+
+	/// <summary>Refreshes search analyzers in real time.</summary>
+	public Task<RefreshSearchAnalyzersIsmResponse> RefreshSearchAnalyzersAsync(Action<RefreshSearchAnalyzersIsmRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new RefreshSearchAnalyzersIsmRequestDescriptor();
+		configure(descriptor);
+		return RefreshSearchAnalyzersAsync((RefreshSearchAnalyzersIsmRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Removes a policy from an index.</summary>
-	public RemovePolicyResponse RemovePolicy(RemovePolicyRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, RemovePolicyEndpoint.Instance, options);
+	public RemovePolicyIsmResponse RemovePolicy(RemovePolicyIsmRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, RemovePolicyIsmEndpoint.Instance, options);
 
 	/// <summary>Removes a policy from an index.</summary>
-	public Task<RemovePolicyResponse> RemovePolicyAsync(RemovePolicyRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, RemovePolicyEndpoint.Instance, options, ct);
+	public Task<RemovePolicyIsmResponse> RemovePolicyAsync(RemovePolicyIsmRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, RemovePolicyIsmEndpoint.Instance, options, ct);
+
+	/// <summary>Removes a policy from an index.</summary>
+	public RemovePolicyIsmResponse RemovePolicy(Action<RemovePolicyIsmRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new RemovePolicyIsmRequestDescriptor();
+		configure(descriptor);
+		return RemovePolicy((RemovePolicyIsmRequest)descriptor, options);
+	}
+
+	/// <summary>Removes a policy from an index.</summary>
+	public Task<RemovePolicyIsmResponse> RemovePolicyAsync(Action<RemovePolicyIsmRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new RemovePolicyIsmRequestDescriptor();
+		configure(descriptor);
+		return RemovePolicyAsync((RemovePolicyIsmRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Retries the failed action for an index.</summary>
-	public RetryIndexResponse RetryIndex(RetryIndexRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, RetryIndexEndpoint.Instance, options);
+	public RetryIndexIsmResponse RetryIndex(RetryIndexIsmRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, RetryIndexIsmEndpoint.Instance, options);
 
 	/// <summary>Retries the failed action for an index.</summary>
-	public Task<RetryIndexResponse> RetryIndexAsync(RetryIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, RetryIndexEndpoint.Instance, options, ct);
+	public Task<RetryIndexIsmResponse> RetryIndexAsync(RetryIndexIsmRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, RetryIndexIsmEndpoint.Instance, options, ct);
+
+	/// <summary>Retries the failed action for an index.</summary>
+	public RetryIndexIsmResponse RetryIndex(Action<RetryIndexIsmRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new RetryIndexIsmRequestDescriptor();
+		configure(descriptor);
+		return RetryIndex((RetryIndexIsmRequest)descriptor, options);
+	}
+
+	/// <summary>Retries the failed action for an index.</summary>
+	public Task<RetryIndexIsmResponse> RetryIndexAsync(Action<RetryIndexIsmRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new RetryIndexIsmRequestDescriptor();
+		configure(descriptor);
+		return RetryIndexAsync((RetryIndexIsmRequest)descriptor, options, ct);
+	}
 
 }

@@ -10,8 +10,8 @@ public sealed class StoreStats
 {
 	public string? Size { get; set; }
 	/// <summary>The total size, in bytes, of all shards assigned to the selected nodes.</summary>
-		public string? SizeInBytes { get; set; }
+		public long SizeInBytes { get; set; }
 	public string? Reserved { get; set; }
 	/// <summary>A prediction, in bytes, of how much larger the shard stores will eventually grow due to ongoing peer recoveries, restoring snapshots, and similar activities.</summary>
-		public string? ReservedInBytes { get; set; }
+		public long ReservedInBytes { get; set; }
 }

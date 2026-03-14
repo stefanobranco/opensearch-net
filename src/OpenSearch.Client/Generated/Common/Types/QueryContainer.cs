@@ -4,7 +4,7 @@
 using System.Runtime.Serialization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using OpenSearch.Client.Indices;
+using OpenSearch.Client.Core;
 
 namespace OpenSearch.Client.Common;
 
@@ -139,7 +139,7 @@ public sealed class QueryContainer : TaggedUnion<QueryKind, object>
 	/// <summary>Creates a Boosting variant.</summary>
 	public static QueryContainer Boosting(BoostingQuery value) => new(QueryKind.Boosting, value);
 	/// <summary>Creates a Common variant.</summary>
-	public static QueryContainer Common(Dictionary<string, System.Text.Json.JsonElement> value) => new(QueryKind.Common, value);
+	public static QueryContainer Common(Dictionary<string, CommonTermsQuery> value) => new(QueryKind.Common, value);
 	/// <summary>Creates a CombinedFields variant.</summary>
 	public static QueryContainer CombinedFields(CombinedFieldsQuery value) => new(QueryKind.CombinedFields, value);
 	/// <summary>Creates a ConstantScore variant.</summary>
@@ -147,13 +147,13 @@ public sealed class QueryContainer : TaggedUnion<QueryKind, object>
 	/// <summary>Creates a DisMax variant.</summary>
 	public static QueryContainer DisMax(DisMaxQuery value) => new(QueryKind.DisMax, value);
 	/// <summary>Creates a DistanceFeature variant.</summary>
-	public static QueryContainer DistanceFeature(System.Text.Json.JsonElement value) => new(QueryKind.DistanceFeature, value);
+	public static QueryContainer DistanceFeature(DistanceFeatureQuery value) => new(QueryKind.DistanceFeature, value);
 	/// <summary>Creates a Exists variant.</summary>
 	public static QueryContainer Exists(ExistsQuery value) => new(QueryKind.Exists, value);
 	/// <summary>Creates a FunctionScore variant.</summary>
 	public static QueryContainer FunctionScore(FunctionScoreQuery value) => new(QueryKind.FunctionScore, value);
 	/// <summary>Creates a Fuzzy variant.</summary>
-	public static QueryContainer Fuzzy(Dictionary<string, System.Text.Json.JsonElement> value) => new(QueryKind.Fuzzy, value);
+	public static QueryContainer Fuzzy(Dictionary<string, FuzzyQuery> value) => new(QueryKind.Fuzzy, value);
 	/// <summary>Creates a GeoBoundingBox variant.</summary>
 	public static QueryContainer GeoBoundingBox(GeoBoundingBoxQuery value) => new(QueryKind.GeoBoundingBox, value);
 	/// <summary>Creates a GeoDistance variant.</summary>
@@ -175,17 +175,17 @@ public sealed class QueryContainer : TaggedUnion<QueryKind, object>
 	/// <summary>Creates a Knn variant.</summary>
 	public static QueryContainer Knn(Dictionary<string, KnnQuery> value) => new(QueryKind.Knn, value);
 	/// <summary>Creates a Match variant.</summary>
-	public static QueryContainer Match(Dictionary<string, System.Text.Json.JsonElement> value) => new(QueryKind.Match, value);
+	public static QueryContainer Match(Dictionary<string, MatchQuery> value) => new(QueryKind.Match, value);
 	/// <summary>Creates a MatchAll variant.</summary>
 	public static QueryContainer MatchAll(MatchAllQuery value) => new(QueryKind.MatchAll, value);
 	/// <summary>Creates a MatchBoolPrefix variant.</summary>
-	public static QueryContainer MatchBoolPrefix(Dictionary<string, System.Text.Json.JsonElement> value) => new(QueryKind.MatchBoolPrefix, value);
+	public static QueryContainer MatchBoolPrefix(Dictionary<string, MatchBoolPrefixQuery> value) => new(QueryKind.MatchBoolPrefix, value);
 	/// <summary>Creates a MatchNone variant.</summary>
 	public static QueryContainer MatchNone(MatchNoneQuery value) => new(QueryKind.MatchNone, value);
 	/// <summary>Creates a MatchPhrase variant.</summary>
-	public static QueryContainer MatchPhrase(Dictionary<string, System.Text.Json.JsonElement> value) => new(QueryKind.MatchPhrase, value);
+	public static QueryContainer MatchPhrase(Dictionary<string, MatchPhraseQuery> value) => new(QueryKind.MatchPhrase, value);
 	/// <summary>Creates a MatchPhrasePrefix variant.</summary>
-	public static QueryContainer MatchPhrasePrefix(Dictionary<string, System.Text.Json.JsonElement> value) => new(QueryKind.MatchPhrasePrefix, value);
+	public static QueryContainer MatchPhrasePrefix(Dictionary<string, MatchPhrasePrefixQuery> value) => new(QueryKind.MatchPhrasePrefix, value);
 	/// <summary>Creates a MoreLikeThis variant.</summary>
 	public static QueryContainer MoreLikeThis(MoreLikeThisQuery value) => new(QueryKind.MoreLikeThis, value);
 	/// <summary>Creates a MultiMatch variant.</summary>
@@ -199,7 +199,7 @@ public sealed class QueryContainer : TaggedUnion<QueryKind, object>
 	/// <summary>Creates a Percolate variant.</summary>
 	public static QueryContainer Percolate(PercolateQuery value) => new(QueryKind.Percolate, value);
 	/// <summary>Creates a Prefix variant.</summary>
-	public static QueryContainer Prefix(Dictionary<string, System.Text.Json.JsonElement> value) => new(QueryKind.Prefix, value);
+	public static QueryContainer Prefix(Dictionary<string, PrefixQuery> value) => new(QueryKind.Prefix, value);
 	/// <summary>Creates a QueryString variant.</summary>
 	public static QueryContainer QueryString(QueryStringQuery value) => new(QueryKind.QueryString, value);
 	/// <summary>Creates a Range variant.</summary>
@@ -207,7 +207,7 @@ public sealed class QueryContainer : TaggedUnion<QueryKind, object>
 	/// <summary>Creates a RankFeature variant.</summary>
 	public static QueryContainer RankFeature(RankFeatureQuery value) => new(QueryKind.RankFeature, value);
 	/// <summary>Creates a Regexp variant.</summary>
-	public static QueryContainer Regexp(Dictionary<string, System.Text.Json.JsonElement> value) => new(QueryKind.Regexp, value);
+	public static QueryContainer Regexp(Dictionary<string, RegexpQuery> value) => new(QueryKind.Regexp, value);
 	/// <summary>Creates a Script variant.</summary>
 	public static QueryContainer Script(ScriptQuery value) => new(QueryKind.Script, value);
 	/// <summary>Creates a ScriptScore variant.</summary>
@@ -229,13 +229,13 @@ public sealed class QueryContainer : TaggedUnion<QueryKind, object>
 	/// <summary>Creates a SpanOr variant.</summary>
 	public static QueryContainer SpanOr(SpanOrQuery value) => new(QueryKind.SpanOr, value);
 	/// <summary>Creates a SpanTerm variant.</summary>
-	public static QueryContainer SpanTerm(Dictionary<string, System.Text.Json.JsonElement> value) => new(QueryKind.SpanTerm, value);
+	public static QueryContainer SpanTerm(Dictionary<string, SpanTermQuery> value) => new(QueryKind.SpanTerm, value);
 	/// <summary>Creates a SpanWithin variant.</summary>
 	public static QueryContainer SpanWithin(SpanWithinQuery value) => new(QueryKind.SpanWithin, value);
 	/// <summary>Creates a Template variant.</summary>
 	public static QueryContainer Template(Dictionary<string, object> value) => new(QueryKind.Template, value);
 	/// <summary>Creates a Term variant.</summary>
-	public static QueryContainer Term(Dictionary<string, System.Text.Json.JsonElement> value) => new(QueryKind.Term, value);
+	public static QueryContainer Term(Dictionary<string, TermQuery> value) => new(QueryKind.Term, value);
 	/// <summary>Creates a Terms variant.</summary>
 	public static QueryContainer Terms(TermsQuery value) => new(QueryKind.Terms, value);
 	/// <summary>Creates a TermsSet variant.</summary>
@@ -243,7 +243,7 @@ public sealed class QueryContainer : TaggedUnion<QueryKind, object>
 	/// <summary>Creates a Type variant.</summary>
 	public static QueryContainer Type(TypeQuery value) => new(QueryKind.Type, value);
 	/// <summary>Creates a Wildcard variant.</summary>
-	public static QueryContainer Wildcard(Dictionary<string, System.Text.Json.JsonElement> value) => new(QueryKind.Wildcard, value);
+	public static QueryContainer Wildcard(Dictionary<string, WildcardQuery> value) => new(QueryKind.Wildcard, value);
 	/// <summary>Creates a Wrapper variant.</summary>
 	public static QueryContainer Wrapper(WrapperQuery value) => new(QueryKind.Wrapper, value);
 	/// <summary>Creates a XyShape variant.</summary>
@@ -256,14 +256,14 @@ public sealed class QueryContainerConverter : TaggedUnionConverter<QueryContaine
 	{
 		["bool"] = (QueryKind.Bool, typeof(BoolQuery)),
 		["boosting"] = (QueryKind.Boosting, typeof(BoostingQuery)),
-		["common"] = (QueryKind.Common, typeof(Dictionary<string, System.Text.Json.JsonElement>)),
+		["common"] = (QueryKind.Common, typeof(Dictionary<string, CommonTermsQuery>)),
 		["combined_fields"] = (QueryKind.CombinedFields, typeof(CombinedFieldsQuery)),
 		["constant_score"] = (QueryKind.ConstantScore, typeof(ConstantScoreQuery)),
 		["dis_max"] = (QueryKind.DisMax, typeof(DisMaxQuery)),
-		["distance_feature"] = (QueryKind.DistanceFeature, typeof(System.Text.Json.JsonElement)),
+		["distance_feature"] = (QueryKind.DistanceFeature, typeof(DistanceFeatureQuery)),
 		["exists"] = (QueryKind.Exists, typeof(ExistsQuery)),
 		["function_score"] = (QueryKind.FunctionScore, typeof(FunctionScoreQuery)),
-		["fuzzy"] = (QueryKind.Fuzzy, typeof(Dictionary<string, System.Text.Json.JsonElement>)),
+		["fuzzy"] = (QueryKind.Fuzzy, typeof(Dictionary<string, FuzzyQuery>)),
 		["geo_bounding_box"] = (QueryKind.GeoBoundingBox, typeof(GeoBoundingBoxQuery)),
 		["geo_distance"] = (QueryKind.GeoDistance, typeof(GeoDistanceQuery)),
 		["geo_polygon"] = (QueryKind.GeoPolygon, typeof(GeoPolygonQuery)),
@@ -274,23 +274,23 @@ public sealed class QueryContainerConverter : TaggedUnionConverter<QueryContaine
 		["ids"] = (QueryKind.Ids, typeof(IdsQuery)),
 		["intervals"] = (QueryKind.Intervals, typeof(Dictionary<string, IntervalsQuery>)),
 		["knn"] = (QueryKind.Knn, typeof(Dictionary<string, KnnQuery>)),
-		["match"] = (QueryKind.Match, typeof(Dictionary<string, System.Text.Json.JsonElement>)),
+		["match"] = (QueryKind.Match, typeof(Dictionary<string, MatchQuery>)),
 		["match_all"] = (QueryKind.MatchAll, typeof(MatchAllQuery)),
-		["match_bool_prefix"] = (QueryKind.MatchBoolPrefix, typeof(Dictionary<string, System.Text.Json.JsonElement>)),
+		["match_bool_prefix"] = (QueryKind.MatchBoolPrefix, typeof(Dictionary<string, MatchBoolPrefixQuery>)),
 		["match_none"] = (QueryKind.MatchNone, typeof(MatchNoneQuery)),
-		["match_phrase"] = (QueryKind.MatchPhrase, typeof(Dictionary<string, System.Text.Json.JsonElement>)),
-		["match_phrase_prefix"] = (QueryKind.MatchPhrasePrefix, typeof(Dictionary<string, System.Text.Json.JsonElement>)),
+		["match_phrase"] = (QueryKind.MatchPhrase, typeof(Dictionary<string, MatchPhraseQuery>)),
+		["match_phrase_prefix"] = (QueryKind.MatchPhrasePrefix, typeof(Dictionary<string, MatchPhrasePrefixQuery>)),
 		["more_like_this"] = (QueryKind.MoreLikeThis, typeof(MoreLikeThisQuery)),
 		["multi_match"] = (QueryKind.MultiMatch, typeof(MultiMatchQuery)),
 		["nested"] = (QueryKind.Nested, typeof(NestedQuery)),
 		["neural"] = (QueryKind.Neural, typeof(Dictionary<string, NeuralQuery>)),
 		["parent_id"] = (QueryKind.ParentId, typeof(ParentIdQuery)),
 		["percolate"] = (QueryKind.Percolate, typeof(PercolateQuery)),
-		["prefix"] = (QueryKind.Prefix, typeof(Dictionary<string, System.Text.Json.JsonElement>)),
+		["prefix"] = (QueryKind.Prefix, typeof(Dictionary<string, PrefixQuery>)),
 		["query_string"] = (QueryKind.QueryString, typeof(QueryStringQuery)),
 		["range"] = (QueryKind.Range, typeof(Dictionary<string, System.Text.Json.JsonElement>)),
 		["rank_feature"] = (QueryKind.RankFeature, typeof(RankFeatureQuery)),
-		["regexp"] = (QueryKind.Regexp, typeof(Dictionary<string, System.Text.Json.JsonElement>)),
+		["regexp"] = (QueryKind.Regexp, typeof(Dictionary<string, RegexpQuery>)),
 		["script"] = (QueryKind.Script, typeof(ScriptQuery)),
 		["script_score"] = (QueryKind.ScriptScore, typeof(ScriptScoreQuery)),
 		["simple_query_string"] = (QueryKind.SimpleQueryString, typeof(SimpleQueryStringQuery)),
@@ -301,14 +301,14 @@ public sealed class QueryContainerConverter : TaggedUnionConverter<QueryContaine
 		["span_near"] = (QueryKind.SpanNear, typeof(SpanNearQuery)),
 		["span_not"] = (QueryKind.SpanNot, typeof(SpanNotQuery)),
 		["span_or"] = (QueryKind.SpanOr, typeof(SpanOrQuery)),
-		["span_term"] = (QueryKind.SpanTerm, typeof(Dictionary<string, System.Text.Json.JsonElement>)),
+		["span_term"] = (QueryKind.SpanTerm, typeof(Dictionary<string, SpanTermQuery>)),
 		["span_within"] = (QueryKind.SpanWithin, typeof(SpanWithinQuery)),
 		["template"] = (QueryKind.Template, typeof(Dictionary<string, object>)),
-		["term"] = (QueryKind.Term, typeof(Dictionary<string, System.Text.Json.JsonElement>)),
+		["term"] = (QueryKind.Term, typeof(Dictionary<string, TermQuery>)),
 		["terms"] = (QueryKind.Terms, typeof(TermsQuery)),
 		["terms_set"] = (QueryKind.TermsSet, typeof(Dictionary<string, TermsSetQuery>)),
 		["type"] = (QueryKind.Type, typeof(TypeQuery)),
-		["wildcard"] = (QueryKind.Wildcard, typeof(Dictionary<string, System.Text.Json.JsonElement>)),
+		["wildcard"] = (QueryKind.Wildcard, typeof(Dictionary<string, WildcardQuery>)),
 		["wrapper"] = (QueryKind.Wrapper, typeof(WrapperQuery)),
 		["xy_shape"] = (QueryKind.XyShape, typeof(XyShapeQuery)),
 	};
@@ -378,14 +378,14 @@ public sealed class QueryContainerConverter : TaggedUnionConverter<QueryContaine
 	{
 		QueryKind.Bool => QueryContainer.Bool((BoolQuery)value),
 		QueryKind.Boosting => QueryContainer.Boosting((BoostingQuery)value),
-		QueryKind.Common => QueryContainer.Common((Dictionary<string, System.Text.Json.JsonElement>)value),
+		QueryKind.Common => QueryContainer.Common((Dictionary<string, CommonTermsQuery>)value),
 		QueryKind.CombinedFields => QueryContainer.CombinedFields((CombinedFieldsQuery)value),
 		QueryKind.ConstantScore => QueryContainer.ConstantScore((ConstantScoreQuery)value),
 		QueryKind.DisMax => QueryContainer.DisMax((DisMaxQuery)value),
-		QueryKind.DistanceFeature => QueryContainer.DistanceFeature((System.Text.Json.JsonElement)value),
+		QueryKind.DistanceFeature => QueryContainer.DistanceFeature((DistanceFeatureQuery)value),
 		QueryKind.Exists => QueryContainer.Exists((ExistsQuery)value),
 		QueryKind.FunctionScore => QueryContainer.FunctionScore((FunctionScoreQuery)value),
-		QueryKind.Fuzzy => QueryContainer.Fuzzy((Dictionary<string, System.Text.Json.JsonElement>)value),
+		QueryKind.Fuzzy => QueryContainer.Fuzzy((Dictionary<string, FuzzyQuery>)value),
 		QueryKind.GeoBoundingBox => QueryContainer.GeoBoundingBox((GeoBoundingBoxQuery)value),
 		QueryKind.GeoDistance => QueryContainer.GeoDistance((GeoDistanceQuery)value),
 		QueryKind.GeoPolygon => QueryContainer.GeoPolygon((GeoPolygonQuery)value),
@@ -396,23 +396,23 @@ public sealed class QueryContainerConverter : TaggedUnionConverter<QueryContaine
 		QueryKind.Ids => QueryContainer.Ids((IdsQuery)value),
 		QueryKind.Intervals => QueryContainer.Intervals((Dictionary<string, IntervalsQuery>)value),
 		QueryKind.Knn => QueryContainer.Knn((Dictionary<string, KnnQuery>)value),
-		QueryKind.Match => QueryContainer.Match((Dictionary<string, System.Text.Json.JsonElement>)value),
+		QueryKind.Match => QueryContainer.Match((Dictionary<string, MatchQuery>)value),
 		QueryKind.MatchAll => QueryContainer.MatchAll((MatchAllQuery)value),
-		QueryKind.MatchBoolPrefix => QueryContainer.MatchBoolPrefix((Dictionary<string, System.Text.Json.JsonElement>)value),
+		QueryKind.MatchBoolPrefix => QueryContainer.MatchBoolPrefix((Dictionary<string, MatchBoolPrefixQuery>)value),
 		QueryKind.MatchNone => QueryContainer.MatchNone((MatchNoneQuery)value),
-		QueryKind.MatchPhrase => QueryContainer.MatchPhrase((Dictionary<string, System.Text.Json.JsonElement>)value),
-		QueryKind.MatchPhrasePrefix => QueryContainer.MatchPhrasePrefix((Dictionary<string, System.Text.Json.JsonElement>)value),
+		QueryKind.MatchPhrase => QueryContainer.MatchPhrase((Dictionary<string, MatchPhraseQuery>)value),
+		QueryKind.MatchPhrasePrefix => QueryContainer.MatchPhrasePrefix((Dictionary<string, MatchPhrasePrefixQuery>)value),
 		QueryKind.MoreLikeThis => QueryContainer.MoreLikeThis((MoreLikeThisQuery)value),
 		QueryKind.MultiMatch => QueryContainer.MultiMatch((MultiMatchQuery)value),
 		QueryKind.Nested => QueryContainer.Nested((NestedQuery)value),
 		QueryKind.Neural => QueryContainer.Neural((Dictionary<string, NeuralQuery>)value),
 		QueryKind.ParentId => QueryContainer.ParentId((ParentIdQuery)value),
 		QueryKind.Percolate => QueryContainer.Percolate((PercolateQuery)value),
-		QueryKind.Prefix => QueryContainer.Prefix((Dictionary<string, System.Text.Json.JsonElement>)value),
+		QueryKind.Prefix => QueryContainer.Prefix((Dictionary<string, PrefixQuery>)value),
 		QueryKind.QueryString => QueryContainer.QueryString((QueryStringQuery)value),
 		QueryKind.Range => QueryContainer.Range((Dictionary<string, System.Text.Json.JsonElement>)value),
 		QueryKind.RankFeature => QueryContainer.RankFeature((RankFeatureQuery)value),
-		QueryKind.Regexp => QueryContainer.Regexp((Dictionary<string, System.Text.Json.JsonElement>)value),
+		QueryKind.Regexp => QueryContainer.Regexp((Dictionary<string, RegexpQuery>)value),
 		QueryKind.Script => QueryContainer.Script((ScriptQuery)value),
 		QueryKind.ScriptScore => QueryContainer.ScriptScore((ScriptScoreQuery)value),
 		QueryKind.SimpleQueryString => QueryContainer.SimpleQueryString((SimpleQueryStringQuery)value),
@@ -423,14 +423,14 @@ public sealed class QueryContainerConverter : TaggedUnionConverter<QueryContaine
 		QueryKind.SpanNear => QueryContainer.SpanNear((SpanNearQuery)value),
 		QueryKind.SpanNot => QueryContainer.SpanNot((SpanNotQuery)value),
 		QueryKind.SpanOr => QueryContainer.SpanOr((SpanOrQuery)value),
-		QueryKind.SpanTerm => QueryContainer.SpanTerm((Dictionary<string, System.Text.Json.JsonElement>)value),
+		QueryKind.SpanTerm => QueryContainer.SpanTerm((Dictionary<string, SpanTermQuery>)value),
 		QueryKind.SpanWithin => QueryContainer.SpanWithin((SpanWithinQuery)value),
 		QueryKind.Template => QueryContainer.Template((Dictionary<string, object>)value),
-		QueryKind.Term => QueryContainer.Term((Dictionary<string, System.Text.Json.JsonElement>)value),
+		QueryKind.Term => QueryContainer.Term((Dictionary<string, TermQuery>)value),
 		QueryKind.Terms => QueryContainer.Terms((TermsQuery)value),
 		QueryKind.TermsSet => QueryContainer.TermsSet((Dictionary<string, TermsSetQuery>)value),
 		QueryKind.Type => QueryContainer.Type((TypeQuery)value),
-		QueryKind.Wildcard => QueryContainer.Wildcard((Dictionary<string, System.Text.Json.JsonElement>)value),
+		QueryKind.Wildcard => QueryContainer.Wildcard((Dictionary<string, WildcardQuery>)value),
 		QueryKind.Wrapper => QueryContainer.Wrapper((WrapperQuery)value),
 		QueryKind.XyShape => QueryContainer.XyShape((XyShapeQuery)value),
 		_ => throw new JsonException($"Unknown QueryKind: {kind}")

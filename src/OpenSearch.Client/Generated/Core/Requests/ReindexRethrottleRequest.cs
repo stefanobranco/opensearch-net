@@ -35,8 +35,6 @@ public sealed class ReindexRethrottleEndpoint : IEndpoint<ReindexRethrottleReque
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-	public string? ContentType => null;
-
 	public RequestBody? GetBody(ReindexRethrottleRequest r) => null;
 
 	public ReindexRethrottleResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>

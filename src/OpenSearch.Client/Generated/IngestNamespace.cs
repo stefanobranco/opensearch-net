@@ -17,47 +17,127 @@ public sealed partial class IngestNamespace
 
 
 	/// <summary>Deletes an ingest pipeline.</summary>
-	public DeletePipelineResponse DeletePipeline(DeletePipelineRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, DeletePipelineEndpoint.Instance, options);
+	public DeletePipelineIngestResponse DeletePipeline(DeletePipelineIngestRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, DeletePipelineIngestEndpoint.Instance, options);
 
 	/// <summary>Deletes an ingest pipeline.</summary>
-	public Task<DeletePipelineResponse> DeletePipelineAsync(DeletePipelineRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, DeletePipelineEndpoint.Instance, options, ct);
+	public Task<DeletePipelineIngestResponse> DeletePipelineAsync(DeletePipelineIngestRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, DeletePipelineIngestEndpoint.Instance, options, ct);
+
+	/// <summary>Deletes an ingest pipeline.</summary>
+	public DeletePipelineIngestResponse DeletePipeline(Action<DeletePipelineIngestRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new DeletePipelineIngestRequestDescriptor();
+		configure(descriptor);
+		return DeletePipeline((DeletePipelineIngestRequest)descriptor, options);
+	}
+
+	/// <summary>Deletes an ingest pipeline.</summary>
+	public Task<DeletePipelineIngestResponse> DeletePipelineAsync(Action<DeletePipelineIngestRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new DeletePipelineIngestRequestDescriptor();
+		configure(descriptor);
+		return DeletePipelineAsync((DeletePipelineIngestRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Returns an ingest pipeline.</summary>
-	public GetPipelineResponse GetPipeline(GetPipelineRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetPipelineEndpoint.Instance, options);
+	public GetPipelineIngestResponse GetPipeline(GetPipelineIngestRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetPipelineIngestEndpoint.Instance, options);
 
 	/// <summary>Returns an ingest pipeline.</summary>
-	public Task<GetPipelineResponse> GetPipelineAsync(GetPipelineRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetPipelineEndpoint.Instance, options, ct);
+	public Task<GetPipelineIngestResponse> GetPipelineAsync(GetPipelineIngestRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetPipelineIngestEndpoint.Instance, options, ct);
+
+	/// <summary>Returns an ingest pipeline.</summary>
+	public GetPipelineIngestResponse GetPipeline(Action<GetPipelineIngestRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetPipelineIngestRequestDescriptor();
+		configure(descriptor);
+		return GetPipeline((GetPipelineIngestRequest)descriptor, options);
+	}
+
+	/// <summary>Returns an ingest pipeline.</summary>
+	public Task<GetPipelineIngestResponse> GetPipelineAsync(Action<GetPipelineIngestRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetPipelineIngestRequestDescriptor();
+		configure(descriptor);
+		return GetPipelineAsync((GetPipelineIngestRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Returns a list of built-in grok patterns.</summary>
-	public ProcessorGrokResponse ProcessorGrok(ProcessorGrokRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, ProcessorGrokEndpoint.Instance, options);
+	public ProcessorGrokIngestResponse ProcessorGrok(ProcessorGrokIngestRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, ProcessorGrokIngestEndpoint.Instance, options);
 
 	/// <summary>Returns a list of built-in grok patterns.</summary>
-	public Task<ProcessorGrokResponse> ProcessorGrokAsync(ProcessorGrokRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, ProcessorGrokEndpoint.Instance, options, ct);
+	public Task<ProcessorGrokIngestResponse> ProcessorGrokAsync(ProcessorGrokIngestRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, ProcessorGrokIngestEndpoint.Instance, options, ct);
+
+	/// <summary>Returns a list of built-in grok patterns.</summary>
+	public ProcessorGrokIngestResponse ProcessorGrok(Action<ProcessorGrokIngestRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new ProcessorGrokIngestRequestDescriptor();
+		configure(descriptor);
+		return ProcessorGrok((ProcessorGrokIngestRequest)descriptor, options);
+	}
+
+	/// <summary>Returns a list of built-in grok patterns.</summary>
+	public Task<ProcessorGrokIngestResponse> ProcessorGrokAsync(Action<ProcessorGrokIngestRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new ProcessorGrokIngestRequestDescriptor();
+		configure(descriptor);
+		return ProcessorGrokAsync((ProcessorGrokIngestRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Creates or updates an ingest pipeline.</summary>
-	public PutPipelineResponse PutPipeline(PutPipelineRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, PutPipelineEndpoint.Instance, options);
+	public PutPipelineIngestResponse PutPipeline(PutPipelineIngestRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, PutPipelineIngestEndpoint.Instance, options);
 
 	/// <summary>Creates or updates an ingest pipeline.</summary>
-	public Task<PutPipelineResponse> PutPipelineAsync(PutPipelineRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, PutPipelineEndpoint.Instance, options, ct);
+	public Task<PutPipelineIngestResponse> PutPipelineAsync(PutPipelineIngestRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, PutPipelineIngestEndpoint.Instance, options, ct);
+
+	/// <summary>Creates or updates an ingest pipeline.</summary>
+	public PutPipelineIngestResponse PutPipeline(Action<PutPipelineIngestRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new PutPipelineIngestRequestDescriptor();
+		configure(descriptor);
+		return PutPipeline((PutPipelineIngestRequest)descriptor, options);
+	}
+
+	/// <summary>Creates or updates an ingest pipeline.</summary>
+	public Task<PutPipelineIngestResponse> PutPipelineAsync(Action<PutPipelineIngestRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new PutPipelineIngestRequestDescriptor();
+		configure(descriptor);
+		return PutPipelineAsync((PutPipelineIngestRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Simulates an ingest pipeline with example documents.</summary>
-	public SimulateResponse Simulate(SimulateRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, SimulateEndpoint.Instance, options);
+	public SimulateIngestResponse Simulate(SimulateIngestRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, SimulateIngestEndpoint.Instance, options);
 
 	/// <summary>Simulates an ingest pipeline with example documents.</summary>
-	public Task<SimulateResponse> SimulateAsync(SimulateRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, SimulateEndpoint.Instance, options, ct);
+	public Task<SimulateIngestResponse> SimulateAsync(SimulateIngestRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, SimulateIngestEndpoint.Instance, options, ct);
+
+	/// <summary>Simulates an ingest pipeline with example documents.</summary>
+	public SimulateIngestResponse Simulate(Action<SimulateIngestRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new SimulateIngestRequestDescriptor();
+		configure(descriptor);
+		return Simulate((SimulateIngestRequest)descriptor, options);
+	}
+
+	/// <summary>Simulates an ingest pipeline with example documents.</summary>
+	public Task<SimulateIngestResponse> SimulateAsync(Action<SimulateIngestRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new SimulateIngestRequestDescriptor();
+		configure(descriptor);
+		return SimulateAsync((SimulateIngestRequest)descriptor, options, ct);
+	}
 
 }

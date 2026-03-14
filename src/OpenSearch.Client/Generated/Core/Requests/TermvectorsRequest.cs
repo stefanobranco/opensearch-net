@@ -24,7 +24,7 @@ public sealed class TermvectorsRequest
 	public bool? FieldStatistics { get; set; }
 	/// <summary></summary>
 	[JsonIgnore]
-	public string? Fields { get; set; }
+	public List<string>? Fields { get; set; }
 	/// <summary>If `true`, the response includes term offsets.</summary>
 	[JsonIgnore]
 	public bool? Offsets { get; set; }
@@ -51,7 +51,7 @@ public sealed class TermvectorsRequest
 	public long? Version { get; set; }
 	/// <summary>The specific version type.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? VersionType { get; set; }
+	public string? VersionType { get; set; }
 	/// <summary>An artificial document (a document not present in the index) for which you want to retrieve term vectors.</summary>
 		public System.Text.Json.JsonElement? Doc { get; set; }
 	public Filter? Filter { get; set; }
@@ -74,7 +74,7 @@ public sealed class TermvectorsEndpoint : IEndpoint<TermvectorsRequest, Termvect
 		if (r.FieldStatistics is not null)
 			queryParts.Add($"field_statistics={Uri.EscapeDataString((r.FieldStatistics.Value ? "true" : "false"))}");
 		if (r.Fields is not null)
-			queryParts.Add($"fields={Uri.EscapeDataString(r.Fields!)}");
+			queryParts.Add($"fields={Uri.EscapeDataString(string.Join(",", r.Fields!))}");
 		if (r.Offsets is not null)
 			queryParts.Add($"offsets={Uri.EscapeDataString((r.Offsets.Value ? "true" : "false"))}");
 		if (r.Payloads is not null)
@@ -92,11 +92,9 @@ public sealed class TermvectorsEndpoint : IEndpoint<TermvectorsRequest, Termvect
 		if (r.Version is not null)
 			queryParts.Add($"version={Uri.EscapeDataString(r.Version.ToString()!)}");
 		if (r.VersionType is not null)
-			queryParts.Add($"version_type={Uri.EscapeDataString(r.VersionType.ToString()!)}");
+			queryParts.Add($"version_type={Uri.EscapeDataString(r.VersionType!)}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
-
-	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(TermvectorsRequest r) => RequestBody.Json(r);
 

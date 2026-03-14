@@ -19,7 +19,7 @@ public sealed class RequestCacheStats
 	/// <summary>The size of the request cache in a human-readable format.</summary>
 		public string? MemorySize { get; set; }
 	/// <summary>The size of the request cache in bytes.</summary>
-		public string? MemorySizeInBytes { get; set; }
+		public long MemorySizeInBytes { get; set; }
 	/// <summary>The number of request cache misses.</summary>
 		public long MissCount { get; set; }
 }

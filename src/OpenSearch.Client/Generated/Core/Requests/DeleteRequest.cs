@@ -27,7 +27,7 @@ public sealed class DeleteRequest
 	public long? IfSeqNo { get; set; }
 	/// <summary>If `true`, OpenSearch refreshes the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` do nothing with refreshes. Valid values: `true`, `false`, `wait_for`.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? Refresh { get; set; }
+	public string? Refresh { get; set; }
 	/// <summary>A custom value used to route operations to a specific shard.</summary>
 	[JsonIgnore]
 	public System.Text.Json.JsonElement? Routing { get; set; }
@@ -39,10 +39,10 @@ public sealed class DeleteRequest
 	public long? Version { get; set; }
 	/// <summary>The specific version type: `external`, `external_gte`.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? VersionType { get; set; }
+	public string? VersionType { get; set; }
 	/// <summary>The number of shard copies that must be active before proceeding with the operation. Set to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`).</summary>
 	[JsonIgnore]
-	public string? WaitForActiveShards { get; set; }
+	public System.Text.Json.JsonElement? WaitForActiveShards { get; set; }
 }
 public sealed class DeleteEndpoint : IEndpoint<DeleteRequest, DeleteResponse>
 {
@@ -59,7 +59,7 @@ public sealed class DeleteEndpoint : IEndpoint<DeleteRequest, DeleteResponse>
 		if (r.IfSeqNo is not null)
 			queryParts.Add($"if_seq_no={Uri.EscapeDataString(r.IfSeqNo.ToString()!)}");
 		if (r.Refresh is not null)
-			queryParts.Add($"refresh={Uri.EscapeDataString(r.Refresh.ToString()!)}");
+			queryParts.Add($"refresh={Uri.EscapeDataString(r.Refresh!)}");
 		if (r.Routing is not null)
 			queryParts.Add($"routing={Uri.EscapeDataString(r.Routing.ToString()!)}");
 		if (r.Timeout is not null)
@@ -67,13 +67,11 @@ public sealed class DeleteEndpoint : IEndpoint<DeleteRequest, DeleteResponse>
 		if (r.Version is not null)
 			queryParts.Add($"version={Uri.EscapeDataString(r.Version.ToString()!)}");
 		if (r.VersionType is not null)
-			queryParts.Add($"version_type={Uri.EscapeDataString(r.VersionType.ToString()!)}");
+			queryParts.Add($"version_type={Uri.EscapeDataString(r.VersionType!)}");
 		if (r.WaitForActiveShards is not null)
-			queryParts.Add($"wait_for_active_shards={Uri.EscapeDataString(r.WaitForActiveShards!)}");
+			queryParts.Add($"wait_for_active_shards={Uri.EscapeDataString(r.WaitForActiveShards.ToString()!)}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
-
-	public string? ContentType => null;
 
 	public RequestBody? GetBody(DeleteRequest r) => null;
 

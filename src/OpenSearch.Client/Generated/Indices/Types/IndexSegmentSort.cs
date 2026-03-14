@@ -12,8 +12,8 @@ namespace OpenSearch.Client.Indices;
 
 public sealed class IndexSegmentSort
 {
-	public string? Field { get; set; }
-	public System.Text.Json.JsonElement? Order { get; set; }
-	public System.Text.Json.JsonElement? Mode { get; set; }
-	public System.Text.Json.JsonElement? Missing { get; set; }
+	public List<string>? Field { get; set; }
+	public List<SegmentSortOrder>? Order { get; set; }
+	public List<SegmentSortMode>? Mode { get; set; }
+	public List<SegmentSortMissing>? Missing { get; set; }
 }

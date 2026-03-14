@@ -15,7 +15,7 @@ public sealed class DataSource
 		public string? Endpoint { get; set; }
 	/// <summary>Update interval.</summary>
 		public int UpdateIntervalInDays { get; set; }
-	public string? NextUpdateAtInEpochMillis { get; set; }
+	public System.Text.Json.JsonElement? NextUpdateAtInEpochMillis { get; set; }
 	public Database? Database { get; set; }
 	public UpdateStats? UpdateStats { get; set; }
 }

@@ -17,5 +17,5 @@ public sealed class IndexSettingsMergeLogByteSizePolicy
 	public string? MaxMergedDocs { get; set; }
 	public string? MergeFactor { get; set; }
 	public string? MinMerge { get; set; }
-	public System.Text.Json.JsonElement? NoCfsRatio { get; set; }
+	public string? NoCfsRatio { get; set; }
 }

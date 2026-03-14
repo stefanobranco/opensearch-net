@@ -25,19 +25,19 @@ public sealed class RolloverConditions
 	/// <summary>The maximum size of the index before rollover.</summary>
 		public string? MaxSize { get; set; }
 	/// <summary>The maximum size in bytes of the index before rollover.</summary>
-		public string? MaxSizeBytes { get; set; }
+		public long? MaxSizeBytes { get; set; }
 	/// <summary>The minimum size of the index before rollover.</summary>
 		public string? MinSize { get; set; }
 	/// <summary>The minimum size in bytes of the index before rollover.</summary>
-		public string? MinSizeBytes { get; set; }
+		public long? MinSizeBytes { get; set; }
 	/// <summary>The maximum size of any primary shard in the index before rollover.</summary>
 		public string? MaxPrimaryShardSize { get; set; }
 	/// <summary>The maximum size in bytes of any primary shard in the index before rollover.</summary>
-		public string? MaxPrimaryShardSizeBytes { get; set; }
+		public long? MaxPrimaryShardSizeBytes { get; set; }
 	/// <summary>The minimum size of any primary shard in the index before rollover.</summary>
 		public string? MinPrimaryShardSize { get; set; }
 	/// <summary>The minimum size in bytes of any primary shard in the index before rollover.</summary>
-		public string? MinPrimaryShardSizeBytes { get; set; }
+		public long? MinPrimaryShardSizeBytes { get; set; }
 	/// <summary>The maximum number of documents in any primary shard before rollover.</summary>
 		public long? MaxPrimaryShardDocs { get; set; }
 	/// <summary>The minimum number of documents in any primary shard before rollover.</summary>

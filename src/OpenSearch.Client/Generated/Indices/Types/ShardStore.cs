@@ -12,7 +12,7 @@ namespace OpenSearch.Client.Indices;
 
 public sealed class ShardStore
 {
-	public System.Text.Json.JsonElement? Allocation { get; set; }
+	public string? Allocation { get; set; }
 	public string? AllocationId { get; set; }
 	public ShardStoreException? StoreException { get; set; }
 }

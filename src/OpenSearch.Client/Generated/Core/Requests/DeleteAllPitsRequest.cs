@@ -26,8 +26,6 @@ public sealed class DeleteAllPitsEndpoint : IEndpoint<DeleteAllPitsRequest, Dele
 		return path;
 	}
 
-	public string? ContentType => null;
-
 	public RequestBody? GetBody(DeleteAllPitsRequest r) => null;
 
 	public DeleteAllPitsResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>

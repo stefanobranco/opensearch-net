@@ -43,8 +43,6 @@ public sealed class ScrollEndpoint<TDocument> : IEndpoint<ScrollRequest, ScrollR
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-	public string? ContentType => null;
-
 	public RequestBody? GetBody(ScrollRequest r) => null;
 
 	public ScrollResponse<TDocument> DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>

@@ -21,11 +21,11 @@ public sealed class TranslogStats
 	/// <summary>The size of the translog in a human-readable format.</summary>
 		public string? Size { get; set; }
 	/// <summary>The size of the translog in bytes.</summary>
-		public string? SizeInBytes { get; set; }
+		public long SizeInBytes { get; set; }
 	/// <summary>The number of uncommitted operations in the translog.</summary>
 		public int UncommittedOperations { get; set; }
 	/// <summary>The size of uncommitted operations in a human-readable format.</summary>
 		public string? UncommittedSize { get; set; }
 	/// <summary>The size of uncommitted operations in bytes.</summary>
-		public string? UncommittedSizeInBytes { get; set; }
+		public long UncommittedSizeInBytes { get; set; }
 }

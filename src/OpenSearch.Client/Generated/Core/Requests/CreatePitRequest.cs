@@ -21,7 +21,7 @@ public sealed class CreatePitRequest
 	public bool? AllowPartialPitCreation { get; set; }
 	/// <summary>Whether to expand wildcard expression to concrete indexes that are open, closed or both.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? ExpandWildcards { get; set; }
+	public List<string>? ExpandWildcards { get; set; }
 	/// <summary>Specify the keep alive for point in time.</summary>
 	[JsonIgnore]
 	public string? KeepAlive { get; set; }
@@ -45,7 +45,7 @@ public sealed class CreatePitEndpoint : IEndpoint<CreatePitRequest, CreatePitRes
 		if (r.AllowPartialPitCreation is not null)
 			queryParts.Add($"allow_partial_pit_creation={Uri.EscapeDataString((r.AllowPartialPitCreation.Value ? "true" : "false"))}");
 		if (r.ExpandWildcards is not null)
-			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(r.ExpandWildcards.ToString()!)}");
+			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(string.Join(",", r.ExpandWildcards!))}");
 		if (r.KeepAlive is not null)
 			queryParts.Add($"keep_alive={Uri.EscapeDataString(r.KeepAlive!)}");
 		if (r.Preference is not null)
@@ -54,8 +54,6 @@ public sealed class CreatePitEndpoint : IEndpoint<CreatePitRequest, CreatePitRes
 			queryParts.Add($"routing={Uri.EscapeDataString(r.Routing.ToString()!)}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
-
-	public string? ContentType => null;
 
 	public RequestBody? GetBody(CreatePitRequest r) => null;
 

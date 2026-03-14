@@ -2,6 +2,7 @@
 #nullable enable
 
 using System.Text.Json.Serialization;
+using OpenSearch.Client.Common;
 
 namespace OpenSearch.Client.Indices;
 
@@ -13,7 +14,7 @@ namespace OpenSearch.Client.Indices;
 public sealed class IndexSettingsAnalysis
 {
 	/// <summary>The custom analyzer configurations.</summary>
-		public Dictionary<string, System.Text.Json.JsonElement>? Analyzer { get; set; }
+		public Dictionary<string, Analyzer>? Analyzer { get; set; }
 	/// <summary>The custom character filter configurations.</summary>
 		public Dictionary<string, System.Text.Json.JsonElement>? CharFilter { get; set; }
 	/// <summary>The custom token filter configurations.</summary>

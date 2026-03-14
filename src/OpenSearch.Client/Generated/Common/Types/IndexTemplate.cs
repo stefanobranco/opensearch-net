@@ -13,7 +13,7 @@ namespace OpenSearch.Client.Common;
 
 public sealed class IndexTemplate
 {
-	public string? IndexPatterns { get; set; }
+	public List<string>? IndexPatterns { get; set; }
 	/// <summary>An ordered list of component template names. Component templates are merged in the order specified, meaning that the last component template specified has the highest precedence.</summary>
 		public List<string>? ComposedOf { get; set; }
 	public IndexTemplateSummary? Template { get; set; }

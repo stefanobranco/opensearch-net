@@ -10,7 +10,7 @@ namespace OpenSearch.Client.Common;
 public sealed class CompletionStats
 {
 	/// <summary>The total amount, in bytes, of memory used for completion across all shards assigned to the selected nodes.</summary>
-		public string? SizeInBytes { get; set; }
+		public long SizeInBytes { get; set; }
 	/// <summary>The human-readable size of memory used for completion.</summary>
 		public string? Size { get; set; }
 	/// <summary>The per-field completion statistics.</summary>

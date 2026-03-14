@@ -13,5 +13,5 @@ namespace OpenSearch.Client.Indices;
 public sealed class ResolveIndexAliasItem
 {
 	public string? Name { get; set; }
-	public string? Indices { get; set; }
+	public List<string>? Indices { get; set; }
 }

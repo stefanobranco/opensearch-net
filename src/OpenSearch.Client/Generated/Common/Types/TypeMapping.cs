@@ -11,7 +11,7 @@ public sealed class TypeMapping
 {
 	public AllField? AllField { get; set; }
 	public bool? DateDetection { get; set; }
-	public System.Text.Json.JsonElement? Dynamic { get; set; }
+	public string? Dynamic { get; set; }
 	public List<string>? DynamicDateFormats { get; set; }
 	public List<Dictionary<string, DynamicTemplate>>? DynamicTemplates { get; set; }
 	[JsonPropertyName("_field_names")]
@@ -20,7 +20,7 @@ public sealed class TypeMapping
 	[JsonPropertyName("_meta")]
 	public Dictionary<string, object>? Meta { get; set; }
 	public bool? NumericDetection { get; set; }
-	public Dictionary<string, System.Text.Json.JsonElement>? Properties { get; set; }
+	public Dictionary<string, Property>? Properties { get; set; }
 	[JsonPropertyName("_routing")]
 	public RoutingField? Routing { get; set; }
 	[JsonPropertyName("_size")]

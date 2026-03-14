@@ -15,7 +15,7 @@ public sealed class ClearScrollRequest
 {
 	/// <summary>A comma-separated list of scroll IDs to clear. To clear all scroll IDs, use `_all`.</summary>
 	[JsonIgnore]
-	public string? ScrollId { get; set; }
+	public List<string>? ScrollId { get; set; }
 }
 public sealed class ClearScrollEndpoint : IEndpoint<ClearScrollRequest, ClearScrollResponse>
 {
@@ -31,8 +31,6 @@ public sealed class ClearScrollEndpoint : IEndpoint<ClearScrollRequest, ClearScr
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		return path;
 	}
-
-	public string? ContentType => null;
 
 	public RequestBody? GetBody(ClearScrollRequest r) => null;
 

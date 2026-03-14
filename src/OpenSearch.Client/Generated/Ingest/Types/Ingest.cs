@@ -8,6 +8,6 @@ namespace OpenSearch.Client.Ingest;
 
 public sealed class Ingest
 {
-	public string? Timestamp { get; set; }
+	public System.Text.Json.JsonElement? Timestamp { get; set; }
 	public string? Pipeline { get; set; }
 }

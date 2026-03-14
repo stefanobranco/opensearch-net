@@ -17,29 +17,77 @@ public sealed partial class DanglingIndicesNamespace
 
 
 	/// <summary>Deletes the specified dangling index.</summary>
-	public DeleteDanglingIndexResponse DeleteDanglingIndex(DeleteDanglingIndexRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, DeleteDanglingIndexEndpoint.Instance, options);
+	public DeleteDanglingIndexDanglingIndexResponse DeleteDanglingIndex(DeleteDanglingIndexDanglingIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, DeleteDanglingIndexDanglingIndexEndpoint.Instance, options);
 
 	/// <summary>Deletes the specified dangling index.</summary>
-	public Task<DeleteDanglingIndexResponse> DeleteDanglingIndexAsync(DeleteDanglingIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, DeleteDanglingIndexEndpoint.Instance, options, ct);
+	public Task<DeleteDanglingIndexDanglingIndexResponse> DeleteDanglingIndexAsync(DeleteDanglingIndexDanglingIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, DeleteDanglingIndexDanglingIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Deletes the specified dangling index.</summary>
+	public DeleteDanglingIndexDanglingIndexResponse DeleteDanglingIndex(Action<DeleteDanglingIndexDanglingIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new DeleteDanglingIndexDanglingIndexRequestDescriptor();
+		configure(descriptor);
+		return DeleteDanglingIndex((DeleteDanglingIndexDanglingIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Deletes the specified dangling index.</summary>
+	public Task<DeleteDanglingIndexDanglingIndexResponse> DeleteDanglingIndexAsync(Action<DeleteDanglingIndexDanglingIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new DeleteDanglingIndexDanglingIndexRequestDescriptor();
+		configure(descriptor);
+		return DeleteDanglingIndexAsync((DeleteDanglingIndexDanglingIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Imports the specified dangling index.</summary>
-	public ImportDanglingIndexResponse ImportDanglingIndex(ImportDanglingIndexRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, ImportDanglingIndexEndpoint.Instance, options);
+	public ImportDanglingIndexDanglingIndexResponse ImportDanglingIndex(ImportDanglingIndexDanglingIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, ImportDanglingIndexDanglingIndexEndpoint.Instance, options);
 
 	/// <summary>Imports the specified dangling index.</summary>
-	public Task<ImportDanglingIndexResponse> ImportDanglingIndexAsync(ImportDanglingIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, ImportDanglingIndexEndpoint.Instance, options, ct);
+	public Task<ImportDanglingIndexDanglingIndexResponse> ImportDanglingIndexAsync(ImportDanglingIndexDanglingIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, ImportDanglingIndexDanglingIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Imports the specified dangling index.</summary>
+	public ImportDanglingIndexDanglingIndexResponse ImportDanglingIndex(Action<ImportDanglingIndexDanglingIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new ImportDanglingIndexDanglingIndexRequestDescriptor();
+		configure(descriptor);
+		return ImportDanglingIndex((ImportDanglingIndexDanglingIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Imports the specified dangling index.</summary>
+	public Task<ImportDanglingIndexDanglingIndexResponse> ImportDanglingIndexAsync(Action<ImportDanglingIndexDanglingIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new ImportDanglingIndexDanglingIndexRequestDescriptor();
+		configure(descriptor);
+		return ImportDanglingIndexAsync((ImportDanglingIndexDanglingIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Returns all dangling indexes.</summary>
-	public ListDanglingIndicesResponse ListDanglingIndices(ListDanglingIndicesRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, ListDanglingIndicesEndpoint.Instance, options);
+	public ListDanglingIndicesDanglingIndexResponse ListDanglingIndices(ListDanglingIndicesDanglingIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, ListDanglingIndicesDanglingIndexEndpoint.Instance, options);
 
 	/// <summary>Returns all dangling indexes.</summary>
-	public Task<ListDanglingIndicesResponse> ListDanglingIndicesAsync(ListDanglingIndicesRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, ListDanglingIndicesEndpoint.Instance, options, ct);
+	public Task<ListDanglingIndicesDanglingIndexResponse> ListDanglingIndicesAsync(ListDanglingIndicesDanglingIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, ListDanglingIndicesDanglingIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Returns all dangling indexes.</summary>
+	public ListDanglingIndicesDanglingIndexResponse ListDanglingIndices(Action<ListDanglingIndicesDanglingIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new ListDanglingIndicesDanglingIndexRequestDescriptor();
+		configure(descriptor);
+		return ListDanglingIndices((ListDanglingIndicesDanglingIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Returns all dangling indexes.</summary>
+	public Task<ListDanglingIndicesDanglingIndexResponse> ListDanglingIndicesAsync(Action<ListDanglingIndicesDanglingIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new ListDanglingIndicesDanglingIndexRequestDescriptor();
+		configure(descriptor);
+		return ListDanglingIndicesAsync((ListDanglingIndicesDanglingIndexRequest)descriptor, options, ct);
+	}
 
 }

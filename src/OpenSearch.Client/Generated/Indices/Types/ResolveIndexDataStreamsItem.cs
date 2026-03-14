@@ -14,5 +14,5 @@ public sealed class ResolveIndexDataStreamsItem
 {
 	public string? Name { get; set; }
 	public string? TimestampField { get; set; }
-	public string? BackingIndices { get; set; }
+	public List<string>? BackingIndices { get; set; }
 }

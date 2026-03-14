@@ -12,7 +12,7 @@ namespace OpenSearch.Client.Indices;
 
 public sealed class UpgradeStatus
 {
-	public string? SizeInBytes { get; set; }
-	public string? SizeToUpgradeInBytes { get; set; }
-	public string? SizeToUpgradeAncientInBytes { get; set; }
+	public long? SizeInBytes { get; set; }
+	public long? SizeToUpgradeInBytes { get; set; }
+	public long? SizeToUpgradeAncientInBytes { get; set; }
 }

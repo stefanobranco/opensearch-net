@@ -10,10 +10,10 @@ public sealed class FieldCapability
 {
 	/// <summary>Whether this field can be aggregated on all indexes.</summary>
 		public bool Aggregatable { get; set; }
-	public string? Indices { get; set; }
+	public List<string>? Indices { get; set; }
 	public Dictionary<string, List<string>>? Meta { get; set; }
-	public string? NonAggregatableIndices { get; set; }
-	public string? NonSearchableIndices { get; set; }
+	public List<string>? NonAggregatableIndices { get; set; }
+	public List<string>? NonSearchableIndices { get; set; }
 	/// <summary>Whether this field is indexed for search on all indexes.</summary>
 		public bool Searchable { get; set; }
 	public string? Type { get; set; }

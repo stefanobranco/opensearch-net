@@ -3,7 +3,6 @@
 
 using System.Text.Json.Serialization;
 using OpenSearch.Client.Common;
-using OpenSearch.Client.Indices;
 
 namespace OpenSearch.Client.Core;
 
@@ -23,10 +22,10 @@ public sealed class InnerHits
 	public Dictionary<string, ScriptField>? ScriptFields { get; set; }
 	public bool? SeqNoPrimaryTerm { get; set; }
 	public List<System.Text.Json.JsonElement>? Fields { get; set; }
-	public System.Text.Json.JsonElement? Sort { get; set; }
+	public List<SortCombinations>? Sort { get; set; }
 	[JsonPropertyName("_source")]
 	public System.Text.Json.JsonElement? Source { get; set; }
-	public string? StoredFields { get; set; }
+	public List<string>? StoredFields { get; set; }
 	public bool? TrackScores { get; set; }
 	public bool? Version { get; set; }
 }

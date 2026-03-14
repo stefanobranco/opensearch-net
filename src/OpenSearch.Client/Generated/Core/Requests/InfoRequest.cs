@@ -26,8 +26,6 @@ public sealed class InfoEndpoint : IEndpoint<InfoRequest, InfoResponse>
 		return path;
 	}
 
-	public string? ContentType => null;
-
 	public RequestBody? GetBody(InfoRequest r) => null;
 
 	public InfoResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>

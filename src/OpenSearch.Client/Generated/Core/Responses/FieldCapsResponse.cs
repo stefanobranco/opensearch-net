@@ -12,6 +12,6 @@ namespace OpenSearch.Client.Core;
 
 public sealed class FieldCapsResponse
 {
-	public string? Indices { get; set; }
+	public List<string>? Indices { get; set; }
 	public Dictionary<string, Dictionary<string, FieldCapability>>? Fields { get; set; }
 }

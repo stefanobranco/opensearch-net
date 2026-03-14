@@ -12,8 +12,8 @@ namespace OpenSearch.Client.Indices;
 
 public sealed class IndexSettingsSimilarityIb
 {
-	public System.Text.Json.JsonElement? Distribution { get; set; }
-	public System.Text.Json.JsonElement? Lambda { get; set; }
-	public System.Text.Json.JsonElement? Normalization { get; set; }
+	public string? Distribution { get; set; }
+	public string? Lambda { get; set; }
+	public string? Normalization { get; set; }
 	public string? Type { get; set; }
 }

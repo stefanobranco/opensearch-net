@@ -17,191 +17,527 @@ public sealed partial class ClusterNamespace
 
 
 	/// <summary>Explains how shards are allocated in the current cluster and provides an explanation for why unassigned shards can't be allocated to a node.</summary>
-	public AllocationExplainResponse AllocationExplain(AllocationExplainRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, AllocationExplainEndpoint.Instance, options);
+	public AllocationExplainClusterResponse AllocationExplain(AllocationExplainClusterRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, AllocationExplainClusterEndpoint.Instance, options);
 
 	/// <summary>Explains how shards are allocated in the current cluster and provides an explanation for why unassigned shards can't be allocated to a node.</summary>
-	public Task<AllocationExplainResponse> AllocationExplainAsync(AllocationExplainRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, AllocationExplainEndpoint.Instance, options, ct);
+	public Task<AllocationExplainClusterResponse> AllocationExplainAsync(AllocationExplainClusterRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, AllocationExplainClusterEndpoint.Instance, options, ct);
+
+	/// <summary>Explains how shards are allocated in the current cluster and provides an explanation for why unassigned shards can't be allocated to a node.</summary>
+	public AllocationExplainClusterResponse AllocationExplain(Action<AllocationExplainClusterRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new AllocationExplainClusterRequestDescriptor();
+		configure(descriptor);
+		return AllocationExplain((AllocationExplainClusterRequest)descriptor, options);
+	}
+
+	/// <summary>Explains how shards are allocated in the current cluster and provides an explanation for why unassigned shards can't be allocated to a node.</summary>
+	public Task<AllocationExplainClusterResponse> AllocationExplainAsync(Action<AllocationExplainClusterRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new AllocationExplainClusterRequestDescriptor();
+		configure(descriptor);
+		return AllocationExplainAsync((AllocationExplainClusterRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Deletes a component template.</summary>
-	public DeleteComponentTemplateResponse DeleteComponentTemplate(DeleteComponentTemplateRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, DeleteComponentTemplateEndpoint.Instance, options);
+	public DeleteComponentTemplateClusterResponse DeleteComponentTemplate(DeleteComponentTemplateClusterRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, DeleteComponentTemplateClusterEndpoint.Instance, options);
 
 	/// <summary>Deletes a component template.</summary>
-	public Task<DeleteComponentTemplateResponse> DeleteComponentTemplateAsync(DeleteComponentTemplateRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, DeleteComponentTemplateEndpoint.Instance, options, ct);
+	public Task<DeleteComponentTemplateClusterResponse> DeleteComponentTemplateAsync(DeleteComponentTemplateClusterRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, DeleteComponentTemplateClusterEndpoint.Instance, options, ct);
+
+	/// <summary>Deletes a component template.</summary>
+	public DeleteComponentTemplateClusterResponse DeleteComponentTemplate(Action<DeleteComponentTemplateClusterRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new DeleteComponentTemplateClusterRequestDescriptor();
+		configure(descriptor);
+		return DeleteComponentTemplate((DeleteComponentTemplateClusterRequest)descriptor, options);
+	}
+
+	/// <summary>Deletes a component template.</summary>
+	public Task<DeleteComponentTemplateClusterResponse> DeleteComponentTemplateAsync(Action<DeleteComponentTemplateClusterRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new DeleteComponentTemplateClusterRequestDescriptor();
+		configure(descriptor);
+		return DeleteComponentTemplateAsync((DeleteComponentTemplateClusterRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Recommissions a decommissioned zone.</summary>
-	public DeleteDecommissionAwarenessResponse DeleteDecommissionAwareness(DeleteDecommissionAwarenessRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, DeleteDecommissionAwarenessEndpoint.Instance, options);
+	public DeleteDecommissionAwarenessClusterResponse DeleteDecommissionAwareness(DeleteDecommissionAwarenessClusterRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, DeleteDecommissionAwarenessClusterEndpoint.Instance, options);
 
 	/// <summary>Recommissions a decommissioned zone.</summary>
-	public Task<DeleteDecommissionAwarenessResponse> DeleteDecommissionAwarenessAsync(DeleteDecommissionAwarenessRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, DeleteDecommissionAwarenessEndpoint.Instance, options, ct);
+	public Task<DeleteDecommissionAwarenessClusterResponse> DeleteDecommissionAwarenessAsync(DeleteDecommissionAwarenessClusterRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, DeleteDecommissionAwarenessClusterEndpoint.Instance, options, ct);
+
+	/// <summary>Recommissions a decommissioned zone.</summary>
+	public DeleteDecommissionAwarenessClusterResponse DeleteDecommissionAwareness(Action<DeleteDecommissionAwarenessClusterRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new DeleteDecommissionAwarenessClusterRequestDescriptor();
+		configure(descriptor);
+		return DeleteDecommissionAwareness((DeleteDecommissionAwarenessClusterRequest)descriptor, options);
+	}
+
+	/// <summary>Recommissions a decommissioned zone.</summary>
+	public Task<DeleteDecommissionAwarenessClusterResponse> DeleteDecommissionAwarenessAsync(Action<DeleteDecommissionAwarenessClusterRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new DeleteDecommissionAwarenessClusterRequestDescriptor();
+		configure(descriptor);
+		return DeleteDecommissionAwarenessAsync((DeleteDecommissionAwarenessClusterRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Clears any cluster voting configuration exclusions.</summary>
-	public DeleteVotingConfigExclusionsResponse DeleteVotingConfigExclusions(DeleteVotingConfigExclusionsRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, DeleteVotingConfigExclusionsEndpoint.Instance, options);
+	public DeleteVotingConfigExclusionsClusterResponse DeleteVotingConfigExclusions(DeleteVotingConfigExclusionsClusterRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, DeleteVotingConfigExclusionsClusterEndpoint.Instance, options);
 
 	/// <summary>Clears any cluster voting configuration exclusions.</summary>
-	public Task<DeleteVotingConfigExclusionsResponse> DeleteVotingConfigExclusionsAsync(DeleteVotingConfigExclusionsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, DeleteVotingConfigExclusionsEndpoint.Instance, options, ct);
+	public Task<DeleteVotingConfigExclusionsClusterResponse> DeleteVotingConfigExclusionsAsync(DeleteVotingConfigExclusionsClusterRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, DeleteVotingConfigExclusionsClusterEndpoint.Instance, options, ct);
+
+	/// <summary>Clears any cluster voting configuration exclusions.</summary>
+	public DeleteVotingConfigExclusionsClusterResponse DeleteVotingConfigExclusions(Action<DeleteVotingConfigExclusionsClusterRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new DeleteVotingConfigExclusionsClusterRequestDescriptor();
+		configure(descriptor);
+		return DeleteVotingConfigExclusions((DeleteVotingConfigExclusionsClusterRequest)descriptor, options);
+	}
+
+	/// <summary>Clears any cluster voting configuration exclusions.</summary>
+	public Task<DeleteVotingConfigExclusionsClusterResponse> DeleteVotingConfigExclusionsAsync(Action<DeleteVotingConfigExclusionsClusterRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new DeleteVotingConfigExclusionsClusterRequestDescriptor();
+		configure(descriptor);
+		return DeleteVotingConfigExclusionsAsync((DeleteVotingConfigExclusionsClusterRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Delete weighted shard routing weights.</summary>
-	public DeleteWeightedRoutingResponse DeleteWeightedRouting(DeleteWeightedRoutingRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, DeleteWeightedRoutingEndpoint.Instance, options);
+	public DeleteWeightedRoutingClusterResponse DeleteWeightedRouting(DeleteWeightedRoutingClusterRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, DeleteWeightedRoutingClusterEndpoint.Instance, options);
 
 	/// <summary>Delete weighted shard routing weights.</summary>
-	public Task<DeleteWeightedRoutingResponse> DeleteWeightedRoutingAsync(DeleteWeightedRoutingRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, DeleteWeightedRoutingEndpoint.Instance, options, ct);
+	public Task<DeleteWeightedRoutingClusterResponse> DeleteWeightedRoutingAsync(DeleteWeightedRoutingClusterRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, DeleteWeightedRoutingClusterEndpoint.Instance, options, ct);
+
+	/// <summary>Delete weighted shard routing weights.</summary>
+	public DeleteWeightedRoutingClusterResponse DeleteWeightedRouting(Action<DeleteWeightedRoutingClusterRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new DeleteWeightedRoutingClusterRequestDescriptor();
+		configure(descriptor);
+		return DeleteWeightedRouting((DeleteWeightedRoutingClusterRequest)descriptor, options);
+	}
+
+	/// <summary>Delete weighted shard routing weights.</summary>
+	public Task<DeleteWeightedRoutingClusterResponse> DeleteWeightedRoutingAsync(Action<DeleteWeightedRoutingClusterRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new DeleteWeightedRoutingClusterRequestDescriptor();
+		configure(descriptor);
+		return DeleteWeightedRoutingAsync((DeleteWeightedRoutingClusterRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Returns information about whether a particular component template exist.</summary>
-	public ExistsComponentTemplateResponse ExistsComponentTemplate(ExistsComponentTemplateRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, ExistsComponentTemplateEndpoint.Instance, options);
+	public ExistsComponentTemplateClusterResponse ExistsComponentTemplate(ExistsComponentTemplateClusterRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, ExistsComponentTemplateClusterEndpoint.Instance, options);
 
 	/// <summary>Returns information about whether a particular component template exist.</summary>
-	public Task<ExistsComponentTemplateResponse> ExistsComponentTemplateAsync(ExistsComponentTemplateRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, ExistsComponentTemplateEndpoint.Instance, options, ct);
+	public Task<ExistsComponentTemplateClusterResponse> ExistsComponentTemplateAsync(ExistsComponentTemplateClusterRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, ExistsComponentTemplateClusterEndpoint.Instance, options, ct);
+
+	/// <summary>Returns information about whether a particular component template exist.</summary>
+	public ExistsComponentTemplateClusterResponse ExistsComponentTemplate(Action<ExistsComponentTemplateClusterRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new ExistsComponentTemplateClusterRequestDescriptor();
+		configure(descriptor);
+		return ExistsComponentTemplate((ExistsComponentTemplateClusterRequest)descriptor, options);
+	}
+
+	/// <summary>Returns information about whether a particular component template exist.</summary>
+	public Task<ExistsComponentTemplateClusterResponse> ExistsComponentTemplateAsync(Action<ExistsComponentTemplateClusterRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new ExistsComponentTemplateClusterRequestDescriptor();
+		configure(descriptor);
+		return ExistsComponentTemplateAsync((ExistsComponentTemplateClusterRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Returns one or more component templates.</summary>
-	public GetComponentTemplateResponse GetComponentTemplate(GetComponentTemplateRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetComponentTemplateEndpoint.Instance, options);
+	public GetComponentTemplateClusterResponse GetComponentTemplate(GetComponentTemplateClusterRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetComponentTemplateClusterEndpoint.Instance, options);
 
 	/// <summary>Returns one or more component templates.</summary>
-	public Task<GetComponentTemplateResponse> GetComponentTemplateAsync(GetComponentTemplateRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetComponentTemplateEndpoint.Instance, options, ct);
+	public Task<GetComponentTemplateClusterResponse> GetComponentTemplateAsync(GetComponentTemplateClusterRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetComponentTemplateClusterEndpoint.Instance, options, ct);
+
+	/// <summary>Returns one or more component templates.</summary>
+	public GetComponentTemplateClusterResponse GetComponentTemplate(Action<GetComponentTemplateClusterRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetComponentTemplateClusterRequestDescriptor();
+		configure(descriptor);
+		return GetComponentTemplate((GetComponentTemplateClusterRequest)descriptor, options);
+	}
+
+	/// <summary>Returns one or more component templates.</summary>
+	public Task<GetComponentTemplateClusterResponse> GetComponentTemplateAsync(Action<GetComponentTemplateClusterRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetComponentTemplateClusterRequestDescriptor();
+		configure(descriptor);
+		return GetComponentTemplateAsync((GetComponentTemplateClusterRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Retrieves the decommission status for all zones.</summary>
-	public GetDecommissionAwarenessResponse GetDecommissionAwareness(GetDecommissionAwarenessRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetDecommissionAwarenessEndpoint.Instance, options);
+	public GetDecommissionAwarenessClusterResponse GetDecommissionAwareness(GetDecommissionAwarenessClusterRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetDecommissionAwarenessClusterEndpoint.Instance, options);
 
 	/// <summary>Retrieves the decommission status for all zones.</summary>
-	public Task<GetDecommissionAwarenessResponse> GetDecommissionAwarenessAsync(GetDecommissionAwarenessRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetDecommissionAwarenessEndpoint.Instance, options, ct);
+	public Task<GetDecommissionAwarenessClusterResponse> GetDecommissionAwarenessAsync(GetDecommissionAwarenessClusterRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetDecommissionAwarenessClusterEndpoint.Instance, options, ct);
+
+	/// <summary>Retrieves the decommission status for all zones.</summary>
+	public GetDecommissionAwarenessClusterResponse GetDecommissionAwareness(Action<GetDecommissionAwarenessClusterRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetDecommissionAwarenessClusterRequestDescriptor();
+		configure(descriptor);
+		return GetDecommissionAwareness((GetDecommissionAwarenessClusterRequest)descriptor, options);
+	}
+
+	/// <summary>Retrieves the decommission status for all zones.</summary>
+	public Task<GetDecommissionAwarenessClusterResponse> GetDecommissionAwarenessAsync(Action<GetDecommissionAwarenessClusterRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetDecommissionAwarenessClusterRequestDescriptor();
+		configure(descriptor);
+		return GetDecommissionAwarenessAsync((GetDecommissionAwarenessClusterRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Returns cluster settings.</summary>
-	public GetSettingsResponse GetSettings(GetSettingsRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetSettingsEndpoint.Instance, options);
+	public GetSettingsClusterResponse GetSettings(GetSettingsClusterRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetSettingsClusterEndpoint.Instance, options);
 
 	/// <summary>Returns cluster settings.</summary>
-	public Task<GetSettingsResponse> GetSettingsAsync(GetSettingsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetSettingsEndpoint.Instance, options, ct);
+	public Task<GetSettingsClusterResponse> GetSettingsAsync(GetSettingsClusterRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetSettingsClusterEndpoint.Instance, options, ct);
+
+	/// <summary>Returns cluster settings.</summary>
+	public GetSettingsClusterResponse GetSettings(Action<GetSettingsClusterRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetSettingsClusterRequestDescriptor();
+		configure(descriptor);
+		return GetSettings((GetSettingsClusterRequest)descriptor, options);
+	}
+
+	/// <summary>Returns cluster settings.</summary>
+	public Task<GetSettingsClusterResponse> GetSettingsAsync(Action<GetSettingsClusterRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetSettingsClusterRequestDescriptor();
+		configure(descriptor);
+		return GetSettingsAsync((GetSettingsClusterRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Fetches weighted shard routing weights.</summary>
-	public GetWeightedRoutingResponse GetWeightedRouting(GetWeightedRoutingRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetWeightedRoutingEndpoint.Instance, options);
+	public GetWeightedRoutingClusterResponse GetWeightedRouting(GetWeightedRoutingClusterRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetWeightedRoutingClusterEndpoint.Instance, options);
 
 	/// <summary>Fetches weighted shard routing weights.</summary>
-	public Task<GetWeightedRoutingResponse> GetWeightedRoutingAsync(GetWeightedRoutingRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetWeightedRoutingEndpoint.Instance, options, ct);
+	public Task<GetWeightedRoutingClusterResponse> GetWeightedRoutingAsync(GetWeightedRoutingClusterRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetWeightedRoutingClusterEndpoint.Instance, options, ct);
+
+	/// <summary>Fetches weighted shard routing weights.</summary>
+	public GetWeightedRoutingClusterResponse GetWeightedRouting(Action<GetWeightedRoutingClusterRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetWeightedRoutingClusterRequestDescriptor();
+		configure(descriptor);
+		return GetWeightedRouting((GetWeightedRoutingClusterRequest)descriptor, options);
+	}
+
+	/// <summary>Fetches weighted shard routing weights.</summary>
+	public Task<GetWeightedRoutingClusterResponse> GetWeightedRoutingAsync(Action<GetWeightedRoutingClusterRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetWeightedRoutingClusterRequestDescriptor();
+		configure(descriptor);
+		return GetWeightedRoutingAsync((GetWeightedRoutingClusterRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Returns basic information about the health of the cluster.</summary>
-	public HealthResponse Health(HealthRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, HealthEndpoint.Instance, options);
+	public HealthClusterResponse Health(HealthClusterRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, HealthClusterEndpoint.Instance, options);
 
 	/// <summary>Returns basic information about the health of the cluster.</summary>
-	public Task<HealthResponse> HealthAsync(HealthRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, HealthEndpoint.Instance, options, ct);
+	public Task<HealthClusterResponse> HealthAsync(HealthClusterRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, HealthClusterEndpoint.Instance, options, ct);
+
+	/// <summary>Returns basic information about the health of the cluster.</summary>
+	public HealthClusterResponse Health(Action<HealthClusterRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new HealthClusterRequestDescriptor();
+		configure(descriptor);
+		return Health((HealthClusterRequest)descriptor, options);
+	}
+
+	/// <summary>Returns basic information about the health of the cluster.</summary>
+	public Task<HealthClusterResponse> HealthAsync(Action<HealthClusterRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new HealthClusterRequestDescriptor();
+		configure(descriptor);
+		return HealthAsync((HealthClusterRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Returns a list of pending cluster-level tasks, such as index creation, mapping updates, or new allocations.</summary>
-	public PendingTasksResponse PendingTasks(PendingTasksRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, PendingTasksEndpoint.Instance, options);
+	public PendingTasksClusterResponse PendingTasks(PendingTasksClusterRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, PendingTasksClusterEndpoint.Instance, options);
 
 	/// <summary>Returns a list of pending cluster-level tasks, such as index creation, mapping updates, or new allocations.</summary>
-	public Task<PendingTasksResponse> PendingTasksAsync(PendingTasksRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, PendingTasksEndpoint.Instance, options, ct);
+	public Task<PendingTasksClusterResponse> PendingTasksAsync(PendingTasksClusterRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, PendingTasksClusterEndpoint.Instance, options, ct);
+
+	/// <summary>Returns a list of pending cluster-level tasks, such as index creation, mapping updates, or new allocations.</summary>
+	public PendingTasksClusterResponse PendingTasks(Action<PendingTasksClusterRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new PendingTasksClusterRequestDescriptor();
+		configure(descriptor);
+		return PendingTasks((PendingTasksClusterRequest)descriptor, options);
+	}
+
+	/// <summary>Returns a list of pending cluster-level tasks, such as index creation, mapping updates, or new allocations.</summary>
+	public Task<PendingTasksClusterResponse> PendingTasksAsync(Action<PendingTasksClusterRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new PendingTasksClusterRequestDescriptor();
+		configure(descriptor);
+		return PendingTasksAsync((PendingTasksClusterRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Updates the cluster voting configuration by excluding certain node IDs or names.</summary>
-	public PostVotingConfigExclusionsResponse PostVotingConfigExclusions(PostVotingConfigExclusionsRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, PostVotingConfigExclusionsEndpoint.Instance, options);
+	public PostVotingConfigExclusionsClusterResponse PostVotingConfigExclusions(PostVotingConfigExclusionsClusterRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, PostVotingConfigExclusionsClusterEndpoint.Instance, options);
 
 	/// <summary>Updates the cluster voting configuration by excluding certain node IDs or names.</summary>
-	public Task<PostVotingConfigExclusionsResponse> PostVotingConfigExclusionsAsync(PostVotingConfigExclusionsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, PostVotingConfigExclusionsEndpoint.Instance, options, ct);
+	public Task<PostVotingConfigExclusionsClusterResponse> PostVotingConfigExclusionsAsync(PostVotingConfigExclusionsClusterRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, PostVotingConfigExclusionsClusterEndpoint.Instance, options, ct);
+
+	/// <summary>Updates the cluster voting configuration by excluding certain node IDs or names.</summary>
+	public PostVotingConfigExclusionsClusterResponse PostVotingConfigExclusions(Action<PostVotingConfigExclusionsClusterRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new PostVotingConfigExclusionsClusterRequestDescriptor();
+		configure(descriptor);
+		return PostVotingConfigExclusions((PostVotingConfigExclusionsClusterRequest)descriptor, options);
+	}
+
+	/// <summary>Updates the cluster voting configuration by excluding certain node IDs or names.</summary>
+	public Task<PostVotingConfigExclusionsClusterResponse> PostVotingConfigExclusionsAsync(Action<PostVotingConfigExclusionsClusterRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new PostVotingConfigExclusionsClusterRequestDescriptor();
+		configure(descriptor);
+		return PostVotingConfigExclusionsAsync((PostVotingConfigExclusionsClusterRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Creates or updates a component template.</summary>
-	public PutComponentTemplateResponse PutComponentTemplate(PutComponentTemplateRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, PutComponentTemplateEndpoint.Instance, options);
+	public PutComponentTemplateClusterResponse PutComponentTemplate(PutComponentTemplateClusterRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, PutComponentTemplateClusterEndpoint.Instance, options);
 
 	/// <summary>Creates or updates a component template.</summary>
-	public Task<PutComponentTemplateResponse> PutComponentTemplateAsync(PutComponentTemplateRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, PutComponentTemplateEndpoint.Instance, options, ct);
+	public Task<PutComponentTemplateClusterResponse> PutComponentTemplateAsync(PutComponentTemplateClusterRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, PutComponentTemplateClusterEndpoint.Instance, options, ct);
+
+	/// <summary>Creates or updates a component template.</summary>
+	public PutComponentTemplateClusterResponse PutComponentTemplate(Action<PutComponentTemplateClusterRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new PutComponentTemplateClusterRequestDescriptor();
+		configure(descriptor);
+		return PutComponentTemplate((PutComponentTemplateClusterRequest)descriptor, options);
+	}
+
+	/// <summary>Creates or updates a component template.</summary>
+	public Task<PutComponentTemplateClusterResponse> PutComponentTemplateAsync(Action<PutComponentTemplateClusterRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new PutComponentTemplateClusterRequestDescriptor();
+		configure(descriptor);
+		return PutComponentTemplateAsync((PutComponentTemplateClusterRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Decommissions a cluster zone based on awareness. This can greatly benefit multi-zone deployments, where awareness attributes can aid in applying new upgrades to a cluster in a controlled fashion.</summary>
-	public PutDecommissionAwarenessResponse PutDecommissionAwareness(PutDecommissionAwarenessRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, PutDecommissionAwarenessEndpoint.Instance, options);
+	public PutDecommissionAwarenessClusterResponse PutDecommissionAwareness(PutDecommissionAwarenessClusterRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, PutDecommissionAwarenessClusterEndpoint.Instance, options);
 
 	/// <summary>Decommissions a cluster zone based on awareness. This can greatly benefit multi-zone deployments, where awareness attributes can aid in applying new upgrades to a cluster in a controlled fashion.</summary>
-	public Task<PutDecommissionAwarenessResponse> PutDecommissionAwarenessAsync(PutDecommissionAwarenessRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, PutDecommissionAwarenessEndpoint.Instance, options, ct);
+	public Task<PutDecommissionAwarenessClusterResponse> PutDecommissionAwarenessAsync(PutDecommissionAwarenessClusterRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, PutDecommissionAwarenessClusterEndpoint.Instance, options, ct);
+
+	/// <summary>Decommissions a cluster zone based on awareness. This can greatly benefit multi-zone deployments, where awareness attributes can aid in applying new upgrades to a cluster in a controlled fashion.</summary>
+	public PutDecommissionAwarenessClusterResponse PutDecommissionAwareness(Action<PutDecommissionAwarenessClusterRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new PutDecommissionAwarenessClusterRequestDescriptor();
+		configure(descriptor);
+		return PutDecommissionAwareness((PutDecommissionAwarenessClusterRequest)descriptor, options);
+	}
+
+	/// <summary>Decommissions a cluster zone based on awareness. This can greatly benefit multi-zone deployments, where awareness attributes can aid in applying new upgrades to a cluster in a controlled fashion.</summary>
+	public Task<PutDecommissionAwarenessClusterResponse> PutDecommissionAwarenessAsync(Action<PutDecommissionAwarenessClusterRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new PutDecommissionAwarenessClusterRequestDescriptor();
+		configure(descriptor);
+		return PutDecommissionAwarenessAsync((PutDecommissionAwarenessClusterRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Updates the cluster settings.</summary>
-	public PutSettingsResponse PutSettings(PutSettingsRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, PutSettingsEndpoint.Instance, options);
+	public PutSettingsClusterResponse PutSettings(PutSettingsClusterRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, PutSettingsClusterEndpoint.Instance, options);
 
 	/// <summary>Updates the cluster settings.</summary>
-	public Task<PutSettingsResponse> PutSettingsAsync(PutSettingsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, PutSettingsEndpoint.Instance, options, ct);
+	public Task<PutSettingsClusterResponse> PutSettingsAsync(PutSettingsClusterRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, PutSettingsClusterEndpoint.Instance, options, ct);
+
+	/// <summary>Updates the cluster settings.</summary>
+	public PutSettingsClusterResponse PutSettings(Action<PutSettingsClusterRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new PutSettingsClusterRequestDescriptor();
+		configure(descriptor);
+		return PutSettings((PutSettingsClusterRequest)descriptor, options);
+	}
+
+	/// <summary>Updates the cluster settings.</summary>
+	public Task<PutSettingsClusterResponse> PutSettingsAsync(Action<PutSettingsClusterRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new PutSettingsClusterRequestDescriptor();
+		configure(descriptor);
+		return PutSettingsAsync((PutSettingsClusterRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Updates weighted shard routing weights.</summary>
-	public PutWeightedRoutingResponse PutWeightedRouting(PutWeightedRoutingRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, PutWeightedRoutingEndpoint.Instance, options);
+	public PutWeightedRoutingClusterResponse PutWeightedRouting(PutWeightedRoutingClusterRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, PutWeightedRoutingClusterEndpoint.Instance, options);
 
 	/// <summary>Updates weighted shard routing weights.</summary>
-	public Task<PutWeightedRoutingResponse> PutWeightedRoutingAsync(PutWeightedRoutingRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, PutWeightedRoutingEndpoint.Instance, options, ct);
+	public Task<PutWeightedRoutingClusterResponse> PutWeightedRoutingAsync(PutWeightedRoutingClusterRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, PutWeightedRoutingClusterEndpoint.Instance, options, ct);
+
+	/// <summary>Updates weighted shard routing weights.</summary>
+	public PutWeightedRoutingClusterResponse PutWeightedRouting(Action<PutWeightedRoutingClusterRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new PutWeightedRoutingClusterRequestDescriptor();
+		configure(descriptor);
+		return PutWeightedRouting((PutWeightedRoutingClusterRequest)descriptor, options);
+	}
+
+	/// <summary>Updates weighted shard routing weights.</summary>
+	public Task<PutWeightedRoutingClusterResponse> PutWeightedRoutingAsync(Action<PutWeightedRoutingClusterRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new PutWeightedRoutingClusterRequestDescriptor();
+		configure(descriptor);
+		return PutWeightedRoutingAsync((PutWeightedRoutingClusterRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Returns the information about configured remote clusters.</summary>
-	public RemoteInfoResponse RemoteInfo(RemoteInfoRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, RemoteInfoEndpoint.Instance, options);
+	public RemoteInfoClusterResponse RemoteInfo(RemoteInfoClusterRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, RemoteInfoClusterEndpoint.Instance, options);
 
 	/// <summary>Returns the information about configured remote clusters.</summary>
-	public Task<RemoteInfoResponse> RemoteInfoAsync(RemoteInfoRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, RemoteInfoEndpoint.Instance, options, ct);
+	public Task<RemoteInfoClusterResponse> RemoteInfoAsync(RemoteInfoClusterRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, RemoteInfoClusterEndpoint.Instance, options, ct);
+
+	/// <summary>Returns the information about configured remote clusters.</summary>
+	public RemoteInfoClusterResponse RemoteInfo(Action<RemoteInfoClusterRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new RemoteInfoClusterRequestDescriptor();
+		configure(descriptor);
+		return RemoteInfo((RemoteInfoClusterRequest)descriptor, options);
+	}
+
+	/// <summary>Returns the information about configured remote clusters.</summary>
+	public Task<RemoteInfoClusterResponse> RemoteInfoAsync(Action<RemoteInfoClusterRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new RemoteInfoClusterRequestDescriptor();
+		configure(descriptor);
+		return RemoteInfoAsync((RemoteInfoClusterRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Allows to manually change the allocation of individual shards in the cluster.</summary>
-	public RerouteResponse Reroute(RerouteRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, RerouteEndpoint.Instance, options);
+	public RerouteClusterResponse Reroute(RerouteClusterRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, RerouteClusterEndpoint.Instance, options);
 
 	/// <summary>Allows to manually change the allocation of individual shards in the cluster.</summary>
-	public Task<RerouteResponse> RerouteAsync(RerouteRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, RerouteEndpoint.Instance, options, ct);
+	public Task<RerouteClusterResponse> RerouteAsync(RerouteClusterRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, RerouteClusterEndpoint.Instance, options, ct);
+
+	/// <summary>Allows to manually change the allocation of individual shards in the cluster.</summary>
+	public RerouteClusterResponse Reroute(Action<RerouteClusterRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new RerouteClusterRequestDescriptor();
+		configure(descriptor);
+		return Reroute((RerouteClusterRequest)descriptor, options);
+	}
+
+	/// <summary>Allows to manually change the allocation of individual shards in the cluster.</summary>
+	public Task<RerouteClusterResponse> RerouteAsync(Action<RerouteClusterRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new RerouteClusterRequestDescriptor();
+		configure(descriptor);
+		return RerouteAsync((RerouteClusterRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Returns comprehensive information about the state of the cluster.</summary>
-	public StateResponse State(StateRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, StateEndpoint.Instance, options);
+	public StateClusterResponse State(StateClusterRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, StateClusterEndpoint.Instance, options);
 
 	/// <summary>Returns comprehensive information about the state of the cluster.</summary>
-	public Task<StateResponse> StateAsync(StateRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, StateEndpoint.Instance, options, ct);
+	public Task<StateClusterResponse> StateAsync(StateClusterRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, StateClusterEndpoint.Instance, options, ct);
+
+	/// <summary>Returns comprehensive information about the state of the cluster.</summary>
+	public StateClusterResponse State(Action<StateClusterRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new StateClusterRequestDescriptor();
+		configure(descriptor);
+		return State((StateClusterRequest)descriptor, options);
+	}
+
+	/// <summary>Returns comprehensive information about the state of the cluster.</summary>
+	public Task<StateClusterResponse> StateAsync(Action<StateClusterRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new StateClusterRequestDescriptor();
+		configure(descriptor);
+		return StateAsync((StateClusterRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Returns a high-level overview of cluster statistics.</summary>
-	public StatsResponse Stats(StatsRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, StatsEndpoint.Instance, options);
+	public StatsClusterResponse Stats(StatsClusterRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, StatsClusterEndpoint.Instance, options);
 
 	/// <summary>Returns a high-level overview of cluster statistics.</summary>
-	public Task<StatsResponse> StatsAsync(StatsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, StatsEndpoint.Instance, options, ct);
+	public Task<StatsClusterResponse> StatsAsync(StatsClusterRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, StatsClusterEndpoint.Instance, options, ct);
+
+	/// <summary>Returns a high-level overview of cluster statistics.</summary>
+	public StatsClusterResponse Stats(Action<StatsClusterRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new StatsClusterRequestDescriptor();
+		configure(descriptor);
+		return Stats((StatsClusterRequest)descriptor, options);
+	}
+
+	/// <summary>Returns a high-level overview of cluster statistics.</summary>
+	public Task<StatsClusterResponse> StatsAsync(Action<StatsClusterRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new StatsClusterRequestDescriptor();
+		configure(descriptor);
+		return StatsAsync((StatsClusterRequest)descriptor, options, ct);
+	}
 
 }

@@ -12,7 +12,7 @@ public sealed class PendingTask
 		public bool Executing { get; set; }
 	/// <summary>The number that represents when the task has been inserted into the task queue.</summary>
 		public int InsertOrder { get; set; }
-	/// <summary>The priority of the pending task. The valid priorities in descending priority order are: `IMMEDIATE` > `URGENT` > `HIGH` > `NORMAL` > `LOW` > `LANGUID`.</summary>
+	/// <summary>The priority of the pending task. The valid priorities in descending priority order are: `IMMEDIATE` &gt; `URGENT` &gt; `HIGH` &gt; `NORMAL` &gt; `LOW` &gt; `LANGUID`.</summary>
 		public string? Priority { get; set; }
 	/// <summary>A general description of the cluster task that may include a reason and origin.</summary>
 		public string? Source { get; set; }

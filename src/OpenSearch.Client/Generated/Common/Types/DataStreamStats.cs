@@ -15,8 +15,8 @@ public sealed class DataStreamStats
 	/// <summary>Current number of backing indexes for the data stream.</summary>
 		public int BackingIndices { get; set; }
 	public string? DataStream { get; set; }
-	public string? MaximumTimestamp { get; set; }
+	public System.Text.Json.JsonElement? MaximumTimestamp { get; set; }
 	public string? StoreSize { get; set; }
 	/// <summary>The total size, in bytes, of all shards for the data stream's backing indexes.</summary>
-		public string? StoreSizeBytes { get; set; }
+		public long StoreSizeBytes { get; set; }
 }

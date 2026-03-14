@@ -27,8 +27,6 @@ public sealed class DeletePitEndpoint : IEndpoint<DeletePitRequest, DeletePitRes
 		return path;
 	}
 
-	public string? ContentType => "application/json";
-
 	public RequestBody? GetBody(DeletePitRequest r) => RequestBody.Json(r);
 
 	public DeletePitResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>

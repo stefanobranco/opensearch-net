@@ -9,7 +9,7 @@ namespace OpenSearch.Client.Common;
 public sealed class RateLimiter
 {
 	/// <summary>The maximum limit.</summary>
-		public System.Text.Json.JsonElement? Limit { get; set; }
+		public string? Limit { get; set; }
 	/// <summary>The unit of time.</summary>
 		public RateLimiterUnit? Unit { get; set; }
 }

@@ -21,7 +21,7 @@ public sealed class Policy
 	/// <summary>The version of the policy schema.</summary>
 		public float? SchemaVersion { get; set; }
 	/// <summary>The configuration for error notifications.</summary>
-		public System.Text.Json.JsonElement? ErrorNotification { get; set; }
+		public ErrorNotification? ErrorNotification { get; set; }
 	/// <summary>The default state an index is in.</summary>
 		public string? DefaultState { get; set; }
 	/// <summary>The list of states for the index to transition between.</summary>

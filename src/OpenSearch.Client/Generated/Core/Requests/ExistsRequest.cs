@@ -24,10 +24,10 @@ public sealed class ExistsRequest
 	public System.Text.Json.JsonElement? Source { get; set; }
 	/// <summary>A comma-separated list of source fields to exclude in the response.</summary>
 	[JsonIgnore]
-	public string? SourceExcludes { get; set; }
+	public List<string>? SourceExcludes { get; set; }
 	/// <summary>A comma-separated list of source fields to include in the response.</summary>
 	[JsonIgnore]
-	public string? SourceIncludes { get; set; }
+	public List<string>? SourceIncludes { get; set; }
 	/// <summary>Specifies the node or shard the operation should be performed on. Random by default.</summary>
 	[JsonIgnore]
 	public string? Preference { get; set; }
@@ -36,19 +36,19 @@ public sealed class ExistsRequest
 	public bool? Realtime { get; set; }
 	/// <summary>If `true`, OpenSearch refreshes all shards involved in the delete by query after the request completes.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? Refresh { get; set; }
+	public string? Refresh { get; set; }
 	/// <summary>Target the specified primary shard.</summary>
 	[JsonIgnore]
 	public System.Text.Json.JsonElement? Routing { get; set; }
 	/// <summary>List of stored fields to return as part of a hit. If no fields are specified, no stored fields are included in the response. If this field is specified, the `_source` parameter defaults to false.</summary>
 	[JsonIgnore]
-	public string? StoredFields { get; set; }
+	public List<string>? StoredFields { get; set; }
 	/// <summary>Explicit version number for concurrency control. The specified version must match the current version of the document for the request to succeed.</summary>
 	[JsonIgnore]
 	public long? Version { get; set; }
 	/// <summary>The specific version type: `external`, `external_gte`.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? VersionType { get; set; }
+	public string? VersionType { get; set; }
 }
 public sealed class ExistsEndpoint : IEndpoint<ExistsRequest, ExistsResponse>
 {
@@ -63,27 +63,25 @@ public sealed class ExistsEndpoint : IEndpoint<ExistsRequest, ExistsResponse>
 		if (r.Source is not null)
 			queryParts.Add($"_source={Uri.EscapeDataString(r.Source.ToString()!)}");
 		if (r.SourceExcludes is not null)
-			queryParts.Add($"_source_excludes={Uri.EscapeDataString(r.SourceExcludes!)}");
+			queryParts.Add($"_source_excludes={Uri.EscapeDataString(string.Join(",", r.SourceExcludes!))}");
 		if (r.SourceIncludes is not null)
-			queryParts.Add($"_source_includes={Uri.EscapeDataString(r.SourceIncludes!)}");
+			queryParts.Add($"_source_includes={Uri.EscapeDataString(string.Join(",", r.SourceIncludes!))}");
 		if (r.Preference is not null)
 			queryParts.Add($"preference={Uri.EscapeDataString(r.Preference!)}");
 		if (r.Realtime is not null)
 			queryParts.Add($"realtime={Uri.EscapeDataString((r.Realtime.Value ? "true" : "false"))}");
 		if (r.Refresh is not null)
-			queryParts.Add($"refresh={Uri.EscapeDataString(r.Refresh.ToString()!)}");
+			queryParts.Add($"refresh={Uri.EscapeDataString(r.Refresh!)}");
 		if (r.Routing is not null)
 			queryParts.Add($"routing={Uri.EscapeDataString(r.Routing.ToString()!)}");
 		if (r.StoredFields is not null)
-			queryParts.Add($"stored_fields={Uri.EscapeDataString(r.StoredFields!)}");
+			queryParts.Add($"stored_fields={Uri.EscapeDataString(string.Join(",", r.StoredFields!))}");
 		if (r.Version is not null)
 			queryParts.Add($"version={Uri.EscapeDataString(r.Version.ToString()!)}");
 		if (r.VersionType is not null)
-			queryParts.Add($"version_type={Uri.EscapeDataString(r.VersionType.ToString()!)}");
+			queryParts.Add($"version_type={Uri.EscapeDataString(r.VersionType!)}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
-
-	public string? ContentType => null;
 
 	public RequestBody? GetBody(ExistsRequest r) => null;
 

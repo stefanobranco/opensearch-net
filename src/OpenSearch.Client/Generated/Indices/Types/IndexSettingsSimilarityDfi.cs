@@ -12,6 +12,6 @@ namespace OpenSearch.Client.Indices;
 
 public sealed class IndexSettingsSimilarityDfi
 {
-	public System.Text.Json.JsonElement? IndependenceMeasure { get; set; }
+	public string? IndependenceMeasure { get; set; }
 	public string? Type { get; set; }
 }

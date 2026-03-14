@@ -35,8 +35,6 @@ public sealed class GetScriptEndpoint : IEndpoint<GetScriptRequest, GetScriptRes
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-	public string? ContentType => null;
-
 	public RequestBody? GetBody(GetScriptRequest r) => null;
 
 	public GetScriptResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>

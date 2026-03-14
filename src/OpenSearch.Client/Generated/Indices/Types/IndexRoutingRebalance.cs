@@ -12,5 +12,5 @@ namespace OpenSearch.Client.Indices;
 
 public sealed class IndexRoutingRebalance
 {
-	public System.Text.Json.JsonElement? Enable { get; set; }
+	public string? Enable { get; set; }
 }

@@ -12,6 +12,6 @@ public sealed class ShardHealthStats
 	public int InitializingShards { get; set; }
 	public bool PrimaryActive { get; set; }
 	public int RelocatingShards { get; set; }
-	public System.Text.Json.JsonElement? Status { get; set; }
+	public string? Status { get; set; }
 	public int UnassignedShards { get; set; }
 }

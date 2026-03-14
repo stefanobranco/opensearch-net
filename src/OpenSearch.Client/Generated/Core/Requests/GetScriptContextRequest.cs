@@ -26,8 +26,6 @@ public sealed class GetScriptContextEndpoint : IEndpoint<GetScriptContextRequest
 		return path;
 	}
 
-	public string? ContentType => null;
-
 	public RequestBody? GetBody(GetScriptContextRequest r) => null;
 
 	public GetScriptContextResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>

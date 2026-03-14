@@ -21,7 +21,7 @@ public sealed class MtermvectorsRequest
 	public bool? FieldStatistics { get; set; }
 	/// <summary></summary>
 	[JsonIgnore]
-	public string? Fields { get; set; }
+	public List<string>? Fields { get; set; }
 	/// <summary>A comma-separated list of documents IDs. You must provide either the `docs` field in the request body or specify `ids` as a query parameter or in the request body.</summary>
 	[JsonIgnore]
 	public List<string>? Ids { get; set; }
@@ -51,7 +51,7 @@ public sealed class MtermvectorsRequest
 	public long? Version { get; set; }
 	/// <summary>The specific version type.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? VersionType { get; set; }
+	public string? VersionType { get; set; }
 	/// <summary>Array of existing or artificial documents.</summary>
 		public List<Operation>? Docs { get; set; }
 }
@@ -71,7 +71,7 @@ public sealed class MtermvectorsEndpoint : IEndpoint<MtermvectorsRequest, Mtermv
 		if (r.FieldStatistics is not null)
 			queryParts.Add($"field_statistics={Uri.EscapeDataString((r.FieldStatistics.Value ? "true" : "false"))}");
 		if (r.Fields is not null)
-			queryParts.Add($"fields={Uri.EscapeDataString(r.Fields!)}");
+			queryParts.Add($"fields={Uri.EscapeDataString(string.Join(",", r.Fields!))}");
 		if (r.Ids is not null)
 			queryParts.Add($"ids={Uri.EscapeDataString(string.Join(",", r.Ids!))}");
 		if (r.Offsets is not null)
@@ -91,11 +91,9 @@ public sealed class MtermvectorsEndpoint : IEndpoint<MtermvectorsRequest, Mtermv
 		if (r.Version is not null)
 			queryParts.Add($"version={Uri.EscapeDataString(r.Version.ToString()!)}");
 		if (r.VersionType is not null)
-			queryParts.Add($"version_type={Uri.EscapeDataString(r.VersionType.ToString()!)}");
+			queryParts.Add($"version_type={Uri.EscapeDataString(r.VersionType!)}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
-
-	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(MtermvectorsRequest r) => RequestBody.Json(r);
 

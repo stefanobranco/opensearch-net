@@ -13,7 +13,7 @@ namespace OpenSearch.Client.Indices;
 public sealed class RemoveIndexAction
 {
 	public string? Index { get; set; }
-	public string? Indices { get; set; }
+	public List<string>? Indices { get; set; }
 	/// <summary>Whether the alias must exist to perform the action.</summary>
 		public bool? MustExist { get; set; }
 }

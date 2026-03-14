@@ -19,19 +19,19 @@ public sealed class MergesStats
 	/// <summary>The size of current merge operations in a human-readable format.</summary>
 		public string? CurrentSize { get; set; }
 	/// <summary>The size of current merge operations in bytes.</summary>
-		public string? CurrentSizeInBytes { get; set; }
+		public long CurrentSizeInBytes { get; set; }
 	/// <summary>The total number of merge operations.</summary>
 		public long Total { get; set; }
 	/// <summary>The total auto-throttle size in a human-readable format.</summary>
 		public string? TotalAutoThrottle { get; set; }
 	/// <summary>The total auto-throttle size in bytes.</summary>
-		public string? TotalAutoThrottleInBytes { get; set; }
+		public long TotalAutoThrottleInBytes { get; set; }
 	/// <summary>The total number of documents that have been merged.</summary>
 		public long TotalDocs { get; set; }
 	/// <summary>The total size of merge operations in a human-readable format.</summary>
 		public string? TotalSize { get; set; }
 	/// <summary>The total size of merge operations in bytes.</summary>
-		public string? TotalSizeInBytes { get; set; }
+		public long TotalSizeInBytes { get; set; }
 	/// <summary>The total amount of time merge operations have been stopped.</summary>
 		public string? TotalStoppedTime { get; set; }
 	/// <summary>The total amount of time merge operations have been stopped in milliseconds.</summary>

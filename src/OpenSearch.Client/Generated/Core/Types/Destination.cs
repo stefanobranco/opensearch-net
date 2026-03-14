@@ -9,9 +9,9 @@ namespace OpenSearch.Client.Core;
 public sealed class Destination
 {
 	public string? Index { get; set; }
-	public System.Text.Json.JsonElement? OpType { get; set; }
+	public string? OpType { get; set; }
 	/// <summary>The name of the pipeline to use.</summary>
 		public string? Pipeline { get; set; }
 	public string? Routing { get; set; }
-	public System.Text.Json.JsonElement? VersionType { get; set; }
+	public string? VersionType { get; set; }
 }

@@ -15,19 +15,19 @@ public sealed class RankEvalRequest
 {
 	/// <summary>A comma-separated list of data streams, indexes, and index aliases used to limit the request. Wildcard (`*`) expressions are supported. To target all data streams and indexes in a cluster, omit this parameter or use `_all` or `*`.</summary>
 	[JsonIgnore]
-	public string? Index { get; set; }
+	public List<string>? Index { get; set; }
 	/// <summary>If `false`, the request returns an error if any wildcard expression, index alias, or `_all` value targets only missing or closed indexes. This behavior applies even if the request targets other open indexes. For example, a request targeting `foo*,bar*` returns an error if an index starts with `foo` but no index starts with `bar`.</summary>
 	[JsonIgnore]
 	public bool? AllowNoIndices { get; set; }
 	/// <summary>Whether to expand wildcard expression to concrete indexes that are open, closed or both.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? ExpandWildcards { get; set; }
+	public List<string>? ExpandWildcards { get; set; }
 	/// <summary>If `true`, missing or closed indexes are not included in the response.</summary>
 	[JsonIgnore]
 	public bool? IgnoreUnavailable { get; set; }
 	/// <summary>Search operation type</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? SearchType { get; set; }
+	public string? SearchType { get; set; }
 	/// <summary>A set of typical search requests, together with their provided ratings.</summary>
 		public List<RankEvalRequestItem>? Requests { get; set; }
 	public RankEvalMetric? Metric { get; set; }
@@ -48,15 +48,13 @@ public sealed class RankEvalEndpoint : IEndpoint<RankEvalRequest, RankEvalRespon
 		if (r.AllowNoIndices is not null)
 			queryParts.Add($"allow_no_indices={Uri.EscapeDataString((r.AllowNoIndices.Value ? "true" : "false"))}");
 		if (r.ExpandWildcards is not null)
-			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(r.ExpandWildcards.ToString()!)}");
+			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(string.Join(",", r.ExpandWildcards!))}");
 		if (r.IgnoreUnavailable is not null)
 			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable.Value ? "true" : "false"))}");
 		if (r.SearchType is not null)
-			queryParts.Add($"search_type={Uri.EscapeDataString(r.SearchType.ToString()!)}");
+			queryParts.Add($"search_type={Uri.EscapeDataString(r.SearchType!)}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
-
-	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(RankEvalRequest r) => RequestBody.Json(r);
 

@@ -15,7 +15,7 @@ public sealed class IndexSettings
 {
 	public IndexSettings? Index { get; set; }
 	public string? Mode { get; set; }
-	public string? RoutingPath { get; set; }
+	public System.Text.Json.JsonElement? RoutingPath { get; set; }
 	public SoftDeletes? SoftDeletes { get; set; }
 	public IndexSegmentSort? Sort { get; set; }
 	public string? NumberOfShards { get; set; }
@@ -51,8 +51,8 @@ public sealed class IndexSettings
 	public string? FinalPipeline { get; set; }
 	public IndexSettingsLifecycle? Lifecycle { get; set; }
 	public string? ProvidedName { get; set; }
-	public string? CreationDate { get; set; }
-	public string? CreationDateString { get; set; }
+	public System.Text.Json.JsonElement? CreationDate { get; set; }
+	public System.Text.Json.JsonElement? CreationDateString { get; set; }
 	public string? Uuid { get; set; }
 	public IndexVersioning? Version { get; set; }
 	public string? VerifiedBeforeClose { get; set; }

@@ -16,7 +16,7 @@ public sealed class CountRequest
 {
 	/// <summary>A comma-separated list of data streams, indexes, and aliases to search. Supports wildcards (`*`). To search all data streams and indexes, omit this parameter or use `*` or `_all`.</summary>
 	[JsonIgnore]
-	public string? Index { get; set; }
+	public List<string>? Index { get; set; }
 	/// <summary>If `false`, the request returns an error if any wildcard expression, index alias, or `_all` value targets only missing or closed indexes. This behavior applies even if the request targets other open indexes.</summary>
 	[JsonIgnore]
 	public bool? AllowNoIndices { get; set; }
@@ -34,7 +34,7 @@ public sealed class CountRequest
 	public string? Df { get; set; }
 	/// <summary></summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? ExpandWildcards { get; set; }
+	public List<string>? ExpandWildcards { get; set; }
 	/// <summary>If `true`, concrete, expanded or aliased indexes are ignored when frozen.</summary>
 	[JsonIgnore]
 	public bool? IgnoreThrottled { get; set; }
@@ -85,7 +85,7 @@ public sealed class CountEndpoint : IEndpoint<CountRequest, CountResponse>
 		if (r.Df is not null)
 			queryParts.Add($"df={Uri.EscapeDataString(r.Df!)}");
 		if (r.ExpandWildcards is not null)
-			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(r.ExpandWildcards.ToString()!)}");
+			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(string.Join(",", r.ExpandWildcards!))}");
 		if (r.IgnoreThrottled is not null)
 			queryParts.Add($"ignore_throttled={Uri.EscapeDataString((r.IgnoreThrottled.Value ? "true" : "false"))}");
 		if (r.IgnoreUnavailable is not null)
@@ -104,8 +104,6 @@ public sealed class CountEndpoint : IEndpoint<CountRequest, CountResponse>
 			queryParts.Add($"terminate_after={Uri.EscapeDataString(r.TerminateAfter.ToString()!)}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
-
-	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(CountRequest r) => RequestBody.Json(r);
 

@@ -17,65 +17,177 @@ public sealed partial class GeospatialNamespace
 
 
 	/// <summary>Delete a specific IP2Geo data source.</summary>
-	public DeleteIp2geoDatasourceResponse DeleteIp2geoDatasource(DeleteIp2geoDatasourceRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, DeleteIp2geoDatasourceEndpoint.Instance, options);
+	public DeleteIp2geoDatasourceGeospatialResponse DeleteIp2geoDatasource(DeleteIp2geoDatasourceGeospatialRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, DeleteIp2geoDatasourceGeospatialEndpoint.Instance, options);
 
 	/// <summary>Delete a specific IP2Geo data source.</summary>
-	public Task<DeleteIp2geoDatasourceResponse> DeleteIp2geoDatasourceAsync(DeleteIp2geoDatasourceRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, DeleteIp2geoDatasourceEndpoint.Instance, options, ct);
+	public Task<DeleteIp2geoDatasourceGeospatialResponse> DeleteIp2geoDatasourceAsync(DeleteIp2geoDatasourceGeospatialRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, DeleteIp2geoDatasourceGeospatialEndpoint.Instance, options, ct);
+
+	/// <summary>Delete a specific IP2Geo data source.</summary>
+	public DeleteIp2geoDatasourceGeospatialResponse DeleteIp2geoDatasource(Action<DeleteIp2geoDatasourceGeospatialRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new DeleteIp2geoDatasourceGeospatialRequestDescriptor();
+		configure(descriptor);
+		return DeleteIp2geoDatasource((DeleteIp2geoDatasourceGeospatialRequest)descriptor, options);
+	}
+
+	/// <summary>Delete a specific IP2Geo data source.</summary>
+	public Task<DeleteIp2geoDatasourceGeospatialResponse> DeleteIp2geoDatasourceAsync(Action<DeleteIp2geoDatasourceGeospatialRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new DeleteIp2geoDatasourceGeospatialRequestDescriptor();
+		configure(descriptor);
+		return DeleteIp2geoDatasourceAsync((DeleteIp2geoDatasourceGeospatialRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Use an OpenSearch query to upload `GeoJSON`, operation will fail if index exists. - When type is `geo_point`, only Point geometry is allowed - When type is `geo_shape`, all geometry types are allowed (Point, MultiPoint, LineString, MultiLineString, Polygon, MultiPolygon, GeometryCollection, Envelope).</summary>
-	public GeojsonUploadPostResponse GeojsonUploadPost(GeojsonUploadPostRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GeojsonUploadPostEndpoint.Instance, options);
+	public GeojsonUploadPostGeospatialResponse GeojsonUploadPost(GeojsonUploadPostGeospatialRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GeojsonUploadPostGeospatialEndpoint.Instance, options);
 
 	/// <summary>Use an OpenSearch query to upload `GeoJSON`, operation will fail if index exists. - When type is `geo_point`, only Point geometry is allowed - When type is `geo_shape`, all geometry types are allowed (Point, MultiPoint, LineString, MultiLineString, Polygon, MultiPolygon, GeometryCollection, Envelope).</summary>
-	public Task<GeojsonUploadPostResponse> GeojsonUploadPostAsync(GeojsonUploadPostRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GeojsonUploadPostEndpoint.Instance, options, ct);
+	public Task<GeojsonUploadPostGeospatialResponse> GeojsonUploadPostAsync(GeojsonUploadPostGeospatialRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GeojsonUploadPostGeospatialEndpoint.Instance, options, ct);
+
+	/// <summary>Use an OpenSearch query to upload `GeoJSON`, operation will fail if index exists. - When type is `geo_point`, only Point geometry is allowed - When type is `geo_shape`, all geometry types are allowed (Point, MultiPoint, LineString, MultiLineString, Polygon, MultiPolygon, GeometryCollection, Envelope).</summary>
+	public GeojsonUploadPostGeospatialResponse GeojsonUploadPost(Action<GeojsonUploadPostGeospatialRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GeojsonUploadPostGeospatialRequestDescriptor();
+		configure(descriptor);
+		return GeojsonUploadPost((GeojsonUploadPostGeospatialRequest)descriptor, options);
+	}
+
+	/// <summary>Use an OpenSearch query to upload `GeoJSON`, operation will fail if index exists. - When type is `geo_point`, only Point geometry is allowed - When type is `geo_shape`, all geometry types are allowed (Point, MultiPoint, LineString, MultiLineString, Polygon, MultiPolygon, GeometryCollection, Envelope).</summary>
+	public Task<GeojsonUploadPostGeospatialResponse> GeojsonUploadPostAsync(Action<GeojsonUploadPostGeospatialRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GeojsonUploadPostGeospatialRequestDescriptor();
+		configure(descriptor);
+		return GeojsonUploadPostAsync((GeojsonUploadPostGeospatialRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Use an OpenSearch query to upload `GeoJSON` regardless if index exists. - When type is `geo_point`, only Point geometry is allowed - When type is `geo_shape`, all geometry types are allowed (Point, MultiPoint, LineString, MultiLineString, Polygon, MultiPolygon, GeometryCollection, Envelope).</summary>
-	public GeojsonUploadPutResponse GeojsonUploadPut(GeojsonUploadPutRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GeojsonUploadPutEndpoint.Instance, options);
+	public GeojsonUploadPutGeospatialResponse GeojsonUploadPut(GeojsonUploadPutGeospatialRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GeojsonUploadPutGeospatialEndpoint.Instance, options);
 
 	/// <summary>Use an OpenSearch query to upload `GeoJSON` regardless if index exists. - When type is `geo_point`, only Point geometry is allowed - When type is `geo_shape`, all geometry types are allowed (Point, MultiPoint, LineString, MultiLineString, Polygon, MultiPolygon, GeometryCollection, Envelope).</summary>
-	public Task<GeojsonUploadPutResponse> GeojsonUploadPutAsync(GeojsonUploadPutRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GeojsonUploadPutEndpoint.Instance, options, ct);
+	public Task<GeojsonUploadPutGeospatialResponse> GeojsonUploadPutAsync(GeojsonUploadPutGeospatialRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GeojsonUploadPutGeospatialEndpoint.Instance, options, ct);
+
+	/// <summary>Use an OpenSearch query to upload `GeoJSON` regardless if index exists. - When type is `geo_point`, only Point geometry is allowed - When type is `geo_shape`, all geometry types are allowed (Point, MultiPoint, LineString, MultiLineString, Polygon, MultiPolygon, GeometryCollection, Envelope).</summary>
+	public GeojsonUploadPutGeospatialResponse GeojsonUploadPut(Action<GeojsonUploadPutGeospatialRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GeojsonUploadPutGeospatialRequestDescriptor();
+		configure(descriptor);
+		return GeojsonUploadPut((GeojsonUploadPutGeospatialRequest)descriptor, options);
+	}
+
+	/// <summary>Use an OpenSearch query to upload `GeoJSON` regardless if index exists. - When type is `geo_point`, only Point geometry is allowed - When type is `geo_shape`, all geometry types are allowed (Point, MultiPoint, LineString, MultiLineString, Polygon, MultiPolygon, GeometryCollection, Envelope).</summary>
+	public Task<GeojsonUploadPutGeospatialResponse> GeojsonUploadPutAsync(Action<GeojsonUploadPutGeospatialRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GeojsonUploadPutGeospatialRequestDescriptor();
+		configure(descriptor);
+		return GeojsonUploadPutAsync((GeojsonUploadPutGeospatialRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Get one or more IP2Geo data sources, defaulting to returning all if no names specified.</summary>
-	public GetIp2geoDatasourceResponse GetIp2geoDatasource(GetIp2geoDatasourceRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetIp2geoDatasourceEndpoint.Instance, options);
+	public GetIp2geoDatasourceGeospatialResponse GetIp2geoDatasource(GetIp2geoDatasourceGeospatialRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetIp2geoDatasourceGeospatialEndpoint.Instance, options);
 
 	/// <summary>Get one or more IP2Geo data sources, defaulting to returning all if no names specified.</summary>
-	public Task<GetIp2geoDatasourceResponse> GetIp2geoDatasourceAsync(GetIp2geoDatasourceRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetIp2geoDatasourceEndpoint.Instance, options, ct);
+	public Task<GetIp2geoDatasourceGeospatialResponse> GetIp2geoDatasourceAsync(GetIp2geoDatasourceGeospatialRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetIp2geoDatasourceGeospatialEndpoint.Instance, options, ct);
+
+	/// <summary>Get one or more IP2Geo data sources, defaulting to returning all if no names specified.</summary>
+	public GetIp2geoDatasourceGeospatialResponse GetIp2geoDatasource(Action<GetIp2geoDatasourceGeospatialRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetIp2geoDatasourceGeospatialRequestDescriptor();
+		configure(descriptor);
+		return GetIp2geoDatasource((GetIp2geoDatasourceGeospatialRequest)descriptor, options);
+	}
+
+	/// <summary>Get one or more IP2Geo data sources, defaulting to returning all if no names specified.</summary>
+	public Task<GetIp2geoDatasourceGeospatialResponse> GetIp2geoDatasourceAsync(Action<GetIp2geoDatasourceGeospatialRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetIp2geoDatasourceGeospatialRequestDescriptor();
+		configure(descriptor);
+		return GetIp2geoDatasourceAsync((GetIp2geoDatasourceGeospatialRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Retrieves statistics for all geospatial uploads.</summary>
-	public GetUploadStatsResponse GetUploadStats(GetUploadStatsRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetUploadStatsEndpoint.Instance, options);
+	public GetUploadStatsGeospatialResponse GetUploadStats(GetUploadStatsGeospatialRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetUploadStatsGeospatialEndpoint.Instance, options);
 
 	/// <summary>Retrieves statistics for all geospatial uploads.</summary>
-	public Task<GetUploadStatsResponse> GetUploadStatsAsync(GetUploadStatsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetUploadStatsEndpoint.Instance, options, ct);
+	public Task<GetUploadStatsGeospatialResponse> GetUploadStatsAsync(GetUploadStatsGeospatialRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetUploadStatsGeospatialEndpoint.Instance, options, ct);
+
+	/// <summary>Retrieves statistics for all geospatial uploads.</summary>
+	public GetUploadStatsGeospatialResponse GetUploadStats(Action<GetUploadStatsGeospatialRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetUploadStatsGeospatialRequestDescriptor();
+		configure(descriptor);
+		return GetUploadStats((GetUploadStatsGeospatialRequest)descriptor, options);
+	}
+
+	/// <summary>Retrieves statistics for all geospatial uploads.</summary>
+	public Task<GetUploadStatsGeospatialResponse> GetUploadStatsAsync(Action<GetUploadStatsGeospatialRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetUploadStatsGeospatialRequestDescriptor();
+		configure(descriptor);
+		return GetUploadStatsAsync((GetUploadStatsGeospatialRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Create a specific IP2Geo data source. Default values:  - `endpoint`: `"https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json"`  - `update_interval_in_days`: 3.</summary>
-	public PutIp2geoDatasourceResponse PutIp2geoDatasource(PutIp2geoDatasourceRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, PutIp2geoDatasourceEndpoint.Instance, options);
+	public PutIp2geoDatasourceGeospatialResponse PutIp2geoDatasource(PutIp2geoDatasourceGeospatialRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, PutIp2geoDatasourceGeospatialEndpoint.Instance, options);
 
 	/// <summary>Create a specific IP2Geo data source. Default values:  - `endpoint`: `"https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json"`  - `update_interval_in_days`: 3.</summary>
-	public Task<PutIp2geoDatasourceResponse> PutIp2geoDatasourceAsync(PutIp2geoDatasourceRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, PutIp2geoDatasourceEndpoint.Instance, options, ct);
+	public Task<PutIp2geoDatasourceGeospatialResponse> PutIp2geoDatasourceAsync(PutIp2geoDatasourceGeospatialRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, PutIp2geoDatasourceGeospatialEndpoint.Instance, options, ct);
+
+	/// <summary>Create a specific IP2Geo data source. Default values:  - `endpoint`: `"https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json"`  - `update_interval_in_days`: 3.</summary>
+	public PutIp2geoDatasourceGeospatialResponse PutIp2geoDatasource(Action<PutIp2geoDatasourceGeospatialRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new PutIp2geoDatasourceGeospatialRequestDescriptor();
+		configure(descriptor);
+		return PutIp2geoDatasource((PutIp2geoDatasourceGeospatialRequest)descriptor, options);
+	}
+
+	/// <summary>Create a specific IP2Geo data source. Default values:  - `endpoint`: `"https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json"`  - `update_interval_in_days`: 3.</summary>
+	public Task<PutIp2geoDatasourceGeospatialResponse> PutIp2geoDatasourceAsync(Action<PutIp2geoDatasourceGeospatialRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new PutIp2geoDatasourceGeospatialRequestDescriptor();
+		configure(descriptor);
+		return PutIp2geoDatasourceAsync((PutIp2geoDatasourceGeospatialRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Update a specific IP2Geo data source.</summary>
-	public PutIp2geoDatasourceSettingsResponse PutIp2geoDatasourceSettings(PutIp2geoDatasourceSettingsRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, PutIp2geoDatasourceSettingsEndpoint.Instance, options);
+	public PutIp2geoDatasourceSettingsGeospatialResponse PutIp2geoDatasourceSettings(PutIp2geoDatasourceSettingsGeospatialRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, PutIp2geoDatasourceSettingsGeospatialEndpoint.Instance, options);
 
 	/// <summary>Update a specific IP2Geo data source.</summary>
-	public Task<PutIp2geoDatasourceSettingsResponse> PutIp2geoDatasourceSettingsAsync(PutIp2geoDatasourceSettingsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, PutIp2geoDatasourceSettingsEndpoint.Instance, options, ct);
+	public Task<PutIp2geoDatasourceSettingsGeospatialResponse> PutIp2geoDatasourceSettingsAsync(PutIp2geoDatasourceSettingsGeospatialRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, PutIp2geoDatasourceSettingsGeospatialEndpoint.Instance, options, ct);
+
+	/// <summary>Update a specific IP2Geo data source.</summary>
+	public PutIp2geoDatasourceSettingsGeospatialResponse PutIp2geoDatasourceSettings(Action<PutIp2geoDatasourceSettingsGeospatialRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new PutIp2geoDatasourceSettingsGeospatialRequestDescriptor();
+		configure(descriptor);
+		return PutIp2geoDatasourceSettings((PutIp2geoDatasourceSettingsGeospatialRequest)descriptor, options);
+	}
+
+	/// <summary>Update a specific IP2Geo data source.</summary>
+	public Task<PutIp2geoDatasourceSettingsGeospatialResponse> PutIp2geoDatasourceSettingsAsync(Action<PutIp2geoDatasourceSettingsGeospatialRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new PutIp2geoDatasourceSettingsGeospatialRequestDescriptor();
+		configure(descriptor);
+		return PutIp2geoDatasourceSettingsAsync((PutIp2geoDatasourceSettingsGeospatialRequest)descriptor, options, ct);
+	}
 
 }

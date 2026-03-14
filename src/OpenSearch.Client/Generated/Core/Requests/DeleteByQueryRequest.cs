@@ -16,7 +16,7 @@ public sealed class DeleteByQueryRequest
 {
 	/// <summary>A comma-separated list of data streams, indexes, and aliases to search. Supports wildcards (`*`). To search all data streams or indexes, omit this parameter or use `*` or `_all`.</summary>
 	[JsonIgnore]
-	public string? Index { get; set; }
+	public List<string>? Index { get; set; }
 	/// <summary>Set to `true` or `false` to return the `_source` field or not, or a list of fields to return.</summary>
 	[JsonIgnore]
 	public System.Text.Json.JsonElement? Source { get; set; }
@@ -37,7 +37,7 @@ public sealed class DeleteByQueryRequest
 	public string? Analyzer { get; set; }
 	/// <summary>What to do if delete by query hits version conflicts: `abort` or `proceed`.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? Conflicts { get; set; }
+	public string? Conflicts { get; set; }
 	/// <summary>The default operator for query string query: `AND` or `OR`.</summary>
 	[JsonIgnore]
 	public Operator? DefaultOperator { get; set; }
@@ -46,7 +46,7 @@ public sealed class DeleteByQueryRequest
 	public string? Df { get; set; }
 	/// <summary>Type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values, such as `open,hidden`. Valid values are: `all`, `open`, `closed`, `hidden`, `none`.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? ExpandWildcards { get; set; }
+	public List<string>? ExpandWildcards { get; set; }
 	/// <summary>Starting offset.</summary>
 	[JsonIgnore]
 	public int? From { get; set; }
@@ -67,7 +67,7 @@ public sealed class DeleteByQueryRequest
 	public string? Q { get; set; }
 	/// <summary>If `true`, OpenSearch refreshes all shards involved in the delete by query after the request completes.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? Refresh { get; set; }
+	public string? Refresh { get; set; }
 	/// <summary>If `true`, the request cache is used for this request. Defaults to the index-level setting.</summary>
 	[JsonIgnore]
 	public bool? RequestCache { get; set; }
@@ -88,14 +88,14 @@ public sealed class DeleteByQueryRequest
 	public string? SearchTimeout { get; set; }
 	/// <summary>The type of the search operation. Available options: `query_then_fetch`, `dfs_query_then_fetch`.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? SearchType { get; set; }
+	public string? SearchType { get; set; }
 	/// <summary>Deprecated, use `max_docs` instead.</summary>
 	[JsonIgnore]
 	public int? Size { get; set; }
 	/// <summary>The number of slices this task should be divided into.</summary>
 	[JsonIgnore]
 	public System.Text.Json.JsonElement? Slices { get; set; }
-	/// <summary>A comma-separated list of <field>:<direction> pairs.</summary>
+	/// <summary>A comma-separated list of &lt;field&gt;:&lt;direction&gt; pairs.</summary>
 	[JsonIgnore]
 	public List<string>? Sort { get; set; }
 	/// <summary>Specific `tag` of the request for logging and statistical purposes.</summary>
@@ -112,7 +112,7 @@ public sealed class DeleteByQueryRequest
 	public bool? Version { get; set; }
 	/// <summary>The number of shard copies that must be active before proceeding with the operation. Set to all or any positive integer up to the total number of shards in the index (`number_of_replicas+1`).</summary>
 	[JsonIgnore]
-	public string? WaitForActiveShards { get; set; }
+	public System.Text.Json.JsonElement? WaitForActiveShards { get; set; }
 	/// <summary>If `true`, the request blocks until the operation is complete.</summary>
 	[JsonIgnore]
 	public bool? WaitForCompletion { get; set; }
@@ -142,13 +142,13 @@ public sealed class DeleteByQueryEndpoint : IEndpoint<DeleteByQueryRequest, Dele
 		if (r.Analyzer is not null)
 			queryParts.Add($"analyzer={Uri.EscapeDataString(r.Analyzer!)}");
 		if (r.Conflicts is not null)
-			queryParts.Add($"conflicts={Uri.EscapeDataString(r.Conflicts.ToString()!)}");
+			queryParts.Add($"conflicts={Uri.EscapeDataString(r.Conflicts!)}");
 		if (r.DefaultOperator is not null)
 			queryParts.Add($"default_operator={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.DefaultOperator!.Value))}");
 		if (r.Df is not null)
 			queryParts.Add($"df={Uri.EscapeDataString(r.Df!)}");
 		if (r.ExpandWildcards is not null)
-			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(r.ExpandWildcards.ToString()!)}");
+			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(string.Join(",", r.ExpandWildcards!))}");
 		if (r.From is not null)
 			queryParts.Add($"from={Uri.EscapeDataString(r.From.ToString()!)}");
 		if (r.IgnoreUnavailable is not null)
@@ -162,7 +162,7 @@ public sealed class DeleteByQueryEndpoint : IEndpoint<DeleteByQueryRequest, Dele
 		if (r.Q is not null)
 			queryParts.Add($"q={Uri.EscapeDataString(r.Q!)}");
 		if (r.Refresh is not null)
-			queryParts.Add($"refresh={Uri.EscapeDataString(r.Refresh.ToString()!)}");
+			queryParts.Add($"refresh={Uri.EscapeDataString(r.Refresh!)}");
 		if (r.RequestCache is not null)
 			queryParts.Add($"request_cache={Uri.EscapeDataString((r.RequestCache.Value ? "true" : "false"))}");
 		if (r.RequestsPerSecond is not null)
@@ -176,7 +176,7 @@ public sealed class DeleteByQueryEndpoint : IEndpoint<DeleteByQueryRequest, Dele
 		if (r.SearchTimeout is not null)
 			queryParts.Add($"search_timeout={Uri.EscapeDataString(r.SearchTimeout!)}");
 		if (r.SearchType is not null)
-			queryParts.Add($"search_type={Uri.EscapeDataString(r.SearchType.ToString()!)}");
+			queryParts.Add($"search_type={Uri.EscapeDataString(r.SearchType!)}");
 		if (r.Size is not null)
 			queryParts.Add($"size={Uri.EscapeDataString(r.Size.ToString()!)}");
 		if (r.Slices is not null)
@@ -192,13 +192,11 @@ public sealed class DeleteByQueryEndpoint : IEndpoint<DeleteByQueryRequest, Dele
 		if (r.Version is not null)
 			queryParts.Add($"version={Uri.EscapeDataString((r.Version.Value ? "true" : "false"))}");
 		if (r.WaitForActiveShards is not null)
-			queryParts.Add($"wait_for_active_shards={Uri.EscapeDataString(r.WaitForActiveShards!)}");
+			queryParts.Add($"wait_for_active_shards={Uri.EscapeDataString(r.WaitForActiveShards.ToString()!)}");
 		if (r.WaitForCompletion is not null)
 			queryParts.Add($"wait_for_completion={Uri.EscapeDataString((r.WaitForCompletion.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
-
-	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(DeleteByQueryRequest r) => RequestBody.Json(r);
 

@@ -15,13 +15,13 @@ public sealed class RemoteStoreUploadDownloadStats
 	/// <summary>The number of bytes that failed to upload to/from the remote segment store.</summary>
 		public string? Failed { get; set; }
 	/// <summary>The number of bytes that failed to upload to/from the remote segment store.</summary>
-		public string? FailedBytes { get; set; }
+		public long FailedBytes { get; set; }
 	/// <summary>The number of bytes to upload/download to/from the remote segment store after the upload/download has started.</summary>
 		public string? Started { get; set; }
 	/// <summary>The number of bytes to upload/download to/from the remote segment store after the upload/download has started.</summary>
-		public string? StartedBytes { get; set; }
+		public long StartedBytes { get; set; }
 	/// <summary>The number of bytes successfully uploaded/downloaded to/from the remote segment store.</summary>
 		public string? Succeeded { get; set; }
 	/// <summary>The number of bytes successfully uploaded/downloaded to/from the remote segment store.</summary>
-		public string? SucceededBytes { get; set; }
+		public long SucceededBytes { get; set; }
 }

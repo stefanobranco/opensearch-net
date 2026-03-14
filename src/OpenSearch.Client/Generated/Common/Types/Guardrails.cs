@@ -14,7 +14,7 @@ public sealed class Guardrails
 	public GuardrailsInputOutput? OutputGuardrail { get; set; }
 	public System.Text.Json.JsonElement? StopWords { get; set; }
 	public string? IndexName { get; set; }
-	public string? SourceFields { get; set; }
+	public List<string>? SourceFields { get; set; }
 	/// <summary>The regex used for input/output validation.</summary>
 		public System.Text.Json.JsonElement? Regex { get; set; }
 	/// <summary>The model ID.</summary>

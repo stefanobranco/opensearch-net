@@ -15,7 +15,7 @@ public sealed class SearchTemplateRequest
 {
 	/// <summary>A comma-separated list of data streams, indexes, and aliases to search. Supports wildcards (*).</summary>
 	[JsonIgnore]
-	public string? Index { get; set; }
+	public List<string>? Index { get; set; }
 	/// <summary>If `false`, the request returns an error if any wildcard expression, index alias, or `_all` value targets only missing or closed indexes. This behavior applies even if the request targets other open indexes. For example, a request targeting `foo*,bar*` returns an error if an index starts with `foo` but no index starts with `bar`.</summary>
 	[JsonIgnore]
 	public bool? AllowNoIndices { get; set; }
@@ -24,7 +24,7 @@ public sealed class SearchTemplateRequest
 	public bool? CcsMinimizeRoundtrips { get; set; }
 	/// <summary>Type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values, such as `open,hidden`. Valid values are: `all`, `open`, `closed`, `hidden`, `none`.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? ExpandWildcards { get; set; }
+	public List<string>? ExpandWildcards { get; set; }
 	/// <summary>If `true`, the response includes additional details about score computation as part of a hit.</summary>
 	[JsonIgnore]
 	public bool? Explain { get; set; }
@@ -57,7 +57,7 @@ public sealed class SearchTemplateRequest
 	public string? SearchPipeline { get; set; }
 	/// <summary>The type of the search operation.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? SearchType { get; set; }
+	public string? SearchType { get; set; }
 	/// <summary>If `true`, the response prefixes aggregation and suggester names with their respective types.</summary>
 	[JsonIgnore]
 	public bool? TypedKeys { get; set; }
@@ -85,7 +85,7 @@ public sealed class SearchTemplateEndpoint<TDocument> : IEndpoint<SearchTemplate
 		if (r.CcsMinimizeRoundtrips is not null)
 			queryParts.Add($"ccs_minimize_roundtrips={Uri.EscapeDataString((r.CcsMinimizeRoundtrips.Value ? "true" : "false"))}");
 		if (r.ExpandWildcards is not null)
-			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(r.ExpandWildcards.ToString()!)}");
+			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(string.Join(",", r.ExpandWildcards!))}");
 		if (r.Explain is not null)
 			queryParts.Add($"explain={Uri.EscapeDataString((r.Explain.Value ? "true" : "false"))}");
 		if (r.IgnoreThrottled is not null)
@@ -107,13 +107,11 @@ public sealed class SearchTemplateEndpoint<TDocument> : IEndpoint<SearchTemplate
 		if (r.SearchPipeline is not null)
 			queryParts.Add($"search_pipeline={Uri.EscapeDataString(r.SearchPipeline!)}");
 		if (r.SearchType is not null)
-			queryParts.Add($"search_type={Uri.EscapeDataString(r.SearchType.ToString()!)}");
+			queryParts.Add($"search_type={Uri.EscapeDataString(r.SearchType!)}");
 		if (r.TypedKeys is not null)
 			queryParts.Add($"typed_keys={Uri.EscapeDataString((r.TypedKeys.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
-
-	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(SearchTemplateRequest r) => RequestBody.Json(r);
 

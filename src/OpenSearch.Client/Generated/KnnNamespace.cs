@@ -17,56 +17,152 @@ public sealed partial class KnnNamespace
 
 
 	/// <summary>Used to delete a particular model in the cluster.</summary>
-	public DeleteModelResponse DeleteModel(DeleteModelRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, DeleteModelEndpoint.Instance, options);
+	public DeleteModelKnnResponse DeleteModel(DeleteModelKnnRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, DeleteModelKnnEndpoint.Instance, options);
 
 	/// <summary>Used to delete a particular model in the cluster.</summary>
-	public Task<DeleteModelResponse> DeleteModelAsync(DeleteModelRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, DeleteModelEndpoint.Instance, options, ct);
+	public Task<DeleteModelKnnResponse> DeleteModelAsync(DeleteModelKnnRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, DeleteModelKnnEndpoint.Instance, options, ct);
+
+	/// <summary>Used to delete a particular model in the cluster.</summary>
+	public DeleteModelKnnResponse DeleteModel(Action<DeleteModelKnnRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new DeleteModelKnnRequestDescriptor();
+		configure(descriptor);
+		return DeleteModel((DeleteModelKnnRequest)descriptor, options);
+	}
+
+	/// <summary>Used to delete a particular model in the cluster.</summary>
+	public Task<DeleteModelKnnResponse> DeleteModelAsync(Action<DeleteModelKnnRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new DeleteModelKnnRequestDescriptor();
+		configure(descriptor);
+		return DeleteModelAsync((DeleteModelKnnRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Used to retrieve information about models present in the cluster.</summary>
-	public GetModelResponse GetModel(GetModelRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetModelEndpoint.Instance, options);
+	public GetModelKnnResponse GetModel(GetModelKnnRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetModelKnnEndpoint.Instance, options);
 
 	/// <summary>Used to retrieve information about models present in the cluster.</summary>
-	public Task<GetModelResponse> GetModelAsync(GetModelRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetModelEndpoint.Instance, options, ct);
+	public Task<GetModelKnnResponse> GetModelAsync(GetModelKnnRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetModelKnnEndpoint.Instance, options, ct);
+
+	/// <summary>Used to retrieve information about models present in the cluster.</summary>
+	public GetModelKnnResponse GetModel(Action<GetModelKnnRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetModelKnnRequestDescriptor();
+		configure(descriptor);
+		return GetModel((GetModelKnnRequest)descriptor, options);
+	}
+
+	/// <summary>Used to retrieve information about models present in the cluster.</summary>
+	public Task<GetModelKnnResponse> GetModelAsync(Action<GetModelKnnRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetModelKnnRequestDescriptor();
+		configure(descriptor);
+		return GetModelAsync((GetModelKnnRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Use an OpenSearch query to search for models in the index.</summary>
-	public SearchModelsResponse SearchModels(SearchModelsRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, SearchModelsEndpoint.Instance, options);
+	public SearchModelsKnnResponse SearchModels(SearchModelsKnnRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, SearchModelsKnnEndpoint.Instance, options);
 
 	/// <summary>Use an OpenSearch query to search for models in the index.</summary>
-	public Task<SearchModelsResponse> SearchModelsAsync(SearchModelsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, SearchModelsEndpoint.Instance, options, ct);
+	public Task<SearchModelsKnnResponse> SearchModelsAsync(SearchModelsKnnRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, SearchModelsKnnEndpoint.Instance, options, ct);
+
+	/// <summary>Use an OpenSearch query to search for models in the index.</summary>
+	public SearchModelsKnnResponse SearchModels(Action<SearchModelsKnnRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new SearchModelsKnnRequestDescriptor();
+		configure(descriptor);
+		return SearchModels((SearchModelsKnnRequest)descriptor, options);
+	}
+
+	/// <summary>Use an OpenSearch query to search for models in the index.</summary>
+	public Task<SearchModelsKnnResponse> SearchModelsAsync(Action<SearchModelsKnnRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new SearchModelsKnnRequestDescriptor();
+		configure(descriptor);
+		return SearchModelsAsync((SearchModelsKnnRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Provides information about the current status of the k-NN plugin.</summary>
-	public StatsResponse Stats(StatsRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, StatsEndpoint.Instance, options);
+	public StatsKnnResponse Stats(StatsKnnRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, StatsKnnEndpoint.Instance, options);
 
 	/// <summary>Provides information about the current status of the k-NN plugin.</summary>
-	public Task<StatsResponse> StatsAsync(StatsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, StatsEndpoint.Instance, options, ct);
+	public Task<StatsKnnResponse> StatsAsync(StatsKnnRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, StatsKnnEndpoint.Instance, options, ct);
+
+	/// <summary>Provides information about the current status of the k-NN plugin.</summary>
+	public StatsKnnResponse Stats(Action<StatsKnnRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new StatsKnnRequestDescriptor();
+		configure(descriptor);
+		return Stats((StatsKnnRequest)descriptor, options);
+	}
+
+	/// <summary>Provides information about the current status of the k-NN plugin.</summary>
+	public Task<StatsKnnResponse> StatsAsync(Action<StatsKnnRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new StatsKnnRequestDescriptor();
+		configure(descriptor);
+		return StatsAsync((StatsKnnRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Create and train a model that can be used for initializing k-NN native library indexes during indexing.</summary>
-	public TrainModelResponse TrainModel(TrainModelRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, TrainModelEndpoint.Instance, options);
+	public TrainModelKnnResponse TrainModel(TrainModelKnnRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, TrainModelKnnEndpoint.Instance, options);
 
 	/// <summary>Create and train a model that can be used for initializing k-NN native library indexes during indexing.</summary>
-	public Task<TrainModelResponse> TrainModelAsync(TrainModelRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, TrainModelEndpoint.Instance, options, ct);
+	public Task<TrainModelKnnResponse> TrainModelAsync(TrainModelKnnRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, TrainModelKnnEndpoint.Instance, options, ct);
+
+	/// <summary>Create and train a model that can be used for initializing k-NN native library indexes during indexing.</summary>
+	public TrainModelKnnResponse TrainModel(Action<TrainModelKnnRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new TrainModelKnnRequestDescriptor();
+		configure(descriptor);
+		return TrainModel((TrainModelKnnRequest)descriptor, options);
+	}
+
+	/// <summary>Create and train a model that can be used for initializing k-NN native library indexes during indexing.</summary>
+	public Task<TrainModelKnnResponse> TrainModelAsync(Action<TrainModelKnnRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new TrainModelKnnRequestDescriptor();
+		configure(descriptor);
+		return TrainModelAsync((TrainModelKnnRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Preloads native library files into memory, reducing initial search latency for specified indexes.</summary>
-	public WarmupResponse Warmup(WarmupRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, WarmupEndpoint.Instance, options);
+	public WarmupKnnResponse Warmup(WarmupKnnRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, WarmupKnnEndpoint.Instance, options);
 
 	/// <summary>Preloads native library files into memory, reducing initial search latency for specified indexes.</summary>
-	public Task<WarmupResponse> WarmupAsync(WarmupRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, WarmupEndpoint.Instance, options, ct);
+	public Task<WarmupKnnResponse> WarmupAsync(WarmupKnnRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, WarmupKnnEndpoint.Instance, options, ct);
+
+	/// <summary>Preloads native library files into memory, reducing initial search latency for specified indexes.</summary>
+	public WarmupKnnResponse Warmup(Action<WarmupKnnRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new WarmupKnnRequestDescriptor();
+		configure(descriptor);
+		return Warmup((WarmupKnnRequest)descriptor, options);
+	}
+
+	/// <summary>Preloads native library files into memory, reducing initial search latency for specified indexes.</summary>
+	public Task<WarmupKnnResponse> WarmupAsync(Action<WarmupKnnRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new WarmupKnnRequestDescriptor();
+		configure(descriptor);
+		return WarmupAsync((WarmupKnnRequest)descriptor, options, ct);
+	}
 
 }

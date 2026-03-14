@@ -23,5 +23,5 @@ public sealed class DocumentSimulation
 	[JsonPropertyName("_version")]
 	public System.Text.Json.JsonElement? Version { get; set; }
 	[JsonPropertyName("_version_type")]
-	public System.Text.Json.JsonElement? VersionType { get; set; }
+	public string? VersionType { get; set; }
 }

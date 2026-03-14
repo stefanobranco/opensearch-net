@@ -12,7 +12,7 @@ namespace OpenSearch.Client.Indices;
 
 public sealed class IndexRoutingAllocation
 {
-	public System.Text.Json.JsonElement? Enable { get; set; }
+	public string? Enable { get; set; }
 	public IndexRoutingAllocationInclude? Include { get; set; }
 	public IndexRoutingAllocationInitialRecovery? InitialRecovery { get; set; }
 	public IndexRoutingAllocationDisk? Disk { get; set; }

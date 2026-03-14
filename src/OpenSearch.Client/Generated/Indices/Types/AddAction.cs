@@ -15,10 +15,10 @@ public sealed class AddAction
 {
 	public string? Alias { get; set; }
 	/// <summary>The list of aliases to add. Index alias names support date math.</summary>
-		public System.Text.Json.JsonElement? Aliases { get; set; }
+		public List<string>? Aliases { get; set; }
 	public QueryContainer? Filter { get; set; }
 	public string? Index { get; set; }
-	public string? Indices { get; set; }
+	public List<string>? Indices { get; set; }
 	public string? IndexRouting { get; set; }
 	/// <summary>Whether the alias is hidden.</summary>
 		public bool? IsHidden { get; set; }

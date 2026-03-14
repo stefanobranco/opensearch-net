@@ -15,10 +15,10 @@ public sealed class ShardFileSizeInfo
 	/// <summary>The description of the file type.</summary>
 		public string? Description { get; set; }
 	public string? Size { get; set; }
-	public string? SizeInBytes { get; set; }
-	public string? MinSizeInBytes { get; set; }
-	public string? MaxSizeInBytes { get; set; }
-	public string? AverageSizeInBytes { get; set; }
+	public long SizeInBytes { get; set; }
+	public long? MinSizeInBytes { get; set; }
+	public long? MaxSizeInBytes { get; set; }
+	public long? AverageSizeInBytes { get; set; }
 	/// <summary>The number of files.</summary>
 		public long? Count { get; set; }
 }

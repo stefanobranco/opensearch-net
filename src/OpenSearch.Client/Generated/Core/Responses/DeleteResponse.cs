@@ -2,7 +2,7 @@
 #nullable enable
 
 using System.Text.Json.Serialization;
-using OpenSearch.Client.Indices;
+using OpenSearch.Client.Common;
 
 namespace OpenSearch.Client.Core;
 
@@ -22,7 +22,7 @@ public sealed class DeleteResponse
 	/// <summary>The primary term of the document.</summary>
 		[JsonPropertyName("_primary_term")]
 	public long PrimaryTerm { get; set; }
-	public System.Text.Json.JsonElement? Result { get; set; }
+	public string? Result { get; set; }
 	[JsonPropertyName("_seq_no")]
 	public long SeqNo { get; set; }
 	[JsonPropertyName("_shards")]

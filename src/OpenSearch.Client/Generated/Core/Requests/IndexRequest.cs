@@ -25,15 +25,15 @@ public sealed class IndexRequest
 	/// <summary>Only perform the operation if the document has this sequence number.</summary>
 	[JsonIgnore]
 	public long? IfSeqNo { get; set; }
-	/// <summary>Set to create to only index the document if it does not already exist (put if absent). If a document with the specified `_id` already exists, the indexing operation will fail. Same as using the `<index>/_create` endpoint. Valid values: `index`, `create`. If document id is specified, it defaults to `index`. Otherwise, it defaults to `create`.</summary>
+	/// <summary>Set to create to only index the document if it does not already exist (put if absent). If a document with the specified `_id` already exists, the indexing operation will fail. Same as using the `&lt;index&gt;/_create` endpoint. Valid values: `index`, `create`. If document id is specified, it defaults to `index`. Otherwise, it defaults to `create`.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? OpType { get; set; }
+	public string? OpType { get; set; }
 	/// <summary>ID of the pipeline to use to preprocess incoming documents. If the index has a default ingest pipeline specified, then setting the value to `_none` disables the default ingest pipeline for this request. If a final pipeline is configured it will always run, regardless of the value of this parameter.</summary>
 	[JsonIgnore]
 	public string? Pipeline { get; set; }
 	/// <summary>If `true`, OpenSearch refreshes the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` do nothing with refreshes. Valid values: `true`, `false`, `wait_for`.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? Refresh { get; set; }
+	public string? Refresh { get; set; }
 	/// <summary>If `true`, the destination must be an index alias.</summary>
 	[JsonIgnore]
 	public bool? RequireAlias { get; set; }
@@ -48,10 +48,10 @@ public sealed class IndexRequest
 	public long? Version { get; set; }
 	/// <summary>The specific version type: `external`, `external_gte`.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? VersionType { get; set; }
+	public string? VersionType { get; set; }
 	/// <summary>The number of shard copies that must be active before proceeding with the operation. Set to all or any positive integer up to the total number of shards in the index (`number_of_replicas+1`).</summary>
 	[JsonIgnore]
-	public string? WaitForActiveShards { get; set; }
+	public System.Text.Json.JsonElement? WaitForActiveShards { get; set; }
 	/// <summary>The document to index.</summary>
 	[JsonIgnore]
 	public object? Body { get; set; }
@@ -74,11 +74,11 @@ public sealed class IndexEndpoint : IEndpoint<IndexRequest, IndexResponse>
 		if (r.IfSeqNo is not null)
 			queryParts.Add($"if_seq_no={Uri.EscapeDataString(r.IfSeqNo.ToString()!)}");
 		if (r.OpType is not null)
-			queryParts.Add($"op_type={Uri.EscapeDataString(r.OpType.ToString()!)}");
+			queryParts.Add($"op_type={Uri.EscapeDataString(r.OpType!)}");
 		if (r.Pipeline is not null)
 			queryParts.Add($"pipeline={Uri.EscapeDataString(r.Pipeline!)}");
 		if (r.Refresh is not null)
-			queryParts.Add($"refresh={Uri.EscapeDataString(r.Refresh.ToString()!)}");
+			queryParts.Add($"refresh={Uri.EscapeDataString(r.Refresh!)}");
 		if (r.RequireAlias is not null)
 			queryParts.Add($"require_alias={Uri.EscapeDataString((r.RequireAlias.Value ? "true" : "false"))}");
 		if (r.Routing is not null)
@@ -88,13 +88,11 @@ public sealed class IndexEndpoint : IEndpoint<IndexRequest, IndexResponse>
 		if (r.Version is not null)
 			queryParts.Add($"version={Uri.EscapeDataString(r.Version.ToString()!)}");
 		if (r.VersionType is not null)
-			queryParts.Add($"version_type={Uri.EscapeDataString(r.VersionType.ToString()!)}");
+			queryParts.Add($"version_type={Uri.EscapeDataString(r.VersionType!)}");
 		if (r.WaitForActiveShards is not null)
-			queryParts.Add($"wait_for_active_shards={Uri.EscapeDataString(r.WaitForActiveShards!)}");
+			queryParts.Add($"wait_for_active_shards={Uri.EscapeDataString(r.WaitForActiveShards.ToString()!)}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
-
-	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(IndexRequest r) => r.Body is not null ? RequestBody.Json(r.Body) : null;
 

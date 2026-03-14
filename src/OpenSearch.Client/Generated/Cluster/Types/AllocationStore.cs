@@ -11,7 +11,7 @@ public sealed class AllocationStore
 	public string? AllocationId { get; set; }
 	public bool Found { get; set; }
 	public bool InSync { get; set; }
-	public string? MatchingSizeInBytes { get; set; }
+	public long MatchingSizeInBytes { get; set; }
 	public bool MatchingSyncId { get; set; }
 	public string? StoreException { get; set; }
 }

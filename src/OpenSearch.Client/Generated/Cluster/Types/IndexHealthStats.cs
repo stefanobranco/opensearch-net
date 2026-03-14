@@ -15,6 +15,6 @@ public sealed class IndexHealthStats
 	public int NumberOfShards { get; set; }
 	public int RelocatingShards { get; set; }
 	public Dictionary<string, ShardHealthStats>? Shards { get; set; }
-	public System.Text.Json.JsonElement? Status { get; set; }
+	public string? Status { get; set; }
 	public int UnassignedShards { get; set; }
 }

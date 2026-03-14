@@ -26,8 +26,6 @@ public sealed class GetAllPitsEndpoint : IEndpoint<GetAllPitsRequest, GetAllPits
 		return path;
 	}
 
-	public string? ContentType => null;
-
 	public RequestBody? GetBody(GetAllPitsRequest r) => null;
 
 	public GetAllPitsResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>

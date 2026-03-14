@@ -14,11 +14,11 @@ public sealed class RecoveryBytes
 {
 	public string? Percent { get; set; }
 	public string? Recovered { get; set; }
-	public string? RecoveredInBytes { get; set; }
+	public long RecoveredInBytes { get; set; }
 	public string? RecoveredFromSnapshot { get; set; }
-	public string? RecoveredFromSnapshotInBytes { get; set; }
+	public long? RecoveredFromSnapshotInBytes { get; set; }
 	public string? Reused { get; set; }
-	public string? ReusedInBytes { get; set; }
+	public long ReusedInBytes { get; set; }
 	public string? Total { get; set; }
-	public string? TotalInBytes { get; set; }
+	public long TotalInBytes { get; set; }
 }

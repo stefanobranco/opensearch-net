@@ -16,16 +16,16 @@ public sealed class FieldCapsRequest
 {
 	/// <summary>A comma-separated list of data streams, indexes, and aliases used to limit the request. Supports wildcards (*). To target all data streams and indexes, omit this parameter or use * or `_all`.</summary>
 	[JsonIgnore]
-	public string? Index { get; set; }
+	public List<string>? Index { get; set; }
 	/// <summary>If `false`, the request returns an error if any wildcard expression, index alias, or `_all` value targets only missing or closed indexes. This behavior applies even if the request targets other open indexes. For example, a request targeting `foo*,bar*` returns an error if an index starts with foo but no index starts with bar.</summary>
 	[JsonIgnore]
 	public bool? AllowNoIndices { get; set; }
 	/// <summary>The type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values, such as `open,hidden`.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? ExpandWildcards { get; set; }
+	public List<string>? ExpandWildcards { get; set; }
 	/// <summary>A comma-separated list of fields to retrieve capabilities for. Wildcard (`*`) expressions are supported.</summary>
 	[JsonIgnore]
-	public string? Fields { get; set; }
+	public List<string>? Fields { get; set; }
 	/// <summary>If `true`, missing or closed indexes are not included in the response.</summary>
 	[JsonIgnore]
 	public bool? IgnoreUnavailable { get; set; }
@@ -50,17 +50,15 @@ public sealed class FieldCapsEndpoint : IEndpoint<FieldCapsRequest, FieldCapsRes
 		if (r.AllowNoIndices is not null)
 			queryParts.Add($"allow_no_indices={Uri.EscapeDataString((r.AllowNoIndices.Value ? "true" : "false"))}");
 		if (r.ExpandWildcards is not null)
-			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(r.ExpandWildcards.ToString()!)}");
+			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(string.Join(",", r.ExpandWildcards!))}");
 		if (r.Fields is not null)
-			queryParts.Add($"fields={Uri.EscapeDataString(r.Fields!)}");
+			queryParts.Add($"fields={Uri.EscapeDataString(string.Join(",", r.Fields!))}");
 		if (r.IgnoreUnavailable is not null)
 			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable.Value ? "true" : "false"))}");
 		if (r.IncludeUnmapped is not null)
 			queryParts.Add($"include_unmapped={Uri.EscapeDataString((r.IncludeUnmapped.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
-
-	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(FieldCapsRequest r) => RequestBody.Json(r);
 

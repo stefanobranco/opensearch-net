@@ -2,6 +2,7 @@
 #nullable enable
 
 using System.Text.Json.Serialization;
+using OpenSearch.Client.Indices;
 
 namespace OpenSearch.Client.Common;
 
@@ -9,5 +10,5 @@ namespace OpenSearch.Client.Common;
 public sealed class FieldMapping
 {
 	public string? FullName { get; set; }
-	public Dictionary<string, System.Text.Json.JsonElement>? Mapping { get; set; }
+	public Dictionary<string, Property>? Mapping { get; set; }
 }

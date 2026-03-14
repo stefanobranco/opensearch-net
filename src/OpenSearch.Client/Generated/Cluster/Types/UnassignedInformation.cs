@@ -8,7 +8,7 @@ namespace OpenSearch.Client.Cluster;
 
 public sealed class UnassignedInformation
 {
-	public string? At { get; set; }
+	public System.Text.Json.JsonElement? At { get; set; }
 	public string? LastAllocationStatus { get; set; }
 	public UnassignedInformationReason? Reason { get; set; }
 	public string? Details { get; set; }

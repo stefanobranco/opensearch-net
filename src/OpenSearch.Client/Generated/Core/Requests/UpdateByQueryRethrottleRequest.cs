@@ -35,8 +35,6 @@ public sealed class UpdateByQueryRethrottleEndpoint : IEndpoint<UpdateByQueryRet
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-	public string? ContentType => null;
-
 	public RequestBody? GetBody(UpdateByQueryRethrottleRequest r) => null;
 
 	public UpdateByQueryRethrottleResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>

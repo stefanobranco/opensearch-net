@@ -11,9 +11,9 @@ public sealed class ModelProfile
 	public ModelState? ModelState { get; set; }
 	/// <summary>The predictor.</summary>
 		public string? Predictor { get; set; }
-	public List<string>? WorkerNodes { get; set; }
+	public List<List<string>>? WorkerNodes { get; set; }
 	public PredictRequestStats? PredictRequestStats { get; set; }
-	public List<string>? TargetWorkerNodes { get; set; }
+	public List<List<string>>? TargetWorkerNodes { get; set; }
 	/// <summary>The estimated memory size in CPU.</summary>
 		public long? MemorySizeEstimationCpu { get; set; }
 	/// <summary>The estimated memory size in GPU.</summary>

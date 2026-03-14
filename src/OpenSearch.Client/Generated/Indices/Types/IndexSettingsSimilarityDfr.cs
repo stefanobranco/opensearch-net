@@ -12,8 +12,8 @@ namespace OpenSearch.Client.Indices;
 
 public sealed class IndexSettingsSimilarityDfr
 {
-	public System.Text.Json.JsonElement? AfterEffect { get; set; }
-	public System.Text.Json.JsonElement? BasicModel { get; set; }
-	public System.Text.Json.JsonElement? Normalization { get; set; }
+	public string? AfterEffect { get; set; }
+	public string? BasicModel { get; set; }
+	public string? Normalization { get; set; }
 	public string? Type { get; set; }
 }

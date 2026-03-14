@@ -10,6 +10,6 @@ public sealed class IndicesVersions
 {
 	public int IndexCount { get; set; }
 	public int PrimaryShardCount { get; set; }
-	public string? TotalPrimaryBytes { get; set; }
+	public long TotalPrimaryBytes { get; set; }
 	public string? Version { get; set; }
 }

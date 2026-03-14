@@ -14,7 +14,7 @@ public sealed class NodeAttributes
 	public string? Id { get; set; }
 	public string? Name { get; set; }
 	public string? TransportAddress { get; set; }
-	public List<System.Text.Json.JsonElement>? Roles { get; set; }
+	public List<string>? Roles { get; set; }
 	/// <summary>The roles of the node.</summary>
 		public string? ExternalId { get; set; }
 }

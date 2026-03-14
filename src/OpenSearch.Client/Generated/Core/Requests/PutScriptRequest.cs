@@ -48,8 +48,6 @@ public sealed class PutScriptEndpoint : IEndpoint<PutScriptRequest, PutScriptRes
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-	public string? ContentType => "application/json";
-
 	public RequestBody? GetBody(PutScriptRequest r) => RequestBody.Json(r);
 
 	public PutScriptResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>

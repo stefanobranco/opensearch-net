@@ -26,7 +26,7 @@ public sealed class DataStream
 	public string? Name { get; set; }
 	/// <summary>When `true`, the data stream is created and managed by cross-cluster replication and the local cluster can not write into this data stream or change its mappings.</summary>
 		public bool? Replicated { get; set; }
-	public System.Text.Json.JsonElement? Status { get; set; }
+	public string? Status { get; set; }
 	/// <summary>When `true`, the data stream is created and managed by an OpenSearch stack component and cannot be modified through normal user interaction.</summary>
 		public bool? System { get; set; }
 	public string? Template { get; set; }

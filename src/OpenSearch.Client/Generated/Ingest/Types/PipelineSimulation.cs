@@ -12,5 +12,5 @@ public sealed class PipelineSimulation
 	public List<PipelineSimulation>? ProcessorResults { get; set; }
 	public string? Tag { get; set; }
 	public string? ProcessorType { get; set; }
-	public System.Text.Json.JsonElement? Status { get; set; }
+	public string? Status { get; set; }
 }

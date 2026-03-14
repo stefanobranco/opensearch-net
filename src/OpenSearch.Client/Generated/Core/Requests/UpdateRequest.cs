@@ -24,10 +24,10 @@ public sealed class UpdateRequest
 	public System.Text.Json.JsonElement? Source { get; set; }
 	/// <summary>Specify the source fields you want to exclude.</summary>
 	[JsonIgnore]
-	public string? SourceExcludes { get; set; }
+	public List<string>? SourceExcludes { get; set; }
 	/// <summary>Specify the source fields you want to retrieve.</summary>
 	[JsonIgnore]
-	public string? SourceIncludes { get; set; }
+	public List<string>? SourceIncludes { get; set; }
 	/// <summary>Only perform the operation if the document has this primary term.</summary>
 	[JsonIgnore]
 	public long? IfPrimaryTerm { get; set; }
@@ -39,7 +39,7 @@ public sealed class UpdateRequest
 	public string? Lang { get; set; }
 	/// <summary>If 'true', OpenSearch refreshes the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` do nothing with refreshes.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? Refresh { get; set; }
+	public string? Refresh { get; set; }
 	/// <summary>If `true`, the destination must be an index alias.</summary>
 	[JsonIgnore]
 	public bool? RequireAlias { get; set; }
@@ -54,7 +54,7 @@ public sealed class UpdateRequest
 	public string? Timeout { get; set; }
 	/// <summary>The number of shard copies that must be active before proceeding with the operations. Set to 'all' or any positive integer up to the total number of shards in the index (number_of_replicas+1). Defaults to 1 meaning the primary shard.</summary>
 	[JsonIgnore]
-	public string? WaitForActiveShards { get; set; }
+	public System.Text.Json.JsonElement? WaitForActiveShards { get; set; }
 	/// <summary>Set to `false` to disable setting `result` in the response to `noop` if no change to the document occurred.</summary>
 		public bool? DetectNoop { get; set; }
 	/// <summary>A partial update to an existing document.</summary>
@@ -80,9 +80,9 @@ public sealed class UpdateEndpoint<TDocument> : IEndpoint<UpdateRequest, UpdateR
 		if (r.Source is not null)
 			queryParts.Add($"_source={Uri.EscapeDataString(r.Source.ToString()!)}");
 		if (r.SourceExcludes is not null)
-			queryParts.Add($"_source_excludes={Uri.EscapeDataString(r.SourceExcludes!)}");
+			queryParts.Add($"_source_excludes={Uri.EscapeDataString(string.Join(",", r.SourceExcludes!))}");
 		if (r.SourceIncludes is not null)
-			queryParts.Add($"_source_includes={Uri.EscapeDataString(r.SourceIncludes!)}");
+			queryParts.Add($"_source_includes={Uri.EscapeDataString(string.Join(",", r.SourceIncludes!))}");
 		if (r.IfPrimaryTerm is not null)
 			queryParts.Add($"if_primary_term={Uri.EscapeDataString(r.IfPrimaryTerm.ToString()!)}");
 		if (r.IfSeqNo is not null)
@@ -90,7 +90,7 @@ public sealed class UpdateEndpoint<TDocument> : IEndpoint<UpdateRequest, UpdateR
 		if (r.Lang is not null)
 			queryParts.Add($"lang={Uri.EscapeDataString(r.Lang!)}");
 		if (r.Refresh is not null)
-			queryParts.Add($"refresh={Uri.EscapeDataString(r.Refresh.ToString()!)}");
+			queryParts.Add($"refresh={Uri.EscapeDataString(r.Refresh!)}");
 		if (r.RequireAlias is not null)
 			queryParts.Add($"require_alias={Uri.EscapeDataString((r.RequireAlias.Value ? "true" : "false"))}");
 		if (r.RetryOnConflict is not null)
@@ -100,11 +100,9 @@ public sealed class UpdateEndpoint<TDocument> : IEndpoint<UpdateRequest, UpdateR
 		if (r.Timeout is not null)
 			queryParts.Add($"timeout={Uri.EscapeDataString(r.Timeout!)}");
 		if (r.WaitForActiveShards is not null)
-			queryParts.Add($"wait_for_active_shards={Uri.EscapeDataString(r.WaitForActiveShards!)}");
+			queryParts.Add($"wait_for_active_shards={Uri.EscapeDataString(r.WaitForActiveShards.ToString()!)}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
-
-	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(UpdateRequest r) => RequestBody.Json(r);
 

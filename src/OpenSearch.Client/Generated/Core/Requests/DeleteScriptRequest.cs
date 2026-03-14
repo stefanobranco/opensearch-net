@@ -40,8 +40,6 @@ public sealed class DeleteScriptEndpoint : IEndpoint<DeleteScriptRequest, Delete
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-	public string? ContentType => null;
-
 	public RequestBody? GetBody(DeleteScriptRequest r) => null;
 
 	public DeleteScriptResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>

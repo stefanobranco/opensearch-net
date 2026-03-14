@@ -8,6 +8,6 @@ namespace OpenSearch.Client.Geospatial;
 
 public sealed class UpdateStats
 {
-	public string? LastSucceededAtInEpochMillis { get; set; }
-	public string? LastProcessingTimeInMillis { get; set; }
+	public System.Text.Json.JsonElement? LastSucceededAtInEpochMillis { get; set; }
+	public System.Text.Json.JsonElement? LastProcessingTimeInMillis { get; set; }
 }

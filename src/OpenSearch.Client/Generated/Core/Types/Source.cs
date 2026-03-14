@@ -9,13 +9,13 @@ namespace OpenSearch.Client.Core;
 
 public sealed class Source
 {
-	public string? Index { get; set; }
+	public List<string>? Index { get; set; }
 	public QueryContainer? Query { get; set; }
 	public RemoteSource? Remote { get; set; }
 	/// <summary>The number of documents to index per batch. Use the `size` setting when indexing from a remote cluster. This ensures that batches fit in the on-heap buffer. The buffer defaults to a maximum size of `100MB`.</summary>
 		public int? Size { get; set; }
 	public SlicedScroll? Slice { get; set; }
-	public System.Text.Json.JsonElement? Sort { get; set; }
+	public List<SortCombinations>? Sort { get; set; }
 	[JsonPropertyName("_source")]
-	public string? SourceValue { get; set; }
+	public List<string>? SourceValue { get; set; }
 }

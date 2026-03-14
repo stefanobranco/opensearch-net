@@ -13,5 +13,5 @@ namespace OpenSearch.Client.Indices;
 public sealed class IndexSegment
 {
 	/// <summary>The segment information for each shard.</summary>
-		public Dictionary<string, System.Text.Json.JsonElement>? Shards { get; set; }
+		public Dictionary<string, List<ShardsSegment>>? Shards { get; set; }
 }

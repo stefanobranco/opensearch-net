@@ -3,6 +3,7 @@
 
 using System.Text.Json.Serialization;
 using OpenSearch.Net;
+using OpenSearch.Client.Common;
 
 namespace OpenSearch.Client.Core;
 
@@ -16,7 +17,7 @@ public sealed class ScriptsPainlessExecuteRequest
 	/// <summary>The context that the script should run in.</summary>
 		public string? Context { get; set; }
 	public PainlessContextSetup? ContextSetup { get; set; }
-	public System.Text.Json.JsonElement? Script { get; set; }
+	public InlineScript? Script { get; set; }
 }
 public sealed class ScriptsPainlessExecuteEndpoint<TResult> : IEndpoint<ScriptsPainlessExecuteRequest, ScriptsPainlessExecuteResponse<TResult>>
 {
@@ -29,8 +30,6 @@ public sealed class ScriptsPainlessExecuteEndpoint<TResult> : IEndpoint<ScriptsP
 		var path = $"/_scripts/painless/_execute";
 		return path;
 	}
-
-	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(ScriptsPainlessExecuteRequest r) => RequestBody.Json(r);
 

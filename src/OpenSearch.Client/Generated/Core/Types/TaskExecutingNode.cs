@@ -13,7 +13,7 @@ public sealed class TaskExecutingNode
 	public string? Host { get; set; }
 	public string? Ip { get; set; }
 	public string? Name { get; set; }
-	public List<System.Text.Json.JsonElement>? Roles { get; set; }
+	public List<string>? Roles { get; set; }
 	public string? TransportAddress { get; set; }
 	public Dictionary<string, TaskInfo>? Tasks { get; set; }
 }

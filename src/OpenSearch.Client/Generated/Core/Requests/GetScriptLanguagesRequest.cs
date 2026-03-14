@@ -26,8 +26,6 @@ public sealed class GetScriptLanguagesEndpoint : IEndpoint<GetScriptLanguagesReq
 		return path;
 	}
 
-	public string? ContentType => null;
-
 	public RequestBody? GetBody(GetScriptLanguagesRequest r) => null;
 
 	public GetScriptLanguagesResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>

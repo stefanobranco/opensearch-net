@@ -3,7 +3,6 @@
 
 using System.Text.Json.Serialization;
 using OpenSearch.Client.Common;
-using OpenSearch.Client.Indices;
 
 namespace OpenSearch.Client.Core;
 
@@ -23,7 +22,7 @@ public sealed class UpdateResponse<TDocument>
 	/// <summary>The primary term of the document.</summary>
 		[JsonPropertyName("_primary_term")]
 	public long PrimaryTerm { get; set; }
-	public System.Text.Json.JsonElement? Result { get; set; }
+	public string? Result { get; set; }
 	[JsonPropertyName("_seq_no")]
 	public long SeqNo { get; set; }
 	[JsonPropertyName("_shards")]

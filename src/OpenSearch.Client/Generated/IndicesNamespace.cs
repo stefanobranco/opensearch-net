@@ -17,434 +17,1202 @@ public sealed partial class IndicesNamespace
 
 
 	/// <summary>Adds a block to an index.</summary>
-	public AddBlockResponse AddBlock(AddBlockRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, AddBlockEndpoint.Instance, options);
+	public AddBlockIndexResponse AddBlock(AddBlockIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, AddBlockIndexEndpoint.Instance, options);
 
 	/// <summary>Adds a block to an index.</summary>
-	public Task<AddBlockResponse> AddBlockAsync(AddBlockRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, AddBlockEndpoint.Instance, options, ct);
+	public Task<AddBlockIndexResponse> AddBlockAsync(AddBlockIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, AddBlockIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Adds a block to an index.</summary>
+	public AddBlockIndexResponse AddBlock(Action<AddBlockIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new AddBlockIndexRequestDescriptor();
+		configure(descriptor);
+		return AddBlock((AddBlockIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Adds a block to an index.</summary>
+	public Task<AddBlockIndexResponse> AddBlockAsync(Action<AddBlockIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new AddBlockIndexRequestDescriptor();
+		configure(descriptor);
+		return AddBlockAsync((AddBlockIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Performs the analysis process on a text and return the tokens breakdown of the text.</summary>
-	public AnalyzeResponse Analyze(AnalyzeRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, AnalyzeEndpoint.Instance, options);
+	public AnalyzeIndexResponse Analyze(AnalyzeIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, AnalyzeIndexEndpoint.Instance, options);
 
 	/// <summary>Performs the analysis process on a text and return the tokens breakdown of the text.</summary>
-	public Task<AnalyzeResponse> AnalyzeAsync(AnalyzeRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, AnalyzeEndpoint.Instance, options, ct);
+	public Task<AnalyzeIndexResponse> AnalyzeAsync(AnalyzeIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, AnalyzeIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Performs the analysis process on a text and return the tokens breakdown of the text.</summary>
+	public AnalyzeIndexResponse Analyze(Action<AnalyzeIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new AnalyzeIndexRequestDescriptor();
+		configure(descriptor);
+		return Analyze((AnalyzeIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Performs the analysis process on a text and return the tokens breakdown of the text.</summary>
+	public Task<AnalyzeIndexResponse> AnalyzeAsync(Action<AnalyzeIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new AnalyzeIndexRequestDescriptor();
+		configure(descriptor);
+		return AnalyzeAsync((AnalyzeIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Clears all or specific caches for one or more indexes.</summary>
-	public ClearCacheResponse ClearCache(ClearCacheRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, ClearCacheEndpoint.Instance, options);
+	public ClearCacheIndexResponse ClearCache(ClearCacheIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, ClearCacheIndexEndpoint.Instance, options);
 
 	/// <summary>Clears all or specific caches for one or more indexes.</summary>
-	public Task<ClearCacheResponse> ClearCacheAsync(ClearCacheRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, ClearCacheEndpoint.Instance, options, ct);
+	public Task<ClearCacheIndexResponse> ClearCacheAsync(ClearCacheIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, ClearCacheIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Clears all or specific caches for one or more indexes.</summary>
+	public ClearCacheIndexResponse ClearCache(Action<ClearCacheIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new ClearCacheIndexRequestDescriptor();
+		configure(descriptor);
+		return ClearCache((ClearCacheIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Clears all or specific caches for one or more indexes.</summary>
+	public Task<ClearCacheIndexResponse> ClearCacheAsync(Action<ClearCacheIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new ClearCacheIndexRequestDescriptor();
+		configure(descriptor);
+		return ClearCacheAsync((ClearCacheIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Clones an index.</summary>
-	public CloneResponse Clone(CloneRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, CloneEndpoint.Instance, options);
+	public CloneIndexResponse Clone(CloneIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, CloneIndexEndpoint.Instance, options);
 
 	/// <summary>Clones an index.</summary>
-	public Task<CloneResponse> CloneAsync(CloneRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, CloneEndpoint.Instance, options, ct);
+	public Task<CloneIndexResponse> CloneAsync(CloneIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, CloneIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Clones an index.</summary>
+	public CloneIndexResponse Clone(Action<CloneIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new CloneIndexRequestDescriptor();
+		configure(descriptor);
+		return Clone((CloneIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Clones an index.</summary>
+	public Task<CloneIndexResponse> CloneAsync(Action<CloneIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new CloneIndexRequestDescriptor();
+		configure(descriptor);
+		return CloneAsync((CloneIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Closes an index.</summary>
-	public CloseResponse Close(CloseRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, CloseEndpoint.Instance, options);
+	public CloseIndexResponse Close(CloseIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, CloseIndexEndpoint.Instance, options);
 
 	/// <summary>Closes an index.</summary>
-	public Task<CloseResponse> CloseAsync(CloseRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, CloseEndpoint.Instance, options, ct);
+	public Task<CloseIndexResponse> CloseAsync(CloseIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, CloseIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Closes an index.</summary>
+	public CloseIndexResponse Close(Action<CloseIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new CloseIndexRequestDescriptor();
+		configure(descriptor);
+		return Close((CloseIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Closes an index.</summary>
+	public Task<CloseIndexResponse> CloseAsync(Action<CloseIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new CloseIndexRequestDescriptor();
+		configure(descriptor);
+		return CloseAsync((CloseIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Creates an index with optional settings and mappings.</summary>
-	public CreateResponse Create(CreateRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, CreateEndpoint.Instance, options);
+	public CreateIndexResponse Create(CreateIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, CreateIndexEndpoint.Instance, options);
 
 	/// <summary>Creates an index with optional settings and mappings.</summary>
-	public Task<CreateResponse> CreateAsync(CreateRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, CreateEndpoint.Instance, options, ct);
+	public Task<CreateIndexResponse> CreateAsync(CreateIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, CreateIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Creates an index with optional settings and mappings.</summary>
+	public CreateIndexResponse Create(Action<CreateIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new CreateIndexRequestDescriptor();
+		configure(descriptor);
+		return Create((CreateIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Creates an index with optional settings and mappings.</summary>
+	public Task<CreateIndexResponse> CreateAsync(Action<CreateIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new CreateIndexRequestDescriptor();
+		configure(descriptor);
+		return CreateAsync((CreateIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Creates or updates a data stream.</summary>
-	public CreateDataStreamResponse CreateDataStream(CreateDataStreamRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, CreateDataStreamEndpoint.Instance, options);
+	public CreateDataStreamIndexResponse CreateDataStream(CreateDataStreamIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, CreateDataStreamIndexEndpoint.Instance, options);
 
 	/// <summary>Creates or updates a data stream.</summary>
-	public Task<CreateDataStreamResponse> CreateDataStreamAsync(CreateDataStreamRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, CreateDataStreamEndpoint.Instance, options, ct);
+	public Task<CreateDataStreamIndexResponse> CreateDataStreamAsync(CreateDataStreamIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, CreateDataStreamIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Creates or updates a data stream.</summary>
+	public CreateDataStreamIndexResponse CreateDataStream(Action<CreateDataStreamIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new CreateDataStreamIndexRequestDescriptor();
+		configure(descriptor);
+		return CreateDataStream((CreateDataStreamIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Creates or updates a data stream.</summary>
+	public Task<CreateDataStreamIndexResponse> CreateDataStreamAsync(Action<CreateDataStreamIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new CreateDataStreamIndexRequestDescriptor();
+		configure(descriptor);
+		return CreateDataStreamAsync((CreateDataStreamIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Provides statistics on operations happening in a data stream.</summary>
-	public DataStreamsStatsResponse DataStreamsStats(DataStreamsStatsRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, DataStreamsStatsEndpoint.Instance, options);
+	public DataStreamsStatsIndexResponse DataStreamsStats(DataStreamsStatsIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, DataStreamsStatsIndexEndpoint.Instance, options);
 
 	/// <summary>Provides statistics on operations happening in a data stream.</summary>
-	public Task<DataStreamsStatsResponse> DataStreamsStatsAsync(DataStreamsStatsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, DataStreamsStatsEndpoint.Instance, options, ct);
+	public Task<DataStreamsStatsIndexResponse> DataStreamsStatsAsync(DataStreamsStatsIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, DataStreamsStatsIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Provides statistics on operations happening in a data stream.</summary>
+	public DataStreamsStatsIndexResponse DataStreamsStats(Action<DataStreamsStatsIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new DataStreamsStatsIndexRequestDescriptor();
+		configure(descriptor);
+		return DataStreamsStats((DataStreamsStatsIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Provides statistics on operations happening in a data stream.</summary>
+	public Task<DataStreamsStatsIndexResponse> DataStreamsStatsAsync(Action<DataStreamsStatsIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new DataStreamsStatsIndexRequestDescriptor();
+		configure(descriptor);
+		return DataStreamsStatsAsync((DataStreamsStatsIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Deletes an index.</summary>
-	public DeleteResponse Delete(DeleteRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, DeleteEndpoint.Instance, options);
+	public DeleteIndexResponse Delete(DeleteIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, DeleteIndexEndpoint.Instance, options);
 
 	/// <summary>Deletes an index.</summary>
-	public Task<DeleteResponse> DeleteAsync(DeleteRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, DeleteEndpoint.Instance, options, ct);
+	public Task<DeleteIndexResponse> DeleteAsync(DeleteIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, DeleteIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Deletes an index.</summary>
+	public DeleteIndexResponse Delete(Action<DeleteIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new DeleteIndexRequestDescriptor();
+		configure(descriptor);
+		return Delete((DeleteIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Deletes an index.</summary>
+	public Task<DeleteIndexResponse> DeleteAsync(Action<DeleteIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new DeleteIndexRequestDescriptor();
+		configure(descriptor);
+		return DeleteAsync((DeleteIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Deletes an alias.</summary>
-	public DeleteAliasResponse DeleteAlias(DeleteAliasRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, DeleteAliasEndpoint.Instance, options);
+	public DeleteAliasIndexResponse DeleteAlias(DeleteAliasIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, DeleteAliasIndexEndpoint.Instance, options);
 
 	/// <summary>Deletes an alias.</summary>
-	public Task<DeleteAliasResponse> DeleteAliasAsync(DeleteAliasRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, DeleteAliasEndpoint.Instance, options, ct);
+	public Task<DeleteAliasIndexResponse> DeleteAliasAsync(DeleteAliasIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, DeleteAliasIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Deletes an alias.</summary>
+	public DeleteAliasIndexResponse DeleteAlias(Action<DeleteAliasIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new DeleteAliasIndexRequestDescriptor();
+		configure(descriptor);
+		return DeleteAlias((DeleteAliasIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Deletes an alias.</summary>
+	public Task<DeleteAliasIndexResponse> DeleteAliasAsync(Action<DeleteAliasIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new DeleteAliasIndexRequestDescriptor();
+		configure(descriptor);
+		return DeleteAliasAsync((DeleteAliasIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Deletes a data stream.</summary>
-	public DeleteDataStreamResponse DeleteDataStream(DeleteDataStreamRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, DeleteDataStreamEndpoint.Instance, options);
+	public DeleteDataStreamIndexResponse DeleteDataStream(DeleteDataStreamIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, DeleteDataStreamIndexEndpoint.Instance, options);
 
 	/// <summary>Deletes a data stream.</summary>
-	public Task<DeleteDataStreamResponse> DeleteDataStreamAsync(DeleteDataStreamRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, DeleteDataStreamEndpoint.Instance, options, ct);
+	public Task<DeleteDataStreamIndexResponse> DeleteDataStreamAsync(DeleteDataStreamIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, DeleteDataStreamIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Deletes a data stream.</summary>
+	public DeleteDataStreamIndexResponse DeleteDataStream(Action<DeleteDataStreamIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new DeleteDataStreamIndexRequestDescriptor();
+		configure(descriptor);
+		return DeleteDataStream((DeleteDataStreamIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Deletes a data stream.</summary>
+	public Task<DeleteDataStreamIndexResponse> DeleteDataStreamAsync(Action<DeleteDataStreamIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new DeleteDataStreamIndexRequestDescriptor();
+		configure(descriptor);
+		return DeleteDataStreamAsync((DeleteDataStreamIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Deletes an index template.</summary>
-	public DeleteIndexTemplateResponse DeleteIndexTemplate(DeleteIndexTemplateRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, DeleteIndexTemplateEndpoint.Instance, options);
+	public DeleteIndexTemplateIndexResponse DeleteIndexTemplate(DeleteIndexTemplateIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, DeleteIndexTemplateIndexEndpoint.Instance, options);
 
 	/// <summary>Deletes an index template.</summary>
-	public Task<DeleteIndexTemplateResponse> DeleteIndexTemplateAsync(DeleteIndexTemplateRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, DeleteIndexTemplateEndpoint.Instance, options, ct);
+	public Task<DeleteIndexTemplateIndexResponse> DeleteIndexTemplateAsync(DeleteIndexTemplateIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, DeleteIndexTemplateIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Deletes an index template.</summary>
+	public DeleteIndexTemplateIndexResponse DeleteIndexTemplate(Action<DeleteIndexTemplateIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new DeleteIndexTemplateIndexRequestDescriptor();
+		configure(descriptor);
+		return DeleteIndexTemplate((DeleteIndexTemplateIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Deletes an index template.</summary>
+	public Task<DeleteIndexTemplateIndexResponse> DeleteIndexTemplateAsync(Action<DeleteIndexTemplateIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new DeleteIndexTemplateIndexRequestDescriptor();
+		configure(descriptor);
+		return DeleteIndexTemplateAsync((DeleteIndexTemplateIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Deletes an index template.</summary>
-	public DeleteTemplateResponse DeleteTemplate(DeleteTemplateRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, DeleteTemplateEndpoint.Instance, options);
+	public DeleteTemplateIndexResponse DeleteTemplate(DeleteTemplateIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, DeleteTemplateIndexEndpoint.Instance, options);
 
 	/// <summary>Deletes an index template.</summary>
-	public Task<DeleteTemplateResponse> DeleteTemplateAsync(DeleteTemplateRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, DeleteTemplateEndpoint.Instance, options, ct);
+	public Task<DeleteTemplateIndexResponse> DeleteTemplateAsync(DeleteTemplateIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, DeleteTemplateIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Deletes an index template.</summary>
+	public DeleteTemplateIndexResponse DeleteTemplate(Action<DeleteTemplateIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new DeleteTemplateIndexRequestDescriptor();
+		configure(descriptor);
+		return DeleteTemplate((DeleteTemplateIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Deletes an index template.</summary>
+	public Task<DeleteTemplateIndexResponse> DeleteTemplateAsync(Action<DeleteTemplateIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new DeleteTemplateIndexRequestDescriptor();
+		configure(descriptor);
+		return DeleteTemplateAsync((DeleteTemplateIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Returns information about whether a particular index exists.</summary>
-	public ExistsResponse Exists(ExistsRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, ExistsEndpoint.Instance, options);
+	public ExistsIndexResponse Exists(ExistsIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, ExistsIndexEndpoint.Instance, options);
 
 	/// <summary>Returns information about whether a particular index exists.</summary>
-	public Task<ExistsResponse> ExistsAsync(ExistsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, ExistsEndpoint.Instance, options, ct);
+	public Task<ExistsIndexResponse> ExistsAsync(ExistsIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, ExistsIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Returns information about whether a particular index exists.</summary>
+	public ExistsIndexResponse Exists(Action<ExistsIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new ExistsIndexRequestDescriptor();
+		configure(descriptor);
+		return Exists((ExistsIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Returns information about whether a particular index exists.</summary>
+	public Task<ExistsIndexResponse> ExistsAsync(Action<ExistsIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new ExistsIndexRequestDescriptor();
+		configure(descriptor);
+		return ExistsAsync((ExistsIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Returns information about whether a particular alias exists.</summary>
-	public ExistsAliasResponse ExistsAlias(ExistsAliasRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, ExistsAliasEndpoint.Instance, options);
+	public ExistsAliasIndexResponse ExistsAlias(ExistsAliasIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, ExistsAliasIndexEndpoint.Instance, options);
 
 	/// <summary>Returns information about whether a particular alias exists.</summary>
-	public Task<ExistsAliasResponse> ExistsAliasAsync(ExistsAliasRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, ExistsAliasEndpoint.Instance, options, ct);
+	public Task<ExistsAliasIndexResponse> ExistsAliasAsync(ExistsAliasIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, ExistsAliasIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Returns information about whether a particular alias exists.</summary>
+	public ExistsAliasIndexResponse ExistsAlias(Action<ExistsAliasIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new ExistsAliasIndexRequestDescriptor();
+		configure(descriptor);
+		return ExistsAlias((ExistsAliasIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Returns information about whether a particular alias exists.</summary>
+	public Task<ExistsAliasIndexResponse> ExistsAliasAsync(Action<ExistsAliasIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new ExistsAliasIndexRequestDescriptor();
+		configure(descriptor);
+		return ExistsAliasAsync((ExistsAliasIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Returns information about whether a particular index template exists.</summary>
-	public ExistsIndexTemplateResponse ExistsIndexTemplate(ExistsIndexTemplateRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, ExistsIndexTemplateEndpoint.Instance, options);
+	public ExistsIndexTemplateIndexResponse ExistsIndexTemplate(ExistsIndexTemplateIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, ExistsIndexTemplateIndexEndpoint.Instance, options);
 
 	/// <summary>Returns information about whether a particular index template exists.</summary>
-	public Task<ExistsIndexTemplateResponse> ExistsIndexTemplateAsync(ExistsIndexTemplateRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, ExistsIndexTemplateEndpoint.Instance, options, ct);
+	public Task<ExistsIndexTemplateIndexResponse> ExistsIndexTemplateAsync(ExistsIndexTemplateIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, ExistsIndexTemplateIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Returns information about whether a particular index template exists.</summary>
+	public ExistsIndexTemplateIndexResponse ExistsIndexTemplate(Action<ExistsIndexTemplateIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new ExistsIndexTemplateIndexRequestDescriptor();
+		configure(descriptor);
+		return ExistsIndexTemplate((ExistsIndexTemplateIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Returns information about whether a particular index template exists.</summary>
+	public Task<ExistsIndexTemplateIndexResponse> ExistsIndexTemplateAsync(Action<ExistsIndexTemplateIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new ExistsIndexTemplateIndexRequestDescriptor();
+		configure(descriptor);
+		return ExistsIndexTemplateAsync((ExistsIndexTemplateIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Returns information about whether a particular index template exists.</summary>
-	public ExistsTemplateResponse ExistsTemplate(ExistsTemplateRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, ExistsTemplateEndpoint.Instance, options);
+	public ExistsTemplateIndexResponse ExistsTemplate(ExistsTemplateIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, ExistsTemplateIndexEndpoint.Instance, options);
 
 	/// <summary>Returns information about whether a particular index template exists.</summary>
-	public Task<ExistsTemplateResponse> ExistsTemplateAsync(ExistsTemplateRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, ExistsTemplateEndpoint.Instance, options, ct);
+	public Task<ExistsTemplateIndexResponse> ExistsTemplateAsync(ExistsTemplateIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, ExistsTemplateIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Returns information about whether a particular index template exists.</summary>
+	public ExistsTemplateIndexResponse ExistsTemplate(Action<ExistsTemplateIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new ExistsTemplateIndexRequestDescriptor();
+		configure(descriptor);
+		return ExistsTemplate((ExistsTemplateIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Returns information about whether a particular index template exists.</summary>
+	public Task<ExistsTemplateIndexResponse> ExistsTemplateAsync(Action<ExistsTemplateIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new ExistsTemplateIndexRequestDescriptor();
+		configure(descriptor);
+		return ExistsTemplateAsync((ExistsTemplateIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Performs the flush operation on one or more indexes.</summary>
-	public FlushResponse Flush(FlushRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, FlushEndpoint.Instance, options);
+	public FlushIndexResponse Flush(FlushIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, FlushIndexEndpoint.Instance, options);
 
 	/// <summary>Performs the flush operation on one or more indexes.</summary>
-	public Task<FlushResponse> FlushAsync(FlushRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, FlushEndpoint.Instance, options, ct);
+	public Task<FlushIndexResponse> FlushAsync(FlushIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, FlushIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Performs the flush operation on one or more indexes.</summary>
+	public FlushIndexResponse Flush(Action<FlushIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new FlushIndexRequestDescriptor();
+		configure(descriptor);
+		return Flush((FlushIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Performs the flush operation on one or more indexes.</summary>
+	public Task<FlushIndexResponse> FlushAsync(Action<FlushIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new FlushIndexRequestDescriptor();
+		configure(descriptor);
+		return FlushAsync((FlushIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Performs the force merge operation on one or more indexes.</summary>
-	public ForcemergeResponse Forcemerge(ForcemergeRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, ForcemergeEndpoint.Instance, options);
+	public ForcemergeIndexResponse Forcemerge(ForcemergeIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, ForcemergeIndexEndpoint.Instance, options);
 
 	/// <summary>Performs the force merge operation on one or more indexes.</summary>
-	public Task<ForcemergeResponse> ForcemergeAsync(ForcemergeRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, ForcemergeEndpoint.Instance, options, ct);
+	public Task<ForcemergeIndexResponse> ForcemergeAsync(ForcemergeIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, ForcemergeIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Performs the force merge operation on one or more indexes.</summary>
+	public ForcemergeIndexResponse Forcemerge(Action<ForcemergeIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new ForcemergeIndexRequestDescriptor();
+		configure(descriptor);
+		return Forcemerge((ForcemergeIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Performs the force merge operation on one or more indexes.</summary>
+	public Task<ForcemergeIndexResponse> ForcemergeAsync(Action<ForcemergeIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new ForcemergeIndexRequestDescriptor();
+		configure(descriptor);
+		return ForcemergeAsync((ForcemergeIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Returns information about one or more indexes.</summary>
-	public GetResponse Get(GetRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetEndpoint.Instance, options);
+	public GetIndexResponse Get(GetIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetIndexEndpoint.Instance, options);
 
 	/// <summary>Returns information about one or more indexes.</summary>
-	public Task<GetResponse> GetAsync(GetRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetEndpoint.Instance, options, ct);
+	public Task<GetIndexResponse> GetAsync(GetIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Returns information about one or more indexes.</summary>
+	public GetIndexResponse Get(Action<GetIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetIndexRequestDescriptor();
+		configure(descriptor);
+		return Get((GetIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Returns information about one or more indexes.</summary>
+	public Task<GetIndexResponse> GetAsync(Action<GetIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetIndexRequestDescriptor();
+		configure(descriptor);
+		return GetAsync((GetIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Returns an alias.</summary>
-	public GetAliasResponse GetAlias(GetAliasRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetAliasEndpoint.Instance, options);
+	public GetAliasIndexResponse GetAlias(GetAliasIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetAliasIndexEndpoint.Instance, options);
 
 	/// <summary>Returns an alias.</summary>
-	public Task<GetAliasResponse> GetAliasAsync(GetAliasRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetAliasEndpoint.Instance, options, ct);
+	public Task<GetAliasIndexResponse> GetAliasAsync(GetAliasIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetAliasIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Returns an alias.</summary>
+	public GetAliasIndexResponse GetAlias(Action<GetAliasIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetAliasIndexRequestDescriptor();
+		configure(descriptor);
+		return GetAlias((GetAliasIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Returns an alias.</summary>
+	public Task<GetAliasIndexResponse> GetAliasAsync(Action<GetAliasIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetAliasIndexRequestDescriptor();
+		configure(descriptor);
+		return GetAliasAsync((GetAliasIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Returns data streams.</summary>
-	public GetDataStreamResponse GetDataStream(GetDataStreamRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetDataStreamEndpoint.Instance, options);
+	public GetDataStreamIndexResponse GetDataStream(GetDataStreamIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetDataStreamIndexEndpoint.Instance, options);
 
 	/// <summary>Returns data streams.</summary>
-	public Task<GetDataStreamResponse> GetDataStreamAsync(GetDataStreamRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetDataStreamEndpoint.Instance, options, ct);
+	public Task<GetDataStreamIndexResponse> GetDataStreamAsync(GetDataStreamIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetDataStreamIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Returns data streams.</summary>
+	public GetDataStreamIndexResponse GetDataStream(Action<GetDataStreamIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetDataStreamIndexRequestDescriptor();
+		configure(descriptor);
+		return GetDataStream((GetDataStreamIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Returns data streams.</summary>
+	public Task<GetDataStreamIndexResponse> GetDataStreamAsync(Action<GetDataStreamIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetDataStreamIndexRequestDescriptor();
+		configure(descriptor);
+		return GetDataStreamAsync((GetDataStreamIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Returns mapping for one or more fields.</summary>
-	public GetFieldMappingResponse GetFieldMapping(GetFieldMappingRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetFieldMappingEndpoint.Instance, options);
+	public GetFieldMappingIndexResponse GetFieldMapping(GetFieldMappingIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetFieldMappingIndexEndpoint.Instance, options);
 
 	/// <summary>Returns mapping for one or more fields.</summary>
-	public Task<GetFieldMappingResponse> GetFieldMappingAsync(GetFieldMappingRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetFieldMappingEndpoint.Instance, options, ct);
+	public Task<GetFieldMappingIndexResponse> GetFieldMappingAsync(GetFieldMappingIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetFieldMappingIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Returns mapping for one or more fields.</summary>
+	public GetFieldMappingIndexResponse GetFieldMapping(Action<GetFieldMappingIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetFieldMappingIndexRequestDescriptor();
+		configure(descriptor);
+		return GetFieldMapping((GetFieldMappingIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Returns mapping for one or more fields.</summary>
+	public Task<GetFieldMappingIndexResponse> GetFieldMappingAsync(Action<GetFieldMappingIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetFieldMappingIndexRequestDescriptor();
+		configure(descriptor);
+		return GetFieldMappingAsync((GetFieldMappingIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Returns an index template.</summary>
-	public GetIndexTemplateResponse GetIndexTemplate(GetIndexTemplateRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetIndexTemplateEndpoint.Instance, options);
+	public GetIndexTemplateIndexResponse GetIndexTemplate(GetIndexTemplateIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetIndexTemplateIndexEndpoint.Instance, options);
 
 	/// <summary>Returns an index template.</summary>
-	public Task<GetIndexTemplateResponse> GetIndexTemplateAsync(GetIndexTemplateRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetIndexTemplateEndpoint.Instance, options, ct);
+	public Task<GetIndexTemplateIndexResponse> GetIndexTemplateAsync(GetIndexTemplateIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetIndexTemplateIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Returns an index template.</summary>
+	public GetIndexTemplateIndexResponse GetIndexTemplate(Action<GetIndexTemplateIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetIndexTemplateIndexRequestDescriptor();
+		configure(descriptor);
+		return GetIndexTemplate((GetIndexTemplateIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Returns an index template.</summary>
+	public Task<GetIndexTemplateIndexResponse> GetIndexTemplateAsync(Action<GetIndexTemplateIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetIndexTemplateIndexRequestDescriptor();
+		configure(descriptor);
+		return GetIndexTemplateAsync((GetIndexTemplateIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Returns mappings for one or more indexes.</summary>
-	public GetMappingResponse GetMapping(GetMappingRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetMappingEndpoint.Instance, options);
+	public GetMappingIndexResponse GetMapping(GetMappingIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetMappingIndexEndpoint.Instance, options);
 
 	/// <summary>Returns mappings for one or more indexes.</summary>
-	public Task<GetMappingResponse> GetMappingAsync(GetMappingRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetMappingEndpoint.Instance, options, ct);
+	public Task<GetMappingIndexResponse> GetMappingAsync(GetMappingIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetMappingIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Returns mappings for one or more indexes.</summary>
+	public GetMappingIndexResponse GetMapping(Action<GetMappingIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetMappingIndexRequestDescriptor();
+		configure(descriptor);
+		return GetMapping((GetMappingIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Returns mappings for one or more indexes.</summary>
+	public Task<GetMappingIndexResponse> GetMappingAsync(Action<GetMappingIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetMappingIndexRequestDescriptor();
+		configure(descriptor);
+		return GetMappingAsync((GetMappingIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Returns settings for one or more indexes.</summary>
-	public GetSettingsResponse GetSettings(GetSettingsRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetSettingsEndpoint.Instance, options);
+	public GetSettingsIndexResponse GetSettings(GetSettingsIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetSettingsIndexEndpoint.Instance, options);
 
 	/// <summary>Returns settings for one or more indexes.</summary>
-	public Task<GetSettingsResponse> GetSettingsAsync(GetSettingsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetSettingsEndpoint.Instance, options, ct);
+	public Task<GetSettingsIndexResponse> GetSettingsAsync(GetSettingsIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetSettingsIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Returns settings for one or more indexes.</summary>
+	public GetSettingsIndexResponse GetSettings(Action<GetSettingsIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetSettingsIndexRequestDescriptor();
+		configure(descriptor);
+		return GetSettings((GetSettingsIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Returns settings for one or more indexes.</summary>
+	public Task<GetSettingsIndexResponse> GetSettingsAsync(Action<GetSettingsIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetSettingsIndexRequestDescriptor();
+		configure(descriptor);
+		return GetSettingsAsync((GetSettingsIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Returns an index template.</summary>
-	public GetTemplateResponse GetTemplate(GetTemplateRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetTemplateEndpoint.Instance, options);
+	public GetTemplateIndexResponse GetTemplate(GetTemplateIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetTemplateIndexEndpoint.Instance, options);
 
 	/// <summary>Returns an index template.</summary>
-	public Task<GetTemplateResponse> GetTemplateAsync(GetTemplateRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetTemplateEndpoint.Instance, options, ct);
+	public Task<GetTemplateIndexResponse> GetTemplateAsync(GetTemplateIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetTemplateIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Returns an index template.</summary>
+	public GetTemplateIndexResponse GetTemplate(Action<GetTemplateIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetTemplateIndexRequestDescriptor();
+		configure(descriptor);
+		return GetTemplate((GetTemplateIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Returns an index template.</summary>
+	public Task<GetTemplateIndexResponse> GetTemplateAsync(Action<GetTemplateIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetTemplateIndexRequestDescriptor();
+		configure(descriptor);
+		return GetTemplateAsync((GetTemplateIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>The `_upgrade` API is no longer useful and will be removed.</summary>
-	public GetUpgradeResponse GetUpgrade(GetUpgradeRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetUpgradeEndpoint.Instance, options);
+	public GetUpgradeIndexResponse GetUpgrade(GetUpgradeIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetUpgradeIndexEndpoint.Instance, options);
 
 	/// <summary>The `_upgrade` API is no longer useful and will be removed.</summary>
-	public Task<GetUpgradeResponse> GetUpgradeAsync(GetUpgradeRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetUpgradeEndpoint.Instance, options, ct);
+	public Task<GetUpgradeIndexResponse> GetUpgradeAsync(GetUpgradeIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetUpgradeIndexEndpoint.Instance, options, ct);
+
+	/// <summary>The `_upgrade` API is no longer useful and will be removed.</summary>
+	public GetUpgradeIndexResponse GetUpgrade(Action<GetUpgradeIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetUpgradeIndexRequestDescriptor();
+		configure(descriptor);
+		return GetUpgrade((GetUpgradeIndexRequest)descriptor, options);
+	}
+
+	/// <summary>The `_upgrade` API is no longer useful and will be removed.</summary>
+	public Task<GetUpgradeIndexResponse> GetUpgradeAsync(Action<GetUpgradeIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetUpgradeIndexRequestDescriptor();
+		configure(descriptor);
+		return GetUpgradeAsync((GetUpgradeIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Opens an index.</summary>
-	public OpenResponse Open(OpenRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, OpenEndpoint.Instance, options);
+	public OpenIndexResponse Open(OpenIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, OpenIndexEndpoint.Instance, options);
 
 	/// <summary>Opens an index.</summary>
-	public Task<OpenResponse> OpenAsync(OpenRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, OpenEndpoint.Instance, options, ct);
+	public Task<OpenIndexResponse> OpenAsync(OpenIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, OpenIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Opens an index.</summary>
+	public OpenIndexResponse Open(Action<OpenIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new OpenIndexRequestDescriptor();
+		configure(descriptor);
+		return Open((OpenIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Opens an index.</summary>
+	public Task<OpenIndexResponse> OpenAsync(Action<OpenIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new OpenIndexRequestDescriptor();
+		configure(descriptor);
+		return OpenAsync((OpenIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Creates or updates an alias.</summary>
-	public PutAliasResponse PutAlias(PutAliasRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, PutAliasEndpoint.Instance, options);
+	public PutAliasIndexResponse PutAlias(PutAliasIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, PutAliasIndexEndpoint.Instance, options);
 
 	/// <summary>Creates or updates an alias.</summary>
-	public Task<PutAliasResponse> PutAliasAsync(PutAliasRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, PutAliasEndpoint.Instance, options, ct);
+	public Task<PutAliasIndexResponse> PutAliasAsync(PutAliasIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, PutAliasIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Creates or updates an alias.</summary>
+	public PutAliasIndexResponse PutAlias(Action<PutAliasIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new PutAliasIndexRequestDescriptor();
+		configure(descriptor);
+		return PutAlias((PutAliasIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Creates or updates an alias.</summary>
+	public Task<PutAliasIndexResponse> PutAliasAsync(Action<PutAliasIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new PutAliasIndexRequestDescriptor();
+		configure(descriptor);
+		return PutAliasAsync((PutAliasIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Creates or updates an index template.</summary>
-	public PutIndexTemplateResponse PutIndexTemplate(PutIndexTemplateRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, PutIndexTemplateEndpoint.Instance, options);
+	public PutIndexTemplateIndexResponse PutIndexTemplate(PutIndexTemplateIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, PutIndexTemplateIndexEndpoint.Instance, options);
 
 	/// <summary>Creates or updates an index template.</summary>
-	public Task<PutIndexTemplateResponse> PutIndexTemplateAsync(PutIndexTemplateRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, PutIndexTemplateEndpoint.Instance, options, ct);
+	public Task<PutIndexTemplateIndexResponse> PutIndexTemplateAsync(PutIndexTemplateIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, PutIndexTemplateIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Creates or updates an index template.</summary>
+	public PutIndexTemplateIndexResponse PutIndexTemplate(Action<PutIndexTemplateIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new PutIndexTemplateIndexRequestDescriptor();
+		configure(descriptor);
+		return PutIndexTemplate((PutIndexTemplateIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Creates or updates an index template.</summary>
+	public Task<PutIndexTemplateIndexResponse> PutIndexTemplateAsync(Action<PutIndexTemplateIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new PutIndexTemplateIndexRequestDescriptor();
+		configure(descriptor);
+		return PutIndexTemplateAsync((PutIndexTemplateIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Updates the index mappings.</summary>
-	public PutMappingResponse PutMapping(PutMappingRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, PutMappingEndpoint.Instance, options);
+	public PutMappingIndexResponse PutMapping(PutMappingIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, PutMappingIndexEndpoint.Instance, options);
 
 	/// <summary>Updates the index mappings.</summary>
-	public Task<PutMappingResponse> PutMappingAsync(PutMappingRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, PutMappingEndpoint.Instance, options, ct);
+	public Task<PutMappingIndexResponse> PutMappingAsync(PutMappingIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, PutMappingIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Updates the index mappings.</summary>
+	public PutMappingIndexResponse PutMapping(Action<PutMappingIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new PutMappingIndexRequestDescriptor();
+		configure(descriptor);
+		return PutMapping((PutMappingIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Updates the index mappings.</summary>
+	public Task<PutMappingIndexResponse> PutMappingAsync(Action<PutMappingIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new PutMappingIndexRequestDescriptor();
+		configure(descriptor);
+		return PutMappingAsync((PutMappingIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Updates the index settings.</summary>
-	public PutSettingsResponse PutSettings(PutSettingsRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, PutSettingsEndpoint.Instance, options);
+	public PutSettingsIndexResponse PutSettings(PutSettingsIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, PutSettingsIndexEndpoint.Instance, options);
 
 	/// <summary>Updates the index settings.</summary>
-	public Task<PutSettingsResponse> PutSettingsAsync(PutSettingsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, PutSettingsEndpoint.Instance, options, ct);
+	public Task<PutSettingsIndexResponse> PutSettingsAsync(PutSettingsIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, PutSettingsIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Updates the index settings.</summary>
+	public PutSettingsIndexResponse PutSettings(Action<PutSettingsIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new PutSettingsIndexRequestDescriptor();
+		configure(descriptor);
+		return PutSettings((PutSettingsIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Updates the index settings.</summary>
+	public Task<PutSettingsIndexResponse> PutSettingsAsync(Action<PutSettingsIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new PutSettingsIndexRequestDescriptor();
+		configure(descriptor);
+		return PutSettingsAsync((PutSettingsIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Creates or updates an index template.</summary>
-	public PutTemplateResponse PutTemplate(PutTemplateRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, PutTemplateEndpoint.Instance, options);
+	public PutTemplateIndexResponse PutTemplate(PutTemplateIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, PutTemplateIndexEndpoint.Instance, options);
 
 	/// <summary>Creates or updates an index template.</summary>
-	public Task<PutTemplateResponse> PutTemplateAsync(PutTemplateRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, PutTemplateEndpoint.Instance, options, ct);
+	public Task<PutTemplateIndexResponse> PutTemplateAsync(PutTemplateIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, PutTemplateIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Creates or updates an index template.</summary>
+	public PutTemplateIndexResponse PutTemplate(Action<PutTemplateIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new PutTemplateIndexRequestDescriptor();
+		configure(descriptor);
+		return PutTemplate((PutTemplateIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Creates or updates an index template.</summary>
+	public Task<PutTemplateIndexResponse> PutTemplateAsync(Action<PutTemplateIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new PutTemplateIndexRequestDescriptor();
+		configure(descriptor);
+		return PutTemplateAsync((PutTemplateIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Returns information about ongoing index shard recoveries.</summary>
-	public RecoveryResponse Recovery(RecoveryRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, RecoveryEndpoint.Instance, options);
+	public RecoveryIndexResponse Recovery(RecoveryIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, RecoveryIndexEndpoint.Instance, options);
 
 	/// <summary>Returns information about ongoing index shard recoveries.</summary>
-	public Task<RecoveryResponse> RecoveryAsync(RecoveryRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, RecoveryEndpoint.Instance, options, ct);
+	public Task<RecoveryIndexResponse> RecoveryAsync(RecoveryIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, RecoveryIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Returns information about ongoing index shard recoveries.</summary>
+	public RecoveryIndexResponse Recovery(Action<RecoveryIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new RecoveryIndexRequestDescriptor();
+		configure(descriptor);
+		return Recovery((RecoveryIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Returns information about ongoing index shard recoveries.</summary>
+	public Task<RecoveryIndexResponse> RecoveryAsync(Action<RecoveryIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new RecoveryIndexRequestDescriptor();
+		configure(descriptor);
+		return RecoveryAsync((RecoveryIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Performs the refresh operation in one or more indexes.</summary>
-	public RefreshResponse Refresh(RefreshRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, RefreshEndpoint.Instance, options);
+	public RefreshIndexResponse Refresh(RefreshIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, RefreshIndexEndpoint.Instance, options);
 
 	/// <summary>Performs the refresh operation in one or more indexes.</summary>
-	public Task<RefreshResponse> RefreshAsync(RefreshRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, RefreshEndpoint.Instance, options, ct);
+	public Task<RefreshIndexResponse> RefreshAsync(RefreshIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, RefreshIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Performs the refresh operation in one or more indexes.</summary>
+	public RefreshIndexResponse Refresh(Action<RefreshIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new RefreshIndexRequestDescriptor();
+		configure(descriptor);
+		return Refresh((RefreshIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Performs the refresh operation in one or more indexes.</summary>
+	public Task<RefreshIndexResponse> RefreshAsync(Action<RefreshIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new RefreshIndexRequestDescriptor();
+		configure(descriptor);
+		return RefreshAsync((RefreshIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Returns information about any matching indexes, aliases, and data streams.</summary>
-	public ResolveIndexResponse ResolveIndex(ResolveIndexRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, ResolveIndexEndpoint.Instance, options);
+	public ResolveIndexIndexResponse ResolveIndex(ResolveIndexIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, ResolveIndexIndexEndpoint.Instance, options);
 
 	/// <summary>Returns information about any matching indexes, aliases, and data streams.</summary>
-	public Task<ResolveIndexResponse> ResolveIndexAsync(ResolveIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, ResolveIndexEndpoint.Instance, options, ct);
+	public Task<ResolveIndexIndexResponse> ResolveIndexAsync(ResolveIndexIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, ResolveIndexIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Returns information about any matching indexes, aliases, and data streams.</summary>
+	public ResolveIndexIndexResponse ResolveIndex(Action<ResolveIndexIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new ResolveIndexIndexRequestDescriptor();
+		configure(descriptor);
+		return ResolveIndex((ResolveIndexIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Returns information about any matching indexes, aliases, and data streams.</summary>
+	public Task<ResolveIndexIndexResponse> ResolveIndexAsync(Action<ResolveIndexIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new ResolveIndexIndexRequestDescriptor();
+		configure(descriptor);
+		return ResolveIndexAsync((ResolveIndexIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Updates an alias to point to a new index when the existing index is considered to be too large or too old.</summary>
-	public RolloverResponse Rollover(RolloverRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, RolloverEndpoint.Instance, options);
+	public RolloverIndexResponse Rollover(RolloverIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, RolloverIndexEndpoint.Instance, options);
 
 	/// <summary>Updates an alias to point to a new index when the existing index is considered to be too large or too old.</summary>
-	public Task<RolloverResponse> RolloverAsync(RolloverRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, RolloverEndpoint.Instance, options, ct);
+	public Task<RolloverIndexResponse> RolloverAsync(RolloverIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, RolloverIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Updates an alias to point to a new index when the existing index is considered to be too large or too old.</summary>
+	public RolloverIndexResponse Rollover(Action<RolloverIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new RolloverIndexRequestDescriptor();
+		configure(descriptor);
+		return Rollover((RolloverIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Updates an alias to point to a new index when the existing index is considered to be too large or too old.</summary>
+	public Task<RolloverIndexResponse> RolloverAsync(Action<RolloverIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new RolloverIndexRequestDescriptor();
+		configure(descriptor);
+		return RolloverAsync((RolloverIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Provides low-level information about segments in a Lucene index.</summary>
-	public SegmentsResponse Segments(SegmentsRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, SegmentsEndpoint.Instance, options);
+	public SegmentsIndexResponse Segments(SegmentsIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, SegmentsIndexEndpoint.Instance, options);
 
 	/// <summary>Provides low-level information about segments in a Lucene index.</summary>
-	public Task<SegmentsResponse> SegmentsAsync(SegmentsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, SegmentsEndpoint.Instance, options, ct);
+	public Task<SegmentsIndexResponse> SegmentsAsync(SegmentsIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, SegmentsIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Provides low-level information about segments in a Lucene index.</summary>
+	public SegmentsIndexResponse Segments(Action<SegmentsIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new SegmentsIndexRequestDescriptor();
+		configure(descriptor);
+		return Segments((SegmentsIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Provides low-level information about segments in a Lucene index.</summary>
+	public Task<SegmentsIndexResponse> SegmentsAsync(Action<SegmentsIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new SegmentsIndexRequestDescriptor();
+		configure(descriptor);
+		return SegmentsAsync((SegmentsIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Provides store information for shard copies of indexes.</summary>
-	public ShardStoresResponse ShardStores(ShardStoresRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, ShardStoresEndpoint.Instance, options);
+	public ShardStoresIndexResponse ShardStores(ShardStoresIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, ShardStoresIndexEndpoint.Instance, options);
 
 	/// <summary>Provides store information for shard copies of indexes.</summary>
-	public Task<ShardStoresResponse> ShardStoresAsync(ShardStoresRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, ShardStoresEndpoint.Instance, options, ct);
+	public Task<ShardStoresIndexResponse> ShardStoresAsync(ShardStoresIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, ShardStoresIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Provides store information for shard copies of indexes.</summary>
+	public ShardStoresIndexResponse ShardStores(Action<ShardStoresIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new ShardStoresIndexRequestDescriptor();
+		configure(descriptor);
+		return ShardStores((ShardStoresIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Provides store information for shard copies of indexes.</summary>
+	public Task<ShardStoresIndexResponse> ShardStoresAsync(Action<ShardStoresIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new ShardStoresIndexRequestDescriptor();
+		configure(descriptor);
+		return ShardStoresAsync((ShardStoresIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Allow to shrink an existing index into a new index with fewer primary shards.</summary>
-	public ShrinkResponse Shrink(ShrinkRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, ShrinkEndpoint.Instance, options);
+	public ShrinkIndexResponse Shrink(ShrinkIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, ShrinkIndexEndpoint.Instance, options);
 
 	/// <summary>Allow to shrink an existing index into a new index with fewer primary shards.</summary>
-	public Task<ShrinkResponse> ShrinkAsync(ShrinkRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, ShrinkEndpoint.Instance, options, ct);
+	public Task<ShrinkIndexResponse> ShrinkAsync(ShrinkIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, ShrinkIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Allow to shrink an existing index into a new index with fewer primary shards.</summary>
+	public ShrinkIndexResponse Shrink(Action<ShrinkIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new ShrinkIndexRequestDescriptor();
+		configure(descriptor);
+		return Shrink((ShrinkIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Allow to shrink an existing index into a new index with fewer primary shards.</summary>
+	public Task<ShrinkIndexResponse> ShrinkAsync(Action<ShrinkIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new ShrinkIndexRequestDescriptor();
+		configure(descriptor);
+		return ShrinkAsync((ShrinkIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Simulate matching the given index name against the index templates in the system.</summary>
-	public SimulateIndexTemplateResponse SimulateIndexTemplate(SimulateIndexTemplateRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, SimulateIndexTemplateEndpoint.Instance, options);
+	public SimulateIndexTemplateIndexResponse SimulateIndexTemplate(SimulateIndexTemplateIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, SimulateIndexTemplateIndexEndpoint.Instance, options);
 
 	/// <summary>Simulate matching the given index name against the index templates in the system.</summary>
-	public Task<SimulateIndexTemplateResponse> SimulateIndexTemplateAsync(SimulateIndexTemplateRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, SimulateIndexTemplateEndpoint.Instance, options, ct);
+	public Task<SimulateIndexTemplateIndexResponse> SimulateIndexTemplateAsync(SimulateIndexTemplateIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, SimulateIndexTemplateIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Simulate matching the given index name against the index templates in the system.</summary>
+	public SimulateIndexTemplateIndexResponse SimulateIndexTemplate(Action<SimulateIndexTemplateIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new SimulateIndexTemplateIndexRequestDescriptor();
+		configure(descriptor);
+		return SimulateIndexTemplate((SimulateIndexTemplateIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Simulate matching the given index name against the index templates in the system.</summary>
+	public Task<SimulateIndexTemplateIndexResponse> SimulateIndexTemplateAsync(Action<SimulateIndexTemplateIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new SimulateIndexTemplateIndexRequestDescriptor();
+		configure(descriptor);
+		return SimulateIndexTemplateAsync((SimulateIndexTemplateIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Simulate resolving the given template name or body.</summary>
-	public SimulateTemplateResponse SimulateTemplate(SimulateTemplateRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, SimulateTemplateEndpoint.Instance, options);
+	public SimulateTemplateIndexResponse SimulateTemplate(SimulateTemplateIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, SimulateTemplateIndexEndpoint.Instance, options);
 
 	/// <summary>Simulate resolving the given template name or body.</summary>
-	public Task<SimulateTemplateResponse> SimulateTemplateAsync(SimulateTemplateRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, SimulateTemplateEndpoint.Instance, options, ct);
+	public Task<SimulateTemplateIndexResponse> SimulateTemplateAsync(SimulateTemplateIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, SimulateTemplateIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Simulate resolving the given template name or body.</summary>
+	public SimulateTemplateIndexResponse SimulateTemplate(Action<SimulateTemplateIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new SimulateTemplateIndexRequestDescriptor();
+		configure(descriptor);
+		return SimulateTemplate((SimulateTemplateIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Simulate resolving the given template name or body.</summary>
+	public Task<SimulateTemplateIndexResponse> SimulateTemplateAsync(Action<SimulateTemplateIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new SimulateTemplateIndexRequestDescriptor();
+		configure(descriptor);
+		return SimulateTemplateAsync((SimulateTemplateIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Allows you to split an existing index into a new index with more primary shards.</summary>
-	public SplitResponse Split(SplitRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, SplitEndpoint.Instance, options);
+	public SplitIndexResponse Split(SplitIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, SplitIndexEndpoint.Instance, options);
 
 	/// <summary>Allows you to split an existing index into a new index with more primary shards.</summary>
-	public Task<SplitResponse> SplitAsync(SplitRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, SplitEndpoint.Instance, options, ct);
+	public Task<SplitIndexResponse> SplitAsync(SplitIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, SplitIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Allows you to split an existing index into a new index with more primary shards.</summary>
+	public SplitIndexResponse Split(Action<SplitIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new SplitIndexRequestDescriptor();
+		configure(descriptor);
+		return Split((SplitIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Allows you to split an existing index into a new index with more primary shards.</summary>
+	public Task<SplitIndexResponse> SplitAsync(Action<SplitIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new SplitIndexRequestDescriptor();
+		configure(descriptor);
+		return SplitAsync((SplitIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Provides statistics on operations happening in an index.</summary>
-	public StatsResponse Stats(StatsRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, StatsEndpoint.Instance, options);
+	public StatsIndexResponse Stats(StatsIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, StatsIndexEndpoint.Instance, options);
 
 	/// <summary>Provides statistics on operations happening in an index.</summary>
-	public Task<StatsResponse> StatsAsync(StatsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, StatsEndpoint.Instance, options, ct);
+	public Task<StatsIndexResponse> StatsAsync(StatsIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, StatsIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Provides statistics on operations happening in an index.</summary>
+	public StatsIndexResponse Stats(Action<StatsIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new StatsIndexRequestDescriptor();
+		configure(descriptor);
+		return Stats((StatsIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Provides statistics on operations happening in an index.</summary>
+	public Task<StatsIndexResponse> StatsAsync(Action<StatsIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new StatsIndexRequestDescriptor();
+		configure(descriptor);
+		return StatsAsync((StatsIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Updates index aliases.</summary>
-	public UpdateAliasesResponse UpdateAliases(UpdateAliasesRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, UpdateAliasesEndpoint.Instance, options);
+	public UpdateAliasesIndexResponse UpdateAliases(UpdateAliasesIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, UpdateAliasesIndexEndpoint.Instance, options);
 
 	/// <summary>Updates index aliases.</summary>
-	public Task<UpdateAliasesResponse> UpdateAliasesAsync(UpdateAliasesRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, UpdateAliasesEndpoint.Instance, options, ct);
+	public Task<UpdateAliasesIndexResponse> UpdateAliasesAsync(UpdateAliasesIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, UpdateAliasesIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Updates index aliases.</summary>
+	public UpdateAliasesIndexResponse UpdateAliases(Action<UpdateAliasesIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new UpdateAliasesIndexRequestDescriptor();
+		configure(descriptor);
+		return UpdateAliases((UpdateAliasesIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Updates index aliases.</summary>
+	public Task<UpdateAliasesIndexResponse> UpdateAliasesAsync(Action<UpdateAliasesIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new UpdateAliasesIndexRequestDescriptor();
+		configure(descriptor);
+		return UpdateAliasesAsync((UpdateAliasesIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>The `_upgrade` API is no longer useful and will be removed.</summary>
-	public UpgradeResponse Upgrade(UpgradeRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, UpgradeEndpoint.Instance, options);
+	public UpgradeIndexResponse Upgrade(UpgradeIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, UpgradeIndexEndpoint.Instance, options);
 
 	/// <summary>The `_upgrade` API is no longer useful and will be removed.</summary>
-	public Task<UpgradeResponse> UpgradeAsync(UpgradeRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, UpgradeEndpoint.Instance, options, ct);
+	public Task<UpgradeIndexResponse> UpgradeAsync(UpgradeIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, UpgradeIndexEndpoint.Instance, options, ct);
+
+	/// <summary>The `_upgrade` API is no longer useful and will be removed.</summary>
+	public UpgradeIndexResponse Upgrade(Action<UpgradeIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new UpgradeIndexRequestDescriptor();
+		configure(descriptor);
+		return Upgrade((UpgradeIndexRequest)descriptor, options);
+	}
+
+	/// <summary>The `_upgrade` API is no longer useful and will be removed.</summary>
+	public Task<UpgradeIndexResponse> UpgradeAsync(Action<UpgradeIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new UpgradeIndexRequestDescriptor();
+		configure(descriptor);
+		return UpgradeAsync((UpgradeIndexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Allows a user to validate a potentially expensive query without executing it.</summary>
-	public ValidateQueryResponse ValidateQuery(ValidateQueryRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, ValidateQueryEndpoint.Instance, options);
+	public ValidateQueryIndexResponse ValidateQuery(ValidateQueryIndexRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, ValidateQueryIndexEndpoint.Instance, options);
 
 	/// <summary>Allows a user to validate a potentially expensive query without executing it.</summary>
-	public Task<ValidateQueryResponse> ValidateQueryAsync(ValidateQueryRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, ValidateQueryEndpoint.Instance, options, ct);
+	public Task<ValidateQueryIndexResponse> ValidateQueryAsync(ValidateQueryIndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, ValidateQueryIndexEndpoint.Instance, options, ct);
+
+	/// <summary>Allows a user to validate a potentially expensive query without executing it.</summary>
+	public ValidateQueryIndexResponse ValidateQuery(Action<ValidateQueryIndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new ValidateQueryIndexRequestDescriptor();
+		configure(descriptor);
+		return ValidateQuery((ValidateQueryIndexRequest)descriptor, options);
+	}
+
+	/// <summary>Allows a user to validate a potentially expensive query without executing it.</summary>
+	public Task<ValidateQueryIndexResponse> ValidateQueryAsync(Action<ValidateQueryIndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new ValidateQueryIndexRequestDescriptor();
+		configure(descriptor);
+		return ValidateQueryAsync((ValidateQueryIndexRequest)descriptor, options, ct);
+	}
 
 }

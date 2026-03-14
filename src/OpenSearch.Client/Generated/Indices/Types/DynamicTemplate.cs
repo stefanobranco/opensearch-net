@@ -8,7 +8,7 @@ namespace OpenSearch.Client.Indices;
 
 public sealed class DynamicTemplate
 {
-	public System.Text.Json.JsonElement? Mapping { get; set; }
+	public Property? Mapping { get; set; }
 	public string? Match { get; set; }
 	public string? MatchMappingType { get; set; }
 	public MatchType? MatchPattern { get; set; }

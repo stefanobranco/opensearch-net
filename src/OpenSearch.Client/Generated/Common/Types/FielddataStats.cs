@@ -18,6 +18,6 @@ public sealed class FielddataStats
 	/// <summary>The human-readable amount of memory used for field data.</summary>
 		public string? MemorySize { get; set; }
 	/// <summary>The amount of memory used for field data in bytes.</summary>
-		public string? MemorySizeInBytes { get; set; }
+		public long MemorySizeInBytes { get; set; }
 	public Dictionary<string, FieldMemoryUsage>? Fields { get; set; }
 }

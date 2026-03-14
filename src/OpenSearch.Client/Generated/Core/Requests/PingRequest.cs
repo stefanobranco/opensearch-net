@@ -26,8 +26,6 @@ public sealed class PingEndpoint : IEndpoint<PingRequest, PingResponse>
 		return path;
 	}
 
-	public string? ContentType => null;
-
 	public RequestBody? GetBody(PingRequest r) => null;
 
 	public PingResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>

@@ -23,7 +23,7 @@ public sealed class QueryCacheStats
 	/// <summary>The human-readable amount of memory used for the query cache.</summary>
 		public string? MemorySize { get; set; }
 	/// <summary>The total amount, in bytes, of memory used for the query cache across all shards assigned to the selected nodes.</summary>
-		public string? MemorySizeInBytes { get; set; }
+		public long MemorySizeInBytes { get; set; }
 	/// <summary>The total number of query cache misses across all shards assigned to the selected nodes.</summary>
 		public long MissCount { get; set; }
 	/// <summary>The total number of hits and misses stored in the query cache across all shards assigned to the selected nodes.</summary>

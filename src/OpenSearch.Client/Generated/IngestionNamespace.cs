@@ -17,29 +17,77 @@ public sealed partial class IngestionNamespace
 
 
 	/// <summary>Use this API to retrieve the ingestion state for a given index.</summary>
-	public GetStateResponse GetState(GetStateRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetStateEndpoint.Instance, options);
+	public GetStateIngestionResponse GetState(GetStateIngestionRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetStateIngestionEndpoint.Instance, options);
 
 	/// <summary>Use this API to retrieve the ingestion state for a given index.</summary>
-	public Task<GetStateResponse> GetStateAsync(GetStateRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetStateEndpoint.Instance, options, ct);
+	public Task<GetStateIngestionResponse> GetStateAsync(GetStateIngestionRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetStateIngestionEndpoint.Instance, options, ct);
+
+	/// <summary>Use this API to retrieve the ingestion state for a given index.</summary>
+	public GetStateIngestionResponse GetState(Action<GetStateIngestionRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetStateIngestionRequestDescriptor();
+		configure(descriptor);
+		return GetState((GetStateIngestionRequest)descriptor, options);
+	}
+
+	/// <summary>Use this API to retrieve the ingestion state for a given index.</summary>
+	public Task<GetStateIngestionResponse> GetStateAsync(Action<GetStateIngestionRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetStateIngestionRequestDescriptor();
+		configure(descriptor);
+		return GetStateAsync((GetStateIngestionRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Use this API to pause ingestion for a given index.</summary>
-	public PauseResponse Pause(PauseRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, PauseEndpoint.Instance, options);
+	public PauseIngestionResponse Pause(PauseIngestionRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, PauseIngestionEndpoint.Instance, options);
 
 	/// <summary>Use this API to pause ingestion for a given index.</summary>
-	public Task<PauseResponse> PauseAsync(PauseRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, PauseEndpoint.Instance, options, ct);
+	public Task<PauseIngestionResponse> PauseAsync(PauseIngestionRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, PauseIngestionEndpoint.Instance, options, ct);
+
+	/// <summary>Use this API to pause ingestion for a given index.</summary>
+	public PauseIngestionResponse Pause(Action<PauseIngestionRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new PauseIngestionRequestDescriptor();
+		configure(descriptor);
+		return Pause((PauseIngestionRequest)descriptor, options);
+	}
+
+	/// <summary>Use this API to pause ingestion for a given index.</summary>
+	public Task<PauseIngestionResponse> PauseAsync(Action<PauseIngestionRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new PauseIngestionRequestDescriptor();
+		configure(descriptor);
+		return PauseAsync((PauseIngestionRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Use this API to resume ingestion for the given index.</summary>
-	public ResumeResponse Resume(ResumeRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, ResumeEndpoint.Instance, options);
+	public ResumeIngestionResponse Resume(ResumeIngestionRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, ResumeIngestionEndpoint.Instance, options);
 
 	/// <summary>Use this API to resume ingestion for the given index.</summary>
-	public Task<ResumeResponse> ResumeAsync(ResumeRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, ResumeEndpoint.Instance, options, ct);
+	public Task<ResumeIngestionResponse> ResumeAsync(ResumeIngestionRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, ResumeIngestionEndpoint.Instance, options, ct);
+
+	/// <summary>Use this API to resume ingestion for the given index.</summary>
+	public ResumeIngestionResponse Resume(Action<ResumeIngestionRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new ResumeIngestionRequestDescriptor();
+		configure(descriptor);
+		return Resume((ResumeIngestionRequest)descriptor, options);
+	}
+
+	/// <summary>Use this API to resume ingestion for the given index.</summary>
+	public Task<ResumeIngestionResponse> ResumeAsync(Action<ResumeIngestionRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new ResumeIngestionRequestDescriptor();
+		configure(descriptor);
+		return ResumeAsync((ResumeIngestionRequest)descriptor, options, ct);
+	}
 
 }

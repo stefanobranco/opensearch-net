@@ -13,7 +13,7 @@ namespace OpenSearch.Client.Common;
 public sealed class OpenSearchVersionInfo
 {
 	/// <summary>When the version was built.</summary>
-		public string? BuildDate { get; set; }
+		public System.Text.Json.JsonElement? BuildDate { get; set; }
 	/// <summary>The flavor of the build.</summary>
 		public string? BuildFlavor { get; set; }
 	/// <summary>The hash of the build.</summary>

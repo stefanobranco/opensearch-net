@@ -18,7 +18,7 @@ public sealed class RenderSearchTemplateRequest
 	public string? Id { get; set; }
 	/// <summary>Key-value pairs used to replace Mustache variables in the template. The key is the variable name. The value is the variable value.</summary>
 		public Dictionary<string, object>? Params { get; set; }
-	/// <summary>An inline search template. Supports the same parameters as the search API request body. These parameters also support Mustache variables. If no `id` or `<templated-id>` is specified, this parameter is required.</summary>
+	/// <summary>An inline search template. Supports the same parameters as the search API request body. These parameters also support Mustache variables. If no `id` or `&lt;templated-id&gt;` is specified, this parameter is required.</summary>
 		public string? Source { get; set; }
 }
 public sealed class RenderSearchTemplateEndpoint : IEndpoint<RenderSearchTemplateRequest, RenderSearchTemplateResponse>
@@ -35,8 +35,6 @@ public sealed class RenderSearchTemplateEndpoint : IEndpoint<RenderSearchTemplat
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		return path;
 	}
-
-	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(RenderSearchTemplateRequest r) => RequestBody.Json(r);
 

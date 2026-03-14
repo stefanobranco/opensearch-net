@@ -24,6 +24,22 @@ public sealed partial class CoreNamespace
 	public Task<ClearScrollResponse> ClearScrollAsync(ClearScrollRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, ClearScrollEndpoint.Instance, options, ct);
 
+	/// <summary>Explicitly clears the search context for a scroll.</summary>
+	public ClearScrollResponse ClearScroll(Action<ClearScrollRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new ClearScrollRequestDescriptor();
+		configure(descriptor);
+		return ClearScroll((ClearScrollRequest)descriptor, options);
+	}
+
+	/// <summary>Explicitly clears the search context for a scroll.</summary>
+	public Task<ClearScrollResponse> ClearScrollAsync(Action<ClearScrollRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new ClearScrollRequestDescriptor();
+		configure(descriptor);
+		return ClearScrollAsync((ClearScrollRequest)descriptor, options, ct);
+	}
+
 
 	/// <summary>Returns number of documents matching a query.</summary>
 	public CountResponse Count(CountRequest request, TransportOptions? options = null) =>
@@ -32,6 +48,22 @@ public sealed partial class CoreNamespace
 	/// <summary>Returns number of documents matching a query.</summary>
 	public Task<CountResponse> CountAsync(CountRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, CountEndpoint.Instance, options, ct);
+
+	/// <summary>Returns number of documents matching a query.</summary>
+	public CountResponse Count(Action<CountRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new CountRequestDescriptor();
+		configure(descriptor);
+		return Count((CountRequest)descriptor, options);
+	}
+
+	/// <summary>Returns number of documents matching a query.</summary>
+	public Task<CountResponse> CountAsync(Action<CountRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new CountRequestDescriptor();
+		configure(descriptor);
+		return CountAsync((CountRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Creates a new document in the index. Returns a 409 response when a document with a same ID already exists in the index.</summary>
@@ -42,6 +74,22 @@ public sealed partial class CoreNamespace
 	public Task<CreateResponse> CreateAsync(CreateRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, CreateEndpoint.Instance, options, ct);
 
+	/// <summary>Creates a new document in the index. Returns a 409 response when a document with a same ID already exists in the index.</summary>
+	public CreateResponse Create(Action<CreateRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new CreateRequestDescriptor();
+		configure(descriptor);
+		return Create((CreateRequest)descriptor, options);
+	}
+
+	/// <summary>Creates a new document in the index. Returns a 409 response when a document with a same ID already exists in the index.</summary>
+	public Task<CreateResponse> CreateAsync(Action<CreateRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new CreateRequestDescriptor();
+		configure(descriptor);
+		return CreateAsync((CreateRequest)descriptor, options, ct);
+	}
+
 
 	/// <summary>Creates point in time context.</summary>
 	public CreatePitResponse CreatePit(CreatePitRequest request, TransportOptions? options = null) =>
@@ -50,6 +98,22 @@ public sealed partial class CoreNamespace
 	/// <summary>Creates point in time context.</summary>
 	public Task<CreatePitResponse> CreatePitAsync(CreatePitRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, CreatePitEndpoint.Instance, options, ct);
+
+	/// <summary>Creates point in time context.</summary>
+	public CreatePitResponse CreatePit(Action<CreatePitRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new CreatePitRequestDescriptor();
+		configure(descriptor);
+		return CreatePit((CreatePitRequest)descriptor, options);
+	}
+
+	/// <summary>Creates point in time context.</summary>
+	public Task<CreatePitResponse> CreatePitAsync(Action<CreatePitRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new CreatePitRequestDescriptor();
+		configure(descriptor);
+		return CreatePitAsync((CreatePitRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Removes a document from the index.</summary>
@@ -60,6 +124,22 @@ public sealed partial class CoreNamespace
 	public Task<DeleteResponse> DeleteAsync(DeleteRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, DeleteEndpoint.Instance, options, ct);
 
+	/// <summary>Removes a document from the index.</summary>
+	public DeleteResponse Delete(Action<DeleteRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new DeleteRequestDescriptor();
+		configure(descriptor);
+		return Delete((DeleteRequest)descriptor, options);
+	}
+
+	/// <summary>Removes a document from the index.</summary>
+	public Task<DeleteResponse> DeleteAsync(Action<DeleteRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new DeleteRequestDescriptor();
+		configure(descriptor);
+		return DeleteAsync((DeleteRequest)descriptor, options, ct);
+	}
+
 
 	/// <summary>Deletes all active point in time searches.</summary>
 	public DeleteAllPitsResponse DeleteAllPits(DeleteAllPitsRequest request, TransportOptions? options = null) =>
@@ -68,6 +148,22 @@ public sealed partial class CoreNamespace
 	/// <summary>Deletes all active point in time searches.</summary>
 	public Task<DeleteAllPitsResponse> DeleteAllPitsAsync(DeleteAllPitsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, DeleteAllPitsEndpoint.Instance, options, ct);
+
+	/// <summary>Deletes all active point in time searches.</summary>
+	public DeleteAllPitsResponse DeleteAllPits(Action<DeleteAllPitsRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new DeleteAllPitsRequestDescriptor();
+		configure(descriptor);
+		return DeleteAllPits((DeleteAllPitsRequest)descriptor, options);
+	}
+
+	/// <summary>Deletes all active point in time searches.</summary>
+	public Task<DeleteAllPitsResponse> DeleteAllPitsAsync(Action<DeleteAllPitsRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new DeleteAllPitsRequestDescriptor();
+		configure(descriptor);
+		return DeleteAllPitsAsync((DeleteAllPitsRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Deletes documents matching the provided query.</summary>
@@ -78,6 +174,22 @@ public sealed partial class CoreNamespace
 	public Task<DeleteByQueryResponse> DeleteByQueryAsync(DeleteByQueryRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, DeleteByQueryEndpoint.Instance, options, ct);
 
+	/// <summary>Deletes documents matching the provided query.</summary>
+	public DeleteByQueryResponse DeleteByQuery(Action<DeleteByQueryRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new DeleteByQueryRequestDescriptor();
+		configure(descriptor);
+		return DeleteByQuery((DeleteByQueryRequest)descriptor, options);
+	}
+
+	/// <summary>Deletes documents matching the provided query.</summary>
+	public Task<DeleteByQueryResponse> DeleteByQueryAsync(Action<DeleteByQueryRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new DeleteByQueryRequestDescriptor();
+		configure(descriptor);
+		return DeleteByQueryAsync((DeleteByQueryRequest)descriptor, options, ct);
+	}
+
 
 	/// <summary>Changes the number of requests per second for a particular Delete By Query operation.</summary>
 	public DeleteByQueryRethrottleResponse DeleteByQueryRethrottle(DeleteByQueryRethrottleRequest request, TransportOptions? options = null) =>
@@ -86,6 +198,22 @@ public sealed partial class CoreNamespace
 	/// <summary>Changes the number of requests per second for a particular Delete By Query operation.</summary>
 	public Task<DeleteByQueryRethrottleResponse> DeleteByQueryRethrottleAsync(DeleteByQueryRethrottleRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, DeleteByQueryRethrottleEndpoint.Instance, options, ct);
+
+	/// <summary>Changes the number of requests per second for a particular Delete By Query operation.</summary>
+	public DeleteByQueryRethrottleResponse DeleteByQueryRethrottle(Action<DeleteByQueryRethrottleRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new DeleteByQueryRethrottleRequestDescriptor();
+		configure(descriptor);
+		return DeleteByQueryRethrottle((DeleteByQueryRethrottleRequest)descriptor, options);
+	}
+
+	/// <summary>Changes the number of requests per second for a particular Delete By Query operation.</summary>
+	public Task<DeleteByQueryRethrottleResponse> DeleteByQueryRethrottleAsync(Action<DeleteByQueryRethrottleRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new DeleteByQueryRethrottleRequestDescriptor();
+		configure(descriptor);
+		return DeleteByQueryRethrottleAsync((DeleteByQueryRethrottleRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Deletes one or more point in time searches based on the IDs passed.</summary>
@@ -96,6 +224,22 @@ public sealed partial class CoreNamespace
 	public Task<DeletePitResponse> DeletePitAsync(DeletePitRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, DeletePitEndpoint.Instance, options, ct);
 
+	/// <summary>Deletes one or more point in time searches based on the IDs passed.</summary>
+	public DeletePitResponse DeletePit(Action<DeletePitRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new DeletePitRequestDescriptor();
+		configure(descriptor);
+		return DeletePit((DeletePitRequest)descriptor, options);
+	}
+
+	/// <summary>Deletes one or more point in time searches based on the IDs passed.</summary>
+	public Task<DeletePitResponse> DeletePitAsync(Action<DeletePitRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new DeletePitRequestDescriptor();
+		configure(descriptor);
+		return DeletePitAsync((DeletePitRequest)descriptor, options, ct);
+	}
+
 
 	/// <summary>Deletes a script.</summary>
 	public DeleteScriptResponse DeleteScript(DeleteScriptRequest request, TransportOptions? options = null) =>
@@ -104,6 +248,22 @@ public sealed partial class CoreNamespace
 	/// <summary>Deletes a script.</summary>
 	public Task<DeleteScriptResponse> DeleteScriptAsync(DeleteScriptRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, DeleteScriptEndpoint.Instance, options, ct);
+
+	/// <summary>Deletes a script.</summary>
+	public DeleteScriptResponse DeleteScript(Action<DeleteScriptRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new DeleteScriptRequestDescriptor();
+		configure(descriptor);
+		return DeleteScript((DeleteScriptRequest)descriptor, options);
+	}
+
+	/// <summary>Deletes a script.</summary>
+	public Task<DeleteScriptResponse> DeleteScriptAsync(Action<DeleteScriptRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new DeleteScriptRequestDescriptor();
+		configure(descriptor);
+		return DeleteScriptAsync((DeleteScriptRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Returns information about whether a document exists in an index.</summary>
@@ -114,6 +274,22 @@ public sealed partial class CoreNamespace
 	public Task<ExistsResponse> ExistsAsync(ExistsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, ExistsEndpoint.Instance, options, ct);
 
+	/// <summary>Returns information about whether a document exists in an index.</summary>
+	public ExistsResponse Exists(Action<ExistsRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new ExistsRequestDescriptor();
+		configure(descriptor);
+		return Exists((ExistsRequest)descriptor, options);
+	}
+
+	/// <summary>Returns information about whether a document exists in an index.</summary>
+	public Task<ExistsResponse> ExistsAsync(Action<ExistsRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new ExistsRequestDescriptor();
+		configure(descriptor);
+		return ExistsAsync((ExistsRequest)descriptor, options, ct);
+	}
+
 
 	/// <summary>Returns information about whether a document source exists in an index.</summary>
 	public ExistsSourceResponse ExistsSource(ExistsSourceRequest request, TransportOptions? options = null) =>
@@ -122,6 +298,22 @@ public sealed partial class CoreNamespace
 	/// <summary>Returns information about whether a document source exists in an index.</summary>
 	public Task<ExistsSourceResponse> ExistsSourceAsync(ExistsSourceRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, ExistsSourceEndpoint.Instance, options, ct);
+
+	/// <summary>Returns information about whether a document source exists in an index.</summary>
+	public ExistsSourceResponse ExistsSource(Action<ExistsSourceRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new ExistsSourceRequestDescriptor();
+		configure(descriptor);
+		return ExistsSource((ExistsSourceRequest)descriptor, options);
+	}
+
+	/// <summary>Returns information about whether a document source exists in an index.</summary>
+	public Task<ExistsSourceResponse> ExistsSourceAsync(Action<ExistsSourceRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new ExistsSourceRequestDescriptor();
+		configure(descriptor);
+		return ExistsSourceAsync((ExistsSourceRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Returns information about why a specific document matches (or doesn't match) a query.</summary>
@@ -132,6 +324,22 @@ public sealed partial class CoreNamespace
 	public Task<ExplainResponse<TDocument>> ExplainAsync<TDocument>(ExplainRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, ExplainEndpoint<TDocument>.Instance, options, ct);
 
+	/// <summary>Returns information about why a specific document matches (or doesn't match) a query.</summary>
+	public ExplainResponse<TDocument> Explain<TDocument>(Action<ExplainRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new ExplainRequestDescriptor();
+		configure(descriptor);
+		return Explain<TDocument>((ExplainRequest)descriptor, options);
+	}
+
+	/// <summary>Returns information about why a specific document matches (or doesn't match) a query.</summary>
+	public Task<ExplainResponse<TDocument>> ExplainAsync<TDocument>(Action<ExplainRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new ExplainRequestDescriptor();
+		configure(descriptor);
+		return ExplainAsync<TDocument>((ExplainRequest)descriptor, options, ct);
+	}
+
 
 	/// <summary>Returns the information about the capabilities of fields among multiple indexes.</summary>
 	public FieldCapsResponse FieldCaps(FieldCapsRequest request, TransportOptions? options = null) =>
@@ -140,6 +348,22 @@ public sealed partial class CoreNamespace
 	/// <summary>Returns the information about the capabilities of fields among multiple indexes.</summary>
 	public Task<FieldCapsResponse> FieldCapsAsync(FieldCapsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, FieldCapsEndpoint.Instance, options, ct);
+
+	/// <summary>Returns the information about the capabilities of fields among multiple indexes.</summary>
+	public FieldCapsResponse FieldCaps(Action<FieldCapsRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new FieldCapsRequestDescriptor();
+		configure(descriptor);
+		return FieldCaps((FieldCapsRequest)descriptor, options);
+	}
+
+	/// <summary>Returns the information about the capabilities of fields among multiple indexes.</summary>
+	public Task<FieldCapsResponse> FieldCapsAsync(Action<FieldCapsRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new FieldCapsRequestDescriptor();
+		configure(descriptor);
+		return FieldCapsAsync((FieldCapsRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Returns a document.</summary>
@@ -150,6 +374,22 @@ public sealed partial class CoreNamespace
 	public Task<GetResponse<TDocument>> GetAsync<TDocument>(GetRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, GetEndpoint<TDocument>.Instance, options, ct);
 
+	/// <summary>Returns a document.</summary>
+	public GetResponse<TDocument> Get<TDocument>(Action<GetRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetRequestDescriptor();
+		configure(descriptor);
+		return Get<TDocument>((GetRequest)descriptor, options);
+	}
+
+	/// <summary>Returns a document.</summary>
+	public Task<GetResponse<TDocument>> GetAsync<TDocument>(Action<GetRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetRequestDescriptor();
+		configure(descriptor);
+		return GetAsync<TDocument>((GetRequest)descriptor, options, ct);
+	}
+
 
 	/// <summary>Lists all active point in time searches.</summary>
 	public GetAllPitsResponse GetAllPits(GetAllPitsRequest request, TransportOptions? options = null) =>
@@ -158,6 +398,22 @@ public sealed partial class CoreNamespace
 	/// <summary>Lists all active point in time searches.</summary>
 	public Task<GetAllPitsResponse> GetAllPitsAsync(GetAllPitsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, GetAllPitsEndpoint.Instance, options, ct);
+
+	/// <summary>Lists all active point in time searches.</summary>
+	public GetAllPitsResponse GetAllPits(Action<GetAllPitsRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetAllPitsRequestDescriptor();
+		configure(descriptor);
+		return GetAllPits((GetAllPitsRequest)descriptor, options);
+	}
+
+	/// <summary>Lists all active point in time searches.</summary>
+	public Task<GetAllPitsResponse> GetAllPitsAsync(Action<GetAllPitsRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetAllPitsRequestDescriptor();
+		configure(descriptor);
+		return GetAllPitsAsync((GetAllPitsRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Returns a script.</summary>
@@ -168,6 +424,22 @@ public sealed partial class CoreNamespace
 	public Task<GetScriptResponse> GetScriptAsync(GetScriptRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, GetScriptEndpoint.Instance, options, ct);
 
+	/// <summary>Returns a script.</summary>
+	public GetScriptResponse GetScript(Action<GetScriptRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetScriptRequestDescriptor();
+		configure(descriptor);
+		return GetScript((GetScriptRequest)descriptor, options);
+	}
+
+	/// <summary>Returns a script.</summary>
+	public Task<GetScriptResponse> GetScriptAsync(Action<GetScriptRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetScriptRequestDescriptor();
+		configure(descriptor);
+		return GetScriptAsync((GetScriptRequest)descriptor, options, ct);
+	}
+
 
 	/// <summary>Returns all script contexts.</summary>
 	public GetScriptContextResponse GetScriptContext(GetScriptContextRequest request, TransportOptions? options = null) =>
@@ -176,6 +448,22 @@ public sealed partial class CoreNamespace
 	/// <summary>Returns all script contexts.</summary>
 	public Task<GetScriptContextResponse> GetScriptContextAsync(GetScriptContextRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, GetScriptContextEndpoint.Instance, options, ct);
+
+	/// <summary>Returns all script contexts.</summary>
+	public GetScriptContextResponse GetScriptContext(Action<GetScriptContextRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetScriptContextRequestDescriptor();
+		configure(descriptor);
+		return GetScriptContext((GetScriptContextRequest)descriptor, options);
+	}
+
+	/// <summary>Returns all script contexts.</summary>
+	public Task<GetScriptContextResponse> GetScriptContextAsync(Action<GetScriptContextRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetScriptContextRequestDescriptor();
+		configure(descriptor);
+		return GetScriptContextAsync((GetScriptContextRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Returns available script types, languages and contexts.</summary>
@@ -186,6 +474,22 @@ public sealed partial class CoreNamespace
 	public Task<GetScriptLanguagesResponse> GetScriptLanguagesAsync(GetScriptLanguagesRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, GetScriptLanguagesEndpoint.Instance, options, ct);
 
+	/// <summary>Returns available script types, languages and contexts.</summary>
+	public GetScriptLanguagesResponse GetScriptLanguages(Action<GetScriptLanguagesRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetScriptLanguagesRequestDescriptor();
+		configure(descriptor);
+		return GetScriptLanguages((GetScriptLanguagesRequest)descriptor, options);
+	}
+
+	/// <summary>Returns available script types, languages and contexts.</summary>
+	public Task<GetScriptLanguagesResponse> GetScriptLanguagesAsync(Action<GetScriptLanguagesRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetScriptLanguagesRequestDescriptor();
+		configure(descriptor);
+		return GetScriptLanguagesAsync((GetScriptLanguagesRequest)descriptor, options, ct);
+	}
+
 
 	/// <summary>Returns the source of a document.</summary>
 	public GetSourceResponse GetSource(GetSourceRequest request, TransportOptions? options = null) =>
@@ -194,6 +498,22 @@ public sealed partial class CoreNamespace
 	/// <summary>Returns the source of a document.</summary>
 	public Task<GetSourceResponse> GetSourceAsync(GetSourceRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, GetSourceEndpoint.Instance, options, ct);
+
+	/// <summary>Returns the source of a document.</summary>
+	public GetSourceResponse GetSource(Action<GetSourceRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetSourceRequestDescriptor();
+		configure(descriptor);
+		return GetSource((GetSourceRequest)descriptor, options);
+	}
+
+	/// <summary>Returns the source of a document.</summary>
+	public Task<GetSourceResponse> GetSourceAsync(Action<GetSourceRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetSourceRequestDescriptor();
+		configure(descriptor);
+		return GetSourceAsync((GetSourceRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Creates or updates a document in an index.</summary>
@@ -204,6 +524,22 @@ public sealed partial class CoreNamespace
 	public Task<IndexResponse> IndexAsync(IndexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, IndexEndpoint.Instance, options, ct);
 
+	/// <summary>Creates or updates a document in an index.</summary>
+	public IndexResponse Index(Action<IndexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new IndexRequestDescriptor();
+		configure(descriptor);
+		return Index((IndexRequest)descriptor, options);
+	}
+
+	/// <summary>Creates or updates a document in an index.</summary>
+	public Task<IndexResponse> IndexAsync(Action<IndexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new IndexRequestDescriptor();
+		configure(descriptor);
+		return IndexAsync((IndexRequest)descriptor, options, ct);
+	}
+
 
 	/// <summary>Returns basic information about the cluster.</summary>
 	public InfoResponse Info(InfoRequest request, TransportOptions? options = null) =>
@@ -212,6 +548,22 @@ public sealed partial class CoreNamespace
 	/// <summary>Returns basic information about the cluster.</summary>
 	public Task<InfoResponse> InfoAsync(InfoRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, InfoEndpoint.Instance, options, ct);
+
+	/// <summary>Returns basic information about the cluster.</summary>
+	public InfoResponse Info(Action<InfoRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new InfoRequestDescriptor();
+		configure(descriptor);
+		return Info((InfoRequest)descriptor, options);
+	}
+
+	/// <summary>Returns basic information about the cluster.</summary>
+	public Task<InfoResponse> InfoAsync(Action<InfoRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new InfoRequestDescriptor();
+		configure(descriptor);
+		return InfoAsync((InfoRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Allows to get multiple documents in one request.</summary>
@@ -222,6 +574,22 @@ public sealed partial class CoreNamespace
 	public Task<MgetResponse> MgetAsync(MgetRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, MgetEndpoint.Instance, options, ct);
 
+	/// <summary>Allows to get multiple documents in one request.</summary>
+	public MgetResponse Mget(Action<MgetRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new MgetRequestDescriptor();
+		configure(descriptor);
+		return Mget((MgetRequest)descriptor, options);
+	}
+
+	/// <summary>Allows to get multiple documents in one request.</summary>
+	public Task<MgetResponse> MgetAsync(Action<MgetRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new MgetRequestDescriptor();
+		configure(descriptor);
+		return MgetAsync((MgetRequest)descriptor, options, ct);
+	}
+
 
 	/// <summary>Returns multiple termvectors in one request.</summary>
 	public MtermvectorsResponse Mtermvectors(MtermvectorsRequest request, TransportOptions? options = null) =>
@@ -230,6 +598,22 @@ public sealed partial class CoreNamespace
 	/// <summary>Returns multiple termvectors in one request.</summary>
 	public Task<MtermvectorsResponse> MtermvectorsAsync(MtermvectorsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, MtermvectorsEndpoint.Instance, options, ct);
+
+	/// <summary>Returns multiple termvectors in one request.</summary>
+	public MtermvectorsResponse Mtermvectors(Action<MtermvectorsRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new MtermvectorsRequestDescriptor();
+		configure(descriptor);
+		return Mtermvectors((MtermvectorsRequest)descriptor, options);
+	}
+
+	/// <summary>Returns multiple termvectors in one request.</summary>
+	public Task<MtermvectorsResponse> MtermvectorsAsync(Action<MtermvectorsRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new MtermvectorsRequestDescriptor();
+		configure(descriptor);
+		return MtermvectorsAsync((MtermvectorsRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Returns whether the cluster is running.</summary>
@@ -240,6 +624,22 @@ public sealed partial class CoreNamespace
 	public Task<PingResponse> PingAsync(PingRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, PingEndpoint.Instance, options, ct);
 
+	/// <summary>Returns whether the cluster is running.</summary>
+	public PingResponse Ping(Action<PingRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new PingRequestDescriptor();
+		configure(descriptor);
+		return Ping((PingRequest)descriptor, options);
+	}
+
+	/// <summary>Returns whether the cluster is running.</summary>
+	public Task<PingResponse> PingAsync(Action<PingRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new PingRequestDescriptor();
+		configure(descriptor);
+		return PingAsync((PingRequest)descriptor, options, ct);
+	}
+
 
 	/// <summary>Creates or updates a script.</summary>
 	public PutScriptResponse PutScript(PutScriptRequest request, TransportOptions? options = null) =>
@@ -248,6 +648,22 @@ public sealed partial class CoreNamespace
 	/// <summary>Creates or updates a script.</summary>
 	public Task<PutScriptResponse> PutScriptAsync(PutScriptRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, PutScriptEndpoint.Instance, options, ct);
+
+	/// <summary>Creates or updates a script.</summary>
+	public PutScriptResponse PutScript(Action<PutScriptRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new PutScriptRequestDescriptor();
+		configure(descriptor);
+		return PutScript((PutScriptRequest)descriptor, options);
+	}
+
+	/// <summary>Creates or updates a script.</summary>
+	public Task<PutScriptResponse> PutScriptAsync(Action<PutScriptRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new PutScriptRequestDescriptor();
+		configure(descriptor);
+		return PutScriptAsync((PutScriptRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Allows to evaluate the quality of ranked search results over a set of typical search queries.</summary>
@@ -258,6 +674,22 @@ public sealed partial class CoreNamespace
 	public Task<RankEvalResponse> RankEvalAsync(RankEvalRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, RankEvalEndpoint.Instance, options, ct);
 
+	/// <summary>Allows to evaluate the quality of ranked search results over a set of typical search queries.</summary>
+	public RankEvalResponse RankEval(Action<RankEvalRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new RankEvalRequestDescriptor();
+		configure(descriptor);
+		return RankEval((RankEvalRequest)descriptor, options);
+	}
+
+	/// <summary>Allows to evaluate the quality of ranked search results over a set of typical search queries.</summary>
+	public Task<RankEvalResponse> RankEvalAsync(Action<RankEvalRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new RankEvalRequestDescriptor();
+		configure(descriptor);
+		return RankEvalAsync((RankEvalRequest)descriptor, options, ct);
+	}
+
 
 	/// <summary>Allows to copy documents from one index to another, optionally filtering the source documents by a query, changing the destination index settings, or fetching the documents from a remote cluster.</summary>
 	public ReindexResponse Reindex(ReindexRequest request, TransportOptions? options = null) =>
@@ -266,6 +698,22 @@ public sealed partial class CoreNamespace
 	/// <summary>Allows to copy documents from one index to another, optionally filtering the source documents by a query, changing the destination index settings, or fetching the documents from a remote cluster.</summary>
 	public Task<ReindexResponse> ReindexAsync(ReindexRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, ReindexEndpoint.Instance, options, ct);
+
+	/// <summary>Allows to copy documents from one index to another, optionally filtering the source documents by a query, changing the destination index settings, or fetching the documents from a remote cluster.</summary>
+	public ReindexResponse Reindex(Action<ReindexRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new ReindexRequestDescriptor();
+		configure(descriptor);
+		return Reindex((ReindexRequest)descriptor, options);
+	}
+
+	/// <summary>Allows to copy documents from one index to another, optionally filtering the source documents by a query, changing the destination index settings, or fetching the documents from a remote cluster.</summary>
+	public Task<ReindexResponse> ReindexAsync(Action<ReindexRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new ReindexRequestDescriptor();
+		configure(descriptor);
+		return ReindexAsync((ReindexRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Changes the number of requests per second for a particular reindex operation.</summary>
@@ -276,6 +724,22 @@ public sealed partial class CoreNamespace
 	public Task<ReindexRethrottleResponse> ReindexRethrottleAsync(ReindexRethrottleRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, ReindexRethrottleEndpoint.Instance, options, ct);
 
+	/// <summary>Changes the number of requests per second for a particular reindex operation.</summary>
+	public ReindexRethrottleResponse ReindexRethrottle(Action<ReindexRethrottleRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new ReindexRethrottleRequestDescriptor();
+		configure(descriptor);
+		return ReindexRethrottle((ReindexRethrottleRequest)descriptor, options);
+	}
+
+	/// <summary>Changes the number of requests per second for a particular reindex operation.</summary>
+	public Task<ReindexRethrottleResponse> ReindexRethrottleAsync(Action<ReindexRethrottleRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new ReindexRethrottleRequestDescriptor();
+		configure(descriptor);
+		return ReindexRethrottleAsync((ReindexRethrottleRequest)descriptor, options, ct);
+	}
+
 
 	/// <summary>Allows to use the Mustache language to pre-render a search definition.</summary>
 	public RenderSearchTemplateResponse RenderSearchTemplate(RenderSearchTemplateRequest request, TransportOptions? options = null) =>
@@ -284,6 +748,22 @@ public sealed partial class CoreNamespace
 	/// <summary>Allows to use the Mustache language to pre-render a search definition.</summary>
 	public Task<RenderSearchTemplateResponse> RenderSearchTemplateAsync(RenderSearchTemplateRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, RenderSearchTemplateEndpoint.Instance, options, ct);
+
+	/// <summary>Allows to use the Mustache language to pre-render a search definition.</summary>
+	public RenderSearchTemplateResponse RenderSearchTemplate(Action<RenderSearchTemplateRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new RenderSearchTemplateRequestDescriptor();
+		configure(descriptor);
+		return RenderSearchTemplate((RenderSearchTemplateRequest)descriptor, options);
+	}
+
+	/// <summary>Allows to use the Mustache language to pre-render a search definition.</summary>
+	public Task<RenderSearchTemplateResponse> RenderSearchTemplateAsync(Action<RenderSearchTemplateRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new RenderSearchTemplateRequestDescriptor();
+		configure(descriptor);
+		return RenderSearchTemplateAsync((RenderSearchTemplateRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Allows an arbitrary script to be executed and a result to be returned.</summary>
@@ -294,6 +774,22 @@ public sealed partial class CoreNamespace
 	public Task<ScriptsPainlessExecuteResponse<TResult>> ScriptsPainlessExecuteAsync<TResult>(ScriptsPainlessExecuteRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, ScriptsPainlessExecuteEndpoint<TResult>.Instance, options, ct);
 
+	/// <summary>Allows an arbitrary script to be executed and a result to be returned.</summary>
+	public ScriptsPainlessExecuteResponse<TResult> ScriptsPainlessExecute<TResult>(Action<ScriptsPainlessExecuteRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new ScriptsPainlessExecuteRequestDescriptor();
+		configure(descriptor);
+		return ScriptsPainlessExecute<TResult>((ScriptsPainlessExecuteRequest)descriptor, options);
+	}
+
+	/// <summary>Allows an arbitrary script to be executed and a result to be returned.</summary>
+	public Task<ScriptsPainlessExecuteResponse<TResult>> ScriptsPainlessExecuteAsync<TResult>(Action<ScriptsPainlessExecuteRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new ScriptsPainlessExecuteRequestDescriptor();
+		configure(descriptor);
+		return ScriptsPainlessExecuteAsync<TResult>((ScriptsPainlessExecuteRequest)descriptor, options, ct);
+	}
+
 
 	/// <summary>Allows to retrieve a large numbers of results from a single search request.</summary>
 	public ScrollResponse<TDocument> Scroll<TDocument>(ScrollRequest request, TransportOptions? options = null) =>
@@ -302,6 +798,22 @@ public sealed partial class CoreNamespace
 	/// <summary>Allows to retrieve a large numbers of results from a single search request.</summary>
 	public Task<ScrollResponse<TDocument>> ScrollAsync<TDocument>(ScrollRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, ScrollEndpoint<TDocument>.Instance, options, ct);
+
+	/// <summary>Allows to retrieve a large numbers of results from a single search request.</summary>
+	public ScrollResponse<TDocument> Scroll<TDocument>(Action<ScrollRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new ScrollRequestDescriptor();
+		configure(descriptor);
+		return Scroll<TDocument>((ScrollRequest)descriptor, options);
+	}
+
+	/// <summary>Allows to retrieve a large numbers of results from a single search request.</summary>
+	public Task<ScrollResponse<TDocument>> ScrollAsync<TDocument>(Action<ScrollRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new ScrollRequestDescriptor();
+		configure(descriptor);
+		return ScrollAsync<TDocument>((ScrollRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Returns results matching a query.</summary>
@@ -312,6 +824,22 @@ public sealed partial class CoreNamespace
 	public Task<SearchResponse<TDocument>> SearchAsync<TDocument>(SearchRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, SearchEndpoint<TDocument>.Instance, options, ct);
 
+	/// <summary>Returns results matching a query.</summary>
+	public SearchResponse<TDocument> Search<TDocument>(Action<SearchRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new SearchRequestDescriptor();
+		configure(descriptor);
+		return Search<TDocument>((SearchRequest)descriptor, options);
+	}
+
+	/// <summary>Returns results matching a query.</summary>
+	public Task<SearchResponse<TDocument>> SearchAsync<TDocument>(Action<SearchRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new SearchRequestDescriptor();
+		configure(descriptor);
+		return SearchAsync<TDocument>((SearchRequest)descriptor, options, ct);
+	}
+
 
 	/// <summary>Returns information about the indexes and shards that a search request would be executed against.</summary>
 	public SearchShardsResponse SearchShards(SearchShardsRequest request, TransportOptions? options = null) =>
@@ -320,6 +848,22 @@ public sealed partial class CoreNamespace
 	/// <summary>Returns information about the indexes and shards that a search request would be executed against.</summary>
 	public Task<SearchShardsResponse> SearchShardsAsync(SearchShardsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, SearchShardsEndpoint.Instance, options, ct);
+
+	/// <summary>Returns information about the indexes and shards that a search request would be executed against.</summary>
+	public SearchShardsResponse SearchShards(Action<SearchShardsRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new SearchShardsRequestDescriptor();
+		configure(descriptor);
+		return SearchShards((SearchShardsRequest)descriptor, options);
+	}
+
+	/// <summary>Returns information about the indexes and shards that a search request would be executed against.</summary>
+	public Task<SearchShardsResponse> SearchShardsAsync(Action<SearchShardsRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new SearchShardsRequestDescriptor();
+		configure(descriptor);
+		return SearchShardsAsync((SearchShardsRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Allows to use the Mustache language to pre-render a search definition.</summary>
@@ -330,6 +874,22 @@ public sealed partial class CoreNamespace
 	public Task<SearchTemplateResponse<TDocument>> SearchTemplateAsync<TDocument>(SearchTemplateRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, SearchTemplateEndpoint<TDocument>.Instance, options, ct);
 
+	/// <summary>Allows to use the Mustache language to pre-render a search definition.</summary>
+	public SearchTemplateResponse<TDocument> SearchTemplate<TDocument>(Action<SearchTemplateRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new SearchTemplateRequestDescriptor();
+		configure(descriptor);
+		return SearchTemplate<TDocument>((SearchTemplateRequest)descriptor, options);
+	}
+
+	/// <summary>Allows to use the Mustache language to pre-render a search definition.</summary>
+	public Task<SearchTemplateResponse<TDocument>> SearchTemplateAsync<TDocument>(Action<SearchTemplateRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new SearchTemplateRequestDescriptor();
+		configure(descriptor);
+		return SearchTemplateAsync<TDocument>((SearchTemplateRequest)descriptor, options, ct);
+	}
+
 
 	/// <summary>Returns information and statistics about terms in the fields of a particular document.</summary>
 	public TermvectorsResponse Termvectors(TermvectorsRequest request, TransportOptions? options = null) =>
@@ -338,6 +898,22 @@ public sealed partial class CoreNamespace
 	/// <summary>Returns information and statistics about terms in the fields of a particular document.</summary>
 	public Task<TermvectorsResponse> TermvectorsAsync(TermvectorsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, TermvectorsEndpoint.Instance, options, ct);
+
+	/// <summary>Returns information and statistics about terms in the fields of a particular document.</summary>
+	public TermvectorsResponse Termvectors(Action<TermvectorsRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new TermvectorsRequestDescriptor();
+		configure(descriptor);
+		return Termvectors((TermvectorsRequest)descriptor, options);
+	}
+
+	/// <summary>Returns information and statistics about terms in the fields of a particular document.</summary>
+	public Task<TermvectorsResponse> TermvectorsAsync(Action<TermvectorsRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new TermvectorsRequestDescriptor();
+		configure(descriptor);
+		return TermvectorsAsync((TermvectorsRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Updates a document with a script or partial document.</summary>
@@ -348,6 +924,22 @@ public sealed partial class CoreNamespace
 	public Task<UpdateResponse<TDocument>> UpdateAsync<TDocument>(UpdateRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, UpdateEndpoint<TDocument>.Instance, options, ct);
 
+	/// <summary>Updates a document with a script or partial document.</summary>
+	public UpdateResponse<TDocument> Update<TDocument>(Action<UpdateRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new UpdateRequestDescriptor();
+		configure(descriptor);
+		return Update<TDocument>((UpdateRequest)descriptor, options);
+	}
+
+	/// <summary>Updates a document with a script or partial document.</summary>
+	public Task<UpdateResponse<TDocument>> UpdateAsync<TDocument>(Action<UpdateRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new UpdateRequestDescriptor();
+		configure(descriptor);
+		return UpdateAsync<TDocument>((UpdateRequest)descriptor, options, ct);
+	}
+
 
 	/// <summary>Performs an update on every document in the index without changing the source, for example to pick up a mapping change.</summary>
 	public UpdateByQueryResponse UpdateByQuery(UpdateByQueryRequest request, TransportOptions? options = null) =>
@@ -357,6 +949,22 @@ public sealed partial class CoreNamespace
 	public Task<UpdateByQueryResponse> UpdateByQueryAsync(UpdateByQueryRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, UpdateByQueryEndpoint.Instance, options, ct);
 
+	/// <summary>Performs an update on every document in the index without changing the source, for example to pick up a mapping change.</summary>
+	public UpdateByQueryResponse UpdateByQuery(Action<UpdateByQueryRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new UpdateByQueryRequestDescriptor();
+		configure(descriptor);
+		return UpdateByQuery((UpdateByQueryRequest)descriptor, options);
+	}
+
+	/// <summary>Performs an update on every document in the index without changing the source, for example to pick up a mapping change.</summary>
+	public Task<UpdateByQueryResponse> UpdateByQueryAsync(Action<UpdateByQueryRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new UpdateByQueryRequestDescriptor();
+		configure(descriptor);
+		return UpdateByQueryAsync((UpdateByQueryRequest)descriptor, options, ct);
+	}
+
 
 	/// <summary>Changes the number of requests per second for a particular Update By Query operation.</summary>
 	public UpdateByQueryRethrottleResponse UpdateByQueryRethrottle(UpdateByQueryRethrottleRequest request, TransportOptions? options = null) =>
@@ -365,5 +973,21 @@ public sealed partial class CoreNamespace
 	/// <summary>Changes the number of requests per second for a particular Update By Query operation.</summary>
 	public Task<UpdateByQueryRethrottleResponse> UpdateByQueryRethrottleAsync(UpdateByQueryRethrottleRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
 		_client.DoRequestAsync(request, UpdateByQueryRethrottleEndpoint.Instance, options, ct);
+
+	/// <summary>Changes the number of requests per second for a particular Update By Query operation.</summary>
+	public UpdateByQueryRethrottleResponse UpdateByQueryRethrottle(Action<UpdateByQueryRethrottleRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new UpdateByQueryRethrottleRequestDescriptor();
+		configure(descriptor);
+		return UpdateByQueryRethrottle((UpdateByQueryRethrottleRequest)descriptor, options);
+	}
+
+	/// <summary>Changes the number of requests per second for a particular Update By Query operation.</summary>
+	public Task<UpdateByQueryRethrottleResponse> UpdateByQueryRethrottleAsync(Action<UpdateByQueryRethrottleRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new UpdateByQueryRethrottleRequestDescriptor();
+		configure(descriptor);
+		return UpdateByQueryRethrottleAsync((UpdateByQueryRethrottleRequest)descriptor, options, ct);
+	}
 
 }

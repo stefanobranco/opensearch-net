@@ -15,7 +15,7 @@ public sealed class IndexSettingsLifecycle
 	public string? Name { get; set; }
 	public string? IndexingComplete { get; set; }
 	/// <summary>The timestamp used to calculate the index age for its phase transitions. Use this setting if you create a new index that contains old data and want to use the original creation date to calculate the index age. Specified as a Unix epoch value in milliseconds.</summary>
-		public string? OriginationDate { get; set; }
+		public System.Text.Json.JsonElement? OriginationDate { get; set; }
 	/// <summary>When `true`, parses the origination date from the index name. This origination date is used to calculate the index age for its phase transitions. The index name must match the pattern `^.*-{date_format}-\\d+`, where the `date_format` is `yyyy.MM.dd` and the trailing digits are optional. An index that was rolled over would normally match the full format, for example `logs-2016.10.31-000002`). If the index name doesn't match the pattern, index creation fails.</summary>
 		public bool? ParseOriginationDate { get; set; }
 	public IndexSettingsLifecycleStep? Step { get; set; }

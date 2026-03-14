@@ -17,236 +17,652 @@ public sealed partial class LtrNamespace
 
 
 	/// <summary>Add features to an existing feature set in the default feature store.</summary>
-	public AddFeaturesToSetResponse AddFeaturesToSet(AddFeaturesToSetRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, AddFeaturesToSetEndpoint.Instance, options);
+	public AddFeaturesToSetLtrResponse AddFeaturesToSet(AddFeaturesToSetLtrRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, AddFeaturesToSetLtrEndpoint.Instance, options);
 
 	/// <summary>Add features to an existing feature set in the default feature store.</summary>
-	public Task<AddFeaturesToSetResponse> AddFeaturesToSetAsync(AddFeaturesToSetRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, AddFeaturesToSetEndpoint.Instance, options, ct);
+	public Task<AddFeaturesToSetLtrResponse> AddFeaturesToSetAsync(AddFeaturesToSetLtrRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, AddFeaturesToSetLtrEndpoint.Instance, options, ct);
+
+	/// <summary>Add features to an existing feature set in the default feature store.</summary>
+	public AddFeaturesToSetLtrResponse AddFeaturesToSet(Action<AddFeaturesToSetLtrRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new AddFeaturesToSetLtrRequestDescriptor();
+		configure(descriptor);
+		return AddFeaturesToSet((AddFeaturesToSetLtrRequest)descriptor, options);
+	}
+
+	/// <summary>Add features to an existing feature set in the default feature store.</summary>
+	public Task<AddFeaturesToSetLtrResponse> AddFeaturesToSetAsync(Action<AddFeaturesToSetLtrRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new AddFeaturesToSetLtrRequestDescriptor();
+		configure(descriptor);
+		return AddFeaturesToSetAsync((AddFeaturesToSetLtrRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Add features to an existing feature set in the default feature store.</summary>
-	public AddFeaturesToSetByQueryResponse AddFeaturesToSetByQuery(AddFeaturesToSetByQueryRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, AddFeaturesToSetByQueryEndpoint.Instance, options);
+	public AddFeaturesToSetByQueryLtrResponse AddFeaturesToSetByQuery(AddFeaturesToSetByQueryLtrRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, AddFeaturesToSetByQueryLtrEndpoint.Instance, options);
 
 	/// <summary>Add features to an existing feature set in the default feature store.</summary>
-	public Task<AddFeaturesToSetByQueryResponse> AddFeaturesToSetByQueryAsync(AddFeaturesToSetByQueryRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, AddFeaturesToSetByQueryEndpoint.Instance, options, ct);
+	public Task<AddFeaturesToSetByQueryLtrResponse> AddFeaturesToSetByQueryAsync(AddFeaturesToSetByQueryLtrRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, AddFeaturesToSetByQueryLtrEndpoint.Instance, options, ct);
+
+	/// <summary>Add features to an existing feature set in the default feature store.</summary>
+	public AddFeaturesToSetByQueryLtrResponse AddFeaturesToSetByQuery(Action<AddFeaturesToSetByQueryLtrRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new AddFeaturesToSetByQueryLtrRequestDescriptor();
+		configure(descriptor);
+		return AddFeaturesToSetByQuery((AddFeaturesToSetByQueryLtrRequest)descriptor, options);
+	}
+
+	/// <summary>Add features to an existing feature set in the default feature store.</summary>
+	public Task<AddFeaturesToSetByQueryLtrResponse> AddFeaturesToSetByQueryAsync(Action<AddFeaturesToSetByQueryLtrRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new AddFeaturesToSetByQueryLtrRequestDescriptor();
+		configure(descriptor);
+		return AddFeaturesToSetByQueryAsync((AddFeaturesToSetByQueryLtrRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Retrieves cache statistics for all feature stores.</summary>
-	public CacheStatsResponse CacheStats(CacheStatsRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, CacheStatsEndpoint.Instance, options);
+	public CacheStatsLtrResponse CacheStats(CacheStatsLtrRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, CacheStatsLtrEndpoint.Instance, options);
 
 	/// <summary>Retrieves cache statistics for all feature stores.</summary>
-	public Task<CacheStatsResponse> CacheStatsAsync(CacheStatsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, CacheStatsEndpoint.Instance, options, ct);
+	public Task<CacheStatsLtrResponse> CacheStatsAsync(CacheStatsLtrRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, CacheStatsLtrEndpoint.Instance, options, ct);
+
+	/// <summary>Retrieves cache statistics for all feature stores.</summary>
+	public CacheStatsLtrResponse CacheStats(Action<CacheStatsLtrRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new CacheStatsLtrRequestDescriptor();
+		configure(descriptor);
+		return CacheStats((CacheStatsLtrRequest)descriptor, options);
+	}
+
+	/// <summary>Retrieves cache statistics for all feature stores.</summary>
+	public Task<CacheStatsLtrResponse> CacheStatsAsync(Action<CacheStatsLtrRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new CacheStatsLtrRequestDescriptor();
+		configure(descriptor);
+		return CacheStatsAsync((CacheStatsLtrRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Clears the store caches.</summary>
-	public ClearCacheResponse ClearCache(ClearCacheRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, ClearCacheEndpoint.Instance, options);
+	public ClearCacheLtrResponse ClearCache(ClearCacheLtrRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, ClearCacheLtrEndpoint.Instance, options);
 
 	/// <summary>Clears the store caches.</summary>
-	public Task<ClearCacheResponse> ClearCacheAsync(ClearCacheRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, ClearCacheEndpoint.Instance, options, ct);
+	public Task<ClearCacheLtrResponse> ClearCacheAsync(ClearCacheLtrRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, ClearCacheLtrEndpoint.Instance, options, ct);
+
+	/// <summary>Clears the store caches.</summary>
+	public ClearCacheLtrResponse ClearCache(Action<ClearCacheLtrRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new ClearCacheLtrRequestDescriptor();
+		configure(descriptor);
+		return ClearCache((ClearCacheLtrRequest)descriptor, options);
+	}
+
+	/// <summary>Clears the store caches.</summary>
+	public Task<ClearCacheLtrResponse> ClearCacheAsync(Action<ClearCacheLtrRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new ClearCacheLtrRequestDescriptor();
+		configure(descriptor);
+		return ClearCacheAsync((ClearCacheLtrRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Creates the default feature store.</summary>
-	public CreateDefaultStoreResponse CreateDefaultStore(CreateDefaultStoreRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, CreateDefaultStoreEndpoint.Instance, options);
+	public CreateDefaultStoreLtrResponse CreateDefaultStore(CreateDefaultStoreLtrRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, CreateDefaultStoreLtrEndpoint.Instance, options);
 
 	/// <summary>Creates the default feature store.</summary>
-	public Task<CreateDefaultStoreResponse> CreateDefaultStoreAsync(CreateDefaultStoreRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, CreateDefaultStoreEndpoint.Instance, options, ct);
+	public Task<CreateDefaultStoreLtrResponse> CreateDefaultStoreAsync(CreateDefaultStoreLtrRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, CreateDefaultStoreLtrEndpoint.Instance, options, ct);
+
+	/// <summary>Creates the default feature store.</summary>
+	public CreateDefaultStoreLtrResponse CreateDefaultStore(Action<CreateDefaultStoreLtrRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new CreateDefaultStoreLtrRequestDescriptor();
+		configure(descriptor);
+		return CreateDefaultStore((CreateDefaultStoreLtrRequest)descriptor, options);
+	}
+
+	/// <summary>Creates the default feature store.</summary>
+	public Task<CreateDefaultStoreLtrResponse> CreateDefaultStoreAsync(Action<CreateDefaultStoreLtrRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new CreateDefaultStoreLtrRequestDescriptor();
+		configure(descriptor);
+		return CreateDefaultStoreAsync((CreateDefaultStoreLtrRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Create or update a feature in the default feature store.</summary>
-	public CreateFeatureResponse CreateFeature(CreateFeatureRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, CreateFeatureEndpoint.Instance, options);
+	public CreateFeatureLtrResponse CreateFeature(CreateFeatureLtrRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, CreateFeatureLtrEndpoint.Instance, options);
 
 	/// <summary>Create or update a feature in the default feature store.</summary>
-	public Task<CreateFeatureResponse> CreateFeatureAsync(CreateFeatureRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, CreateFeatureEndpoint.Instance, options, ct);
+	public Task<CreateFeatureLtrResponse> CreateFeatureAsync(CreateFeatureLtrRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, CreateFeatureLtrEndpoint.Instance, options, ct);
+
+	/// <summary>Create or update a feature in the default feature store.</summary>
+	public CreateFeatureLtrResponse CreateFeature(Action<CreateFeatureLtrRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new CreateFeatureLtrRequestDescriptor();
+		configure(descriptor);
+		return CreateFeature((CreateFeatureLtrRequest)descriptor, options);
+	}
+
+	/// <summary>Create or update a feature in the default feature store.</summary>
+	public Task<CreateFeatureLtrResponse> CreateFeatureAsync(Action<CreateFeatureLtrRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new CreateFeatureLtrRequestDescriptor();
+		configure(descriptor);
+		return CreateFeatureAsync((CreateFeatureLtrRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Create or update a feature set in the default feature store.</summary>
-	public CreateFeaturesetResponse CreateFeatureset(CreateFeaturesetRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, CreateFeaturesetEndpoint.Instance, options);
+	public CreateFeaturesetLtrResponse CreateFeatureset(CreateFeaturesetLtrRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, CreateFeaturesetLtrEndpoint.Instance, options);
 
 	/// <summary>Create or update a feature set in the default feature store.</summary>
-	public Task<CreateFeaturesetResponse> CreateFeaturesetAsync(CreateFeaturesetRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, CreateFeaturesetEndpoint.Instance, options, ct);
+	public Task<CreateFeaturesetLtrResponse> CreateFeaturesetAsync(CreateFeaturesetLtrRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, CreateFeaturesetLtrEndpoint.Instance, options, ct);
+
+	/// <summary>Create or update a feature set in the default feature store.</summary>
+	public CreateFeaturesetLtrResponse CreateFeatureset(Action<CreateFeaturesetLtrRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new CreateFeaturesetLtrRequestDescriptor();
+		configure(descriptor);
+		return CreateFeatureset((CreateFeaturesetLtrRequest)descriptor, options);
+	}
+
+	/// <summary>Create or update a feature set in the default feature store.</summary>
+	public Task<CreateFeaturesetLtrResponse> CreateFeaturesetAsync(Action<CreateFeaturesetLtrRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new CreateFeaturesetLtrRequestDescriptor();
+		configure(descriptor);
+		return CreateFeaturesetAsync((CreateFeaturesetLtrRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Create or update a model in the default feature store.</summary>
-	public CreateModelResponse CreateModel(CreateModelRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, CreateModelEndpoint.Instance, options);
+	public CreateModelLtrResponse CreateModel(CreateModelLtrRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, CreateModelLtrEndpoint.Instance, options);
 
 	/// <summary>Create or update a model in the default feature store.</summary>
-	public Task<CreateModelResponse> CreateModelAsync(CreateModelRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, CreateModelEndpoint.Instance, options, ct);
+	public Task<CreateModelLtrResponse> CreateModelAsync(CreateModelLtrRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, CreateModelLtrEndpoint.Instance, options, ct);
+
+	/// <summary>Create or update a model in the default feature store.</summary>
+	public CreateModelLtrResponse CreateModel(Action<CreateModelLtrRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new CreateModelLtrRequestDescriptor();
+		configure(descriptor);
+		return CreateModel((CreateModelLtrRequest)descriptor, options);
+	}
+
+	/// <summary>Create or update a model in the default feature store.</summary>
+	public Task<CreateModelLtrResponse> CreateModelAsync(Action<CreateModelLtrRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new CreateModelLtrRequestDescriptor();
+		configure(descriptor);
+		return CreateModelAsync((CreateModelLtrRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Create a model from an existing feature set in the default feature store.</summary>
-	public CreateModelFromSetResponse CreateModelFromSet(CreateModelFromSetRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, CreateModelFromSetEndpoint.Instance, options);
+	public CreateModelFromSetLtrResponse CreateModelFromSet(CreateModelFromSetLtrRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, CreateModelFromSetLtrEndpoint.Instance, options);
 
 	/// <summary>Create a model from an existing feature set in the default feature store.</summary>
-	public Task<CreateModelFromSetResponse> CreateModelFromSetAsync(CreateModelFromSetRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, CreateModelFromSetEndpoint.Instance, options, ct);
+	public Task<CreateModelFromSetLtrResponse> CreateModelFromSetAsync(CreateModelFromSetLtrRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, CreateModelFromSetLtrEndpoint.Instance, options, ct);
+
+	/// <summary>Create a model from an existing feature set in the default feature store.</summary>
+	public CreateModelFromSetLtrResponse CreateModelFromSet(Action<CreateModelFromSetLtrRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new CreateModelFromSetLtrRequestDescriptor();
+		configure(descriptor);
+		return CreateModelFromSet((CreateModelFromSetLtrRequest)descriptor, options);
+	}
+
+	/// <summary>Create a model from an existing feature set in the default feature store.</summary>
+	public Task<CreateModelFromSetLtrResponse> CreateModelFromSetAsync(Action<CreateModelFromSetLtrRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new CreateModelFromSetLtrRequestDescriptor();
+		configure(descriptor);
+		return CreateModelFromSetAsync((CreateModelFromSetLtrRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Creates a new feature store with the specified name.</summary>
-	public CreateStoreResponse CreateStore(CreateStoreRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, CreateStoreEndpoint.Instance, options);
+	public CreateStoreLtrResponse CreateStore(CreateStoreLtrRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, CreateStoreLtrEndpoint.Instance, options);
 
 	/// <summary>Creates a new feature store with the specified name.</summary>
-	public Task<CreateStoreResponse> CreateStoreAsync(CreateStoreRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, CreateStoreEndpoint.Instance, options, ct);
+	public Task<CreateStoreLtrResponse> CreateStoreAsync(CreateStoreLtrRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, CreateStoreLtrEndpoint.Instance, options, ct);
+
+	/// <summary>Creates a new feature store with the specified name.</summary>
+	public CreateStoreLtrResponse CreateStore(Action<CreateStoreLtrRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new CreateStoreLtrRequestDescriptor();
+		configure(descriptor);
+		return CreateStore((CreateStoreLtrRequest)descriptor, options);
+	}
+
+	/// <summary>Creates a new feature store with the specified name.</summary>
+	public Task<CreateStoreLtrResponse> CreateStoreAsync(Action<CreateStoreLtrRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new CreateStoreLtrRequestDescriptor();
+		configure(descriptor);
+		return CreateStoreAsync((CreateStoreLtrRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Deletes the default feature store.</summary>
-	public DeleteDefaultStoreResponse DeleteDefaultStore(DeleteDefaultStoreRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, DeleteDefaultStoreEndpoint.Instance, options);
+	public DeleteDefaultStoreLtrResponse DeleteDefaultStore(DeleteDefaultStoreLtrRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, DeleteDefaultStoreLtrEndpoint.Instance, options);
 
 	/// <summary>Deletes the default feature store.</summary>
-	public Task<DeleteDefaultStoreResponse> DeleteDefaultStoreAsync(DeleteDefaultStoreRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, DeleteDefaultStoreEndpoint.Instance, options, ct);
+	public Task<DeleteDefaultStoreLtrResponse> DeleteDefaultStoreAsync(DeleteDefaultStoreLtrRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, DeleteDefaultStoreLtrEndpoint.Instance, options, ct);
+
+	/// <summary>Deletes the default feature store.</summary>
+	public DeleteDefaultStoreLtrResponse DeleteDefaultStore(Action<DeleteDefaultStoreLtrRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new DeleteDefaultStoreLtrRequestDescriptor();
+		configure(descriptor);
+		return DeleteDefaultStore((DeleteDefaultStoreLtrRequest)descriptor, options);
+	}
+
+	/// <summary>Deletes the default feature store.</summary>
+	public Task<DeleteDefaultStoreLtrResponse> DeleteDefaultStoreAsync(Action<DeleteDefaultStoreLtrRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new DeleteDefaultStoreLtrRequestDescriptor();
+		configure(descriptor);
+		return DeleteDefaultStoreAsync((DeleteDefaultStoreLtrRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Delete a feature from the default feature store.</summary>
-	public DeleteFeatureResponse DeleteFeature(DeleteFeatureRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, DeleteFeatureEndpoint.Instance, options);
+	public DeleteFeatureLtrResponse DeleteFeature(DeleteFeatureLtrRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, DeleteFeatureLtrEndpoint.Instance, options);
 
 	/// <summary>Delete a feature from the default feature store.</summary>
-	public Task<DeleteFeatureResponse> DeleteFeatureAsync(DeleteFeatureRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, DeleteFeatureEndpoint.Instance, options, ct);
+	public Task<DeleteFeatureLtrResponse> DeleteFeatureAsync(DeleteFeatureLtrRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, DeleteFeatureLtrEndpoint.Instance, options, ct);
+
+	/// <summary>Delete a feature from the default feature store.</summary>
+	public DeleteFeatureLtrResponse DeleteFeature(Action<DeleteFeatureLtrRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new DeleteFeatureLtrRequestDescriptor();
+		configure(descriptor);
+		return DeleteFeature((DeleteFeatureLtrRequest)descriptor, options);
+	}
+
+	/// <summary>Delete a feature from the default feature store.</summary>
+	public Task<DeleteFeatureLtrResponse> DeleteFeatureAsync(Action<DeleteFeatureLtrRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new DeleteFeatureLtrRequestDescriptor();
+		configure(descriptor);
+		return DeleteFeatureAsync((DeleteFeatureLtrRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Delete a feature set from the default feature store.</summary>
-	public DeleteFeaturesetResponse DeleteFeatureset(DeleteFeaturesetRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, DeleteFeaturesetEndpoint.Instance, options);
+	public DeleteFeaturesetLtrResponse DeleteFeatureset(DeleteFeaturesetLtrRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, DeleteFeaturesetLtrEndpoint.Instance, options);
 
 	/// <summary>Delete a feature set from the default feature store.</summary>
-	public Task<DeleteFeaturesetResponse> DeleteFeaturesetAsync(DeleteFeaturesetRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, DeleteFeaturesetEndpoint.Instance, options, ct);
+	public Task<DeleteFeaturesetLtrResponse> DeleteFeaturesetAsync(DeleteFeaturesetLtrRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, DeleteFeaturesetLtrEndpoint.Instance, options, ct);
+
+	/// <summary>Delete a feature set from the default feature store.</summary>
+	public DeleteFeaturesetLtrResponse DeleteFeatureset(Action<DeleteFeaturesetLtrRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new DeleteFeaturesetLtrRequestDescriptor();
+		configure(descriptor);
+		return DeleteFeatureset((DeleteFeaturesetLtrRequest)descriptor, options);
+	}
+
+	/// <summary>Delete a feature set from the default feature store.</summary>
+	public Task<DeleteFeaturesetLtrResponse> DeleteFeaturesetAsync(Action<DeleteFeaturesetLtrRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new DeleteFeaturesetLtrRequestDescriptor();
+		configure(descriptor);
+		return DeleteFeaturesetAsync((DeleteFeaturesetLtrRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Delete a model from the default feature store.</summary>
-	public DeleteModelResponse DeleteModel(DeleteModelRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, DeleteModelEndpoint.Instance, options);
+	public DeleteModelLtrResponse DeleteModel(DeleteModelLtrRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, DeleteModelLtrEndpoint.Instance, options);
 
 	/// <summary>Delete a model from the default feature store.</summary>
-	public Task<DeleteModelResponse> DeleteModelAsync(DeleteModelRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, DeleteModelEndpoint.Instance, options, ct);
+	public Task<DeleteModelLtrResponse> DeleteModelAsync(DeleteModelLtrRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, DeleteModelLtrEndpoint.Instance, options, ct);
+
+	/// <summary>Delete a model from the default feature store.</summary>
+	public DeleteModelLtrResponse DeleteModel(Action<DeleteModelLtrRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new DeleteModelLtrRequestDescriptor();
+		configure(descriptor);
+		return DeleteModel((DeleteModelLtrRequest)descriptor, options);
+	}
+
+	/// <summary>Delete a model from the default feature store.</summary>
+	public Task<DeleteModelLtrResponse> DeleteModelAsync(Action<DeleteModelLtrRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new DeleteModelLtrRequestDescriptor();
+		configure(descriptor);
+		return DeleteModelAsync((DeleteModelLtrRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Deletes a feature store with the specified name.</summary>
-	public DeleteStoreResponse DeleteStore(DeleteStoreRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, DeleteStoreEndpoint.Instance, options);
+	public DeleteStoreLtrResponse DeleteStore(DeleteStoreLtrRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, DeleteStoreLtrEndpoint.Instance, options);
 
 	/// <summary>Deletes a feature store with the specified name.</summary>
-	public Task<DeleteStoreResponse> DeleteStoreAsync(DeleteStoreRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, DeleteStoreEndpoint.Instance, options, ct);
+	public Task<DeleteStoreLtrResponse> DeleteStoreAsync(DeleteStoreLtrRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, DeleteStoreLtrEndpoint.Instance, options, ct);
+
+	/// <summary>Deletes a feature store with the specified name.</summary>
+	public DeleteStoreLtrResponse DeleteStore(Action<DeleteStoreLtrRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new DeleteStoreLtrRequestDescriptor();
+		configure(descriptor);
+		return DeleteStore((DeleteStoreLtrRequest)descriptor, options);
+	}
+
+	/// <summary>Deletes a feature store with the specified name.</summary>
+	public Task<DeleteStoreLtrResponse> DeleteStoreAsync(Action<DeleteStoreLtrRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new DeleteStoreLtrRequestDescriptor();
+		configure(descriptor);
+		return DeleteStoreAsync((DeleteStoreLtrRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Get a feature from the default feature store.</summary>
-	public GetFeatureResponse GetFeature(GetFeatureRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetFeatureEndpoint.Instance, options);
+	public GetFeatureLtrResponse GetFeature(GetFeatureLtrRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetFeatureLtrEndpoint.Instance, options);
 
 	/// <summary>Get a feature from the default feature store.</summary>
-	public Task<GetFeatureResponse> GetFeatureAsync(GetFeatureRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetFeatureEndpoint.Instance, options, ct);
+	public Task<GetFeatureLtrResponse> GetFeatureAsync(GetFeatureLtrRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetFeatureLtrEndpoint.Instance, options, ct);
+
+	/// <summary>Get a feature from the default feature store.</summary>
+	public GetFeatureLtrResponse GetFeature(Action<GetFeatureLtrRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetFeatureLtrRequestDescriptor();
+		configure(descriptor);
+		return GetFeature((GetFeatureLtrRequest)descriptor, options);
+	}
+
+	/// <summary>Get a feature from the default feature store.</summary>
+	public Task<GetFeatureLtrResponse> GetFeatureAsync(Action<GetFeatureLtrRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetFeatureLtrRequestDescriptor();
+		configure(descriptor);
+		return GetFeatureAsync((GetFeatureLtrRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Get a feature set from the default feature store.</summary>
-	public GetFeaturesetResponse GetFeatureset(GetFeaturesetRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetFeaturesetEndpoint.Instance, options);
+	public GetFeaturesetLtrResponse GetFeatureset(GetFeaturesetLtrRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetFeaturesetLtrEndpoint.Instance, options);
 
 	/// <summary>Get a feature set from the default feature store.</summary>
-	public Task<GetFeaturesetResponse> GetFeaturesetAsync(GetFeaturesetRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetFeaturesetEndpoint.Instance, options, ct);
+	public Task<GetFeaturesetLtrResponse> GetFeaturesetAsync(GetFeaturesetLtrRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetFeaturesetLtrEndpoint.Instance, options, ct);
+
+	/// <summary>Get a feature set from the default feature store.</summary>
+	public GetFeaturesetLtrResponse GetFeatureset(Action<GetFeaturesetLtrRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetFeaturesetLtrRequestDescriptor();
+		configure(descriptor);
+		return GetFeatureset((GetFeaturesetLtrRequest)descriptor, options);
+	}
+
+	/// <summary>Get a feature set from the default feature store.</summary>
+	public Task<GetFeaturesetLtrResponse> GetFeaturesetAsync(Action<GetFeaturesetLtrRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetFeaturesetLtrRequestDescriptor();
+		configure(descriptor);
+		return GetFeaturesetAsync((GetFeaturesetLtrRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Get a model from the default feature store.</summary>
-	public GetModelResponse GetModel(GetModelRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetModelEndpoint.Instance, options);
+	public GetModelLtrResponse GetModel(GetModelLtrRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetModelLtrEndpoint.Instance, options);
 
 	/// <summary>Get a model from the default feature store.</summary>
-	public Task<GetModelResponse> GetModelAsync(GetModelRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetModelEndpoint.Instance, options, ct);
+	public Task<GetModelLtrResponse> GetModelAsync(GetModelLtrRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetModelLtrEndpoint.Instance, options, ct);
+
+	/// <summary>Get a model from the default feature store.</summary>
+	public GetModelLtrResponse GetModel(Action<GetModelLtrRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetModelLtrRequestDescriptor();
+		configure(descriptor);
+		return GetModel((GetModelLtrRequest)descriptor, options);
+	}
+
+	/// <summary>Get a model from the default feature store.</summary>
+	public Task<GetModelLtrResponse> GetModelAsync(Action<GetModelLtrRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetModelLtrRequestDescriptor();
+		configure(descriptor);
+		return GetModelAsync((GetModelLtrRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Checks if a store exists.</summary>
-	public GetStoreResponse GetStore(GetStoreRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetStoreEndpoint.Instance, options);
+	public GetStoreLtrResponse GetStore(GetStoreLtrRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetStoreLtrEndpoint.Instance, options);
 
 	/// <summary>Checks if a store exists.</summary>
-	public Task<GetStoreResponse> GetStoreAsync(GetStoreRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetStoreEndpoint.Instance, options, ct);
+	public Task<GetStoreLtrResponse> GetStoreAsync(GetStoreLtrRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetStoreLtrEndpoint.Instance, options, ct);
+
+	/// <summary>Checks if a store exists.</summary>
+	public GetStoreLtrResponse GetStore(Action<GetStoreLtrRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetStoreLtrRequestDescriptor();
+		configure(descriptor);
+		return GetStore((GetStoreLtrRequest)descriptor, options);
+	}
+
+	/// <summary>Checks if a store exists.</summary>
+	public Task<GetStoreLtrResponse> GetStoreAsync(Action<GetStoreLtrRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetStoreLtrRequestDescriptor();
+		configure(descriptor);
+		return GetStoreAsync((GetStoreLtrRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Lists all available feature stores.</summary>
-	public ListStoresResponse ListStores(ListStoresRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, ListStoresEndpoint.Instance, options);
+	public ListStoresLtrResponse ListStores(ListStoresLtrRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, ListStoresLtrEndpoint.Instance, options);
 
 	/// <summary>Lists all available feature stores.</summary>
-	public Task<ListStoresResponse> ListStoresAsync(ListStoresRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, ListStoresEndpoint.Instance, options, ct);
+	public Task<ListStoresLtrResponse> ListStoresAsync(ListStoresLtrRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, ListStoresLtrEndpoint.Instance, options, ct);
+
+	/// <summary>Lists all available feature stores.</summary>
+	public ListStoresLtrResponse ListStores(Action<ListStoresLtrRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new ListStoresLtrRequestDescriptor();
+		configure(descriptor);
+		return ListStores((ListStoresLtrRequest)descriptor, options);
+	}
+
+	/// <summary>Lists all available feature stores.</summary>
+	public Task<ListStoresLtrResponse> ListStoresAsync(Action<ListStoresLtrRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new ListStoresLtrRequestDescriptor();
+		configure(descriptor);
+		return ListStoresAsync((ListStoresLtrRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Search for features in a feature store.</summary>
-	public SearchFeaturesResponse SearchFeatures(SearchFeaturesRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, SearchFeaturesEndpoint.Instance, options);
+	public SearchFeaturesLtrResponse SearchFeatures(SearchFeaturesLtrRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, SearchFeaturesLtrEndpoint.Instance, options);
 
 	/// <summary>Search for features in a feature store.</summary>
-	public Task<SearchFeaturesResponse> SearchFeaturesAsync(SearchFeaturesRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, SearchFeaturesEndpoint.Instance, options, ct);
+	public Task<SearchFeaturesLtrResponse> SearchFeaturesAsync(SearchFeaturesLtrRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, SearchFeaturesLtrEndpoint.Instance, options, ct);
+
+	/// <summary>Search for features in a feature store.</summary>
+	public SearchFeaturesLtrResponse SearchFeatures(Action<SearchFeaturesLtrRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new SearchFeaturesLtrRequestDescriptor();
+		configure(descriptor);
+		return SearchFeatures((SearchFeaturesLtrRequest)descriptor, options);
+	}
+
+	/// <summary>Search for features in a feature store.</summary>
+	public Task<SearchFeaturesLtrResponse> SearchFeaturesAsync(Action<SearchFeaturesLtrRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new SearchFeaturesLtrRequestDescriptor();
+		configure(descriptor);
+		return SearchFeaturesAsync((SearchFeaturesLtrRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Search for feature sets in a feature store.</summary>
-	public SearchFeaturesetsResponse SearchFeaturesets(SearchFeaturesetsRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, SearchFeaturesetsEndpoint.Instance, options);
+	public SearchFeaturesetsLtrResponse SearchFeaturesets(SearchFeaturesetsLtrRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, SearchFeaturesetsLtrEndpoint.Instance, options);
 
 	/// <summary>Search for feature sets in a feature store.</summary>
-	public Task<SearchFeaturesetsResponse> SearchFeaturesetsAsync(SearchFeaturesetsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, SearchFeaturesetsEndpoint.Instance, options, ct);
+	public Task<SearchFeaturesetsLtrResponse> SearchFeaturesetsAsync(SearchFeaturesetsLtrRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, SearchFeaturesetsLtrEndpoint.Instance, options, ct);
+
+	/// <summary>Search for feature sets in a feature store.</summary>
+	public SearchFeaturesetsLtrResponse SearchFeaturesets(Action<SearchFeaturesetsLtrRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new SearchFeaturesetsLtrRequestDescriptor();
+		configure(descriptor);
+		return SearchFeaturesets((SearchFeaturesetsLtrRequest)descriptor, options);
+	}
+
+	/// <summary>Search for feature sets in a feature store.</summary>
+	public Task<SearchFeaturesetsLtrResponse> SearchFeaturesetsAsync(Action<SearchFeaturesetsLtrRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new SearchFeaturesetsLtrRequestDescriptor();
+		configure(descriptor);
+		return SearchFeaturesetsAsync((SearchFeaturesetsLtrRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Search for models in a feature store.</summary>
-	public SearchModelsResponse SearchModels(SearchModelsRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, SearchModelsEndpoint.Instance, options);
+	public SearchModelsLtrResponse SearchModels(SearchModelsLtrRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, SearchModelsLtrEndpoint.Instance, options);
 
 	/// <summary>Search for models in a feature store.</summary>
-	public Task<SearchModelsResponse> SearchModelsAsync(SearchModelsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, SearchModelsEndpoint.Instance, options, ct);
+	public Task<SearchModelsLtrResponse> SearchModelsAsync(SearchModelsLtrRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, SearchModelsLtrEndpoint.Instance, options, ct);
+
+	/// <summary>Search for models in a feature store.</summary>
+	public SearchModelsLtrResponse SearchModels(Action<SearchModelsLtrRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new SearchModelsLtrRequestDescriptor();
+		configure(descriptor);
+		return SearchModels((SearchModelsLtrRequest)descriptor, options);
+	}
+
+	/// <summary>Search for models in a feature store.</summary>
+	public Task<SearchModelsLtrResponse> SearchModelsAsync(Action<SearchModelsLtrRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new SearchModelsLtrRequestDescriptor();
+		configure(descriptor);
+		return SearchModelsAsync((SearchModelsLtrRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Provides information about the current status of the LTR plugin.</summary>
-	public StatsResponse Stats(StatsRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, StatsEndpoint.Instance, options);
+	public StatsLtrResponse Stats(StatsLtrRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, StatsLtrEndpoint.Instance, options);
 
 	/// <summary>Provides information about the current status of the LTR plugin.</summary>
-	public Task<StatsResponse> StatsAsync(StatsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, StatsEndpoint.Instance, options, ct);
+	public Task<StatsLtrResponse> StatsAsync(StatsLtrRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, StatsLtrEndpoint.Instance, options, ct);
+
+	/// <summary>Provides information about the current status of the LTR plugin.</summary>
+	public StatsLtrResponse Stats(Action<StatsLtrRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new StatsLtrRequestDescriptor();
+		configure(descriptor);
+		return Stats((StatsLtrRequest)descriptor, options);
+	}
+
+	/// <summary>Provides information about the current status of the LTR plugin.</summary>
+	public Task<StatsLtrResponse> StatsAsync(Action<StatsLtrRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new StatsLtrRequestDescriptor();
+		configure(descriptor);
+		return StatsAsync((StatsLtrRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Update a feature in the default feature store.</summary>
-	public UpdateFeatureResponse UpdateFeature(UpdateFeatureRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, UpdateFeatureEndpoint.Instance, options);
+	public UpdateFeatureLtrResponse UpdateFeature(UpdateFeatureLtrRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, UpdateFeatureLtrEndpoint.Instance, options);
 
 	/// <summary>Update a feature in the default feature store.</summary>
-	public Task<UpdateFeatureResponse> UpdateFeatureAsync(UpdateFeatureRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, UpdateFeatureEndpoint.Instance, options, ct);
+	public Task<UpdateFeatureLtrResponse> UpdateFeatureAsync(UpdateFeatureLtrRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, UpdateFeatureLtrEndpoint.Instance, options, ct);
+
+	/// <summary>Update a feature in the default feature store.</summary>
+	public UpdateFeatureLtrResponse UpdateFeature(Action<UpdateFeatureLtrRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new UpdateFeatureLtrRequestDescriptor();
+		configure(descriptor);
+		return UpdateFeature((UpdateFeatureLtrRequest)descriptor, options);
+	}
+
+	/// <summary>Update a feature in the default feature store.</summary>
+	public Task<UpdateFeatureLtrResponse> UpdateFeatureAsync(Action<UpdateFeatureLtrRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new UpdateFeatureLtrRequestDescriptor();
+		configure(descriptor);
+		return UpdateFeatureAsync((UpdateFeatureLtrRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Update a feature set in the default feature store.</summary>
-	public UpdateFeaturesetResponse UpdateFeatureset(UpdateFeaturesetRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, UpdateFeaturesetEndpoint.Instance, options);
+	public UpdateFeaturesetLtrResponse UpdateFeatureset(UpdateFeaturesetLtrRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, UpdateFeaturesetLtrEndpoint.Instance, options);
 
 	/// <summary>Update a feature set in the default feature store.</summary>
-	public Task<UpdateFeaturesetResponse> UpdateFeaturesetAsync(UpdateFeaturesetRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, UpdateFeaturesetEndpoint.Instance, options, ct);
+	public Task<UpdateFeaturesetLtrResponse> UpdateFeaturesetAsync(UpdateFeaturesetLtrRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, UpdateFeaturesetLtrEndpoint.Instance, options, ct);
+
+	/// <summary>Update a feature set in the default feature store.</summary>
+	public UpdateFeaturesetLtrResponse UpdateFeatureset(Action<UpdateFeaturesetLtrRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new UpdateFeaturesetLtrRequestDescriptor();
+		configure(descriptor);
+		return UpdateFeatureset((UpdateFeaturesetLtrRequest)descriptor, options);
+	}
+
+	/// <summary>Update a feature set in the default feature store.</summary>
+	public Task<UpdateFeaturesetLtrResponse> UpdateFeaturesetAsync(Action<UpdateFeaturesetLtrRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new UpdateFeaturesetLtrRequestDescriptor();
+		configure(descriptor);
+		return UpdateFeaturesetAsync((UpdateFeaturesetLtrRequest)descriptor, options, ct);
+	}
 
 }

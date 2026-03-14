@@ -25,5 +25,5 @@ public sealed class NodeShard
 	/// <summary>The recovery source information for this shard.</summary>
 		public Dictionary<string, string>? RecoverySource { get; set; }
 	public UnassignedInformation? UnassignedInfo { get; set; }
-	public System.Text.Json.JsonElement? RelocatingNode { get; set; }
+	public string? RelocatingNode { get; set; }
 }

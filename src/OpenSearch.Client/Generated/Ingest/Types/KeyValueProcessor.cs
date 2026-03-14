@@ -29,7 +29,7 @@ public sealed class KeyValueProcessor
 		public List<string>? IncludeKeys { get; set; }
 	/// <summary>Prefix to be added to extracted keys.</summary>
 		public string? Prefix { get; set; }
-	/// <summary>If `true`. strip brackets `()`, `<>`, `[]` as well as quotes `'` and `"` from extracted values.</summary>
+	/// <summary>If `true`. strip brackets `()`, `&lt;&gt;`, `[]` as well as quotes `'` and `"` from extracted values.</summary>
 		public bool? StripBrackets { get; set; }
 	public string? TargetField { get; set; }
 	/// <summary>String of characters to trim from extracted keys.</summary>

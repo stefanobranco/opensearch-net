@@ -13,7 +13,7 @@ public sealed class Task
 	public TaskState? State { get; set; }
 	public MlTaskType? TaskType { get; set; }
 	public FunctionName? FunctionName { get; set; }
-	public List<string>? WorkerNode { get; set; }
+	public List<List<string>>? WorkerNode { get; set; }
 	public long? CreateTime { get; set; }
 	public long? LastUpdateTime { get; set; }
 	public bool? IsAsync { get; set; }

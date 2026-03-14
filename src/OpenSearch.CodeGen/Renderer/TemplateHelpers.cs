@@ -34,8 +34,9 @@ public static class TemplateHelpers
 		obj["extra_usings"] = ComputeExtraUsings(request.Namespace, request.BodyFields, allObjects);
 
 		// Generic endpoint support: if the response is generic, the endpoint must be generic too
-		if (request.Response.IsGeneric)
-			obj["response_type_parameters"] = new ScriptArray(request.Response.TypeParameters.Cast<object>());
+		obj["response_type_parameters"] = request.Response.IsGeneric
+			? new ScriptArray(request.Response.TypeParameters.Cast<object>())
+			: null;
 
 		// Cat namespace: inject format=json default so users get structured JSON responses
 		obj["is_cat"] = request.Namespace == "Cat";
@@ -51,8 +52,9 @@ public static class TemplateHelpers
 		obj["description"] = SanitizeDescription(response.Description);
 		obj["fields"] = BuildFieldArray(response.Fields);
 		obj["extra_usings"] = ComputeExtraUsings(response.Namespace, response.Fields, allObjects);
-		if (response.IsGeneric)
-			obj["type_parameters"] = new ScriptArray(response.TypeParameters.Cast<object>());
+		obj["type_parameters"] = response.IsGeneric
+			? new ScriptArray(response.TypeParameters.Cast<object>())
+			: null;
 		return obj;
 	}
 
@@ -93,32 +95,18 @@ public static class TemplateHelpers
 		obj["description"] = SanitizeDescription(objectShape.Description);
 		obj["fields"] = BuildFieldArray(objectShape.Fields);
 		obj["extra_usings"] = ComputeExtraUsings(objectShape.Namespace, objectShape.Fields, allObjects);
-		if (objectShape.IsGeneric)
-			obj["type_parameters"] = new ScriptArray(objectShape.TypeParameters.Cast<object>());
+		obj["type_parameters"] = objectShape.IsGeneric
+			? new ScriptArray(objectShape.TypeParameters.Cast<object>())
+			: null;
 		return obj;
 	}
 
 	public static ScriptObject BuildNamespaceClientContext(string namespaceName, IReadOnlyList<RequestShape> requests)
 	{
-		var obj = new ScriptObject();
-		obj["namespace"] = namespaceName;
-
-		var ops = new ScriptArray();
-		foreach (var req in requests)
-		{
-			var op = new ScriptObject();
-			op["class_name"] = req.ClassName;
-			op["response_name"] = req.Response.ClassName;
-			op["endpoint_name"] = req.EndpointName;
-			op["method_name"] = NamingConventions.OperationGroupToMethodName(req.OperationGroup);
-			op["description"] = SanitizeDescription(req.Description) ?? req.OperationGroup;
-			op["is_generic"] = req.Response.IsGeneric;
-			if (req.Response.IsGeneric)
-				op["type_parameters"] = new ScriptArray(req.Response.TypeParameters.Cast<object>());
-			ops.Add(op);
-		}
-		obj["operations"] = ops;
-		return obj;
+		// Legacy overload without descriptor support — delegates with empty lookups
+		return BuildNamespaceClientContext(namespaceName, requests,
+			new Dictionary<string, ObjectShape>(StringComparer.Ordinal),
+			new Dictionary<string, TaggedUnionShape>(StringComparer.Ordinal));
 	}
 
 	public static ScriptObject BuildTaggedUnionContext(TaggedUnionShape union, IReadOnlyDictionary<string, ObjectShape> allObjects)
@@ -333,10 +321,205 @@ public static class TemplateHelpers
 			CollectTypeNamespaces(type.ValueType, allObjects, namespaces);
 	}
 
+	// ───────────────── Descriptor context builders ─────────────────
+
+	/// <summary>
+	/// Returns true if the type has a corresponding descriptor (Named, non-enum, found in objects or unions).
+	/// </summary>
+	public static bool HasDescriptor(TypeRef type, IReadOnlyDictionary<string, ObjectShape> allObjects, IReadOnlyDictionary<string, TaggedUnionShape> allUnions)
+	{
+		if (type.Kind != TypeRefKind.Named || type.IsEnum)
+			return false;
+		// Unions with no variants don't get descriptors
+		if (allUnions.TryGetValue(type.CSharpName, out var union) && union.Variants.Count == 0)
+			return false;
+		return allObjects.ContainsKey(type.CSharpName) || allUnions.ContainsKey(type.CSharpName);
+	}
+
+	/// <summary>
+	/// Returns the descriptor class name for a given type (e.g., "BoolQuery" → "BoolQueryDescriptor").
+	/// </summary>
+	public static string GetDescriptorName(TypeRef type)
+	{
+		var baseName = type.CSharpName;
+		// Strip generic suffixes like <TDocument>
+		var angleIdx = baseName.IndexOf('<');
+		if (angleIdx >= 0) baseName = baseName[..angleIdx];
+		return baseName + "Descriptor";
+	}
+
+	/// <summary>
+	/// Classifies a field for descriptor method generation.
+	/// </summary>
+	public static string ComputeDescriptorKind(Field field, IReadOnlyDictionary<string, ObjectShape> allObjects, IReadOnlyDictionary<string, TaggedUnionShape> allUnions)
+	{
+		var type = field.Type;
+		if (type.Kind == TypeRefKind.List && type.ItemType is not null)
+		{
+			if (HasDescriptor(type.ItemType, allObjects, allUnions))
+				return allUnions.ContainsKey(type.ItemType.CSharpName) ? "list_union" : "list_object";
+			return "list_simple";
+		}
+		if (HasDescriptor(type, allObjects, allUnions))
+			return allUnions.ContainsKey(type.CSharpName) ? "union" : "object";
+		return "simple";
+	}
+
+	public static ScriptObject BuildObjectDescriptorContext(ObjectShape objectShape, IReadOnlyDictionary<string, ObjectShape> allObjects, IReadOnlyDictionary<string, TaggedUnionShape> allUnions)
+	{
+		var obj = new ScriptObject();
+		obj["namespace"] = objectShape.Namespace;
+		obj["class_name"] = objectShape.ClassName;
+		obj["descriptor_name"] = objectShape.ClassName + "Descriptor";
+		obj["fields"] = BuildDescriptorFieldArray(objectShape.Fields, allObjects, allUnions);
+		obj["extra_usings"] = ComputeExtraUsings(objectShape.Namespace, objectShape.Fields, allObjects);
+		obj["type_parameters"] = objectShape.IsGeneric
+			? new ScriptArray(objectShape.TypeParameters.Cast<object>())
+			: null;
+		return obj;
+	}
+
+	public static ScriptObject BuildTaggedUnionDescriptorContext(TaggedUnionShape union, IReadOnlyDictionary<string, ObjectShape> allObjects, IReadOnlyDictionary<string, TaggedUnionShape> allUnions)
+	{
+		var obj = new ScriptObject();
+		obj["namespace"] = union.Namespace;
+		obj["class_name"] = union.ClassName;
+		obj["descriptor_name"] = union.ClassName + "Descriptor";
+
+		var variants = new ScriptArray();
+		foreach (var variant in union.Variants)
+		{
+			var v = new ScriptObject();
+			v["name"] = variant.Name;
+			v["type"] = variant.Type.CSharpName;
+			v["type_name"] = variant.Type.CSharpName;
+
+			// Classify variant: does its type have a descriptor?
+			if (HasDescriptor(variant.Type, allObjects, allUnions))
+			{
+				v["variant_kind"] = allUnions.ContainsKey(variant.Type.CSharpName) ? "union" : "object";
+				v["descriptor_name"] = GetDescriptorName(variant.Type);
+			}
+			else
+			{
+				v["variant_kind"] = "simple";
+				v["descriptor_name"] = "";
+			}
+			variants.Add(v);
+		}
+		obj["variants"] = variants;
+		obj["extra_usings"] = ComputeExtraUsings(union.Namespace, union.Variants.Select(v => v.Type).ToList(), allObjects);
+		return obj;
+	}
+
+	public static ScriptObject BuildRequestDescriptorContext(RequestShape request, IReadOnlyDictionary<string, ObjectShape> allObjects, IReadOnlyDictionary<string, TaggedUnionShape> allUnions)
+	{
+		var obj = new ScriptObject();
+		obj["namespace"] = request.Namespace;
+		obj["class_name"] = request.ClassName;
+		obj["descriptor_name"] = request.ClassName + "Descriptor";
+		obj["is_raw_body"] = request.IsRawBody;
+
+		// Query params are always nullable in the POCO (ComputeQueryParamType always adds ?),
+		// so force Required=false so ComputePropertyType matches.
+		var queryParamsAsOptional = request.QueryParams.Select(qp => new Field
+		{
+			Name = qp.Name,
+			WireName = qp.WireName,
+			Type = qp.Type,
+			Required = false,
+			Description = qp.Description,
+			Deprecated = qp.Deprecated
+		}).ToList();
+
+		var allFields = new List<Field>();
+		allFields.AddRange(request.PathParams);
+		allFields.AddRange(queryParamsAsOptional);
+		allFields.AddRange(request.BodyFields);
+
+		obj["fields"] = BuildDescriptorFieldArray(allFields, allObjects, allUnions);
+		obj["extra_usings"] = ComputeExtraUsings(request.Namespace, allFields, allObjects);
+
+		// Request descriptors are always non-generic
+		obj["type_parameters"] = null;
+
+		return obj;
+	}
+
+	public static ScriptObject BuildNamespaceClientContext(string namespaceName, IReadOnlyList<RequestShape> requests, IReadOnlyDictionary<string, ObjectShape> allObjects, IReadOnlyDictionary<string, TaggedUnionShape> allUnions)
+	{
+		var obj = new ScriptObject();
+		obj["namespace"] = namespaceName;
+
+		var ops = new ScriptArray();
+		foreach (var req in requests)
+		{
+			var op = new ScriptObject();
+			op["class_name"] = req.ClassName;
+			op["response_name"] = req.Response.ClassName;
+			op["endpoint_name"] = req.EndpointName;
+			op["method_name"] = NamingConventions.OperationGroupToMethodName(req.OperationGroup);
+			op["description"] = SanitizeDescription(req.Description) ?? req.OperationGroup;
+			op["is_generic"] = req.Response.IsGeneric;
+			op["type_parameters"] = req.Response.IsGeneric
+				? new ScriptArray(req.Response.TypeParameters.Cast<object>())
+				: null;
+			op["descriptor_name"] = req.ClassName + "Descriptor";
+			ops.Add(op);
+		}
+		obj["operations"] = ops;
+		return obj;
+	}
+
+	private static ScriptArray BuildDescriptorFieldArray(IReadOnlyList<Field> fields, IReadOnlyDictionary<string, ObjectShape> allObjects, IReadOnlyDictionary<string, TaggedUnionShape> allUnions)
+	{
+		var arr = new ScriptArray();
+		foreach (var field in fields)
+		{
+			var f = new ScriptObject();
+			f["name"] = field.Name;
+			f["description"] = SanitizeDescription(field.Description);
+
+			// Use the same type computation as for POCO properties — always nullable for descriptors
+			f["poco_type"] = ComputeDescriptorParamType(field);
+			f["descriptor_kind"] = ComputeDescriptorKind(field, allObjects, allUnions);
+
+			if (HasDescriptor(field.Type, allObjects, allUnions))
+				f["descriptor_name"] = GetDescriptorName(field.Type);
+			else
+				f["descriptor_name"] = "";
+
+			// For list types with descriptors, provide the item descriptor name and item type
+			if (field.Type.Kind == TypeRefKind.List && field.Type.ItemType is not null && HasDescriptor(field.Type.ItemType, allObjects, allUnions))
+			{
+				f["item_descriptor_name"] = GetDescriptorName(field.Type.ItemType);
+				f["item_type"] = field.Type.ItemType.CSharpName;
+			}
+			else
+			{
+				f["item_descriptor_name"] = "";
+				f["item_type"] = "";
+			}
+
+			arr.Add(f);
+		}
+		return arr;
+	}
+
+	/// <summary>
+	/// Returns the type string matching the POCO property type — descriptor setters must be assignment-compatible.
+	/// </summary>
+	private static string ComputeDescriptorParamType(Field field) => ComputePropertyType(field);
+
 	private static string? SanitizeDescription(string? desc)
 	{
 		if (desc is null) return null;
 		// Collapse multiline descriptions to single line for XML doc comments
-		return desc.Replace("\r\n", " ").Replace("\n", " ").Replace("  ", " ").Trim();
+		desc = desc.Replace("\r\n", " ").Replace("\n", " ").Replace("  ", " ").Trim();
+		// XML-escape to prevent CS1570 warnings in generated doc comments
+		return desc
+			.Replace("&", "&amp;")
+			.Replace("<", "&lt;")
+			.Replace(">", "&gt;");
 	}
 }

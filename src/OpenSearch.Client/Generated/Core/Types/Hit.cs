@@ -15,7 +15,7 @@ public sealed class Hit<TDocument>
 	[JsonPropertyName("_id")]
 	public string? Id { get; set; }
 	[JsonPropertyName("_score")]
-	public System.Text.Json.JsonElement? Score { get; set; }
+	public double? Score { get; set; }
 	[JsonPropertyName("_explanation")]
 	public Explanation? Explanation { get; set; }
 	public Dictionary<string, object>? Fields { get; set; }

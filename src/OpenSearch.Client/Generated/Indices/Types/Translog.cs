@@ -13,7 +13,7 @@ namespace OpenSearch.Client.Indices;
 public sealed class Translog
 {
 	public string? SyncInterval { get; set; }
-	public System.Text.Json.JsonElement? Durability { get; set; }
+	public string? Durability { get; set; }
 	public string? FlushThresholdSize { get; set; }
 	public string? GenerationThresholdSize { get; set; }
 	public TranslogRetention? Retention { get; set; }

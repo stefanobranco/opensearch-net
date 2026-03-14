@@ -10,7 +10,7 @@ public sealed class Database
 {
 	public string? Provider { get; set; }
 	public string? Sha256Hash { get; set; }
-	public string? UpdatedAtInEpochMillis { get; set; }
+	public System.Text.Json.JsonElement? UpdatedAtInEpochMillis { get; set; }
 	public int? ValidForInDays { get; set; }
 	public List<string>? Fields { get; set; }
 }

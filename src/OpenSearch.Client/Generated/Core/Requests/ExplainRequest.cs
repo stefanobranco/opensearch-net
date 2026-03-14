@@ -25,10 +25,10 @@ public sealed class ExplainRequest
 	public System.Text.Json.JsonElement? Source { get; set; }
 	/// <summary>A comma-separated list of source fields to exclude from the response.</summary>
 	[JsonIgnore]
-	public string? SourceExcludes { get; set; }
+	public List<string>? SourceExcludes { get; set; }
 	/// <summary>A comma-separated list of source fields to include in the response.</summary>
 	[JsonIgnore]
-	public string? SourceIncludes { get; set; }
+	public List<string>? SourceIncludes { get; set; }
 	/// <summary>If `true`, wildcard and prefix queries are analyzed.</summary>
 	[JsonIgnore]
 	public bool? AnalyzeWildcard { get; set; }
@@ -55,7 +55,7 @@ public sealed class ExplainRequest
 	public System.Text.Json.JsonElement? Routing { get; set; }
 	/// <summary>A comma-separated list of stored fields to return in the response.</summary>
 	[JsonIgnore]
-	public string? StoredFields { get; set; }
+	public List<string>? StoredFields { get; set; }
 	public QueryContainer? Query { get; set; }
 }
 public sealed class ExplainEndpoint<TDocument> : IEndpoint<ExplainRequest, ExplainResponse<TDocument>>
@@ -71,9 +71,9 @@ public sealed class ExplainEndpoint<TDocument> : IEndpoint<ExplainRequest, Expla
 		if (r.Source is not null)
 			queryParts.Add($"_source={Uri.EscapeDataString(r.Source.ToString()!)}");
 		if (r.SourceExcludes is not null)
-			queryParts.Add($"_source_excludes={Uri.EscapeDataString(r.SourceExcludes!)}");
+			queryParts.Add($"_source_excludes={Uri.EscapeDataString(string.Join(",", r.SourceExcludes!))}");
 		if (r.SourceIncludes is not null)
-			queryParts.Add($"_source_includes={Uri.EscapeDataString(r.SourceIncludes!)}");
+			queryParts.Add($"_source_includes={Uri.EscapeDataString(string.Join(",", r.SourceIncludes!))}");
 		if (r.AnalyzeWildcard is not null)
 			queryParts.Add($"analyze_wildcard={Uri.EscapeDataString((r.AnalyzeWildcard.Value ? "true" : "false"))}");
 		if (r.Analyzer is not null)
@@ -91,11 +91,9 @@ public sealed class ExplainEndpoint<TDocument> : IEndpoint<ExplainRequest, Expla
 		if (r.Routing is not null)
 			queryParts.Add($"routing={Uri.EscapeDataString(r.Routing.ToString()!)}");
 		if (r.StoredFields is not null)
-			queryParts.Add($"stored_fields={Uri.EscapeDataString(r.StoredFields!)}");
+			queryParts.Add($"stored_fields={Uri.EscapeDataString(string.Join(",", r.StoredFields!))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
-
-	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(ExplainRequest r) => RequestBody.Json(r);
 

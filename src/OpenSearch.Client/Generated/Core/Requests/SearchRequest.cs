@@ -4,7 +4,6 @@
 using System.Text.Json.Serialization;
 using OpenSearch.Net;
 using OpenSearch.Client.Common;
-using OpenSearch.Client.Indices;
 
 namespace OpenSearch.Client.Core;
 
@@ -17,16 +16,16 @@ public sealed class SearchRequest
 {
 	/// <summary>A comma-separated list of data streams, indexes, and aliases to search. Supports wildcards (`*`). To search all data streams and indexes, omit this parameter or use `*` or `_all`.</summary>
 	[JsonIgnore]
-	public string? Index { get; set; }
-	/// <summary>Indicates which source fields are returned for matching documents. These fields are returned in the `hits._source` property of the search response. Valid values are: `true` to return the entire document source; `false` to not return the document source; `<string>` to return the source fields that are specified as a comma-separated list (supports wildcard (`*`) patterns).</summary>
+	public List<string>? Index { get; set; }
+	/// <summary>Indicates which source fields are returned for matching documents. These fields are returned in the `hits._source` property of the search response. Valid values are: `true` to return the entire document source; `false` to not return the document source; `&lt;string&gt;` to return the source fields that are specified as a comma-separated list (supports wildcard (`*`) patterns).</summary>
 	[JsonIgnore]
 	public System.Text.Json.JsonElement? Source { get; set; }
 	/// <summary>A comma-separated list of source fields to exclude from the response. You can also use this parameter to exclude fields from the subset specified in `_source_includes` query parameter. If the `_source` parameter is `false`, this parameter is ignored.</summary>
 	[JsonIgnore]
-	public string? SourceExcludes { get; set; }
+	public List<string>? SourceExcludes { get; set; }
 	/// <summary>A comma-separated list of source fields to include in the response. If this parameter is specified, only these source fields are returned. You can exclude fields from this subset using the `_source_excludes` query parameter. If the `_source` parameter is `false`, this parameter is ignored.</summary>
 	[JsonIgnore]
-	public string? SourceIncludes { get; set; }
+	public List<string>? SourceIncludes { get; set; }
 	/// <summary>If `false`, the request returns an error if any wildcard expression, index alias, or `_all` value targets only missing or closed indexes. This behavior applies even if the request targets other open indexes. For example, a request targeting `foo*,bar*` returns an error if an index starts with `foo` but no index starts with `bar`.</summary>
 	[JsonIgnore]
 	public bool? AllowNoIndices { get; set; }
@@ -56,10 +55,10 @@ public sealed class SearchRequest
 	public string? Df { get; set; }
 	/// <summary>A comma-separated list of fields to return as the docvalue representation for each hit.</summary>
 	[JsonIgnore]
-	public string? DocvalueFields { get; set; }
+	public List<string>? DocvalueFields { get; set; }
 	/// <summary>Type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values, such as `open,hidden`.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? ExpandWildcards { get; set; }
+	public List<string>? ExpandWildcards { get; set; }
 	/// <summary>If `true`, returns detailed information about score computation as part of a hit.</summary>
 	[JsonIgnore]
 	public bool? Explain { get; set; }
@@ -87,7 +86,7 @@ public sealed class SearchRequest
 	/// <summary>Defines a threshold that enforces a pre-filter roundtrip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. This filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on its rewrite method (if date filters are mandatory to match but the shard bounds and the query are disjoint). When unspecified, the pre-filter phase is executed if any of these conditions is met: the request targets more than 128 shards; the request targets one or more read-only index; the primary sort of the query targets an indexed field.</summary>
 	[JsonIgnore]
 	public int? PreFilterShardSize { get; set; }
-	/// <summary>Nodes and shards used for the search. By default, OpenSearch selects from eligible nodes and shards using adaptive replica selection, accounting for allocation awareness. Valid values are: `_only_local` to run the search only on shards on the local node; `_local` to, if possible, run the search on shards on the local node, or if not, select shards using the default method; `_only_nodes:<node-id>,<node-id>` to run the search on only the specified nodes IDs, where, if suitable shards exist on more than one selected node, use shards on those nodes using the default method, or if none of the specified nodes are available, select shards from any available node using the default method; `_prefer_nodes:<node-id>,<node-id>` to if possible, run the search on the specified nodes IDs, or if not, select shards using the default method; `_shards:<shard>,<shard>` to run the search only on the specified shards; `<custom-string>` (any string that does not start with `_`) to route searches with the same `<custom-string>` to the same shards in the same order.</summary>
+	/// <summary>Nodes and shards used for the search. By default, OpenSearch selects from eligible nodes and shards using adaptive replica selection, accounting for allocation awareness. Valid values are: `_only_local` to run the search only on shards on the local node; `_local` to, if possible, run the search on shards on the local node, or if not, select shards using the default method; `_only_nodes:&lt;node-id&gt;,&lt;node-id&gt;` to run the search on only the specified nodes IDs, where, if suitable shards exist on more than one selected node, use shards on those nodes using the default method, or if none of the specified nodes are available, select shards from any available node using the default method; `_prefer_nodes:&lt;node-id&gt;,&lt;node-id&gt;` to if possible, run the search on the specified nodes IDs, or if not, select shards using the default method; `_shards:&lt;shard&gt;,&lt;shard&gt;` to run the search only on the specified shards; `&lt;custom-string&gt;` (any string that does not start with `_`) to route searches with the same `&lt;custom-string&gt;` to the same shards in the same order.</summary>
 	[JsonIgnore]
 	public string? Preference { get; set; }
 	/// <summary>Query in the Lucene query string syntax using query parameter search. Query parameter searches do not support the full OpenSearch Query DSL but are handy for testing.</summary>
@@ -110,22 +109,22 @@ public sealed class SearchRequest
 	public string? SearchPipeline { get; set; }
 	/// <summary>How distributed term frequencies are calculated for relevance scoring.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? SearchType { get; set; }
+	public string? SearchType { get; set; }
 	/// <summary>If `true`, returns sequence number and primary term of the last modification of each hit.</summary>
 	[JsonIgnore]
 	public bool? SeqNoPrimaryTerm { get; set; }
 	/// <summary>Defines the number of hits to return. By default, you cannot page through more than 10,000 hits using the `from` and `size` parameters. To page through more hits, use the `search_after` parameter.</summary>
 	[JsonIgnore]
 	public int? Size { get; set; }
-	/// <summary>A comma-separated list of <field>:<direction> pairs.</summary>
+	/// <summary>A comma-separated list of &lt;field&gt;:&lt;direction&gt; pairs.</summary>
 	[JsonIgnore]
-	public string? Sort { get; set; }
+	public System.Text.Json.JsonElement? Sort { get; set; }
 	/// <summary>Specific `tag` of the request for logging and statistical purposes.</summary>
 	[JsonIgnore]
 	public List<string>? Stats { get; set; }
 	/// <summary>A comma-separated list of stored fields to return as part of a hit. If no fields are specified, no stored fields are included in the response. If this field is specified, the `_source` parameter defaults to `false`. You can pass `_source: true` to return both source fields and stored fields in the search response.</summary>
 	[JsonIgnore]
-	public string? StoredFields { get; set; }
+	public List<string>? StoredFields { get; set; }
 	/// <summary>Specifies which field to use for suggestions.</summary>
 	[JsonIgnore]
 	public string? SuggestField { get; set; }
@@ -176,7 +175,7 @@ public sealed class SearchRequest
 		public bool? Profile { get; set; }
 	public QueryContainer? Query { get; set; }
 	/// <summary>Can be used to improve precision by reordering just the top (for example 100 - 500) documents returned by the `query` and `post_filter` phases.</summary>
-		public System.Text.Json.JsonElement? Rescore { get; set; }
+		public List<Rescore>? Rescore { get; set; }
 	/// <summary>Retrieve a script evaluation (based on different fields) for each hit.</summary>
 		public Dictionary<string, ScriptField>? ScriptFields { get; set; }
 	public List<System.Text.Json.JsonElement>? SearchAfter { get; set; }
@@ -203,9 +202,9 @@ public sealed class SearchEndpoint<TDocument> : IEndpoint<SearchRequest, SearchR
 		if (r.Source is not null)
 			queryParts.Add($"_source={Uri.EscapeDataString(r.Source.ToString()!)}");
 		if (r.SourceExcludes is not null)
-			queryParts.Add($"_source_excludes={Uri.EscapeDataString(r.SourceExcludes!)}");
+			queryParts.Add($"_source_excludes={Uri.EscapeDataString(string.Join(",", r.SourceExcludes!))}");
 		if (r.SourceIncludes is not null)
-			queryParts.Add($"_source_includes={Uri.EscapeDataString(r.SourceIncludes!)}");
+			queryParts.Add($"_source_includes={Uri.EscapeDataString(string.Join(",", r.SourceIncludes!))}");
 		if (r.AllowNoIndices is not null)
 			queryParts.Add($"allow_no_indices={Uri.EscapeDataString((r.AllowNoIndices.Value ? "true" : "false"))}");
 		if (r.AllowPartialSearchResults is not null)
@@ -225,9 +224,9 @@ public sealed class SearchEndpoint<TDocument> : IEndpoint<SearchRequest, SearchR
 		if (r.Df is not null)
 			queryParts.Add($"df={Uri.EscapeDataString(r.Df!)}");
 		if (r.DocvalueFields is not null)
-			queryParts.Add($"docvalue_fields={Uri.EscapeDataString(r.DocvalueFields!)}");
+			queryParts.Add($"docvalue_fields={Uri.EscapeDataString(string.Join(",", r.DocvalueFields!))}");
 		if (r.ExpandWildcards is not null)
-			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(r.ExpandWildcards.ToString()!)}");
+			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(string.Join(",", r.ExpandWildcards!))}");
 		if (r.Explain is not null)
 			queryParts.Add($"explain={Uri.EscapeDataString((r.Explain.Value ? "true" : "false"))}");
 		if (r.From is not null)
@@ -261,17 +260,17 @@ public sealed class SearchEndpoint<TDocument> : IEndpoint<SearchRequest, SearchR
 		if (r.SearchPipeline is not null)
 			queryParts.Add($"search_pipeline={Uri.EscapeDataString(r.SearchPipeline!)}");
 		if (r.SearchType is not null)
-			queryParts.Add($"search_type={Uri.EscapeDataString(r.SearchType.ToString()!)}");
+			queryParts.Add($"search_type={Uri.EscapeDataString(r.SearchType!)}");
 		if (r.SeqNoPrimaryTerm is not null)
 			queryParts.Add($"seq_no_primary_term={Uri.EscapeDataString((r.SeqNoPrimaryTerm.Value ? "true" : "false"))}");
 		if (r.Size is not null)
 			queryParts.Add($"size={Uri.EscapeDataString(r.Size.ToString()!)}");
 		if (r.Sort is not null)
-			queryParts.Add($"sort={Uri.EscapeDataString(r.Sort!)}");
+			queryParts.Add($"sort={Uri.EscapeDataString(r.Sort.ToString()!)}");
 		if (r.Stats is not null)
 			queryParts.Add($"stats={Uri.EscapeDataString(string.Join(",", r.Stats!))}");
 		if (r.StoredFields is not null)
-			queryParts.Add($"stored_fields={Uri.EscapeDataString(r.StoredFields!)}");
+			queryParts.Add($"stored_fields={Uri.EscapeDataString(string.Join(",", r.StoredFields!))}");
 		if (r.SuggestField is not null)
 			queryParts.Add($"suggest_field={Uri.EscapeDataString(r.SuggestField!)}");
 		if (r.SuggestMode is not null)
@@ -296,8 +295,6 @@ public sealed class SearchEndpoint<TDocument> : IEndpoint<SearchRequest, SearchR
 			queryParts.Add($"version={Uri.EscapeDataString((r.Version.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
-
-	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(SearchRequest r) => RequestBody.Json(r);
 

@@ -17,686 +17,1902 @@ public sealed partial class SecurityNamespace
 
 
 	/// <summary>Returns or updates authentication information for the currently authenticated user.</summary>
-	public AuthinfoResponse Authinfo(AuthinfoRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, AuthinfoEndpoint.Instance, options);
+	public AuthinfoSecurityResponse Authinfo(AuthinfoSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, AuthinfoSecurityEndpoint.Instance, options);
 
 	/// <summary>Returns or updates authentication information for the currently authenticated user.</summary>
-	public Task<AuthinfoResponse> AuthinfoAsync(AuthinfoRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, AuthinfoEndpoint.Instance, options, ct);
+	public Task<AuthinfoSecurityResponse> AuthinfoAsync(AuthinfoSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, AuthinfoSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Returns or updates authentication information for the currently authenticated user.</summary>
+	public AuthinfoSecurityResponse Authinfo(Action<AuthinfoSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new AuthinfoSecurityRequestDescriptor();
+		configure(descriptor);
+		return Authinfo((AuthinfoSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Returns or updates authentication information for the currently authenticated user.</summary>
+	public Task<AuthinfoSecurityResponse> AuthinfoAsync(Action<AuthinfoSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new AuthinfoSecurityRequestDescriptor();
+		configure(descriptor);
+		return AuthinfoAsync((AuthinfoSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Returns the authorization token for the current user.</summary>
-	public AuthtokenResponse Authtoken(AuthtokenRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, AuthtokenEndpoint.Instance, options);
+	public AuthtokenSecurityResponse Authtoken(AuthtokenSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, AuthtokenSecurityEndpoint.Instance, options);
 
 	/// <summary>Returns the authorization token for the current user.</summary>
-	public Task<AuthtokenResponse> AuthtokenAsync(AuthtokenRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, AuthtokenEndpoint.Instance, options, ct);
+	public Task<AuthtokenSecurityResponse> AuthtokenAsync(AuthtokenSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, AuthtokenSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Returns the authorization token for the current user.</summary>
+	public AuthtokenSecurityResponse Authtoken(Action<AuthtokenSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new AuthtokenSecurityRequestDescriptor();
+		configure(descriptor);
+		return Authtoken((AuthtokenSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Returns the authorization token for the current user.</summary>
+	public Task<AuthtokenSecurityResponse> AuthtokenAsync(Action<AuthtokenSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new AuthtokenSecurityRequestDescriptor();
+		configure(descriptor);
+		return AuthtokenAsync((AuthtokenSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Changes the password for the current user.</summary>
-	public ChangePasswordResponse ChangePassword(ChangePasswordRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, ChangePasswordEndpoint.Instance, options);
+	public ChangePasswordSecurityResponse ChangePassword(ChangePasswordSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, ChangePasswordSecurityEndpoint.Instance, options);
 
 	/// <summary>Changes the password for the current user.</summary>
-	public Task<ChangePasswordResponse> ChangePasswordAsync(ChangePasswordRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, ChangePasswordEndpoint.Instance, options, ct);
+	public Task<ChangePasswordSecurityResponse> ChangePasswordAsync(ChangePasswordSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, ChangePasswordSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Changes the password for the current user.</summary>
+	public ChangePasswordSecurityResponse ChangePassword(Action<ChangePasswordSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new ChangePasswordSecurityRequestDescriptor();
+		configure(descriptor);
+		return ChangePassword((ChangePasswordSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Changes the password for the current user.</summary>
+	public Task<ChangePasswordSecurityResponse> ChangePasswordAsync(Action<ChangePasswordSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new ChangePasswordSecurityRequestDescriptor();
+		configure(descriptor);
+		return ChangePasswordAsync((ChangePasswordSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Checks whether or not an upgrade can be performed and which security resources can be updated.</summary>
-	public ConfigUpgradeCheckResponse ConfigUpgradeCheck(ConfigUpgradeCheckRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, ConfigUpgradeCheckEndpoint.Instance, options);
+	public ConfigUpgradeCheckSecurityResponse ConfigUpgradeCheck(ConfigUpgradeCheckSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, ConfigUpgradeCheckSecurityEndpoint.Instance, options);
 
 	/// <summary>Checks whether or not an upgrade can be performed and which security resources can be updated.</summary>
-	public Task<ConfigUpgradeCheckResponse> ConfigUpgradeCheckAsync(ConfigUpgradeCheckRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, ConfigUpgradeCheckEndpoint.Instance, options, ct);
+	public Task<ConfigUpgradeCheckSecurityResponse> ConfigUpgradeCheckAsync(ConfigUpgradeCheckSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, ConfigUpgradeCheckSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Checks whether or not an upgrade can be performed and which security resources can be updated.</summary>
+	public ConfigUpgradeCheckSecurityResponse ConfigUpgradeCheck(Action<ConfigUpgradeCheckSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new ConfigUpgradeCheckSecurityRequestDescriptor();
+		configure(descriptor);
+		return ConfigUpgradeCheck((ConfigUpgradeCheckSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Checks whether or not an upgrade can be performed and which security resources can be updated.</summary>
+	public Task<ConfigUpgradeCheckSecurityResponse> ConfigUpgradeCheckAsync(Action<ConfigUpgradeCheckSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new ConfigUpgradeCheckSecurityRequestDescriptor();
+		configure(descriptor);
+		return ConfigUpgradeCheckAsync((ConfigUpgradeCheckSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Assists the cluster operator with upgrading missing default values and stale default definitions.</summary>
-	public ConfigUpgradePerformResponse ConfigUpgradePerform(ConfigUpgradePerformRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, ConfigUpgradePerformEndpoint.Instance, options);
+	public ConfigUpgradePerformSecurityResponse ConfigUpgradePerform(ConfigUpgradePerformSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, ConfigUpgradePerformSecurityEndpoint.Instance, options);
 
 	/// <summary>Assists the cluster operator with upgrading missing default values and stale default definitions.</summary>
-	public Task<ConfigUpgradePerformResponse> ConfigUpgradePerformAsync(ConfigUpgradePerformRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, ConfigUpgradePerformEndpoint.Instance, options, ct);
+	public Task<ConfigUpgradePerformSecurityResponse> ConfigUpgradePerformAsync(ConfigUpgradePerformSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, ConfigUpgradePerformSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Assists the cluster operator with upgrading missing default values and stale default definitions.</summary>
+	public ConfigUpgradePerformSecurityResponse ConfigUpgradePerform(Action<ConfigUpgradePerformSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new ConfigUpgradePerformSecurityRequestDescriptor();
+		configure(descriptor);
+		return ConfigUpgradePerform((ConfigUpgradePerformSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Assists the cluster operator with upgrading missing default values and stale default definitions.</summary>
+	public Task<ConfigUpgradePerformSecurityResponse> ConfigUpgradePerformAsync(Action<ConfigUpgradePerformSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new ConfigUpgradePerformSecurityRequestDescriptor();
+		configure(descriptor);
+		return ConfigUpgradePerformAsync((ConfigUpgradePerformSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Creates or replaces the specified action group.</summary>
-	public CreateActionGroupResponse CreateActionGroup(CreateActionGroupRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, CreateActionGroupEndpoint.Instance, options);
+	public CreateActionGroupSecurityResponse CreateActionGroup(CreateActionGroupSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, CreateActionGroupSecurityEndpoint.Instance, options);
 
 	/// <summary>Creates or replaces the specified action group.</summary>
-	public Task<CreateActionGroupResponse> CreateActionGroupAsync(CreateActionGroupRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, CreateActionGroupEndpoint.Instance, options, ct);
+	public Task<CreateActionGroupSecurityResponse> CreateActionGroupAsync(CreateActionGroupSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, CreateActionGroupSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Creates or replaces the specified action group.</summary>
+	public CreateActionGroupSecurityResponse CreateActionGroup(Action<CreateActionGroupSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new CreateActionGroupSecurityRequestDescriptor();
+		configure(descriptor);
+		return CreateActionGroup((CreateActionGroupSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Creates or replaces the specified action group.</summary>
+	public Task<CreateActionGroupSecurityResponse> CreateActionGroupAsync(Action<CreateActionGroupSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new CreateActionGroupSecurityRequestDescriptor();
+		configure(descriptor);
+		return CreateActionGroupAsync((CreateActionGroupSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Creates or replaces APIs permitted for users on the allow list. Requires a super admin certificate or REST API permissions.</summary>
-	public CreateAllowlistResponse CreateAllowlist(CreateAllowlistRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, CreateAllowlistEndpoint.Instance, options);
+	public CreateAllowlistSecurityResponse CreateAllowlist(CreateAllowlistSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, CreateAllowlistSecurityEndpoint.Instance, options);
 
 	/// <summary>Creates or replaces APIs permitted for users on the allow list. Requires a super admin certificate or REST API permissions.</summary>
-	public Task<CreateAllowlistResponse> CreateAllowlistAsync(CreateAllowlistRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, CreateAllowlistEndpoint.Instance, options, ct);
+	public Task<CreateAllowlistSecurityResponse> CreateAllowlistAsync(CreateAllowlistSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, CreateAllowlistSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Creates or replaces APIs permitted for users on the allow list. Requires a super admin certificate or REST API permissions.</summary>
+	public CreateAllowlistSecurityResponse CreateAllowlist(Action<CreateAllowlistSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new CreateAllowlistSecurityRequestDescriptor();
+		configure(descriptor);
+		return CreateAllowlist((CreateAllowlistSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Creates or replaces APIs permitted for users on the allow list. Requires a super admin certificate or REST API permissions.</summary>
+	public Task<CreateAllowlistSecurityResponse> CreateAllowlistAsync(Action<CreateAllowlistSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new CreateAllowlistSecurityRequestDescriptor();
+		configure(descriptor);
+		return CreateAllowlistAsync((CreateAllowlistSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Creates or replaces the specified role.</summary>
-	public CreateRoleResponse CreateRole(CreateRoleRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, CreateRoleEndpoint.Instance, options);
+	public CreateRoleSecurityResponse CreateRole(CreateRoleSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, CreateRoleSecurityEndpoint.Instance, options);
 
 	/// <summary>Creates or replaces the specified role.</summary>
-	public Task<CreateRoleResponse> CreateRoleAsync(CreateRoleRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, CreateRoleEndpoint.Instance, options, ct);
+	public Task<CreateRoleSecurityResponse> CreateRoleAsync(CreateRoleSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, CreateRoleSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Creates or replaces the specified role.</summary>
+	public CreateRoleSecurityResponse CreateRole(Action<CreateRoleSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new CreateRoleSecurityRequestDescriptor();
+		configure(descriptor);
+		return CreateRole((CreateRoleSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Creates or replaces the specified role.</summary>
+	public Task<CreateRoleSecurityResponse> CreateRoleAsync(Action<CreateRoleSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new CreateRoleSecurityRequestDescriptor();
+		configure(descriptor);
+		return CreateRoleAsync((CreateRoleSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Creates or replaces the specified role mapping.</summary>
-	public CreateRoleMappingResponse CreateRoleMapping(CreateRoleMappingRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, CreateRoleMappingEndpoint.Instance, options);
+	public CreateRoleMappingSecurityResponse CreateRoleMapping(CreateRoleMappingSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, CreateRoleMappingSecurityEndpoint.Instance, options);
 
 	/// <summary>Creates or replaces the specified role mapping.</summary>
-	public Task<CreateRoleMappingResponse> CreateRoleMappingAsync(CreateRoleMappingRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, CreateRoleMappingEndpoint.Instance, options, ct);
+	public Task<CreateRoleMappingSecurityResponse> CreateRoleMappingAsync(CreateRoleMappingSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, CreateRoleMappingSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Creates or replaces the specified role mapping.</summary>
+	public CreateRoleMappingSecurityResponse CreateRoleMapping(Action<CreateRoleMappingSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new CreateRoleMappingSecurityRequestDescriptor();
+		configure(descriptor);
+		return CreateRoleMapping((CreateRoleMappingSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Creates or replaces the specified role mapping.</summary>
+	public Task<CreateRoleMappingSecurityResponse> CreateRoleMappingAsync(Action<CreateRoleMappingSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new CreateRoleMappingSecurityRequestDescriptor();
+		configure(descriptor);
+		return CreateRoleMappingAsync((CreateRoleMappingSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Creates or replaces the specified tenant.</summary>
-	public CreateTenantResponse CreateTenant(CreateTenantRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, CreateTenantEndpoint.Instance, options);
+	public CreateTenantSecurityResponse CreateTenant(CreateTenantSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, CreateTenantSecurityEndpoint.Instance, options);
 
 	/// <summary>Creates or replaces the specified tenant.</summary>
-	public Task<CreateTenantResponse> CreateTenantAsync(CreateTenantRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, CreateTenantEndpoint.Instance, options, ct);
+	public Task<CreateTenantSecurityResponse> CreateTenantAsync(CreateTenantSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, CreateTenantSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Creates or replaces the specified tenant.</summary>
+	public CreateTenantSecurityResponse CreateTenant(Action<CreateTenantSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new CreateTenantSecurityRequestDescriptor();
+		configure(descriptor);
+		return CreateTenant((CreateTenantSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Creates or replaces the specified tenant.</summary>
+	public Task<CreateTenantSecurityResponse> CreateTenantAsync(Action<CreateTenantSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new CreateTenantSecurityRequestDescriptor();
+		configure(descriptor);
+		return CreateTenantAsync((CreateTenantSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Creates or replaces the multi-tenancy configuration. Requires super admin or REST API permissions.</summary>
-	public CreateUpdateTenancyConfigResponse CreateUpdateTenancyConfig(CreateUpdateTenancyConfigRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, CreateUpdateTenancyConfigEndpoint.Instance, options);
+	public CreateUpdateTenancyConfigSecurityResponse CreateUpdateTenancyConfig(CreateUpdateTenancyConfigSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, CreateUpdateTenancyConfigSecurityEndpoint.Instance, options);
 
 	/// <summary>Creates or replaces the multi-tenancy configuration. Requires super admin or REST API permissions.</summary>
-	public Task<CreateUpdateTenancyConfigResponse> CreateUpdateTenancyConfigAsync(CreateUpdateTenancyConfigRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, CreateUpdateTenancyConfigEndpoint.Instance, options, ct);
+	public Task<CreateUpdateTenancyConfigSecurityResponse> CreateUpdateTenancyConfigAsync(CreateUpdateTenancyConfigSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, CreateUpdateTenancyConfigSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Creates or replaces the multi-tenancy configuration. Requires super admin or REST API permissions.</summary>
+	public CreateUpdateTenancyConfigSecurityResponse CreateUpdateTenancyConfig(Action<CreateUpdateTenancyConfigSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new CreateUpdateTenancyConfigSecurityRequestDescriptor();
+		configure(descriptor);
+		return CreateUpdateTenancyConfig((CreateUpdateTenancyConfigSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Creates or replaces the multi-tenancy configuration. Requires super admin or REST API permissions.</summary>
+	public Task<CreateUpdateTenancyConfigSecurityResponse> CreateUpdateTenancyConfigAsync(Action<CreateUpdateTenancyConfigSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new CreateUpdateTenancyConfigSecurityRequestDescriptor();
+		configure(descriptor);
+		return CreateUpdateTenancyConfigAsync((CreateUpdateTenancyConfigSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Creates or replaces the specified user.</summary>
-	public CreateUserResponse CreateUser(CreateUserRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, CreateUserEndpoint.Instance, options);
+	public CreateUserSecurityResponse CreateUser(CreateUserSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, CreateUserSecurityEndpoint.Instance, options);
 
 	/// <summary>Creates or replaces the specified user.</summary>
-	public Task<CreateUserResponse> CreateUserAsync(CreateUserRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, CreateUserEndpoint.Instance, options, ct);
+	public Task<CreateUserSecurityResponse> CreateUserAsync(CreateUserSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, CreateUserSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Creates or replaces the specified user.</summary>
+	public CreateUserSecurityResponse CreateUser(Action<CreateUserSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new CreateUserSecurityRequestDescriptor();
+		configure(descriptor);
+		return CreateUser((CreateUserSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Creates or replaces the specified user.</summary>
+	public Task<CreateUserSecurityResponse> CreateUserAsync(Action<CreateUserSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new CreateUserSecurityRequestDescriptor();
+		configure(descriptor);
+		return CreateUserAsync((CreateUserSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Creates or replaces the specified user. Legacy API.</summary>
-	public CreateUserLegacyResponse CreateUserLegacy(CreateUserLegacyRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, CreateUserLegacyEndpoint.Instance, options);
+	public CreateUserLegacySecurityResponse CreateUserLegacy(CreateUserLegacySecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, CreateUserLegacySecurityEndpoint.Instance, options);
 
 	/// <summary>Creates or replaces the specified user. Legacy API.</summary>
-	public Task<CreateUserLegacyResponse> CreateUserLegacyAsync(CreateUserLegacyRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, CreateUserLegacyEndpoint.Instance, options, ct);
+	public Task<CreateUserLegacySecurityResponse> CreateUserLegacyAsync(CreateUserLegacySecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, CreateUserLegacySecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Creates or replaces the specified user. Legacy API.</summary>
+	public CreateUserLegacySecurityResponse CreateUserLegacy(Action<CreateUserLegacySecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new CreateUserLegacySecurityRequestDescriptor();
+		configure(descriptor);
+		return CreateUserLegacy((CreateUserLegacySecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Creates or replaces the specified user. Legacy API.</summary>
+	public Task<CreateUserLegacySecurityResponse> CreateUserLegacyAsync(Action<CreateUserLegacySecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new CreateUserLegacySecurityRequestDescriptor();
+		configure(descriptor);
+		return CreateUserLegacyAsync((CreateUserLegacySecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Deletes the specified action group.</summary>
-	public DeleteActionGroupResponse DeleteActionGroup(DeleteActionGroupRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, DeleteActionGroupEndpoint.Instance, options);
+	public DeleteActionGroupSecurityResponse DeleteActionGroup(DeleteActionGroupSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, DeleteActionGroupSecurityEndpoint.Instance, options);
 
 	/// <summary>Deletes the specified action group.</summary>
-	public Task<DeleteActionGroupResponse> DeleteActionGroupAsync(DeleteActionGroupRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, DeleteActionGroupEndpoint.Instance, options, ct);
+	public Task<DeleteActionGroupSecurityResponse> DeleteActionGroupAsync(DeleteActionGroupSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, DeleteActionGroupSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Deletes the specified action group.</summary>
+	public DeleteActionGroupSecurityResponse DeleteActionGroup(Action<DeleteActionGroupSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new DeleteActionGroupSecurityRequestDescriptor();
+		configure(descriptor);
+		return DeleteActionGroup((DeleteActionGroupSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Deletes the specified action group.</summary>
+	public Task<DeleteActionGroupSecurityResponse> DeleteActionGroupAsync(Action<DeleteActionGroupSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new DeleteActionGroupSecurityRequestDescriptor();
+		configure(descriptor);
+		return DeleteActionGroupAsync((DeleteActionGroupSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Deletes all distinguished names in the specified cluster or node allowlist. Requires super admin or REST API permissions.</summary>
-	public DeleteDistinguishedNameResponse DeleteDistinguishedName(DeleteDistinguishedNameRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, DeleteDistinguishedNameEndpoint.Instance, options);
+	public DeleteDistinguishedNameSecurityResponse DeleteDistinguishedName(DeleteDistinguishedNameSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, DeleteDistinguishedNameSecurityEndpoint.Instance, options);
 
 	/// <summary>Deletes all distinguished names in the specified cluster or node allowlist. Requires super admin or REST API permissions.</summary>
-	public Task<DeleteDistinguishedNameResponse> DeleteDistinguishedNameAsync(DeleteDistinguishedNameRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, DeleteDistinguishedNameEndpoint.Instance, options, ct);
+	public Task<DeleteDistinguishedNameSecurityResponse> DeleteDistinguishedNameAsync(DeleteDistinguishedNameSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, DeleteDistinguishedNameSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Deletes all distinguished names in the specified cluster or node allowlist. Requires super admin or REST API permissions.</summary>
+	public DeleteDistinguishedNameSecurityResponse DeleteDistinguishedName(Action<DeleteDistinguishedNameSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new DeleteDistinguishedNameSecurityRequestDescriptor();
+		configure(descriptor);
+		return DeleteDistinguishedName((DeleteDistinguishedNameSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Deletes all distinguished names in the specified cluster or node allowlist. Requires super admin or REST API permissions.</summary>
+	public Task<DeleteDistinguishedNameSecurityResponse> DeleteDistinguishedNameAsync(Action<DeleteDistinguishedNameSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new DeleteDistinguishedNameSecurityRequestDescriptor();
+		configure(descriptor);
+		return DeleteDistinguishedNameAsync((DeleteDistinguishedNameSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Deletes the specified role.</summary>
-	public DeleteRoleResponse DeleteRole(DeleteRoleRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, DeleteRoleEndpoint.Instance, options);
+	public DeleteRoleSecurityResponse DeleteRole(DeleteRoleSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, DeleteRoleSecurityEndpoint.Instance, options);
 
 	/// <summary>Deletes the specified role.</summary>
-	public Task<DeleteRoleResponse> DeleteRoleAsync(DeleteRoleRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, DeleteRoleEndpoint.Instance, options, ct);
+	public Task<DeleteRoleSecurityResponse> DeleteRoleAsync(DeleteRoleSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, DeleteRoleSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Deletes the specified role.</summary>
+	public DeleteRoleSecurityResponse DeleteRole(Action<DeleteRoleSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new DeleteRoleSecurityRequestDescriptor();
+		configure(descriptor);
+		return DeleteRole((DeleteRoleSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Deletes the specified role.</summary>
+	public Task<DeleteRoleSecurityResponse> DeleteRoleAsync(Action<DeleteRoleSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new DeleteRoleSecurityRequestDescriptor();
+		configure(descriptor);
+		return DeleteRoleAsync((DeleteRoleSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Deletes the specified role mapping.</summary>
-	public DeleteRoleMappingResponse DeleteRoleMapping(DeleteRoleMappingRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, DeleteRoleMappingEndpoint.Instance, options);
+	public DeleteRoleMappingSecurityResponse DeleteRoleMapping(DeleteRoleMappingSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, DeleteRoleMappingSecurityEndpoint.Instance, options);
 
 	/// <summary>Deletes the specified role mapping.</summary>
-	public Task<DeleteRoleMappingResponse> DeleteRoleMappingAsync(DeleteRoleMappingRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, DeleteRoleMappingEndpoint.Instance, options, ct);
+	public Task<DeleteRoleMappingSecurityResponse> DeleteRoleMappingAsync(DeleteRoleMappingSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, DeleteRoleMappingSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Deletes the specified role mapping.</summary>
+	public DeleteRoleMappingSecurityResponse DeleteRoleMapping(Action<DeleteRoleMappingSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new DeleteRoleMappingSecurityRequestDescriptor();
+		configure(descriptor);
+		return DeleteRoleMapping((DeleteRoleMappingSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Deletes the specified role mapping.</summary>
+	public Task<DeleteRoleMappingSecurityResponse> DeleteRoleMappingAsync(Action<DeleteRoleMappingSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new DeleteRoleMappingSecurityRequestDescriptor();
+		configure(descriptor);
+		return DeleteRoleMappingAsync((DeleteRoleMappingSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Deletes the specified tenant.</summary>
-	public DeleteTenantResponse DeleteTenant(DeleteTenantRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, DeleteTenantEndpoint.Instance, options);
+	public DeleteTenantSecurityResponse DeleteTenant(DeleteTenantSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, DeleteTenantSecurityEndpoint.Instance, options);
 
 	/// <summary>Deletes the specified tenant.</summary>
-	public Task<DeleteTenantResponse> DeleteTenantAsync(DeleteTenantRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, DeleteTenantEndpoint.Instance, options, ct);
+	public Task<DeleteTenantSecurityResponse> DeleteTenantAsync(DeleteTenantSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, DeleteTenantSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Deletes the specified tenant.</summary>
+	public DeleteTenantSecurityResponse DeleteTenant(Action<DeleteTenantSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new DeleteTenantSecurityRequestDescriptor();
+		configure(descriptor);
+		return DeleteTenant((DeleteTenantSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Deletes the specified tenant.</summary>
+	public Task<DeleteTenantSecurityResponse> DeleteTenantAsync(Action<DeleteTenantSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new DeleteTenantSecurityRequestDescriptor();
+		configure(descriptor);
+		return DeleteTenantAsync((DeleteTenantSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Deletes the specified internal user.</summary>
-	public DeleteUserResponse DeleteUser(DeleteUserRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, DeleteUserEndpoint.Instance, options);
+	public DeleteUserSecurityResponse DeleteUser(DeleteUserSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, DeleteUserSecurityEndpoint.Instance, options);
 
 	/// <summary>Deletes the specified internal user.</summary>
-	public Task<DeleteUserResponse> DeleteUserAsync(DeleteUserRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, DeleteUserEndpoint.Instance, options, ct);
+	public Task<DeleteUserSecurityResponse> DeleteUserAsync(DeleteUserSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, DeleteUserSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Deletes the specified internal user.</summary>
+	public DeleteUserSecurityResponse DeleteUser(Action<DeleteUserSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new DeleteUserSecurityRequestDescriptor();
+		configure(descriptor);
+		return DeleteUser((DeleteUserSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Deletes the specified internal user.</summary>
+	public Task<DeleteUserSecurityResponse> DeleteUserAsync(Action<DeleteUserSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new DeleteUserSecurityRequestDescriptor();
+		configure(descriptor);
+		return DeleteUserAsync((DeleteUserSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Delete the specified user. Legacy API.</summary>
-	public DeleteUserLegacyResponse DeleteUserLegacy(DeleteUserLegacyRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, DeleteUserLegacyEndpoint.Instance, options);
+	public DeleteUserLegacySecurityResponse DeleteUserLegacy(DeleteUserLegacySecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, DeleteUserLegacySecurityEndpoint.Instance, options);
 
 	/// <summary>Delete the specified user. Legacy API.</summary>
-	public Task<DeleteUserLegacyResponse> DeleteUserLegacyAsync(DeleteUserLegacyRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, DeleteUserLegacyEndpoint.Instance, options, ct);
+	public Task<DeleteUserLegacySecurityResponse> DeleteUserLegacyAsync(DeleteUserLegacySecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, DeleteUserLegacySecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Delete the specified user. Legacy API.</summary>
+	public DeleteUserLegacySecurityResponse DeleteUserLegacy(Action<DeleteUserLegacySecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new DeleteUserLegacySecurityRequestDescriptor();
+		configure(descriptor);
+		return DeleteUserLegacy((DeleteUserLegacySecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Delete the specified user. Legacy API.</summary>
+	public Task<DeleteUserLegacySecurityResponse> DeleteUserLegacyAsync(Action<DeleteUserLegacySecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new DeleteUserLegacySecurityRequestDescriptor();
+		configure(descriptor);
+		return DeleteUserLegacyAsync((DeleteUserLegacySecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Flushes the Security plugin's user, authentication, and authorization cache.</summary>
-	public FlushCacheResponse FlushCache(FlushCacheRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, FlushCacheEndpoint.Instance, options);
+	public FlushCacheSecurityResponse FlushCache(FlushCacheSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, FlushCacheSecurityEndpoint.Instance, options);
 
 	/// <summary>Flushes the Security plugin's user, authentication, and authorization cache.</summary>
-	public Task<FlushCacheResponse> FlushCacheAsync(FlushCacheRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, FlushCacheEndpoint.Instance, options, ct);
+	public Task<FlushCacheSecurityResponse> FlushCacheAsync(FlushCacheSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, FlushCacheSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Flushes the Security plugin's user, authentication, and authorization cache.</summary>
+	public FlushCacheSecurityResponse FlushCache(Action<FlushCacheSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new FlushCacheSecurityRequestDescriptor();
+		configure(descriptor);
+		return FlushCache((FlushCacheSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Flushes the Security plugin's user, authentication, and authorization cache.</summary>
+	public Task<FlushCacheSecurityResponse> FlushCacheAsync(Action<FlushCacheSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new FlushCacheSecurityRequestDescriptor();
+		configure(descriptor);
+		return FlushCacheAsync((FlushCacheSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Generates a `On-Behalf-Of` token for the current user.</summary>
-	public GenerateOboTokenResponse GenerateOboToken(GenerateOboTokenRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GenerateOboTokenEndpoint.Instance, options);
+	public GenerateOboTokenSecurityResponse GenerateOboToken(GenerateOboTokenSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GenerateOboTokenSecurityEndpoint.Instance, options);
 
 	/// <summary>Generates a `On-Behalf-Of` token for the current user.</summary>
-	public Task<GenerateOboTokenResponse> GenerateOboTokenAsync(GenerateOboTokenRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GenerateOboTokenEndpoint.Instance, options, ct);
+	public Task<GenerateOboTokenSecurityResponse> GenerateOboTokenAsync(GenerateOboTokenSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GenerateOboTokenSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Generates a `On-Behalf-Of` token for the current user.</summary>
+	public GenerateOboTokenSecurityResponse GenerateOboToken(Action<GenerateOboTokenSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GenerateOboTokenSecurityRequestDescriptor();
+		configure(descriptor);
+		return GenerateOboToken((GenerateOboTokenSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Generates a `On-Behalf-Of` token for the current user.</summary>
+	public Task<GenerateOboTokenSecurityResponse> GenerateOboTokenAsync(Action<GenerateOboTokenSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GenerateOboTokenSecurityRequestDescriptor();
+		configure(descriptor);
+		return GenerateOboTokenAsync((GenerateOboTokenSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Generates an authorization token for the specified user.</summary>
-	public GenerateUserTokenResponse GenerateUserToken(GenerateUserTokenRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GenerateUserTokenEndpoint.Instance, options);
+	public GenerateUserTokenSecurityResponse GenerateUserToken(GenerateUserTokenSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GenerateUserTokenSecurityEndpoint.Instance, options);
 
 	/// <summary>Generates an authorization token for the specified user.</summary>
-	public Task<GenerateUserTokenResponse> GenerateUserTokenAsync(GenerateUserTokenRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GenerateUserTokenEndpoint.Instance, options, ct);
+	public Task<GenerateUserTokenSecurityResponse> GenerateUserTokenAsync(GenerateUserTokenSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GenerateUserTokenSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Generates an authorization token for the specified user.</summary>
+	public GenerateUserTokenSecurityResponse GenerateUserToken(Action<GenerateUserTokenSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GenerateUserTokenSecurityRequestDescriptor();
+		configure(descriptor);
+		return GenerateUserToken((GenerateUserTokenSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Generates an authorization token for the specified user.</summary>
+	public Task<GenerateUserTokenSecurityResponse> GenerateUserTokenAsync(Action<GenerateUserTokenSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GenerateUserTokenSecurityRequestDescriptor();
+		configure(descriptor);
+		return GenerateUserTokenAsync((GenerateUserTokenSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Generates authorization token for the given user. Legacy API. Not Implemented.</summary>
-	public GenerateUserTokenLegacyResponse GenerateUserTokenLegacy(GenerateUserTokenLegacyRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GenerateUserTokenLegacyEndpoint.Instance, options);
+	public GenerateUserTokenLegacySecurityResponse GenerateUserTokenLegacy(GenerateUserTokenLegacySecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GenerateUserTokenLegacySecurityEndpoint.Instance, options);
 
 	/// <summary>Generates authorization token for the given user. Legacy API. Not Implemented.</summary>
-	public Task<GenerateUserTokenLegacyResponse> GenerateUserTokenLegacyAsync(GenerateUserTokenLegacyRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GenerateUserTokenLegacyEndpoint.Instance, options, ct);
+	public Task<GenerateUserTokenLegacySecurityResponse> GenerateUserTokenLegacyAsync(GenerateUserTokenLegacySecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GenerateUserTokenLegacySecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Generates authorization token for the given user. Legacy API. Not Implemented.</summary>
+	public GenerateUserTokenLegacySecurityResponse GenerateUserTokenLegacy(Action<GenerateUserTokenLegacySecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GenerateUserTokenLegacySecurityRequestDescriptor();
+		configure(descriptor);
+		return GenerateUserTokenLegacy((GenerateUserTokenLegacySecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Generates authorization token for the given user. Legacy API. Not Implemented.</summary>
+	public Task<GenerateUserTokenLegacySecurityResponse> GenerateUserTokenLegacyAsync(Action<GenerateUserTokenLegacySecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GenerateUserTokenLegacySecurityRequestDescriptor();
+		configure(descriptor);
+		return GenerateUserTokenLegacyAsync((GenerateUserTokenLegacySecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Returns account information for the current user.</summary>
-	public GetAccountDetailsResponse GetAccountDetails(GetAccountDetailsRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetAccountDetailsEndpoint.Instance, options);
+	public GetAccountDetailsSecurityResponse GetAccountDetails(GetAccountDetailsSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetAccountDetailsSecurityEndpoint.Instance, options);
 
 	/// <summary>Returns account information for the current user.</summary>
-	public Task<GetAccountDetailsResponse> GetAccountDetailsAsync(GetAccountDetailsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetAccountDetailsEndpoint.Instance, options, ct);
+	public Task<GetAccountDetailsSecurityResponse> GetAccountDetailsAsync(GetAccountDetailsSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetAccountDetailsSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Returns account information for the current user.</summary>
+	public GetAccountDetailsSecurityResponse GetAccountDetails(Action<GetAccountDetailsSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetAccountDetailsSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetAccountDetails((GetAccountDetailsSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Returns account information for the current user.</summary>
+	public Task<GetAccountDetailsSecurityResponse> GetAccountDetailsAsync(Action<GetAccountDetailsSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetAccountDetailsSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetAccountDetailsAsync((GetAccountDetailsSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Retrieves one action group.</summary>
-	public GetActionGroupResponse GetActionGroup(GetActionGroupRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetActionGroupEndpoint.Instance, options);
+	public GetActionGroupSecurityResponse GetActionGroup(GetActionGroupSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetActionGroupSecurityEndpoint.Instance, options);
 
 	/// <summary>Retrieves one action group.</summary>
-	public Task<GetActionGroupResponse> GetActionGroupAsync(GetActionGroupRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetActionGroupEndpoint.Instance, options, ct);
+	public Task<GetActionGroupSecurityResponse> GetActionGroupAsync(GetActionGroupSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetActionGroupSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Retrieves one action group.</summary>
+	public GetActionGroupSecurityResponse GetActionGroup(Action<GetActionGroupSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetActionGroupSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetActionGroup((GetActionGroupSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Retrieves one action group.</summary>
+	public Task<GetActionGroupSecurityResponse> GetActionGroupAsync(Action<GetActionGroupSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetActionGroupSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetActionGroupAsync((GetActionGroupSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Retrieves all action groups.</summary>
-	public GetActionGroupsResponse GetActionGroups(GetActionGroupsRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetActionGroupsEndpoint.Instance, options);
+	public GetActionGroupsSecurityResponse GetActionGroups(GetActionGroupsSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetActionGroupsSecurityEndpoint.Instance, options);
 
 	/// <summary>Retrieves all action groups.</summary>
-	public Task<GetActionGroupsResponse> GetActionGroupsAsync(GetActionGroupsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetActionGroupsEndpoint.Instance, options, ct);
+	public Task<GetActionGroupsSecurityResponse> GetActionGroupsAsync(GetActionGroupsSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetActionGroupsSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Retrieves all action groups.</summary>
+	public GetActionGroupsSecurityResponse GetActionGroups(Action<GetActionGroupsSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetActionGroupsSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetActionGroups((GetActionGroupsSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Retrieves all action groups.</summary>
+	public Task<GetActionGroupsSecurityResponse> GetActionGroupsAsync(Action<GetActionGroupsSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetActionGroupsSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetActionGroupsAsync((GetActionGroupsSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Retrieves the cluster security certificates.</summary>
-	public GetAllCertificatesResponse GetAllCertificates(GetAllCertificatesRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetAllCertificatesEndpoint.Instance, options);
+	public GetAllCertificatesSecurityResponse GetAllCertificates(GetAllCertificatesSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetAllCertificatesSecurityEndpoint.Instance, options);
 
 	/// <summary>Retrieves the cluster security certificates.</summary>
-	public Task<GetAllCertificatesResponse> GetAllCertificatesAsync(GetAllCertificatesRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetAllCertificatesEndpoint.Instance, options, ct);
+	public Task<GetAllCertificatesSecurityResponse> GetAllCertificatesAsync(GetAllCertificatesSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetAllCertificatesSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Retrieves the cluster security certificates.</summary>
+	public GetAllCertificatesSecurityResponse GetAllCertificates(Action<GetAllCertificatesSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetAllCertificatesSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetAllCertificates((GetAllCertificatesSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Retrieves the cluster security certificates.</summary>
+	public Task<GetAllCertificatesSecurityResponse> GetAllCertificatesAsync(Action<GetAllCertificatesSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetAllCertificatesSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetAllCertificatesAsync((GetAllCertificatesSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Retrieves the current list of allowed APIs accessible to a normal user.</summary>
-	public GetAllowlistResponse GetAllowlist(GetAllowlistRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetAllowlistEndpoint.Instance, options);
+	public GetAllowlistSecurityResponse GetAllowlist(GetAllowlistSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetAllowlistSecurityEndpoint.Instance, options);
 
 	/// <summary>Retrieves the current list of allowed APIs accessible to a normal user.</summary>
-	public Task<GetAllowlistResponse> GetAllowlistAsync(GetAllowlistRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetAllowlistEndpoint.Instance, options, ct);
+	public Task<GetAllowlistSecurityResponse> GetAllowlistAsync(GetAllowlistSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetAllowlistSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Retrieves the current list of allowed APIs accessible to a normal user.</summary>
+	public GetAllowlistSecurityResponse GetAllowlist(Action<GetAllowlistSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetAllowlistSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetAllowlist((GetAllowlistSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Retrieves the current list of allowed APIs accessible to a normal user.</summary>
+	public Task<GetAllowlistSecurityResponse> GetAllowlistAsync(Action<GetAllowlistSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetAllowlistSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetAllowlistAsync((GetAllowlistSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Retrieves the audit configuration.</summary>
-	public GetAuditConfigurationResponse GetAuditConfiguration(GetAuditConfigurationRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetAuditConfigurationEndpoint.Instance, options);
+	public GetAuditConfigurationSecurityResponse GetAuditConfiguration(GetAuditConfigurationSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetAuditConfigurationSecurityEndpoint.Instance, options);
 
 	/// <summary>Retrieves the audit configuration.</summary>
-	public Task<GetAuditConfigurationResponse> GetAuditConfigurationAsync(GetAuditConfigurationRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetAuditConfigurationEndpoint.Instance, options, ct);
+	public Task<GetAuditConfigurationSecurityResponse> GetAuditConfigurationAsync(GetAuditConfigurationSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetAuditConfigurationSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Retrieves the audit configuration.</summary>
+	public GetAuditConfigurationSecurityResponse GetAuditConfiguration(Action<GetAuditConfigurationSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetAuditConfigurationSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetAuditConfiguration((GetAuditConfigurationSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Retrieves the audit configuration.</summary>
+	public Task<GetAuditConfigurationSecurityResponse> GetAuditConfigurationAsync(Action<GetAuditConfigurationSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetAuditConfigurationSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetAuditConfigurationAsync((GetAuditConfigurationSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Retrieves the cluster security certificates.</summary>
-	public GetCertificatesResponse GetCertificates(GetCertificatesRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetCertificatesEndpoint.Instance, options);
+	public GetCertificatesSecurityResponse GetCertificates(GetCertificatesSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetCertificatesSecurityEndpoint.Instance, options);
 
 	/// <summary>Retrieves the cluster security certificates.</summary>
-	public Task<GetCertificatesResponse> GetCertificatesAsync(GetCertificatesRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetCertificatesEndpoint.Instance, options, ct);
+	public Task<GetCertificatesSecurityResponse> GetCertificatesAsync(GetCertificatesSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetCertificatesSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Retrieves the cluster security certificates.</summary>
+	public GetCertificatesSecurityResponse GetCertificates(Action<GetCertificatesSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetCertificatesSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetCertificates((GetCertificatesSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Retrieves the cluster security certificates.</summary>
+	public Task<GetCertificatesSecurityResponse> GetCertificatesAsync(Action<GetCertificatesSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetCertificatesSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetCertificatesAsync((GetCertificatesSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Returns the current Security plugin configuration in a JSON format.</summary>
-	public GetConfigurationResponse GetConfiguration(GetConfigurationRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetConfigurationEndpoint.Instance, options);
+	public GetConfigurationSecurityResponse GetConfiguration(GetConfigurationSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetConfigurationSecurityEndpoint.Instance, options);
 
 	/// <summary>Returns the current Security plugin configuration in a JSON format.</summary>
-	public Task<GetConfigurationResponse> GetConfigurationAsync(GetConfigurationRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetConfigurationEndpoint.Instance, options, ct);
+	public Task<GetConfigurationSecurityResponse> GetConfigurationAsync(GetConfigurationSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetConfigurationSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Returns the current Security plugin configuration in a JSON format.</summary>
+	public GetConfigurationSecurityResponse GetConfiguration(Action<GetConfigurationSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetConfigurationSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetConfiguration((GetConfigurationSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Returns the current Security plugin configuration in a JSON format.</summary>
+	public Task<GetConfigurationSecurityResponse> GetConfigurationAsync(Action<GetConfigurationSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetConfigurationSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetConfigurationAsync((GetConfigurationSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Retrieves the current values for dynamic security settings for OpenSearch Dashboards.</summary>
-	public GetDashboardsInfoResponse GetDashboardsInfo(GetDashboardsInfoRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetDashboardsInfoEndpoint.Instance, options);
+	public GetDashboardsInfoSecurityResponse GetDashboardsInfo(GetDashboardsInfoSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetDashboardsInfoSecurityEndpoint.Instance, options);
 
 	/// <summary>Retrieves the current values for dynamic security settings for OpenSearch Dashboards.</summary>
-	public Task<GetDashboardsInfoResponse> GetDashboardsInfoAsync(GetDashboardsInfoRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetDashboardsInfoEndpoint.Instance, options, ct);
+	public Task<GetDashboardsInfoSecurityResponse> GetDashboardsInfoAsync(GetDashboardsInfoSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetDashboardsInfoSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Retrieves the current values for dynamic security settings for OpenSearch Dashboards.</summary>
+	public GetDashboardsInfoSecurityResponse GetDashboardsInfo(Action<GetDashboardsInfoSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetDashboardsInfoSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetDashboardsInfo((GetDashboardsInfoSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Retrieves the current values for dynamic security settings for OpenSearch Dashboards.</summary>
+	public Task<GetDashboardsInfoSecurityResponse> GetDashboardsInfoAsync(Action<GetDashboardsInfoSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetDashboardsInfoSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetDashboardsInfoAsync((GetDashboardsInfoSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Retrieves all node distinguished names. Requires super admin or REST API permissions.</summary>
-	public GetDistinguishedNameResponse GetDistinguishedName(GetDistinguishedNameRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetDistinguishedNameEndpoint.Instance, options);
+	public GetDistinguishedNameSecurityResponse GetDistinguishedName(GetDistinguishedNameSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetDistinguishedNameSecurityEndpoint.Instance, options);
 
 	/// <summary>Retrieves all node distinguished names. Requires super admin or REST API permissions.</summary>
-	public Task<GetDistinguishedNameResponse> GetDistinguishedNameAsync(GetDistinguishedNameRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetDistinguishedNameEndpoint.Instance, options, ct);
+	public Task<GetDistinguishedNameSecurityResponse> GetDistinguishedNameAsync(GetDistinguishedNameSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetDistinguishedNameSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Retrieves all node distinguished names. Requires super admin or REST API permissions.</summary>
+	public GetDistinguishedNameSecurityResponse GetDistinguishedName(Action<GetDistinguishedNameSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetDistinguishedNameSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetDistinguishedName((GetDistinguishedNameSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Retrieves all node distinguished names. Requires super admin or REST API permissions.</summary>
+	public Task<GetDistinguishedNameSecurityResponse> GetDistinguishedNameAsync(Action<GetDistinguishedNameSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetDistinguishedNameSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetDistinguishedNameAsync((GetDistinguishedNameSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Retrieves all node distinguished names. Requires super admin or REST API permissions.</summary>
-	public GetDistinguishedNamesResponse GetDistinguishedNames(GetDistinguishedNamesRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetDistinguishedNamesEndpoint.Instance, options);
+	public GetDistinguishedNamesSecurityResponse GetDistinguishedNames(GetDistinguishedNamesSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetDistinguishedNamesSecurityEndpoint.Instance, options);
 
 	/// <summary>Retrieves all node distinguished names. Requires super admin or REST API permissions.</summary>
-	public Task<GetDistinguishedNamesResponse> GetDistinguishedNamesAsync(GetDistinguishedNamesRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetDistinguishedNamesEndpoint.Instance, options, ct);
+	public Task<GetDistinguishedNamesSecurityResponse> GetDistinguishedNamesAsync(GetDistinguishedNamesSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetDistinguishedNamesSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Retrieves all node distinguished names. Requires super admin or REST API permissions.</summary>
+	public GetDistinguishedNamesSecurityResponse GetDistinguishedNames(Action<GetDistinguishedNamesSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetDistinguishedNamesSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetDistinguishedNames((GetDistinguishedNamesSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Retrieves all node distinguished names. Requires super admin or REST API permissions.</summary>
+	public Task<GetDistinguishedNamesSecurityResponse> GetDistinguishedNamesAsync(Action<GetDistinguishedNamesSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetDistinguishedNamesSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetDistinguishedNamesAsync((GetDistinguishedNamesSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Retrieves the specified node's security certificates.</summary>
-	public GetNodeCertificatesResponse GetNodeCertificates(GetNodeCertificatesRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetNodeCertificatesEndpoint.Instance, options);
+	public GetNodeCertificatesSecurityResponse GetNodeCertificates(GetNodeCertificatesSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetNodeCertificatesSecurityEndpoint.Instance, options);
 
 	/// <summary>Retrieves the specified node's security certificates.</summary>
-	public Task<GetNodeCertificatesResponse> GetNodeCertificatesAsync(GetNodeCertificatesRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetNodeCertificatesEndpoint.Instance, options, ct);
+	public Task<GetNodeCertificatesSecurityResponse> GetNodeCertificatesAsync(GetNodeCertificatesSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetNodeCertificatesSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Retrieves the specified node's security certificates.</summary>
+	public GetNodeCertificatesSecurityResponse GetNodeCertificates(Action<GetNodeCertificatesSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetNodeCertificatesSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetNodeCertificates((GetNodeCertificatesSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Retrieves the specified node's security certificates.</summary>
+	public Task<GetNodeCertificatesSecurityResponse> GetNodeCertificatesAsync(Action<GetNodeCertificatesSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetNodeCertificatesSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetNodeCertificatesAsync((GetNodeCertificatesSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Retrieves the evaluated REST API permissions for the currently logged in user.</summary>
-	public GetPermissionsInfoResponse GetPermissionsInfo(GetPermissionsInfoRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetPermissionsInfoEndpoint.Instance, options);
+	public GetPermissionsInfoSecurityResponse GetPermissionsInfo(GetPermissionsInfoSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetPermissionsInfoSecurityEndpoint.Instance, options);
 
 	/// <summary>Retrieves the evaluated REST API permissions for the currently logged in user.</summary>
-	public Task<GetPermissionsInfoResponse> GetPermissionsInfoAsync(GetPermissionsInfoRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetPermissionsInfoEndpoint.Instance, options, ct);
+	public Task<GetPermissionsInfoSecurityResponse> GetPermissionsInfoAsync(GetPermissionsInfoSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetPermissionsInfoSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Retrieves the evaluated REST API permissions for the currently logged in user.</summary>
+	public GetPermissionsInfoSecurityResponse GetPermissionsInfo(Action<GetPermissionsInfoSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetPermissionsInfoSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetPermissionsInfo((GetPermissionsInfoSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Retrieves the evaluated REST API permissions for the currently logged in user.</summary>
+	public Task<GetPermissionsInfoSecurityResponse> GetPermissionsInfoAsync(Action<GetPermissionsInfoSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetPermissionsInfoSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetPermissionsInfoAsync((GetPermissionsInfoSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Retrieves one role.</summary>
-	public GetRoleResponse GetRole(GetRoleRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetRoleEndpoint.Instance, options);
+	public GetRoleSecurityResponse GetRole(GetRoleSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetRoleSecurityEndpoint.Instance, options);
 
 	/// <summary>Retrieves one role.</summary>
-	public Task<GetRoleResponse> GetRoleAsync(GetRoleRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetRoleEndpoint.Instance, options, ct);
+	public Task<GetRoleSecurityResponse> GetRoleAsync(GetRoleSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetRoleSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Retrieves one role.</summary>
+	public GetRoleSecurityResponse GetRole(Action<GetRoleSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetRoleSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetRole((GetRoleSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Retrieves one role.</summary>
+	public Task<GetRoleSecurityResponse> GetRoleAsync(Action<GetRoleSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetRoleSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetRoleAsync((GetRoleSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Retrieves the specified role mapping.</summary>
-	public GetRoleMappingResponse GetRoleMapping(GetRoleMappingRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetRoleMappingEndpoint.Instance, options);
+	public GetRoleMappingSecurityResponse GetRoleMapping(GetRoleMappingSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetRoleMappingSecurityEndpoint.Instance, options);
 
 	/// <summary>Retrieves the specified role mapping.</summary>
-	public Task<GetRoleMappingResponse> GetRoleMappingAsync(GetRoleMappingRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetRoleMappingEndpoint.Instance, options, ct);
+	public Task<GetRoleMappingSecurityResponse> GetRoleMappingAsync(GetRoleMappingSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetRoleMappingSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Retrieves the specified role mapping.</summary>
+	public GetRoleMappingSecurityResponse GetRoleMapping(Action<GetRoleMappingSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetRoleMappingSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetRoleMapping((GetRoleMappingSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Retrieves the specified role mapping.</summary>
+	public Task<GetRoleMappingSecurityResponse> GetRoleMappingAsync(Action<GetRoleMappingSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetRoleMappingSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetRoleMappingAsync((GetRoleMappingSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Retrieves all role mappings.</summary>
-	public GetRoleMappingsResponse GetRoleMappings(GetRoleMappingsRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetRoleMappingsEndpoint.Instance, options);
+	public GetRoleMappingsSecurityResponse GetRoleMappings(GetRoleMappingsSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetRoleMappingsSecurityEndpoint.Instance, options);
 
 	/// <summary>Retrieves all role mappings.</summary>
-	public Task<GetRoleMappingsResponse> GetRoleMappingsAsync(GetRoleMappingsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetRoleMappingsEndpoint.Instance, options, ct);
+	public Task<GetRoleMappingsSecurityResponse> GetRoleMappingsAsync(GetRoleMappingsSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetRoleMappingsSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Retrieves all role mappings.</summary>
+	public GetRoleMappingsSecurityResponse GetRoleMappings(Action<GetRoleMappingsSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetRoleMappingsSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetRoleMappings((GetRoleMappingsSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Retrieves all role mappings.</summary>
+	public Task<GetRoleMappingsSecurityResponse> GetRoleMappingsAsync(Action<GetRoleMappingsSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetRoleMappingsSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetRoleMappingsAsync((GetRoleMappingsSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Retrieves all roles.</summary>
-	public GetRolesResponse GetRoles(GetRolesRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetRolesEndpoint.Instance, options);
+	public GetRolesSecurityResponse GetRoles(GetRolesSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetRolesSecurityEndpoint.Instance, options);
 
 	/// <summary>Retrieves all roles.</summary>
-	public Task<GetRolesResponse> GetRolesAsync(GetRolesRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetRolesEndpoint.Instance, options, ct);
+	public Task<GetRolesSecurityResponse> GetRolesAsync(GetRolesSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetRolesSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Retrieves all roles.</summary>
+	public GetRolesSecurityResponse GetRoles(Action<GetRolesSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetRolesSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetRoles((GetRolesSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Retrieves all roles.</summary>
+	public Task<GetRolesSecurityResponse> GetRolesAsync(Action<GetRolesSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetRolesSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetRolesAsync((GetRolesSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Retrieves information about the SSL configuration.</summary>
-	public GetSslinfoResponse GetSslinfo(GetSslinfoRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetSslinfoEndpoint.Instance, options);
+	public GetSslinfoSecurityResponse GetSslinfo(GetSslinfoSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetSslinfoSecurityEndpoint.Instance, options);
 
 	/// <summary>Retrieves information about the SSL configuration.</summary>
-	public Task<GetSslinfoResponse> GetSslinfoAsync(GetSslinfoRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetSslinfoEndpoint.Instance, options, ct);
+	public Task<GetSslinfoSecurityResponse> GetSslinfoAsync(GetSslinfoSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetSslinfoSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Retrieves information about the SSL configuration.</summary>
+	public GetSslinfoSecurityResponse GetSslinfo(Action<GetSslinfoSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetSslinfoSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetSslinfo((GetSslinfoSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Retrieves information about the SSL configuration.</summary>
+	public Task<GetSslinfoSecurityResponse> GetSslinfoAsync(Action<GetSslinfoSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetSslinfoSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetSslinfoAsync((GetSslinfoSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Retrieves the multi-tenancy configuration. Requires super admin or REST API permissions.</summary>
-	public GetTenancyConfigResponse GetTenancyConfig(GetTenancyConfigRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetTenancyConfigEndpoint.Instance, options);
+	public GetTenancyConfigSecurityResponse GetTenancyConfig(GetTenancyConfigSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetTenancyConfigSecurityEndpoint.Instance, options);
 
 	/// <summary>Retrieves the multi-tenancy configuration. Requires super admin or REST API permissions.</summary>
-	public Task<GetTenancyConfigResponse> GetTenancyConfigAsync(GetTenancyConfigRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetTenancyConfigEndpoint.Instance, options, ct);
+	public Task<GetTenancyConfigSecurityResponse> GetTenancyConfigAsync(GetTenancyConfigSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetTenancyConfigSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Retrieves the multi-tenancy configuration. Requires super admin or REST API permissions.</summary>
+	public GetTenancyConfigSecurityResponse GetTenancyConfig(Action<GetTenancyConfigSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetTenancyConfigSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetTenancyConfig((GetTenancyConfigSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Retrieves the multi-tenancy configuration. Requires super admin or REST API permissions.</summary>
+	public Task<GetTenancyConfigSecurityResponse> GetTenancyConfigAsync(Action<GetTenancyConfigSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetTenancyConfigSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetTenancyConfigAsync((GetTenancyConfigSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Retrieves the specified tenant.</summary>
-	public GetTenantResponse GetTenant(GetTenantRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetTenantEndpoint.Instance, options);
+	public GetTenantSecurityResponse GetTenant(GetTenantSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetTenantSecurityEndpoint.Instance, options);
 
 	/// <summary>Retrieves the specified tenant.</summary>
-	public Task<GetTenantResponse> GetTenantAsync(GetTenantRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetTenantEndpoint.Instance, options, ct);
+	public Task<GetTenantSecurityResponse> GetTenantAsync(GetTenantSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetTenantSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Retrieves the specified tenant.</summary>
+	public GetTenantSecurityResponse GetTenant(Action<GetTenantSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetTenantSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetTenant((GetTenantSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Retrieves the specified tenant.</summary>
+	public Task<GetTenantSecurityResponse> GetTenantAsync(Action<GetTenantSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetTenantSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetTenantAsync((GetTenantSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Retrieves all tenants.</summary>
-	public GetTenantsResponse GetTenants(GetTenantsRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetTenantsEndpoint.Instance, options);
+	public GetTenantsSecurityResponse GetTenants(GetTenantsSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetTenantsSecurityEndpoint.Instance, options);
 
 	/// <summary>Retrieves all tenants.</summary>
-	public Task<GetTenantsResponse> GetTenantsAsync(GetTenantsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetTenantsEndpoint.Instance, options, ct);
+	public Task<GetTenantsSecurityResponse> GetTenantsAsync(GetTenantsSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetTenantsSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Retrieves all tenants.</summary>
+	public GetTenantsSecurityResponse GetTenants(Action<GetTenantsSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetTenantsSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetTenants((GetTenantsSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Retrieves all tenants.</summary>
+	public Task<GetTenantsSecurityResponse> GetTenantsAsync(Action<GetTenantsSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetTenantsSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetTenantsAsync((GetTenantsSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Retrieve information about the specified internal user.</summary>
-	public GetUserResponse GetUser(GetUserRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetUserEndpoint.Instance, options);
+	public GetUserSecurityResponse GetUser(GetUserSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetUserSecurityEndpoint.Instance, options);
 
 	/// <summary>Retrieve information about the specified internal user.</summary>
-	public Task<GetUserResponse> GetUserAsync(GetUserRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetUserEndpoint.Instance, options, ct);
+	public Task<GetUserSecurityResponse> GetUserAsync(GetUserSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetUserSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Retrieve information about the specified internal user.</summary>
+	public GetUserSecurityResponse GetUser(Action<GetUserSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetUserSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetUser((GetUserSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Retrieve information about the specified internal user.</summary>
+	public Task<GetUserSecurityResponse> GetUserAsync(Action<GetUserSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetUserSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetUserAsync((GetUserSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Retrieve one user. Legacy API.</summary>
-	public GetUserLegacyResponse GetUserLegacy(GetUserLegacyRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetUserLegacyEndpoint.Instance, options);
+	public GetUserLegacySecurityResponse GetUserLegacy(GetUserLegacySecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetUserLegacySecurityEndpoint.Instance, options);
 
 	/// <summary>Retrieve one user. Legacy API.</summary>
-	public Task<GetUserLegacyResponse> GetUserLegacyAsync(GetUserLegacyRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetUserLegacyEndpoint.Instance, options, ct);
+	public Task<GetUserLegacySecurityResponse> GetUserLegacyAsync(GetUserLegacySecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetUserLegacySecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Retrieve one user. Legacy API.</summary>
+	public GetUserLegacySecurityResponse GetUserLegacy(Action<GetUserLegacySecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetUserLegacySecurityRequestDescriptor();
+		configure(descriptor);
+		return GetUserLegacy((GetUserLegacySecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Retrieve one user. Legacy API.</summary>
+	public Task<GetUserLegacySecurityResponse> GetUserLegacyAsync(Action<GetUserLegacySecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetUserLegacySecurityRequestDescriptor();
+		configure(descriptor);
+		return GetUserLegacyAsync((GetUserLegacySecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Retrieve all internal users.</summary>
-	public GetUsersResponse GetUsers(GetUsersRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetUsersEndpoint.Instance, options);
+	public GetUsersSecurityResponse GetUsers(GetUsersSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetUsersSecurityEndpoint.Instance, options);
 
 	/// <summary>Retrieve all internal users.</summary>
-	public Task<GetUsersResponse> GetUsersAsync(GetUsersRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetUsersEndpoint.Instance, options, ct);
+	public Task<GetUsersSecurityResponse> GetUsersAsync(GetUsersSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetUsersSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Retrieve all internal users.</summary>
+	public GetUsersSecurityResponse GetUsers(Action<GetUsersSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetUsersSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetUsers((GetUsersSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Retrieve all internal users.</summary>
+	public Task<GetUsersSecurityResponse> GetUsersAsync(Action<GetUsersSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetUsersSecurityRequestDescriptor();
+		configure(descriptor);
+		return GetUsersAsync((GetUsersSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Retrieve all internal users. Legacy API.</summary>
-	public GetUsersLegacyResponse GetUsersLegacy(GetUsersLegacyRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetUsersLegacyEndpoint.Instance, options);
+	public GetUsersLegacySecurityResponse GetUsersLegacy(GetUsersLegacySecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetUsersLegacySecurityEndpoint.Instance, options);
 
 	/// <summary>Retrieve all internal users. Legacy API.</summary>
-	public Task<GetUsersLegacyResponse> GetUsersLegacyAsync(GetUsersLegacyRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetUsersLegacyEndpoint.Instance, options, ct);
+	public Task<GetUsersLegacySecurityResponse> GetUsersLegacyAsync(GetUsersLegacySecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetUsersLegacySecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Retrieve all internal users. Legacy API.</summary>
+	public GetUsersLegacySecurityResponse GetUsersLegacy(Action<GetUsersLegacySecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new GetUsersLegacySecurityRequestDescriptor();
+		configure(descriptor);
+		return GetUsersLegacy((GetUsersLegacySecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Retrieve all internal users. Legacy API.</summary>
+	public Task<GetUsersLegacySecurityResponse> GetUsersLegacyAsync(Action<GetUsersLegacySecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new GetUsersLegacySecurityRequestDescriptor();
+		configure(descriptor);
+		return GetUsersLegacyAsync((GetUsersLegacySecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Checks to see if the Security plugin is running.</summary>
-	public HealthResponse Health(HealthRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, HealthEndpoint.Instance, options);
+	public HealthSecurityResponse Health(HealthSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, HealthSecurityEndpoint.Instance, options);
 
 	/// <summary>Checks to see if the Security plugin is running.</summary>
-	public Task<HealthResponse> HealthAsync(HealthRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, HealthEndpoint.Instance, options, ct);
+	public Task<HealthSecurityResponse> HealthAsync(HealthSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, HealthSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Checks to see if the Security plugin is running.</summary>
+	public HealthSecurityResponse Health(Action<HealthSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new HealthSecurityRequestDescriptor();
+		configure(descriptor);
+		return Health((HealthSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Checks to see if the Security plugin is running.</summary>
+	public Task<HealthSecurityResponse> HealthAsync(Action<HealthSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new HealthSecurityRequestDescriptor();
+		configure(descriptor);
+		return HealthAsync((HealthSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Migrates the security configuration from v6 to v7.</summary>
-	public MigrateResponse Migrate(MigrateRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, MigrateEndpoint.Instance, options);
+	public MigrateSecurityResponse Migrate(MigrateSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, MigrateSecurityEndpoint.Instance, options);
 
 	/// <summary>Migrates the security configuration from v6 to v7.</summary>
-	public Task<MigrateResponse> MigrateAsync(MigrateRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, MigrateEndpoint.Instance, options, ct);
+	public Task<MigrateSecurityResponse> MigrateAsync(MigrateSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, MigrateSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Migrates the security configuration from v6 to v7.</summary>
+	public MigrateSecurityResponse Migrate(Action<MigrateSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new MigrateSecurityRequestDescriptor();
+		configure(descriptor);
+		return Migrate((MigrateSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Migrates the security configuration from v6 to v7.</summary>
+	public Task<MigrateSecurityResponse> MigrateAsync(Action<MigrateSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new MigrateSecurityRequestDescriptor();
+		configure(descriptor);
+		return MigrateAsync((MigrateSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Updates the individual attributes of an action group.</summary>
-	public PatchActionGroupResponse PatchActionGroup(PatchActionGroupRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, PatchActionGroupEndpoint.Instance, options);
+	public PatchActionGroupSecurityResponse PatchActionGroup(PatchActionGroupSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, PatchActionGroupSecurityEndpoint.Instance, options);
 
 	/// <summary>Updates the individual attributes of an action group.</summary>
-	public Task<PatchActionGroupResponse> PatchActionGroupAsync(PatchActionGroupRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, PatchActionGroupEndpoint.Instance, options, ct);
+	public Task<PatchActionGroupSecurityResponse> PatchActionGroupAsync(PatchActionGroupSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, PatchActionGroupSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Updates the individual attributes of an action group.</summary>
+	public PatchActionGroupSecurityResponse PatchActionGroup(Action<PatchActionGroupSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new PatchActionGroupSecurityRequestDescriptor();
+		configure(descriptor);
+		return PatchActionGroup((PatchActionGroupSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Updates the individual attributes of an action group.</summary>
+	public Task<PatchActionGroupSecurityResponse> PatchActionGroupAsync(Action<PatchActionGroupSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new PatchActionGroupSecurityRequestDescriptor();
+		configure(descriptor);
+		return PatchActionGroupAsync((PatchActionGroupSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Creates, updates, or deletes multiple action groups in a single request.</summary>
-	public PatchActionGroupsResponse PatchActionGroups(PatchActionGroupsRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, PatchActionGroupsEndpoint.Instance, options);
+	public PatchActionGroupsSecurityResponse PatchActionGroups(PatchActionGroupsSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, PatchActionGroupsSecurityEndpoint.Instance, options);
 
 	/// <summary>Creates, updates, or deletes multiple action groups in a single request.</summary>
-	public Task<PatchActionGroupsResponse> PatchActionGroupsAsync(PatchActionGroupsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, PatchActionGroupsEndpoint.Instance, options, ct);
+	public Task<PatchActionGroupsSecurityResponse> PatchActionGroupsAsync(PatchActionGroupsSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, PatchActionGroupsSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Creates, updates, or deletes multiple action groups in a single request.</summary>
+	public PatchActionGroupsSecurityResponse PatchActionGroups(Action<PatchActionGroupsSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new PatchActionGroupsSecurityRequestDescriptor();
+		configure(descriptor);
+		return PatchActionGroups((PatchActionGroupsSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Creates, updates, or deletes multiple action groups in a single request.</summary>
+	public Task<PatchActionGroupsSecurityResponse> PatchActionGroupsAsync(Action<PatchActionGroupsSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new PatchActionGroupsSecurityRequestDescriptor();
+		configure(descriptor);
+		return PatchActionGroupsAsync((PatchActionGroupsSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Updates the current list of APIs accessible for users on the allow list.</summary>
-	public PatchAllowlistResponse PatchAllowlist(PatchAllowlistRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, PatchAllowlistEndpoint.Instance, options);
+	public PatchAllowlistSecurityResponse PatchAllowlist(PatchAllowlistSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, PatchAllowlistSecurityEndpoint.Instance, options);
 
 	/// <summary>Updates the current list of APIs accessible for users on the allow list.</summary>
-	public Task<PatchAllowlistResponse> PatchAllowlistAsync(PatchAllowlistRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, PatchAllowlistEndpoint.Instance, options, ct);
+	public Task<PatchAllowlistSecurityResponse> PatchAllowlistAsync(PatchAllowlistSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, PatchAllowlistSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Updates the current list of APIs accessible for users on the allow list.</summary>
+	public PatchAllowlistSecurityResponse PatchAllowlist(Action<PatchAllowlistSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new PatchAllowlistSecurityRequestDescriptor();
+		configure(descriptor);
+		return PatchAllowlist((PatchAllowlistSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Updates the current list of APIs accessible for users on the allow list.</summary>
+	public Task<PatchAllowlistSecurityResponse> PatchAllowlistAsync(Action<PatchAllowlistSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new PatchAllowlistSecurityRequestDescriptor();
+		configure(descriptor);
+		return PatchAllowlistAsync((PatchAllowlistSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Updates the specified fields in the audit configuration.</summary>
-	public PatchAuditConfigurationResponse PatchAuditConfiguration(PatchAuditConfigurationRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, PatchAuditConfigurationEndpoint.Instance, options);
+	public PatchAuditConfigurationSecurityResponse PatchAuditConfiguration(PatchAuditConfigurationSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, PatchAuditConfigurationSecurityEndpoint.Instance, options);
 
 	/// <summary>Updates the specified fields in the audit configuration.</summary>
-	public Task<PatchAuditConfigurationResponse> PatchAuditConfigurationAsync(PatchAuditConfigurationRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, PatchAuditConfigurationEndpoint.Instance, options, ct);
+	public Task<PatchAuditConfigurationSecurityResponse> PatchAuditConfigurationAsync(PatchAuditConfigurationSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, PatchAuditConfigurationSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Updates the specified fields in the audit configuration.</summary>
+	public PatchAuditConfigurationSecurityResponse PatchAuditConfiguration(Action<PatchAuditConfigurationSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new PatchAuditConfigurationSecurityRequestDescriptor();
+		configure(descriptor);
+		return PatchAuditConfiguration((PatchAuditConfigurationSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Updates the specified fields in the audit configuration.</summary>
+	public Task<PatchAuditConfigurationSecurityResponse> PatchAuditConfigurationAsync(Action<PatchAuditConfigurationSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new PatchAuditConfigurationSecurityRequestDescriptor();
+		configure(descriptor);
+		return PatchAuditConfigurationAsync((PatchAuditConfigurationSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Updates the existing security configuration using the REST API. Requires super admin or REST API permissions.</summary>
-	public PatchConfigurationResponse PatchConfiguration(PatchConfigurationRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, PatchConfigurationEndpoint.Instance, options);
+	public PatchConfigurationSecurityResponse PatchConfiguration(PatchConfigurationSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, PatchConfigurationSecurityEndpoint.Instance, options);
 
 	/// <summary>Updates the existing security configuration using the REST API. Requires super admin or REST API permissions.</summary>
-	public Task<PatchConfigurationResponse> PatchConfigurationAsync(PatchConfigurationRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, PatchConfigurationEndpoint.Instance, options, ct);
+	public Task<PatchConfigurationSecurityResponse> PatchConfigurationAsync(PatchConfigurationSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, PatchConfigurationSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Updates the existing security configuration using the REST API. Requires super admin or REST API permissions.</summary>
+	public PatchConfigurationSecurityResponse PatchConfiguration(Action<PatchConfigurationSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new PatchConfigurationSecurityRequestDescriptor();
+		configure(descriptor);
+		return PatchConfiguration((PatchConfigurationSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Updates the existing security configuration using the REST API. Requires super admin or REST API permissions.</summary>
+	public Task<PatchConfigurationSecurityResponse> PatchConfigurationAsync(Action<PatchConfigurationSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new PatchConfigurationSecurityRequestDescriptor();
+		configure(descriptor);
+		return PatchConfigurationAsync((PatchConfigurationSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Updates the distinguished cluster name for the specified cluster. Requires super admin or REST API permissions.</summary>
-	public PatchDistinguishedNameResponse PatchDistinguishedName(PatchDistinguishedNameRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, PatchDistinguishedNameEndpoint.Instance, options);
+	public PatchDistinguishedNameSecurityResponse PatchDistinguishedName(PatchDistinguishedNameSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, PatchDistinguishedNameSecurityEndpoint.Instance, options);
 
 	/// <summary>Updates the distinguished cluster name for the specified cluster. Requires super admin or REST API permissions.</summary>
-	public Task<PatchDistinguishedNameResponse> PatchDistinguishedNameAsync(PatchDistinguishedNameRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, PatchDistinguishedNameEndpoint.Instance, options, ct);
+	public Task<PatchDistinguishedNameSecurityResponse> PatchDistinguishedNameAsync(PatchDistinguishedNameSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, PatchDistinguishedNameSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Updates the distinguished cluster name for the specified cluster. Requires super admin or REST API permissions.</summary>
+	public PatchDistinguishedNameSecurityResponse PatchDistinguishedName(Action<PatchDistinguishedNameSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new PatchDistinguishedNameSecurityRequestDescriptor();
+		configure(descriptor);
+		return PatchDistinguishedName((PatchDistinguishedNameSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Updates the distinguished cluster name for the specified cluster. Requires super admin or REST API permissions.</summary>
+	public Task<PatchDistinguishedNameSecurityResponse> PatchDistinguishedNameAsync(Action<PatchDistinguishedNameSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new PatchDistinguishedNameSecurityRequestDescriptor();
+		configure(descriptor);
+		return PatchDistinguishedNameAsync((PatchDistinguishedNameSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Bulk updates specified node distinguished names. Requires super admin or REST API permissions.</summary>
-	public PatchDistinguishedNamesResponse PatchDistinguishedNames(PatchDistinguishedNamesRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, PatchDistinguishedNamesEndpoint.Instance, options);
+	public PatchDistinguishedNamesSecurityResponse PatchDistinguishedNames(PatchDistinguishedNamesSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, PatchDistinguishedNamesSecurityEndpoint.Instance, options);
 
 	/// <summary>Bulk updates specified node distinguished names. Requires super admin or REST API permissions.</summary>
-	public Task<PatchDistinguishedNamesResponse> PatchDistinguishedNamesAsync(PatchDistinguishedNamesRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, PatchDistinguishedNamesEndpoint.Instance, options, ct);
+	public Task<PatchDistinguishedNamesSecurityResponse> PatchDistinguishedNamesAsync(PatchDistinguishedNamesSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, PatchDistinguishedNamesSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Bulk updates specified node distinguished names. Requires super admin or REST API permissions.</summary>
+	public PatchDistinguishedNamesSecurityResponse PatchDistinguishedNames(Action<PatchDistinguishedNamesSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new PatchDistinguishedNamesSecurityRequestDescriptor();
+		configure(descriptor);
+		return PatchDistinguishedNames((PatchDistinguishedNamesSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Bulk updates specified node distinguished names. Requires super admin or REST API permissions.</summary>
+	public Task<PatchDistinguishedNamesSecurityResponse> PatchDistinguishedNamesAsync(Action<PatchDistinguishedNamesSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new PatchDistinguishedNamesSecurityRequestDescriptor();
+		configure(descriptor);
+		return PatchDistinguishedNamesAsync((PatchDistinguishedNamesSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Updates the individual attributes of a role.</summary>
-	public PatchRoleResponse PatchRole(PatchRoleRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, PatchRoleEndpoint.Instance, options);
+	public PatchRoleSecurityResponse PatchRole(PatchRoleSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, PatchRoleSecurityEndpoint.Instance, options);
 
 	/// <summary>Updates the individual attributes of a role.</summary>
-	public Task<PatchRoleResponse> PatchRoleAsync(PatchRoleRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, PatchRoleEndpoint.Instance, options, ct);
+	public Task<PatchRoleSecurityResponse> PatchRoleAsync(PatchRoleSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, PatchRoleSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Updates the individual attributes of a role.</summary>
+	public PatchRoleSecurityResponse PatchRole(Action<PatchRoleSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new PatchRoleSecurityRequestDescriptor();
+		configure(descriptor);
+		return PatchRole((PatchRoleSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Updates the individual attributes of a role.</summary>
+	public Task<PatchRoleSecurityResponse> PatchRoleAsync(Action<PatchRoleSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new PatchRoleSecurityRequestDescriptor();
+		configure(descriptor);
+		return PatchRoleAsync((PatchRoleSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Updates the individual attributes of a role mapping.</summary>
-	public PatchRoleMappingResponse PatchRoleMapping(PatchRoleMappingRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, PatchRoleMappingEndpoint.Instance, options);
+	public PatchRoleMappingSecurityResponse PatchRoleMapping(PatchRoleMappingSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, PatchRoleMappingSecurityEndpoint.Instance, options);
 
 	/// <summary>Updates the individual attributes of a role mapping.</summary>
-	public Task<PatchRoleMappingResponse> PatchRoleMappingAsync(PatchRoleMappingRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, PatchRoleMappingEndpoint.Instance, options, ct);
+	public Task<PatchRoleMappingSecurityResponse> PatchRoleMappingAsync(PatchRoleMappingSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, PatchRoleMappingSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Updates the individual attributes of a role mapping.</summary>
+	public PatchRoleMappingSecurityResponse PatchRoleMapping(Action<PatchRoleMappingSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new PatchRoleMappingSecurityRequestDescriptor();
+		configure(descriptor);
+		return PatchRoleMapping((PatchRoleMappingSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Updates the individual attributes of a role mapping.</summary>
+	public Task<PatchRoleMappingSecurityResponse> PatchRoleMappingAsync(Action<PatchRoleMappingSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new PatchRoleMappingSecurityRequestDescriptor();
+		configure(descriptor);
+		return PatchRoleMappingAsync((PatchRoleMappingSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Creates or updates multiple role mappings in a single request.</summary>
-	public PatchRoleMappingsResponse PatchRoleMappings(PatchRoleMappingsRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, PatchRoleMappingsEndpoint.Instance, options);
+	public PatchRoleMappingsSecurityResponse PatchRoleMappings(PatchRoleMappingsSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, PatchRoleMappingsSecurityEndpoint.Instance, options);
 
 	/// <summary>Creates or updates multiple role mappings in a single request.</summary>
-	public Task<PatchRoleMappingsResponse> PatchRoleMappingsAsync(PatchRoleMappingsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, PatchRoleMappingsEndpoint.Instance, options, ct);
+	public Task<PatchRoleMappingsSecurityResponse> PatchRoleMappingsAsync(PatchRoleMappingsSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, PatchRoleMappingsSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Creates or updates multiple role mappings in a single request.</summary>
+	public PatchRoleMappingsSecurityResponse PatchRoleMappings(Action<PatchRoleMappingsSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new PatchRoleMappingsSecurityRequestDescriptor();
+		configure(descriptor);
+		return PatchRoleMappings((PatchRoleMappingsSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Creates or updates multiple role mappings in a single request.</summary>
+	public Task<PatchRoleMappingsSecurityResponse> PatchRoleMappingsAsync(Action<PatchRoleMappingsSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new PatchRoleMappingsSecurityRequestDescriptor();
+		configure(descriptor);
+		return PatchRoleMappingsAsync((PatchRoleMappingsSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Creates, updates, or deletes multiple roles in a single call.</summary>
-	public PatchRolesResponse PatchRoles(PatchRolesRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, PatchRolesEndpoint.Instance, options);
+	public PatchRolesSecurityResponse PatchRoles(PatchRolesSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, PatchRolesSecurityEndpoint.Instance, options);
 
 	/// <summary>Creates, updates, or deletes multiple roles in a single call.</summary>
-	public Task<PatchRolesResponse> PatchRolesAsync(PatchRolesRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, PatchRolesEndpoint.Instance, options, ct);
+	public Task<PatchRolesSecurityResponse> PatchRolesAsync(PatchRolesSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, PatchRolesSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Creates, updates, or deletes multiple roles in a single call.</summary>
+	public PatchRolesSecurityResponse PatchRoles(Action<PatchRolesSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new PatchRolesSecurityRequestDescriptor();
+		configure(descriptor);
+		return PatchRoles((PatchRolesSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Creates, updates, or deletes multiple roles in a single call.</summary>
+	public Task<PatchRolesSecurityResponse> PatchRolesAsync(Action<PatchRolesSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new PatchRolesSecurityRequestDescriptor();
+		configure(descriptor);
+		return PatchRolesAsync((PatchRolesSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Adds, deletes, or modifies a single tenant.</summary>
-	public PatchTenantResponse PatchTenant(PatchTenantRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, PatchTenantEndpoint.Instance, options);
+	public PatchTenantSecurityResponse PatchTenant(PatchTenantSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, PatchTenantSecurityEndpoint.Instance, options);
 
 	/// <summary>Adds, deletes, or modifies a single tenant.</summary>
-	public Task<PatchTenantResponse> PatchTenantAsync(PatchTenantRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, PatchTenantEndpoint.Instance, options, ct);
+	public Task<PatchTenantSecurityResponse> PatchTenantAsync(PatchTenantSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, PatchTenantSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Adds, deletes, or modifies a single tenant.</summary>
+	public PatchTenantSecurityResponse PatchTenant(Action<PatchTenantSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new PatchTenantSecurityRequestDescriptor();
+		configure(descriptor);
+		return PatchTenant((PatchTenantSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Adds, deletes, or modifies a single tenant.</summary>
+	public Task<PatchTenantSecurityResponse> PatchTenantAsync(Action<PatchTenantSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new PatchTenantSecurityRequestDescriptor();
+		configure(descriptor);
+		return PatchTenantAsync((PatchTenantSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Adds, deletes, or modifies multiple tenants in a single request.</summary>
-	public PatchTenantsResponse PatchTenants(PatchTenantsRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, PatchTenantsEndpoint.Instance, options);
+	public PatchTenantsSecurityResponse PatchTenants(PatchTenantsSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, PatchTenantsSecurityEndpoint.Instance, options);
 
 	/// <summary>Adds, deletes, or modifies multiple tenants in a single request.</summary>
-	public Task<PatchTenantsResponse> PatchTenantsAsync(PatchTenantsRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, PatchTenantsEndpoint.Instance, options, ct);
+	public Task<PatchTenantsSecurityResponse> PatchTenantsAsync(PatchTenantsSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, PatchTenantsSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Adds, deletes, or modifies multiple tenants in a single request.</summary>
+	public PatchTenantsSecurityResponse PatchTenants(Action<PatchTenantsSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new PatchTenantsSecurityRequestDescriptor();
+		configure(descriptor);
+		return PatchTenants((PatchTenantsSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Adds, deletes, or modifies multiple tenants in a single request.</summary>
+	public Task<PatchTenantsSecurityResponse> PatchTenantsAsync(Action<PatchTenantsSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new PatchTenantsSecurityRequestDescriptor();
+		configure(descriptor);
+		return PatchTenantsAsync((PatchTenantsSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Updates individual attributes for an internal user.</summary>
-	public PatchUserResponse PatchUser(PatchUserRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, PatchUserEndpoint.Instance, options);
+	public PatchUserSecurityResponse PatchUser(PatchUserSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, PatchUserSecurityEndpoint.Instance, options);
 
 	/// <summary>Updates individual attributes for an internal user.</summary>
-	public Task<PatchUserResponse> PatchUserAsync(PatchUserRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, PatchUserEndpoint.Instance, options, ct);
+	public Task<PatchUserSecurityResponse> PatchUserAsync(PatchUserSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, PatchUserSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Updates individual attributes for an internal user.</summary>
+	public PatchUserSecurityResponse PatchUser(Action<PatchUserSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new PatchUserSecurityRequestDescriptor();
+		configure(descriptor);
+		return PatchUser((PatchUserSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Updates individual attributes for an internal user.</summary>
+	public Task<PatchUserSecurityResponse> PatchUserAsync(Action<PatchUserSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new PatchUserSecurityRequestDescriptor();
+		configure(descriptor);
+		return PatchUserAsync((PatchUserSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Creates, updates, or deletes multiple internal users in a single request.</summary>
-	public PatchUsersResponse PatchUsers(PatchUsersRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, PatchUsersEndpoint.Instance, options);
+	public PatchUsersSecurityResponse PatchUsers(PatchUsersSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, PatchUsersSecurityEndpoint.Instance, options);
 
 	/// <summary>Creates, updates, or deletes multiple internal users in a single request.</summary>
-	public Task<PatchUsersResponse> PatchUsersAsync(PatchUsersRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, PatchUsersEndpoint.Instance, options, ct);
+	public Task<PatchUsersSecurityResponse> PatchUsersAsync(PatchUsersSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, PatchUsersSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Creates, updates, or deletes multiple internal users in a single request.</summary>
+	public PatchUsersSecurityResponse PatchUsers(Action<PatchUsersSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new PatchUsersSecurityRequestDescriptor();
+		configure(descriptor);
+		return PatchUsers((PatchUsersSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Creates, updates, or deletes multiple internal users in a single request.</summary>
+	public Task<PatchUsersSecurityResponse> PatchUsersAsync(Action<PatchUsersSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new PatchUsersSecurityRequestDescriptor();
+		configure(descriptor);
+		return PatchUsersAsync((PatchUsersSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Retrieves the current values for dynamic security settings for OpenSearch Dashboards.</summary>
-	public PostDashboardsInfoResponse PostDashboardsInfo(PostDashboardsInfoRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, PostDashboardsInfoEndpoint.Instance, options);
+	public PostDashboardsInfoSecurityResponse PostDashboardsInfo(PostDashboardsInfoSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, PostDashboardsInfoSecurityEndpoint.Instance, options);
 
 	/// <summary>Retrieves the current values for dynamic security settings for OpenSearch Dashboards.</summary>
-	public Task<PostDashboardsInfoResponse> PostDashboardsInfoAsync(PostDashboardsInfoRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, PostDashboardsInfoEndpoint.Instance, options, ct);
+	public Task<PostDashboardsInfoSecurityResponse> PostDashboardsInfoAsync(PostDashboardsInfoSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, PostDashboardsInfoSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Retrieves the current values for dynamic security settings for OpenSearch Dashboards.</summary>
+	public PostDashboardsInfoSecurityResponse PostDashboardsInfo(Action<PostDashboardsInfoSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new PostDashboardsInfoSecurityRequestDescriptor();
+		configure(descriptor);
+		return PostDashboardsInfo((PostDashboardsInfoSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Retrieves the current values for dynamic security settings for OpenSearch Dashboards.</summary>
+	public Task<PostDashboardsInfoSecurityResponse> PostDashboardsInfoAsync(Action<PostDashboardsInfoSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new PostDashboardsInfoSecurityRequestDescriptor();
+		configure(descriptor);
+		return PostDashboardsInfoAsync((PostDashboardsInfoSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Reloads the HTTP communication certificates.</summary>
-	public ReloadHttpCertificatesResponse ReloadHttpCertificates(ReloadHttpCertificatesRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, ReloadHttpCertificatesEndpoint.Instance, options);
+	public ReloadHttpCertificatesSecurityResponse ReloadHttpCertificates(ReloadHttpCertificatesSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, ReloadHttpCertificatesSecurityEndpoint.Instance, options);
 
 	/// <summary>Reloads the HTTP communication certificates.</summary>
-	public Task<ReloadHttpCertificatesResponse> ReloadHttpCertificatesAsync(ReloadHttpCertificatesRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, ReloadHttpCertificatesEndpoint.Instance, options, ct);
+	public Task<ReloadHttpCertificatesSecurityResponse> ReloadHttpCertificatesAsync(ReloadHttpCertificatesSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, ReloadHttpCertificatesSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Reloads the HTTP communication certificates.</summary>
+	public ReloadHttpCertificatesSecurityResponse ReloadHttpCertificates(Action<ReloadHttpCertificatesSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new ReloadHttpCertificatesSecurityRequestDescriptor();
+		configure(descriptor);
+		return ReloadHttpCertificates((ReloadHttpCertificatesSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Reloads the HTTP communication certificates.</summary>
+	public Task<ReloadHttpCertificatesSecurityResponse> ReloadHttpCertificatesAsync(Action<ReloadHttpCertificatesSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new ReloadHttpCertificatesSecurityRequestDescriptor();
+		configure(descriptor);
+		return ReloadHttpCertificatesAsync((ReloadHttpCertificatesSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Reloads the transport communication certificates.</summary>
-	public ReloadTransportCertificatesResponse ReloadTransportCertificates(ReloadTransportCertificatesRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, ReloadTransportCertificatesEndpoint.Instance, options);
+	public ReloadTransportCertificatesSecurityResponse ReloadTransportCertificates(ReloadTransportCertificatesSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, ReloadTransportCertificatesSecurityEndpoint.Instance, options);
 
 	/// <summary>Reloads the transport communication certificates.</summary>
-	public Task<ReloadTransportCertificatesResponse> ReloadTransportCertificatesAsync(ReloadTransportCertificatesRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, ReloadTransportCertificatesEndpoint.Instance, options, ct);
+	public Task<ReloadTransportCertificatesSecurityResponse> ReloadTransportCertificatesAsync(ReloadTransportCertificatesSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, ReloadTransportCertificatesSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Reloads the transport communication certificates.</summary>
+	public ReloadTransportCertificatesSecurityResponse ReloadTransportCertificates(Action<ReloadTransportCertificatesSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new ReloadTransportCertificatesSecurityRequestDescriptor();
+		configure(descriptor);
+		return ReloadTransportCertificates((ReloadTransportCertificatesSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Reloads the transport communication certificates.</summary>
+	public Task<ReloadTransportCertificatesSecurityResponse> ReloadTransportCertificatesAsync(Action<ReloadTransportCertificatesSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new ReloadTransportCertificatesSecurityRequestDescriptor();
+		configure(descriptor);
+		return ReloadTransportCertificatesAsync((ReloadTransportCertificatesSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Retrieves the names of current tenants. Requires super admin or `kibanaserver` permissions.</summary>
-	public TenantInfoResponse TenantInfo(TenantInfoRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, TenantInfoEndpoint.Instance, options);
+	public TenantInfoSecurityResponse TenantInfo(TenantInfoSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, TenantInfoSecurityEndpoint.Instance, options);
 
 	/// <summary>Retrieves the names of current tenants. Requires super admin or `kibanaserver` permissions.</summary>
-	public Task<TenantInfoResponse> TenantInfoAsync(TenantInfoRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, TenantInfoEndpoint.Instance, options, ct);
+	public Task<TenantInfoSecurityResponse> TenantInfoAsync(TenantInfoSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, TenantInfoSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Retrieves the names of current tenants. Requires super admin or `kibanaserver` permissions.</summary>
+	public TenantInfoSecurityResponse TenantInfo(Action<TenantInfoSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new TenantInfoSecurityRequestDescriptor();
+		configure(descriptor);
+		return TenantInfo((TenantInfoSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Retrieves the names of current tenants. Requires super admin or `kibanaserver` permissions.</summary>
+	public Task<TenantInfoSecurityResponse> TenantInfoAsync(Action<TenantInfoSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new TenantInfoSecurityRequestDescriptor();
+		configure(descriptor);
+		return TenantInfoAsync((TenantInfoSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Updates the audit configuration.</summary>
-	public UpdateAuditConfigurationResponse UpdateAuditConfiguration(UpdateAuditConfigurationRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, UpdateAuditConfigurationEndpoint.Instance, options);
+	public UpdateAuditConfigurationSecurityResponse UpdateAuditConfiguration(UpdateAuditConfigurationSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, UpdateAuditConfigurationSecurityEndpoint.Instance, options);
 
 	/// <summary>Updates the audit configuration.</summary>
-	public Task<UpdateAuditConfigurationResponse> UpdateAuditConfigurationAsync(UpdateAuditConfigurationRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, UpdateAuditConfigurationEndpoint.Instance, options, ct);
+	public Task<UpdateAuditConfigurationSecurityResponse> UpdateAuditConfigurationAsync(UpdateAuditConfigurationSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, UpdateAuditConfigurationSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Updates the audit configuration.</summary>
+	public UpdateAuditConfigurationSecurityResponse UpdateAuditConfiguration(Action<UpdateAuditConfigurationSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new UpdateAuditConfigurationSecurityRequestDescriptor();
+		configure(descriptor);
+		return UpdateAuditConfiguration((UpdateAuditConfigurationSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Updates the audit configuration.</summary>
+	public Task<UpdateAuditConfigurationSecurityResponse> UpdateAuditConfigurationAsync(Action<UpdateAuditConfigurationSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new UpdateAuditConfigurationSecurityRequestDescriptor();
+		configure(descriptor);
+		return UpdateAuditConfigurationAsync((UpdateAuditConfigurationSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Updates the settings for an existing security configuration. Requires super admin or REST API permissions.</summary>
-	public UpdateConfigurationResponse UpdateConfiguration(UpdateConfigurationRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, UpdateConfigurationEndpoint.Instance, options);
+	public UpdateConfigurationSecurityResponse UpdateConfiguration(UpdateConfigurationSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, UpdateConfigurationSecurityEndpoint.Instance, options);
 
 	/// <summary>Updates the settings for an existing security configuration. Requires super admin or REST API permissions.</summary>
-	public Task<UpdateConfigurationResponse> UpdateConfigurationAsync(UpdateConfigurationRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, UpdateConfigurationEndpoint.Instance, options, ct);
+	public Task<UpdateConfigurationSecurityResponse> UpdateConfigurationAsync(UpdateConfigurationSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, UpdateConfigurationSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Updates the settings for an existing security configuration. Requires super admin or REST API permissions.</summary>
+	public UpdateConfigurationSecurityResponse UpdateConfiguration(Action<UpdateConfigurationSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new UpdateConfigurationSecurityRequestDescriptor();
+		configure(descriptor);
+		return UpdateConfiguration((UpdateConfigurationSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Updates the settings for an existing security configuration. Requires super admin or REST API permissions.</summary>
+	public Task<UpdateConfigurationSecurityResponse> UpdateConfigurationAsync(Action<UpdateConfigurationSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new UpdateConfigurationSecurityRequestDescriptor();
+		configure(descriptor);
+		return UpdateConfigurationAsync((UpdateConfigurationSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Adds or updates the specified distinguished names in the cluster or node allowlist. Requires super admin or REST API permissions.</summary>
-	public UpdateDistinguishedNameResponse UpdateDistinguishedName(UpdateDistinguishedNameRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, UpdateDistinguishedNameEndpoint.Instance, options);
+	public UpdateDistinguishedNameSecurityResponse UpdateDistinguishedName(UpdateDistinguishedNameSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, UpdateDistinguishedNameSecurityEndpoint.Instance, options);
 
 	/// <summary>Adds or updates the specified distinguished names in the cluster or node allowlist. Requires super admin or REST API permissions.</summary>
-	public Task<UpdateDistinguishedNameResponse> UpdateDistinguishedNameAsync(UpdateDistinguishedNameRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, UpdateDistinguishedNameEndpoint.Instance, options, ct);
+	public Task<UpdateDistinguishedNameSecurityResponse> UpdateDistinguishedNameAsync(UpdateDistinguishedNameSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, UpdateDistinguishedNameSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Adds or updates the specified distinguished names in the cluster or node allowlist. Requires super admin or REST API permissions.</summary>
+	public UpdateDistinguishedNameSecurityResponse UpdateDistinguishedName(Action<UpdateDistinguishedNameSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new UpdateDistinguishedNameSecurityRequestDescriptor();
+		configure(descriptor);
+		return UpdateDistinguishedName((UpdateDistinguishedNameSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Adds or updates the specified distinguished names in the cluster or node allowlist. Requires super admin or REST API permissions.</summary>
+	public Task<UpdateDistinguishedNameSecurityResponse> UpdateDistinguishedNameAsync(Action<UpdateDistinguishedNameSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new UpdateDistinguishedNameSecurityRequestDescriptor();
+		configure(descriptor);
+		return UpdateDistinguishedNameAsync((UpdateDistinguishedNameSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Checks whether the v6 security configuration is valid and ready to be migrated to v7.</summary>
-	public ValidateResponse Validate(ValidateRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, ValidateEndpoint.Instance, options);
+	public ValidateSecurityResponse Validate(ValidateSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, ValidateSecurityEndpoint.Instance, options);
 
 	/// <summary>Checks whether the v6 security configuration is valid and ready to be migrated to v7.</summary>
-	public Task<ValidateResponse> ValidateAsync(ValidateRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, ValidateEndpoint.Instance, options, ct);
+	public Task<ValidateSecurityResponse> ValidateAsync(ValidateSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, ValidateSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Checks whether the v6 security configuration is valid and ready to be migrated to v7.</summary>
+	public ValidateSecurityResponse Validate(Action<ValidateSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new ValidateSecurityRequestDescriptor();
+		configure(descriptor);
+		return Validate((ValidateSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Checks whether the v6 security configuration is valid and ready to be migrated to v7.</summary>
+	public Task<ValidateSecurityResponse> ValidateAsync(Action<ValidateSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new ValidateSecurityRequestDescriptor();
+		configure(descriptor);
+		return ValidateAsync((ValidateSecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Gets the identity information for the user currently logged in.</summary>
-	public WhoAmIResponse WhoAmI(WhoAmIRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, WhoAmIEndpoint.Instance, options);
+	public WhoAmISecurityResponse WhoAmI(WhoAmISecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, WhoAmISecurityEndpoint.Instance, options);
 
 	/// <summary>Gets the identity information for the user currently logged in.</summary>
-	public Task<WhoAmIResponse> WhoAmIAsync(WhoAmIRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, WhoAmIEndpoint.Instance, options, ct);
+	public Task<WhoAmISecurityResponse> WhoAmIAsync(WhoAmISecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, WhoAmISecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Gets the identity information for the user currently logged in.</summary>
+	public WhoAmISecurityResponse WhoAmI(Action<WhoAmISecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new WhoAmISecurityRequestDescriptor();
+		configure(descriptor);
+		return WhoAmI((WhoAmISecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Gets the identity information for the user currently logged in.</summary>
+	public Task<WhoAmISecurityResponse> WhoAmIAsync(Action<WhoAmISecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new WhoAmISecurityRequestDescriptor();
+		configure(descriptor);
+		return WhoAmIAsync((WhoAmISecurityRequest)descriptor, options, ct);
+	}
 
 
 	/// <summary>Gets the identity information for the user currently logged in. To use this operation, you must have access to this endpoint when authorization at REST layer is enabled.</summary>
-	public WhoAmIProtectedResponse WhoAmIProtected(WhoAmIProtectedRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, WhoAmIProtectedEndpoint.Instance, options);
+	public WhoAmIProtectedSecurityResponse WhoAmIProtected(WhoAmIProtectedSecurityRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, WhoAmIProtectedSecurityEndpoint.Instance, options);
 
 	/// <summary>Gets the identity information for the user currently logged in. To use this operation, you must have access to this endpoint when authorization at REST layer is enabled.</summary>
-	public Task<WhoAmIProtectedResponse> WhoAmIProtectedAsync(WhoAmIProtectedRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, WhoAmIProtectedEndpoint.Instance, options, ct);
+	public Task<WhoAmIProtectedSecurityResponse> WhoAmIProtectedAsync(WhoAmIProtectedSecurityRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, WhoAmIProtectedSecurityEndpoint.Instance, options, ct);
+
+	/// <summary>Gets the identity information for the user currently logged in. To use this operation, you must have access to this endpoint when authorization at REST layer is enabled.</summary>
+	public WhoAmIProtectedSecurityResponse WhoAmIProtected(Action<WhoAmIProtectedSecurityRequestDescriptor> configure, TransportOptions? options = null)
+	{
+		var descriptor = new WhoAmIProtectedSecurityRequestDescriptor();
+		configure(descriptor);
+		return WhoAmIProtected((WhoAmIProtectedSecurityRequest)descriptor, options);
+	}
+
+	/// <summary>Gets the identity information for the user currently logged in. To use this operation, you must have access to this endpoint when authorization at REST layer is enabled.</summary>
+	public Task<WhoAmIProtectedSecurityResponse> WhoAmIProtectedAsync(Action<WhoAmIProtectedSecurityRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	{
+		var descriptor = new WhoAmIProtectedSecurityRequestDescriptor();
+		configure(descriptor);
+		return WhoAmIProtectedAsync((WhoAmIProtectedSecurityRequest)descriptor, options, ct);
+	}
 
 }

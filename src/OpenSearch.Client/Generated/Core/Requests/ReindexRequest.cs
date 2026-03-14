@@ -18,7 +18,7 @@ public sealed class ReindexRequest
 	public int? MaxDocs { get; set; }
 	/// <summary>If `true`, the request refreshes affected shards to make this operation visible to search.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? Refresh { get; set; }
+	public string? Refresh { get; set; }
 	/// <summary>The throttle for this request in sub-requests per second. Defaults to no throttle.</summary>
 	[JsonIgnore]
 	public float? RequestsPerSecond { get; set; }
@@ -36,11 +36,11 @@ public sealed class ReindexRequest
 	public string? Timeout { get; set; }
 	/// <summary>The number of shard copies that must be active before proceeding with the operation. Set to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`).</summary>
 	[JsonIgnore]
-	public string? WaitForActiveShards { get; set; }
+	public System.Text.Json.JsonElement? WaitForActiveShards { get; set; }
 	/// <summary>If `true`, the request blocks until the operation is complete.</summary>
 	[JsonIgnore]
 	public bool? WaitForCompletion { get; set; }
-	public System.Text.Json.JsonElement? Conflicts { get; set; }
+	public string? Conflicts { get; set; }
 	public Destination? Dest { get; set; }
 	public System.Text.Json.JsonElement? Script { get; set; }
 	public int? Size { get; set; }
@@ -59,7 +59,7 @@ public sealed class ReindexEndpoint : IEndpoint<ReindexRequest, ReindexResponse>
 		if (r.MaxDocs is not null)
 			queryParts.Add($"max_docs={Uri.EscapeDataString(r.MaxDocs.ToString()!)}");
 		if (r.Refresh is not null)
-			queryParts.Add($"refresh={Uri.EscapeDataString(r.Refresh.ToString()!)}");
+			queryParts.Add($"refresh={Uri.EscapeDataString(r.Refresh!)}");
 		if (r.RequestsPerSecond is not null)
 			queryParts.Add($"requests_per_second={Uri.EscapeDataString(r.RequestsPerSecond.ToString()!)}");
 		if (r.RequireAlias is not null)
@@ -71,13 +71,11 @@ public sealed class ReindexEndpoint : IEndpoint<ReindexRequest, ReindexResponse>
 		if (r.Timeout is not null)
 			queryParts.Add($"timeout={Uri.EscapeDataString(r.Timeout!)}");
 		if (r.WaitForActiveShards is not null)
-			queryParts.Add($"wait_for_active_shards={Uri.EscapeDataString(r.WaitForActiveShards!)}");
+			queryParts.Add($"wait_for_active_shards={Uri.EscapeDataString(r.WaitForActiveShards.ToString()!)}");
 		if (r.WaitForCompletion is not null)
 			queryParts.Add($"wait_for_completion={Uri.EscapeDataString((r.WaitForCompletion.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
-
-	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(ReindexRequest r) => RequestBody.Json(r);
 

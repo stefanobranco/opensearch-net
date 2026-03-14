@@ -15,13 +15,13 @@ public sealed class RemoteStoreTranslogUploadTotalUploadSizeStats
 	/// <summary>The number of bytes that failed to upload to the remote translog store.</summary>
 		public string? Failed { get; set; }
 	/// <summary>The number of bytes that failed to upload to the remote translog store.</summary>
-		public string? FailedBytes { get; set; }
+		public long FailedBytes { get; set; }
 	/// <summary>The number of bytes successfully uploaded to the remote translog store.</summary>
 		public string? Started { get; set; }
 	/// <summary>The number of bytes successfully uploaded to the remote translog store.</summary>
-		public string? StartedBytes { get; set; }
+		public long StartedBytes { get; set; }
 	/// <summary>The number of bytes successfully uploaded to the remote translog store.</summary>
 		public string? Succeeded { get; set; }
 	/// <summary>The number of bytes successfully uploaded to the remote translog store.</summary>
-		public string? SucceededBytes { get; set; }
+		public long SucceededBytes { get; set; }
 }

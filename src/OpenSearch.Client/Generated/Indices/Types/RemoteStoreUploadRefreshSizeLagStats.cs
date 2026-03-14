@@ -15,9 +15,9 @@ public sealed class RemoteStoreUploadRefreshSizeLagStats
 	/// <summary>The maximum amount of lag, in bytes, during the upload refresh between the remote segment store and the local store.</summary>
 		public string? Max { get; set; }
 	/// <summary>The maximum amount of lag, in bytes, during the upload refresh between the remote segment store and the local store.</summary>
-		public string? MaxBytes { get; set; }
+		public long MaxBytes { get; set; }
 	/// <summary>The total number of bytes that lagged during the upload refresh between the remote segment store and the local store.</summary>
 		public string? Total { get; set; }
 	/// <summary>The total number of bytes that lagged during the upload refresh between the remote segment store and the local store.</summary>
-		public string? TotalBytes { get; set; }
+		public long TotalBytes { get; set; }
 }

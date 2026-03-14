@@ -21,10 +21,10 @@ public sealed class MgetRequest
 	public System.Text.Json.JsonElement? Source { get; set; }
 	/// <summary>A comma-separated list of source fields to exclude from the response. You can also use this parameter to exclude fields from the subset specified in `_source_includes` query parameter.</summary>
 	[JsonIgnore]
-	public string? SourceExcludes { get; set; }
+	public List<string>? SourceExcludes { get; set; }
 	/// <summary>A comma-separated list of source fields to include in the response. If this parameter is specified, only these source fields are returned. You can exclude fields from this subset using the `_source_excludes` query parameter. If the `_source` parameter is `false`, this parameter is ignored.</summary>
 	[JsonIgnore]
-	public string? SourceIncludes { get; set; }
+	public List<string>? SourceIncludes { get; set; }
 	/// <summary>Specifies the node or shard the operation should be performed on. Random by default.</summary>
 	[JsonIgnore]
 	public string? Preference { get; set; }
@@ -33,16 +33,16 @@ public sealed class MgetRequest
 	public bool? Realtime { get; set; }
 	/// <summary>If `true`, the request refreshes relevant shards before retrieving documents.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? Refresh { get; set; }
+	public string? Refresh { get; set; }
 	/// <summary>A custom value used to route operations to a specific shard.</summary>
 	[JsonIgnore]
 	public System.Text.Json.JsonElement? Routing { get; set; }
 	/// <summary>If `true`, retrieves the document fields stored in the index rather than the document `_source`.</summary>
 	[JsonIgnore]
-	public string? StoredFields { get; set; }
+	public List<string>? StoredFields { get; set; }
 	/// <summary>The documents you want to retrieve. Required if no index is specified in the request URI.</summary>
 		public List<Operation>? Docs { get; set; }
-	public string? Ids { get; set; }
+	public List<string>? Ids { get; set; }
 }
 public sealed class MgetEndpoint : IEndpoint<MgetRequest, MgetResponse>
 {
@@ -60,23 +60,21 @@ public sealed class MgetEndpoint : IEndpoint<MgetRequest, MgetResponse>
 		if (r.Source is not null)
 			queryParts.Add($"_source={Uri.EscapeDataString(r.Source.ToString()!)}");
 		if (r.SourceExcludes is not null)
-			queryParts.Add($"_source_excludes={Uri.EscapeDataString(r.SourceExcludes!)}");
+			queryParts.Add($"_source_excludes={Uri.EscapeDataString(string.Join(",", r.SourceExcludes!))}");
 		if (r.SourceIncludes is not null)
-			queryParts.Add($"_source_includes={Uri.EscapeDataString(r.SourceIncludes!)}");
+			queryParts.Add($"_source_includes={Uri.EscapeDataString(string.Join(",", r.SourceIncludes!))}");
 		if (r.Preference is not null)
 			queryParts.Add($"preference={Uri.EscapeDataString(r.Preference!)}");
 		if (r.Realtime is not null)
 			queryParts.Add($"realtime={Uri.EscapeDataString((r.Realtime.Value ? "true" : "false"))}");
 		if (r.Refresh is not null)
-			queryParts.Add($"refresh={Uri.EscapeDataString(r.Refresh.ToString()!)}");
+			queryParts.Add($"refresh={Uri.EscapeDataString(r.Refresh!)}");
 		if (r.Routing is not null)
 			queryParts.Add($"routing={Uri.EscapeDataString(r.Routing.ToString()!)}");
 		if (r.StoredFields is not null)
-			queryParts.Add($"stored_fields={Uri.EscapeDataString(r.StoredFields!)}");
+			queryParts.Add($"stored_fields={Uri.EscapeDataString(string.Join(",", r.StoredFields!))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
-
-	public string? ContentType => "application/json";
 
 	public RequestBody? GetBody(MgetRequest r) => RequestBody.Json(r);
 

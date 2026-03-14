@@ -15,5 +15,5 @@ public sealed class FieldMemoryUsage
 	/// <summary>The human-readable amount of memory used.</summary>
 		public string? MemorySize { get; set; }
 	/// <summary>The amount of memory used in bytes.</summary>
-		public string? MemorySizeInBytes { get; set; }
+		public long MemorySizeInBytes { get; set; }
 }
