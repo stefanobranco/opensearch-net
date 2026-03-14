@@ -14,7 +14,7 @@ public sealed class TermVectorsResult
 	[JsonPropertyName("_index")]
 	public string? Index { get; set; }
 	[JsonPropertyName("_version")]
-	public string? Version { get; set; }
+	public long? Version { get; set; }
 	public long? Took { get; set; }
 	public bool? Found { get; set; }
 	public Dictionary<string, TermVector>? TermVectors { get; set; }

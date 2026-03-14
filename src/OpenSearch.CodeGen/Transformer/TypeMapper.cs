@@ -14,7 +14,7 @@ public sealed class TypeMapper
 		"IndexName", "Indices", "Id", "Ids", "Name", "Names",
 		"Duration", "Field", "Fields", "Routing", "Uuid",
 		"IndexAlias", "ScrollId", "TaskId", "NodeId", "NodeIds",
-		"PipelineName", "VersionNumber", "VersionString",
+		"PipelineName", "VersionString",
 		"Percentage", "HumanReadableByteCount", "ByteCount",
 		"DateTime", "DateString", "StringifiedInteger",
 		"StringifiedBoolean", "StringifiedLong",
@@ -25,6 +25,12 @@ public sealed class TypeMapper
 		"Type", "Username", "Password",
 		"Namespace", "BulkByScrollTaskStatusOrException",
 		"ExpandWildcardOptions", "WaitForActiveShards"
+	};
+
+	// Common type aliases that map to long (numeric types serialized as JSON numbers)
+	private static readonly HashSet<string> s_longAliases = new(StringComparer.OrdinalIgnoreCase)
+	{
+		"VersionNumber"
 	};
 
 	// Known property-based union types (all properties optional, only one set at a time)
@@ -77,6 +83,10 @@ public sealed class TypeMapper
 		// Check if it's a common string alias
 		if (s_stringAliases.Contains(schemaName))
 			return TypeRef.String();
+
+		// Check if it's a numeric alias
+		if (s_longAliases.Contains(schemaName))
+			return TypeRef.Long();
 
 		// Check for generic type parameter (e.g., TDocument, TBucket)
 		if (resolved.IsGenericTypeParameter)

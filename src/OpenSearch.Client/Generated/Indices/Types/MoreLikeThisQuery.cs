@@ -43,6 +43,6 @@ public sealed class MoreLikeThisQuery
 	public System.Text.Json.JsonElement? StopWords { get; set; }
 	/// <summary>Used in combination with `like` to exclude documents that match a set of terms.</summary>
 		public System.Text.Json.JsonElement? Unlike { get; set; }
-	public string? Version { get; set; }
+	public long? Version { get; set; }
 	public System.Text.Json.JsonElement? VersionType { get; set; }
 }

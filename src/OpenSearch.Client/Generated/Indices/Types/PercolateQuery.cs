@@ -22,5 +22,5 @@ public sealed class PercolateQuery
 	/// <summary>Preference used to fetch document to percolate.</summary>
 		public string? Preference { get; set; }
 	public string? Routing { get; set; }
-	public string? Version { get; set; }
+	public long? Version { get; set; }
 }

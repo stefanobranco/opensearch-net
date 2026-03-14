@@ -29,5 +29,5 @@ public sealed class GetResponse<TDocument>
 	[JsonPropertyName("_source")]
 	public TDocument? Source { get; set; }
 	[JsonPropertyName("_version")]
-	public string? Version { get; set; }
+	public long? Version { get; set; }
 }

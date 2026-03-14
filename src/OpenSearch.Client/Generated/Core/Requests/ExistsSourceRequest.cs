@@ -42,7 +42,7 @@ public sealed class ExistsSourceRequest
 	public System.Text.Json.JsonElement? Routing { get; set; }
 	/// <summary>Explicit version number for concurrency control. The specified version must match the current version of the document for the request to succeed.</summary>
 	[JsonIgnore]
-	public string? Version { get; set; }
+	public long? Version { get; set; }
 	/// <summary>The specific version type: `external`, `external_gte`.</summary>
 	[JsonIgnore]
 	public System.Text.Json.JsonElement? VersionType { get; set; }
@@ -73,7 +73,7 @@ public sealed class ExistsSourceEndpoint : IEndpoint<ExistsSourceRequest, Exists
 		if (r.Routing is not null)
 			queryParts.Add($"routing={Uri.EscapeDataString(r.Routing.ToString()!)}");
 		if (r.Version is not null)
-			queryParts.Add($"version={Uri.EscapeDataString(r.Version!)}");
+			queryParts.Add($"version={Uri.EscapeDataString(r.Version.ToString()!)}");
 		if (r.VersionType is not null)
 			queryParts.Add($"version_type={Uri.EscapeDataString(r.VersionType.ToString()!)}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;

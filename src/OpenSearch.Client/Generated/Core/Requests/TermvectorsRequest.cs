@@ -48,7 +48,7 @@ public sealed class TermvectorsRequest
 	public bool? TermStatistics { get; set; }
 	/// <summary>If `true`, returns the document version as part of a hit.</summary>
 	[JsonIgnore]
-	public string? Version { get; set; }
+	public long? Version { get; set; }
 	/// <summary>The specific version type.</summary>
 	[JsonIgnore]
 	public System.Text.Json.JsonElement? VersionType { get; set; }
@@ -91,7 +91,7 @@ public sealed class TermvectorsEndpoint : IEndpoint<TermvectorsRequest, Termvect
 		if (r.TermStatistics is not null)
 			queryParts.Add($"term_statistics={Uri.EscapeDataString((r.TermStatistics.Value ? "true" : "false"))}");
 		if (r.Version is not null)
-			queryParts.Add($"version={Uri.EscapeDataString(r.Version!)}");
+			queryParts.Add($"version={Uri.EscapeDataString(r.Version.ToString()!)}");
 		if (r.VersionType is not null)
 			queryParts.Add($"version_type={Uri.EscapeDataString(r.VersionType.ToString()!)}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;

@@ -29,7 +29,7 @@ public sealed class UpdateResponse<TDocument>
 	[JsonPropertyName("_shards")]
 	public ShardStatistics? Shards { get; set; }
 	[JsonPropertyName("_version")]
-	public string? Version { get; set; }
+	public long Version { get; set; }
 	public bool? ForcedRefresh { get; set; }
 	public InlineGet<TDocument>? Get { get; set; }
 }

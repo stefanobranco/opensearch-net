@@ -20,5 +20,5 @@ public sealed class TemplateMapping
 		public int Order { get; set; }
 	/// <summary>The index settings to apply.</summary>
 		public Dictionary<string, object>? Settings { get; set; }
-	public string? Version { get; set; }
+	public long? Version { get; set; }
 }

@@ -45,7 +45,7 @@ public sealed class GetRequest
 	public string? StoredFields { get; set; }
 	/// <summary>Explicit version number for concurrency control. The specified version must match the current version of the document for the request to succeed.</summary>
 	[JsonIgnore]
-	public string? Version { get; set; }
+	public long? Version { get; set; }
 	/// <summary>The specific version type: `internal`, `external`, `external_gte`.</summary>
 	[JsonIgnore]
 	public System.Text.Json.JsonElement? VersionType { get; set; }
@@ -78,7 +78,7 @@ public sealed class GetEndpoint<TDocument> : IEndpoint<GetRequest, GetResponse<T
 		if (r.StoredFields is not null)
 			queryParts.Add($"stored_fields={Uri.EscapeDataString(r.StoredFields!)}");
 		if (r.Version is not null)
-			queryParts.Add($"version={Uri.EscapeDataString(r.Version!)}");
+			queryParts.Add($"version={Uri.EscapeDataString(r.Version.ToString()!)}");
 		if (r.VersionType is not null)
 			queryParts.Add($"version_type={Uri.EscapeDataString(r.VersionType.ToString()!)}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;

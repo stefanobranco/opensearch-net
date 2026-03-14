@@ -36,7 +36,7 @@ public sealed class DeleteRequest
 	public string? Timeout { get; set; }
 	/// <summary>Explicit version number for concurrency control. The specified version must match the current version of the document for the request to succeed.</summary>
 	[JsonIgnore]
-	public string? Version { get; set; }
+	public long? Version { get; set; }
 	/// <summary>The specific version type: `external`, `external_gte`.</summary>
 	[JsonIgnore]
 	public System.Text.Json.JsonElement? VersionType { get; set; }
@@ -66,7 +66,7 @@ public sealed class DeleteEndpoint : IEndpoint<DeleteRequest, DeleteResponse>
 		if (r.Timeout is not null)
 			queryParts.Add($"timeout={Uri.EscapeDataString(r.Timeout!)}");
 		if (r.Version is not null)
-			queryParts.Add($"version={Uri.EscapeDataString(r.Version!)}");
+			queryParts.Add($"version={Uri.EscapeDataString(r.Version.ToString()!)}");
 		if (r.VersionType is not null)
 			queryParts.Add($"version_type={Uri.EscapeDataString(r.VersionType.ToString()!)}");
 		if (r.WaitForActiveShards is not null)

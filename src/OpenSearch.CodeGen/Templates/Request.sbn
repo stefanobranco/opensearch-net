@@ -96,6 +96,10 @@ public sealed class {{ endpoint_name }} : IEndpoint<{{ class_name }}, {{ respons
 {{~ end ~}}
 {{~ if query_params.size > 0 ~}}
 		var queryParts = new List<string>();
+{{~ if is_cat ~}}
+		if (r.Format is null)
+			queryParts.Add("format=json");
+{{~ end ~}}
 {{~ for param in query_params ~}}
 		if (r.{{ param.name }} is not null)
 			queryParts.Add($"{{ param.wire_name }}={Uri.EscapeDataString({{ param.value_expr }})}");

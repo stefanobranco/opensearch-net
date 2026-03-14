@@ -28,7 +28,7 @@ public sealed class SystemTextJsonSerializer : IOpenSearchSerializer
 	/// <inheritdoc />
 	public T? Deserialize<T>(Stream stream)
 	{
-		if (stream is { Length: 0 })
+		if (stream.CanSeek && stream.Length == 0)
 			return default;
 
 		if (stream is MemoryStream ms && ms.TryGetBuffer(out var buffer))
@@ -40,7 +40,7 @@ public sealed class SystemTextJsonSerializer : IOpenSearchSerializer
 	/// <inheritdoc />
 	public async ValueTask<T?> DeserializeAsync<T>(Stream stream, CancellationToken ct = default)
 	{
-		if (stream is { Length: 0 })
+		if (stream.CanSeek && stream.Length == 0)
 			return default;
 
 		return await JsonSerializer.DeserializeAsync<T>(stream, _options, ct).ConfigureAwait(false);

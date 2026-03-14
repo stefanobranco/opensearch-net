@@ -31,6 +31,9 @@ public static class TemplateHelpers
 		if (request.Response.IsGeneric)
 			obj["response_type_parameters"] = new ScriptArray(request.Response.TypeParameters.Cast<object>());
 
+		// Cat namespace: inject format=json default so users get structured JSON responses
+		obj["is_cat"] = request.Namespace == "Cat";
+
 		return obj;
 	}
 

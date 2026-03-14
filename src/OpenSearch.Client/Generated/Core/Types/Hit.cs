@@ -41,6 +41,6 @@ public sealed class Hit<TDocument>
 	[JsonPropertyName("_primary_term")]
 	public long? PrimaryTerm { get; set; }
 	[JsonPropertyName("_version")]
-	public string? Version { get; set; }
+	public long? Version { get; set; }
 	public List<System.Text.Json.JsonElement>? Sort { get; set; }
 }

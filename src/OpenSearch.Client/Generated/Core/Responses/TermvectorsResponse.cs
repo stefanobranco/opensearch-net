@@ -20,7 +20,7 @@ public sealed class TermvectorsResponse
 	public Dictionary<string, TermVector>? TermVectors { get; set; }
 	public long Took { get; set; }
 	[JsonPropertyName("_version")]
-	public string? Version { get; set; }
+	public long Version { get; set; }
 	[JsonPropertyName("_type")]
 	public string? Type { get; set; }
 }

@@ -33,7 +33,7 @@ public sealed class PutTemplateRequest
 	public TypeMapping? Mappings { get; set; }
 	/// <summary>Configuration options for the index.</summary>
 		public Dictionary<string, object>? Settings { get; set; }
-	public string? Version { get; set; }
+	public long? Version { get; set; }
 }
 
 public sealed class PutTemplateEndpoint : IEndpoint<PutTemplateRequest, PutTemplateResponse>

@@ -16,6 +16,6 @@ public sealed class Operation
 	[JsonPropertyName("_source")]
 	public System.Text.Json.JsonElement? Source { get; set; }
 	public string? StoredFields { get; set; }
-	public string? Version { get; set; }
+	public long? Version { get; set; }
 	public System.Text.Json.JsonElement? VersionType { get; set; }
 }

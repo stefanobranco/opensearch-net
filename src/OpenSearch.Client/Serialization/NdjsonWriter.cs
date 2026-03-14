@@ -50,4 +50,34 @@ internal static class NdjsonWriter
 			}
 		}
 	}
+
+	/// <summary>
+	/// Writes msearch items as NDJSON: each item contributes a header line and a body line.
+	/// </summary>
+	public static void WriteMsearch(Stream stream, IReadOnlyList<MsearchItem> items, IOpenSearchSerializer serializer)
+	{
+		foreach (var item in items)
+		{
+			serializer.Serialize(item.Header, stream);
+			stream.Write(s_newline);
+
+			serializer.Serialize(item.Body, stream);
+			stream.Write(s_newline);
+		}
+	}
+
+	/// <summary>
+	/// Asynchronously writes msearch items as NDJSON.
+	/// </summary>
+	public static async ValueTask WriteMsearchAsync(Stream stream, IReadOnlyList<MsearchItem> items, IOpenSearchSerializer serializer, CancellationToken ct = default)
+	{
+		foreach (var item in items)
+		{
+			await serializer.SerializeAsync(item.Header, stream, ct).ConfigureAwait(false);
+			await stream.WriteAsync(s_newline, ct).ConfigureAwait(false);
+
+			await serializer.SerializeAsync(item.Body, stream, ct).ConfigureAwait(false);
+			await stream.WriteAsync(s_newline, ct).ConfigureAwait(false);
+		}
+	}
 }
