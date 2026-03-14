@@ -38,7 +38,7 @@ public abstract class InternallyTaggedUnionConverter<TUnion, TKind> : JsonConver
 			?? throw new JsonException($"Null discriminator value for '{DiscriminatorProperty}' in {typeof(TUnion).Name}.");
 
 		var (kind, valueType) = ResolveKind(discriminatorValue);
-		var value = JsonSerializer.Deserialize(root.GetRawText(), valueType, options)
+		var value = JsonSerializer.Deserialize(root, valueType, options)
 			?? throw new JsonException($"Failed to deserialize {typeof(TUnion).Name} variant '{discriminatorValue}'.");
 
 		return CreateFromKind(kind, value);

@@ -127,20 +127,7 @@ public static class TemplateHelpers
 			v["type_name"] = variant.Type.CSharpName;
 			v["description"] = SanitizeDescription(variant.Description);
 
-			// Detect field-keyed variants: Dictionary<string, T> where T has a descriptor
-			if (variant.Type.Kind == TypeRefKind.Dictionary
-				&& variant.Type.KeyType?.Name == "string"
-				&& variant.Type.ValueType is not null)
-			{
-				v["is_field_keyed"] = true;
-				v["field_value_type"] = variant.Type.ValueType.CSharpName;
-			}
-			else
-			{
-				v["is_field_keyed"] = false;
-				v["field_value_type"] = "";
-			}
-
+			PopulateFieldKeyedProperties(v, variant);
 			variants.Add(v);
 		}
 		obj["variants"] = variants;
@@ -249,6 +236,7 @@ public static class TemplateHelpers
 	private static ScriptArray BuildPathArray(IReadOnlyList<HttpPath> paths, IReadOnlyList<Field> pathParams)
 	{
 		var paramLookup = pathParams.ToDictionary(p => p.WireName, p => p.Name);
+		var paramFieldLookup = pathParams.ToDictionary(p => p.WireName, p => p);
 
 		// Deduplicate paths that have the same parameter set (e.g., /_alias/{name} and /_aliases/{name}).
 		// Keep only the first (most specific) path for each unique combination of parameters.
@@ -275,8 +263,7 @@ public static class TemplateHelpers
 			foreach (var pname in path.ParameterNames)
 			{
 				var csharpName = paramLookup.GetValueOrDefault(pname, NamingConventions.ToPascalCase(pname));
-				var paramField = pathParams.FirstOrDefault(f => f.WireName == pname);
-				var isListParam = paramField?.Type.Kind == TypeRefKind.List;
+				var isListParam = paramFieldLookup.TryGetValue(pname, out var paramField) && paramField.Type.Kind == TypeRefKind.List;
 				var valueExpr = isListParam
 					? "string.Join(\",\", r." + csharpName + "!)"
 					: "r." + csharpName + "!.ToString()!";
@@ -424,31 +411,7 @@ public static class TemplateHelpers
 				v["descriptor_name"] = "";
 			}
 
-			// Detect field-keyed variants: Dictionary<string, T> where T has a descriptor
-			if (variant.Type.Kind == TypeRefKind.Dictionary
-				&& variant.Type.KeyType?.Name == "string"
-				&& variant.Type.ValueType is not null)
-			{
-				v["is_field_keyed"] = true;
-				v["field_value_type"] = variant.Type.ValueType.CSharpName;
-				if (HasDescriptor(variant.Type.ValueType, allObjects, allUnions))
-				{
-					v["field_has_descriptor"] = true;
-					v["field_value_descriptor_name"] = GetDescriptorName(variant.Type.ValueType);
-				}
-				else
-				{
-					v["field_has_descriptor"] = false;
-					v["field_value_descriptor_name"] = "";
-				}
-			}
-			else
-			{
-				v["is_field_keyed"] = false;
-				v["field_value_type"] = "";
-				v["field_has_descriptor"] = false;
-				v["field_value_descriptor_name"] = "";
-			}
+			PopulateFieldKeyedProperties(v, variant, allObjects, allUnions);
 
 			variants.Add(v);
 		}
@@ -552,6 +515,45 @@ public static class TemplateHelpers
 			arr.Add(f);
 		}
 		return arr;
+	}
+
+	/// <summary>
+	/// Populates field-keyed variant properties on a ScriptObject.
+	/// A variant is "field-keyed" when its type is Dictionary&lt;string, T&gt;.
+	/// Always sets is_field_keyed and field_value_type.
+	/// When allObjects/allUnions are provided, also sets field_has_descriptor and field_value_descriptor_name.
+	/// </summary>
+	private static void PopulateFieldKeyedProperties(
+		ScriptObject v, UnionVariant variant,
+		IReadOnlyDictionary<string, ObjectShape>? allObjects = null,
+		IReadOnlyDictionary<string, TaggedUnionShape>? allUnions = null)
+	{
+		if (variant.Type.Kind == TypeRefKind.Dictionary
+			&& variant.Type.KeyType?.Name == "string"
+			&& variant.Type.ValueType is not null)
+		{
+			v["is_field_keyed"] = true;
+			v["field_value_type"] = variant.Type.ValueType.CSharpName;
+
+			if (allObjects is not null && allUnions is not null
+				&& HasDescriptor(variant.Type.ValueType, allObjects, allUnions))
+			{
+				v["field_has_descriptor"] = true;
+				v["field_value_descriptor_name"] = GetDescriptorName(variant.Type.ValueType);
+			}
+			else
+			{
+				v["field_has_descriptor"] = false;
+				v["field_value_descriptor_name"] = "";
+			}
+		}
+		else
+		{
+			v["is_field_keyed"] = false;
+			v["field_value_type"] = "";
+			v["field_has_descriptor"] = false;
+			v["field_value_descriptor_name"] = "";
+		}
 	}
 
 	private static string? SanitizeDescription(string? desc)

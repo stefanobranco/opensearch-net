@@ -425,22 +425,7 @@ public sealed class TypeMapper
 			});
 		}
 
-		// Erase generic type params on variants — the union itself isn't generic,
-		// so factory methods can't reference undeclared type params like T.
-		for (int i = 0; i < variants.Count; i++)
-		{
-			if (IsGenericTypeRef(variants[i].Type))
-			{
-				variants[i] = new UnionVariant
-				{
-					Name = variants[i].Name,
-					WireName = variants[i].WireName,
-					Type = TypeRef.JsonElement(),
-					Description = variants[i].Description
-				};
-			}
-		}
-
+		EraseGenericVariants(variants);
 		return RegisterTaggedUnion(schemaName, namespaceOverride, null, variants, discriminatorProperty);
 	}
 
@@ -538,22 +523,7 @@ public sealed class TypeMapper
 			}
 		}
 
-		// Erase generic type params on variants — the union itself isn't generic,
-		// so factory methods can't reference undeclared type params like T.
-		for (int i = 0; i < variants.Count; i++)
-		{
-			if (IsGenericTypeRef(variants[i].Type))
-			{
-				variants[i] = new UnionVariant
-				{
-					Name = variants[i].Name,
-					WireName = variants[i].WireName,
-					Type = TypeRef.JsonElement(),
-					Description = variants[i].Description
-				};
-			}
-		}
-
+		EraseGenericVariants(variants);
 		typeRef = RegisterTaggedUnion(schemaName, ns, schema.Description, variants);
 		return true;
 	}
@@ -704,7 +674,7 @@ public sealed class TypeMapper
 		return _namedTypes[schemaName];
 	}
 
-	private void CollectFields(OpenApiSchema schema, List<Field> fields, HashSet<string> required)
+	private void CollectFields(OpenApiSchema schema, List<Field> fields, HashSet<string> required, HashSet<string>? existingNames = null)
 	{
 		// Merge required from this schema
 		foreach (var r in schema.Required)
@@ -717,12 +687,12 @@ public sealed class TypeMapper
 			foreach (var allOfMember in schema.AllOf)
 			{
 				var resolved = allOfMember.Resolved();
-				CollectFields(resolved, fields, required);
+				CollectFields(resolved, fields, required, existingNames);
 			}
 		}
 
-		// Then collect this schema's own direct properties
-		var existingNames = new HashSet<string>(fields.Select(f => f.Name), StringComparer.OrdinalIgnoreCase);
+		// Initialize or reuse the existing names set for deduplication
+		existingNames ??= new HashSet<string>(fields.Select(f => f.Name), StringComparer.OrdinalIgnoreCase);
 
 		foreach (var (name, propSchema) in schema.Properties)
 		{
@@ -864,6 +834,27 @@ public sealed class TypeMapper
 	/// <summary>
 	/// Returns true if a TypeRef references generic type parameters (structurally, not via string matching).
 	/// </summary>
+	/// <summary>
+	/// Erases generic type params on union variants — the union itself isn't generic,
+	/// so factory methods can't reference undeclared type params like T.
+	/// </summary>
+	private void EraseGenericVariants(List<UnionVariant> variants)
+	{
+		for (int i = 0; i < variants.Count; i++)
+		{
+			if (IsGenericTypeRef(variants[i].Type))
+			{
+				variants[i] = new UnionVariant
+				{
+					Name = variants[i].Name,
+					WireName = variants[i].WireName,
+					Type = TypeRef.JsonElement(),
+					Description = variants[i].Description
+				};
+			}
+		}
+	}
+
 	private bool IsGenericTypeRef(TypeRef type) =>
 		type.IsGenericParameter
 		|| (type.Kind == TypeRefKind.Named && !type.IsEnum
