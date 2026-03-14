@@ -75,5 +75,5 @@ public sealed class SegmentsEndpoint : IEndpoint<SegmentsRequest, SegmentsRespon
 	public RequestBody? GetBody(SegmentsRequest r) => null;
 
 	public SegmentsResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		serializer.Deserialize<SegmentsResponse>(body)!;
+		new();
 }

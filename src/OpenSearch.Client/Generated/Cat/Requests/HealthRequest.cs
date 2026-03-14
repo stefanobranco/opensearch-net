@@ -69,5 +69,5 @@ public sealed class HealthEndpoint : IEndpoint<HealthRequest, HealthResponse>
 	public RequestBody? GetBody(HealthRequest r) => null;
 
 	public HealthResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		serializer.Deserialize<HealthResponse>(body)!;
+		new();
 }

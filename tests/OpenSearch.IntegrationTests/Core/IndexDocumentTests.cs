@@ -24,7 +24,8 @@ public class IndexDocumentTests : IntegrationTestBase
 		});
 
 		indexResponse.Should().NotBeNull();
-		indexResponse.Result.Should().Be("created");
+		indexResponse.Result.Should().NotBeNull();
+		indexResponse.Result!.Value.GetString().Should().Be("created");
 
 		// Verify via GET
 		var getResponse = Client.Core.Get<IndexDoc>(new GetRequest
@@ -55,7 +56,8 @@ public class IndexDocumentTests : IntegrationTestBase
 		});
 
 		indexResponse.Should().NotBeNull();
-		indexResponse.Result.Should().Be("created");
+		indexResponse.Result.Should().NotBeNull();
+		indexResponse.Result!.Value.GetString().Should().Be("created");
 		indexResponse.Id.Should().NotBeNullOrEmpty();
 	}
 
@@ -76,7 +78,8 @@ public class IndexDocumentTests : IntegrationTestBase
 		});
 
 		createResponse.Should().NotBeNull();
-		createResponse.Result.Should().Be("created");
+		createResponse.Result.Should().NotBeNull();
+		createResponse.Result!.Value.GetString().Should().Be("created");
 
 		// Verify via GET
 		var getResponse = Client.Core.Get<IndexDoc>(new GetRequest

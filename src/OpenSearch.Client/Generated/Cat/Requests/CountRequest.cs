@@ -65,5 +65,5 @@ public sealed class CountEndpoint : IEndpoint<CountRequest, CountResponse>
 	public RequestBody? GetBody(CountRequest r) => null;
 
 	public CountResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		serializer.Deserialize<CountResponse>(body)!;
+		new();
 }

@@ -33,7 +33,7 @@ public class ReindexTests : IntegrationTestBase
 		{
 			Source = new Source { Index = sourceIndex },
 			Dest = new Destination { Index = destIndex },
-			Refresh = System.Text.Json.JsonSerializer.SerializeToElement(true)
+			Refresh = System.Text.Json.JsonSerializer.SerializeToElement("true")
 		});
 
 		// Verify all documents are in the destination index

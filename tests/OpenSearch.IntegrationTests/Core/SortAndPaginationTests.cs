@@ -151,7 +151,10 @@ public class SortAndPaginationTests : IntegrationTestBase
 		var countResponse = Client.Core.Count(new CountRequest
 		{
 			Index = index,
-			Q = "name:Alice"
+			Query = QueryContainer.Term(new Dictionary<string, JsonElement>
+			{
+				["name.keyword"] = JsonSerializer.SerializeToElement("Alice")
+			})
 		});
 
 		countResponse.Count.Should().Be(1);

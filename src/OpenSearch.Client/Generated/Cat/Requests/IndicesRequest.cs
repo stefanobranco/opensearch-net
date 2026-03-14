@@ -105,5 +105,5 @@ public sealed class IndicesEndpoint : IEndpoint<IndicesRequest, IndicesResponse>
 	public RequestBody? GetBody(IndicesRequest r) => null;
 
 	public IndicesResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		serializer.Deserialize<IndicesResponse>(body)!;
+		new();
 }

@@ -75,5 +75,5 @@ public sealed class AliasesEndpoint : IEndpoint<AliasesRequest, AliasesResponse>
 	public RequestBody? GetBody(AliasesRequest r) => null;
 
 	public AliasesResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		serializer.Deserialize<AliasesResponse>(body)!;
+		new();
 }

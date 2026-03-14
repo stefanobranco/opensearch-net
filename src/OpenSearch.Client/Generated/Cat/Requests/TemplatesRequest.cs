@@ -75,5 +75,5 @@ public sealed class TemplatesEndpoint : IEndpoint<TemplatesRequest, TemplatesRes
 	public RequestBody? GetBody(TemplatesRequest r) => null;
 
 	public TemplatesResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		serializer.Deserialize<TemplatesResponse>(body)!;
+		new();
 }

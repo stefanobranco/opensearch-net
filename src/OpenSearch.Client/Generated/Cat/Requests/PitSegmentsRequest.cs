@@ -65,5 +65,5 @@ public sealed class PitSegmentsEndpoint : IEndpoint<PitSegmentsRequest, PitSegme
 	public RequestBody? GetBody(PitSegmentsRequest r) => RequestBody.Json(r);
 
 	public PitSegmentsResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		serializer.Deserialize<PitSegmentsResponse>(body)!;
+		new();
 }

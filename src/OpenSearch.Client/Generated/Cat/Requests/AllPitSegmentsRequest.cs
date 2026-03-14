@@ -64,5 +64,5 @@ public sealed class AllPitSegmentsEndpoint : IEndpoint<AllPitSegmentsRequest, Al
 	public RequestBody? GetBody(AllPitSegmentsRequest r) => null;
 
 	public AllPitSegmentsResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		serializer.Deserialize<AllPitSegmentsResponse>(body)!;
+		new();
 }

@@ -80,5 +80,5 @@ public sealed class SnapshotsEndpoint : IEndpoint<SnapshotsRequest, SnapshotsRes
 	public RequestBody? GetBody(SnapshotsRequest r) => null;
 
 	public SnapshotsResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		serializer.Deserialize<SnapshotsResponse>(body)!;
+		new();
 }

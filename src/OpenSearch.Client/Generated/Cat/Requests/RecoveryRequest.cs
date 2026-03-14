@@ -85,5 +85,5 @@ public sealed class RecoveryEndpoint : IEndpoint<RecoveryRequest, RecoveryRespon
 	public RequestBody? GetBody(RecoveryRequest r) => null;
 
 	public RecoveryResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		serializer.Deserialize<RecoveryResponse>(body)!;
+		new();
 }

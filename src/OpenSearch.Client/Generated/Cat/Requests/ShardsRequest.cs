@@ -85,5 +85,5 @@ public sealed class ShardsEndpoint : IEndpoint<ShardsRequest, ShardsResponse>
 	public RequestBody? GetBody(ShardsRequest r) => null;
 
 	public ShardsResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		serializer.Deserialize<ShardsResponse>(body)!;
+		new();
 }

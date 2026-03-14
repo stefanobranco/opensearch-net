@@ -84,5 +84,5 @@ public sealed class TasksEndpoint : IEndpoint<TasksRequest, TasksResponse>
 	public RequestBody? GetBody(TasksRequest r) => null;
 
 	public TasksResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		serializer.Deserialize<TasksResponse>(body)!;
+		new();
 }

@@ -69,5 +69,5 @@ public sealed class PluginsEndpoint : IEndpoint<PluginsRequest, PluginsResponse>
 	public RequestBody? GetBody(PluginsRequest r) => null;
 
 	public PluginsResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		serializer.Deserialize<PluginsResponse>(body)!;
+		new();
 }

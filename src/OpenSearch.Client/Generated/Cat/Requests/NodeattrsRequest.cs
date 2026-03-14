@@ -69,5 +69,5 @@ public sealed class NodeattrsEndpoint : IEndpoint<NodeattrsRequest, NodeattrsRes
 	public RequestBody? GetBody(NodeattrsRequest r) => null;
 
 	public NodeattrsResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		serializer.Deserialize<NodeattrsResponse>(body)!;
+		new();
 }

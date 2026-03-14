@@ -80,5 +80,5 @@ public sealed class AllocationEndpoint : IEndpoint<AllocationRequest, Allocation
 	public RequestBody? GetBody(AllocationRequest r) => null;
 
 	public AllocationResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		serializer.Deserialize<AllocationResponse>(body)!;
+		new();
 }

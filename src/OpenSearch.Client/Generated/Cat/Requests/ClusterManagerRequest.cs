@@ -69,5 +69,5 @@ public sealed class ClusterManagerEndpoint : IEndpoint<ClusterManagerRequest, Cl
 	public RequestBody? GetBody(ClusterManagerRequest r) => null;
 
 	public ClusterManagerResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		serializer.Deserialize<ClusterManagerResponse>(body)!;
+		new();
 }

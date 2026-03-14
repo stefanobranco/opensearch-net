@@ -69,5 +69,5 @@ public sealed class RepositoriesEndpoint : IEndpoint<RepositoriesRequest, Reposi
 	public RequestBody? GetBody(RepositoriesRequest r) => null;
 
 	public RepositoriesResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		serializer.Deserialize<RepositoriesResponse>(body)!;
+		new();
 }

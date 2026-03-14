@@ -95,6 +95,9 @@ public sealed class {{ endpoint_name }} : IEndpoint<{{ class_name }}, {{ respons
 {{~ if is_head ~}}
 	public {{ response_name }}{{ type_suffix }} DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		new() { Exists = statusCode is >= 200 and < 300 };
+{{~ else if is_cat ~}}
+	public {{ response_name }}{{ type_suffix }} DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
+		new();
 {{~ else ~}}
 	public {{ response_name }}{{ type_suffix }} DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<{{ response_name }}{{ type_suffix }}>(body)!;

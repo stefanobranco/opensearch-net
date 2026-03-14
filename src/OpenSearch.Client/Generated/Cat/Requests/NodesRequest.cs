@@ -84,5 +84,5 @@ public sealed class NodesEndpoint : IEndpoint<NodesRequest, NodesResponse>
 	public RequestBody? GetBody(NodesRequest r) => null;
 
 	public NodesResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		serializer.Deserialize<NodesResponse>(body)!;
+		new();
 }

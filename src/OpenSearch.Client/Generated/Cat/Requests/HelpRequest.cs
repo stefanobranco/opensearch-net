@@ -31,5 +31,5 @@ public sealed class HelpEndpoint : IEndpoint<HelpRequest, HelpResponse>
 	public RequestBody? GetBody(HelpRequest r) => null;
 
 	public HelpResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		serializer.Deserialize<HelpResponse>(body)!;
+		new();
 }

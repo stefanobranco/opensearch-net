@@ -74,5 +74,5 @@ public sealed class PendingTasksEndpoint : IEndpoint<PendingTasksRequest, Pendin
 	public RequestBody? GetBody(PendingTasksRequest r) => null;
 
 	public PendingTasksResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		serializer.Deserialize<PendingTasksResponse>(body)!;
+		new();
 }

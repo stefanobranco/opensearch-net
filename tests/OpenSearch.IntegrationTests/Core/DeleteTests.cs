@@ -73,7 +73,7 @@ public class DeleteTests : IntegrationTestBase
 		{
 			Index = index,
 			Q = "name:remove",
-			Refresh = System.Text.Json.JsonSerializer.SerializeToElement(true)
+			Refresh = System.Text.Json.JsonSerializer.SerializeToElement("true")
 		});
 
 		// Verify only the "keep" doc remains

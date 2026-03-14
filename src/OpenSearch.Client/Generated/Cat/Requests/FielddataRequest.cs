@@ -70,5 +70,5 @@ public sealed class FielddataEndpoint : IEndpoint<FielddataRequest, FielddataRes
 	public RequestBody? GetBody(FielddataRequest r) => null;
 
 	public FielddataResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		serializer.Deserialize<FielddataResponse>(body)!;
+		new();
 }

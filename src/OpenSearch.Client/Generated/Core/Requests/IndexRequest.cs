@@ -60,7 +60,7 @@ public sealed class IndexEndpoint : IEndpoint<IndexRequest, IndexResponse>
 {
 	public static readonly IndexEndpoint Instance = new();
 
-	public OpenSearch.Net.HttpMethod Method(IndexRequest r) => OpenSearch.Net.HttpMethod.Put;
+	public OpenSearch.Net.HttpMethod Method(IndexRequest r) => r.Id is not null ? OpenSearch.Net.HttpMethod.Put : OpenSearch.Net.HttpMethod.Post;
 
 	public string RequestUrl(IndexRequest r)
 	{

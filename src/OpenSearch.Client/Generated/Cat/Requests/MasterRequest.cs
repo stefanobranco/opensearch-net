@@ -69,5 +69,5 @@ public sealed class MasterEndpoint : IEndpoint<MasterRequest, MasterResponse>
 	public RequestBody? GetBody(MasterRequest r) => null;
 
 	public MasterResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		serializer.Deserialize<MasterResponse>(body)!;
+		new();
 }
