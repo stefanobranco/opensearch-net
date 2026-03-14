@@ -9,9 +9,9 @@ namespace OpenSearch.Client.Core;
 public sealed class AggregationRange
 {
 	/// <summary>Start of the range (inclusive).</summary>
-		public System.Text.Json.JsonElement? From { get; set; }
+		public string? From { get; set; }
 	/// <summary>Custom key to return the range with.</summary>
 		public string? Key { get; set; }
 	/// <summary>End of the range (exclusive).</summary>
-		public System.Text.Json.JsonElement? To { get; set; }
+		public string? To { get; set; }
 }

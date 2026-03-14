@@ -15,6 +15,8 @@ public sealed class GeoBoundingBoxQueryDescriptor
 	public GeoBoundingBoxQueryDescriptor Type(GeoExecution? value) { _value.Type = value; return this; }
 	public GeoBoundingBoxQueryDescriptor ValidationMethod(GeoValidationMethod? value) { _value.ValidationMethod = value; return this; }
 	public GeoBoundingBoxQueryDescriptor IgnoreUnmapped(bool? value) { _value.IgnoreUnmapped = value; return this; }
+	/// <summary>Additional properties not captured by named fields.</summary>
+	public GeoBoundingBoxQueryDescriptor AdditionalProperties(Dictionary<string, System.Text.Json.JsonElement>? value) { _value.AdditionalProperties = value; return this; }
 
 	public static implicit operator GeoBoundingBoxQuery(GeoBoundingBoxQueryDescriptor descriptor) => descriptor._value;
 }

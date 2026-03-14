@@ -118,7 +118,7 @@ public sealed class SearchRequest
 	public int? Size { get; set; }
 	/// <summary>A comma-separated list of &lt;field&gt;:&lt;direction&gt; pairs.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? Sort { get; set; }
+	public List<string>? Sort { get; set; }
 	/// <summary>Specific `tag` of the request for logging and statistical purposes.</summary>
 	[JsonIgnore]
 	public List<string>? Stats { get; set; }
@@ -266,7 +266,7 @@ public sealed class SearchEndpoint<TDocument> : IEndpoint<SearchRequest, SearchR
 		if (r.Size is not null)
 			queryParts.Add($"size={Uri.EscapeDataString(r.Size.ToString()!)}");
 		if (r.Sort is not null)
-			queryParts.Add($"sort={Uri.EscapeDataString(r.Sort.ToString()!)}");
+			queryParts.Add($"sort={Uri.EscapeDataString(string.Join(",", r.Sort!))}");
 		if (r.Stats is not null)
 			queryParts.Add($"stats={Uri.EscapeDataString(string.Join(",", r.Stats!))}");
 		if (r.StoredFields is not null)

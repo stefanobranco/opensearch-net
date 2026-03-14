@@ -23,7 +23,7 @@ public sealed class DateNanosPropertyDescriptor
 	public DateNanosPropertyDescriptor Format(string? value) { _value.Format = value; return this; }
 	public DateNanosPropertyDescriptor IgnoreMalformed(bool? value) { _value.IgnoreMalformed = value; return this; }
 	public DateNanosPropertyDescriptor Index(bool? value) { _value.Index = value; return this; }
-	public DateNanosPropertyDescriptor NullValue(System.Text.Json.JsonElement? value) { _value.NullValue = value; return this; }
+	public DateNanosPropertyDescriptor NullValue(string? value) { _value.NullValue = value; return this; }
 	public DateNanosPropertyDescriptor PrecisionStep(int? value) { _value.PrecisionStep = value; return this; }
 	public DateNanosPropertyDescriptor Type(string? value) { _value.Type = value; return this; }
 

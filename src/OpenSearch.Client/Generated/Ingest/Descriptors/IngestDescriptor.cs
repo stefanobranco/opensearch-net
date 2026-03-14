@@ -9,7 +9,7 @@ public sealed class IngestDescriptor
 {
 	internal Ingest _value = new();
 
-	public IngestDescriptor Timestamp(System.Text.Json.JsonElement? value) { _value.Timestamp = value; return this; }
+	public IngestDescriptor Timestamp(string? value) { _value.Timestamp = value; return this; }
 	public IngestDescriptor Pipeline(string? value) { _value.Pipeline = value; return this; }
 
 	public static implicit operator Ingest(IngestDescriptor descriptor) => descriptor._value;

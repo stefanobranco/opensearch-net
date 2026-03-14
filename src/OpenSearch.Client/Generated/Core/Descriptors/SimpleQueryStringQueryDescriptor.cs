@@ -21,7 +21,7 @@ public sealed class SimpleQueryStringQueryDescriptor
 	public SimpleQueryStringQueryDescriptor DefaultOperator(Operator? value) { _value.DefaultOperator = value; return this; }
 	/// <summary>Array of fields you wish to search. Accepts wildcard expressions. You also can boost relevance scores for matches to particular fields using a caret (`^`) notation. Defaults to the `index.query.default_field index` setting, which has a default value of `*`.</summary>
 		public SimpleQueryStringQueryDescriptor Fields(List<string>? value) { _value.Fields = value; return this; }
-	public SimpleQueryStringQueryDescriptor Flags(System.Text.Json.JsonElement? value) { _value.Flags = value; return this; }
+	public SimpleQueryStringQueryDescriptor Flags(string? value) { _value.Flags = value; return this; }
 	/// <summary>Maximum number of terms to which the query expands for fuzzy matching.</summary>
 		public SimpleQueryStringQueryDescriptor FuzzyMaxExpansions(int? value) { _value.FuzzyMaxExpansions = value; return this; }
 	/// <summary>Number of beginning characters left unchanged for fuzzy matching.</summary>

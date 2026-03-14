@@ -79,7 +79,7 @@ public sealed class SearchRequestDescriptor
 	/// <summary>Defines the number of hits to return. By default, you cannot page through more than 10,000 hits using the `from` and `size` parameters. To page through more hits, use the `search_after` parameter.</summary>
 		public SearchRequestDescriptor Size(int? value) { _value.Size = value; return this; }
 	/// <summary>A comma-separated list of &lt;field&gt;:&lt;direction&gt; pairs.</summary>
-		public SearchRequestDescriptor Sort(System.Text.Json.JsonElement? value) { _value.Sort = value; return this; }
+		public SearchRequestDescriptor Sort(List<string>? value) { _value.Sort = value; return this; }
 	/// <summary>Specific `tag` of the request for logging and statistical purposes.</summary>
 		public SearchRequestDescriptor Stats(List<string>? value) { _value.Stats = value; return this; }
 	/// <summary>A comma-separated list of stored fields to return as part of a hit. If no fields are specified, no stored fields are included in the response. If this field is specified, the `_source` parameter defaults to `false`. You can pass `_source: true` to return both source fields and stored fields in the search response.</summary>

@@ -8,7 +8,7 @@ namespace OpenSearch.Client.Core;
 
 public sealed class RareTermsAggregationFields
 {
-	public System.Text.Json.JsonElement? Exclude { get; set; }
+	public List<string>? Exclude { get; set; }
 	public string? Field { get; set; }
 	public System.Text.Json.JsonElement? Include { get; set; }
 	/// <summary>The maximum number of documents a term should appear in.</summary>

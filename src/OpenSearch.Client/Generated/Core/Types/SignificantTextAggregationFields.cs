@@ -11,7 +11,7 @@ public sealed class SignificantTextAggregationFields
 {
 	public QueryContainer? BackgroundFilter { get; set; }
 	public ChiSquareHeuristic? ChiSquare { get; set; }
-	public System.Text.Json.JsonElement? Exclude { get; set; }
+	public List<string>? Exclude { get; set; }
 	public TermsAggregationExecutionHint? ExecutionHint { get; set; }
 	public string? Field { get; set; }
 	/// <summary>Whether to out duplicate text to deal with noisy data.</summary>

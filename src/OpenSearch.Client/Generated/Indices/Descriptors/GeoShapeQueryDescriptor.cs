@@ -13,6 +13,8 @@ public sealed class GeoShapeQueryDescriptor
 		public GeoShapeQueryDescriptor Boost(float? value) { _value.Boost = value; return this; }
 	public GeoShapeQueryDescriptor Name(string? value) { _value.Name = value; return this; }
 	public GeoShapeQueryDescriptor IgnoreUnmapped(bool? value) { _value.IgnoreUnmapped = value; return this; }
+	/// <summary>Additional properties not captured by named fields.</summary>
+	public GeoShapeQueryDescriptor AdditionalProperties(Dictionary<string, System.Text.Json.JsonElement>? value) { _value.AdditionalProperties = value; return this; }
 
 	public static implicit operator GeoShapeQuery(GeoShapeQueryDescriptor descriptor) => descriptor._value;
 }

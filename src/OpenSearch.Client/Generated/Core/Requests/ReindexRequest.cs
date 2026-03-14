@@ -30,7 +30,7 @@ public sealed class ReindexRequest
 	public string? Scroll { get; set; }
 	/// <summary>The number of slices this task should be divided into. Defaults to 1 slice, meaning the task isn't sliced into subtasks.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? Slices { get; set; }
+	public string? Slices { get; set; }
 	/// <summary>Period each indexing waits for automatic index creation, dynamic mapping updates, and waiting for active shards.</summary>
 	[JsonIgnore]
 	public string? Timeout { get; set; }
@@ -67,7 +67,7 @@ public sealed class ReindexEndpoint : IEndpoint<ReindexRequest, ReindexResponse>
 		if (r.Scroll is not null)
 			queryParts.Add($"scroll={Uri.EscapeDataString(r.Scroll!)}");
 		if (r.Slices is not null)
-			queryParts.Add($"slices={Uri.EscapeDataString(r.Slices.ToString()!)}");
+			queryParts.Add($"slices={Uri.EscapeDataString(r.Slices!)}");
 		if (r.Timeout is not null)
 			queryParts.Add($"timeout={Uri.EscapeDataString(r.Timeout!)}");
 		if (r.WaitForActiveShards is not null)

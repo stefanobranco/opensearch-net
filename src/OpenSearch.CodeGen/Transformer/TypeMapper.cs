@@ -254,6 +254,21 @@ public sealed class TypeMapper
 			}
 		}
 
+		// Pattern 2b: String-or-array — type:string + type:array → List<string>
+		// (e.g., StringOrStringArray — accept a single string or array of strings)
+		if (schemas.Count == 2)
+		{
+			bool hasString = false;
+			bool hasArray = false;
+			for (int i = 0; i < 2; i++)
+			{
+				if (schemas[i].Type == "string") hasString = true;
+				if (schemas[i].Type == "array") hasArray = true;
+			}
+			if (hasString && hasArray)
+				return TypeRef.ListOf(TypeRef.String());
+		}
+
 		// Pattern 3: Primitive union — all members are inline primitives, string among them
 		{
 			var allPrimitives = true;
@@ -261,7 +276,7 @@ public sealed class TypeMapper
 			foreach (var s in schemas)
 			{
 				var t = s.Type;
-				if (t is not ("string" or "integer" or "number" or "boolean"))
+				if (t is not ("string" or "integer" or "number" or "boolean" or "null"))
 				{
 					allPrimitives = false;
 					break;
@@ -270,6 +285,47 @@ public sealed class TypeMapper
 			}
 			if (allPrimitives && hasString)
 				return TypeRef.String();
+		}
+
+		// Pattern 3b: Ref + primitive — one $ref member + one inline primitive type.
+		// Uses Map() to fully resolve the ref (follows $ref chains, string aliases, etc.)
+		// then decides based on the resolved TypeRef.
+		if (schemas.Count == 2)
+		{
+			OpenApiSchema? refSchema = null;
+			OpenApiSchema? inlineSchema = null;
+			for (int i = 0; i < 2; i++)
+			{
+				if (schemas[i].Ref is not null) refSchema = schemas[i];
+				else inlineSchema = schemas[i];
+			}
+			if (refSchema is not null && inlineSchema is not null)
+			{
+				var inlineType = inlineSchema.Type;
+				var refType = Map(refSchema);
+
+				// Ref resolves to string + inline is string → string
+				// (e.g., HighlighterType: oneOf[$ref:BuiltinHighlighterType, type:string])
+				if (refType.Name == "string" && inlineType == "string")
+					return TypeRef.String();
+
+				// Ref resolves to enum + inline is string → string (enum values are valid strings)
+				// (e.g., SimpleQueryStringFlags: oneOf[$ref:SimpleQueryStringFlag, type:string])
+				if (refType.IsEnum && inlineType == "string")
+					return TypeRef.String();
+
+				// Ref resolves to a primitive (int, long, etc.) + inline is string → string
+				// (e.g., DateTime: oneOf[type:string, $ref:EpochTimeUnitMillis → long])
+				if (refType.IsValueType && inlineType == "string")
+					return TypeRef.String();
+
+				// Both resolve to primitives → use the wider type
+				if (refType.Kind == TypeRefKind.Primitive && inlineType is "string" or "boolean" or "integer" or "number")
+				{
+					if (refType.Name == "string" || inlineType == "string")
+						return TypeRef.String();
+				}
+			}
 		}
 
 		// Pattern 4: Shorthand-or-expanded — 2 members: simple type + allOf with properties
@@ -300,8 +356,11 @@ public sealed class TypeMapper
 			}
 		}
 
-		// Pattern 5: All-refs union (3+) — all members are $ref to named types
-		if (schemas.Count >= 3 && schemaName is not null)
+		// Pattern 5: All-refs union — all members are $ref to named types.
+		// Require 3+ members (large unions like QueryContainer, Property) unless
+		// a discriminator is present (then 2+ is fine, e.g., RangeQuery with type discriminator).
+		var minRefsForUnion = discriminatorProperty is not null ? 2 : 3;
+		if (schemas.Count >= minRefsForUnion && schemaName is not null)
 		{
 			var allRefs = true;
 			foreach (var s in schemas)
@@ -364,6 +423,22 @@ public sealed class TypeMapper
 				Type = variantType,
 				Description = member.Description
 			});
+		}
+
+		// Erase generic type params on variants — the union itself isn't generic,
+		// so factory methods can't reference undeclared type params like T.
+		for (int i = 0; i < variants.Count; i++)
+		{
+			if (IsGenericTypeRef(variants[i].Type))
+			{
+				variants[i] = new UnionVariant
+				{
+					Name = variants[i].Name,
+					WireName = variants[i].WireName,
+					Type = TypeRef.JsonElement(),
+					Description = variants[i].Description
+				};
+			}
 		}
 
 		return RegisterTaggedUnion(schemaName, namespaceOverride, null, variants, discriminatorProperty);

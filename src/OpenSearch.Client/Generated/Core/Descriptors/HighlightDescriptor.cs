@@ -10,7 +10,7 @@ public sealed class HighlightDescriptor
 {
 	internal Highlight _value = new();
 
-	public HighlightDescriptor Type(System.Text.Json.JsonElement? value) { _value.Type = value; return this; }
+	public HighlightDescriptor Type(string? value) { _value.Type = value; return this; }
 	/// <summary>A string that contains each boundary character.</summary>
 		public HighlightDescriptor BoundaryChars(string? value) { _value.BoundaryChars = value; return this; }
 	/// <summary>How far to scan for boundary characters.</summary>

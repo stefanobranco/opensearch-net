@@ -47,6 +47,8 @@ public sealed class SpanQuery : TaggedUnion<SpanQueryKind, object>
 	public static SpanQuery SpanFirst(SpanFirstQuery value) => new(SpanQueryKind.SpanFirst, value);
 	/// <summary>Creates a SpanGap variant.</summary>
 	public static SpanQuery SpanGap(Dictionary<string, int> value) => new(SpanQueryKind.SpanGap, value);
+	/// <summary>Creates a SpanGap variant for a single field.</summary>
+	public static SpanQuery SpanGap(string field, int value) => new(SpanQueryKind.SpanGap, new Dictionary<string, int> { [field] = value });
 	/// <summary>Creates a SpanMulti variant.</summary>
 	public static SpanQuery SpanMulti(SpanMultiTermQuery value) => new(SpanQueryKind.SpanMulti, value);
 	/// <summary>Creates a SpanNear variant.</summary>
@@ -57,6 +59,8 @@ public sealed class SpanQuery : TaggedUnion<SpanQueryKind, object>
 	public static SpanQuery SpanOr(SpanOrQuery value) => new(SpanQueryKind.SpanOr, value);
 	/// <summary>Creates a SpanTerm variant.</summary>
 	public static SpanQuery SpanTerm(Dictionary<string, SpanTermQuery> value) => new(SpanQueryKind.SpanTerm, value);
+	/// <summary>Creates a SpanTerm variant for a single field.</summary>
+	public static SpanQuery SpanTerm(string field, SpanTermQuery value) => new(SpanQueryKind.SpanTerm, new Dictionary<string, SpanTermQuery> { [field] = value });
 	/// <summary>Creates a SpanWithin variant.</summary>
 	public static SpanQuery SpanWithin(SpanWithinQuery value) => new(SpanQueryKind.SpanWithin, value);
 }

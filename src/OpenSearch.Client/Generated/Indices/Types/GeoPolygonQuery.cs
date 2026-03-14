@@ -14,4 +14,6 @@ public sealed class GeoPolygonQuery
 	public string? Name { get; set; }
 	public GeoValidationMethod? ValidationMethod { get; set; }
 	public bool? IgnoreUnmapped { get; set; }
+	[JsonExtensionData]
+	public Dictionary<string, System.Text.Json.JsonElement>? AdditionalProperties { get; set; }
 }

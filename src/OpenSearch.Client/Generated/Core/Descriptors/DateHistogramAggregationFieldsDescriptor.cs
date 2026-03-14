@@ -19,7 +19,7 @@ public sealed class DateHistogramAggregationFieldsDescriptor<T>
 	public DateHistogramAggregationFieldsDescriptor<T> Interval(string? value) { _value.Interval = value; return this; }
 	/// <summary>Only returns buckets that have `min_doc_count` number of documents. By default, all buckets between the first bucket that matches documents and the last one are returned.</summary>
 		public DateHistogramAggregationFieldsDescriptor<T> MinDocCount(int? value) { _value.MinDocCount = value; return this; }
-	public DateHistogramAggregationFieldsDescriptor<T> Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
+	public DateHistogramAggregationFieldsDescriptor<T> Missing(string? value) { _value.Missing = value; return this; }
 	public DateHistogramAggregationFieldsDescriptor<T> Offset(string? value) { _value.Offset = value; return this; }
 	public DateHistogramAggregationFieldsDescriptor<T> Order(HistogramOrder? value) { _value.Order = value; return this; }
 	public DateHistogramAggregationFieldsDescriptor<T> Order(Action<HistogramOrderDescriptor> configure)

@@ -21,9 +21,9 @@ public sealed class ShardRecovery
 	/// <summary>The current recovery stage.</summary>
 		public string? Stage { get; set; }
 	public RecoveryStartStatus? Start { get; set; }
-	public System.Text.Json.JsonElement? StartTime { get; set; }
+	public string? StartTime { get; set; }
 	public System.Text.Json.JsonElement? StartTimeInMillis { get; set; }
-	public System.Text.Json.JsonElement? StopTime { get; set; }
+	public string? StopTime { get; set; }
 	public System.Text.Json.JsonElement? StopTimeInMillis { get; set; }
 	public RecoveryOrigin? Target { get; set; }
 	public string? TotalTime { get; set; }

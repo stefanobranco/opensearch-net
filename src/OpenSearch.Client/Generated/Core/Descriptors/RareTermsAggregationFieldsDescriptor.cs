@@ -9,7 +9,7 @@ public sealed class RareTermsAggregationFieldsDescriptor
 {
 	internal RareTermsAggregationFields _value = new();
 
-	public RareTermsAggregationFieldsDescriptor Exclude(System.Text.Json.JsonElement? value) { _value.Exclude = value; return this; }
+	public RareTermsAggregationFieldsDescriptor Exclude(List<string>? value) { _value.Exclude = value; return this; }
 	public RareTermsAggregationFieldsDescriptor Field(string? value) { _value.Field = value; return this; }
 	public RareTermsAggregationFieldsDescriptor Include(System.Text.Json.JsonElement? value) { _value.Include = value; return this; }
 	/// <summary>The maximum number of documents a term should appear in.</summary>

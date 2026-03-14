@@ -14,7 +14,7 @@ public sealed class AutoDateHistogramAggregationFields
 	/// <summary>The date format used to format `key_as_string` in the response. If no `format` is specified, the first date format specified in the field mapping is used.</summary>
 		public string? Format { get; set; }
 	public MinimumInterval? MinimumInterval { get; set; }
-	public System.Text.Json.JsonElement? Missing { get; set; }
+	public string? Missing { get; set; }
 	/// <summary>Time zone specified as a ISO 8601 UTC offset.</summary>
 		public string? Offset { get; set; }
 	public Dictionary<string, object>? Params { get; set; }

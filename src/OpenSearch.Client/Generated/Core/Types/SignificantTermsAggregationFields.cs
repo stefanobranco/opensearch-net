@@ -11,7 +11,7 @@ public sealed class SignificantTermsAggregationFields
 {
 	public QueryContainer? BackgroundFilter { get; set; }
 	public ChiSquareHeuristic? ChiSquare { get; set; }
-	public System.Text.Json.JsonElement? Exclude { get; set; }
+	public List<string>? Exclude { get; set; }
 	public TermsAggregationExecutionHint? ExecutionHint { get; set; }
 	public string? Field { get; set; }
 	public GoogleNormalizedDistanceHeuristic? Gnd { get; set; }

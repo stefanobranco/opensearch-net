@@ -24,7 +24,7 @@ public sealed class StatsIndexRequestDescriptor
 	/// <summary>If `true`, statistics are not collected from closed indexes.</summary>
 		public StatsIndexRequestDescriptor ForbidClosedIndices(bool? value) { _value.ForbidClosedIndices = value; return this; }
 	/// <summary>A comma-separated list of search groups to include in the search statistics.</summary>
-		public StatsIndexRequestDescriptor Groups(System.Text.Json.JsonElement? value) { _value.Groups = value; return this; }
+		public StatsIndexRequestDescriptor Groups(List<string>? value) { _value.Groups = value; return this; }
 	/// <summary>If `true`, the call reports the aggregated disk usage of each one of the Lucene index files (only applies if segment stats are requested).</summary>
 		public StatsIndexRequestDescriptor IncludeSegmentFileSizes(bool? value) { _value.IncludeSegmentFileSizes = value; return this; }
 	/// <summary>If `true`, the response includes information from segments that are not loaded into memory.</summary>

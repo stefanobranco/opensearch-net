@@ -18,4 +18,6 @@ public sealed class ErrorCause
 	public List<ErrorCause>? RootCause { get; set; }
 	public List<ErrorCause>? Suppressed { get; set; }
 	public Dictionary<string, System.Text.Json.JsonElement>? Header { get; set; }
+	[JsonExtensionData]
+	public Dictionary<string, System.Text.Json.JsonElement>? AdditionalProperties { get; set; }
 }

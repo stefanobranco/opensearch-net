@@ -9,5 +9,5 @@ namespace OpenSearch.Client.Core;
 public sealed class LanguageContext
 {
 	public List<string>? Contexts { get; set; }
-	public System.Text.Json.JsonElement? Language { get; set; }
+	public string? Language { get; set; }
 }

@@ -10,6 +10,6 @@ namespace OpenSearch.Client.Cluster;
 /// Returns the information about configured remote clusters.
 /// </summary>
 
-public sealed class RemoteInfoClusterResponse : Dictionary<string, System.Text.Json.JsonElement>
+public sealed class RemoteInfoClusterResponse : Dictionary<string, ClusterRemoteInfo>
 {
 }

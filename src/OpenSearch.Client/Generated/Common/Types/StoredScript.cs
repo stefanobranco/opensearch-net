@@ -12,7 +12,7 @@ namespace OpenSearch.Client.Common;
 
 public sealed class StoredScript
 {
-	public System.Text.Json.JsonElement? Lang { get; set; }
+	public string? Lang { get; set; }
 	/// <summary>The options for the script.</summary>
 		public Dictionary<string, string>? Options { get; set; }
 	/// <summary>The location of the source code for the script.</summary>

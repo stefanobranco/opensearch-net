@@ -49,7 +49,7 @@ public sealed class ErrorCauseDescriptor
 		_value.Suppressed = list;
 		return this;
 	}
-	public ErrorCauseDescriptor Header(Dictionary<string, System.Text.Json.JsonElement>? value) { _value.Header = value; return this; }
+	public ErrorCauseDescriptor Header(Dictionary<string, List<string>>? value) { _value.Header = value; return this; }
 	/// <summary>Additional properties not captured by named fields.</summary>
 	public ErrorCauseDescriptor AdditionalProperties(Dictionary<string, System.Text.Json.JsonElement>? value) { _value.AdditionalProperties = value; return this; }
 

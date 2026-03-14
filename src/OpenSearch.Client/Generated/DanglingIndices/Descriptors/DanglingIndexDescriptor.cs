@@ -11,7 +11,7 @@ public sealed class DanglingIndexDescriptor
 
 	public DanglingIndexDescriptor IndexName(string? value) { _value.IndexName = value; return this; }
 	public DanglingIndexDescriptor IndexUuid(string? value) { _value.IndexUuid = value; return this; }
-	public DanglingIndexDescriptor CreationDate(System.Text.Json.JsonElement? value) { _value.CreationDate = value; return this; }
+	public DanglingIndexDescriptor CreationDate(string? value) { _value.CreationDate = value; return this; }
 	public DanglingIndexDescriptor CreationDateMillis(System.Text.Json.JsonElement? value) { _value.CreationDateMillis = value; return this; }
 	public DanglingIndexDescriptor NodeIds(List<string>? value) { _value.NodeIds = value; return this; }
 

@@ -9,10 +9,10 @@ public sealed class DateRangeExpressionDescriptor
 {
 	internal DateRangeExpression _value = new();
 
-	public DateRangeExpressionDescriptor From(System.Text.Json.JsonElement? value) { _value.From = value; return this; }
+	public DateRangeExpressionDescriptor From(string? value) { _value.From = value; return this; }
 	/// <summary>Custom key to return the range with.</summary>
 		public DateRangeExpressionDescriptor Key(string? value) { _value.Key = value; return this; }
-	public DateRangeExpressionDescriptor To(System.Text.Json.JsonElement? value) { _value.To = value; return this; }
+	public DateRangeExpressionDescriptor To(string? value) { _value.To = value; return this; }
 
 	public static implicit operator DateRangeExpression(DateRangeExpressionDescriptor descriptor) => descriptor._value;
 }

@@ -15,4 +15,6 @@ public sealed class GeoBoundingBoxQuery
 	public GeoExecution? Type { get; set; }
 	public GeoValidationMethod? ValidationMethod { get; set; }
 	public bool? IgnoreUnmapped { get; set; }
+	[JsonExtensionData]
+	public Dictionary<string, System.Text.Json.JsonElement>? AdditionalProperties { get; set; }
 }

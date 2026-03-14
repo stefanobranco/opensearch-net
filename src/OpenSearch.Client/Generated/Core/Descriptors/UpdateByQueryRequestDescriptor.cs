@@ -65,7 +65,7 @@ public sealed class UpdateByQueryRequestDescriptor
 	/// <summary>Deprecated, use `max_docs` instead.</summary>
 		public UpdateByQueryRequestDescriptor Size(int? value) { _value.Size = value; return this; }
 	/// <summary>The number of slices this task should be divided into.</summary>
-		public UpdateByQueryRequestDescriptor Slices(System.Text.Json.JsonElement? value) { _value.Slices = value; return this; }
+		public UpdateByQueryRequestDescriptor Slices(string? value) { _value.Slices = value; return this; }
 	/// <summary>A comma-separated list of &lt;field&gt;:&lt;direction&gt; pairs.</summary>
 		public UpdateByQueryRequestDescriptor Sort(List<string>? value) { _value.Sort = value; return this; }
 	/// <summary>Specific `tag` of the request for logging and statistical purposes.</summary>

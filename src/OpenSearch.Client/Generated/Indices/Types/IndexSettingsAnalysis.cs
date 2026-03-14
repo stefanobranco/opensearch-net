@@ -20,7 +20,7 @@ public sealed class IndexSettingsAnalysis
 	/// <summary>The custom token filter configurations.</summary>
 		public Dictionary<string, System.Text.Json.JsonElement>? Filter { get; set; }
 	/// <summary>The custom normalizer configurations.</summary>
-		public Dictionary<string, System.Text.Json.JsonElement>? Normalizer { get; set; }
+		public Dictionary<string, Normalizer>? Normalizer { get; set; }
 	/// <summary>The custom tokenizer configurations.</summary>
 		public Dictionary<string, System.Text.Json.JsonElement>? Tokenizer { get; set; }
 }

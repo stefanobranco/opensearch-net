@@ -20,5 +20,5 @@ public sealed class ReindexTask
 	public System.Text.Json.JsonElement? StartTimeInMillis { get; set; }
 	public ReindexStatus? Status { get; set; }
 	public string? Type { get; set; }
-	public Dictionary<string, System.Text.Json.JsonElement>? Headers { get; set; }
+	public Dictionary<string, List<string>>? Headers { get; set; }
 }

@@ -10,7 +10,7 @@ public sealed class OpenSearchVersionInfoDescriptor
 	internal OpenSearchVersionInfo _value = new();
 
 	/// <summary>When the version was built.</summary>
-		public OpenSearchVersionInfoDescriptor BuildDate(System.Text.Json.JsonElement? value) { _value.BuildDate = value; return this; }
+		public OpenSearchVersionInfoDescriptor BuildDate(string? value) { _value.BuildDate = value; return this; }
 	/// <summary>The flavor of the build.</summary>
 		public OpenSearchVersionInfoDescriptor BuildFlavor(string? value) { _value.BuildFlavor = value; return this; }
 	/// <summary>The hash of the build.</summary>

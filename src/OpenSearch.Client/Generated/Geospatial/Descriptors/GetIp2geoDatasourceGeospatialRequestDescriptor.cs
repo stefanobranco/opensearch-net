@@ -9,7 +9,7 @@ public sealed class GetIp2geoDatasourceGeospatialRequestDescriptor
 {
 	internal GetIp2geoDatasourceGeospatialRequest _value = new();
 
-	public GetIp2geoDatasourceGeospatialRequestDescriptor Name(string? value) { _value.Name = value; return this; }
+	public GetIp2geoDatasourceGeospatialRequestDescriptor Name(List<string>? value) { _value.Name = value; return this; }
 
 	public static implicit operator GetIp2geoDatasourceGeospatialRequest(GetIp2geoDatasourceGeospatialRequestDescriptor descriptor) => descriptor._value;
 }

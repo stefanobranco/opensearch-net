@@ -31,7 +31,13 @@ public static class TemplateHelpers
 		obj["query_params"] = BuildQueryParamArray(request.QueryParams);
 		obj["body_fields"] = BuildFieldArray(request.BodyFields);
 		obj["paths"] = BuildPathArray(request.HttpPaths, request.PathParams);
-		obj["extra_usings"] = ComputeExtraUsings(request.Namespace, request.BodyFields, allObjects);
+		// Include path params and query params in usings — they may reference cross-namespace types
+		// (e.g., WaitForActiveShards in Common used as a query param in Core/Indices requests)
+		var allRequestFields = new List<Field>();
+		allRequestFields.AddRange(request.PathParams);
+		allRequestFields.AddRange(request.QueryParams);
+		allRequestFields.AddRange(request.BodyFields);
+		obj["extra_usings"] = ComputeExtraUsings(request.Namespace, allRequestFields, allObjects);
 
 		// Generic endpoint support: if the response is generic, the endpoint must be generic too
 		obj["response_type_parameters"] = request.Response.IsGeneric

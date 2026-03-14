@@ -23,7 +23,7 @@ public sealed class DocumentSimulationDescriptor
 		public DocumentSimulationDescriptor Routing(string? value) { _value.Routing = value; return this; }
 	/// <summary>JSON body for the document.</summary>
 		public DocumentSimulationDescriptor Source(Dictionary<string, object>? value) { _value.Source = value; return this; }
-	public DocumentSimulationDescriptor Version(System.Text.Json.JsonElement? value) { _value.Version = value; return this; }
+	public DocumentSimulationDescriptor Version(string? value) { _value.Version = value; return this; }
 	public DocumentSimulationDescriptor VersionType(string? value) { _value.VersionType = value; return this; }
 
 	public static implicit operator DocumentSimulation(DocumentSimulationDescriptor descriptor) => descriptor._value;

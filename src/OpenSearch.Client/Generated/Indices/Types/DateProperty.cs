@@ -24,7 +24,7 @@ public sealed class DateProperty
 	public string? Format { get; set; }
 	public bool? IgnoreMalformed { get; set; }
 	public bool? Index { get; set; }
-	public System.Text.Json.JsonElement? NullValue { get; set; }
+	public string? NullValue { get; set; }
 	public int? PrecisionStep { get; set; }
 	public string? Locale { get; set; }
 	public string? Type { get; set; }

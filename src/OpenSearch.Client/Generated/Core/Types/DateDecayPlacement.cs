@@ -10,6 +10,6 @@ public sealed class DateDecayPlacement
 {
 	public double? Decay { get; set; }
 	public string? Offset { get; set; }
-	public System.Text.Json.JsonElement? Origin { get; set; }
+	public string? Origin { get; set; }
 	public string? Scale { get; set; }
 }

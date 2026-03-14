@@ -17,7 +17,7 @@ public sealed class IndexSettingsAnalysisDescriptor
 	/// <summary>The custom token filter configurations.</summary>
 		public IndexSettingsAnalysisDescriptor Filter(Dictionary<string, System.Text.Json.JsonElement>? value) { _value.Filter = value; return this; }
 	/// <summary>The custom normalizer configurations.</summary>
-		public IndexSettingsAnalysisDescriptor Normalizer(Dictionary<string, System.Text.Json.JsonElement>? value) { _value.Normalizer = value; return this; }
+		public IndexSettingsAnalysisDescriptor Normalizer(Dictionary<string, Normalizer>? value) { _value.Normalizer = value; return this; }
 	/// <summary>The custom tokenizer configurations.</summary>
 		public IndexSettingsAnalysisDescriptor Tokenizer(Dictionary<string, System.Text.Json.JsonElement>? value) { _value.Tokenizer = value; return this; }
 

@@ -9,7 +9,7 @@ namespace OpenSearch.Client.Core;
 
 public sealed class Highlight
 {
-	public System.Text.Json.JsonElement? Type { get; set; }
+	public string? Type { get; set; }
 	/// <summary>A string that contains each boundary character.</summary>
 		public string? BoundaryChars { get; set; }
 	/// <summary>How far to scan for boundary characters.</summary>

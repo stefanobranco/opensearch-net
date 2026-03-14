@@ -2,6 +2,7 @@
 #nullable enable
 
 using System.Text.Json.Serialization;
+using OpenSearch.Client.Cluster;
 
 namespace OpenSearch.Client.Indices;
 

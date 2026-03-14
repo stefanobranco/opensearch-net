@@ -13,6 +13,8 @@ public sealed class XyShapeQueryDescriptor
 		public XyShapeQueryDescriptor Boost(float? value) { _value.Boost = value; return this; }
 	public XyShapeQueryDescriptor Name(string? value) { _value.Name = value; return this; }
 	public XyShapeQueryDescriptor IgnoreUnmapped(bool? value) { _value.IgnoreUnmapped = value; return this; }
+	/// <summary>Additional properties not captured by named fields.</summary>
+	public XyShapeQueryDescriptor AdditionalProperties(Dictionary<string, System.Text.Json.JsonElement>? value) { _value.AdditionalProperties = value; return this; }
 
 	public static implicit operator XyShapeQuery(XyShapeQueryDescriptor descriptor) => descriptor._value;
 }

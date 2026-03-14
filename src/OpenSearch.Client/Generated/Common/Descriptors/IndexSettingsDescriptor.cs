@@ -19,7 +19,7 @@ public sealed class IndexSettingsDescriptor
 		return this;
 	}
 	public IndexSettingsDescriptor Mode(string? value) { _value.Mode = value; return this; }
-	public IndexSettingsDescriptor RoutingPath(System.Text.Json.JsonElement? value) { _value.RoutingPath = value; return this; }
+	public IndexSettingsDescriptor RoutingPath(List<string>? value) { _value.RoutingPath = value; return this; }
 	public IndexSettingsDescriptor SoftDeletes(SoftDeletes? value) { _value.SoftDeletes = value; return this; }
 	public IndexSettingsDescriptor SoftDeletes(Action<SoftDeletesDescriptor> configure)
 	{
@@ -118,8 +118,8 @@ public sealed class IndexSettingsDescriptor
 		return this;
 	}
 	public IndexSettingsDescriptor ProvidedName(string? value) { _value.ProvidedName = value; return this; }
-	public IndexSettingsDescriptor CreationDate(System.Text.Json.JsonElement? value) { _value.CreationDate = value; return this; }
-	public IndexSettingsDescriptor CreationDateString(System.Text.Json.JsonElement? value) { _value.CreationDateString = value; return this; }
+	public IndexSettingsDescriptor CreationDate(string? value) { _value.CreationDate = value; return this; }
+	public IndexSettingsDescriptor CreationDateString(string? value) { _value.CreationDateString = value; return this; }
 	public IndexSettingsDescriptor Uuid(string? value) { _value.Uuid = value; return this; }
 	public IndexSettingsDescriptor Version(IndexVersioning? value) { _value.Version = value; return this; }
 	public IndexSettingsDescriptor Version(Action<IndexVersioningDescriptor> configure)

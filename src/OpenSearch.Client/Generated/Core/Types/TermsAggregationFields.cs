@@ -9,7 +9,7 @@ namespace OpenSearch.Client.Core;
 public sealed class TermsAggregationFields
 {
 	public TermsAggregationCollectMode? CollectMode { get; set; }
-	public System.Text.Json.JsonElement? Exclude { get; set; }
+	public List<string>? Exclude { get; set; }
 	public TermsAggregationExecutionHint? ExecutionHint { get; set; }
 	public System.Text.Json.JsonElement? Include { get; set; }
 	/// <summary>Only return values that are found in more than `min_doc_count` hits.</summary>

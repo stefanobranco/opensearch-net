@@ -10,11 +10,11 @@ public sealed class AggregationRangeDescriptor
 	internal AggregationRange _value = new();
 
 	/// <summary>Start of the range (inclusive).</summary>
-		public AggregationRangeDescriptor From(System.Text.Json.JsonElement? value) { _value.From = value; return this; }
+		public AggregationRangeDescriptor From(string? value) { _value.From = value; return this; }
 	/// <summary>Custom key to return the range with.</summary>
 		public AggregationRangeDescriptor Key(string? value) { _value.Key = value; return this; }
 	/// <summary>End of the range (exclusive).</summary>
-		public AggregationRangeDescriptor To(System.Text.Json.JsonElement? value) { _value.To = value; return this; }
+		public AggregationRangeDescriptor To(string? value) { _value.To = value; return this; }
 
 	public static implicit operator AggregationRange(AggregationRangeDescriptor descriptor) => descriptor._value;
 }

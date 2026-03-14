@@ -11,7 +11,7 @@ public sealed class InlineScriptDescriptor
 
 	/// <summary>Specifies any named parameters that are passed into the script as variables. Use parameters instead of hard-coded values to decrease compilation time.</summary>
 		public InlineScriptDescriptor Params(Dictionary<string, object>? value) { _value.Params = value; return this; }
-	public InlineScriptDescriptor Lang(System.Text.Json.JsonElement? value) { _value.Lang = value; return this; }
+	public InlineScriptDescriptor Lang(string? value) { _value.Lang = value; return this; }
 	public InlineScriptDescriptor Options(Dictionary<string, string>? value) { _value.Options = value; return this; }
 	/// <summary>The script source.</summary>
 		public InlineScriptDescriptor Source(string? value) { _value.Source = value; return this; }

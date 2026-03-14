@@ -10,7 +10,7 @@ public sealed class TermsAggregationFieldsDescriptor
 	internal TermsAggregationFields _value = new();
 
 	public TermsAggregationFieldsDescriptor CollectMode(TermsAggregationCollectMode? value) { _value.CollectMode = value; return this; }
-	public TermsAggregationFieldsDescriptor Exclude(System.Text.Json.JsonElement? value) { _value.Exclude = value; return this; }
+	public TermsAggregationFieldsDescriptor Exclude(List<string>? value) { _value.Exclude = value; return this; }
 	public TermsAggregationFieldsDescriptor ExecutionHint(TermsAggregationExecutionHint? value) { _value.ExecutionHint = value; return this; }
 	public TermsAggregationFieldsDescriptor Include(System.Text.Json.JsonElement? value) { _value.Include = value; return this; }
 	/// <summary>Only return values that are found in more than `min_doc_count` hits.</summary>

@@ -11,7 +11,7 @@ public sealed class DateDecayPlacementDescriptor
 
 	public DateDecayPlacementDescriptor Decay(double? value) { _value.Decay = value; return this; }
 	public DateDecayPlacementDescriptor Offset(string? value) { _value.Offset = value; return this; }
-	public DateDecayPlacementDescriptor Origin(System.Text.Json.JsonElement? value) { _value.Origin = value; return this; }
+	public DateDecayPlacementDescriptor Origin(string? value) { _value.Origin = value; return this; }
 	public DateDecayPlacementDescriptor Scale(string? value) { _value.Scale = value; return this; }
 
 	public static implicit operator DateDecayPlacement(DateDecayPlacementDescriptor descriptor) => descriptor._value;

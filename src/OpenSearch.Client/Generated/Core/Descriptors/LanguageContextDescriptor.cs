@@ -10,7 +10,7 @@ public sealed class LanguageContextDescriptor
 	internal LanguageContext _value = new();
 
 	public LanguageContextDescriptor Contexts(List<string>? value) { _value.Contexts = value; return this; }
-	public LanguageContextDescriptor Language(System.Text.Json.JsonElement? value) { _value.Language = value; return this; }
+	public LanguageContextDescriptor Language(string? value) { _value.Language = value; return this; }
 
 	public static implicit operator LanguageContext(LanguageContextDescriptor descriptor) => descriptor._value;
 }

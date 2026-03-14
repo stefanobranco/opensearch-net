@@ -26,7 +26,7 @@ public sealed class SignificantTextAggregationFieldsDescriptor
 		_value.ChiSquare = descriptor;
 		return this;
 	}
-	public SignificantTextAggregationFieldsDescriptor Exclude(System.Text.Json.JsonElement? value) { _value.Exclude = value; return this; }
+	public SignificantTextAggregationFieldsDescriptor Exclude(List<string>? value) { _value.Exclude = value; return this; }
 	public SignificantTextAggregationFieldsDescriptor ExecutionHint(TermsAggregationExecutionHint? value) { _value.ExecutionHint = value; return this; }
 	public SignificantTextAggregationFieldsDescriptor Field(string? value) { _value.Field = value; return this; }
 	/// <summary>Whether to out duplicate text to deal with noisy data.</summary>

@@ -63,7 +63,7 @@ public sealed class DeleteByQueryRequestDescriptor
 	/// <summary>Deprecated, use `max_docs` instead.</summary>
 		public DeleteByQueryRequestDescriptor Size(int? value) { _value.Size = value; return this; }
 	/// <summary>The number of slices this task should be divided into.</summary>
-		public DeleteByQueryRequestDescriptor Slices(System.Text.Json.JsonElement? value) { _value.Slices = value; return this; }
+		public DeleteByQueryRequestDescriptor Slices(string? value) { _value.Slices = value; return this; }
 	/// <summary>A comma-separated list of &lt;field&gt;:&lt;direction&gt; pairs.</summary>
 		public DeleteByQueryRequestDescriptor Sort(List<string>? value) { _value.Sort = value; return this; }
 	/// <summary>Specific `tag` of the request for logging and statistical purposes.</summary>

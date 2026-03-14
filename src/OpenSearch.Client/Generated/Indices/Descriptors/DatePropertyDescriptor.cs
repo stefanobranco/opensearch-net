@@ -32,7 +32,7 @@ public sealed class DatePropertyDescriptor
 	public DatePropertyDescriptor Format(string? value) { _value.Format = value; return this; }
 	public DatePropertyDescriptor IgnoreMalformed(bool? value) { _value.IgnoreMalformed = value; return this; }
 	public DatePropertyDescriptor Index(bool? value) { _value.Index = value; return this; }
-	public DatePropertyDescriptor NullValue(System.Text.Json.JsonElement? value) { _value.NullValue = value; return this; }
+	public DatePropertyDescriptor NullValue(string? value) { _value.NullValue = value; return this; }
 	public DatePropertyDescriptor PrecisionStep(int? value) { _value.PrecisionStep = value; return this; }
 	public DatePropertyDescriptor Locale(string? value) { _value.Locale = value; return this; }
 	public DatePropertyDescriptor Type(string? value) { _value.Type = value; return this; }

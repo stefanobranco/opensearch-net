@@ -10,7 +10,7 @@ public sealed class DanglingIndex
 {
 	public string? IndexName { get; set; }
 	public string? IndexUuid { get; set; }
-	public System.Text.Json.JsonElement? CreationDate { get; set; }
+	public string? CreationDate { get; set; }
 	public System.Text.Json.JsonElement? CreationDateMillis { get; set; }
 	public List<string>? NodeIds { get; set; }
 }

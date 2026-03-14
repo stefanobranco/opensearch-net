@@ -36,7 +36,7 @@ public class SortAndPaginationTests : IntegrationTestBase
 			Index = [index],
 			From = 0,
 			Size = 2,
-			Sort = JsonSerializer.SerializeToElement("score:asc")
+			Sort = ["score:asc"]
 		});
 
 		page1.Hits.Should().NotBeNull();
@@ -50,7 +50,7 @@ public class SortAndPaginationTests : IntegrationTestBase
 			Index = [index],
 			From = 2,
 			Size = 2,
-			Sort = JsonSerializer.SerializeToElement("score:asc")
+			Sort = ["score:asc"]
 		});
 
 		page2.Hits.Should().NotBeNull();
@@ -64,7 +64,7 @@ public class SortAndPaginationTests : IntegrationTestBase
 			Index = [index],
 			From = 4,
 			Size = 2,
-			Sort = JsonSerializer.SerializeToElement("score:asc")
+			Sort = ["score:asc"]
 		});
 
 		page3.Hits.Should().NotBeNull();
@@ -95,7 +95,7 @@ public class SortAndPaginationTests : IntegrationTestBase
 		{
 			Index = [index],
 			Size = 10,
-			Sort = JsonSerializer.SerializeToElement("score:desc")
+			Sort = ["score:desc"]
 		});
 
 		searchResponse.Hits.Should().NotBeNull();

@@ -29,7 +29,7 @@ public sealed class PutTemplateIndexRequest
 	/// <summary>Aliases for the index.</summary>
 		public Dictionary<string, Alias>? Aliases { get; set; }
 	/// <summary>Array of wildcard expressions used to match the names of indexes during creation.</summary>
-		public System.Text.Json.JsonElement? IndexPatterns { get; set; }
+		public List<string>? IndexPatterns { get; set; }
 	public TypeMapping? Mappings { get; set; }
 	/// <summary>Configuration options for the index.</summary>
 		public Dictionary<string, object>? Settings { get; set; }

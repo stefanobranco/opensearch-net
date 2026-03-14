@@ -14,6 +14,8 @@ public sealed class GeoPolygonQueryDescriptor
 	public GeoPolygonQueryDescriptor Name(string? value) { _value.Name = value; return this; }
 	public GeoPolygonQueryDescriptor ValidationMethod(GeoValidationMethod? value) { _value.ValidationMethod = value; return this; }
 	public GeoPolygonQueryDescriptor IgnoreUnmapped(bool? value) { _value.IgnoreUnmapped = value; return this; }
+	/// <summary>Additional properties not captured by named fields.</summary>
+	public GeoPolygonQueryDescriptor AdditionalProperties(Dictionary<string, System.Text.Json.JsonElement>? value) { _value.AdditionalProperties = value; return this; }
 
 	public static implicit operator GeoPolygonQuery(GeoPolygonQueryDescriptor descriptor) => descriptor._value;
 }

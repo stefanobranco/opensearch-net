@@ -10,7 +10,7 @@ public sealed class InlineScript
 {
 	/// <summary>Specifies any named parameters that are passed into the script as variables. Use parameters instead of hard-coded values to decrease compilation time.</summary>
 		public Dictionary<string, object>? Params { get; set; }
-	public System.Text.Json.JsonElement? Lang { get; set; }
+	public string? Lang { get; set; }
 	public Dictionary<string, string>? Options { get; set; }
 	/// <summary>The script source.</summary>
 		public string? Source { get; set; }

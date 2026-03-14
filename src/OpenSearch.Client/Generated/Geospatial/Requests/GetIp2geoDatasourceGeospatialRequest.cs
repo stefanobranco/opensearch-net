@@ -15,7 +15,7 @@ public sealed class GetIp2geoDatasourceGeospatialRequest
 {
 	/// <summary></summary>
 	[JsonIgnore]
-	public string? Name { get; set; }
+	public List<string>? Name { get; set; }
 }
 public sealed class GetIp2geoDatasourceGeospatialEndpoint : IEndpoint<GetIp2geoDatasourceGeospatialRequest, GetIp2geoDatasourceGeospatialResponse>
 {
@@ -26,7 +26,7 @@ public sealed class GetIp2geoDatasourceGeospatialEndpoint : IEndpoint<GetIp2geoD
 	public string RequestUrl(GetIp2geoDatasourceGeospatialRequest r)
 	{
 		var path = r.Name is not null
-			? $"/_plugins/geospatial/ip2geo/datasource/{Uri.EscapeDataString(r.Name!.ToString()!)}" : true
+			? $"/_plugins/geospatial/ip2geo/datasource/{Uri.EscapeDataString(string.Join(",", r.Name!))}" : true
 			? $"/_plugins/geospatial/ip2geo/datasource"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		return path;

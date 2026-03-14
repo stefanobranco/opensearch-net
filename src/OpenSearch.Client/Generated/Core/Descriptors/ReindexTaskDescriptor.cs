@@ -35,7 +35,7 @@ public sealed class ReindexTaskDescriptor
 		return this;
 	}
 	public ReindexTaskDescriptor Type(string? value) { _value.Type = value; return this; }
-	public ReindexTaskDescriptor Headers(Dictionary<string, System.Text.Json.JsonElement>? value) { _value.Headers = value; return this; }
+	public ReindexTaskDescriptor Headers(Dictionary<string, List<string>>? value) { _value.Headers = value; return this; }
 
 	public static implicit operator ReindexTask(ReindexTaskDescriptor descriptor) => descriptor._value;
 }

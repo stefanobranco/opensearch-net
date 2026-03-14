@@ -36,7 +36,7 @@ public sealed class StatsIndexRequest
 	public bool? ForbidClosedIndices { get; set; }
 	/// <summary>A comma-separated list of search groups to include in the search statistics.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? Groups { get; set; }
+	public List<string>? Groups { get; set; }
 	/// <summary>If `true`, the call reports the aggregated disk usage of each one of the Lucene index files (only applies if segment stats are requested).</summary>
 	[JsonIgnore]
 	public bool? IncludeSegmentFileSizes { get; set; }
@@ -73,7 +73,7 @@ public sealed class StatsIndexEndpoint : IEndpoint<StatsIndexRequest, StatsIndex
 		if (r.ForbidClosedIndices is not null)
 			queryParts.Add($"forbid_closed_indices={Uri.EscapeDataString((r.ForbidClosedIndices.Value ? "true" : "false"))}");
 		if (r.Groups is not null)
-			queryParts.Add($"groups={Uri.EscapeDataString(r.Groups.ToString()!)}");
+			queryParts.Add($"groups={Uri.EscapeDataString(string.Join(",", r.Groups!))}");
 		if (r.IncludeSegmentFileSizes is not null)
 			queryParts.Add($"include_segment_file_sizes={Uri.EscapeDataString((r.IncludeSegmentFileSizes.Value ? "true" : "false"))}");
 		if (r.IncludeUnloadedSegments is not null)

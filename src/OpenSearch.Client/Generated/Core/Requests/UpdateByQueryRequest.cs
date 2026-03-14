@@ -97,7 +97,7 @@ public sealed class UpdateByQueryRequest
 	public int? Size { get; set; }
 	/// <summary>The number of slices this task should be divided into.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? Slices { get; set; }
+	public string? Slices { get; set; }
 	/// <summary>A comma-separated list of &lt;field&gt;:&lt;direction&gt; pairs.</summary>
 	[JsonIgnore]
 	public List<string>? Sort { get; set; }
@@ -186,7 +186,7 @@ public sealed class UpdateByQueryEndpoint : IEndpoint<UpdateByQueryRequest, Upda
 		if (r.Size is not null)
 			queryParts.Add($"size={Uri.EscapeDataString(r.Size.ToString()!)}");
 		if (r.Slices is not null)
-			queryParts.Add($"slices={Uri.EscapeDataString(r.Slices.ToString()!)}");
+			queryParts.Add($"slices={Uri.EscapeDataString(r.Slices!)}");
 		if (r.Sort is not null)
 			queryParts.Add($"sort={Uri.EscapeDataString(string.Join(",", r.Sort!))}");
 		if (r.Stats is not null)

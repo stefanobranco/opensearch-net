@@ -27,7 +27,7 @@ public sealed class PutSettingsIndexRequestDescriptor
 	/// <summary>Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error.</summary>
 		public PutSettingsIndexRequestDescriptor Timeout(string? value) { _value.Timeout = value; return this; }
 	public PutSettingsIndexRequestDescriptor Mode(string? value) { _value.Mode = value; return this; }
-	public PutSettingsIndexRequestDescriptor RoutingPath(System.Text.Json.JsonElement? value) { _value.RoutingPath = value; return this; }
+	public PutSettingsIndexRequestDescriptor RoutingPath(List<string>? value) { _value.RoutingPath = value; return this; }
 	public PutSettingsIndexRequestDescriptor SoftDeletes(SoftDeletes? value) { _value.SoftDeletes = value; return this; }
 	public PutSettingsIndexRequestDescriptor SoftDeletes(Action<SoftDeletesDescriptor> configure)
 	{
@@ -126,8 +126,8 @@ public sealed class PutSettingsIndexRequestDescriptor
 		return this;
 	}
 	public PutSettingsIndexRequestDescriptor ProvidedName(string? value) { _value.ProvidedName = value; return this; }
-	public PutSettingsIndexRequestDescriptor CreationDate(System.Text.Json.JsonElement? value) { _value.CreationDate = value; return this; }
-	public PutSettingsIndexRequestDescriptor CreationDateString(System.Text.Json.JsonElement? value) { _value.CreationDateString = value; return this; }
+	public PutSettingsIndexRequestDescriptor CreationDate(string? value) { _value.CreationDate = value; return this; }
+	public PutSettingsIndexRequestDescriptor CreationDateString(string? value) { _value.CreationDateString = value; return this; }
 	public PutSettingsIndexRequestDescriptor Uuid(string? value) { _value.Uuid = value; return this; }
 	public PutSettingsIndexRequestDescriptor Version(IndexVersioning? value) { _value.Version = value; return this; }
 	public PutSettingsIndexRequestDescriptor Version(Action<IndexVersioningDescriptor> configure)

@@ -18,4 +18,6 @@ public sealed class GeoDistanceQuery
 	public bool? IgnoreUnmapped { get; set; }
 	/// <summary>The unit of distance measurement.</summary>
 		public string? Unit { get; set; }
+	[JsonExtensionData]
+	public Dictionary<string, System.Text.Json.JsonElement>? AdditionalProperties { get; set; }
 }

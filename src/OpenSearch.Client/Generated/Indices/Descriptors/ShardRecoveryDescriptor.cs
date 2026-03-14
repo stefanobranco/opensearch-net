@@ -39,9 +39,9 @@ public sealed class ShardRecoveryDescriptor
 		_value.Start = descriptor;
 		return this;
 	}
-	public ShardRecoveryDescriptor StartTime(System.Text.Json.JsonElement? value) { _value.StartTime = value; return this; }
+	public ShardRecoveryDescriptor StartTime(string? value) { _value.StartTime = value; return this; }
 	public ShardRecoveryDescriptor StartTimeInMillis(System.Text.Json.JsonElement? value) { _value.StartTimeInMillis = value; return this; }
-	public ShardRecoveryDescriptor StopTime(System.Text.Json.JsonElement? value) { _value.StopTime = value; return this; }
+	public ShardRecoveryDescriptor StopTime(string? value) { _value.StopTime = value; return this; }
 	public ShardRecoveryDescriptor StopTimeInMillis(System.Text.Json.JsonElement? value) { _value.StopTimeInMillis = value; return this; }
 	public ShardRecoveryDescriptor Target(RecoveryOrigin? value) { _value.Target = value; return this; }
 	public ShardRecoveryDescriptor Target(Action<RecoveryOriginDescriptor> configure)

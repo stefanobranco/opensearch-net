@@ -9,7 +9,7 @@ public sealed class UnassignedInformationDescriptor
 {
 	internal UnassignedInformation _value = new();
 
-	public UnassignedInformationDescriptor At(System.Text.Json.JsonElement? value) { _value.At = value; return this; }
+	public UnassignedInformationDescriptor At(string? value) { _value.At = value; return this; }
 	public UnassignedInformationDescriptor LastAllocationStatus(string? value) { _value.LastAllocationStatus = value; return this; }
 	public UnassignedInformationDescriptor Reason(UnassignedInformationReason? value) { _value.Reason = value; return this; }
 	public UnassignedInformationDescriptor Details(string? value) { _value.Details = value; return this; }

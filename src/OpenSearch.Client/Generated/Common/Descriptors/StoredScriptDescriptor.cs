@@ -9,7 +9,7 @@ public sealed class StoredScriptDescriptor
 {
 	internal StoredScript _value = new();
 
-	public StoredScriptDescriptor Lang(System.Text.Json.JsonElement? value) { _value.Lang = value; return this; }
+	public StoredScriptDescriptor Lang(string? value) { _value.Lang = value; return this; }
 	/// <summary>The options for the script.</summary>
 		public StoredScriptDescriptor Options(Dictionary<string, string>? value) { _value.Options = value; return this; }
 	/// <summary>The location of the source code for the script.</summary>

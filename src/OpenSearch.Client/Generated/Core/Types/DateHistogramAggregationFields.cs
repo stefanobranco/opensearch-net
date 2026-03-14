@@ -18,7 +18,7 @@ public sealed class DateHistogramAggregationFields<T>
 	public string? Interval { get; set; }
 	/// <summary>Only returns buckets that have `min_doc_count` number of documents. By default, all buckets between the first bucket that matches documents and the last one are returned.</summary>
 		public int? MinDocCount { get; set; }
-	public System.Text.Json.JsonElement? Missing { get; set; }
+	public string? Missing { get; set; }
 	public string? Offset { get; set; }
 	public HistogramOrder? Order { get; set; }
 	public Dictionary<string, object>? Params { get; set; }

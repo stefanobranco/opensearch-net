@@ -15,7 +15,7 @@ public sealed class AutoDateHistogramAggregationFieldsDescriptor
 	/// <summary>The date format used to format `key_as_string` in the response. If no `format` is specified, the first date format specified in the field mapping is used.</summary>
 		public AutoDateHistogramAggregationFieldsDescriptor Format(string? value) { _value.Format = value; return this; }
 	public AutoDateHistogramAggregationFieldsDescriptor MinimumInterval(MinimumInterval? value) { _value.MinimumInterval = value; return this; }
-	public AutoDateHistogramAggregationFieldsDescriptor Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
+	public AutoDateHistogramAggregationFieldsDescriptor Missing(string? value) { _value.Missing = value; return this; }
 	/// <summary>Time zone specified as a ISO 8601 UTC offset.</summary>
 		public AutoDateHistogramAggregationFieldsDescriptor Offset(string? value) { _value.Offset = value; return this; }
 	public AutoDateHistogramAggregationFieldsDescriptor Params(Dictionary<string, object>? value) { _value.Params = value; return this; }

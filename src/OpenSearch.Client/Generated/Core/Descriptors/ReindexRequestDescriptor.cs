@@ -19,7 +19,7 @@ public sealed class ReindexRequestDescriptor
 	/// <summary>Specifies how long a consistent view of the index should be maintained for scrolled search.</summary>
 		public ReindexRequestDescriptor Scroll(string? value) { _value.Scroll = value; return this; }
 	/// <summary>The number of slices this task should be divided into. Defaults to 1 slice, meaning the task isn't sliced into subtasks.</summary>
-		public ReindexRequestDescriptor Slices(System.Text.Json.JsonElement? value) { _value.Slices = value; return this; }
+		public ReindexRequestDescriptor Slices(string? value) { _value.Slices = value; return this; }
 	/// <summary>Period each indexing waits for automatic index creation, dynamic mapping updates, and waiting for active shards.</summary>
 		public ReindexRequestDescriptor Timeout(string? value) { _value.Timeout = value; return this; }
 	/// <summary>The number of shard copies that must be active before proceeding with the operation. Set to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`).</summary>
