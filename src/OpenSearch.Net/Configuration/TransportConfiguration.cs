@@ -45,6 +45,9 @@ public sealed class TransportConfiguration : ITransportConfiguration
 	/// <inheritdoc />
 	public Action<HttpRequestMessage>? OnRequestCreated { get; }
 
+	/// <inheritdoc />
+	public Func<HttpMessageHandler, HttpMessageHandler>? HttpMessageHandlerFactory { get; }
+
 	private TransportConfiguration(
 		NodePool nodePool,
 		IOpenSearchSerializer? serializer,
@@ -58,7 +61,8 @@ public sealed class TransportConfiguration : ITransportConfiguration
 		Uri? proxyAddress,
 		string? proxyUsername,
 		string? proxyPassword,
-		Action<HttpRequestMessage>? onRequestCreated)
+		Action<HttpRequestMessage>? onRequestCreated,
+		Func<HttpMessageHandler, HttpMessageHandler>? httpMessageHandlerFactory)
 	{
 		NodePool = nodePool;
 		Serializer = serializer;
@@ -73,6 +77,7 @@ public sealed class TransportConfiguration : ITransportConfiguration
 		ProxyUsername = proxyUsername;
 		ProxyPassword = proxyPassword;
 		OnRequestCreated = onRequestCreated;
+		HttpMessageHandlerFactory = httpMessageHandlerFactory;
 	}
 
 	/// <summary>
@@ -103,6 +108,7 @@ public sealed class TransportConfiguration : ITransportConfiguration
 		private string? _proxyUsername;
 		private string? _proxyPassword;
 		private Action<HttpRequestMessage>? _onRequestCreated;
+		private Func<HttpMessageHandler, HttpMessageHandler>? _httpMessageHandlerFactory;
 
 		internal Builder(NodePool nodePool)
 		{
@@ -187,6 +193,13 @@ public sealed class TransportConfiguration : ITransportConfiguration
 			return this;
 		}
 
+		/// <summary>Sets a factory that wraps the default HTTP handler (e.g., for SigV4 signing).</summary>
+		public Builder HttpMessageHandlerFactory(Func<HttpMessageHandler, HttpMessageHandler> factory)
+		{
+			_httpMessageHandlerFactory = factory;
+			return this;
+		}
+
 		/// <summary>
 		/// Builds the immutable <see cref="TransportConfiguration"/>.
 		/// </summary>
@@ -204,6 +217,7 @@ public sealed class TransportConfiguration : ITransportConfiguration
 				_proxyAddress,
 				_proxyUsername,
 				_proxyPassword,
-				_onRequestCreated);
+				_onRequestCreated,
+				_httpMessageHandlerFactory);
 	}
 }

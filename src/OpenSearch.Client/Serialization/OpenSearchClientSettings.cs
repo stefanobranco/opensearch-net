@@ -78,6 +78,9 @@ public sealed class OpenSearchClientSettings : IOpenSearchClientSettings
 	/// <inheritdoc />
 	public Action<HttpRequestMessage>? OnRequestCreated => _transport.OnRequestCreated;
 
+	/// <inheritdoc />
+	public Func<HttpMessageHandler, HttpMessageHandler>? HttpMessageHandlerFactory => _transport.HttpMessageHandlerFactory;
+
 	/// <summary>
 	/// Creates a builder configured with the given <paramref name="nodePool"/>.
 	/// </summary>
@@ -189,6 +192,15 @@ public sealed class OpenSearchClientSettings : IOpenSearchClientSettings
 		public Builder OnRequestCreated(Action<HttpRequestMessage> callback)
 		{
 			_transportBuilder.OnRequestCreated(callback);
+			return this;
+		}
+
+		/// <summary>
+		/// Sets a factory that wraps the default HTTP handler (e.g., for AWS SigV4 signing).
+		/// </summary>
+		public Builder HttpMessageHandlerFactory(Func<HttpMessageHandler, HttpMessageHandler> factory)
+		{
+			_transportBuilder.HttpMessageHandlerFactory(factory);
 			return this;
 		}
 

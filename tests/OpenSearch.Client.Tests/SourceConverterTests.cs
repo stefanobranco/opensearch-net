@@ -82,6 +82,7 @@ public class SourceConverterTests
 		public string? ProxyUsername => null;
 		public string? ProxyPassword => null;
 		public Action<HttpRequestMessage>? OnRequestCreated => null;
+		public Func<HttpMessageHandler, HttpMessageHandler>? HttpMessageHandlerFactory => null;
 	}
 
 	[Fact]

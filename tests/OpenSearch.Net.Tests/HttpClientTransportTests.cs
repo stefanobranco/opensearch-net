@@ -304,6 +304,219 @@ public class HttpClientTransportTests : IDisposable
 		caught.AuditTrail!.Events.Should().NotBeEmpty();
 	}
 
+	[Fact]
+	public void Returns400_ThrowsServerException()
+	{
+		var handler = new MockHttpMessageHandler(_ =>
+			new HttpResponseMessage(HttpStatusCode.BadRequest)
+			{
+				Content = new StringContent(
+					"{\"error\":{\"type\":\"parsing_exception\",\"reason\":\"Unknown key for a VALUE_STRING in [invalid]\"},\"status\":400}",
+					Encoding.UTF8, "application/json")
+			});
+		var transport = CreateTransport(handler, new Uri("http://localhost:9200"));
+		var endpoint = CreateSimpleEndpoint();
+		var act = () => transport.PerformRequest("request", endpoint);
+		act.Should().Throw<OpenSearchServerException>()
+			.Where(e => e.StatusCode == 400 && e.ErrorType == "parsing_exception");
+		handler.Requests.Should().HaveCount(1); // No retry
+	}
+
+	[Fact]
+	public void Returns401_ThrowsServerException_NoRetry()
+	{
+		var handler = new MockHttpMessageHandler(_ =>
+			new HttpResponseMessage(HttpStatusCode.Unauthorized)
+			{
+				Content = new StringContent(
+					"{\"error\":\"Security exception\",\"status\":401}",
+					Encoding.UTF8, "application/json")
+			});
+		var transport = CreateTransport(handler, new Uri("http://node1:9200"), new Uri("http://node2:9200"));
+		var endpoint = CreateSimpleEndpoint();
+		var act = () => transport.PerformRequest("request", endpoint);
+		act.Should().Throw<OpenSearchServerException>()
+			.Where(e => e.StatusCode == 401);
+		handler.Requests.Should().HaveCount(1);
+	}
+
+	[Fact]
+	public void Returns404_OnGetEndpoint_DoesNotThrow()
+	{
+		var handler = new MockHttpMessageHandler(_ =>
+			new HttpResponseMessage(HttpStatusCode.NotFound)
+			{
+				Content = new StringContent("{\"found\":false}", Encoding.UTF8, "application/json")
+			});
+		var transport = CreateTransport(handler, new Uri("http://localhost:9200"));
+		var endpoint = new SimpleEndpoint<string, TestResponse>(
+			method: _ => HttpMethod.Get,
+			requestUrl: _ => "/my-index/_doc/1",
+			deserialize: (statusCode, _, body, serializer) =>
+				new TestResponse { Status = statusCode == 404 ? "not_found" : "ok" });
+		var response = transport.PerformRequest("request", endpoint);
+		response.Status.Should().Be("not_found");
+	}
+
+	[Fact]
+	public void Returns404_OnPostEndpoint_ThrowsServerException()
+	{
+		var handler = new MockHttpMessageHandler(_ =>
+			new HttpResponseMessage(HttpStatusCode.NotFound)
+			{
+				Content = new StringContent(
+					"{\"error\":{\"type\":\"index_not_found_exception\",\"reason\":\"no such index [missing]\"},\"status\":404}",
+					Encoding.UTF8, "application/json")
+			});
+		var transport = CreateTransport(handler, new Uri("http://localhost:9200"));
+		var endpoint = new SimpleEndpoint<string, TestResponse>(
+			method: _ => HttpMethod.Post,
+			requestUrl: _ => "/missing/_search",
+			deserialize: (_, _, body, serializer) =>
+				serializer.Deserialize<TestResponse>(body) ?? new TestResponse());
+		var act = () => transport.PerformRequest("request", endpoint);
+		act.Should().Throw<OpenSearchServerException>()
+			.Where(e => e.StatusCode == 404 && e.ErrorType == "index_not_found_exception");
+	}
+
+	[Fact]
+	public void Returns409_ThrowsServerException_NoRetry()
+	{
+		var handler = new MockHttpMessageHandler(_ =>
+			new HttpResponseMessage(HttpStatusCode.Conflict)
+			{
+				Content = new StringContent(
+					"{\"error\":{\"type\":\"version_conflict_engine_exception\",\"reason\":\"conflict\"},\"status\":409}",
+					Encoding.UTF8, "application/json")
+			});
+		var transport = CreateTransport(handler, new Uri("http://node1:9200"), new Uri("http://node2:9200"));
+		var endpoint = CreateSimpleEndpoint();
+		var act = () => transport.PerformRequest("request", endpoint);
+		act.Should().Throw<OpenSearchServerException>()
+			.Where(e => e.StatusCode == 409);
+		handler.Requests.Should().HaveCount(1);
+	}
+
+	[Fact]
+	public void Returns502_Retries()
+	{
+		var callCount = 0;
+		var handler = new MockHttpMessageHandler(_ =>
+		{
+			callCount++;
+			if (callCount == 1)
+				return new HttpResponseMessage(HttpStatusCode.BadGateway);
+			return new HttpResponseMessage(HttpStatusCode.OK)
+			{
+				Content = new StringContent("{\"status\":\"ok\"}", Encoding.UTF8, "application/json")
+			};
+		});
+		var transport = CreateTransport(handler, new Uri("http://node1:9200"), new Uri("http://node2:9200"));
+		var endpoint = new SimpleEndpoint<string, TestResponse>(
+			method: _ => HttpMethod.Get,
+			requestUrl: _ => "/_cluster/health",
+			deserialize: (_, _, body, serializer) =>
+				serializer.Deserialize<TestResponse>(body) ?? new TestResponse());
+		var response = transport.PerformRequest("request", endpoint);
+		response.Status.Should().Be("ok");
+		handler.Requests.Should().HaveCount(2);
+	}
+
+	[Fact]
+	public void Returns504_Retries()
+	{
+		var callCount = 0;
+		var handler = new MockHttpMessageHandler(_ =>
+		{
+			callCount++;
+			if (callCount == 1)
+				return new HttpResponseMessage(HttpStatusCode.GatewayTimeout);
+			return new HttpResponseMessage(HttpStatusCode.OK)
+			{
+				Content = new StringContent("{\"status\":\"ok\"}", Encoding.UTF8, "application/json")
+			};
+		});
+		var transport = CreateTransport(handler, new Uri("http://node1:9200"), new Uri("http://node2:9200"));
+		var endpoint = new SimpleEndpoint<string, TestResponse>(
+			method: _ => HttpMethod.Get,
+			requestUrl: _ => "/_cluster/health",
+			deserialize: (_, _, body, serializer) =>
+				serializer.Deserialize<TestResponse>(body) ?? new TestResponse());
+		var response = transport.PerformRequest("request", endpoint);
+		response.Status.Should().Be("ok");
+		handler.Requests.Should().HaveCount(2);
+	}
+
+	[Fact]
+	public async Task CancellationToken_Cancelled_ThrowsOperationCanceledException()
+	{
+		var handler = new MockHttpMessageHandler(_ =>
+		{
+			throw new TaskCanceledException("Cancelled", new Exception(), new CancellationToken(true));
+		});
+		var transport = CreateTransport(handler, new Uri("http://localhost:9200"));
+		var endpoint = CreateSimpleEndpoint();
+		using var cts = new CancellationTokenSource();
+		cts.Cancel();
+		// TaskCanceledException from user cancellation should not be caught by the retry logic
+		// when ct.IsCancellationRequested is true
+		await Assert.ThrowsAnyAsync<OperationCanceledException>(
+			() => transport.PerformRequestAsync("request", endpoint, ct: cts.Token));
+	}
+
+	[Fact]
+	public void ConnectionRefused_Retries_ThenThrows()
+	{
+		var handler = new MockHttpMessageHandler(_ =>
+			throw new HttpRequestException("Connection refused"));
+		var config = TransportConfiguration.Create(
+				new Uri("http://node1:9200"),
+				new Uri("http://node2:9200"),
+				new Uri("http://node3:9200"))
+			.MaxRetries(2)
+			.Build();
+		var transport = CreateTransport(handler, config);
+		var endpoint = CreateSimpleEndpoint();
+		var act = () => transport.PerformRequest("request", endpoint);
+		act.Should().Throw<TransportException>()
+			.WithMessage("*Maximum number of retries*");
+		handler.Requests.Should().HaveCount(3);
+	}
+
+	[Fact]
+	public void Headers_FromTransportOptions_SentWithRequest()
+	{
+		var handler = new MockHttpMessageHandler(_ =>
+			new HttpResponseMessage(HttpStatusCode.OK)
+			{
+				Content = new StringContent("{}", Encoding.UTF8, "application/json")
+			});
+		var transport = CreateTransport(handler, new Uri("http://localhost:9200"));
+		var endpoint = CreateSimpleEndpoint();
+		var options = new TransportOptions
+		{
+			Headers = new Dictionary<string, string> { ["X-Custom-Header"] = "test-value" }
+		};
+		transport.PerformRequest("request", endpoint, options);
+		handler.Requests.Should().HaveCount(1);
+		handler.Requests[0].Headers.GetValues("X-Custom-Header").Should().ContainSingle("test-value");
+	}
+
+	[Fact]
+	public void HeadRequest_Returns404_DoesNotThrow()
+	{
+		var handler = new MockHttpMessageHandler(_ =>
+			new HttpResponseMessage(HttpStatusCode.NotFound));
+		var transport = CreateTransport(handler, new Uri("http://localhost:9200"));
+		var endpoint = new SimpleEndpoint<string, TestResponse>(
+			method: _ => HttpMethod.Head,
+			requestUrl: _ => "/my-index",
+			deserialize: (statusCode, _, _, _) =>
+				new TestResponse { Status = statusCode is >= 200 and < 300 ? "exists" : "not_exists" });
+		var response = transport.PerformRequest("request", endpoint);
+		response.Status.Should().Be("not_exists");
+	}
+
 	// --- Helpers ---
 
 	private HttpClientTransport CreateTransport(MockHttpMessageHandler handler, params Uri[] uris)

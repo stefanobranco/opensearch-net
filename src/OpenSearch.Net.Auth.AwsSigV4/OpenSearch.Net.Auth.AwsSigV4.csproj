@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+    <Description>AWS SigV4 authentication handler for OpenSearch .NET client</Description>
+    <PackageTags>opensearch;aws;sigv4;authentication</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OpenSearch.Net\OpenSearch.Net.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.Core" Version="3.7.*" />
+  </ItemGroup>
+</Project>

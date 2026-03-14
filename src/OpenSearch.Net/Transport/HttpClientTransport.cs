@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Text.Json;
 
 namespace OpenSearch.Net;
 
@@ -96,6 +97,19 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 
 				nodePool.MarkAlive(node);
 
+				var method = endpoint.Method(request);
+
+				// Detect server errors (4xx/5xx) and throw, except for:
+				// - HEAD requests (status already handled in DeserializeResponse)
+				// - GET 404 (valid "not found" response with Found=false)
+				if (statusCode >= 400
+					&& method != HttpMethod.Head
+					&& !(method == HttpMethod.Get && statusCode == 404))
+				{
+					using var errorStream = responseMessage.Content.ReadAsStream();
+					ThrowServerError(statusCode, errorStream, node);
+				}
+
 				using var bodyStream = responseMessage.Content.ReadAsStream();
 				var contentType = responseMessage.Content.Headers.ContentType?.MediaType;
 
@@ -174,6 +188,17 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 
 				nodePool.MarkAlive(node);
 
+				var method = endpoint.Method(request);
+
+				if (statusCode >= 400
+					&& method != HttpMethod.Head
+					&& !(method == HttpMethod.Get && statusCode == 404))
+				{
+					var errorStream = await responseMessage.Content.ReadAsStreamAsync(ct).ConfigureAwait(false);
+					using (errorStream)
+						ThrowServerError(statusCode, errorStream, node);
+				}
+
 				var bodyStream = await responseMessage.Content.ReadAsStreamAsync(ct).ConfigureAwait(false);
 				var contentType = responseMessage.Content.Headers.ContentType?.MediaType;
 
@@ -193,6 +218,39 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 		}
 
 		return ThrowRetriesExhausted<TResponse>(ref auditTrail, lastException, lastRetryableStatusCode, lastRetryableNode);
+	}
+
+	[System.Diagnostics.CodeAnalysis.DoesNotReturn]
+	private static void ThrowServerError(int statusCode, Stream body, Node node)
+	{
+		string? errorType = null;
+		string? reason = null;
+
+		try
+		{
+			using var doc = JsonDocument.Parse(body);
+			var root = doc.RootElement;
+			if (root.TryGetProperty("error", out var errorProp))
+			{
+				if (errorProp.ValueKind == JsonValueKind.Object)
+				{
+					if (errorProp.TryGetProperty("type", out var typeProp))
+						errorType = typeProp.GetString();
+					if (errorProp.TryGetProperty("reason", out var reasonProp))
+						reason = reasonProp.GetString();
+				}
+				else if (errorProp.ValueKind == JsonValueKind.String)
+				{
+					reason = errorProp.GetString();
+				}
+			}
+		}
+		catch
+		{
+			// If we can't parse the error body, throw with whatever we have
+		}
+
+		throw new OpenSearchServerException(errorType, reason, statusCode, null, node);
 	}
 
 	private static bool IsRetryableException(Exception ex, bool isSync, CancellationToken ct = default) =>
@@ -446,7 +504,11 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 			handler.UseProxy = true;
 		}
 
-		return handler;
+		HttpMessageHandler result = handler;
+		if (configuration.HttpMessageHandlerFactory is { } factory)
+			result = factory(result);
+
+		return result;
 	}
 
 	/// <inheritdoc />

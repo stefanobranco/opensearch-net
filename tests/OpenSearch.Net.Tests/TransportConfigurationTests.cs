@@ -186,6 +186,75 @@ public class TransportConfigurationTests
 		config.Serializer.Should().BeSameAs(serializer);
 	}
 
+	[Fact]
+	public void Builder_SetsAllProperties()
+	{
+		var proxyUri = new Uri("http://proxy:8080");
+		Action<HttpRequestMessage> callback = _ => { };
+		Func<HttpMessageHandler, HttpMessageHandler> handlerFactory = h => h;
+		var serializer = new StubSerializer();
+
+		var config = TransportConfiguration.Create(Node1, Node2, Node3)
+			.Serializer(serializer)
+			.RequestTimeout(TimeSpan.FromSeconds(30))
+			.DnsRefreshTimeout(TimeSpan.FromMinutes(10))
+			.MaxRetries(5)
+			.EnableHttpCompression()
+			.Authentication(new BasicAuthCredentials("user", "pass"))
+			.DisableAutomaticProxyDetection()
+			.Proxy(proxyUri, "puser", "ppass")
+			.OnRequestCreated(callback)
+			.HttpMessageHandlerFactory(handlerFactory)
+			.Build();
+
+		config.NodePool.Nodes.Should().HaveCount(3);
+		config.Serializer.Should().BeSameAs(serializer);
+		config.RequestTimeout.Should().Be(TimeSpan.FromSeconds(30));
+		config.DnsRefreshTimeout.Should().Be(TimeSpan.FromMinutes(10));
+		config.MaxRetries.Should().Be(5);
+		config.EnableHttpCompression.Should().BeTrue();
+		config.BasicAuth!.Username.Should().Be("user");
+		config.DisableAutomaticProxyDetection.Should().BeTrue();
+		config.ProxyAddress.Should().Be(proxyUri);
+		config.ProxyUsername.Should().Be("puser");
+		config.ProxyPassword.Should().Be("ppass");
+		config.OnRequestCreated.Should().BeSameAs(callback);
+		config.HttpMessageHandlerFactory.Should().BeSameAs(handlerFactory);
+	}
+
+	[Fact]
+	public void MultiAuth_LastWins_BasicAfterApiKey()
+	{
+		var config = TransportConfiguration.Create(Node1)
+			.Authentication(new ApiKeyCredentials("id", "key"))
+			.Authentication(new BasicAuthCredentials("user", "pass"))
+			.Build();
+
+		config.BasicAuth.Should().NotBeNull();
+		config.ApiKeyAuth.Should().BeNull();
+	}
+
+	[Fact]
+	public void MultiAuth_LastWins_ApiKeyAfterBasic()
+	{
+		var config = TransportConfiguration.Create(Node1)
+			.Authentication(new BasicAuthCredentials("user", "pass"))
+			.Authentication(new ApiKeyCredentials("id", "key"))
+			.Build();
+
+		config.ApiKeyAuth.Should().NotBeNull();
+		config.BasicAuth.Should().BeNull();
+	}
+
+	[Fact]
+	public void RequestTimeout_ThrowsOnZero()
+	{
+		var act = () => TransportConfiguration.Create(Node1)
+			.RequestTimeout(TimeSpan.Zero);
+
+		act.Should().Throw<ArgumentOutOfRangeException>();
+	}
+
 	private sealed class StubSerializer : IOpenSearchSerializer
 	{
 		public T? Deserialize<T>(Stream stream) => default;

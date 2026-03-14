@@ -71,4 +71,11 @@ public interface ITransportConfiguration
 	/// Useful for custom header injection or logging.
 	/// </summary>
 	Action<HttpRequestMessage>? OnRequestCreated { get; }
+
+	/// <summary>
+	/// Optional factory that wraps the default <see cref="HttpMessageHandler"/>.
+	/// Use this to inject delegating handlers (e.g., AWS SigV4 signing) into the HTTP pipeline.
+	/// The factory receives the default handler and should return a handler that delegates to it.
+	/// </summary>
+	Func<HttpMessageHandler, HttpMessageHandler>? HttpMessageHandlerFactory { get; }
 }
