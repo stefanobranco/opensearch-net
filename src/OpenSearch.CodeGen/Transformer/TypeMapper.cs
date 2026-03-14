@@ -504,10 +504,9 @@ public sealed class TypeMapper
 
 	/// <summary>
 	/// Extracts the C# namespace from a $ref file path.
-	/// E.g., "../schemas/_common.yaml#/..." → "Common"
-	///       "../schemas/_common.query_dsl.yaml#/..." → "Common"
-	///       "../schemas/_core.search.yaml#/..." → "Core"
-	///       "#/components/schemas/..." → null (local ref, use current namespace)
+	/// Types from any <c>_common</c> schema file (e.g., <c>_common.yaml</c>,
+	/// <c>_common.query_dsl.yaml</c>, <c>indices._common.yaml</c>) always map to
+	/// <c>Common</c> to avoid duplicate types across namespaces.
 	/// </summary>
 	private string? ExtractNamespaceFromRef(string refString)
 	{
@@ -516,8 +515,12 @@ public sealed class TypeMapper
 
 		var filePart = refString[..hashIndex];
 		var fileName = Path.GetFileNameWithoutExtension(filePart);
-		// "_common.query_dsl" → first segment is "_common"
-		// "_core.search" → first segment is "_core"
+
+		// Any file containing "_common" (e.g., "_common.yaml", "_common.query_dsl.yaml",
+		// "indices._common.yaml") maps to Common to prevent cross-namespace duplicates.
+		if (fileName.Contains("_common", StringComparison.OrdinalIgnoreCase))
+			return "Common";
+
 		var firstSegment = fileName.Split('.')[0];
 		return NamingConventions.NamespaceToClassName(firstSegment);
 	}

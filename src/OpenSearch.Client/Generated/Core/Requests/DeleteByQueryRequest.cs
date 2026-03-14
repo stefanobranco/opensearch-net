@@ -132,9 +132,9 @@ public sealed class DeleteByQueryEndpoint : IEndpoint<DeleteByQueryRequest, Dele
 		if (r.Source is not null)
 			queryParts.Add($"_source={Uri.EscapeDataString(r.Source.ToString()!)}");
 		if (r.SourceExcludes is not null)
-			queryParts.Add($"_source_excludes={Uri.EscapeDataString(r.SourceExcludes.ToString()!)}");
+			queryParts.Add($"_source_excludes={Uri.EscapeDataString(string.Join(",", r.SourceExcludes!))}");
 		if (r.SourceIncludes is not null)
-			queryParts.Add($"_source_includes={Uri.EscapeDataString(r.SourceIncludes.ToString()!)}");
+			queryParts.Add($"_source_includes={Uri.EscapeDataString(string.Join(",", r.SourceIncludes!))}");
 		if (r.AllowNoIndices is not null)
 			queryParts.Add($"allow_no_indices={Uri.EscapeDataString((r.AllowNoIndices.Value ? "true" : "false"))}");
 		if (r.AnalyzeWildcard is not null)
@@ -182,7 +182,7 @@ public sealed class DeleteByQueryEndpoint : IEndpoint<DeleteByQueryRequest, Dele
 		if (r.Slices is not null)
 			queryParts.Add($"slices={Uri.EscapeDataString(r.Slices.ToString()!)}");
 		if (r.Sort is not null)
-			queryParts.Add($"sort={Uri.EscapeDataString(r.Sort.ToString()!)}");
+			queryParts.Add($"sort={Uri.EscapeDataString(string.Join(",", r.Sort!))}");
 		if (r.Stats is not null)
 			queryParts.Add($"stats={Uri.EscapeDataString(string.Join(",", r.Stats!))}");
 		if (r.TerminateAfter is not null)

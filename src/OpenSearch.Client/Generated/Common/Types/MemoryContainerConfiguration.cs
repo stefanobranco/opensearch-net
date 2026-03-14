@@ -2,9 +2,9 @@
 #nullable enable
 
 using System.Text.Json.Serialization;
-using OpenSearch.Client.Indices;
+using OpenSearch.Client.Ml;
 
-namespace OpenSearch.Client.Ml;
+namespace OpenSearch.Client.Common;
 
 
 public sealed class MemoryContainerConfiguration

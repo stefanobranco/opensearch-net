@@ -52,13 +52,13 @@ public sealed class MasterEndpoint : IEndpoint<MasterRequest, MasterResponse>
 		if (r.Format is not null)
 			queryParts.Add($"format={Uri.EscapeDataString(r.Format!)}");
 		if (r.H is not null)
-			queryParts.Add($"h={Uri.EscapeDataString(r.H.ToString()!)}");
+			queryParts.Add($"h={Uri.EscapeDataString(string.Join(",", r.H!))}");
 		if (r.Help is not null)
 			queryParts.Add($"help={Uri.EscapeDataString((r.Help.Value ? "true" : "false"))}");
 		if (r.Local is not null)
 			queryParts.Add($"local={Uri.EscapeDataString((r.Local.Value ? "true" : "false"))}");
 		if (r.S is not null)
-			queryParts.Add($"s={Uri.EscapeDataString(r.S.ToString()!)}");
+			queryParts.Add($"s={Uri.EscapeDataString(string.Join(",", r.S!))}");
 		if (r.V is not null)
 			queryParts.Add($"v={Uri.EscapeDataString((r.V.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;

@@ -63,7 +63,7 @@ public static class TemplateHelpers
 		obj["class_name"] = response.ClassName;
 		obj["description"] = SanitizeDescription(response.Description);
 		obj["value_type"] = response.DictionaryValueType!.ToCSharpPropertyType();
-		obj["extra_usings"] = ComputeExtraUsings(response.Namespace, response.Fields, allObjects);
+		obj["extra_usings"] = ComputeExtraUsings(response.Namespace, [response.DictionaryValueType!], allObjects);
 		return obj;
 	}
 

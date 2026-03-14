@@ -57,13 +57,13 @@ public sealed class TasksEndpoint : IEndpoint<TasksRequest, TasksResponse>
 		if (r.Format is null)
 			queryParts.Add("format=json");
 		if (r.Actions is not null)
-			queryParts.Add($"actions={Uri.EscapeDataString(r.Actions.ToString()!)}");
+			queryParts.Add($"actions={Uri.EscapeDataString(string.Join(",", r.Actions!))}");
 		if (r.Detailed is not null)
 			queryParts.Add($"detailed={Uri.EscapeDataString((r.Detailed.Value ? "true" : "false"))}");
 		if (r.Format is not null)
 			queryParts.Add($"format={Uri.EscapeDataString(r.Format!)}");
 		if (r.H is not null)
-			queryParts.Add($"h={Uri.EscapeDataString(r.H.ToString()!)}");
+			queryParts.Add($"h={Uri.EscapeDataString(string.Join(",", r.H!))}");
 		if (r.Help is not null)
 			queryParts.Add($"help={Uri.EscapeDataString((r.Help.Value ? "true" : "false"))}");
 		if (r.Nodes is not null)
@@ -71,7 +71,7 @@ public sealed class TasksEndpoint : IEndpoint<TasksRequest, TasksResponse>
 		if (r.ParentTaskId is not null)
 			queryParts.Add($"parent_task_id={Uri.EscapeDataString(r.ParentTaskId!)}");
 		if (r.S is not null)
-			queryParts.Add($"s={Uri.EscapeDataString(r.S.ToString()!)}");
+			queryParts.Add($"s={Uri.EscapeDataString(string.Join(",", r.S!))}");
 		if (r.Time is not null)
 			queryParts.Add($"time={Uri.EscapeDataString(r.Time.ToString()!)}");
 		if (r.V is not null)

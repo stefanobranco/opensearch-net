@@ -3,8 +3,9 @@
 
 using System.Text.Json.Serialization;
 using OpenSearch.Client.Indices;
+using OpenSearch.Client.Snapshot;
 
-namespace OpenSearch.Client.Snapshot;
+namespace OpenSearch.Client.Common;
 
 
 public sealed class SnapshotInfo

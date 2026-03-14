@@ -154,11 +154,11 @@ public sealed class SearchModelsEndpoint : IEndpoint<SearchModelsRequest, Search
 		var path = $"/_plugins/_knn/models/_search";
 		var queryParts = new List<string>();
 		if (r.Source is not null)
-			queryParts.Add($"_source={Uri.EscapeDataString(r.Source.ToString()!)}");
+			queryParts.Add($"_source={Uri.EscapeDataString(string.Join(",", r.Source!))}");
 		if (r.SourceExcludes is not null)
-			queryParts.Add($"_source_excludes={Uri.EscapeDataString(r.SourceExcludes.ToString()!)}");
+			queryParts.Add($"_source_excludes={Uri.EscapeDataString(string.Join(",", r.SourceExcludes!))}");
 		if (r.SourceIncludes is not null)
-			queryParts.Add($"_source_includes={Uri.EscapeDataString(r.SourceIncludes.ToString()!)}");
+			queryParts.Add($"_source_includes={Uri.EscapeDataString(string.Join(",", r.SourceIncludes!))}");
 		if (r.AllowNoIndices is not null)
 			queryParts.Add($"allow_no_indices={Uri.EscapeDataString((r.AllowNoIndices.Value ? "true" : "false"))}");
 		if (r.AllowPartialSearchResults is not null)
@@ -176,7 +176,7 @@ public sealed class SearchModelsEndpoint : IEndpoint<SearchModelsRequest, Search
 		if (r.Df is not null)
 			queryParts.Add($"df={Uri.EscapeDataString(r.Df!)}");
 		if (r.DocvalueFields is not null)
-			queryParts.Add($"docvalue_fields={Uri.EscapeDataString(r.DocvalueFields.ToString()!)}");
+			queryParts.Add($"docvalue_fields={Uri.EscapeDataString(string.Join(",", r.DocvalueFields!))}");
 		if (r.ExpandWildcards is not null)
 			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(r.ExpandWildcards.ToString()!)}");
 		if (r.Explain is not null)
@@ -212,11 +212,11 @@ public sealed class SearchModelsEndpoint : IEndpoint<SearchModelsRequest, Search
 		if (r.Size is not null)
 			queryParts.Add($"size={Uri.EscapeDataString(r.Size.ToString()!)}");
 		if (r.Sort is not null)
-			queryParts.Add($"sort={Uri.EscapeDataString(r.Sort.ToString()!)}");
+			queryParts.Add($"sort={Uri.EscapeDataString(string.Join(",", r.Sort!))}");
 		if (r.Stats is not null)
 			queryParts.Add($"stats={Uri.EscapeDataString(string.Join(",", r.Stats!))}");
 		if (r.StoredFields is not null)
-			queryParts.Add($"stored_fields={Uri.EscapeDataString(r.StoredFields.ToString()!)}");
+			queryParts.Add($"stored_fields={Uri.EscapeDataString(string.Join(",", r.StoredFields!))}");
 		if (r.SuggestField is not null)
 			queryParts.Add($"suggest_field={Uri.EscapeDataString(r.SuggestField!)}");
 		if (r.SuggestMode is not null)

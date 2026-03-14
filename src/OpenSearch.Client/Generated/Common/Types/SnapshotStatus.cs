@@ -2,8 +2,9 @@
 #nullable enable
 
 using System.Text.Json.Serialization;
+using OpenSearch.Client.Snapshot;
 
-namespace OpenSearch.Client.Snapshot;
+namespace OpenSearch.Client.Common;
 
 
 public sealed class SnapshotStatus

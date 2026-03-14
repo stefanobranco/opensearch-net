@@ -3,7 +3,7 @@
 
 using System.Text.Json.Serialization;
 
-namespace OpenSearch.Client.Indices;
+namespace OpenSearch.Client.Common;
 
 
 /// <summary>

@@ -11,6 +11,7 @@ public sealed class CodeRenderer
 {
 	private readonly string _outputDir;
 	private readonly TemplateLoader _templates;
+	private readonly HashSet<string> _renderedTypes = new(StringComparer.Ordinal);
 
 	public CodeRenderer(string outputDir)
 	{
@@ -21,27 +22,36 @@ public sealed class CodeRenderer
 		_templates = new TemplateLoader(templatesDir);
 	}
 
-	public void Render(TransformResult result)
+	private readonly Dictionary<string, ObjectShape> _globalObjects = new(StringComparer.Ordinal);
+
+	/// <summary>
+	/// Registers all types from a <see cref="TransformResult"/> into the global type lookup.
+	/// Must be called for ALL namespaces before any <see cref="Render"/> calls.
+	/// </summary>
+	public void RegisterTypes(TransformResult result)
 	{
-		// Build a lookup of all discovered types for cross-namespace using computation.
-		// Includes both objects and tagged unions (which share the same namespace system).
-		var allObjects = result.Objects.ToDictionary(o => o.ClassName, o => o, StringComparer.Ordinal);
-		// Add tagged unions as pseudo-ObjectShapes for namespace resolution
+		foreach (var obj in result.Objects)
+			_globalObjects.TryAdd(obj.ClassName, obj);
 		foreach (var union in result.TaggedUnions)
-		{
-			allObjects.TryAdd(union.ClassName, new ObjectShape
+			_globalObjects.TryAdd(union.ClassName, new ObjectShape
 			{
 				ClassName = union.ClassName,
 				Namespace = union.Namespace,
 				Fields = []
 			});
-		}
+	}
+
+	public void Render(TransformResult result)
+	{
+		var allObjects = _globalObjects;
 
 		var nsDir = Path.Combine(_outputDir, result.Namespace);
 
 		// Render enums — enums go in "Common/Enums" regardless of source namespace
 		foreach (var enumShape in result.Enums)
 		{
+			if (!_renderedTypes.Add($"Enum:{enumShape.Namespace}:{enumShape.ClassName}"))
+				continue;
 			var dir = Path.Combine(_outputDir, "Common", "Enums");
 			var ctx = TemplateHelpers.BuildEnumContext(enumShape);
 			RenderToFile(_templates.Load("Enum.sbn"), ctx, dir, $"{enumShape.ClassName}.cs");
@@ -50,6 +60,8 @@ public sealed class CodeRenderer
 		// Render object types — place in the namespace determined by ref path
 		foreach (var objectShape in result.Objects)
 		{
+			if (!_renderedTypes.Add($"Object:{objectShape.Namespace}:{objectShape.ClassName}"))
+				continue;
 			var dir = Path.Combine(_outputDir, objectShape.Namespace, "Types");
 			var ctx = TemplateHelpers.BuildObjectContext(objectShape, allObjects);
 			RenderToFile(_templates.Load("Response.sbn"), ctx, dir, $"{objectShape.ClassName}.cs");
@@ -80,6 +92,8 @@ public sealed class CodeRenderer
 		// Render tagged unions
 		foreach (var union in result.TaggedUnions)
 		{
+			if (!_renderedTypes.Add($"Union:{union.Namespace}:{union.ClassName}"))
+				continue;
 			var dir = Path.Combine(_outputDir, union.Namespace, "Types");
 			var ctx = TemplateHelpers.BuildTaggedUnionContext(union, allObjects);
 			RenderToFile(_templates.Load("TaggedUnion.sbn"), ctx, dir, $"{union.ClassName}.cs");

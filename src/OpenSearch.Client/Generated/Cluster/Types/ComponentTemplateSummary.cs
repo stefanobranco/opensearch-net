@@ -3,7 +3,6 @@
 
 using System.Text.Json.Serialization;
 using OpenSearch.Client.Common;
-using OpenSearch.Client.Indices;
 
 namespace OpenSearch.Client.Cluster;
 

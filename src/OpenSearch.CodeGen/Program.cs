@@ -1,3 +1,4 @@
+using OpenSearch.CodeGen.Model;
 using OpenSearch.CodeGen.OpenApi;
 using OpenSearch.CodeGen.Transformer;
 using OpenSearch.CodeGen.Renderer;
@@ -32,18 +33,25 @@ Console.WriteLine("Parsing OpenAPI specification...");
 var spec = OpenApiSpecification.Load(specDir);
 Console.WriteLine($"  Loaded {spec.Operations.Count} operations from {spec.NamespaceFiles.Count} namespace files");
 
-// Stage 2 & 3: Transform + Render per namespace (shared TypeMapper for enum dedup)
+// Stage 2: Transform all namespaces (shared TypeMapper for type dedup)
 var transformer = new SpecTransformer(spec);
 var renderer = new CodeRenderer(outputDir);
 var sharedTypeMapper = new TypeMapper(namespaces[0]);
+var allResults = new List<TransformResult>();
 
 foreach (var ns in namespaces)
 {
 	Console.WriteLine($"Transforming namespace '{ns}'...");
 	var shapes = transformer.Transform(ns, sharedTypeMapper);
 	Console.WriteLine($"  Generated {shapes.Requests.Count} request shapes, {shapes.Enums.Count} enums, {shapes.Objects.Count} object types");
+	renderer.RegisterTypes(shapes);
+	allResults.Add(shapes);
+}
 
-	Console.WriteLine($"Rendering C# code for '{ns}'...");
+// Stage 3: Render all namespaces (global type lookup for cross-namespace usings)
+foreach (var shapes in allResults)
+{
+	Console.WriteLine($"Rendering C# code for '{shapes.Namespace}'...");
 	renderer.Render(shapes);
 }
 

@@ -3,7 +3,7 @@
 
 using System.Text.Json.Serialization;
 
-namespace OpenSearch.Client.Ml;
+namespace OpenSearch.Client.Common;
 
 
 public sealed class Credential
