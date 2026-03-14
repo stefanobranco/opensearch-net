@@ -269,7 +269,7 @@ public sealed class SearchEndpoint<TDocument> : IEndpoint<SearchRequest, SearchR
 		if (r.Sort is not null)
 			queryParts.Add($"sort={Uri.EscapeDataString(r.Sort!)}");
 		if (r.Stats is not null)
-			queryParts.Add($"stats={Uri.EscapeDataString(r.Stats.ToString()!)}");
+			queryParts.Add($"stats={Uri.EscapeDataString(string.Join(",", r.Stats!))}");
 		if (r.StoredFields is not null)
 			queryParts.Add($"stored_fields={Uri.EscapeDataString(r.StoredFields!)}");
 		if (r.SuggestField is not null)

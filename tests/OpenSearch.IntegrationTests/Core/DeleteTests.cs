@@ -38,15 +38,16 @@ public class DeleteTests : IntegrationTestBase
 	}
 
 	[SkipIfNoCluster]
-	public void DeleteNonExistentDocument_ThrowsServerException()
+	public void DeleteNonExistentDocument_ReturnsNotFound()
 	{
 		var index = UniqueIndex("delete");
 
 		Client.Indices.Create(new OpenSearch.Client.Indices.CreateRequest { Index = index });
 
-		// DELETE on non-existent doc should throw OpenSearchServerException (non-GET 404)
-		var act = () => Client.Core.Delete(new DeleteRequest { Index = index, Id = "nonexistent" });
-		act.Should().Throw<OpenSearch.Net.OpenSearchServerException>();
+		// DELETE on non-existent doc returns result "not_found" (404 is not thrown for DELETE)
+		var response = Client.Core.Delete(new DeleteRequest { Index = index, Id = "nonexistent" });
+		response.Result.Should().NotBeNull();
+		response.Result!.Value.GetString().Should().Be("not_found");
 	}
 
 	[SkipIfNoCluster]

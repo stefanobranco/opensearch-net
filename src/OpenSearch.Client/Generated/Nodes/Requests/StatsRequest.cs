@@ -71,7 +71,7 @@ public sealed class StatsEndpoint : IEndpoint<StatsRequest, StatsResponse>
 		if (r.Fields is not null)
 			queryParts.Add($"fields={Uri.EscapeDataString(r.Fields!)}");
 		if (r.Groups is not null)
-			queryParts.Add($"groups={Uri.EscapeDataString(r.Groups.ToString()!)}");
+			queryParts.Add($"groups={Uri.EscapeDataString(string.Join(",", r.Groups!))}");
 		if (r.IncludeSegmentFileSizes is not null)
 			queryParts.Add($"include_segment_file_sizes={Uri.EscapeDataString((r.IncludeSegmentFileSizes.Value ? "true" : "false"))}");
 		if (r.Level is not null)
@@ -79,7 +79,7 @@ public sealed class StatsEndpoint : IEndpoint<StatsRequest, StatsResponse>
 		if (r.Timeout is not null)
 			queryParts.Add($"timeout={Uri.EscapeDataString(r.Timeout!)}");
 		if (r.Types is not null)
-			queryParts.Add($"types={Uri.EscapeDataString(r.Types.ToString()!)}");
+			queryParts.Add($"types={Uri.EscapeDataString(string.Join(",", r.Types!))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

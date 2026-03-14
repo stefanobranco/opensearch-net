@@ -67,7 +67,7 @@ public sealed class TasksEndpoint : IEndpoint<TasksRequest, TasksResponse>
 		if (r.Help is not null)
 			queryParts.Add($"help={Uri.EscapeDataString((r.Help.Value ? "true" : "false"))}");
 		if (r.Nodes is not null)
-			queryParts.Add($"nodes={Uri.EscapeDataString(r.Nodes.ToString()!)}");
+			queryParts.Add($"nodes={Uri.EscapeDataString(string.Join(",", r.Nodes!))}");
 		if (r.ParentTaskId is not null)
 			queryParts.Add($"parent_task_id={Uri.EscapeDataString(r.ParentTaskId!)}");
 		if (r.S is not null)

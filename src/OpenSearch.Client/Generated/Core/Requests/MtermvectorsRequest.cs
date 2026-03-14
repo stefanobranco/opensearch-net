@@ -73,7 +73,7 @@ public sealed class MtermvectorsEndpoint : IEndpoint<MtermvectorsRequest, Mtermv
 		if (r.Fields is not null)
 			queryParts.Add($"fields={Uri.EscapeDataString(r.Fields!)}");
 		if (r.Ids is not null)
-			queryParts.Add($"ids={Uri.EscapeDataString(r.Ids.ToString()!)}");
+			queryParts.Add($"ids={Uri.EscapeDataString(string.Join(",", r.Ids!))}");
 		if (r.Offsets is not null)
 			queryParts.Add($"offsets={Uri.EscapeDataString((r.Offsets.Value ? "true" : "false"))}");
 		if (r.Payloads is not null)

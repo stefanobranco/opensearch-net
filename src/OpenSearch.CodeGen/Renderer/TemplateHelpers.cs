@@ -22,6 +22,11 @@ public static class TemplateHelpers
 		obj["is_raw_body"] = request.IsRawBody;
 		obj["is_head"] = request.IsHead;
 
+		// Index-style operations: POST when no Id, PUT when Id is present
+		var hasPathWithId = request.HttpPaths.Any(p => p.ParameterNames.Contains("id"));
+		var hasPathWithoutId = request.HttpPaths.Any(p => !p.ParameterNames.Contains("id"));
+		obj["method_varies_by_id"] = hasPathWithId && hasPathWithoutId && request.IsRawBody;
+
 		obj["path_params"] = BuildFieldArray(request.PathParams);
 		obj["query_params"] = BuildQueryParamArray(request.QueryParams);
 		obj["body_fields"] = BuildFieldArray(request.BodyFields);
@@ -205,6 +210,9 @@ public static class TemplateHelpers
 
 		if (field.Type.IsEnum)
 			return $"QueryParamSerializer.Serialize(r.{field.Name}!.Value)";
+
+		if (field.Type.Kind == Model.TypeRefKind.List)
+			return $"string.Join(\",\", r.{field.Name}!)";
 
 		// int, long, float, double, JsonElement, etc.
 		return $"r.{field.Name}.ToString()!";

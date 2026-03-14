@@ -184,7 +184,7 @@ public sealed class DeleteByQueryEndpoint : IEndpoint<DeleteByQueryRequest, Dele
 		if (r.Sort is not null)
 			queryParts.Add($"sort={Uri.EscapeDataString(r.Sort.ToString()!)}");
 		if (r.Stats is not null)
-			queryParts.Add($"stats={Uri.EscapeDataString(r.Stats.ToString()!)}");
+			queryParts.Add($"stats={Uri.EscapeDataString(string.Join(",", r.Stats!))}");
 		if (r.TerminateAfter is not null)
 			queryParts.Add($"terminate_after={Uri.EscapeDataString(r.TerminateAfter.ToString()!)}");
 		if (r.Timeout is not null)

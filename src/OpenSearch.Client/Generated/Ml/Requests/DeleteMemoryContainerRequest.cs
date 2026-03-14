@@ -36,7 +36,7 @@ public sealed class DeleteMemoryContainerEndpoint : IEndpoint<DeleteMemoryContai
 		if (r.DeleteAllMemories is not null)
 			queryParts.Add($"delete_all_memories={Uri.EscapeDataString((r.DeleteAllMemories.Value ? "true" : "false"))}");
 		if (r.DeleteMemories is not null)
-			queryParts.Add($"delete_memories={Uri.EscapeDataString(r.DeleteMemories.ToString()!)}");
+			queryParts.Add($"delete_memories={Uri.EscapeDataString(string.Join(",", r.DeleteMemories!))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

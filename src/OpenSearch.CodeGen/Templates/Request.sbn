@@ -50,7 +50,11 @@ public sealed class {{ endpoint_name }} : IEndpoint<{{ class_name }}, {{ respons
 	public static readonly {{ endpoint_name }} Instance = new();
 {{~ end ~}}
 
+{{~ if method_varies_by_id ~}}
+	public OpenSearch.Net.HttpMethod Method({{ class_name }} r) => r.Id is not null ? OpenSearch.Net.HttpMethod.Put : OpenSearch.Net.HttpMethod.Post;
+{{~ else ~}}
 	public OpenSearch.Net.HttpMethod Method({{ class_name }} r) => OpenSearch.Net.HttpMethod.{{ http_method }};
+{{~ end ~}}
 
 	public string RequestUrl({{ class_name }} r)
 	{

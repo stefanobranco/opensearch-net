@@ -52,7 +52,7 @@ public sealed class ListEndpoint : IEndpoint<ListRequest, ListResponse>
 		if (r.GroupBy is not null)
 			queryParts.Add($"group_by={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.GroupBy!.Value))}");
 		if (r.Nodes is not null)
-			queryParts.Add($"nodes={Uri.EscapeDataString(r.Nodes.ToString()!)}");
+			queryParts.Add($"nodes={Uri.EscapeDataString(string.Join(",", r.Nodes!))}");
 		if (r.ParentTaskId is not null)
 			queryParts.Add($"parent_task_id={Uri.EscapeDataString(r.ParentTaskId!)}");
 		if (r.Timeout is not null)

@@ -191,7 +191,7 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 					ThrowServerError(statusCode, errorStream, node);
 				}
 
-				var bodyStream = await responseMessage.Content.ReadAsStreamAsync(ct).ConfigureAwait(false);
+				using var bodyStream = await responseMessage.Content.ReadAsStreamAsync(ct).ConfigureAwait(false);
 				var contentType = responseMessage.Content.Headers.ContentType?.MediaType;
 
 				return endpoint.DeserializeResponse(statusCode, contentType, bodyStream, _serializer);
@@ -219,7 +219,7 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 	private static bool IsServerError(int statusCode, HttpMethod method) =>
 		statusCode >= 400
 		&& method != HttpMethod.Head
-		&& (method != HttpMethod.Get || statusCode != 404);
+		&& (statusCode != 404 || (method != HttpMethod.Get && method != HttpMethod.Delete));
 
 	[System.Diagnostics.CodeAnalysis.DoesNotReturn]
 	private static void ThrowServerError(int statusCode, Stream body, Node node)

@@ -45,7 +45,7 @@ public sealed class CancelEndpoint : IEndpoint<CancelRequest, CancelResponse>
 		if (r.Actions is not null)
 			queryParts.Add($"actions={Uri.EscapeDataString(r.Actions!)}");
 		if (r.Nodes is not null)
-			queryParts.Add($"nodes={Uri.EscapeDataString(r.Nodes.ToString()!)}");
+			queryParts.Add($"nodes={Uri.EscapeDataString(string.Join(",", r.Nodes!))}");
 		if (r.ParentTaskId is not null)
 			queryParts.Add($"parent_task_id={Uri.EscapeDataString(r.ParentTaskId!)}");
 		if (r.WaitForCompletion is not null)
