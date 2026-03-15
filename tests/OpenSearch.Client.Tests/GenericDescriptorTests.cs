@@ -24,8 +24,6 @@ public class GenericDescriptorTests
 		return options;
 	}
 
-	private static JsonElement JVal(string s) => JsonSerializer.SerializeToElement(s);
-
 	private sealed class Product
 	{
 		public string? Title { get; set; }
@@ -40,7 +38,7 @@ public class GenericDescriptorTests
 	public void Term_With_Expression_Resolves_Field()
 	{
 		SearchRequest request = new SearchRequestDescriptor<Product>()
-			.Query(q => q.Term(f => f.Status!, t => t.Value(JVal("active"))));
+			.Query(q => q.Term(f => f.Status!, t => t.Value("active")));
 
 		request.Query.Should().NotBeNull();
 		request.Query!.Kind.Should().Be(QueryKind.Term);
@@ -56,7 +54,7 @@ public class GenericDescriptorTests
 	public void Term_With_JsonPropertyName_Uses_Custom_Name()
 	{
 		SearchRequest request = new SearchRequestDescriptor<Product>()
-			.Query(q => q.Term(f => f.CategoryId, t => t.Value(JVal("42"))));
+			.Query(q => q.Term(f => f.CategoryId, t => t.Value("42")));
 
 		var json = JsonSerializer.Serialize(request, JsonOptions);
 		using var doc = JsonDocument.Parse(json);
@@ -69,7 +67,7 @@ public class GenericDescriptorTests
 	public void Match_With_Expression()
 	{
 		SearchRequest request = new SearchRequestDescriptor<Product>()
-			.Query(q => q.Match(f => f.Title!, m => m.Query(JVal("laptop"))));
+			.Query(q => q.Match(f => f.Title!, m => m.Query("laptop")));
 
 		var json = JsonSerializer.Serialize(request, JsonOptions);
 		using var doc = JsonDocument.Parse(json);
@@ -86,7 +84,7 @@ public class GenericDescriptorTests
 		SearchRequest request = new SearchRequestDescriptor<Product>()
 			.Query(q => q.Bool(b => b
 				.Must(
-					m => m.Term(f => f.Status!, t => t.Value(JVal("active")))
+					m => m.Term(f => f.Status!, t => t.Value("active"))
 				)
 			));
 
@@ -103,7 +101,7 @@ public class GenericDescriptorTests
 		SearchRequest request = new SearchRequestDescriptor<Product>()
 			.Query(q => q.Bool(b => b
 				.Filter(
-					f => f.Term(p => p.Status!, t => t.Value(JVal("active"))),
+					f => f.Term(p => p.Status!, t => t.Value("active")),
 					f => f.Exists(p => p.Title!)
 				)
 			));
@@ -120,7 +118,7 @@ public class GenericDescriptorTests
 		SearchRequest request = new SearchRequestDescriptor<Product>()
 			.Query(q => q.ConstantScore(cs => cs
 				.Boost(1.5f)
-				.Filter(f => f.Term(p => p.Status!, t => t.Value(JVal("active"))))
+				.Filter(f => f.Term(p => p.Status!, t => t.Value("active")))
 			));
 
 		request.Query!.Kind.Should().Be(QueryKind.ConstantScore);
@@ -160,8 +158,8 @@ public class GenericDescriptorTests
 		SearchRequest request = new SearchRequestDescriptor<Product>()
 			.Size(10)
 			.Query(q => q.Bool(b => b
-				.Must(m => m.Match(f => f.Title!, ma => ma.Query(JVal("laptop"))))
-				.Filter(f => f.Term(p => p.Status!, t => t.Value(JVal("active"))))
+				.Must(m => m.Match(f => f.Title!, ma => ma.Query("laptop")))
+				.Filter(f => f.Term(p => p.Status!, t => t.Value("active")))
 			));
 
 		var json = JsonSerializer.Serialize(request, JsonOptions);
