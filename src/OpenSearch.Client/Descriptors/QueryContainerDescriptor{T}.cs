@@ -335,5 +335,37 @@ public sealed class QueryContainerDescriptor<TDocument>
 		return this;
 	}
 
+	public QueryContainerDescriptor<TDocument> Intervals(
+		Expression<Func<TDocument, object>> field, Action<IntervalsQueryDescriptor> configure)
+	{
+		var descriptor = new IntervalsQueryDescriptor();
+		configure(descriptor);
+		_value = QueryContainer.Intervals(Field.ResolveName<TDocument>(field), (IntervalsQuery)descriptor);
+		return this;
+	}
+
+	public QueryContainerDescriptor<TDocument> Intervals(
+		string field, Action<IntervalsQueryDescriptor> configure)
+	{
+		var descriptor = new IntervalsQueryDescriptor();
+		configure(descriptor);
+		_value = QueryContainer.Intervals(field, (IntervalsQuery)descriptor);
+		return this;
+	}
+
+	public QueryContainerDescriptor<TDocument> Intervals(
+		Expression<Func<TDocument, object>> field, IntervalsQuery value)
+	{
+		_value = QueryContainer.Intervals(Field.ResolveName<TDocument>(field), value);
+		return this;
+	}
+
+	public QueryContainerDescriptor<TDocument> Intervals(
+		string field, IntervalsQuery value)
+	{
+		_value = QueryContainer.Intervals(field, value);
+		return this;
+	}
+
 	public static implicit operator QueryContainer?(QueryContainerDescriptor<TDocument> d) => d._value;
 }
