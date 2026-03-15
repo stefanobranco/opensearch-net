@@ -17,58 +17,31 @@ public sealed class BoolQueryDescriptor<TDocument>
 
 	public BoolQueryDescriptor<TDocument> Must(
 		params Action<QueryContainerDescriptor<TDocument>>[] configure)
-	{
-		var list = new List<QueryContainer>();
-		foreach (var action in configure)
-		{
-			var descriptor = new QueryContainerDescriptor<TDocument>();
-			action(descriptor);
-			list.Add(((QueryContainer)descriptor)!);
-		}
-		_value.Must = list;
-		return this;
-	}
+	{ _value.Must = BuildQueryList(configure); return this; }
 
 	public BoolQueryDescriptor<TDocument> MustNot(
 		params Action<QueryContainerDescriptor<TDocument>>[] configure)
-	{
-		var list = new List<QueryContainer>();
-		foreach (var action in configure)
-		{
-			var descriptor = new QueryContainerDescriptor<TDocument>();
-			action(descriptor);
-			list.Add(((QueryContainer)descriptor)!);
-		}
-		_value.MustNot = list;
-		return this;
-	}
+	{ _value.MustNot = BuildQueryList(configure); return this; }
 
 	public BoolQueryDescriptor<TDocument> Should(
 		params Action<QueryContainerDescriptor<TDocument>>[] configure)
-	{
-		var list = new List<QueryContainer>();
-		foreach (var action in configure)
-		{
-			var descriptor = new QueryContainerDescriptor<TDocument>();
-			action(descriptor);
-			list.Add(((QueryContainer)descriptor)!);
-		}
-		_value.Should = list;
-		return this;
-	}
+	{ _value.Should = BuildQueryList(configure); return this; }
 
 	public BoolQueryDescriptor<TDocument> Filter(
 		params Action<QueryContainerDescriptor<TDocument>>[] configure)
+	{ _value.Filter = BuildQueryList(configure); return this; }
+
+	private static List<QueryContainer> BuildQueryList(
+		Action<QueryContainerDescriptor<TDocument>>[] configure)
 	{
-		var list = new List<QueryContainer>();
+		var list = new List<QueryContainer>(configure.Length);
 		foreach (var action in configure)
 		{
 			var descriptor = new QueryContainerDescriptor<TDocument>();
 			action(descriptor);
 			list.Add(((QueryContainer)descriptor)!);
 		}
-		_value.Filter = list;
-		return this;
+		return list;
 	}
 
 	public static implicit operator BoolQuery(BoolQueryDescriptor<TDocument> d) => d._value;

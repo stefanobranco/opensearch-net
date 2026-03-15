@@ -18,7 +18,7 @@ public sealed class QueryContainerDescriptor<TDocument>
 	{
 		var descriptor = new TermQueryDescriptor();
 		configure(descriptor);
-		_value = QueryContainer.Term(Field.From<TDocument>(field).Name, (TermQuery)descriptor);
+		_value = QueryContainer.Term(Field.ResolveName<TDocument>(field), (TermQuery)descriptor);
 		return this;
 	}
 
@@ -36,7 +36,7 @@ public sealed class QueryContainerDescriptor<TDocument>
 	{
 		var descriptor = new MatchQueryDescriptor();
 		configure(descriptor);
-		_value = QueryContainer.Match(Field.From<TDocument>(field).Name, (MatchQuery)descriptor);
+		_value = QueryContainer.Match(Field.ResolveName<TDocument>(field), (MatchQuery)descriptor);
 		return this;
 	}
 
@@ -54,7 +54,7 @@ public sealed class QueryContainerDescriptor<TDocument>
 	{
 		var descriptor = new MatchPhraseQueryDescriptor();
 		configure(descriptor);
-		_value = QueryContainer.MatchPhrase(Field.From<TDocument>(field).Name, (MatchPhraseQuery)descriptor);
+		_value = QueryContainer.MatchPhrase(Field.ResolveName<TDocument>(field), (MatchPhraseQuery)descriptor);
 		return this;
 	}
 
@@ -72,7 +72,7 @@ public sealed class QueryContainerDescriptor<TDocument>
 	{
 		var descriptor = new PrefixQueryDescriptor();
 		configure(descriptor);
-		_value = QueryContainer.Prefix(Field.From<TDocument>(field).Name, (PrefixQuery)descriptor);
+		_value = QueryContainer.Prefix(Field.ResolveName<TDocument>(field), (PrefixQuery)descriptor);
 		return this;
 	}
 
@@ -90,7 +90,7 @@ public sealed class QueryContainerDescriptor<TDocument>
 	{
 		var descriptor = new WildcardQueryDescriptor();
 		configure(descriptor);
-		_value = QueryContainer.Wildcard(Field.From<TDocument>(field).Name, (WildcardQuery)descriptor);
+		_value = QueryContainer.Wildcard(Field.ResolveName<TDocument>(field), (WildcardQuery)descriptor);
 		return this;
 	}
 
@@ -108,7 +108,7 @@ public sealed class QueryContainerDescriptor<TDocument>
 	{
 		var descriptor = new RegexpQueryDescriptor();
 		configure(descriptor);
-		_value = QueryContainer.Regexp(Field.From<TDocument>(field).Name, (RegexpQuery)descriptor);
+		_value = QueryContainer.Regexp(Field.ResolveName<TDocument>(field), (RegexpQuery)descriptor);
 		return this;
 	}
 
@@ -126,7 +126,7 @@ public sealed class QueryContainerDescriptor<TDocument>
 	{
 		var descriptor = new FuzzyQueryDescriptor();
 		configure(descriptor);
-		_value = QueryContainer.Fuzzy(Field.From<TDocument>(field).Name, (FuzzyQuery)descriptor);
+		_value = QueryContainer.Fuzzy(Field.ResolveName<TDocument>(field), (FuzzyQuery)descriptor);
 		return this;
 	}
 
@@ -142,7 +142,7 @@ public sealed class QueryContainerDescriptor<TDocument>
 	public QueryContainerDescriptor<TDocument> Exists(
 		Expression<Func<TDocument, object>> field)
 	{
-		_value = QueryContainer.Exists(new ExistsQuery { Field = Field.From<TDocument>(field).Name });
+		_value = QueryContainer.Exists(new ExistsQuery { Field = Field.ResolveName<TDocument>(field) });
 		return this;
 	}
 

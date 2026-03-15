@@ -23,7 +23,13 @@ public sealed class Field
 	/// [JsonPropertyName] attributes and snake_case naming policy.
 	/// </summary>
 	public static Field From<T>(Expression<Func<T, object>> expression) =>
-		new(FieldExpressionVisitor.Resolve(expression));
+		new(ResolveName(expression));
+
+	/// <summary>
+	/// Resolves an expression to a field name string without allocating a <see cref="Field"/>.
+	/// </summary>
+	internal static string ResolveName<T>(Expression<Func<T, object>> expression) =>
+		FieldExpressionVisitor.Resolve(expression);
 
 	/// <summary>
 	/// Returns a new Field with the given suffix appended (e.g., "name" + "keyword" → "name.keyword").
