@@ -9,30 +9,35 @@ namespace OpenSearch.Client.Core;
 /// </summary>
 public static class AggregationDescriptorExtensions
 {
+	private static readonly JsonElement s_countDesc = JsonSerializer.SerializeToElement(new { _count = "desc" });
+	private static readonly JsonElement s_countAsc = JsonSerializer.SerializeToElement(new { _count = "asc" });
+	private static readonly JsonElement s_keyAsc = JsonSerializer.SerializeToElement(new { _key = "asc" });
+	private static readonly JsonElement s_keyDesc = JsonSerializer.SerializeToElement(new { _key = "desc" });
+
 	// ── TermsAggregationFieldsDescriptor: Order ──
 
 	/// <summary>Order by document count descending (default).</summary>
 	public static TermsAggregationFieldsDescriptor CountDescending(this TermsAggregationFieldsDescriptor d)
-	{ d._value.Order = JsonSerializer.SerializeToElement(new { _count = "desc" }); return d; }
+	{ d._value.Order = s_countDesc; return d; }
 
 	/// <summary>Order by document count ascending.</summary>
 	public static TermsAggregationFieldsDescriptor CountAscending(this TermsAggregationFieldsDescriptor d)
-	{ d._value.Order = JsonSerializer.SerializeToElement(new { _count = "asc" }); return d; }
+	{ d._value.Order = s_countAsc; return d; }
 
 	/// <summary>Order by bucket key ascending.</summary>
 	public static TermsAggregationFieldsDescriptor KeyAscending(this TermsAggregationFieldsDescriptor d)
-	{ d._value.Order = JsonSerializer.SerializeToElement(new { _key = "asc" }); return d; }
+	{ d._value.Order = s_keyAsc; return d; }
 
 	/// <summary>Order by bucket key descending.</summary>
 	public static TermsAggregationFieldsDescriptor KeyDescending(this TermsAggregationFieldsDescriptor d)
-	{ d._value.Order = JsonSerializer.SerializeToElement(new { _key = "desc" }); return d; }
+	{ d._value.Order = s_keyDesc; return d; }
 
 	/// <summary>Order by a sub-aggregation metric.</summary>
 	public static TermsAggregationFieldsDescriptor OrderBy(this TermsAggregationFieldsDescriptor d,
-		string subAggName, bool ascending = true)
+		string subAggName, SortOrder order = SortOrder.Asc)
 	{
-		var order = new Dictionary<string, string> { [subAggName] = ascending ? "asc" : "desc" };
-		d._value.Order = JsonSerializer.SerializeToElement(order);
+		var dict = new Dictionary<string, string> { [subAggName] = order == SortOrder.Asc ? "asc" : "desc" };
+		d._value.Order = JsonSerializer.SerializeToElement(dict);
 		return d;
 	}
 
