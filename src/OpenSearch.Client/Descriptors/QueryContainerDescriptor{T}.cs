@@ -367,5 +367,43 @@ public sealed class QueryContainerDescriptor<TDocument>
 		return this;
 	}
 
+	// ── Terms query (field via expression) ──
+
+	/// <summary>Creates a terms query with string values using an expression-based field.</summary>
+	public QueryContainerDescriptor<TDocument> Terms(
+		Expression<Func<TDocument, object>> field, params string[] values)
+	{
+		var query = new TermsQuery();
+		query.AdditionalProperties ??= new();
+		query.AdditionalProperties[Field.ResolveName<TDocument>(field)] =
+			System.Text.Json.JsonSerializer.SerializeToElement(values);
+		_value = QueryContainer.Terms(query);
+		return this;
+	}
+
+	/// <summary>Creates a terms query with typed values using an expression-based field.</summary>
+	public QueryContainerDescriptor<TDocument> Terms<TValue>(
+		Expression<Func<TDocument, object>> field, params TValue[] values)
+	{
+		var query = new TermsQuery();
+		query.AdditionalProperties ??= new();
+		query.AdditionalProperties[Field.ResolveName<TDocument>(field)] =
+			System.Text.Json.JsonSerializer.SerializeToElement(values);
+		_value = QueryContainer.Terms(query);
+		return this;
+	}
+
+	/// <summary>Creates a terms query with string values using a string field name.</summary>
+	public QueryContainerDescriptor<TDocument> Terms(
+		string field, params string[] values)
+	{
+		var query = new TermsQuery();
+		query.AdditionalProperties ??= new();
+		query.AdditionalProperties[field] =
+			System.Text.Json.JsonSerializer.SerializeToElement(values);
+		_value = QueryContainer.Terms(query);
+		return this;
+	}
+
 	public static implicit operator QueryContainer?(QueryContainerDescriptor<TDocument> d) => d._value;
 }

@@ -47,6 +47,35 @@ public static class SearchRequestDescriptorExtensions
 			fieldSuggester, SuggesterSerializerOptions.Instance);
 		return d;
 	}
+
+	// ── Named suggester convenience methods ──
+
+	/// <summary>Adds a named completion suggester.</summary>
+	public static SuggesterDescriptor Completion(this SuggesterDescriptor d,
+		string name, Action<CompletionSuggesterDescriptor> configure, string? prefix = null, string? text = null)
+	{
+		var desc = new CompletionSuggesterDescriptor();
+		configure(desc);
+		return d.Add(name, new FieldSuggester { Completion = desc, Prefix = prefix, Text = text });
+	}
+
+	/// <summary>Adds a named term suggester.</summary>
+	public static SuggesterDescriptor Term(this SuggesterDescriptor d,
+		string name, Action<TermSuggesterDescriptor> configure, string? text = null)
+	{
+		var desc = new TermSuggesterDescriptor();
+		configure(desc);
+		return d.Add(name, new FieldSuggester { Term = desc, Text = text });
+	}
+
+	/// <summary>Adds a named phrase suggester.</summary>
+	public static SuggesterDescriptor Phrase(this SuggesterDescriptor d,
+		string name, Action<PhraseSuggesterDescriptor> configure, string? text = null)
+	{
+		var desc = new PhraseSuggesterDescriptor();
+		configure(desc);
+		return d.Add(name, new FieldSuggester { Phrase = desc, Text = text });
+	}
 }
 
 /// <summary>
