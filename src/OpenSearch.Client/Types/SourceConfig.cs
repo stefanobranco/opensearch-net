@@ -1,4 +1,3 @@
-using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace OpenSearch.Client;
@@ -34,8 +33,6 @@ public sealed class SourceConfig
 
 	/// <summary>Gets the SourceFilter value.</summary>
 	public SourceFilter AsFilter() => (SourceFilter)_value;
-
-	internal object RawValue => _value;
 }
 
 /// <summary>

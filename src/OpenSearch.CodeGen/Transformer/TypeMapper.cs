@@ -42,12 +42,11 @@ public sealed class TypeMapper
 
 	/// <summary>
 	/// Schema names whose generated types are replaced by hand-written types.
-	/// Prevents GetOrCreateObject from generating conflicting types.
+	/// Includes all override keys plus schemas referenced only by overridden types.
 	/// </summary>
-	private static readonly HashSet<string> s_skipGeneration = new(StringComparer.OrdinalIgnoreCase)
-	{
-		"SortCombinations", "SortOptions", "FieldSort", "SourceConfig", "SourceFilter",
-	};
+	private static readonly HashSet<string> s_skipGeneration = new(
+		s_typeOverrides.Keys.Concat(["SortOptions", "FieldSort", "SourceFilter"]),
+		StringComparer.OrdinalIgnoreCase);
 
 	private readonly Dictionary<string, TypeRef> _namedTypes = new(StringComparer.Ordinal);
 	private readonly Dictionary<string, EnumShape> _discoveredEnums = new(StringComparer.Ordinal);
@@ -96,8 +95,8 @@ public sealed class TypeMapper
 		// Still walk the schema to discover referenced sub-types (e.g., ScoreSort from SortOptions).
 		if (s_typeOverrides.TryGetValue(schemaName, out var overrideType))
 		{
-			_namedTypes[schemaName] = overrideType;
-			DiscoverReferencedTypes(resolved);
+			if (_namedTypes.TryAdd(schemaName, overrideType))
+				DiscoverReferencedTypes(resolved);
 			return overrideType;
 		}
 

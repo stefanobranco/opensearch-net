@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using OpenSearch.Client.Core;
 
 namespace OpenSearch.Client;
@@ -9,8 +10,9 @@ namespace OpenSearch.Client;
 /// </summary>
 public sealed class FieldSort
 {
-	/// <summary>The field name to sort by. Becomes the JSON property key.</summary>
-	public required string FieldName { get; set; }
+	/// <summary>The field name to sort by. Becomes the JSON property key (not serialized as a property).</summary>
+	[JsonIgnore]
+	public string FieldName { get; set; } = "";
 
 	/// <summary>The sort order direction.</summary>
 	public SortOrder? Order { get; set; }
