@@ -20,7 +20,7 @@ public sealed class SearchResponse<TDocument>
 	public PhaseTook? PhaseTook { get; set; }
 	public HitsMetadata<TDocument>? Hits { get; set; }
 	public List<ProcessorExecutionDetail>? ProcessorResults { get; set; }
-	public Dictionary<string, Aggregate>? Aggregations { get; set; }
+	public Dictionary<string, Aggregate<TDocument>>? Aggregations { get; set; }
 	[JsonPropertyName("_clusters")]
 	public ClusterStatistics? Clusters { get; set; }
 	public int? NumReducePhases { get; set; }

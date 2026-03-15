@@ -25,9 +25,6 @@ public sealed class SearchTemplateRequest
 	/// <summary>Type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values, such as `open,hidden`. Valid values are: `all`, `open`, `closed`, `hidden`, `none`.</summary>
 	[JsonIgnore]
 	public List<string>? ExpandWildcards { get; set; }
-	/// <summary>If `true`, the response includes additional details about score computation as part of a hit.</summary>
-	[JsonIgnore]
-	public bool? Explain { get; set; }
 	/// <summary>If `true`, specified concrete, expanded, or aliased indexes are not included in the response when throttled.</summary>
 	[JsonIgnore]
 	public bool? IgnoreThrottled { get; set; }
@@ -40,9 +37,6 @@ public sealed class SearchTemplateRequest
 	/// <summary>Specifies the node or shard the operation should be performed on. Random by default.</summary>
 	[JsonIgnore]
 	public string? Preference { get; set; }
-	/// <summary>If `true`, the query execution is profiled.</summary>
-	[JsonIgnore]
-	public bool? Profile { get; set; }
 	/// <summary>If `true`, `hits.total` are rendered as an integer in the response.</summary>
 	[JsonIgnore]
 	public bool? RestTotalHitsAsInt { get; set; }
@@ -61,9 +55,13 @@ public sealed class SearchTemplateRequest
 	/// <summary>If `true`, the response prefixes aggregation and suggester names with their respective types.</summary>
 	[JsonIgnore]
 	public bool? TypedKeys { get; set; }
+	/// <summary>If `true`, returns detailed information about score calculation as part of each hit.</summary>
+		public bool? Explain { get; set; }
 	public string? Id { get; set; }
 	/// <summary>Key-value pairs used to replace Mustache variables in the template. The key is the variable name. The value is the variable value.</summary>
 		public Dictionary<string, object>? Params { get; set; }
+	/// <summary>If `true`, the query execution is profiled.</summary>
+		public bool? Profile { get; set; }
 	/// <summary>An inline search template. Supports the same parameters as the search API request body. Also supports Mustache variables. If no id is specified, this parameter is required.</summary>
 		public string? Source { get; set; }
 }
@@ -86,8 +84,6 @@ public sealed class SearchTemplateEndpoint<TDocument> : IEndpoint<SearchTemplate
 			queryParts.Add($"ccs_minimize_roundtrips={Uri.EscapeDataString((r.CcsMinimizeRoundtrips.Value ? "true" : "false"))}");
 		if (r.ExpandWildcards is not null)
 			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(string.Join(",", r.ExpandWildcards!))}");
-		if (r.Explain is not null)
-			queryParts.Add($"explain={Uri.EscapeDataString((r.Explain.Value ? "true" : "false"))}");
 		if (r.IgnoreThrottled is not null)
 			queryParts.Add($"ignore_throttled={Uri.EscapeDataString((r.IgnoreThrottled.Value ? "true" : "false"))}");
 		if (r.IgnoreUnavailable is not null)
@@ -96,8 +92,6 @@ public sealed class SearchTemplateEndpoint<TDocument> : IEndpoint<SearchTemplate
 			queryParts.Add($"phase_took={Uri.EscapeDataString((r.PhaseTook.Value ? "true" : "false"))}");
 		if (r.Preference is not null)
 			queryParts.Add($"preference={Uri.EscapeDataString(r.Preference!)}");
-		if (r.Profile is not null)
-			queryParts.Add($"profile={Uri.EscapeDataString((r.Profile.Value ? "true" : "false"))}");
 		if (r.RestTotalHitsAsInt is not null)
 			queryParts.Add($"rest_total_hits_as_int={Uri.EscapeDataString((r.RestTotalHitsAsInt.Value ? "true" : "false"))}");
 		if (r.Routing is not null)

@@ -2,7 +2,6 @@
 #nullable enable
 
 using System.Text.Json.Serialization;
-using OpenSearch.Client.Common;
 
 namespace OpenSearch.Client.Core;
 
@@ -16,5 +15,5 @@ public sealed class CompositeGeoTileGridAggregationSource
 	public ValueType? ValueType { get; set; }
 	public SortOrder? Order { get; set; }
 	public int? Precision { get; set; }
-	public GeoBounds? Bounds { get; set; }
+	public System.Text.Json.JsonElement? Bounds { get; set; }
 }

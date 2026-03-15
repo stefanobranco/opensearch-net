@@ -13,5 +13,5 @@ public sealed class BucketSortAggregation
 	public GapPolicy? GapPolicy { get; set; }
 	/// <summary>The number of buckets to return. Defaults to all buckets of the parent aggregation.</summary>
 		public int? Size { get; set; }
-	public List<SortCombinations>? Sort { get; set; }
+	public List<System.Text.Json.JsonElement>? Sort { get; set; }
 }

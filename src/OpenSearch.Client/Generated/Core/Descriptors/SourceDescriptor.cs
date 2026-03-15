@@ -37,19 +37,7 @@ public sealed class SourceDescriptor
 		_value.Slice = descriptor;
 		return this;
 	}
-	public SourceDescriptor Sort(List<SortCombinations>? value) { _value.Sort = value; return this; }
-	public SourceDescriptor Sort(params Action<SortCombinationsDescriptor>[] configure)
-	{
-		var list = new List<SortCombinations>();
-		foreach (var action in configure)
-		{
-			var descriptor = new SortCombinationsDescriptor();
-			action(descriptor);
-			list.Add(((SortCombinations)descriptor)!);
-		}
-		_value.Sort = list;
-		return this;
-	}
+	public SourceDescriptor Sort(List<System.Text.Json.JsonElement>? value) { _value.Sort = value; return this; }
 	public SourceDescriptor SourceValue(List<string>? value) { _value.SourceValue = value; return this; }
 
 	public static implicit operator Source(SourceDescriptor descriptor) => descriptor._value;

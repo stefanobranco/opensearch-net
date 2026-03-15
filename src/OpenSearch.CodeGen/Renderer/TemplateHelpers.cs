@@ -133,6 +133,7 @@ public static class TemplateHelpers
 		obj["variants"] = variants;
 		obj["extra_usings"] = ComputeExtraUsings(union.Namespace, union.Variants.Select(v => v.Type).ToList(), allObjects);
 		obj["discriminator_property"] = union.DiscriminatorProperty;
+		obj["sibling_fields"] = BuildFieldArray(union.SiblingFields);
 
 		return obj;
 	}

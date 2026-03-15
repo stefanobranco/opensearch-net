@@ -3,7 +3,6 @@
 
 using System.Text.Json.Serialization;
 using OpenSearch.Client.Common;
-using OpenSearch.Client.Core;
 
 namespace OpenSearch.Client.Ml;
 
@@ -22,20 +21,7 @@ public sealed class SearchModelGroupMlRequestDescriptor
 	/// <summary>The number of model groups to return.</summary>
 		public SearchModelGroupMlRequestDescriptor Size(long? value) { _value.Size = value; return this; }
 	/// <summary>The sort order.</summary>
-		public SearchModelGroupMlRequestDescriptor Sort(List<SortCombinations>? value) { _value.Sort = value; return this; }
-	/// <summary>The sort order.</summary>
-		public SearchModelGroupMlRequestDescriptor Sort(params Action<SortCombinationsDescriptor>[] configure)
-	{
-		var list = new List<SortCombinations>();
-		foreach (var action in configure)
-		{
-			var descriptor = new SortCombinationsDescriptor();
-			action(descriptor);
-			list.Add(((SortCombinations)descriptor)!);
-		}
-		_value.Sort = list;
-		return this;
-	}
+		public SearchModelGroupMlRequestDescriptor Sort(List<SortOptions>? value) { _value.Sort = value; return this; }
 
 	public static implicit operator SearchModelGroupMlRequest(SearchModelGroupMlRequestDescriptor descriptor) => descriptor._value;
 }

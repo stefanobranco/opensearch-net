@@ -19,8 +19,6 @@ public sealed class ScrollRequest
 	/// <summary>If `true`, the API response's `hit.total` property is returned as an integer. If `false`, the API response's `hit.total` property is returned as an object.</summary>
 	[JsonIgnore]
 	public bool? RestTotalHitsAsInt { get; set; }
-	/// <summary>Period to retain the search context for scrolling.</summary>
-	[JsonIgnore]
 	public string? Scroll { get; set; }
 }
 public sealed class ScrollEndpoint<TDocument> : IEndpoint<ScrollRequest, ScrollResponse<TDocument>>
@@ -38,12 +36,10 @@ public sealed class ScrollEndpoint<TDocument> : IEndpoint<ScrollRequest, ScrollR
 		var queryParts = new List<string>();
 		if (r.RestTotalHitsAsInt is not null)
 			queryParts.Add($"rest_total_hits_as_int={Uri.EscapeDataString((r.RestTotalHitsAsInt.Value ? "true" : "false"))}");
-		if (r.Scroll is not null)
-			queryParts.Add($"scroll={Uri.EscapeDataString(r.Scroll!)}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-	public RequestBody? GetBody(ScrollRequest r) => null;
+	public RequestBody? GetBody(ScrollRequest r) => RequestBody.Json(r);
 
 	public ScrollResponse<TDocument> DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<ScrollResponse<TDocument>>(body)!;

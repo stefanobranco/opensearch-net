@@ -92,10 +92,16 @@ public sealed class SpecTransformer
 					isRawBody = true;
 				}
 
-				var existingNames = new HashSet<string>(
-					pathParams.Select(p => p.Name).Concat(queryParams.Select(p => p.Name)),
-					StringComparer.OrdinalIgnoreCase);
-				bodyFields.RemoveAll(f => existingNames.Contains(f.Name));
+				// Body fields take precedence over query params with the same name.
+				// Remove clashing query params (keep body fields like size, from, sort, _source).
+				// Path params always stay — they're structural.
+				var bodyNames = new HashSet<string>(
+					bodyFields.Select(f => f.Name), StringComparer.OrdinalIgnoreCase);
+				queryParams.RemoveAll(p => bodyNames.Contains(p.Name));
+				// Still remove body fields that clash with path params
+				var pathNames = new HashSet<string>(
+					pathParams.Select(p => p.Name), StringComparer.OrdinalIgnoreCase);
+				bodyFields.RemoveAll(f => pathNames.Contains(f.Name));
 			}
 
 			// Build response shape

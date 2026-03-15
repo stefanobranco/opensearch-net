@@ -9,8 +9,6 @@ public sealed class ReindexRequestDescriptor
 {
 	internal ReindexRequest _value = new();
 
-	/// <summary>Maximum number of documents to process. By default, all documents.</summary>
-		public ReindexRequestDescriptor MaxDocs(int? value) { _value.MaxDocs = value; return this; }
 	/// <summary>If `true`, the request refreshes affected shards to make this operation visible to search.</summary>
 		public ReindexRequestDescriptor Refresh(string? value) { _value.Refresh = value; return this; }
 	/// <summary>The throttle for this request in sub-requests per second. Defaults to no throttle.</summary>
@@ -35,6 +33,8 @@ public sealed class ReindexRequestDescriptor
 		_value.Dest = descriptor;
 		return this;
 	}
+	/// <summary>The maximum number of documents to reindex.</summary>
+		public ReindexRequestDescriptor MaxDocs(int? value) { _value.MaxDocs = value; return this; }
 	public ReindexRequestDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
 	public ReindexRequestDescriptor Size(int? value) { _value.Size = value; return this; }
 	public ReindexRequestDescriptor Source(Source? value) { _value.Source = value; return this; }

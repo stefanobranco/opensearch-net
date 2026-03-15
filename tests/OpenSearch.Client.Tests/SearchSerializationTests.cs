@@ -51,9 +51,9 @@ public class SearchSerializationTests
 	}
 
 	[Fact]
-	public void Serialize_SearchRequest_OmitsJsonIgnoreProperties()
+	public void Serialize_SearchRequest_IncludesBodyFields()
 	{
-		// Size and From are [JsonIgnore] (query-string params), so they should not appear in JSON body
+		// Size and From are body fields (not query-string-only), so they appear in JSON body
 		var request = new SearchRequest
 		{
 			Size = 10,
@@ -64,8 +64,10 @@ public class SearchSerializationTests
 		var json = JsonSerializer.Serialize(request, JsonOptions);
 		var doc = JsonDocument.Parse(json);
 
-		doc.RootElement.TryGetProperty("size", out _).Should().BeFalse();
-		doc.RootElement.TryGetProperty("from", out _).Should().BeFalse();
+		doc.RootElement.TryGetProperty("size", out var sizeEl).Should().BeTrue();
+		sizeEl.GetInt32().Should().Be(10);
+		doc.RootElement.TryGetProperty("from", out var fromEl).Should().BeTrue();
+		fromEl.GetInt32().Should().Be(20);
 		doc.RootElement.TryGetProperty("query", out _).Should().BeTrue();
 	}
 

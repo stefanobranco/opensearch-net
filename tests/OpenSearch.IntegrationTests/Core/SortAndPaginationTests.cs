@@ -1,5 +1,6 @@
 using System.Text.Json;
 using FluentAssertions;
+using OpenSearch.Client;
 using OpenSearch.Client.Common;
 using OpenSearch.Client.Core;
 using OpenSearch.IntegrationTests.Infrastructure;
@@ -36,7 +37,7 @@ public class SortAndPaginationTests : IntegrationTestBase
 			Index = [index],
 			From = 0,
 			Size = 2,
-			Sort = ["score:asc"]
+			Sort = [SortOptions.Ascending("score")]
 		});
 
 		page1.Hits.Should().NotBeNull();
@@ -50,7 +51,7 @@ public class SortAndPaginationTests : IntegrationTestBase
 			Index = [index],
 			From = 2,
 			Size = 2,
-			Sort = ["score:asc"]
+			Sort = [SortOptions.Ascending("score")]
 		});
 
 		page2.Hits.Should().NotBeNull();
@@ -64,7 +65,7 @@ public class SortAndPaginationTests : IntegrationTestBase
 			Index = [index],
 			From = 4,
 			Size = 2,
-			Sort = ["score:asc"]
+			Sort = [SortOptions.Ascending("score")]
 		});
 
 		page3.Hits.Should().NotBeNull();
@@ -95,7 +96,7 @@ public class SortAndPaginationTests : IntegrationTestBase
 		{
 			Index = [index],
 			Size = 10,
-			Sort = ["score:desc"]
+			Sort = [SortOptions.Descending("score")]
 		});
 
 		searchResponse.Hits.Should().NotBeNull();

@@ -16,8 +16,6 @@ public sealed class PutTemplateIndexRequestDescriptor
 		public PutTemplateIndexRequestDescriptor ClusterManagerTimeout(string? value) { _value.ClusterManagerTimeout = value; return this; }
 	/// <summary>If `true`, this request cannot replace or update existing index templates.</summary>
 		public PutTemplateIndexRequestDescriptor Create(bool? value) { _value.Create = value; return this; }
-	/// <summary>Order in which OpenSearch applies this template if index matches multiple templates. Templates with lower 'order' values are merged first. Templates with higher 'order' values are merged later, overriding templates with lower values.</summary>
-		public PutTemplateIndexRequestDescriptor Order(int? value) { _value.Order = value; return this; }
 	/// <summary>Aliases for the index.</summary>
 		public PutTemplateIndexRequestDescriptor Aliases(Dictionary<string, Alias>? value) { _value.Aliases = value; return this; }
 	/// <summary>Array of wildcard expressions used to match the names of indexes during creation.</summary>
@@ -30,6 +28,8 @@ public sealed class PutTemplateIndexRequestDescriptor
 		_value.Mappings = descriptor;
 		return this;
 	}
+	/// <summary>Order in which OpenSearch applies this template if index matches multiple templates. Templates with lower 'order' values are merged first. Templates with higher 'order' values are merged later, overriding templates with lower values.</summary>
+		public PutTemplateIndexRequestDescriptor Order(int? value) { _value.Order = value; return this; }
 	/// <summary>Configuration options for the index.</summary>
 		public PutTemplateIndexRequestDescriptor Settings(Dictionary<string, object>? value) { _value.Settings = value; return this; }
 	public PutTemplateIndexRequestDescriptor Version(long? value) { _value.Version = value; return this; }

@@ -4,7 +4,6 @@
 using System.Text.Json.Serialization;
 using OpenSearch.Net;
 using OpenSearch.Client.Common;
-using OpenSearch.Client.Core;
 
 namespace OpenSearch.Client.Ml;
 
@@ -24,7 +23,7 @@ public sealed class SearchAgenticMemoryMlRequest
 	public QueryContainer? Query { get; set; }
 	/// <summary>The number of memory containers to return.</summary>
 		public long? Size { get; set; }
-	public List<SortCombinations>? Sort { get; set; }
+	public List<SortOptions>? Sort { get; set; }
 }
 public sealed class SearchAgenticMemoryMlEndpoint : IEndpoint<SearchAgenticMemoryMlRequest, SearchAgenticMemoryMlResponse>
 {

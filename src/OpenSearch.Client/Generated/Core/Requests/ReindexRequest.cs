@@ -13,9 +13,6 @@ namespace OpenSearch.Client.Core;
 
 public sealed class ReindexRequest
 {
-	/// <summary>Maximum number of documents to process. By default, all documents.</summary>
-	[JsonIgnore]
-	public int? MaxDocs { get; set; }
 	/// <summary>If `true`, the request refreshes affected shards to make this operation visible to search.</summary>
 	[JsonIgnore]
 	public string? Refresh { get; set; }
@@ -42,6 +39,8 @@ public sealed class ReindexRequest
 	public bool? WaitForCompletion { get; set; }
 	public string? Conflicts { get; set; }
 	public Destination? Dest { get; set; }
+	/// <summary>The maximum number of documents to reindex.</summary>
+		public int? MaxDocs { get; set; }
 	public System.Text.Json.JsonElement? Script { get; set; }
 	public int? Size { get; set; }
 	public Source? Source { get; set; }
@@ -56,8 +55,6 @@ public sealed class ReindexEndpoint : IEndpoint<ReindexRequest, ReindexResponse>
 	{
 		var path = $"/_reindex";
 		var queryParts = new List<string>();
-		if (r.MaxDocs is not null)
-			queryParts.Add($"max_docs={Uri.EscapeDataString(r.MaxDocs.ToString()!)}");
 		if (r.Refresh is not null)
 			queryParts.Add($"refresh={Uri.EscapeDataString(r.Refresh!)}");
 		if (r.RequestsPerSecond is not null)

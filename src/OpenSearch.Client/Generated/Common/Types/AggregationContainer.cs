@@ -280,6 +280,9 @@ public sealed class AggregationContainer : TaggedUnion<AggregationKind, object>
 	public static AggregationContainer WeightedAvg(WeightedAverageAggregation value) => new(AggregationKind.WeightedAvg, value);
 	/// <summary>Creates a VariableWidthHistogram variant.</summary>
 	public static AggregationContainer VariableWidthHistogram(VariableWidthHistogramAggregation value) => new(AggregationKind.VariableWidthHistogram, value);
+	/// <summary>Custom metadata to associate with the aggregation (optional)</summary>
+	[JsonIgnore]
+	public Dictionary<string, object>? Meta { get; set; }
 }
 
 public sealed class AggregationContainerConverter : TaggedUnionConverter<AggregationContainer, AggregationKind>
@@ -501,4 +504,46 @@ public sealed class AggregationContainerConverter : TaggedUnionConverter<Aggrega
 		s_nameByKind.TryGetValue(kind, out var name)
 			? name
 			: throw new JsonException($"No wire name for AggregationKind.{kind}.");
+
+	public override AggregationContainer? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+	{
+		if (reader.TokenType == JsonTokenType.Null) return null;
+		using var doc = JsonDocument.ParseValue(ref reader);
+		var root = doc.RootElement;
+		if (root.ValueKind != JsonValueKind.Object)
+			throw new JsonException($"Expected object for AggregationContainer, got {root.ValueKind}.");
+
+		AggregationContainer? result = null;
+		foreach (var prop in root.EnumerateObject())
+		{
+			if (s_kindByName.TryGetValue(prop.Name, out var kindInfo))
+			{
+				var value = JsonSerializer.Deserialize(prop.Value, kindInfo.Type, options)
+					?? throw new JsonException($"Failed to deserialize AggregationContainer variant '{prop.Name}'.");
+				result = CreateFromKind(kindInfo.Kind, value);
+				break;
+			}
+		}
+		if (result is null)
+			throw new JsonException("No recognized variant property found in AggregationContainer.");
+
+		// Read sibling properties
+		if (root.TryGetProperty("meta", out var MetaEl))
+			result.Meta = JsonSerializer.Deserialize<Dictionary<string, object>?>(MetaEl, options);
+		return result;
+	}
+
+	public override void Write(Utf8JsonWriter writer, AggregationContainer value, JsonSerializerOptions options)
+	{
+		writer.WriteStartObject();
+		var propertyName = ResolvePropertyName(value.Kind);
+		writer.WritePropertyName(propertyName);
+		JsonSerializer.Serialize(writer, value.Value, value.Value.GetType(), options);
+		if (value.Meta is not null)
+		{
+			writer.WritePropertyName("meta");
+			JsonSerializer.Serialize(writer, value.Meta, options);
+		}
+		writer.WriteEndObject();
+	}
 }

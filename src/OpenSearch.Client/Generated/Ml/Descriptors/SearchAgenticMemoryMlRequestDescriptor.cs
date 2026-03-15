@@ -3,7 +3,6 @@
 
 using System.Text.Json.Serialization;
 using OpenSearch.Client.Common;
-using OpenSearch.Client.Core;
 
 namespace OpenSearch.Client.Ml;
 
@@ -23,19 +22,7 @@ public sealed class SearchAgenticMemoryMlRequestDescriptor
 	}
 	/// <summary>The number of memory containers to return.</summary>
 		public SearchAgenticMemoryMlRequestDescriptor Size(long? value) { _value.Size = value; return this; }
-	public SearchAgenticMemoryMlRequestDescriptor Sort(List<SortCombinations>? value) { _value.Sort = value; return this; }
-	public SearchAgenticMemoryMlRequestDescriptor Sort(params Action<SortCombinationsDescriptor>[] configure)
-	{
-		var list = new List<SortCombinations>();
-		foreach (var action in configure)
-		{
-			var descriptor = new SortCombinationsDescriptor();
-			action(descriptor);
-			list.Add(((SortCombinations)descriptor)!);
-		}
-		_value.Sort = list;
-		return this;
-	}
+	public SearchAgenticMemoryMlRequestDescriptor Sort(List<SortOptions>? value) { _value.Sort = value; return this; }
 
 	public static implicit operator SearchAgenticMemoryMlRequest(SearchAgenticMemoryMlRequestDescriptor descriptor) => descriptor._value;
 }

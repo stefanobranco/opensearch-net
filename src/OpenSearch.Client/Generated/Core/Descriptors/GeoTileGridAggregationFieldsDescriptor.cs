@@ -2,7 +2,6 @@
 #nullable enable
 
 using System.Text.Json.Serialization;
-using OpenSearch.Client.Common;
 
 namespace OpenSearch.Client.Core;
 
@@ -16,14 +15,7 @@ public sealed class GeoTileGridAggregationFieldsDescriptor
 		public GeoTileGridAggregationFieldsDescriptor ShardSize(int? value) { _value.ShardSize = value; return this; }
 	/// <summary>The maximum number of buckets to return.</summary>
 		public GeoTileGridAggregationFieldsDescriptor Size(int? value) { _value.Size = value; return this; }
-	public GeoTileGridAggregationFieldsDescriptor Bounds(GeoBounds? value) { _value.Bounds = value; return this; }
-	public GeoTileGridAggregationFieldsDescriptor Bounds(Action<GeoBoundsDescriptor> configure)
-	{
-		var descriptor = new GeoBoundsDescriptor();
-		configure(descriptor);
-		_value.Bounds = descriptor;
-		return this;
-	}
+	public GeoTileGridAggregationFieldsDescriptor Bounds(System.Text.Json.JsonElement? value) { _value.Bounds = value; return this; }
 
 	public static implicit operator GeoTileGridAggregationFields(GeoTileGridAggregationFieldsDescriptor descriptor) => descriptor._value;
 }

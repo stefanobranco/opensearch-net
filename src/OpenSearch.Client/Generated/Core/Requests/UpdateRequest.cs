@@ -19,9 +19,6 @@ public sealed class UpdateRequest
 	/// <summary>The name of the index</summary>
 	[JsonIgnore]
 	public string? Index { get; set; }
-	/// <summary>Set to `false` to disable source retrieval. You can also specify a comma-separated list of the fields you want to retrieve.</summary>
-	[JsonIgnore]
-	public System.Text.Json.JsonElement? Source { get; set; }
 	/// <summary>Specify the source fields you want to exclude.</summary>
 	[JsonIgnore]
 	public List<string>? SourceExcludes { get; set; }
@@ -64,6 +61,8 @@ public sealed class UpdateRequest
 	public System.Text.Json.JsonElement? Script { get; set; }
 	/// <summary>Set to `true` to execute the script whether or not the document exists.</summary>
 		public bool? ScriptedUpsert { get; set; }
+	[JsonPropertyName("_source")]
+	public SourceConfig? Source { get; set; }
 	/// <summary>If the document does not already exist, the contents of 'upsert' are inserted as a new document. If the document exists, the 'script' is executed.</summary>
 		public System.Text.Json.JsonElement? Upsert { get; set; }
 }
@@ -77,8 +76,6 @@ public sealed class UpdateEndpoint<TDocument> : IEndpoint<UpdateRequest, UpdateR
 	{
 		var path = $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_update/{Uri.EscapeDataString(r.Id!.ToString()!)}";
 		var queryParts = new List<string>();
-		if (r.Source is not null)
-			queryParts.Add($"_source={Uri.EscapeDataString(r.Source.ToString()!)}");
 		if (r.SourceExcludes is not null)
 			queryParts.Add($"_source_excludes={Uri.EscapeDataString(string.Join(",", r.SourceExcludes!))}");
 		if (r.SourceIncludes is not null)

@@ -30,6 +30,25 @@ public sealed class TypeMapper
 		"QueryContainer"
 	};
 
+	/// <summary>
+	/// Schema names that map to hand-written C# types. When Map() encounters one of these,
+	/// it returns the override TypeRef instead of processing the schema.
+	/// </summary>
+	private static readonly Dictionary<string, TypeRef> s_typeOverrides = new(StringComparer.OrdinalIgnoreCase)
+	{
+		["SortCombinations"] = TypeRef.Named("SortOptions", "SortOptions"),
+		["SourceConfig"] = TypeRef.Named("SourceConfig", "SourceConfig"),
+	};
+
+	/// <summary>
+	/// Schema names whose generated types are replaced by hand-written types.
+	/// Prevents GetOrCreateObject from generating conflicting types.
+	/// </summary>
+	private static readonly HashSet<string> s_skipGeneration = new(StringComparer.OrdinalIgnoreCase)
+	{
+		"SortCombinations", "SortOptions", "FieldSort", "SourceConfig", "SourceFilter",
+	};
+
 	private readonly Dictionary<string, TypeRef> _namedTypes = new(StringComparer.Ordinal);
 	private readonly Dictionary<string, EnumShape> _discoveredEnums = new(StringComparer.Ordinal);
 	private readonly Dictionary<string, ObjectShape> _discoveredObjects = new(StringComparer.Ordinal);
@@ -72,6 +91,15 @@ public sealed class TypeMapper
 	{
 		// Extract the schema name from the ref
 		var schemaName = ExtractSchemaName(refString);
+
+		// Check for hand-written type overrides before any other processing.
+		// Still walk the schema to discover referenced sub-types (e.g., ScoreSort from SortOptions).
+		if (s_typeOverrides.TryGetValue(schemaName, out var overrideType))
+		{
+			_namedTypes[schemaName] = overrideType;
+			DiscoverReferencedTypes(resolved);
+			return overrideType;
+		}
 
 		// Check if it's a numeric alias (explicit override)
 		if (s_longAliases.Contains(schemaName))
@@ -357,10 +385,10 @@ public sealed class TypeMapper
 		}
 
 		// Pattern 5: All-refs union — all members are $ref to named types.
-		// Require 3+ members (large unions like QueryContainer, Property) unless
-		// a discriminator is present (then 2+ is fine, e.g., RangeQuery with type discriminator).
-		var minRefsForUnion = discriminatorProperty is not null ? 2 : 3;
-		if (schemas.Count >= minRefsForUnion && schemaName is not null)
+		// Only fire when a discriminator is present (internally-tagged unions like Property, Analyzer).
+		// Structural unions without discriminators (SortCombinations, GeoBounds, DecayPlacement)
+		// fall through to Pattern 6 → JsonElement and are handled by hand-written types.
+		if (discriminatorProperty is not null && schemas.Count >= 2 && schemaName is not null)
 		{
 			var allRefs = true;
 			foreach (var s in schemas)
@@ -495,6 +523,15 @@ public sealed class TypeMapper
 
 		if (oneOfMember is null) return false;
 
+		// Collect sibling properties from non-oneOf allOf members (e.g., meta, aggregations)
+		var siblingFields = new List<Field>();
+		foreach (var member in schema.AllOf)
+		{
+			var resolved = member.Resolved();
+			if (resolved.OneOf.Count > 0) continue; // skip the oneOf member
+			CollectFields(resolved, siblingFields, new HashSet<string>());
+		}
+
 		var variants = new List<UnionVariant>();
 
 		foreach (var variant in oneOfMember.OneOf)
@@ -524,7 +561,7 @@ public sealed class TypeMapper
 		}
 
 		EraseGenericVariants(variants);
-		typeRef = RegisterTaggedUnion(schemaName, ns, schema.Description, variants);
+		typeRef = RegisterTaggedUnion(schemaName, ns, schema.Description, variants, siblingFields: siblingFields);
 		return true;
 	}
 
@@ -607,6 +644,17 @@ public sealed class TypeMapper
 		if (_namedTypes.TryGetValue(schemaName, out var existing))
 			return existing;
 
+		// Skip generation for schemas that have hand-written replacements.
+		// Still process the schema's properties so referenced types (e.g., ScoreSort from SortOptions)
+		// are discovered. Only suppress emitting the skipped type itself.
+		if (s_skipGeneration.Contains(schemaName))
+		{
+			var skipRef = s_typeOverrides.TryGetValue(schemaName, out var ov) ? ov : TypeRef.JsonElement();
+			_namedTypes[schemaName] = skipRef;
+			DiscoverReferencedTypes(schema);
+			return skipRef;
+		}
+
 		// Detect property-keyed tagged unions:
 		// either explicitly known, or auto-detected from schema shape.
 		if (s_knownTaggedUnions.Contains(schemaName) || IsPropertyKeyedUnion(schema))
@@ -688,6 +736,17 @@ public sealed class TypeMapper
 			{
 				var resolved = allOfMember.Resolved();
 				CollectFields(resolved, fields, required, existingNames);
+			}
+		}
+
+		// Flatten anyOf variant properties as optional (e.g., MetricAggregationBase
+		// uses anyOf for field/script — include all variant properties without propagating required)
+		if (schema.AnyOf.Count > 0)
+		{
+			foreach (var anyOfMember in schema.AnyOf)
+			{
+				var resolved = anyOfMember.Resolved();
+				CollectFields(resolved, fields, new HashSet<string>(), existingNames);
 			}
 		}
 
@@ -809,7 +868,7 @@ public sealed class TypeMapper
 	/// Shared helper: reserves the name, builds the TaggedUnionShape, registers it, and returns the TypeRef.
 	/// Used by all three union-creation paths (property-keyed, oneOf-refs, allOf+oneOf).
 	/// </summary>
-	private TypeRef RegisterTaggedUnion(string schemaName, string? namespaceOverride, string? description, List<UnionVariant> variants, string? discriminatorProperty = null)
+	private TypeRef RegisterTaggedUnion(string schemaName, string? namespaceOverride, string? description, List<UnionVariant> variants, string? discriminatorProperty = null, List<Field>? siblingFields = null)
 	{
 		var className = NamingConventions.SchemaNameToClassName(schemaName);
 		var kindEnumName = className.Replace("Container", "") + "Kind";
@@ -825,7 +884,8 @@ public sealed class TypeMapper
 			Description = description,
 			KindEnumName = kindEnumName,
 			Variants = variants,
-			DiscriminatorProperty = discriminatorProperty
+			DiscriminatorProperty = discriminatorProperty,
+			SiblingFields = siblingFields ?? []
 		};
 
 		return typeRef;
@@ -982,6 +1042,27 @@ public sealed class TypeMapper
 				return TypeRef.DictOf(type.KeyType!, updatedValue);
 		}
 		return type;
+	}
+
+	/// <summary>
+	/// Walks a schema's properties, allOf, and oneOf members to discover referenced types,
+	/// without creating an object shape for the schema itself.
+	/// Used for overridden/skipped schemas whose sub-types still need generation.
+	/// </summary>
+	private void DiscoverReferencedTypes(OpenApiSchema schema)
+	{
+		foreach (var (_, propSchema) in schema.Properties)
+			Map(propSchema);
+		foreach (var allOfMember in schema.AllOf)
+		{
+			var resolved = allOfMember.Resolved();
+			DiscoverReferencedTypes(resolved);
+		}
+		foreach (var oneOfMember in schema.OneOf)
+		{
+			if (oneOfMember.Ref is not null)
+				Map(oneOfMember);
+		}
 	}
 
 	private string ResolveNamespace(string? namespaceOverride) =>

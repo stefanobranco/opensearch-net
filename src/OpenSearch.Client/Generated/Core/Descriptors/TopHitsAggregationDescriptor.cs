@@ -11,6 +11,8 @@ public sealed class TopHitsAggregationDescriptor
 	internal TopHitsAggregation _value = new();
 
 	public TopHitsAggregationDescriptor Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
+	public TopHitsAggregationDescriptor Field(string? value) { _value.Field = value; return this; }
+	public TopHitsAggregationDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
 	public TopHitsAggregationDescriptor DocvalueFields(List<string>? value) { _value.DocvalueFields = value; return this; }
 	/// <summary>If `true`, returns detailed information about score computation as part of a hit.</summary>
 		public TopHitsAggregationDescriptor Explain(bool? value) { _value.Explain = value; return this; }
@@ -28,20 +30,8 @@ public sealed class TopHitsAggregationDescriptor
 		public TopHitsAggregationDescriptor ScriptFields(Dictionary<string, ScriptField>? value) { _value.ScriptFields = value; return this; }
 	/// <summary>The maximum number of top matching hits to return per bucket.</summary>
 		public TopHitsAggregationDescriptor Size(int? value) { _value.Size = value; return this; }
-	public TopHitsAggregationDescriptor Sort(List<SortCombinations>? value) { _value.Sort = value; return this; }
-	public TopHitsAggregationDescriptor Sort(params Action<SortCombinationsDescriptor>[] configure)
-	{
-		var list = new List<SortCombinations>();
-		foreach (var action in configure)
-		{
-			var descriptor = new SortCombinationsDescriptor();
-			action(descriptor);
-			list.Add(((SortCombinations)descriptor)!);
-		}
-		_value.Sort = list;
-		return this;
-	}
-	public TopHitsAggregationDescriptor Source(System.Text.Json.JsonElement? value) { _value.Source = value; return this; }
+	public TopHitsAggregationDescriptor Sort(List<System.Text.Json.JsonElement>? value) { _value.Sort = value; return this; }
+	public TopHitsAggregationDescriptor Source(SourceConfig? value) { _value.Source = value; return this; }
 	public TopHitsAggregationDescriptor StoredFields(List<string>? value) { _value.StoredFields = value; return this; }
 	/// <summary>If `true`, calculates and returns document scores, even if the scores are not used for sorting.</summary>
 		public TopHitsAggregationDescriptor TrackScores(bool? value) { _value.TrackScores = value; return this; }

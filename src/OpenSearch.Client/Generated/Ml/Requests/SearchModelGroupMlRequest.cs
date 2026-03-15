@@ -4,7 +4,6 @@
 using System.Text.Json.Serialization;
 using OpenSearch.Net;
 using OpenSearch.Client.Common;
-using OpenSearch.Client.Core;
 
 namespace OpenSearch.Client.Ml;
 
@@ -19,7 +18,7 @@ public sealed class SearchModelGroupMlRequest
 	/// <summary>The number of model groups to return.</summary>
 		public long? Size { get; set; }
 	/// <summary>The sort order.</summary>
-		public List<SortCombinations>? Sort { get; set; }
+		public List<SortOptions>? Sort { get; set; }
 }
 public sealed class SearchModelGroupMlEndpoint : IEndpoint<SearchModelGroupMlRequest, SearchModelGroupMlResponse>
 {

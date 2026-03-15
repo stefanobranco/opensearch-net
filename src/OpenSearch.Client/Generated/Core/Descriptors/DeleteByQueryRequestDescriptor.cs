@@ -38,8 +38,6 @@ public sealed class DeleteByQueryRequestDescriptor
 		public DeleteByQueryRequestDescriptor IgnoreUnavailable(bool? value) { _value.IgnoreUnavailable = value; return this; }
 	/// <summary>If `true`, format-based query failures (such as providing text to a numeric field) in the query string will be ignored.</summary>
 		public DeleteByQueryRequestDescriptor Lenient(bool? value) { _value.Lenient = value; return this; }
-	/// <summary>Maximum number of documents to process. Defaults to all documents.</summary>
-		public DeleteByQueryRequestDescriptor MaxDocs(int? value) { _value.MaxDocs = value; return this; }
 	/// <summary>Specifies the node or shard the operation should be performed on. Random by default.</summary>
 		public DeleteByQueryRequestDescriptor Preference(string? value) { _value.Preference = value; return this; }
 	/// <summary>Query in the Lucene query string syntax.</summary>
@@ -78,6 +76,8 @@ public sealed class DeleteByQueryRequestDescriptor
 		public DeleteByQueryRequestDescriptor WaitForActiveShards(System.Text.Json.JsonElement? value) { _value.WaitForActiveShards = value; return this; }
 	/// <summary>If `true`, the request blocks until the operation is complete.</summary>
 		public DeleteByQueryRequestDescriptor WaitForCompletion(bool? value) { _value.WaitForCompletion = value; return this; }
+	/// <summary>The maximum number of documents to delete.</summary>
+		public DeleteByQueryRequestDescriptor MaxDocs(int? value) { _value.MaxDocs = value; return this; }
 	public DeleteByQueryRequestDescriptor Query(QueryContainer? value) { _value.Query = value; return this; }
 	public DeleteByQueryRequestDescriptor Query(Action<QueryContainerDescriptor> configure)
 	{

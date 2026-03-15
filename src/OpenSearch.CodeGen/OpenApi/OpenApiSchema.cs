@@ -205,6 +205,21 @@ public sealed class OpenApiSchema
 	}
 
 	/// <summary>
+	/// Returns anyOf schemas.
+	/// </summary>
+	public IReadOnlyList<OpenApiSchema> AnyOf
+	{
+		get
+		{
+			if (!TryGetNode("anyOf", out var node) || node is not YamlSequenceNode seq)
+				return [];
+			return seq.Children
+				.Select(c => new OpenApiSchema(c, _resolver, _contextFile))
+				.ToList();
+		}
+	}
+
+	/// <summary>
 	/// Returns allOf schemas.
 	/// </summary>
 	public IReadOnlyList<OpenApiSchema> AllOf

@@ -17,8 +17,6 @@ public sealed class SearchTemplateRequestDescriptor
 		public SearchTemplateRequestDescriptor CcsMinimizeRoundtrips(bool? value) { _value.CcsMinimizeRoundtrips = value; return this; }
 	/// <summary>Type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values, such as `open,hidden`. Valid values are: `all`, `open`, `closed`, `hidden`, `none`.</summary>
 		public SearchTemplateRequestDescriptor ExpandWildcards(List<string>? value) { _value.ExpandWildcards = value; return this; }
-	/// <summary>If `true`, the response includes additional details about score computation as part of a hit.</summary>
-		public SearchTemplateRequestDescriptor Explain(bool? value) { _value.Explain = value; return this; }
 	/// <summary>If `true`, specified concrete, expanded, or aliased indexes are not included in the response when throttled.</summary>
 		public SearchTemplateRequestDescriptor IgnoreThrottled(bool? value) { _value.IgnoreThrottled = value; return this; }
 	/// <summary>If `false`, the request returns an error if it targets a missing or closed index.</summary>
@@ -27,8 +25,6 @@ public sealed class SearchTemplateRequestDescriptor
 		public SearchTemplateRequestDescriptor PhaseTook(bool? value) { _value.PhaseTook = value; return this; }
 	/// <summary>Specifies the node or shard the operation should be performed on. Random by default.</summary>
 		public SearchTemplateRequestDescriptor Preference(string? value) { _value.Preference = value; return this; }
-	/// <summary>If `true`, the query execution is profiled.</summary>
-		public SearchTemplateRequestDescriptor Profile(bool? value) { _value.Profile = value; return this; }
 	/// <summary>If `true`, `hits.total` are rendered as an integer in the response.</summary>
 		public SearchTemplateRequestDescriptor RestTotalHitsAsInt(bool? value) { _value.RestTotalHitsAsInt = value; return this; }
 	/// <summary>A custom value used to route operations to a specific shard.</summary>
@@ -41,9 +37,13 @@ public sealed class SearchTemplateRequestDescriptor
 		public SearchTemplateRequestDescriptor SearchType(string? value) { _value.SearchType = value; return this; }
 	/// <summary>If `true`, the response prefixes aggregation and suggester names with their respective types.</summary>
 		public SearchTemplateRequestDescriptor TypedKeys(bool? value) { _value.TypedKeys = value; return this; }
+	/// <summary>If `true`, returns detailed information about score calculation as part of each hit.</summary>
+		public SearchTemplateRequestDescriptor Explain(bool? value) { _value.Explain = value; return this; }
 	public SearchTemplateRequestDescriptor Id(string? value) { _value.Id = value; return this; }
 	/// <summary>Key-value pairs used to replace Mustache variables in the template. The key is the variable name. The value is the variable value.</summary>
 		public SearchTemplateRequestDescriptor Params(Dictionary<string, object>? value) { _value.Params = value; return this; }
+	/// <summary>If `true`, the query execution is profiled.</summary>
+		public SearchTemplateRequestDescriptor Profile(bool? value) { _value.Profile = value; return this; }
 	/// <summary>An inline search template. Supports the same parameters as the search API request body. Also supports Mustache variables. If no id is specified, this parameter is required.</summary>
 		public SearchTemplateRequestDescriptor Source(string? value) { _value.Source = value; return this; }
 

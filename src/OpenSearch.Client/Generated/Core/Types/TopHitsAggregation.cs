@@ -10,6 +10,8 @@ namespace OpenSearch.Client.Core;
 public sealed class TopHitsAggregation
 {
 	public System.Text.Json.JsonElement? Missing { get; set; }
+	public string? Field { get; set; }
+	public System.Text.Json.JsonElement? Script { get; set; }
 	public List<string>? DocvalueFields { get; set; }
 	/// <summary>If `true`, returns detailed information about score computation as part of a hit.</summary>
 		public bool? Explain { get; set; }
@@ -20,9 +22,9 @@ public sealed class TopHitsAggregation
 		public Dictionary<string, ScriptField>? ScriptFields { get; set; }
 	/// <summary>The maximum number of top matching hits to return per bucket.</summary>
 		public int? Size { get; set; }
-	public List<SortCombinations>? Sort { get; set; }
+	public List<System.Text.Json.JsonElement>? Sort { get; set; }
 	[JsonPropertyName("_source")]
-	public System.Text.Json.JsonElement? Source { get; set; }
+	public SourceConfig? Source { get; set; }
 	public List<string>? StoredFields { get; set; }
 	/// <summary>If `true`, calculates and returns document scores, even if the scores are not used for sorting.</summary>
 		public bool? TrackScores { get; set; }

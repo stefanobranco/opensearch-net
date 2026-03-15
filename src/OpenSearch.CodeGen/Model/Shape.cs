@@ -71,6 +71,12 @@ public sealed class TaggedUnionShape : Shape
 	/// Null for externally-tagged unions like QueryContainer.
 	/// </summary>
 	public string? DiscriminatorProperty { get; init; }
+
+	/// <summary>
+	/// Properties from non-oneOf allOf members that sit alongside the variant (e.g., meta, aggregations on AggregationContainer).
+	/// These need custom converter handling since the standard tagged union converter only reads one property.
+	/// </summary>
+	public IReadOnlyList<Field> SiblingFields { get; init; } = [];
 }
 
 /// <summary>

@@ -14,8 +14,6 @@ public sealed class MtermvectorsRequestDescriptor
 	/// <summary>If `true`, the response includes the document count, sum of document frequencies, and sum of total term frequencies.</summary>
 		public MtermvectorsRequestDescriptor FieldStatistics(bool? value) { _value.FieldStatistics = value; return this; }
 	public MtermvectorsRequestDescriptor Fields(List<string>? value) { _value.Fields = value; return this; }
-	/// <summary>A comma-separated list of documents IDs. You must provide either the `docs` field in the request body or specify `ids` as a query parameter or in the request body.</summary>
-		public MtermvectorsRequestDescriptor Ids(List<string>? value) { _value.Ids = value; return this; }
 	/// <summary>If `true`, the response includes term offsets.</summary>
 		public MtermvectorsRequestDescriptor Offsets(bool? value) { _value.Offsets = value; return this; }
 	/// <summary>If `true`, the response includes term payloads.</summary>
@@ -49,6 +47,8 @@ public sealed class MtermvectorsRequestDescriptor
 		_value.Docs = list;
 		return this;
 	}
+	/// <summary>Simplified syntax to specify documents by their ID if they're in the same index.</summary>
+		public MtermvectorsRequestDescriptor Ids(List<string>? value) { _value.Ids = value; return this; }
 
 	public static implicit operator MtermvectorsRequest(MtermvectorsRequestDescriptor descriptor) => descriptor._value;
 }

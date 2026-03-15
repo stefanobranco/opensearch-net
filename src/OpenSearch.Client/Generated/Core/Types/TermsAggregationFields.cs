@@ -27,4 +27,6 @@ public sealed class TermsAggregationFields
 	/// <summary>The number of buckets returned out of the overall terms list.</summary>
 		public int? Size { get; set; }
 	public string? Format { get; set; }
+	public string? Field { get; set; }
+	public System.Text.Json.JsonElement? Script { get; set; }
 }

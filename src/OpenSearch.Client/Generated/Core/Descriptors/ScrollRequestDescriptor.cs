@@ -13,8 +13,7 @@ public sealed class ScrollRequestDescriptor
 		public ScrollRequestDescriptor ScrollId(string? value) { _value.ScrollId = value; return this; }
 	/// <summary>If `true`, the API response's `hit.total` property is returned as an integer. If `false`, the API response's `hit.total` property is returned as an object.</summary>
 		public ScrollRequestDescriptor RestTotalHitsAsInt(bool? value) { _value.RestTotalHitsAsInt = value; return this; }
-	/// <summary>Period to retain the search context for scrolling.</summary>
-		public ScrollRequestDescriptor Scroll(string? value) { _value.Scroll = value; return this; }
+	public ScrollRequestDescriptor Scroll(string? value) { _value.Scroll = value; return this; }
 
 	public static implicit operator ScrollRequest(ScrollRequestDescriptor descriptor) => descriptor._value;
 }

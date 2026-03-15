@@ -10,6 +10,8 @@ public sealed class PercentilesAggregationDescriptor
 	internal PercentilesAggregation _value = new();
 
 	public PercentilesAggregationDescriptor Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
+	public PercentilesAggregationDescriptor Field(string? value) { _value.Field = value; return this; }
+	public PercentilesAggregationDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
 	public PercentilesAggregationDescriptor Format(string? value) { _value.Format = value; return this; }
 	/// <summary>By default, the aggregation associates a unique string key with each bucket and returns the ranges as a hash rather than an array. Set to `false` to disable this behavior.</summary>
 		public PercentilesAggregationDescriptor Keyed(bool? value) { _value.Keyed = value; return this; }

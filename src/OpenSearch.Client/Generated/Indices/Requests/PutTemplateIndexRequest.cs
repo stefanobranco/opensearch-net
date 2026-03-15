@@ -23,14 +23,13 @@ public sealed class PutTemplateIndexRequest
 	/// <summary>If `true`, this request cannot replace or update existing index templates.</summary>
 	[JsonIgnore]
 	public bool? Create { get; set; }
-	/// <summary>Order in which OpenSearch applies this template if index matches multiple templates. Templates with lower 'order' values are merged first. Templates with higher 'order' values are merged later, overriding templates with lower values.</summary>
-	[JsonIgnore]
-	public int? Order { get; set; }
 	/// <summary>Aliases for the index.</summary>
 		public Dictionary<string, Alias>? Aliases { get; set; }
 	/// <summary>Array of wildcard expressions used to match the names of indexes during creation.</summary>
 		public List<string>? IndexPatterns { get; set; }
 	public TypeMapping? Mappings { get; set; }
+	/// <summary>Order in which OpenSearch applies this template if index matches multiple templates. Templates with lower 'order' values are merged first. Templates with higher 'order' values are merged later, overriding templates with lower values.</summary>
+		public int? Order { get; set; }
 	/// <summary>Configuration options for the index.</summary>
 		public Dictionary<string, object>? Settings { get; set; }
 	public long? Version { get; set; }
@@ -49,8 +48,6 @@ public sealed class PutTemplateIndexEndpoint : IEndpoint<PutTemplateIndexRequest
 			queryParts.Add($"cluster_manager_timeout={Uri.EscapeDataString(r.ClusterManagerTimeout!)}");
 		if (r.Create is not null)
 			queryParts.Add($"create={Uri.EscapeDataString((r.Create.Value ? "true" : "false"))}");
-		if (r.Order is not null)
-			queryParts.Add($"order={Uri.EscapeDataString(r.Order.ToString()!)}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

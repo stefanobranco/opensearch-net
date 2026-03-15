@@ -2,14 +2,13 @@
 #nullable enable
 
 using System.Text.Json.Serialization;
-using OpenSearch.Client.Common;
 
 namespace OpenSearch.Client.Core;
 
 
 public sealed class GeoHashGridAggregationFields
 {
-	public GeoBounds? Bounds { get; set; }
+	public System.Text.Json.JsonElement? Bounds { get; set; }
 	public string? Field { get; set; }
 	public string? Precision { get; set; }
 	/// <summary>Allows for more accurate counting of the top cells returned in the final result the aggregation. Defaults to returning `max(10,(size x number-of-shards))` buckets from each shard.</summary>

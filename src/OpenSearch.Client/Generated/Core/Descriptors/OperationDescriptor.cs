@@ -12,7 +12,7 @@ public sealed class OperationDescriptor
 	public OperationDescriptor Id(string? value) { _value.Id = value; return this; }
 	public OperationDescriptor Index(string? value) { _value.Index = value; return this; }
 	public OperationDescriptor Routing(string? value) { _value.Routing = value; return this; }
-	public OperationDescriptor Source(System.Text.Json.JsonElement? value) { _value.Source = value; return this; }
+	public OperationDescriptor Source(SourceConfig? value) { _value.Source = value; return this; }
 	public OperationDescriptor StoredFields(List<string>? value) { _value.StoredFields = value; return this; }
 	public OperationDescriptor Version(long? value) { _value.Version = value; return this; }
 	public OperationDescriptor VersionType(string? value) { _value.VersionType = value; return this; }

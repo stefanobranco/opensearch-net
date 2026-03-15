@@ -56,9 +56,6 @@ public sealed class DeleteByQueryRequest
 	/// <summary>If `true`, format-based query failures (such as providing text to a numeric field) in the query string will be ignored.</summary>
 	[JsonIgnore]
 	public bool? Lenient { get; set; }
-	/// <summary>Maximum number of documents to process. Defaults to all documents.</summary>
-	[JsonIgnore]
-	public int? MaxDocs { get; set; }
 	/// <summary>Specifies the node or shard the operation should be performed on. Random by default.</summary>
 	[JsonIgnore]
 	public string? Preference { get; set; }
@@ -116,6 +113,8 @@ public sealed class DeleteByQueryRequest
 	/// <summary>If `true`, the request blocks until the operation is complete.</summary>
 	[JsonIgnore]
 	public bool? WaitForCompletion { get; set; }
+	/// <summary>The maximum number of documents to delete.</summary>
+		public int? MaxDocs { get; set; }
 	public QueryContainer? Query { get; set; }
 	public SlicedScroll? Slice { get; set; }
 }
@@ -155,8 +154,6 @@ public sealed class DeleteByQueryEndpoint : IEndpoint<DeleteByQueryRequest, Dele
 			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable.Value ? "true" : "false"))}");
 		if (r.Lenient is not null)
 			queryParts.Add($"lenient={Uri.EscapeDataString((r.Lenient.Value ? "true" : "false"))}");
-		if (r.MaxDocs is not null)
-			queryParts.Add($"max_docs={Uri.EscapeDataString(r.MaxDocs.ToString()!)}");
 		if (r.Preference is not null)
 			queryParts.Add($"preference={Uri.EscapeDataString(r.Preference!)}");
 		if (r.Q is not null)

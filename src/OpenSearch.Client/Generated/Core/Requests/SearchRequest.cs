@@ -17,9 +17,6 @@ public sealed class SearchRequest
 	/// <summary>A comma-separated list of data streams, indexes, and aliases to search. Supports wildcards (`*`). To search all data streams and indexes, omit this parameter or use `*` or `_all`.</summary>
 	[JsonIgnore]
 	public List<string>? Index { get; set; }
-	/// <summary>Indicates which source fields are returned for matching documents. These fields are returned in the `hits._source` property of the search response. Valid values are: `true` to return the entire document source; `false` to not return the document source; `&lt;string&gt;` to return the source fields that are specified as a comma-separated list (supports wildcard (`*`) patterns).</summary>
-	[JsonIgnore]
-	public System.Text.Json.JsonElement? Source { get; set; }
 	/// <summary>A comma-separated list of source fields to exclude from the response. You can also use this parameter to exclude fields from the subset specified in `_source_includes` query parameter. If the `_source` parameter is `false`, this parameter is ignored.</summary>
 	[JsonIgnore]
 	public List<string>? SourceExcludes { get; set; }
@@ -53,27 +50,15 @@ public sealed class SearchRequest
 	/// <summary>Field to use as default where no field prefix is given in the query string. This parameter can only be used when the q query string parameter is specified.</summary>
 	[JsonIgnore]
 	public string? Df { get; set; }
-	/// <summary>A comma-separated list of fields to return as the docvalue representation for each hit.</summary>
-	[JsonIgnore]
-	public List<string>? DocvalueFields { get; set; }
 	/// <summary>Type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values, such as `open,hidden`.</summary>
 	[JsonIgnore]
 	public List<string>? ExpandWildcards { get; set; }
-	/// <summary>If `true`, returns detailed information about score computation as part of a hit.</summary>
-	[JsonIgnore]
-	public bool? Explain { get; set; }
-	/// <summary>Starting document offset. Needs to be non-negative. By default, you cannot page through more than 10,000 hits using the `from` and `size` parameters. To page through more hits, use the `search_after` parameter.</summary>
-	[JsonIgnore]
-	public int? From { get; set; }
 	/// <summary>If `true`, concrete, expanded or aliased indexes will be ignored when frozen.</summary>
 	[JsonIgnore]
 	public bool? IgnoreThrottled { get; set; }
 	/// <summary>If `false`, the request returns an error if it targets a missing or closed index.</summary>
 	[JsonIgnore]
 	public bool? IgnoreUnavailable { get; set; }
-	/// <summary>Indicates whether `hit.matched_queries` should be rendered as a map that includes the name of the matched query associated with its score (true) or as an array containing the name of the matched queries (false)</summary>
-	[JsonIgnore]
-	public bool? IncludeNamedQueriesScore { get; set; }
 	/// <summary>If `true`, format-based query failures (such as providing text to a numeric field) in the query string will be ignored. This parameter can only be used when the `q` query string parameter is specified.</summary>
 	[JsonIgnore]
 	public bool? Lenient { get; set; }
@@ -104,27 +89,9 @@ public sealed class SearchRequest
 	/// <summary>Period to retain the search context for scrolling. See Scroll search results. By default, this value cannot exceed `1d` (24 hours). You can change this limit using the `search.max_keep_alive` cluster-level setting.</summary>
 	[JsonIgnore]
 	public string? Scroll { get; set; }
-	/// <summary>Customizable sequence of processing stages applied to search queries.</summary>
-	[JsonIgnore]
-	public string? SearchPipeline { get; set; }
 	/// <summary>How distributed term frequencies are calculated for relevance scoring.</summary>
 	[JsonIgnore]
 	public string? SearchType { get; set; }
-	/// <summary>If `true`, returns sequence number and primary term of the last modification of each hit.</summary>
-	[JsonIgnore]
-	public bool? SeqNoPrimaryTerm { get; set; }
-	/// <summary>Defines the number of hits to return. By default, you cannot page through more than 10,000 hits using the `from` and `size` parameters. To page through more hits, use the `search_after` parameter.</summary>
-	[JsonIgnore]
-	public int? Size { get; set; }
-	/// <summary>A comma-separated list of &lt;field&gt;:&lt;direction&gt; pairs.</summary>
-	[JsonIgnore]
-	public List<string>? Sort { get; set; }
-	/// <summary>Specific `tag` of the request for logging and statistical purposes.</summary>
-	[JsonIgnore]
-	public List<string>? Stats { get; set; }
-	/// <summary>A comma-separated list of stored fields to return as part of a hit. If no fields are specified, no stored fields are included in the response. If this field is specified, the `_source` parameter defaults to `false`. You can pass `_source: true` to return both source fields and stored fields in the search response.</summary>
-	[JsonIgnore]
-	public List<string>? StoredFields { get; set; }
 	/// <summary>Specifies which field to use for suggestions.</summary>
 	[JsonIgnore]
 	public string? SuggestField { get; set; }
@@ -137,53 +104,66 @@ public sealed class SearchRequest
 	/// <summary>The source text for which the suggestions should be returned. This parameter can only be used when the `suggest_field` and `suggest_text` query string parameters are specified.</summary>
 	[JsonIgnore]
 	public string? SuggestText { get; set; }
-	/// <summary>Maximum number of documents to collect for each shard. If a query reaches this limit, OpenSearch terminates the query early. OpenSearch collects documents before sorting. Use with caution. OpenSearch applies this parameter to each shard handling the request. When possible, let OpenSearch perform early termination automatically. Avoid specifying this parameter for requests that target data streams with backing indexes across multiple data tiers. If set to `0` (default), the query does not terminate early.</summary>
-	[JsonIgnore]
-	public int? TerminateAfter { get; set; }
-	/// <summary>Specifies the period of time to wait for a response from each shard. If no response is received before the timeout expires, the request fails and returns an error.</summary>
-	[JsonIgnore]
-	public string? Timeout { get; set; }
-	/// <summary>If `true`, calculate and return document scores, even if the scores are not used for sorting.</summary>
-	[JsonIgnore]
-	public bool? TrackScores { get; set; }
-	/// <summary>Number of hits matching the query to count accurately. If `true`, the exact number of hits is returned at the cost of some performance. If `false`, the response does not include the total number of hits matching the query.</summary>
-	[JsonIgnore]
-	public System.Text.Json.JsonElement? TrackTotalHits { get; set; }
 	/// <summary>If `true`, aggregation and suggester names are be prefixed by their respective types in the response.</summary>
 	[JsonIgnore]
 	public bool? TypedKeys { get; set; }
-	/// <summary>Enables or disables verbose mode for the search pipeline. When verbose mode is enabled, detailed information about each processor in the search pipeline is included in the search response. This includes the processor name, execution status, input, output, and time taken for processing. This parameter is primarily intended for debugging purposes, allowing users to track how data flows and transforms through the search pipeline.</summary>
-	[JsonIgnore]
-	public bool? VerbosePipeline { get; set; }
-	/// <summary>If `true`, returns document version as part of a hit.</summary>
-	[JsonIgnore]
-	public bool? Version { get; set; }
 	/// <summary>Defines the aggregations that are run as part of the search request.</summary>
 		public Dictionary<string, AggregationContainer>? Aggregations { get; set; }
 	/// <summary>Defines the aggregations that are run as part of the search request.</summary>
 		public Dictionary<string, AggregationContainer>? Aggs { get; set; }
 	public FieldCollapse? Collapse { get; set; }
+	/// <summary>If `true`, returns detailed information about score computation as part of a hit.</summary>
+		public bool? Explain { get; set; }
 	/// <summary>Configuration of search extensions defined by OpenSearch plugins.</summary>
 		public Dictionary<string, object>? Ext { get; set; }
+	/// <summary>Starting document offset. Needs to be non-negative. By default, you cannot page through more than 10,000 hits using the `from` and `size` parameters. To page through more hits, use the `search_after` parameter.</summary>
+		public int? From { get; set; }
 	public Highlight? Highlight { get; set; }
+	public System.Text.Json.JsonElement? TrackTotalHits { get; set; }
 	/// <summary>Boosts the `_score` of documents from specified indexes.</summary>
 		public List<Dictionary<string, float>>? IndicesBoost { get; set; }
+	/// <summary>Array of wildcard (`*`) patterns. The request returns doc values for field names matching these patterns in the `hits.fields` property of the response.</summary>
+		public List<System.Text.Json.JsonElement>? DocvalueFields { get; set; }
 	/// <summary>Minimum `_score` for matching documents. Documents with a lower `_score` are not included in the search results.</summary>
 		public float? MinScore { get; set; }
 	public QueryContainer? PostFilter { get; set; }
 	/// <summary>Set to `true` to return detailed timing information about the execution of individual components in a search request. NOTE: This is a debugging tool and adds significant overhead to search execution.</summary>
 		public bool? Profile { get; set; }
+	/// <summary>Customizable sequence of processing stages applied to search queries.</summary>
+		public string? SearchPipeline { get; set; }
+	/// <summary>Enables or disables verbose mode for the search pipeline.</summary>
+		public bool? VerbosePipeline { get; set; }
 	public QueryContainer? Query { get; set; }
 	/// <summary>Can be used to improve precision by reordering just the top (for example 100 - 500) documents returned by the `query` and `post_filter` phases.</summary>
 		public List<Rescore>? Rescore { get; set; }
 	/// <summary>Retrieve a script evaluation (based on different fields) for each hit.</summary>
 		public Dictionary<string, ScriptField>? ScriptFields { get; set; }
 	public List<System.Text.Json.JsonElement>? SearchAfter { get; set; }
+	/// <summary>The number of hits to return. By default, you cannot page through more than 10,000 hits using the `from` and `size` parameters. To page through more hits, use the `search_after` parameter.</summary>
+		public int? Size { get; set; }
 	public SlicedScroll? Slice { get; set; }
+	public List<SortOptions>? Sort { get; set; }
+	[JsonPropertyName("_source")]
+	public SourceConfig? Source { get; set; }
 	/// <summary>Array of wildcard (`*`) patterns. The request returns values for field names matching these patterns in the `hits.fields` property of the response.</summary>
 		public List<System.Text.Json.JsonElement>? Fields { get; set; }
 	public Suggester? Suggest { get; set; }
+	/// <summary>Maximum number of documents to collect for each shard. If a query reaches this limit, OpenSearch terminates the query early. OpenSearch collects documents before sorting. Use with caution. OpenSearch applies this parameter to each shard handling the request. When possible, let OpenSearch perform early termination automatically. Avoid specifying this parameter for requests that target data streams with backing indexes across multiple data tiers. If set to `0` (default), the query does not terminate early.</summary>
+		public int? TerminateAfter { get; set; }
+	/// <summary>Specifies the period of time to wait for a response from each shard. If no response is received before the timeout expires, the request fails and returns an error. Defaults to no timeout.</summary>
+		public string? Timeout { get; set; }
+	/// <summary>If `true`, calculate and return document scores, even if the scores are not used for sorting.</summary>
+		public bool? TrackScores { get; set; }
+	/// <summary>Whether to return scores with named queries. Default is false.</summary>
+		public bool? IncludeNamedQueriesScore { get; set; }
+	/// <summary>If `true`, returns document version as part of a hit.</summary>
+		public bool? Version { get; set; }
+	/// <summary>If `true`, returns sequence number and primary term of the last modification of each hit.</summary>
+		public bool? SeqNoPrimaryTerm { get; set; }
+	public List<string>? StoredFields { get; set; }
 	public PointInTimeReference? Pit { get; set; }
+	/// <summary>Stats groups to associate with the search. Each group maintains a statistics aggregation for its associated searches. You can retrieve these stats using the indexes stats API.</summary>
+		public List<string>? Stats { get; set; }
 	public Dictionary<string, DerivedField>? Derived { get; set; }
 }
 public sealed class SearchEndpoint<TDocument> : IEndpoint<SearchRequest, SearchResponse<TDocument>>
@@ -199,8 +179,6 @@ public sealed class SearchEndpoint<TDocument> : IEndpoint<SearchRequest, SearchR
 			? $"/_search"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();
-		if (r.Source is not null)
-			queryParts.Add($"_source={Uri.EscapeDataString(r.Source.ToString()!)}");
 		if (r.SourceExcludes is not null)
 			queryParts.Add($"_source_excludes={Uri.EscapeDataString(string.Join(",", r.SourceExcludes!))}");
 		if (r.SourceIncludes is not null)
@@ -223,20 +201,12 @@ public sealed class SearchEndpoint<TDocument> : IEndpoint<SearchRequest, SearchR
 			queryParts.Add($"default_operator={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.DefaultOperator!.Value))}");
 		if (r.Df is not null)
 			queryParts.Add($"df={Uri.EscapeDataString(r.Df!)}");
-		if (r.DocvalueFields is not null)
-			queryParts.Add($"docvalue_fields={Uri.EscapeDataString(string.Join(",", r.DocvalueFields!))}");
 		if (r.ExpandWildcards is not null)
 			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(string.Join(",", r.ExpandWildcards!))}");
-		if (r.Explain is not null)
-			queryParts.Add($"explain={Uri.EscapeDataString((r.Explain.Value ? "true" : "false"))}");
-		if (r.From is not null)
-			queryParts.Add($"from={Uri.EscapeDataString(r.From.ToString()!)}");
 		if (r.IgnoreThrottled is not null)
 			queryParts.Add($"ignore_throttled={Uri.EscapeDataString((r.IgnoreThrottled.Value ? "true" : "false"))}");
 		if (r.IgnoreUnavailable is not null)
 			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable.Value ? "true" : "false"))}");
-		if (r.IncludeNamedQueriesScore is not null)
-			queryParts.Add($"include_named_queries_score={Uri.EscapeDataString((r.IncludeNamedQueriesScore.Value ? "true" : "false"))}");
 		if (r.Lenient is not null)
 			queryParts.Add($"lenient={Uri.EscapeDataString((r.Lenient.Value ? "true" : "false"))}");
 		if (r.MaxConcurrentShardRequests is not null)
@@ -257,20 +227,8 @@ public sealed class SearchEndpoint<TDocument> : IEndpoint<SearchRequest, SearchR
 			queryParts.Add($"routing={Uri.EscapeDataString(r.Routing.ToString()!)}");
 		if (r.Scroll is not null)
 			queryParts.Add($"scroll={Uri.EscapeDataString(r.Scroll!)}");
-		if (r.SearchPipeline is not null)
-			queryParts.Add($"search_pipeline={Uri.EscapeDataString(r.SearchPipeline!)}");
 		if (r.SearchType is not null)
 			queryParts.Add($"search_type={Uri.EscapeDataString(r.SearchType!)}");
-		if (r.SeqNoPrimaryTerm is not null)
-			queryParts.Add($"seq_no_primary_term={Uri.EscapeDataString((r.SeqNoPrimaryTerm.Value ? "true" : "false"))}");
-		if (r.Size is not null)
-			queryParts.Add($"size={Uri.EscapeDataString(r.Size.ToString()!)}");
-		if (r.Sort is not null)
-			queryParts.Add($"sort={Uri.EscapeDataString(string.Join(",", r.Sort!))}");
-		if (r.Stats is not null)
-			queryParts.Add($"stats={Uri.EscapeDataString(string.Join(",", r.Stats!))}");
-		if (r.StoredFields is not null)
-			queryParts.Add($"stored_fields={Uri.EscapeDataString(string.Join(",", r.StoredFields!))}");
 		if (r.SuggestField is not null)
 			queryParts.Add($"suggest_field={Uri.EscapeDataString(r.SuggestField!)}");
 		if (r.SuggestMode is not null)
@@ -279,20 +237,8 @@ public sealed class SearchEndpoint<TDocument> : IEndpoint<SearchRequest, SearchR
 			queryParts.Add($"suggest_size={Uri.EscapeDataString(r.SuggestSize.ToString()!)}");
 		if (r.SuggestText is not null)
 			queryParts.Add($"suggest_text={Uri.EscapeDataString(r.SuggestText!)}");
-		if (r.TerminateAfter is not null)
-			queryParts.Add($"terminate_after={Uri.EscapeDataString(r.TerminateAfter.ToString()!)}");
-		if (r.Timeout is not null)
-			queryParts.Add($"timeout={Uri.EscapeDataString(r.Timeout!)}");
-		if (r.TrackScores is not null)
-			queryParts.Add($"track_scores={Uri.EscapeDataString((r.TrackScores.Value ? "true" : "false"))}");
-		if (r.TrackTotalHits is not null)
-			queryParts.Add($"track_total_hits={Uri.EscapeDataString(r.TrackTotalHits.ToString()!)}");
 		if (r.TypedKeys is not null)
 			queryParts.Add($"typed_keys={Uri.EscapeDataString((r.TypedKeys.Value ? "true" : "false"))}");
-		if (r.VerbosePipeline is not null)
-			queryParts.Add($"verbose_pipeline={Uri.EscapeDataString((r.VerbosePipeline.Value ? "true" : "false"))}");
-		if (r.Version is not null)
-			queryParts.Add($"version={Uri.EscapeDataString((r.Version.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

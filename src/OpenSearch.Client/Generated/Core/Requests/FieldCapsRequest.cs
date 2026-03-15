@@ -23,15 +23,13 @@ public sealed class FieldCapsRequest
 	/// <summary>The type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values, such as `open,hidden`.</summary>
 	[JsonIgnore]
 	public List<string>? ExpandWildcards { get; set; }
-	/// <summary>A comma-separated list of fields to retrieve capabilities for. Wildcard (`*`) expressions are supported.</summary>
-	[JsonIgnore]
-	public List<string>? Fields { get; set; }
 	/// <summary>If `true`, missing or closed indexes are not included in the response.</summary>
 	[JsonIgnore]
 	public bool? IgnoreUnavailable { get; set; }
 	/// <summary>If `true`, unmapped fields are included in the response.</summary>
 	[JsonIgnore]
 	public bool? IncludeUnmapped { get; set; }
+	public List<string>? Fields { get; set; }
 	public QueryContainer? IndexFilter { get; set; }
 }
 public sealed class FieldCapsEndpoint : IEndpoint<FieldCapsRequest, FieldCapsResponse>
@@ -51,8 +49,6 @@ public sealed class FieldCapsEndpoint : IEndpoint<FieldCapsRequest, FieldCapsRes
 			queryParts.Add($"allow_no_indices={Uri.EscapeDataString((r.AllowNoIndices.Value ? "true" : "false"))}");
 		if (r.ExpandWildcards is not null)
 			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(string.Join(",", r.ExpandWildcards!))}");
-		if (r.Fields is not null)
-			queryParts.Add($"fields={Uri.EscapeDataString(string.Join(",", r.Fields!))}");
 		if (r.IgnoreUnavailable is not null)
 			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable.Value ? "true" : "false"))}");
 		if (r.IncludeUnmapped is not null)

@@ -24,8 +24,6 @@ public sealed class UpdateByQueryRequestDescriptor
 		public UpdateByQueryRequestDescriptor AnalyzeWildcard(bool? value) { _value.AnalyzeWildcard = value; return this; }
 	/// <summary>Analyzer to use for the query string.</summary>
 		public UpdateByQueryRequestDescriptor Analyzer(string? value) { _value.Analyzer = value; return this; }
-	/// <summary>What to do if update by query hits version conflicts: `abort` or `proceed`.</summary>
-		public UpdateByQueryRequestDescriptor Conflicts(string? value) { _value.Conflicts = value; return this; }
 	/// <summary>The default operator for query string query: `AND` or `OR`.</summary>
 		public UpdateByQueryRequestDescriptor DefaultOperator(Operator? value) { _value.DefaultOperator = value; return this; }
 	/// <summary>Field to use as default where no field prefix is given in the query string.</summary>
@@ -38,8 +36,6 @@ public sealed class UpdateByQueryRequestDescriptor
 		public UpdateByQueryRequestDescriptor IgnoreUnavailable(bool? value) { _value.IgnoreUnavailable = value; return this; }
 	/// <summary>If `true`, format-based query failures (such as providing text to a numeric field) in the query string will be ignored.</summary>
 		public UpdateByQueryRequestDescriptor Lenient(bool? value) { _value.Lenient = value; return this; }
-	/// <summary>Maximum number of documents to process. Defaults to all documents.</summary>
-		public UpdateByQueryRequestDescriptor MaxDocs(int? value) { _value.MaxDocs = value; return this; }
 	/// <summary>ID of the pipeline to use to preprocess incoming documents. If the index has a default ingest pipeline specified, then setting the value to `_none` disables the default ingest pipeline for this request. If a final pipeline is configured it will always run, regardless of the value of this parameter.</summary>
 		public UpdateByQueryRequestDescriptor Pipeline(string? value) { _value.Pipeline = value; return this; }
 	/// <summary>Specifies the node or shard the operation should be performed on. Random by default.</summary>
@@ -80,6 +76,8 @@ public sealed class UpdateByQueryRequestDescriptor
 		public UpdateByQueryRequestDescriptor WaitForActiveShards(System.Text.Json.JsonElement? value) { _value.WaitForActiveShards = value; return this; }
 	/// <summary>If `true`, the request blocks until the operation is complete.</summary>
 		public UpdateByQueryRequestDescriptor WaitForCompletion(bool? value) { _value.WaitForCompletion = value; return this; }
+	/// <summary>The maximum number of documents to update.</summary>
+		public UpdateByQueryRequestDescriptor MaxDocs(int? value) { _value.MaxDocs = value; return this; }
 	public UpdateByQueryRequestDescriptor Query(QueryContainer? value) { _value.Query = value; return this; }
 	public UpdateByQueryRequestDescriptor Query(Action<QueryContainerDescriptor> configure)
 	{
@@ -97,6 +95,7 @@ public sealed class UpdateByQueryRequestDescriptor
 		_value.Slice = descriptor;
 		return this;
 	}
+	public UpdateByQueryRequestDescriptor Conflicts(string? value) { _value.Conflicts = value; return this; }
 
 	public static implicit operator UpdateByQueryRequest(UpdateByQueryRequestDescriptor descriptor) => descriptor._value;
 }

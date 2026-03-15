@@ -35,9 +35,6 @@ public sealed class UpdateByQueryRequest
 	/// <summary>Analyzer to use for the query string.</summary>
 	[JsonIgnore]
 	public string? Analyzer { get; set; }
-	/// <summary>What to do if update by query hits version conflicts: `abort` or `proceed`.</summary>
-	[JsonIgnore]
-	public string? Conflicts { get; set; }
 	/// <summary>The default operator for query string query: `AND` or `OR`.</summary>
 	[JsonIgnore]
 	public Operator? DefaultOperator { get; set; }
@@ -56,9 +53,6 @@ public sealed class UpdateByQueryRequest
 	/// <summary>If `true`, format-based query failures (such as providing text to a numeric field) in the query string will be ignored.</summary>
 	[JsonIgnore]
 	public bool? Lenient { get; set; }
-	/// <summary>Maximum number of documents to process. Defaults to all documents.</summary>
-	[JsonIgnore]
-	public int? MaxDocs { get; set; }
 	/// <summary>ID of the pipeline to use to preprocess incoming documents. If the index has a default ingest pipeline specified, then setting the value to `_none` disables the default ingest pipeline for this request. If a final pipeline is configured it will always run, regardless of the value of this parameter.</summary>
 	[JsonIgnore]
 	public string? Pipeline { get; set; }
@@ -119,9 +113,12 @@ public sealed class UpdateByQueryRequest
 	/// <summary>If `true`, the request blocks until the operation is complete.</summary>
 	[JsonIgnore]
 	public bool? WaitForCompletion { get; set; }
+	/// <summary>The maximum number of documents to update.</summary>
+		public int? MaxDocs { get; set; }
 	public QueryContainer? Query { get; set; }
 	public System.Text.Json.JsonElement? Script { get; set; }
 	public SlicedScroll? Slice { get; set; }
+	public string? Conflicts { get; set; }
 }
 public sealed class UpdateByQueryEndpoint : IEndpoint<UpdateByQueryRequest, UpdateByQueryResponse>
 {
@@ -145,8 +142,6 @@ public sealed class UpdateByQueryEndpoint : IEndpoint<UpdateByQueryRequest, Upda
 			queryParts.Add($"analyze_wildcard={Uri.EscapeDataString((r.AnalyzeWildcard.Value ? "true" : "false"))}");
 		if (r.Analyzer is not null)
 			queryParts.Add($"analyzer={Uri.EscapeDataString(r.Analyzer!)}");
-		if (r.Conflicts is not null)
-			queryParts.Add($"conflicts={Uri.EscapeDataString(r.Conflicts!)}");
 		if (r.DefaultOperator is not null)
 			queryParts.Add($"default_operator={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.DefaultOperator!.Value))}");
 		if (r.Df is not null)
@@ -159,8 +154,6 @@ public sealed class UpdateByQueryEndpoint : IEndpoint<UpdateByQueryRequest, Upda
 			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable.Value ? "true" : "false"))}");
 		if (r.Lenient is not null)
 			queryParts.Add($"lenient={Uri.EscapeDataString((r.Lenient.Value ? "true" : "false"))}");
-		if (r.MaxDocs is not null)
-			queryParts.Add($"max_docs={Uri.EscapeDataString(r.MaxDocs.ToString()!)}");
 		if (r.Pipeline is not null)
 			queryParts.Add($"pipeline={Uri.EscapeDataString(r.Pipeline!)}");
 		if (r.Preference is not null)

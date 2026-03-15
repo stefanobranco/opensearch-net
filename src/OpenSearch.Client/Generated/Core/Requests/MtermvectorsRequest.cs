@@ -22,9 +22,6 @@ public sealed class MtermvectorsRequest
 	/// <summary></summary>
 	[JsonIgnore]
 	public List<string>? Fields { get; set; }
-	/// <summary>A comma-separated list of documents IDs. You must provide either the `docs` field in the request body or specify `ids` as a query parameter or in the request body.</summary>
-	[JsonIgnore]
-	public List<string>? Ids { get; set; }
 	/// <summary>If `true`, the response includes term offsets.</summary>
 	[JsonIgnore]
 	public bool? Offsets { get; set; }
@@ -54,6 +51,8 @@ public sealed class MtermvectorsRequest
 	public string? VersionType { get; set; }
 	/// <summary>Array of existing or artificial documents.</summary>
 		public List<Operation>? Docs { get; set; }
+	/// <summary>Simplified syntax to specify documents by their ID if they're in the same index.</summary>
+		public List<string>? Ids { get; set; }
 }
 public sealed class MtermvectorsEndpoint : IEndpoint<MtermvectorsRequest, MtermvectorsResponse>
 {
@@ -72,8 +71,6 @@ public sealed class MtermvectorsEndpoint : IEndpoint<MtermvectorsRequest, Mtermv
 			queryParts.Add($"field_statistics={Uri.EscapeDataString((r.FieldStatistics.Value ? "true" : "false"))}");
 		if (r.Fields is not null)
 			queryParts.Add($"fields={Uri.EscapeDataString(string.Join(",", r.Fields!))}");
-		if (r.Ids is not null)
-			queryParts.Add($"ids={Uri.EscapeDataString(string.Join(",", r.Ids!))}");
 		if (r.Offsets is not null)
 			queryParts.Add($"offsets={Uri.EscapeDataString((r.Offsets.Value ? "true" : "false"))}");
 		if (r.Payloads is not null)

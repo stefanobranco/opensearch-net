@@ -2,7 +2,6 @@
 #nullable enable
 
 using System.Text.Json.Serialization;
-using OpenSearch.Client.Common;
 
 namespace OpenSearch.Client.Core;
 
@@ -15,5 +14,5 @@ public sealed class GeoTileGridAggregationFields
 		public int? ShardSize { get; set; }
 	/// <summary>The maximum number of buckets to return.</summary>
 		public int? Size { get; set; }
-	public GeoBounds? Bounds { get; set; }
+	public System.Text.Json.JsonElement? Bounds { get; set; }
 }

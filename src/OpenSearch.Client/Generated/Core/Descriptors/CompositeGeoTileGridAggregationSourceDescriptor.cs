@@ -2,7 +2,6 @@
 #nullable enable
 
 using System.Text.Json.Serialization;
-using OpenSearch.Client.Common;
 
 namespace OpenSearch.Client.Core;
 
@@ -17,14 +16,7 @@ public sealed class CompositeGeoTileGridAggregationSourceDescriptor
 	public CompositeGeoTileGridAggregationSourceDescriptor ValueType(ValueType? value) { _value.ValueType = value; return this; }
 	public CompositeGeoTileGridAggregationSourceDescriptor Order(SortOrder? value) { _value.Order = value; return this; }
 	public CompositeGeoTileGridAggregationSourceDescriptor Precision(int? value) { _value.Precision = value; return this; }
-	public CompositeGeoTileGridAggregationSourceDescriptor Bounds(GeoBounds? value) { _value.Bounds = value; return this; }
-	public CompositeGeoTileGridAggregationSourceDescriptor Bounds(Action<GeoBoundsDescriptor> configure)
-	{
-		var descriptor = new GeoBoundsDescriptor();
-		configure(descriptor);
-		_value.Bounds = descriptor;
-		return this;
-	}
+	public CompositeGeoTileGridAggregationSourceDescriptor Bounds(System.Text.Json.JsonElement? value) { _value.Bounds = value; return this; }
 
 	public static implicit operator CompositeGeoTileGridAggregationSource(CompositeGeoTileGridAggregationSourceDescriptor descriptor) => descriptor._value;
 }

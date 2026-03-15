@@ -9,6 +9,8 @@ namespace OpenSearch.Client.Core;
 public sealed class ScriptedMetricAggregation
 {
 	public System.Text.Json.JsonElement? Missing { get; set; }
+	public string? Field { get; set; }
+	public System.Text.Json.JsonElement? Script { get; set; }
 	public System.Text.Json.JsonElement? CombineScript { get; set; }
 	public System.Text.Json.JsonElement? InitScript { get; set; }
 	public System.Text.Json.JsonElement? MapScript { get; set; }

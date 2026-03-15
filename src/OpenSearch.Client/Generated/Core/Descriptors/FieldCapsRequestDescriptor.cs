@@ -16,12 +16,11 @@ public sealed class FieldCapsRequestDescriptor
 		public FieldCapsRequestDescriptor AllowNoIndices(bool? value) { _value.AllowNoIndices = value; return this; }
 	/// <summary>The type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values, such as `open,hidden`.</summary>
 		public FieldCapsRequestDescriptor ExpandWildcards(List<string>? value) { _value.ExpandWildcards = value; return this; }
-	/// <summary>A comma-separated list of fields to retrieve capabilities for. Wildcard (`*`) expressions are supported.</summary>
-		public FieldCapsRequestDescriptor Fields(List<string>? value) { _value.Fields = value; return this; }
 	/// <summary>If `true`, missing or closed indexes are not included in the response.</summary>
 		public FieldCapsRequestDescriptor IgnoreUnavailable(bool? value) { _value.IgnoreUnavailable = value; return this; }
 	/// <summary>If `true`, unmapped fields are included in the response.</summary>
 		public FieldCapsRequestDescriptor IncludeUnmapped(bool? value) { _value.IncludeUnmapped = value; return this; }
+	public FieldCapsRequestDescriptor Fields(List<string>? value) { _value.Fields = value; return this; }
 	public FieldCapsRequestDescriptor IndexFilter(QueryContainer? value) { _value.IndexFilter = value; return this; }
 	public FieldCapsRequestDescriptor IndexFilter(Action<QueryContainerDescriptor> configure)
 	{

@@ -10,6 +10,8 @@ public sealed class BoxplotAggregationDescriptor
 	internal BoxplotAggregation _value = new();
 
 	public BoxplotAggregationDescriptor Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
+	public BoxplotAggregationDescriptor Field(string? value) { _value.Field = value; return this; }
+	public BoxplotAggregationDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
 	/// <summary>Limits the maximum number of nodes used by the underlying TDigest algorithm to `20 * compression`, enabling control of memory usage and approximation error.</summary>
 		public BoxplotAggregationDescriptor Compression(double? value) { _value.Compression = value; return this; }
 

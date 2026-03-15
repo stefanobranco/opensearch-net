@@ -13,8 +13,6 @@ public sealed class UpdateRequestDescriptor
 		public UpdateRequestDescriptor Id(string? value) { _value.Id = value; return this; }
 	/// <summary>The name of the index</summary>
 		public UpdateRequestDescriptor Index(string? value) { _value.Index = value; return this; }
-	/// <summary>Set to `false` to disable source retrieval. You can also specify a comma-separated list of the fields you want to retrieve.</summary>
-		public UpdateRequestDescriptor Source(System.Text.Json.JsonElement? value) { _value.Source = value; return this; }
 	/// <summary>Specify the source fields you want to exclude.</summary>
 		public UpdateRequestDescriptor SourceExcludes(List<string>? value) { _value.SourceExcludes = value; return this; }
 	/// <summary>Specify the source fields you want to retrieve.</summary>
@@ -46,6 +44,7 @@ public sealed class UpdateRequestDescriptor
 	public UpdateRequestDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
 	/// <summary>Set to `true` to execute the script whether or not the document exists.</summary>
 		public UpdateRequestDescriptor ScriptedUpsert(bool? value) { _value.ScriptedUpsert = value; return this; }
+	public UpdateRequestDescriptor Source(SourceConfig? value) { _value.Source = value; return this; }
 	/// <summary>If the document does not already exist, the contents of 'upsert' are inserted as a new document. If the document exists, the 'script' is executed.</summary>
 		public UpdateRequestDescriptor Upsert(System.Text.Json.JsonElement? value) { _value.Upsert = value; return this; }
 

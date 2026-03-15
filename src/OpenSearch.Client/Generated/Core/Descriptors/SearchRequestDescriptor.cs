@@ -12,8 +12,6 @@ public sealed class SearchRequestDescriptor
 
 	/// <summary>A comma-separated list of data streams, indexes, and aliases to search. Supports wildcards (`*`). To search all data streams and indexes, omit this parameter or use `*` or `_all`.</summary>
 		public SearchRequestDescriptor Index(List<string>? value) { _value.Index = value; return this; }
-	/// <summary>Indicates which source fields are returned for matching documents. These fields are returned in the `hits._source` property of the search response. Valid values are: `true` to return the entire document source; `false` to not return the document source; `&lt;string&gt;` to return the source fields that are specified as a comma-separated list (supports wildcard (`*`) patterns).</summary>
-		public SearchRequestDescriptor Source(System.Text.Json.JsonElement? value) { _value.Source = value; return this; }
 	/// <summary>A comma-separated list of source fields to exclude from the response. You can also use this parameter to exclude fields from the subset specified in `_source_includes` query parameter. If the `_source` parameter is `false`, this parameter is ignored.</summary>
 		public SearchRequestDescriptor SourceExcludes(List<string>? value) { _value.SourceExcludes = value; return this; }
 	/// <summary>A comma-separated list of source fields to include in the response. If this parameter is specified, only these source fields are returned. You can exclude fields from this subset using the `_source_excludes` query parameter. If the `_source` parameter is `false`, this parameter is ignored.</summary>
@@ -36,20 +34,12 @@ public sealed class SearchRequestDescriptor
 		public SearchRequestDescriptor DefaultOperator(Operator? value) { _value.DefaultOperator = value; return this; }
 	/// <summary>Field to use as default where no field prefix is given in the query string. This parameter can only be used when the q query string parameter is specified.</summary>
 		public SearchRequestDescriptor Df(string? value) { _value.Df = value; return this; }
-	/// <summary>A comma-separated list of fields to return as the docvalue representation for each hit.</summary>
-		public SearchRequestDescriptor DocvalueFields(List<string>? value) { _value.DocvalueFields = value; return this; }
 	/// <summary>Type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values, such as `open,hidden`.</summary>
 		public SearchRequestDescriptor ExpandWildcards(List<string>? value) { _value.ExpandWildcards = value; return this; }
-	/// <summary>If `true`, returns detailed information about score computation as part of a hit.</summary>
-		public SearchRequestDescriptor Explain(bool? value) { _value.Explain = value; return this; }
-	/// <summary>Starting document offset. Needs to be non-negative. By default, you cannot page through more than 10,000 hits using the `from` and `size` parameters. To page through more hits, use the `search_after` parameter.</summary>
-		public SearchRequestDescriptor From(int? value) { _value.From = value; return this; }
 	/// <summary>If `true`, concrete, expanded or aliased indexes will be ignored when frozen.</summary>
 		public SearchRequestDescriptor IgnoreThrottled(bool? value) { _value.IgnoreThrottled = value; return this; }
 	/// <summary>If `false`, the request returns an error if it targets a missing or closed index.</summary>
 		public SearchRequestDescriptor IgnoreUnavailable(bool? value) { _value.IgnoreUnavailable = value; return this; }
-	/// <summary>Indicates whether `hit.matched_queries` should be rendered as a map that includes the name of the matched query associated with its score (true) or as an array containing the name of the matched queries (false)</summary>
-		public SearchRequestDescriptor IncludeNamedQueriesScore(bool? value) { _value.IncludeNamedQueriesScore = value; return this; }
 	/// <summary>If `true`, format-based query failures (such as providing text to a numeric field) in the query string will be ignored. This parameter can only be used when the `q` query string parameter is specified.</summary>
 		public SearchRequestDescriptor Lenient(bool? value) { _value.Lenient = value; return this; }
 	/// <summary>Defines the number of concurrent shard requests per node this search executes concurrently. This value should be used to limit the impact of the search on the cluster in order to limit the number of concurrent shard requests.</summary>
@@ -70,20 +60,8 @@ public sealed class SearchRequestDescriptor
 		public SearchRequestDescriptor Routing(System.Text.Json.JsonElement? value) { _value.Routing = value; return this; }
 	/// <summary>Period to retain the search context for scrolling. See Scroll search results. By default, this value cannot exceed `1d` (24 hours). You can change this limit using the `search.max_keep_alive` cluster-level setting.</summary>
 		public SearchRequestDescriptor Scroll(string? value) { _value.Scroll = value; return this; }
-	/// <summary>Customizable sequence of processing stages applied to search queries.</summary>
-		public SearchRequestDescriptor SearchPipeline(string? value) { _value.SearchPipeline = value; return this; }
 	/// <summary>How distributed term frequencies are calculated for relevance scoring.</summary>
 		public SearchRequestDescriptor SearchType(string? value) { _value.SearchType = value; return this; }
-	/// <summary>If `true`, returns sequence number and primary term of the last modification of each hit.</summary>
-		public SearchRequestDescriptor SeqNoPrimaryTerm(bool? value) { _value.SeqNoPrimaryTerm = value; return this; }
-	/// <summary>Defines the number of hits to return. By default, you cannot page through more than 10,000 hits using the `from` and `size` parameters. To page through more hits, use the `search_after` parameter.</summary>
-		public SearchRequestDescriptor Size(int? value) { _value.Size = value; return this; }
-	/// <summary>A comma-separated list of &lt;field&gt;:&lt;direction&gt; pairs.</summary>
-		public SearchRequestDescriptor Sort(List<string>? value) { _value.Sort = value; return this; }
-	/// <summary>Specific `tag` of the request for logging and statistical purposes.</summary>
-		public SearchRequestDescriptor Stats(List<string>? value) { _value.Stats = value; return this; }
-	/// <summary>A comma-separated list of stored fields to return as part of a hit. If no fields are specified, no stored fields are included in the response. If this field is specified, the `_source` parameter defaults to `false`. You can pass `_source: true` to return both source fields and stored fields in the search response.</summary>
-		public SearchRequestDescriptor StoredFields(List<string>? value) { _value.StoredFields = value; return this; }
 	/// <summary>Specifies which field to use for suggestions.</summary>
 		public SearchRequestDescriptor SuggestField(string? value) { _value.SuggestField = value; return this; }
 	/// <summary>Specifies the suggest mode. This parameter can only be used when the `suggest_field` and `suggest_text` query string parameters are specified.</summary>
@@ -92,20 +70,8 @@ public sealed class SearchRequestDescriptor
 		public SearchRequestDescriptor SuggestSize(int? value) { _value.SuggestSize = value; return this; }
 	/// <summary>The source text for which the suggestions should be returned. This parameter can only be used when the `suggest_field` and `suggest_text` query string parameters are specified.</summary>
 		public SearchRequestDescriptor SuggestText(string? value) { _value.SuggestText = value; return this; }
-	/// <summary>Maximum number of documents to collect for each shard. If a query reaches this limit, OpenSearch terminates the query early. OpenSearch collects documents before sorting. Use with caution. OpenSearch applies this parameter to each shard handling the request. When possible, let OpenSearch perform early termination automatically. Avoid specifying this parameter for requests that target data streams with backing indexes across multiple data tiers. If set to `0` (default), the query does not terminate early.</summary>
-		public SearchRequestDescriptor TerminateAfter(int? value) { _value.TerminateAfter = value; return this; }
-	/// <summary>Specifies the period of time to wait for a response from each shard. If no response is received before the timeout expires, the request fails and returns an error.</summary>
-		public SearchRequestDescriptor Timeout(string? value) { _value.Timeout = value; return this; }
-	/// <summary>If `true`, calculate and return document scores, even if the scores are not used for sorting.</summary>
-		public SearchRequestDescriptor TrackScores(bool? value) { _value.TrackScores = value; return this; }
-	/// <summary>Number of hits matching the query to count accurately. If `true`, the exact number of hits is returned at the cost of some performance. If `false`, the response does not include the total number of hits matching the query.</summary>
-		public SearchRequestDescriptor TrackTotalHits(System.Text.Json.JsonElement? value) { _value.TrackTotalHits = value; return this; }
 	/// <summary>If `true`, aggregation and suggester names are be prefixed by their respective types in the response.</summary>
 		public SearchRequestDescriptor TypedKeys(bool? value) { _value.TypedKeys = value; return this; }
-	/// <summary>Enables or disables verbose mode for the search pipeline. When verbose mode is enabled, detailed information about each processor in the search pipeline is included in the search response. This includes the processor name, execution status, input, output, and time taken for processing. This parameter is primarily intended for debugging purposes, allowing users to track how data flows and transforms through the search pipeline.</summary>
-		public SearchRequestDescriptor VerbosePipeline(bool? value) { _value.VerbosePipeline = value; return this; }
-	/// <summary>If `true`, returns document version as part of a hit.</summary>
-		public SearchRequestDescriptor Version(bool? value) { _value.Version = value; return this; }
 	/// <summary>Defines the aggregations that are run as part of the search request.</summary>
 		public SearchRequestDescriptor Aggregations(Dictionary<string, AggregationContainer>? value) { _value.Aggregations = value; return this; }
 	/// <summary>Defines the aggregations that are run as part of the search request.</summary>
@@ -118,8 +84,12 @@ public sealed class SearchRequestDescriptor
 		_value.Collapse = descriptor;
 		return this;
 	}
+	/// <summary>If `true`, returns detailed information about score computation as part of a hit.</summary>
+		public SearchRequestDescriptor Explain(bool? value) { _value.Explain = value; return this; }
 	/// <summary>Configuration of search extensions defined by OpenSearch plugins.</summary>
 		public SearchRequestDescriptor Ext(Dictionary<string, object>? value) { _value.Ext = value; return this; }
+	/// <summary>Starting document offset. Needs to be non-negative. By default, you cannot page through more than 10,000 hits using the `from` and `size` parameters. To page through more hits, use the `search_after` parameter.</summary>
+		public SearchRequestDescriptor From(int? value) { _value.From = value; return this; }
 	public SearchRequestDescriptor Highlight(Highlight? value) { _value.Highlight = value; return this; }
 	public SearchRequestDescriptor Highlight(Action<HighlightDescriptor> configure)
 	{
@@ -128,8 +98,11 @@ public sealed class SearchRequestDescriptor
 		_value.Highlight = descriptor;
 		return this;
 	}
+	public SearchRequestDescriptor TrackTotalHits(System.Text.Json.JsonElement? value) { _value.TrackTotalHits = value; return this; }
 	/// <summary>Boosts the `_score` of documents from specified indexes.</summary>
 		public SearchRequestDescriptor IndicesBoost(List<Dictionary<string, float>>? value) { _value.IndicesBoost = value; return this; }
+	/// <summary>Array of wildcard (`*`) patterns. The request returns doc values for field names matching these patterns in the `hits.fields` property of the response.</summary>
+		public SearchRequestDescriptor DocvalueFields(List<System.Text.Json.JsonElement>? value) { _value.DocvalueFields = value; return this; }
 	/// <summary>Minimum `_score` for matching documents. Documents with a lower `_score` are not included in the search results.</summary>
 		public SearchRequestDescriptor MinScore(float? value) { _value.MinScore = value; return this; }
 	public SearchRequestDescriptor PostFilter(QueryContainer? value) { _value.PostFilter = value; return this; }
@@ -142,6 +115,10 @@ public sealed class SearchRequestDescriptor
 	}
 	/// <summary>Set to `true` to return detailed timing information about the execution of individual components in a search request. NOTE: This is a debugging tool and adds significant overhead to search execution.</summary>
 		public SearchRequestDescriptor Profile(bool? value) { _value.Profile = value; return this; }
+	/// <summary>Customizable sequence of processing stages applied to search queries.</summary>
+		public SearchRequestDescriptor SearchPipeline(string? value) { _value.SearchPipeline = value; return this; }
+	/// <summary>Enables or disables verbose mode for the search pipeline.</summary>
+		public SearchRequestDescriptor VerbosePipeline(bool? value) { _value.VerbosePipeline = value; return this; }
 	public SearchRequestDescriptor Query(QueryContainer? value) { _value.Query = value; return this; }
 	public SearchRequestDescriptor Query(Action<QueryContainerDescriptor> configure)
 	{
@@ -168,6 +145,8 @@ public sealed class SearchRequestDescriptor
 	/// <summary>Retrieve a script evaluation (based on different fields) for each hit.</summary>
 		public SearchRequestDescriptor ScriptFields(Dictionary<string, ScriptField>? value) { _value.ScriptFields = value; return this; }
 	public SearchRequestDescriptor SearchAfter(List<System.Text.Json.JsonElement>? value) { _value.SearchAfter = value; return this; }
+	/// <summary>The number of hits to return. By default, you cannot page through more than 10,000 hits using the `from` and `size` parameters. To page through more hits, use the `search_after` parameter.</summary>
+		public SearchRequestDescriptor Size(int? value) { _value.Size = value; return this; }
 	public SearchRequestDescriptor Slice(SlicedScroll? value) { _value.Slice = value; return this; }
 	public SearchRequestDescriptor Slice(Action<SlicedScrollDescriptor> configure)
 	{
@@ -176,6 +155,8 @@ public sealed class SearchRequestDescriptor
 		_value.Slice = descriptor;
 		return this;
 	}
+	public SearchRequestDescriptor Sort(List<SortOptions>? value) { _value.Sort = value; return this; }
+	public SearchRequestDescriptor Source(SourceConfig? value) { _value.Source = value; return this; }
 	/// <summary>Array of wildcard (`*`) patterns. The request returns values for field names matching these patterns in the `hits.fields` property of the response.</summary>
 		public SearchRequestDescriptor Fields(List<System.Text.Json.JsonElement>? value) { _value.Fields = value; return this; }
 	public SearchRequestDescriptor Suggest(Suggester? value) { _value.Suggest = value; return this; }
@@ -186,6 +167,19 @@ public sealed class SearchRequestDescriptor
 		_value.Suggest = descriptor;
 		return this;
 	}
+	/// <summary>Maximum number of documents to collect for each shard. If a query reaches this limit, OpenSearch terminates the query early. OpenSearch collects documents before sorting. Use with caution. OpenSearch applies this parameter to each shard handling the request. When possible, let OpenSearch perform early termination automatically. Avoid specifying this parameter for requests that target data streams with backing indexes across multiple data tiers. If set to `0` (default), the query does not terminate early.</summary>
+		public SearchRequestDescriptor TerminateAfter(int? value) { _value.TerminateAfter = value; return this; }
+	/// <summary>Specifies the period of time to wait for a response from each shard. If no response is received before the timeout expires, the request fails and returns an error. Defaults to no timeout.</summary>
+		public SearchRequestDescriptor Timeout(string? value) { _value.Timeout = value; return this; }
+	/// <summary>If `true`, calculate and return document scores, even if the scores are not used for sorting.</summary>
+		public SearchRequestDescriptor TrackScores(bool? value) { _value.TrackScores = value; return this; }
+	/// <summary>Whether to return scores with named queries. Default is false.</summary>
+		public SearchRequestDescriptor IncludeNamedQueriesScore(bool? value) { _value.IncludeNamedQueriesScore = value; return this; }
+	/// <summary>If `true`, returns document version as part of a hit.</summary>
+		public SearchRequestDescriptor Version(bool? value) { _value.Version = value; return this; }
+	/// <summary>If `true`, returns sequence number and primary term of the last modification of each hit.</summary>
+		public SearchRequestDescriptor SeqNoPrimaryTerm(bool? value) { _value.SeqNoPrimaryTerm = value; return this; }
+	public SearchRequestDescriptor StoredFields(List<string>? value) { _value.StoredFields = value; return this; }
 	public SearchRequestDescriptor Pit(PointInTimeReference? value) { _value.Pit = value; return this; }
 	public SearchRequestDescriptor Pit(Action<PointInTimeReferenceDescriptor> configure)
 	{
@@ -194,6 +188,8 @@ public sealed class SearchRequestDescriptor
 		_value.Pit = descriptor;
 		return this;
 	}
+	/// <summary>Stats groups to associate with the search. Each group maintains a statistics aggregation for its associated searches. You can retrieve these stats using the indexes stats API.</summary>
+		public SearchRequestDescriptor Stats(List<string>? value) { _value.Stats = value; return this; }
 	public SearchRequestDescriptor Derived(Dictionary<string, DerivedField>? value) { _value.Derived = value; return this; }
 
 	public static implicit operator SearchRequest(SearchRequestDescriptor descriptor) => descriptor._value;
