@@ -10,7 +10,7 @@ public sealed class HitsMetadataDescriptor<TDocument>
 	internal HitsMetadata<TDocument> _value = new();
 
 	/// <summary>The total number of hits, present only if `track_total_hits` is not set to `false` in the search request.</summary>
-		public HitsMetadataDescriptor<TDocument> Total(System.Text.Json.JsonElement? value) { _value.Total = value; return this; }
+		public HitsMetadataDescriptor<TDocument> Total(TotalHits? value) { _value.Total = value; return this; }
 	public HitsMetadataDescriptor<TDocument> Hits(List<Hit<TDocument>>? value) { _value.Hits = value; return this; }
 	public HitsMetadataDescriptor<TDocument> MaxScore(float? value) { _value.MaxScore = value; return this; }
 

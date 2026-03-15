@@ -69,6 +69,7 @@ public sealed class TypeMapper
 		["Sort"] = TypeRef.ListOf(TypeRef.Named("SortOptions", "SortOptions")),
 		["SourceConfig"] = TypeRef.Named("SourceConfig", "SourceConfig"),
 		["HighlightFields"] = TypeRef.DictOf(TypeRef.String(), TypeRef.Named("HighlightField", "HighlightField")),
+		["TotalHits"] = TypeRef.Named("TotalHits", "TotalHits"),
 	};
 
 	/// <summary>
@@ -76,7 +77,7 @@ public sealed class TypeMapper
 	/// Includes all override keys plus schemas referenced only by overridden types.
 	/// </summary>
 	private static readonly HashSet<string> s_skipGeneration = new(
-		s_typeOverrides.Keys.Concat(["SortOptions", "FieldSort", "SourceFilter"]),
+		s_typeOverrides.Keys.Concat(["SortOptions", "FieldSort", "SourceFilter", "TotalHits", "TotalHitsRelation"]),
 		StringComparer.OrdinalIgnoreCase);
 
 	private readonly Dictionary<string, TypeRef> _namedTypes = new(StringComparer.Ordinal);
@@ -383,6 +384,12 @@ public sealed class TypeMapper
 					if (refType.Name == "string" || inlineType == "string")
 						return TypeRef.String();
 				}
+
+				// Ref resolves to a named object type + inline is integer/number → use the named type
+				// (e.g., TotalHits: oneOf[$ref:TotalHits, type:integer] — bare integer is shorthand)
+				if (refType.Kind == TypeRefKind.Named && !refType.IsEnum
+					&& inlineType is "integer" or "number")
+					return refType;
 			}
 		}
 
