@@ -283,6 +283,12 @@ public sealed class AggregationContainer : TaggedUnion<AggregationKind, object>
 	/// <summary>Custom metadata to associate with the aggregation (optional)</summary>
 	[JsonIgnore]
 	public Dictionary<string, object>? Meta { get; set; }
+	/// <summary>Sub-aggregations for this aggregation.</summary>
+	[JsonIgnore]
+	public Dictionary<string, AggregationContainer>? Aggregations { get; set; }
+	/// <summary>Sub-aggregations for this aggregation (alias for 'aggregations').</summary>
+	[JsonIgnore]
+	public Dictionary<string, AggregationContainer>? Aggs { get; set; }
 }
 
 public sealed class AggregationContainerConverter : TaggedUnionConverter<AggregationContainer, AggregationKind>
@@ -530,6 +536,10 @@ public sealed class AggregationContainerConverter : TaggedUnionConverter<Aggrega
 		// Read sibling properties
 		if (root.TryGetProperty("meta", out var MetaEl))
 			result.Meta = JsonSerializer.Deserialize<Dictionary<string, object>?>(MetaEl, options);
+		if (root.TryGetProperty("aggregations", out var AggregationsEl))
+			result.Aggregations = JsonSerializer.Deserialize<Dictionary<string, AggregationContainer>?>(AggregationsEl, options);
+		if (root.TryGetProperty("aggs", out var AggsEl))
+			result.Aggs = JsonSerializer.Deserialize<Dictionary<string, AggregationContainer>?>(AggsEl, options);
 		return result;
 	}
 
@@ -543,6 +553,16 @@ public sealed class AggregationContainerConverter : TaggedUnionConverter<Aggrega
 		{
 			writer.WritePropertyName("meta");
 			JsonSerializer.Serialize(writer, value.Meta, options);
+		}
+		if (value.Aggregations is not null)
+		{
+			writer.WritePropertyName("aggregations");
+			JsonSerializer.Serialize(writer, value.Aggregations, options);
+		}
+		if (value.Aggs is not null)
+		{
+			writer.WritePropertyName("aggs");
+			JsonSerializer.Serialize(writer, value.Aggs, options);
 		}
 		writer.WriteEndObject();
 	}

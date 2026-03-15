@@ -4,6 +4,7 @@ namespace OpenSearch.CodeGen.OpenApi;
 
 /// <summary>
 /// Wraps a YAML node representing an OpenAPI schema, providing typed accessors.
+/// Parsed results are lazily cached to avoid repeated allocations.
 /// </summary>
 public sealed class OpenApiSchema
 {
@@ -116,70 +117,53 @@ public sealed class OpenApiSchema
 		}
 	}
 
-	public IReadOnlyList<string> Required
-	{
-		get
-		{
-			if (!TryGetNode("required", out var node) || node is not YamlSequenceNode seq)
-				return [];
-			return seq.Children.OfType<YamlScalarNode>().Select(s => s.Value!).ToList();
-		}
-	}
+	// ── Cached accessors ──
 
-	public IReadOnlyList<string> EnumValues
-	{
-		get
-		{
-			if (!TryGetNode("enum", out var node) || node is not YamlSequenceNode seq)
-				return [];
-			return seq.Children.OfType<YamlScalarNode>().Select(s => s.Value!).ToList();
-		}
-	}
+	private IReadOnlyList<string>? _required;
+	public IReadOnlyList<string> Required => _required ??= ParseRequired();
 
-	/// <summary>
-	/// Returns property schemas as (name, schema) pairs.
-	/// </summary>
-	public IReadOnlyList<(string Name, OpenApiSchema Schema)> Properties
-	{
-		get
-		{
-			if (!TryGetNode("properties", out var node) || node is not YamlMappingNode mapping)
-				return [];
-			return mapping.Children
-				.Select(kv => (
-					Name: ((YamlScalarNode)kv.Key).Value!,
-					Schema: new OpenApiSchema(kv.Value, _resolver, _contextFile)))
-				.ToList();
-		}
-	}
+	private IReadOnlyList<string>? _enumValues;
+	public IReadOnlyList<string> EnumValues => _enumValues ??= ParseEnumValues();
 
-	/// <summary>
-	/// Returns the items schema for array types.
-	/// </summary>
+	private IReadOnlyList<(string Name, OpenApiSchema Schema)>? _properties;
+	public IReadOnlyList<(string Name, OpenApiSchema Schema)> Properties => _properties ??= ParseProperties();
+
+	private IReadOnlyList<OpenApiSchema>? _oneOf;
+	public IReadOnlyList<OpenApiSchema> OneOf => _oneOf ??= ParseSequenceSchemas("oneOf");
+
+	private IReadOnlyList<OpenApiSchema>? _anyOf;
+	public IReadOnlyList<OpenApiSchema> AnyOf => _anyOf ??= ParseSequenceSchemas("anyOf");
+
+	private IReadOnlyList<OpenApiSchema>? _allOf;
+	public IReadOnlyList<OpenApiSchema> AllOf => _allOf ??= ParseSequenceSchemas("allOf");
+
+	private OpenApiSchema? _items;
+	private bool _itemsParsed;
 	public OpenApiSchema? Items
 	{
 		get
 		{
-			if (!TryGetNode("items", out var node))
-				return null;
-			return new OpenApiSchema(node, _resolver, _contextFile);
+			if (!_itemsParsed)
+			{
+				_items = ParseItems();
+				_itemsParsed = true;
+			}
+			return _items;
 		}
 	}
 
-	/// <summary>
-	/// Returns the additionalProperties schema.
-	/// </summary>
+	private OpenApiSchema? _additionalProperties;
+	private bool _additionalPropertiesParsed;
 	public OpenApiSchema? AdditionalProperties
 	{
 		get
 		{
-			if (!TryGetNode("additionalProperties", out var node))
-				return null;
-			if (node is YamlScalarNode scalar && scalar.Value == "true")
-				return null; // `additionalProperties: true` means untyped
-			if (node is YamlMappingNode mapping && mapping.Children.Count == 0)
-				return null; // `additionalProperties: {}` means untyped
-			return new OpenApiSchema(node, _resolver, _contextFile);
+			if (!_additionalPropertiesParsed)
+			{
+				_additionalProperties = ParseAdditionalProperties();
+				_additionalPropertiesParsed = true;
+			}
+			return _additionalProperties;
 		}
 	}
 
@@ -189,49 +173,58 @@ public sealed class OpenApiSchema
 	public bool HasAdditionalProperties =>
 		TryGetNode("additionalProperties", out _);
 
-	/// <summary>
-	/// Returns oneOf schemas.
-	/// </summary>
-	public IReadOnlyList<OpenApiSchema> OneOf
+	// ── Parsing helpers ──
+
+	private IReadOnlyList<string> ParseRequired()
 	{
-		get
-		{
-			if (!TryGetNode("oneOf", out var node) || node is not YamlSequenceNode seq)
-				return [];
-			return seq.Children
-				.Select(c => new OpenApiSchema(c, _resolver, _contextFile))
-				.ToList();
-		}
+		if (!TryGetNode("required", out var node) || node is not YamlSequenceNode seq)
+			return [];
+		return seq.Children.OfType<YamlScalarNode>().Select(s => s.Value!).ToList();
 	}
 
-	/// <summary>
-	/// Returns anyOf schemas.
-	/// </summary>
-	public IReadOnlyList<OpenApiSchema> AnyOf
+	private IReadOnlyList<string> ParseEnumValues()
 	{
-		get
-		{
-			if (!TryGetNode("anyOf", out var node) || node is not YamlSequenceNode seq)
-				return [];
-			return seq.Children
-				.Select(c => new OpenApiSchema(c, _resolver, _contextFile))
-				.ToList();
-		}
+		if (!TryGetNode("enum", out var node) || node is not YamlSequenceNode seq)
+			return [];
+		return seq.Children.OfType<YamlScalarNode>().Select(s => s.Value!).ToList();
 	}
 
-	/// <summary>
-	/// Returns allOf schemas.
-	/// </summary>
-	public IReadOnlyList<OpenApiSchema> AllOf
+	private IReadOnlyList<(string Name, OpenApiSchema Schema)> ParseProperties()
 	{
-		get
-		{
-			if (!TryGetNode("allOf", out var node) || node is not YamlSequenceNode seq)
-				return [];
-			return seq.Children
-				.Select(c => new OpenApiSchema(c, _resolver, _contextFile))
-				.ToList();
-		}
+		if (!TryGetNode("properties", out var node) || node is not YamlMappingNode mapping)
+			return [];
+		return mapping.Children
+			.Select(kv => (
+				Name: ((YamlScalarNode)kv.Key).Value!,
+				Schema: new OpenApiSchema(kv.Value, _resolver, _contextFile)))
+			.ToList();
+	}
+
+	private IReadOnlyList<OpenApiSchema> ParseSequenceSchemas(string key)
+	{
+		if (!TryGetNode(key, out var node) || node is not YamlSequenceNode seq)
+			return [];
+		return seq.Children
+			.Select(c => new OpenApiSchema(c, _resolver, _contextFile))
+			.ToList();
+	}
+
+	private OpenApiSchema? ParseItems()
+	{
+		if (!TryGetNode("items", out var node))
+			return null;
+		return new OpenApiSchema(node, _resolver, _contextFile);
+	}
+
+	private OpenApiSchema? ParseAdditionalProperties()
+	{
+		if (!TryGetNode("additionalProperties", out var node))
+			return null;
+		if (node is YamlScalarNode scalar && scalar.Value == "true")
+			return null; // `additionalProperties: true` means untyped
+		if (node is YamlMappingNode mapping && mapping.Children.Count == 0)
+			return null; // `additionalProperties: {}` means untyped
+		return new OpenApiSchema(node, _resolver, _contextFile);
 	}
 
 	private bool TryGetString(string key, out string value)

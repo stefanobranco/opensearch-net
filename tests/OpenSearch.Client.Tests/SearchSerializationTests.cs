@@ -402,4 +402,153 @@ public class SearchSerializationTests
 		response.Should().NotBeNull();
 		response!.Hits!.Hits.Should().BeEmpty();
 	}
+
+	// ── Highlight.Fields tests ──
+
+	[Fact]
+	public void Serialize_Highlight_WithFields_ProducesCorrectJson()
+	{
+		var highlight = new Highlight
+		{
+			Fields = new Dictionary<string, HighlightField>
+			{
+				["title"] = new HighlightField { NumberOfFragments = 3, FragmentSize = 150 },
+				["body"] = new HighlightField { PreTags = ["<b>"], PostTags = ["</b>"] },
+			}
+		};
+
+		var json = JsonSerializer.Serialize(highlight, JsonOptions);
+		var doc = JsonDocument.Parse(json);
+
+		doc.RootElement.TryGetProperty("fields", out var fieldsEl).Should().BeTrue();
+		fieldsEl.TryGetProperty("title", out var titleEl).Should().BeTrue();
+		titleEl.GetProperty("number_of_fragments").GetInt32().Should().Be(3);
+		titleEl.GetProperty("fragment_size").GetInt32().Should().Be(150);
+
+		fieldsEl.TryGetProperty("body", out var bodyEl).Should().BeTrue();
+		bodyEl.GetProperty("pre_tags")[0].GetString().Should().Be("<b>");
+		bodyEl.GetProperty("post_tags")[0].GetString().Should().Be("</b>");
+	}
+
+	[Fact]
+	public void Deserialize_Highlight_WithFields_ParsesDict()
+	{
+		var json = """
+		{
+			"fields": {
+				"title": { "number_of_fragments": 2 },
+				"body": { "fragment_size": 200, "pre_tags": ["<em>"], "post_tags": ["</em>"] }
+			}
+		}
+		""";
+
+		var highlight = JsonSerializer.Deserialize<Highlight>(json, JsonOptions);
+
+		highlight.Should().NotBeNull();
+		highlight!.Fields.Should().NotBeNull();
+		highlight.Fields.Should().ContainKey("title");
+		highlight.Fields!["title"].NumberOfFragments.Should().Be(2);
+		highlight.Fields.Should().ContainKey("body");
+		highlight.Fields["body"].FragmentSize.Should().Be(200);
+		highlight.Fields["body"].PreTags.Should().Contain("<em>");
+	}
+
+	[Fact]
+	public void RoundTrip_Highlight_WithFields_PreservesData()
+	{
+		var original = new Highlight
+		{
+			Fields = new Dictionary<string, HighlightField>
+			{
+				["content"] = new HighlightField
+				{
+					NumberOfFragments = 5,
+					FragmentSize = 100,
+					RequireFieldMatch = false,
+				}
+			}
+		};
+
+		var json = JsonSerializer.Serialize(original, JsonOptions);
+		var deserialized = JsonSerializer.Deserialize<Highlight>(json, JsonOptions);
+
+		deserialized.Should().NotBeNull();
+		deserialized!.Fields.Should().ContainKey("content");
+		var field = deserialized.Fields!["content"];
+		field.NumberOfFragments.Should().Be(5);
+		field.FragmentSize.Should().Be(100);
+		field.RequireFieldMatch.Should().BeFalse();
+	}
+
+	// ── Sub-aggregation tests ──
+
+	[Fact]
+	public void Serialize_AggregationContainer_WithSubAggregations_ProducesCorrectJson()
+	{
+		var agg = AggregationContainer.Terms(new TermsAggregationFields { Field = "status" });
+		agg.Aggregations = new Dictionary<string, AggregationContainer>
+		{
+			["avg_price"] = AggregationContainer.Avg(new AverageAggregation { Field = "price" })
+		};
+
+		var json = JsonSerializer.Serialize(agg, JsonOptions);
+		var doc = JsonDocument.Parse(json);
+
+		doc.RootElement.TryGetProperty("terms", out var termsEl).Should().BeTrue();
+		termsEl.GetProperty("field").GetString().Should().Be("status");
+		doc.RootElement.TryGetProperty("aggregations", out var aggsEl).Should().BeTrue();
+		aggsEl.TryGetProperty("avg_price", out var avgEl).Should().BeTrue();
+		avgEl.TryGetProperty("avg", out var avgInner).Should().BeTrue();
+		avgInner.GetProperty("field").GetString().Should().Be("price");
+	}
+
+	[Fact]
+	public void Deserialize_AggregationContainer_WithSubAggregations_ParsesNested()
+	{
+		var json = """
+		{
+			"terms": { "field": "category" },
+			"aggs": {
+				"max_score": {
+					"max": { "field": "score" }
+				}
+			},
+			"meta": { "purpose": "test" }
+		}
+		""";
+
+		var agg = JsonSerializer.Deserialize<AggregationContainer>(json, JsonOptions);
+
+		agg.Should().NotBeNull();
+		agg!.Kind.Should().Be(AggregationKind.Terms);
+		agg.Meta.Should().ContainKey("purpose");
+		agg.Aggs.Should().NotBeNull();
+		agg.Aggs.Should().ContainKey("max_score");
+		agg.Aggs!["max_score"].Kind.Should().Be(AggregationKind.Max);
+	}
+
+	[Fact]
+	public void RoundTrip_AggregationContainer_WithNestedAggs_PreservesStructure()
+	{
+		var original = AggregationContainer.Terms(new TermsAggregationFields { Field = "status" });
+		original.Meta = new Dictionary<string, object> { ["owner"] = "test" };
+		original.Aggregations = new Dictionary<string, AggregationContainer>
+		{
+			["min_price"] = AggregationContainer.Min(new MinAggregation { Field = "price" }),
+			["max_price"] = AggregationContainer.Max(new MaxAggregation { Field = "price" }),
+		};
+
+		var json = JsonSerializer.Serialize(original, JsonOptions);
+		var deserialized = JsonSerializer.Deserialize<AggregationContainer>(json, JsonOptions);
+
+		deserialized.Should().NotBeNull();
+		deserialized!.Kind.Should().Be(AggregationKind.Terms);
+		deserialized.Meta.Should().ContainKey("owner");
+		deserialized.Aggregations.Should().NotBeNull();
+		deserialized.Aggregations.Should().HaveCount(2);
+		deserialized.Aggregations.Should().ContainKey("min_price");
+		deserialized.Aggregations!["min_price"].Kind.Should().Be(AggregationKind.Min);
+		deserialized.Aggregations.Should().ContainKey("max_price");
+		deserialized.Aggregations["max_price"].Kind.Should().Be(AggregationKind.Max);
+	}
 }

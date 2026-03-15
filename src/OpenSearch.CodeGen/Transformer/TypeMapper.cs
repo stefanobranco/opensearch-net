@@ -31,6 +31,34 @@ public sealed class TypeMapper
 	};
 
 	/// <summary>
+	/// Extra sibling fields to inject into specific tagged unions.
+	/// Used when the spec defines fields on variant base types (e.g., BucketAggregationBase)
+	/// that we want on the container for simplicity.
+	/// </summary>
+	private static readonly Dictionary<string, List<Field>> s_additionalSiblingFields = new(StringComparer.OrdinalIgnoreCase)
+	{
+		["AggregationContainer"] =
+		[
+			new Field
+			{
+				Name = "Aggregations",
+				WireName = "aggregations",
+				Type = TypeRef.DictOf(TypeRef.String(), TypeRef.Named("AggregationContainer", "AggregationContainer")),
+				Required = false,
+				Description = "Sub-aggregations for this aggregation."
+			},
+			new Field
+			{
+				Name = "Aggs",
+				WireName = "aggs",
+				Type = TypeRef.DictOf(TypeRef.String(), TypeRef.Named("AggregationContainer", "AggregationContainer")),
+				Required = false,
+				Description = "Sub-aggregations for this aggregation (alias for 'aggregations')."
+			}
+		]
+	};
+
+	/// <summary>
 	/// Schema names that map to hand-written C# types. When Map() encounters one of these,
 	/// it returns the override TypeRef instead of processing the schema.
 	/// </summary>
@@ -38,6 +66,7 @@ public sealed class TypeMapper
 	{
 		["SortCombinations"] = TypeRef.Named("SortOptions", "SortOptions"),
 		["SourceConfig"] = TypeRef.Named("SourceConfig", "SourceConfig"),
+		["HighlightFields"] = TypeRef.DictOf(TypeRef.String(), TypeRef.Named("HighlightField", "HighlightField")),
 	};
 
 	/// <summary>
@@ -530,6 +559,10 @@ public sealed class TypeMapper
 			if (resolved.OneOf.Count > 0) continue; // skip the oneOf member
 			CollectFields(resolved, siblingFields, new HashSet<string>());
 		}
+
+		// Inject additional sibling fields for specific unions
+		if (s_additionalSiblingFields.TryGetValue(schemaName, out var additional))
+			siblingFields.AddRange(additional);
 
 		var variants = new List<UnionVariant>();
 
@@ -1052,6 +1085,10 @@ public sealed class TypeMapper
 	{
 		foreach (var (_, propSchema) in schema.Properties)
 			Map(propSchema);
+		if (schema.AdditionalProperties is not null)
+			Map(schema.AdditionalProperties);
+		if (schema.Items is not null)
+			Map(schema.Items);
 		foreach (var allOfMember in schema.AllOf)
 		{
 			var resolved = allOfMember.Resolved();
@@ -1061,6 +1098,8 @@ public sealed class TypeMapper
 		{
 			if (oneOfMember.Ref is not null)
 				Map(oneOfMember);
+			else
+				DiscoverReferencedTypes(oneOfMember.Resolved());
 		}
 	}
 

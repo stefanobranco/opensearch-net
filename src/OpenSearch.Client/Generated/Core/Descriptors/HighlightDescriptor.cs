@@ -51,7 +51,7 @@ public sealed class HighlightDescriptor
 		public HighlightDescriptor RequireFieldMatch(bool? value) { _value.RequireFieldMatch = value; return this; }
 	public HighlightDescriptor TagsSchema(HighlighterTagsSchema? value) { _value.TagsSchema = value; return this; }
 	public HighlightDescriptor Encoder(HighlighterEncoder? value) { _value.Encoder = value; return this; }
-	public HighlightDescriptor Fields(System.Text.Json.JsonElement? value) { _value.Fields = value; return this; }
+	public HighlightDescriptor Fields(Dictionary<string, HighlightField>? value) { _value.Fields = value; return this; }
 
 	public static implicit operator Highlight(HighlightDescriptor descriptor) => descriptor._value;
 }

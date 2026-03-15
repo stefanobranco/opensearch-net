@@ -7,7 +7,7 @@ using OpenSearch.Client.Common;
 namespace OpenSearch.Client.Core;
 
 
-public sealed class Highlight
+public sealed class HighlightField
 {
 	public string? Type { get; set; }
 	/// <summary>A string that contains each boundary character.</summary>
@@ -42,6 +42,5 @@ public sealed class Highlight
 	/// <summary>By default, only fields that contains a query match are highlighted. Set to `false` to highlight all fields.</summary>
 		public bool? RequireFieldMatch { get; set; }
 	public HighlighterTagsSchema? TagsSchema { get; set; }
-	public HighlighterEncoder? Encoder { get; set; }
-	public Dictionary<string, HighlightField>? Fields { get; set; }
+	public List<string>? MatchedFields { get; set; }
 }
