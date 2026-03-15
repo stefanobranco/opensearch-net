@@ -1,4 +1,5 @@
 using System.Text.Json;
+using OpenSearch.Client.Common;
 
 namespace OpenSearch.Client.Core;
 
@@ -32,6 +33,19 @@ public static class QueryDescriptorExtensions
 
 	// Note: MatchPhraseQueryDescriptor.Query() and MatchPhrasePrefixQueryDescriptor.Query()
 	// already accept string? natively — no extension needed.
+
+	// ── BoolQueryDescriptor / BoolQueryDescriptor<T> ──
+
+	/// <summary>Accepts an int for the common case (e.g., 1). The spec allows both
+	/// integers and percentage strings like "75%", hence the underlying string type.</summary>
+	public static BoolQueryDescriptor MinimumShouldMatch(this BoolQueryDescriptor d, int value)
+	{ d._value.MinimumShouldMatch = value.ToString(); return d; }
+
+	/// <summary>Accepts an int for the common case (e.g., 1). The spec allows both
+	/// integers and percentage strings like "75%", hence the underlying string type.</summary>
+	public static BoolQueryDescriptor<TDocument> MinimumShouldMatch<TDocument>(
+		this BoolQueryDescriptor<TDocument> d, int value)
+	{ d._value.MinimumShouldMatch = value.ToString(); return d; }
 
 	// ── TermsQueryDescriptor ──
 
