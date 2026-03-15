@@ -130,4 +130,39 @@ public class AggregationsDictDescriptorTests
 		avgPrice.TryGetProperty("avg", out var avg).Should().BeTrue();
 		avg.GetProperty("field").GetString().Should().Be("price");
 	}
+
+	[Fact]
+	public void Filter_With_Action_QueryContainerDescriptor()
+	{
+		// Pattern: SwissLex BuildCustomMetadataAggregation — nested → filter → terms
+		// Previously required pre-building a QueryContainerDescriptor and casting
+		SearchRequest request = new SearchRequestDescriptor()
+			.Size(0)
+			.Aggregations(a => a
+				.Nested("custom_meta", n => n.Path("aggregations.custom_metadata"),
+					nestedSub => nestedSub
+						.Filter("inner",
+							q => q.Term("aggregations.custom_metadata.meta_name.keyword",
+								t => t.Value("court_name")),
+							filterSub => filterSub
+								.Terms("values", t => t
+									.Field("aggregations.custom_metadata.meta_values.keyword")
+									.Size(51)
+									.MinDocCount(1)
+									.CountDescending()))));
+
+		var json = JsonSerializer.Serialize(request, JsonOptions);
+		using var doc = JsonDocument.Parse(json);
+
+		var nested = doc.RootElement.GetProperty("aggregations").GetProperty("custom_meta");
+		nested.TryGetProperty("nested", out _).Should().BeTrue();
+
+		var innerFilter = nested.GetProperty("aggregations").GetProperty("inner");
+		innerFilter.TryGetProperty("filter", out var filter).Should().BeTrue();
+		filter.GetProperty("term").TryGetProperty("aggregations.custom_metadata.meta_name.keyword", out _)
+			.Should().BeTrue();
+
+		var values = innerFilter.GetProperty("aggregations").GetProperty("values");
+		values.TryGetProperty("terms", out _).Should().BeTrue();
+	}
 }

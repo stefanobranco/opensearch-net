@@ -64,6 +64,17 @@ public sealed class AggregationsDictDescriptor
 		return AddBucket(name, AggregationContainer.Filter(element), subAggs);
 	}
 
+	public AggregationsDictDescriptor Filter(string name,
+		Action<QueryContainerDescriptor> configure,
+		Action<AggregationsDictDescriptor>? subAggs = null)
+	{
+		var descriptor = new QueryContainerDescriptor();
+		configure(descriptor);
+		QueryContainer? filter = descriptor;
+		var element = JsonSerializer.SerializeToElement(filter);
+		return AddBucket(name, AggregationContainer.Filter(element), subAggs);
+	}
+
 	public AggregationsDictDescriptor Filters(string name,
 		Action<FiltersAggregationFieldsDescriptor> configure,
 		Action<AggregationsDictDescriptor>? subAggs = null) =>
