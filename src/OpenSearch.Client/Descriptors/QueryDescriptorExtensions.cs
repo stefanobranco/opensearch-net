@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using System.Text.Json;
 using OpenSearch.Client.Common;
 
@@ -67,6 +68,28 @@ public static class QueryDescriptorExtensions
 	{
 		d._value.AdditionalProperties ??= new();
 		d._value.AdditionalProperties[field] = JsonSerializer.SerializeToElement(values);
+		return d;
+	}
+
+	/// <summary>
+	/// Sets the field (via expression) and terms values for a terms query.
+	/// </summary>
+	public static TermsQueryDescriptor Field<TDocument>(this TermsQueryDescriptor d,
+		Expression<Func<TDocument, object>> field, params string[] values)
+	{
+		d._value.AdditionalProperties ??= new();
+		d._value.AdditionalProperties[FieldExpressionVisitor.Resolve(field)] = JsonSerializer.SerializeToElement(values);
+		return d;
+	}
+
+	/// <summary>
+	/// Sets the field (via expression) and terms values for a terms query with typed values.
+	/// </summary>
+	public static TermsQueryDescriptor Field<TDocument, TValue>(this TermsQueryDescriptor d,
+		Expression<Func<TDocument, object>> field, params TValue[] values)
+	{
+		d._value.AdditionalProperties ??= new();
+		d._value.AdditionalProperties[FieldExpressionVisitor.Resolve(field)] = JsonSerializer.SerializeToElement(values);
 		return d;
 	}
 }

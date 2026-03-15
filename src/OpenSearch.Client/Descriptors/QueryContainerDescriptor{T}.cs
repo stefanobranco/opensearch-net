@@ -320,5 +320,20 @@ public sealed class QueryContainerDescriptor<TDocument>
 		return this;
 	}
 
+	public QueryContainerDescriptor<TDocument> FunctionScore(
+		Action<FunctionScoreQueryDescriptor> configure)
+	{
+		var descriptor = new FunctionScoreQueryDescriptor();
+		configure(descriptor);
+		_value = QueryContainer.FunctionScore((FunctionScoreQuery)descriptor);
+		return this;
+	}
+
+	public QueryContainerDescriptor<TDocument> FunctionScore(FunctionScoreQuery value)
+	{
+		_value = QueryContainer.FunctionScore(value);
+		return this;
+	}
+
 	public static implicit operator QueryContainer?(QueryContainerDescriptor<TDocument> d) => d._value;
 }

@@ -16,4 +16,20 @@ public static class SearchRequestDescriptorExtensions
 		d._value.Aggregations = desc;
 		return d;
 	}
+
+	/// <summary>Shorthand for <c>Source(SourceConfig.Enabled(fetch))</c>.</summary>
+	public static SearchRequestDescriptor Source(
+		this SearchRequestDescriptor d, bool fetch)
+	{
+		d._value.Source = SourceConfig.Enabled(fetch);
+		return d;
+	}
+
+	/// <summary>Shorthand for <c>Source(SourceConfig.Enabled(fetch))</c>.</summary>
+	public static InnerHitsDescriptor Source(
+		this InnerHitsDescriptor d, bool fetch)
+	{
+		d._value.Source = SourceConfig.Enabled(fetch);
+		return d;
+	}
 }

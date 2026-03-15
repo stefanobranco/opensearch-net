@@ -593,4 +593,399 @@ public class SwissLexPatternTests
 		cs.GetProperty("boost").GetSingle().Should().Be(1.0f);
 		cs.TryGetProperty("filter", out _).Should().BeTrue();
 	}
+
+	// ── Gap-fix tests: Source(bool), FunctionScore, Terms expression, DateTime range ──
+
+	[Fact]
+	public void Source_Bool_False_Shorthand()
+	{
+		// Pattern: `.Source(false)` used ~25 times in SwissLex autocomplete queries
+		SearchRequest request = new SearchRequestDescriptor<ElasticAsset>()
+			.Source(false)
+			.Size(0);
+
+		var json = JsonSerializer.Serialize(request, JsonOptions);
+		using var doc = JsonDocument.Parse(json);
+
+		doc.RootElement.GetProperty("_source").GetBoolean().Should().BeFalse();
+		doc.RootElement.GetProperty("size").GetInt32().Should().Be(0);
+	}
+
+	[Fact]
+	public void Source_Bool_True_Shorthand()
+	{
+		SearchRequest request = new SearchRequestDescriptor<ElasticAsset>()
+			.Source(true);
+
+		var json = JsonSerializer.Serialize(request, JsonOptions);
+		using var doc = JsonDocument.Parse(json);
+
+		doc.RootElement.GetProperty("_source").GetBoolean().Should().BeTrue();
+	}
+
+	[Fact]
+	public void Range_With_DateTime_Values()
+	{
+		// Pattern: BookQueryExtensions — date range with DateTime objects
+		var dateFrom = new DateTime(2023, 1, 1);
+		var dateUntil = new DateTime(2024, 1, 1);
+
+		SearchRequest request = new SearchRequestDescriptor<ElasticAsset>()
+			.Query(q => q.Range(f => f.Meta!.PublicationDate!, r => r
+				.Gte(dateFrom)
+				.Lt(dateUntil)));
+
+		var json = JsonSerializer.Serialize(request, JsonOptions);
+		using var doc = JsonDocument.Parse(json);
+
+		var range = doc.RootElement.GetProperty("query").GetProperty("range")
+			.GetProperty("meta.publication_date");
+		range.TryGetProperty("gte", out _).Should().BeTrue();
+		range.TryGetProperty("lt", out _).Should().BeTrue();
+	}
+
+	[Fact]
+	public void Range_With_String_Now()
+	{
+		// Pattern: QueryExtensions.BuildPublishedDateFilter — `.Lte("now")`
+		SearchRequest request = new SearchRequestDescriptor<ElasticAsset>()
+			.Query(q => q.Range(f => f.Meta!.PublicationDate!, r => r
+				.Lte("now")));
+
+		var json = JsonSerializer.Serialize(request, JsonOptions);
+		using var doc = JsonDocument.Parse(json);
+
+		var range = doc.RootElement.GetProperty("query").GetProperty("range")
+			.GetProperty("meta.publication_date");
+		range.GetProperty("lte").GetString().Should().Be("now");
+	}
+
+	[Fact]
+	public void Range_Conditional_DateTime_Nullable()
+	{
+		// Pattern: QueryExtensions.DateFilter — conditionally set gte/lt from nullable DateTime
+		DateTime? dateFrom = new DateTime(2020, 6, 15);
+		DateTime? dateUntil = null;
+
+		SearchRequest request = new SearchRequestDescriptor<ElasticAsset>()
+			.Query(q => q.Range(f => f.Meta!.PublicationDate!, r =>
+			{
+				if (dateFrom != null) r.Gte(dateFrom);
+				if (dateUntil != null) r.Lt(dateUntil);
+			}));
+
+		var json = JsonSerializer.Serialize(request, JsonOptions);
+		using var doc = JsonDocument.Parse(json);
+
+		var range = doc.RootElement.GetProperty("query").GetProperty("range")
+			.GetProperty("meta.publication_date");
+		range.TryGetProperty("gte", out _).Should().BeTrue();
+		range.TryGetProperty("lt", out _).Should().BeFalse();
+	}
+
+	[Fact]
+	public void FunctionScore_On_Generic_QueryContainer()
+	{
+		// Pattern: QueryExtensions.CreateCompleteSearchQuery — FunctionScore wrapping the main query
+		SearchRequest request = new SearchRequestDescriptor<ElasticAsset>()
+			.Query(q => q.FunctionScore(fs => fs
+				.Query(innerQ => innerQ.MatchAll(new MatchAllQuery()))
+				.Functions(
+					f => f.FieldValueFactor(fvf => fvf
+						.Field("cited_boost")
+						.Modifier(FieldValueFactorModifier.Log1p)
+						.Missing(1)),
+					f => f.Exp(e => e
+						.AdditionalProperties(new Dictionary<string, JsonElement>
+						{
+							["meta.publication_date"] = JsonSerializer.SerializeToElement(new
+							{
+								origin = "now",
+								scale = "365d",
+								decay = 0.5
+							})
+						}))
+				)
+				.ScoreMode(FunctionScoreMode.Sum)
+				.BoostMode(FunctionBoostMode.Multiply)));
+
+		var json = JsonSerializer.Serialize(request, JsonOptions);
+		using var doc = JsonDocument.Parse(json);
+
+		var fs = doc.RootElement.GetProperty("query").GetProperty("function_score");
+		fs.GetProperty("score_mode").GetString().Should().Be("sum");
+		fs.GetProperty("boost_mode").GetString().Should().Be("multiply");
+		fs.GetProperty("functions").GetArrayLength().Should().Be(2);
+	}
+
+	[Fact]
+	public void Terms_With_Expression_Field()
+	{
+		// Pattern: QueryExtensions.AddSearchVisibilityFilters — terms query with expression field
+		SearchRequest request = new SearchRequestDescriptor<ElasticAsset>()
+			.Query(q => q.Terms(t => t
+				.Field<ElasticAsset, object>(f => f.Rights!, (object)(short)1, (object)(short)2)));
+
+		var json = JsonSerializer.Serialize(request, JsonOptions);
+		using var doc = JsonDocument.Parse(json);
+
+		var terms = doc.RootElement.GetProperty("query").GetProperty("terms");
+		terms.GetProperty("access_rights").GetArrayLength().Should().Be(2);
+	}
+
+	[Fact]
+	public void Terms_With_Expression_Field_String_Values()
+	{
+		// Pattern: ContentRightsFilter — expression field with string values
+		SearchRequest request = new SearchRequestDescriptor<ElasticAsset>()
+			.Query(q => q.Terms(t => t
+				.Field<ElasticAsset>(f => f.Rights!, "Standard", "Premium")));
+
+		var json = JsonSerializer.Serialize(request, JsonOptions);
+		using var doc = JsonDocument.Parse(json);
+
+		var terms = doc.RootElement.GetProperty("query").GetProperty("terms");
+		var rights = terms.GetProperty("access_rights");
+		rights.GetArrayLength().Should().Be(2);
+		rights[0].GetString().Should().Be("Standard");
+		rights[1].GetString().Should().Be("Premium");
+	}
+
+	[Fact]
+	public void Bool_Boost_On_Generic_Descriptor()
+	{
+		// Pattern: CreateContentQueryWrapper — Bool with Must + Boost for language boosting
+		SearchRequest request = new SearchRequestDescriptor<ElasticAsset>()
+			.Query(q => q.Bool(b => b
+				.Must(m => m.MatchAll(new MatchAllQuery()))
+				.Boost(2.0f)));
+
+		var json = JsonSerializer.Serialize(request, JsonOptions);
+		using var doc = JsonDocument.Parse(json);
+
+		var boolQ = doc.RootElement.GetProperty("query").GetProperty("bool");
+		boolQ.GetProperty("boost").GetSingle().Should().Be(2.0f);
+		boolQ.GetProperty("must").GetArrayLength().Should().Be(1);
+	}
+
+	[Fact]
+	public void Collapse_With_InnerHits_And_Sort()
+	{
+		// Pattern: BookQueryExtensions.BuildBookAssetSearch — collapse by collection with inner hits
+		SearchRequest request = new SearchRequestDescriptor<ElasticAsset>()
+			.Collapse(c => c
+				.Field(Field.From<ElasticAsset>(o => o.Meta!.CollectionId!))
+				.InnerHits(ih => ih
+					.Name("book_subhits")
+					.Size(100)
+					.Source(SourceConfig.Filter(new SourceFilter
+					{
+						Includes = new List<string>
+						{
+							Field.From<ElasticAsset>(o => o.Title!),
+							Field.From<ElasticAsset>(o => o.Meta!)
+						}
+					}))
+					.Sort(new List<SortOptions>
+					{
+						SortOptions.Ascending(Field.From<ElasticAsset>(fi => fi.NavigationInfo!.StartPage!))
+					})));
+
+		var json = JsonSerializer.Serialize(request, JsonOptions);
+		using var doc = JsonDocument.Parse(json);
+
+		var collapse = doc.RootElement.GetProperty("collapse");
+		collapse.GetProperty("field").GetString().Should().Be("meta.collection_id");
+
+		var innerHits = collapse.GetProperty("inner_hits");
+		innerHits.GetArrayLength().Should().BeGreaterThanOrEqualTo(1);
+		var ih = innerHits[0];
+		ih.GetProperty("name").GetString().Should().Be("book_subhits");
+		ih.GetProperty("size").GetInt32().Should().Be(100);
+	}
+
+	[Fact]
+	public void Aggregation_With_MinDocCount_And_Exclude()
+	{
+		// Pattern: AggregationExtensions.BuildAggregation — terms agg with min_doc_count and exclude
+		SearchRequest request = new SearchRequestDescriptor<ElasticAsset>()
+			.Size(0)
+			.Aggregations(a => a
+				.Terms("display_type", t => t
+					.Exclude(new List<string> { "LawDocument", "ArticleOfLawDocument" })
+					.Field("display_type")
+					.Size(51)
+					.MinDocCount(0)
+					.CountDescending()));
+
+		var json = JsonSerializer.Serialize(request, JsonOptions);
+		using var doc = JsonDocument.Parse(json);
+
+		var agg = doc.RootElement.GetProperty("aggregations").GetProperty("display_type")
+			.GetProperty("terms");
+		agg.GetProperty("min_doc_count").GetInt64().Should().Be(0);
+		agg.GetProperty("exclude").GetArrayLength().Should().Be(2);
+		agg.GetProperty("size").GetInt32().Should().Be(51);
+	}
+
+	[Fact]
+	public void Highlight_With_HighlightQuery_And_Order()
+	{
+		// Pattern: QueryExtensions.BuildHighlightingQuery — per-field highlight_query + order
+		var contentField = Field.From<ElasticAsset>(x => x.ContentObject!.Content!);
+
+		SearchRequest request = new SearchRequestDescriptor<ElasticAsset>()
+			.Highlight(h => h
+				.Fields(
+					((string)contentField, hf => hf
+						.MatchedFields(new List<string>
+						{
+							Field.From<ElasticAsset>(f => f.ContentObject!.Content!.Suffix("de")),
+							Field.From<ElasticAsset>(f => f.ContentObject!.Content!.Suffix("fr"))
+						})
+						.Type("fvh")
+						.HighlightQuery(hq => hq.Bool(b => b
+							.Should(s => s.SimpleQueryString(sq => sq
+								.Query("search terms")
+								.Fields(new List<string> { "content.content.de" })
+								.DefaultOperator(Operator.And)))
+							.MinimumShouldMatch("1")))
+						.NumberOfFragments(3)
+						.FragmentSize(140)
+						.Order(HighlighterOrder.Score)
+						.NoMatchSize(200)))
+				.PreTags(new List<string> { "#highlightbegin1" })
+				.PostTags(new List<string> { "#highlightend" }));
+
+		var json = JsonSerializer.Serialize(request, JsonOptions);
+		using var doc = JsonDocument.Parse(json);
+
+		var fields = doc.RootElement.GetProperty("highlight").GetProperty("fields");
+		fields.TryGetProperty("content.content", out var hf).Should().BeTrue();
+		hf.GetProperty("type").GetString().Should().Be("fvh");
+		hf.GetProperty("number_of_fragments").GetInt32().Should().Be(3);
+		hf.GetProperty("order").GetString().Should().Be("score");
+		hf.GetProperty("no_match_size").GetInt32().Should().Be(200);
+		hf.TryGetProperty("highlight_query", out _).Should().BeTrue();
+	}
+
+	[Fact]
+	public void Cardinality_Aggregation()
+	{
+		// Pattern: BookQueryExtensions — cardinality aggregation with precision_threshold
+		SearchRequest request = new SearchRequestDescriptor<ElasticAsset>()
+			.Size(0)
+			.Aggregations(a => a
+				.Cardinality("unique_collections", c => c
+					.Field(Field.From<ElasticAsset>(f => f.Meta!.CollectionId!))
+					.PrecisionThreshold(40000)));
+
+		var json = JsonSerializer.Serialize(request, JsonOptions);
+		using var doc = JsonDocument.Parse(json);
+
+		var agg = doc.RootElement.GetProperty("aggregations").GetProperty("unique_collections")
+			.GetProperty("cardinality");
+		agg.GetProperty("field").GetString().Should().Be("meta.collection_id");
+		agg.GetProperty("precision_threshold").GetInt32().Should().Be(40000);
+	}
+
+	[Fact]
+	public void MultiMatch_Phrase_With_Slop()
+	{
+		// Pattern: QueryExtensions.CreatePhraseContentQuery — multi_match with type=phrase
+		SearchRequest request = new SearchRequestDescriptor<ElasticAsset>()
+			.Query(q => q.MultiMatch(mm => mm
+				.Query("exact phrase")
+				.Fields(new List<string>
+				{
+					Field.From<ElasticAsset>(f => f.TitleAutocomplete!),
+					Field.From<ElasticAsset>(f => f.ContentObject!.Content!.Suffix("de"))
+				})
+				.Type(TextQueryType.Phrase)
+				.Slop(0)));
+
+		var json = JsonSerializer.Serialize(request, JsonOptions);
+		using var doc = JsonDocument.Parse(json);
+
+		var mm = doc.RootElement.GetProperty("query").GetProperty("multi_match");
+		mm.GetProperty("query").GetString().Should().Be("exact phrase");
+		mm.GetProperty("type").GetString().Should().Be("phrase");
+		mm.GetProperty("slop").GetInt32().Should().Be(0);
+		mm.GetProperty("fields").GetArrayLength().Should().Be(2);
+	}
+
+	[Fact]
+	public void SimpleQueryString_With_Analyzer_And_Boost()
+	{
+		// Pattern: QueryExtensions.CreateContentQuery — simpleQueryString per language
+		SearchRequest request = new SearchRequestDescriptor<ElasticAsset>()
+			.Query(q => q.Bool(b => b
+				.Should(
+					s => s.SimpleQueryString(sq => sq
+						.Fields(new List<string> { "content.all.de" })
+						.Analyzer("slx_german")
+						.DefaultOperator(Operator.And)
+						.Query("Bundesgericht")),
+					s => s.SimpleQueryString(sq => sq
+						.Fields(new List<string>
+						{
+							Field.From<ElasticAsset>(f => f.TitleAutocomplete!)
+						})
+						.Boost(5)
+						.Analyzer("slx_german")
+						.DefaultOperator(Operator.And)
+						.Query("Bundesgericht"))
+				)
+				.MinimumShouldMatch(1)));
+
+		var json = JsonSerializer.Serialize(request, JsonOptions);
+		using var doc = JsonDocument.Parse(json);
+
+		var boolQ = doc.RootElement.GetProperty("query").GetProperty("bool");
+		var shouldArr = boolQ.GetProperty("should");
+		shouldArr.GetArrayLength().Should().Be(2);
+
+		var sq1 = shouldArr[0].GetProperty("simple_query_string");
+		sq1.GetProperty("analyzer").GetString().Should().Be("slx_german");
+		sq1.GetProperty("default_operator").GetString().Should().Be("and");
+
+		var sq2 = shouldArr[1].GetProperty("simple_query_string");
+		sq2.GetProperty("boost").GetSingle().Should().Be(5);
+	}
+
+	[Fact]
+	public void MatchPhrase_With_Slop_And_Analyzer()
+	{
+		// Pattern: QueryExtensions.CreatePhraseContentQuery — match_phrase with analyzer
+		SearchRequest request = new SearchRequestDescriptor<ElasticAsset>()
+			.Query(q => q.MatchPhrase(
+				f => f.ContentObject!.Content!.Suffix("de"),
+				m => m.Query("Bundesgericht Urteil").Slop(0).Analyzer("slx_german_nostop")));
+
+		var json = JsonSerializer.Serialize(request, JsonOptions);
+		using var doc = JsonDocument.Parse(json);
+
+		var mp = doc.RootElement.GetProperty("query").GetProperty("match_phrase")
+			.GetProperty("content.content.de");
+		mp.GetProperty("query").GetString().Should().Be("Bundesgericht Urteil");
+		mp.GetProperty("slop").GetInt32().Should().Be(0);
+		mp.GetProperty("analyzer").GetString().Should().Be("slx_german_nostop");
+	}
+
+	[Fact]
+	public void Match_With_Operator_And()
+	{
+		// Pattern: LawQueryExtensions.LawTitleQuery — match with Operator.And
+		SearchRequest request = new SearchRequestDescriptor<ElasticAsset>()
+			.Query(q => q.Match(
+				f => f.AssetTypeInfo!.Book!.Series!.Name!.De!.Suffix("autocomplete"),
+				m => m.Query("obligationenrecht").Operator(Operator.And)));
+
+		var json = JsonSerializer.Serialize(request, JsonOptions);
+		using var doc = JsonDocument.Parse(json);
+
+		var match = doc.RootElement.GetProperty("query").GetProperty("match")
+			.GetProperty("type_information.book.series.name.de.autocomplete");
+		match.GetProperty("operator").GetString().Should().Be("and");
+	}
 }

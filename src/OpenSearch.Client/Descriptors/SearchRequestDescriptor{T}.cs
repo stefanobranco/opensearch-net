@@ -75,6 +75,7 @@ public sealed class SearchRequestDescriptor<TDocument>
 	public SearchRequestDescriptor<TDocument> Sort(params SortOptions[] sorts) { _value.Sort = sorts.ToList(); return this; }
 
 	public SearchRequestDescriptor<TDocument> Source(SourceConfig? value) { _value.Source = value; return this; }
+	public SearchRequestDescriptor<TDocument> Source(bool fetch) { _value.Source = SourceConfig.Enabled(fetch); return this; }
 
 	// ── Common body properties ──
 
