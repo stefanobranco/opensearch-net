@@ -37,7 +37,7 @@ public sealed class InnerHitsDescriptor
 	public InnerHitsDescriptor ScriptFields(Dictionary<string, ScriptField>? value) { _value.ScriptFields = value; return this; }
 	public InnerHitsDescriptor SeqNoPrimaryTerm(bool? value) { _value.SeqNoPrimaryTerm = value; return this; }
 	public InnerHitsDescriptor Fields(List<System.Text.Json.JsonElement>? value) { _value.Fields = value; return this; }
-	public InnerHitsDescriptor Sort(List<System.Text.Json.JsonElement>? value) { _value.Sort = value; return this; }
+	public InnerHitsDescriptor Sort(List<SortOptions>? value) { _value.Sort = value; return this; }
 	public InnerHitsDescriptor Source(SourceConfig? value) { _value.Source = value; return this; }
 	public InnerHitsDescriptor StoredFields(List<string>? value) { _value.StoredFields = value; return this; }
 	public InnerHitsDescriptor TrackScores(bool? value) { _value.TrackScores = value; return this; }

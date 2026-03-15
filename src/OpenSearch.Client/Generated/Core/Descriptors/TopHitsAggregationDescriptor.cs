@@ -30,7 +30,7 @@ public sealed class TopHitsAggregationDescriptor
 		public TopHitsAggregationDescriptor ScriptFields(Dictionary<string, ScriptField>? value) { _value.ScriptFields = value; return this; }
 	/// <summary>The maximum number of top matching hits to return per bucket.</summary>
 		public TopHitsAggregationDescriptor Size(int? value) { _value.Size = value; return this; }
-	public TopHitsAggregationDescriptor Sort(List<System.Text.Json.JsonElement>? value) { _value.Sort = value; return this; }
+	public TopHitsAggregationDescriptor Sort(List<SortOptions>? value) { _value.Sort = value; return this; }
 	public TopHitsAggregationDescriptor Source(SourceConfig? value) { _value.Source = value; return this; }
 	public TopHitsAggregationDescriptor StoredFields(List<string>? value) { _value.StoredFields = value; return this; }
 	/// <summary>If `true`, calculates and returns document scores, even if the scores are not used for sorting.</summary>

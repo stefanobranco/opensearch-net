@@ -22,7 +22,7 @@ public sealed class TopHitsAggregation
 		public Dictionary<string, ScriptField>? ScriptFields { get; set; }
 	/// <summary>The maximum number of top matching hits to return per bucket.</summary>
 		public int? Size { get; set; }
-	public List<System.Text.Json.JsonElement>? Sort { get; set; }
+	public List<SortOptions>? Sort { get; set; }
 	[JsonPropertyName("_source")]
 	public SourceConfig? Source { get; set; }
 	public List<string>? StoredFields { get; set; }

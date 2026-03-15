@@ -65,6 +65,8 @@ public sealed class TypeMapper
 	private static readonly Dictionary<string, TypeRef> s_typeOverrides = new(StringComparer.OrdinalIgnoreCase)
 	{
 		["SortCombinations"] = TypeRef.Named("SortOptions", "SortOptions"),
+		["SortOptions"] = TypeRef.Named("SortOptions", "SortOptions"),
+		["Sort"] = TypeRef.ListOf(TypeRef.Named("SortOptions", "SortOptions")),
 		["SourceConfig"] = TypeRef.Named("SourceConfig", "SourceConfig"),
 		["HighlightFields"] = TypeRef.DictOf(TypeRef.String(), TypeRef.Named("HighlightField", "HighlightField")),
 	};

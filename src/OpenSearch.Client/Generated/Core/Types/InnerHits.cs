@@ -22,7 +22,7 @@ public sealed class InnerHits
 	public Dictionary<string, ScriptField>? ScriptFields { get; set; }
 	public bool? SeqNoPrimaryTerm { get; set; }
 	public List<System.Text.Json.JsonElement>? Fields { get; set; }
-	public List<System.Text.Json.JsonElement>? Sort { get; set; }
+	public List<SortOptions>? Sort { get; set; }
 	[JsonPropertyName("_source")]
 	public SourceConfig? Source { get; set; }
 	public List<string>? StoredFields { get; set; }

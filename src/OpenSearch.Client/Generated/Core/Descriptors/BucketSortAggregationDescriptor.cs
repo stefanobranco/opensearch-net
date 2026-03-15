@@ -14,7 +14,7 @@ public sealed class BucketSortAggregationDescriptor
 	public BucketSortAggregationDescriptor GapPolicy(GapPolicy? value) { _value.GapPolicy = value; return this; }
 	/// <summary>The number of buckets to return. Defaults to all buckets of the parent aggregation.</summary>
 		public BucketSortAggregationDescriptor Size(int? value) { _value.Size = value; return this; }
-	public BucketSortAggregationDescriptor Sort(List<System.Text.Json.JsonElement>? value) { _value.Sort = value; return this; }
+	public BucketSortAggregationDescriptor Sort(List<SortOptions>? value) { _value.Sort = value; return this; }
 
 	public static implicit operator BucketSortAggregation(BucketSortAggregationDescriptor descriptor) => descriptor._value;
 }

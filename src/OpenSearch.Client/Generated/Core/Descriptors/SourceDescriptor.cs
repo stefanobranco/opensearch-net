@@ -37,7 +37,7 @@ public sealed class SourceDescriptor
 		_value.Slice = descriptor;
 		return this;
 	}
-	public SourceDescriptor Sort(List<System.Text.Json.JsonElement>? value) { _value.Sort = value; return this; }
+	public SourceDescriptor Sort(List<SortOptions>? value) { _value.Sort = value; return this; }
 	public SourceDescriptor SourceValue(List<string>? value) { _value.SourceValue = value; return this; }
 
 	public static implicit operator Source(SourceDescriptor descriptor) => descriptor._value;
