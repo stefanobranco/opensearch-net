@@ -139,6 +139,26 @@ public sealed class AggregationsDictDescriptor
 		Action<AggregationsDictDescriptor>? subAggs = null) =>
 		AddBucket(name, configure, d => AggregationContainer.IpRange(d), subAggs);
 
+	public AggregationsDictDescriptor DateHistogram<T>(string name,
+		Action<DateHistogramAggregationFieldsDescriptor<T>> configure,
+		Action<AggregationsDictDescriptor>? subAggs = null)
+	{
+		var desc = new DateHistogramAggregationFieldsDescriptor<T>();
+		configure(desc);
+		var element = JsonSerializer.SerializeToElement((DateHistogramAggregationFields<T>)desc);
+		return AddBucket(name, AggregationContainer.DateHistogram(element), subAggs);
+	}
+
+	public AggregationsDictDescriptor Histogram<T>(string name,
+		Action<HistogramAggregationFieldsDescriptor<T>> configure,
+		Action<AggregationsDictDescriptor>? subAggs = null)
+	{
+		var desc = new HistogramAggregationFieldsDescriptor<T>();
+		configure(desc);
+		var element = JsonSerializer.SerializeToElement((HistogramAggregationFields<T>)desc);
+		return AddBucket(name, AggregationContainer.Histogram(element), subAggs);
+	}
+
 	// ── Metric aggregations ──
 
 	public AggregationsDictDescriptor Avg(string name, Action<AverageAggregationDescriptor> configure) =>

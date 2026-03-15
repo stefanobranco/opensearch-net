@@ -139,6 +139,42 @@ public sealed class QueryContainerDescriptor<TDocument>
 		return this;
 	}
 
+	public QueryContainerDescriptor<TDocument> MatchPhrasePrefix(
+		Expression<Func<TDocument, object>> field, Action<MatchPhrasePrefixQueryDescriptor> configure)
+	{
+		var descriptor = new MatchPhrasePrefixQueryDescriptor();
+		configure(descriptor);
+		_value = QueryContainer.MatchPhrasePrefix(Field.ResolveName<TDocument>(field), (MatchPhrasePrefixQuery)descriptor);
+		return this;
+	}
+
+	public QueryContainerDescriptor<TDocument> MatchPhrasePrefix(
+		string field, Action<MatchPhrasePrefixQueryDescriptor> configure)
+	{
+		var descriptor = new MatchPhrasePrefixQueryDescriptor();
+		configure(descriptor);
+		_value = QueryContainer.MatchPhrasePrefix(field, (MatchPhrasePrefixQuery)descriptor);
+		return this;
+	}
+
+	public QueryContainerDescriptor<TDocument> Range(
+		Expression<Func<TDocument, object>> field, Action<RangeQueryDescriptor> configure)
+	{
+		var descriptor = new RangeQueryDescriptor();
+		configure(descriptor);
+		_value = QueryContainer.Range(Field.ResolveName<TDocument>(field), (System.Text.Json.JsonElement)descriptor);
+		return this;
+	}
+
+	public QueryContainerDescriptor<TDocument> Range(
+		string field, Action<RangeQueryDescriptor> configure)
+	{
+		var descriptor = new RangeQueryDescriptor();
+		configure(descriptor);
+		_value = QueryContainer.Range(field, (System.Text.Json.JsonElement)descriptor);
+		return this;
+	}
+
 	public QueryContainerDescriptor<TDocument> Exists(
 		Expression<Func<TDocument, object>> field)
 	{
