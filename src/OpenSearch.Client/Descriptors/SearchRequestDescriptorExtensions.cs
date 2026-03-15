@@ -1,3 +1,4 @@
+using System.Text.Json;
 using OpenSearch.Client.Common;
 
 namespace OpenSearch.Client.Core;
@@ -32,4 +33,30 @@ public static class SearchRequestDescriptorExtensions
 		d._value.Source = SourceConfig.Enabled(fetch);
 		return d;
 	}
+
+	/// <summary>
+	/// Adds named field suggesters to the suggest section, serializing them with
+	/// snake_case property naming. Without this, <c>JsonSerializer.SerializeToElement</c>
+	/// uses PascalCase and OpenSearch silently ignores the unknown property names.
+	/// </summary>
+	public static SuggesterDescriptor Add(this SuggesterDescriptor d,
+		string name, FieldSuggester fieldSuggester)
+	{
+		d._value.AdditionalProperties ??= new();
+		d._value.AdditionalProperties[name] = JsonSerializer.SerializeToElement(
+			fieldSuggester, SuggesterSerializerOptions.Instance);
+		return d;
+	}
+}
+
+/// <summary>
+/// Cached <see cref="JsonSerializerOptions"/> with snake_case naming for suggest serialization.
+/// </summary>
+internal static class SuggesterSerializerOptions
+{
+	internal static readonly JsonSerializerOptions Instance = new()
+	{
+		PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
+		DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
+	};
 }

@@ -1031,4 +1031,40 @@ public class SwissLexPatternTests
 		hf.TryGetProperty("highlight_query", out var hq).Should().BeTrue();
 		hq.GetProperty("bool").GetProperty("should").GetArrayLength().Should().Be(1);
 	}
+
+	[Fact]
+	public void Suggest_Serializes_With_SnakeCase()
+	{
+		// Pattern: QueryExtensions.CreateSuggestQuery — term suggester with min_word_length
+		// Without the SuggesterDescriptor.Add extension, JsonSerializer.SerializeToElement
+		// uses PascalCase ("MinWordLength") and OpenSearch silently ignores it.
+		SearchRequest request = new SearchRequestDescriptor<ElasticAsset>()
+			.Suggest(s => s
+				.Text("bundesgricht")
+				.Add("content", new FieldSuggester
+				{
+					Term = new TermSuggester
+					{
+						Field = "content.all.de",
+						Size = 2,
+						MinWordLength = 5,
+					},
+					Text = "bundesgricht"
+				}));
+
+		var json = JsonSerializer.Serialize(request, JsonOptions);
+		using var doc = JsonDocument.Parse(json);
+
+		var suggest = doc.RootElement.GetProperty("suggest");
+		suggest.GetProperty("text").GetString().Should().Be("bundesgricht");
+
+		var content = suggest.GetProperty("content");
+		var term = content.GetProperty("term");
+		term.GetProperty("field").GetString().Should().Be("content.all.de");
+		term.GetProperty("size").GetInt32().Should().Be(2);
+
+		// This is the critical assertion — without the fix, this would be "MinWordLength" (PascalCase)
+		term.GetProperty("min_word_length").GetInt32().Should().Be(5);
+		term.TryGetProperty("MinWordLength", out _).Should().BeFalse("snake_case should be used, not PascalCase");
+	}
 }
