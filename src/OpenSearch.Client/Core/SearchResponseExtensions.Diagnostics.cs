@@ -1,31 +1,28 @@
 using System.Text;
-using OpenSearch.Client.Common;
 using OpenSearch.Client.Core;
+using OpenSearch.Net;
 
 namespace OpenSearch.Client;
 
 /// <summary>
-/// Diagnostic extension methods for search responses, providing v1-compatible
-/// <c>ServerError</c> and <c>DebugInformation</c> accessors.
+/// Diagnostic extension methods for search responses, providing
+/// shard-failure details and rich debug information.
 /// </summary>
 public static class SearchResponseDiagnosticsExtensions
 {
 	/// <summary>
-	/// Returns the first shard failure reason, or <c>null</c> if no failures occurred.
-	/// Mirrors v1's <c>response.ServerError</c> pattern.
+	/// Returns the first shard failure reason as a formatted string, or <c>null</c> if no failures occurred.
 	/// </summary>
-	public static string? ServerError<TDocument>(this SearchResponse<TDocument> response) =>
+	public static string? ShardError<TDocument>(this SearchResponse<TDocument> response) =>
 		FormatShardError(response.Shards);
 
 	/// <summary>
-	/// Returns a human-readable diagnostic string with response metadata and shard failure details.
-	/// Mirrors v1's <c>response.DebugInformation</c> pattern.
-	/// <code>
-	/// Valid OpenSearch response. Took: 5ms. Shards: 5/5 successful, 0 failed.
-	/// </code>
+	/// Returns a human-readable diagnostic string with response metadata, shard failure details,
+	/// and transport-level call details (HTTP method, URI, status code, audit trail, bodies).
 	/// </summary>
-	public static string DebugInformation<TDocument>(this SearchResponse<TDocument> response) =>
-		BuildDebugInfo(response.IsValid(), response.Took, response.TimedOut, response.Shards);
+	public static string SearchDebugInformation<TDocument>(this SearchResponse<TDocument> response) =>
+		BuildDebugInfo(response.IsValid, response.Took, response.TimedOut, response.Shards,
+			response.ApiCall);
 
 	/// <summary>
 	/// Returns the first shard failure reason for a multi-search response item.
@@ -41,7 +38,7 @@ public static class SearchResponseDiagnosticsExtensions
 		return null;
 	}
 
-	private static string? FormatShardError(ShardStatistics? shards)
+	private static string? FormatShardError(OpenSearch.Client.Common.ShardStatistics? shards)
 	{
 		if (shards?.Failures is not { Count: > 0 } failures)
 			return null;
@@ -59,11 +56,13 @@ public static class SearchResponseDiagnosticsExtensions
 		return sb.ToString();
 	}
 
-	private static string BuildDebugInfo(bool isValid, long took, bool timedOut, ShardStatistics? shards)
+	private static string BuildDebugInfo(
+		bool isValid, long took, bool timedOut, OpenSearch.Client.Common.ShardStatistics? shards,
+		ApiCallDetails? callDetails)
 	{
 		var sb = new StringBuilder();
 
-		// Status line — mirrors NEST's "Valid NEST response built from a successful..."
+		// Status line
 		sb.Append(isValid ? "Valid" : "Invalid");
 		sb.Append(" OpenSearch response.");
 
@@ -111,6 +110,13 @@ public static class SearchResponseDiagnosticsExtensions
 				}
 				sb.AppendLine();
 			}
+		}
+
+		// Transport-level details
+		if (callDetails is not null)
+		{
+			sb.AppendLine();
+			sb.Append(callDetails.DebugInformation());
 		}
 
 		return sb.ToString();

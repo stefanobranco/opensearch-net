@@ -48,6 +48,12 @@ public sealed class TransportConfiguration : ITransportConfiguration
 	/// <inheritdoc />
 	public Func<HttpMessageHandler, HttpMessageHandler>? HttpMessageHandlerFactory { get; }
 
+	/// <inheritdoc />
+	public bool DisableDirectStreaming { get; }
+
+	/// <inheritdoc />
+	public bool ThrowExceptions { get; }
+
 	private TransportConfiguration(
 		INodePool nodePool,
 		IOpenSearchSerializer? serializer,
@@ -62,7 +68,9 @@ public sealed class TransportConfiguration : ITransportConfiguration
 		string? proxyUsername,
 		string? proxyPassword,
 		Action<HttpRequestMessage>? onRequestCreated,
-		Func<HttpMessageHandler, HttpMessageHandler>? httpMessageHandlerFactory)
+		Func<HttpMessageHandler, HttpMessageHandler>? httpMessageHandlerFactory,
+		bool disableDirectStreaming,
+		bool throwExceptions)
 	{
 		NodePool = nodePool;
 		Serializer = serializer;
@@ -78,6 +86,8 @@ public sealed class TransportConfiguration : ITransportConfiguration
 		ProxyPassword = proxyPassword;
 		OnRequestCreated = onRequestCreated;
 		HttpMessageHandlerFactory = httpMessageHandlerFactory;
+		DisableDirectStreaming = disableDirectStreaming;
+		ThrowExceptions = throwExceptions;
 	}
 
 	/// <summary>
@@ -109,6 +119,8 @@ public sealed class TransportConfiguration : ITransportConfiguration
 		private string? _proxyPassword;
 		private Action<HttpRequestMessage>? _onRequestCreated;
 		private Func<HttpMessageHandler, HttpMessageHandler>? _httpMessageHandlerFactory;
+		private bool _disableDirectStreaming;
+		private bool _throwExceptions;
 
 		internal Builder(NodePool nodePool)
 		{
@@ -201,6 +213,27 @@ public sealed class TransportConfiguration : ITransportConfiguration
 		}
 
 		/// <summary>
+		/// Enables buffering of request and response bodies so they are captured in
+		/// <see cref="ApiCallDetails"/>. Useful for debugging; has a memory cost proportional to body size.
+		/// </summary>
+		public Builder DisableDirectStreaming(bool disable = true)
+		{
+			_disableDirectStreaming = disable;
+			return this;
+		}
+
+		/// <summary>
+		/// When enabled, the transport throws <see cref="OpenSearchServerException"/> on HTTP 4xx/5xx
+		/// errors instead of returning a response with <see cref="OpenSearchResponse.IsValid"/> = <c>false</c>.
+		/// Default is <c>false</c>.
+		/// </summary>
+		public Builder ThrowExceptions(bool throwExceptions = true)
+		{
+			_throwExceptions = throwExceptions;
+			return this;
+		}
+
+		/// <summary>
 		/// Builds the immutable <see cref="TransportConfiguration"/>.
 		/// </summary>
 		public TransportConfiguration Build() =>
@@ -218,6 +251,8 @@ public sealed class TransportConfiguration : ITransportConfiguration
 				_proxyUsername,
 				_proxyPassword,
 				_onRequestCreated,
-				_httpMessageHandlerFactory);
+				_httpMessageHandlerFactory,
+				_disableDirectStreaming,
+				_throwExceptions);
 	}
 }

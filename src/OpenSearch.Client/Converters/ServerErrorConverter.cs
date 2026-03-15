@@ -1,54 +1,8 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using OpenSearch.Net;
 
 namespace OpenSearch.Client;
-
-/// <summary>
-/// Represents a structured error returned by OpenSearch.
-/// </summary>
-public sealed class ServerError
-{
-	/// <summary>
-	/// The error type (e.g., <c>"index_not_found_exception"</c>).
-	/// </summary>
-	public string? Type { get; set; }
-
-	/// <summary>
-	/// A human-readable reason for the error.
-	/// </summary>
-	public string? Reason { get; set; }
-
-	/// <summary>
-	/// The HTTP status code associated with this error, if provided in the error body.
-	/// </summary>
-	public int? Status { get; set; }
-
-	/// <summary>
-	/// The underlying cause of the error, if available.
-	/// </summary>
-	public ServerError? CausedBy { get; set; }
-
-	/// <inheritdoc />
-	public override string ToString() =>
-		$"Type: {Type ?? "(none)"}, Reason: \"{Reason ?? "(none)"}\"";
-}
-
-/// <summary>
-/// Represents the top-level error response envelope returned by OpenSearch.
-/// The <c>error</c> field may be a structured object or a plain string.
-/// </summary>
-public sealed class ErrorResponse
-{
-	/// <summary>
-	/// The structured error, if the server returned an object.
-	/// </summary>
-	public ServerError? Error { get; set; }
-
-	/// <summary>
-	/// The HTTP status code from the response envelope.
-	/// </summary>
-	public int Status { get; set; }
-}
 
 /// <summary>
 /// Handles deserialization of OpenSearch error responses, which can appear in two forms:
@@ -57,18 +11,18 @@ public sealed class ErrorResponse
 ///   <item><c>{ "error": "string message", "status": 404 }</c></item>
 /// </list>
 /// </summary>
-public sealed class ServerErrorConverter : JsonConverter<ErrorResponse>
+public sealed class ServerErrorConverter : JsonConverter<ServerError>
 {
 	/// <inheritdoc />
-	public override ErrorResponse? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+	public override ServerError? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
 	{
 		if (reader.TokenType == JsonTokenType.Null)
 			return null;
 
 		if (reader.TokenType != JsonTokenType.StartObject)
-			throw new JsonException($"Expected start of object for {nameof(ErrorResponse)}, got {reader.TokenType}.");
+			throw new JsonException($"Expected start of object for {nameof(ServerError)}, got {reader.TokenType}.");
 
-		var response = new ErrorResponse();
+		var response = new ServerError();
 
 		while (reader.Read() && reader.TokenType != JsonTokenType.EndObject)
 		{
@@ -98,21 +52,21 @@ public sealed class ServerErrorConverter : JsonConverter<ErrorResponse>
 	}
 
 	/// <inheritdoc />
-	public override void Write(Utf8JsonWriter writer, ErrorResponse value, JsonSerializerOptions options)
+	public override void Write(Utf8JsonWriter writer, ServerError value, JsonSerializerOptions options)
 	{
 		writer.WriteStartObject();
 
 		if (value.Error is not null)
 		{
 			writer.WritePropertyName("error");
-			WriteServerError(writer, value.Error, options);
+			WriteErrorCause(writer, value.Error, options);
 		}
 
 		writer.WriteNumber("status", value.Status);
 		writer.WriteEndObject();
 	}
 
-	private static ServerError? ReadError(ref Utf8JsonReader reader, JsonSerializerOptions options)
+	private static ErrorCause? ReadError(ref Utf8JsonReader reader, JsonSerializerOptions options)
 	{
 		switch (reader.TokenType)
 		{
@@ -120,12 +74,12 @@ public sealed class ServerErrorConverter : JsonConverter<ErrorResponse>
 			{
 				// Plain string error: { "error": "some message" }
 				var message = reader.GetString();
-				return new ServerError { Reason = message };
+				return new ErrorCause { Reason = message };
 			}
 
 			case JsonTokenType.StartObject:
 			{
-				return ReadServerErrorObject(ref reader, options);
+				return ReadErrorCauseObject(ref reader, options);
 			}
 
 			default:
@@ -134,9 +88,9 @@ public sealed class ServerErrorConverter : JsonConverter<ErrorResponse>
 		}
 	}
 
-	private static ServerError ReadServerErrorObject(ref Utf8JsonReader reader, JsonSerializerOptions options)
+	private static ErrorCause ReadErrorCauseObject(ref Utf8JsonReader reader, JsonSerializerOptions options)
 	{
-		var error = new ServerError();
+		var error = new ErrorCause();
 
 		while (reader.Read() && reader.TokenType != JsonTokenType.EndObject)
 		{
@@ -156,14 +110,32 @@ public sealed class ServerErrorConverter : JsonConverter<ErrorResponse>
 					error.Reason = reader.GetString();
 					break;
 
-				case "status":
-					error.Status = reader.GetInt32();
+				case "stack_trace":
+					error.StackTrace = reader.GetString();
 					break;
 
 				case "caused_by":
 					error.CausedBy = reader.TokenType == JsonTokenType.StartObject
-						? ReadServerErrorObject(ref reader, options)
+						? ReadErrorCauseObject(ref reader, options)
 						: null;
+					break;
+
+				case "root_cause":
+					if (reader.TokenType == JsonTokenType.StartArray)
+					{
+						error.RootCause = [];
+						while (reader.Read() && reader.TokenType != JsonTokenType.EndArray)
+						{
+							if (reader.TokenType == JsonTokenType.StartObject)
+								error.RootCause.Add(ReadErrorCauseObject(ref reader, options));
+							else
+								reader.Skip();
+						}
+					}
+					else
+					{
+						reader.Skip();
+					}
 					break;
 
 				default:
@@ -175,7 +147,7 @@ public sealed class ServerErrorConverter : JsonConverter<ErrorResponse>
 		return error;
 	}
 
-	private static void WriteServerError(Utf8JsonWriter writer, ServerError error, JsonSerializerOptions options)
+	private static void WriteErrorCause(Utf8JsonWriter writer, ErrorCause error, JsonSerializerOptions options)
 	{
 		writer.WriteStartObject();
 
@@ -185,13 +157,22 @@ public sealed class ServerErrorConverter : JsonConverter<ErrorResponse>
 		if (error.Reason is not null)
 			writer.WriteString("reason", error.Reason);
 
-		if (error.Status is not null)
-			writer.WriteNumber("status", error.Status.Value);
+		if (error.StackTrace is not null)
+			writer.WriteString("stack_trace", error.StackTrace);
 
 		if (error.CausedBy is not null)
 		{
 			writer.WritePropertyName("caused_by");
-			WriteServerError(writer, error.CausedBy, options);
+			WriteErrorCause(writer, error.CausedBy, options);
+		}
+
+		if (error.RootCause is { Count: > 0 })
+		{
+			writer.WritePropertyName("root_cause");
+			writer.WriteStartArray();
+			foreach (var cause in error.RootCause)
+				WriteErrorCause(writer, cause, options);
+			writer.WriteEndArray();
 		}
 
 		writer.WriteEndObject();

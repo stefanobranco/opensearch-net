@@ -3,6 +3,7 @@
 
 using System.Text.Json.Serialization;
 using OpenSearch.Client.Common;
+using OpenSearch.Net;
 
 namespace OpenSearch.Client.Core;
 
@@ -11,7 +12,7 @@ namespace OpenSearch.Client.Core;
 /// Returns results matching a query.
 /// </summary>
 
-public sealed class SearchResponse<TDocument>
+public sealed class SearchResponse<TDocument> : OpenSearchResponse
 {
 	public long Took { get; set; }
 	public bool TimedOut { get; set; }
@@ -30,4 +31,11 @@ public sealed class SearchResponse<TDocument>
 	public string? ScrollId { get; set; }
 	public Dictionary<string, List<System.Text.Json.JsonElement>>? Suggest { get; set; }
 	public bool? TerminatedEarly { get; set; }
+
+	/// <summary>
+	/// Whether this response represents a successful API call with no shard failures.
+	/// </summary>
+	[JsonIgnore]
+	public override bool IsValid =>
+		base.IsValid && (Shards is null || Shards.Failed == 0);
 }

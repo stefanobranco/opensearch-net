@@ -78,4 +78,18 @@ public interface ITransportConfiguration
 	/// The factory receives the default handler and should return a handler that delegates to it.
 	/// </summary>
 	Func<HttpMessageHandler, HttpMessageHandler>? HttpMessageHandlerFactory { get; }
+
+	/// <summary>
+	/// When <c>true</c>, request and response bodies are buffered in memory so they can be
+	/// captured in <see cref="ApiCallDetails"/>. This is useful for debugging but has a
+	/// memory cost proportional to body size. Default is <c>false</c>.
+	/// </summary>
+	bool DisableDirectStreaming { get; }
+
+	/// <summary>
+	/// When <c>true</c>, the transport throws <see cref="OpenSearchServerException"/> on HTTP 4xx/5xx
+	/// errors instead of returning a response with <see cref="OpenSearchResponse.IsValid"/> = <c>false</c>.
+	/// Default is <c>false</c>.
+	/// </summary>
+	bool ThrowExceptions { get; }
 }

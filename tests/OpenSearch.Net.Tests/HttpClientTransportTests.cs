@@ -304,7 +304,7 @@ public class HttpClientTransportTests : IDisposable
 	}
 
 	[Fact]
-	public void Returns400_ThrowsServerException()
+	public void Returns400_ReturnsResponseWithServerError()
 	{
 		var handler = new MockHttpMessageHandler(_ =>
 			new HttpResponseMessage(HttpStatusCode.BadRequest)
@@ -315,6 +315,29 @@ public class HttpClientTransportTests : IDisposable
 			});
 		var transport = CreateTransport(handler, new Uri("http://localhost:9200"));
 		var endpoint = CreateSimpleEndpoint();
+		var response = transport.PerformRequest("request", endpoint);
+
+		response.GetApiCallDetails().Should().NotBeNull();
+		response.GetApiCallDetails()!.HttpStatusCode.Should().Be(400);
+		response.GetApiCallDetails()!.Success.Should().BeFalse();
+		handler.Requests.Should().HaveCount(1); // No retry
+	}
+
+	[Fact]
+	public void Returns400_WithThrowExceptions_ThrowsServerException()
+	{
+		var handler = new MockHttpMessageHandler(_ =>
+			new HttpResponseMessage(HttpStatusCode.BadRequest)
+			{
+				Content = new StringContent(
+					"{\"error\":{\"type\":\"parsing_exception\",\"reason\":\"Unknown key for a VALUE_STRING in [invalid]\"},\"status\":400}",
+					Encoding.UTF8, "application/json")
+			});
+		var config = TransportConfiguration.Create(new Uri("http://localhost:9200"))
+			.ThrowExceptions()
+			.Build();
+		var transport = CreateTransport(handler, config);
+		var endpoint = CreateSimpleEndpoint();
 		var act = () => transport.PerformRequest("request", endpoint);
 		act.Should().Throw<OpenSearchServerException>()
 			.Where(e => e.StatusCode == 400 && e.ErrorType == "parsing_exception");
@@ -322,7 +345,7 @@ public class HttpClientTransportTests : IDisposable
 	}
 
 	[Fact]
-	public void Returns401_ThrowsServerException_NoRetry()
+	public void Returns401_ReturnsResponseWithServerError_NoRetry()
 	{
 		var handler = new MockHttpMessageHandler(_ =>
 			new HttpResponseMessage(HttpStatusCode.Unauthorized)
@@ -333,9 +356,10 @@ public class HttpClientTransportTests : IDisposable
 			});
 		var transport = CreateTransport(handler, new Uri("http://node1:9200"), new Uri("http://node2:9200"));
 		var endpoint = CreateSimpleEndpoint();
-		var act = () => transport.PerformRequest("request", endpoint);
-		act.Should().Throw<OpenSearchServerException>()
-			.Where(e => e.StatusCode == 401);
+		var response = transport.PerformRequest("request", endpoint);
+
+		response.GetApiCallDetails().Should().NotBeNull();
+		response.GetApiCallDetails()!.HttpStatusCode.Should().Be(401);
 		handler.Requests.Should().HaveCount(1);
 	}
 
@@ -358,7 +382,7 @@ public class HttpClientTransportTests : IDisposable
 	}
 
 	[Fact]
-	public void Returns404_OnPostEndpoint_ThrowsServerException()
+	public void Returns404_OnPostEndpoint_ReturnsResponseWithServerError()
 	{
 		var handler = new MockHttpMessageHandler(_ =>
 			new HttpResponseMessage(HttpStatusCode.NotFound)
@@ -373,13 +397,13 @@ public class HttpClientTransportTests : IDisposable
 			requestUrl: _ => "/missing/_search",
 			deserialize: (_, _, body, serializer) =>
 				serializer.Deserialize<TestResponse>(body) ?? new TestResponse());
-		var act = () => transport.PerformRequest("request", endpoint);
-		act.Should().Throw<OpenSearchServerException>()
-			.Where(e => e.StatusCode == 404 && e.ErrorType == "index_not_found_exception");
+		var response = transport.PerformRequest("request", endpoint);
+		response.GetApiCallDetails().Should().NotBeNull();
+		response.GetApiCallDetails()!.HttpStatusCode.Should().Be(404);
 	}
 
 	[Fact]
-	public void Returns409_ThrowsServerException_NoRetry()
+	public void Returns409_ReturnsResponseWithServerError_NoRetry()
 	{
 		var handler = new MockHttpMessageHandler(_ =>
 			new HttpResponseMessage(HttpStatusCode.Conflict)
@@ -390,9 +414,9 @@ public class HttpClientTransportTests : IDisposable
 			});
 		var transport = CreateTransport(handler, new Uri("http://node1:9200"), new Uri("http://node2:9200"));
 		var endpoint = CreateSimpleEndpoint();
-		var act = () => transport.PerformRequest("request", endpoint);
-		act.Should().Throw<OpenSearchServerException>()
-			.Where(e => e.StatusCode == 409);
+		var response = transport.PerformRequest("request", endpoint);
+		response.GetApiCallDetails().Should().NotBeNull();
+		response.GetApiCallDetails()!.HttpStatusCode.Should().Be(409);
 		handler.Requests.Should().HaveCount(1);
 	}
 
@@ -516,6 +540,93 @@ public class HttpClientTransportTests : IDisposable
 		response.Status.Should().Be("not_exists");
 	}
 
+	// ── OpenSearchResponse base class tests ──
+
+	[Fact]
+	public void ServerError_PopulatedOnBaseClass_WhenResponseInherits()
+	{
+		var handler = new MockHttpMessageHandler(_ =>
+			new HttpResponseMessage(HttpStatusCode.BadRequest)
+			{
+				Content = new StringContent(
+					"{\"error\":{\"type\":\"parsing_exception\",\"reason\":\"Bad query\",\"root_cause\":[{\"type\":\"parsing_exception\",\"reason\":\"Bad query\"}]},\"status\":400}",
+					Encoding.UTF8, "application/json")
+			});
+		var transport = CreateTransport(handler, new Uri("http://localhost:9200"));
+		var endpoint = new SimpleEndpoint<string, TestOpenSearchResponse>(
+			method: _ => HttpMethod.Post,
+			requestUrl: _ => "/test/_search",
+			deserialize: (_, _, body, serializer) =>
+				serializer.Deserialize<TestOpenSearchResponse>(body) ?? new TestOpenSearchResponse());
+
+		var response = transport.PerformRequest("request", endpoint);
+
+		response.IsValid.Should().BeFalse();
+		response.ServerError.Should().NotBeNull();
+		response.ServerError!.Status.Should().Be(400);
+		response.ServerError.Error.Should().NotBeNull();
+		response.ServerError.Error!.Type.Should().Be("parsing_exception");
+		response.ServerError.Error.Reason.Should().Be("Bad query");
+		response.ServerError.Error.RootCause.Should().NotBeNull();
+		response.ServerError.Error.RootCause.Should().HaveCount(1);
+		response.ApiCall.Should().NotBeNull();
+		response.ApiCall!.HttpStatusCode.Should().Be(400);
+		response.ApiCall.Success.Should().BeFalse();
+		response.OriginalException.Should().BeNull();
+		response.DebugInformation.Should().Contain("Invalid OpenSearch response");
+	}
+
+	[Fact]
+	public void SuccessfulRequest_PopulatesBaseClass()
+	{
+		var handler = new MockHttpMessageHandler(_ =>
+			new HttpResponseMessage(HttpStatusCode.OK)
+			{
+				Content = new StringContent("{\"value\":\"hello\"}", Encoding.UTF8, "application/json")
+			});
+		var transport = CreateTransport(handler, new Uri("http://localhost:9200"));
+		var endpoint = new SimpleEndpoint<string, TestOpenSearchResponse>(
+			method: _ => HttpMethod.Get,
+			requestUrl: _ => "/_test",
+			deserialize: (_, _, body, serializer) =>
+				serializer.Deserialize<TestOpenSearchResponse>(body) ?? new TestOpenSearchResponse());
+
+		var response = transport.PerformRequest("request", endpoint);
+
+		response.IsValid.Should().BeTrue();
+		response.ServerError.Should().BeNull();
+		response.ApiCall.Should().NotBeNull();
+		response.ApiCall!.HttpStatusCode.Should().Be(200);
+		response.ApiCall.Success.Should().BeTrue();
+	}
+
+	[Fact]
+	public void ServerError_StringError_ParsedCorrectly()
+	{
+		var handler = new MockHttpMessageHandler(_ =>
+			new HttpResponseMessage(HttpStatusCode.Unauthorized)
+			{
+				Content = new StringContent(
+					"{\"error\":\"Security exception\",\"status\":401}",
+					Encoding.UTF8, "application/json")
+			});
+		var transport = CreateTransport(handler, new Uri("http://localhost:9200"));
+		var endpoint = new SimpleEndpoint<string, TestOpenSearchResponse>(
+			method: _ => HttpMethod.Post,
+			requestUrl: _ => "/_test",
+			deserialize: (_, _, body, serializer) =>
+				serializer.Deserialize<TestOpenSearchResponse>(body) ?? new TestOpenSearchResponse());
+
+		var response = transport.PerformRequest("request", endpoint);
+
+		response.IsValid.Should().BeFalse();
+		response.ServerError.Should().NotBeNull();
+		response.ServerError!.Status.Should().Be(401);
+		response.ServerError.Error.Should().NotBeNull();
+		response.ServerError.Error!.Reason.Should().Be("Security exception");
+		response.ServerError.Error.Type.Should().BeNull();
+	}
+
 	// --- Helpers ---
 
 	private HttpClientTransport CreateTransport(MockHttpMessageHandler handler, params Uri[] uris)
@@ -558,6 +669,11 @@ public class HttpClientTransportTests : IDisposable
 	public class TestResponse
 	{
 		public string? Status { get; set; }
+	}
+
+	public class TestOpenSearchResponse : OpenSearchResponse
+	{
+		public string? Value { get; set; }
 	}
 }
 

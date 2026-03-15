@@ -260,6 +260,13 @@ public sealed class QueryContainerDescriptor<TDocument>
 		return this;
 	}
 
+	/// <summary>Creates a match_all query with default settings.</summary>
+	public QueryContainerDescriptor<TDocument> MatchAll()
+	{
+		_value = QueryContainer.MatchAll(new MatchAllQuery());
+		return this;
+	}
+
 	public QueryContainerDescriptor<TDocument> MatchNone(Action<MatchNoneQueryDescriptor> configure)
 	{
 		var descriptor = new MatchNoneQueryDescriptor();

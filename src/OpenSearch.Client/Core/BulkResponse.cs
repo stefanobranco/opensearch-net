@@ -1,12 +1,13 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using OpenSearch.Net;
 
 namespace OpenSearch.Client.Core;
 
 /// <summary>
 /// Response from the bulk API.
 /// </summary>
-public sealed class BulkResponse
+public sealed class BulkResponse : OpenSearchResponse
 {
 	/// <summary>How long the operation took, in milliseconds.</summary>
 	public long Took { get; set; }
@@ -16,6 +17,14 @@ public sealed class BulkResponse
 
 	/// <summary>The results of each operation, in order.</summary>
 	public List<BulkResponseItem>? Items { get; set; }
+
+	/// <summary>Returns items that had errors (status >= 400).</summary>
+	public IEnumerable<BulkResponseItem> ItemsWithErrors =>
+		Items?.Where(i =>
+		{
+			var result = i.Index ?? i.Create ?? i.Update ?? i.Delete;
+			return result is not null && result.Status >= 400;
+		}) ?? [];
 }
 
 /// <summary>

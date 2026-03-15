@@ -22,6 +22,11 @@ public class TransportException : Exception
 	public RequestAuditTrail? AuditTrail { get; init; }
 
 	/// <summary>
+	/// Transport-level call details captured at the time of the failure.
+	/// </summary>
+	public ApiCallDetails? ApiCallDetails { get; init; }
+
+	/// <summary>
 	/// Creates a new <see cref="TransportException"/> with the given message.
 	/// </summary>
 	public TransportException(string message) : base(message) { }

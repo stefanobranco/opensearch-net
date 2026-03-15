@@ -24,13 +24,6 @@ public static class SearchResponseExtensions
 		=> response.Hits?.Total?.Value ?? 0;
 
 	/// <summary>
-	/// Returns <c>true</c> if the response has no shard failures.
-	/// The transport layer throws on HTTP errors, so this checks shard-level failures.
-	/// </summary>
-	public static bool IsValid<TDocument>(this SearchResponse<TDocument> response)
-		=> response.Shards is not null && response.Shards.Failed == 0;
-
-	/// <summary>
 	/// Returns a typed <see cref="AggregateDictionary"/> for accessing aggregation results.
 	/// </summary>
 	public static AggregateDictionary Aggs<TDocument>(this SearchResponse<TDocument> response)

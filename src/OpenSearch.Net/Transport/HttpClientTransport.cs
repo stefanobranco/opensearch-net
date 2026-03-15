@@ -57,6 +57,7 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 		var maxRetries = _configuration.MaxRetries;
 		var nodePool = _configuration.NodePool;
 		var mergedOptions = MergeOptions(options);
+		var captureBody = ResolveDisableDirectStreaming(mergedOptions);
 		RequestAuditTrail? auditTrail = null;
 
 		Exception? lastException = null;
@@ -77,13 +78,16 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 			{
 				var client = _httpClientFactory.GetClient();
 
-				using var requestMessage = BuildRequestMessage(request, endpoint, node, mergedOptions);
+				byte[]? requestBodyBytes = null;
+				using var requestMessage = BuildRequestMessage(request, endpoint, node, mergedOptions,
+					captureBody, out requestBodyBytes);
 				GetAuditTrail(ref auditTrail).Add(AuditEventType.RequestSent, node);
 
 				using var responseMessage = client.Send(requestMessage, HttpCompletionOption.ResponseHeadersRead);
 				sw.Stop();
 
 				var statusCode = (int)responseMessage.StatusCode;
+				var method = endpoint.Method(request);
 				GetAuditTrail(ref auditTrail).Add(AuditEventType.ResponseReceived, node, statusCode, duration: sw.Elapsed);
 
 				ProcessWarningHeaders(responseMessage, mergedOptions);
@@ -101,18 +105,45 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 
 				nodePool.MarkAlive(node);
 
-				var method = endpoint.Method(request);
-
 				if (IsServerError(statusCode, method))
 				{
-					using var errorStream = responseMessage.Content.ReadAsStream();
-					ThrowServerError(statusCode, errorStream, node);
+					var errorBytes = ReadAllBytes(responseMessage.Content.ReadAsStream());
+					var serverError = ParseServerError(statusCode, errorBytes);
+
+					if (_configuration.ThrowExceptions)
+						ThrowServerError(serverError, statusCode, node);
+
+					var response = (TResponse?)Activator.CreateInstance(typeof(TResponse))
+						?? throw new InvalidOperationException($"Cannot create instance of {typeof(TResponse)}");
+
+					AttachApiCallDetails(response, method, requestMessage.RequestUri!, node, statusCode,
+						sw.Elapsed, auditTrail, requestBodyBytes, errorBytes, exception: null, serverError);
+
+					return response;
 				}
 
-				using var bodyStream = responseMessage.Content.ReadAsStream();
-				var contentType = responseMessage.Content.Headers.ContentType?.MediaType;
+				byte[]? responseBodyBytes = null;
+				Stream deserializationStream;
+				if (captureBody)
+				{
+					responseBodyBytes = ReadAllBytes(responseMessage.Content.ReadAsStream());
+					deserializationStream = new MemoryStream(responseBodyBytes);
+				}
+				else
+				{
+					deserializationStream = responseMessage.Content.ReadAsStream();
+				}
 
-				return endpoint.DeserializeResponse(statusCode, contentType, bodyStream, _serializer);
+				using (deserializationStream)
+				{
+					var contentType = responseMessage.Content.Headers.ContentType?.MediaType;
+					var response = endpoint.DeserializeResponse(statusCode, contentType, deserializationStream, _serializer);
+
+					AttachApiCallDetails(response, method, requestMessage.RequestUri!, node, statusCode,
+						sw.Elapsed, auditTrail, requestBodyBytes, responseBodyBytes, exception: null, serverError: null);
+
+					return response;
+				}
 			}
 			catch (Exception ex) when (IsRetryableException(ex, isSync: true))
 			{
@@ -140,6 +171,7 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 		var maxRetries = _configuration.MaxRetries;
 		var nodePool = _configuration.NodePool;
 		var mergedOptions = MergeOptions(options);
+		var captureBody = ResolveDisableDirectStreaming(mergedOptions);
 		RequestAuditTrail? auditTrail = null;
 
 		Exception? lastException = null;
@@ -160,8 +192,9 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 			{
 				var client = _httpClientFactory.GetClient();
 
-				using var requestMessage = await BuildRequestMessageAsync(request, endpoint, node, mergedOptions, ct)
-					.ConfigureAwait(false);
+				byte[]? requestBodyBytes = null;
+				using var requestMessage = BuildRequestMessage(request, endpoint, node, mergedOptions,
+					captureBody, out requestBodyBytes);
 				GetAuditTrail(ref auditTrail).Add(AuditEventType.RequestSent, node);
 
 				using var responseMessage = await client
@@ -170,6 +203,7 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 				sw.Stop();
 
 				var statusCode = (int)responseMessage.StatusCode;
+				var method = endpoint.Method(request);
 				GetAuditTrail(ref auditTrail).Add(AuditEventType.ResponseReceived, node, statusCode, duration: sw.Elapsed);
 
 				ProcessWarningHeaders(responseMessage, mergedOptions);
@@ -187,18 +221,49 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 
 				nodePool.MarkAlive(node);
 
-				var method = endpoint.Method(request);
-
 				if (IsServerError(statusCode, method))
 				{
-					using var errorStream = await responseMessage.Content.ReadAsStreamAsync(ct).ConfigureAwait(false);
-					ThrowServerError(statusCode, errorStream, node);
+					var errorBytes = await ReadAllBytesAsync(
+						await responseMessage.Content.ReadAsStreamAsync(ct).ConfigureAwait(false), ct)
+						.ConfigureAwait(false);
+					var serverError = ParseServerError(statusCode, errorBytes);
+
+					if (_configuration.ThrowExceptions)
+						ThrowServerError(serverError, statusCode, node);
+
+					var response = (TResponse?)Activator.CreateInstance(typeof(TResponse))
+						?? throw new InvalidOperationException($"Cannot create instance of {typeof(TResponse)}");
+
+					AttachApiCallDetails(response, method, requestMessage.RequestUri!, node, statusCode,
+						sw.Elapsed, auditTrail, requestBodyBytes, errorBytes, exception: null, serverError);
+
+					return response;
 				}
 
-				using var bodyStream = await responseMessage.Content.ReadAsStreamAsync(ct).ConfigureAwait(false);
-				var contentType = responseMessage.Content.Headers.ContentType?.MediaType;
+				byte[]? responseBodyBytes = null;
+				Stream deserializationStream;
+				if (captureBody)
+				{
+					responseBodyBytes = await ReadAllBytesAsync(
+						await responseMessage.Content.ReadAsStreamAsync(ct).ConfigureAwait(false), ct)
+						.ConfigureAwait(false);
+					deserializationStream = new MemoryStream(responseBodyBytes);
+				}
+				else
+				{
+					deserializationStream = await responseMessage.Content.ReadAsStreamAsync(ct).ConfigureAwait(false);
+				}
 
-				return endpoint.DeserializeResponse(statusCode, contentType, bodyStream, _serializer);
+				using (deserializationStream)
+				{
+					var contentType = responseMessage.Content.Headers.ContentType?.MediaType;
+					var response = endpoint.DeserializeResponse(statusCode, contentType, deserializationStream, _serializer);
+
+					AttachApiCallDetails(response, method, requestMessage.RequestUri!, node, statusCode,
+						sw.Elapsed, auditTrail, requestBodyBytes, responseBodyBytes, exception: null, serverError: null);
+
+					return response;
+				}
 			}
 			catch (Exception ex) when (IsRetryableException(ex, isSync: false, ct))
 			{
@@ -217,19 +282,20 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 	}
 
 	/// <summary>
-	/// Returns true for 4xx/5xx responses that should throw, excluding HEAD requests
-	/// (status conveyed via deserialization) and GET 404 (valid "not found" with Found=false).
+	/// Returns true for 4xx/5xx responses that should be treated as server errors, excluding HEAD requests
+	/// (status conveyed via deserialization) and GET/DELETE 404 (valid "not found" with Found=false).
 	/// </summary>
 	private static bool IsServerError(int statusCode, HttpMethod method) =>
 		statusCode >= 400
 		&& method != HttpMethod.Head
 		&& (statusCode != 404 || (method != HttpMethod.Get && method != HttpMethod.Delete));
 
-	[System.Diagnostics.CodeAnalysis.DoesNotReturn]
-	private static void ThrowServerError(int statusCode, Stream body, Node node)
+	/// <summary>
+	/// Parses a server error response body into a <see cref="ServerError"/> object.
+	/// </summary>
+	private static ServerError ParseServerError(int statusCode, byte[] body)
 	{
-		string? errorType = null;
-		string? reason = null;
+		ErrorCause? errorCause = null;
 
 		try
 		{
@@ -239,23 +305,55 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 			{
 				if (errorProp.ValueKind == JsonValueKind.Object)
 				{
-					if (errorProp.TryGetProperty("type", out var typeProp))
-						errorType = typeProp.GetString();
-					if (errorProp.TryGetProperty("reason", out var reasonProp))
-						reason = reasonProp.GetString();
+					errorCause = ReadErrorCause(errorProp);
 				}
 				else if (errorProp.ValueKind == JsonValueKind.String)
 				{
-					reason = errorProp.GetString();
+					errorCause = new ErrorCause { Reason = errorProp.GetString() };
 				}
 			}
 		}
 		catch
 		{
-			// Body may not be valid JSON; throw with whatever we have.
+			// Body may not be valid JSON; return with whatever we have.
 		}
 
-		throw new OpenSearchServerException(errorType, reason, statusCode, node);
+		return new ServerError { Error = errorCause, Status = statusCode };
+	}
+
+	private static ErrorCause ReadErrorCause(JsonElement element)
+	{
+		var cause = new ErrorCause();
+
+		if (element.TryGetProperty("type", out var typeProp))
+			cause.Type = typeProp.GetString();
+
+		if (element.TryGetProperty("reason", out var reasonProp))
+			cause.Reason = reasonProp.GetString();
+
+		if (element.TryGetProperty("stack_trace", out var stackProp))
+			cause.StackTrace = stackProp.GetString();
+
+		if (element.TryGetProperty("caused_by", out var causedByProp) && causedByProp.ValueKind == JsonValueKind.Object)
+			cause.CausedBy = ReadErrorCause(causedByProp);
+
+		if (element.TryGetProperty("root_cause", out var rootCauseProp) && rootCauseProp.ValueKind == JsonValueKind.Array)
+		{
+			cause.RootCause = [];
+			foreach (var item in rootCauseProp.EnumerateArray())
+			{
+				if (item.ValueKind == JsonValueKind.Object)
+					cause.RootCause.Add(ReadErrorCause(item));
+			}
+		}
+
+		return cause;
+	}
+
+	[System.Diagnostics.CodeAnalysis.DoesNotReturn]
+	private static void ThrowServerError(ServerError serverError, int statusCode, Node node)
+	{
+		throw new OpenSearchServerException(serverError, statusCode, node);
 	}
 
 	private static bool IsRetryableException(Exception ex, bool isSync, CancellationToken ct = default) =>
@@ -294,10 +392,20 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 		else
 			inner = new InvalidOperationException("No attempts were made.");
 
+		var callDetails = new ApiCallDetails
+		{
+			HttpStatusCode = lastRetryableStatusCode,
+			Node = lastRetryableNode!,
+			Success = false,
+			AuditTrail = auditTrail,
+			OriginalException = lastException
+		};
+
 		throw new TransportException(
 			"Maximum number of retries exhausted. No healthy nodes available.", inner)
 		{
-			AuditTrail = auditTrail
+			AuditTrail = auditTrail,
+			ApiCallDetails = callDetails
 		};
 	}
 
@@ -308,28 +416,32 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 		TRequest request,
 		IEndpoint<TRequest, TResponse> endpoint,
 		Node node,
-		TransportOptions? options)
+		TransportOptions? options,
+		bool captureBody,
+		out byte[]? requestBodyBytes)
 	{
 		var message = CreateBaseRequestMessage(request, endpoint, node, options);
+		requestBodyBytes = null;
 
 		var body = endpoint.GetBody(request);
 		if (body is not null)
-			message.Content = new RequestBodyContent(body, _serializer);
+		{
+			if (captureBody)
+			{
+				using var ms = new MemoryStream();
+				body.WriteTo(ms, _serializer);
+				requestBodyBytes = ms.ToArray();
+				message.Content = new ByteArrayContent(requestBodyBytes);
+				message.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(body.ContentType);
+			}
+			else
+			{
+				message.Content = new RequestBodyContent(body, _serializer);
+			}
+		}
 
 		_configuration.OnRequestCreated?.Invoke(message);
 		return message;
-	}
-
-	private ValueTask<HttpRequestMessage> BuildRequestMessageAsync<TRequest, TResponse>(
-		TRequest request,
-		IEndpoint<TRequest, TResponse> endpoint,
-		Node node,
-		TransportOptions? options,
-		CancellationToken ct)
-	{
-		// Body serialization is now deferred to the HttpContent stream write,
-		// so async pre-serialization is no longer needed.
-		return new ValueTask<HttpRequestMessage>(BuildRequestMessage(request, endpoint, node, options));
 	}
 
 	private HttpRequestMessage CreateBaseRequestMessage<TRequest, TResponse>(
@@ -405,6 +517,63 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 		return null;
 	}
 
+	private bool ResolveDisableDirectStreaming(TransportOptions? mergedOptions) =>
+		mergedOptions?.DisableDirectStreaming ?? _configuration.DisableDirectStreaming;
+
+	private static void AttachApiCallDetails<TResponse>(
+		TResponse response,
+		HttpMethod method,
+		Uri uri,
+		Node node,
+		int statusCode,
+		TimeSpan duration,
+		RequestAuditTrail? auditTrail,
+		byte[]? requestBodyBytes,
+		byte[]? responseBodyBytes,
+		Exception? exception,
+		ServerError? serverError)
+	{
+		if (response is null) return;
+
+		var details = new ApiCallDetails
+		{
+			HttpMethod = method,
+			Uri = uri,
+			Node = node,
+			HttpStatusCode = statusCode,
+			Success = statusCode is >= 200 and < 300,
+			Duration = duration,
+			AuditTrail = auditTrail,
+			RequestBodyBytes = requestBodyBytes,
+			ResponseBodyBytes = responseBodyBytes,
+			OriginalException = exception
+		};
+
+		// Populate base class properties directly when available
+		if (response is OpenSearchResponse osResponse)
+		{
+			osResponse.ApiCall = details;
+			osResponse.ServerError = serverError;
+		}
+
+		// Also attach via ConditionalWeakTable for backward compatibility
+		ApiCallDetailsStore.Attach(response, details);
+	}
+
+	private static byte[] ReadAllBytes(Stream stream)
+	{
+		using var ms = new MemoryStream();
+		stream.CopyTo(ms);
+		return ms.ToArray();
+	}
+
+	private static async Task<byte[]> ReadAllBytesAsync(Stream stream, CancellationToken ct)
+	{
+		using var ms = new MemoryStream();
+		await stream.CopyToAsync(ms, ct).ConfigureAwait(false);
+		return ms.ToArray();
+	}
+
 	private TransportOptions? MergeOptions(TransportOptions? perRequest)
 	{
 		if (perRequest is null)
@@ -417,7 +586,8 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 		{
 			Headers = MergeDictionaries(DefaultOptions.Headers, perRequest.Headers),
 			QueryParameters = MergeDictionaries(DefaultOptions.QueryParameters, perRequest.QueryParameters),
-			WarningsHandler = perRequest.WarningsHandler ?? DefaultOptions.WarningsHandler
+			WarningsHandler = perRequest.WarningsHandler ?? DefaultOptions.WarningsHandler,
+			DisableDirectStreaming = perRequest.DisableDirectStreaming ?? DefaultOptions.DisableDirectStreaming
 		};
 	}
 

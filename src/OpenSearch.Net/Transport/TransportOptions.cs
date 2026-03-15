@@ -19,4 +19,11 @@ public sealed record TransportOptions
 	/// Callback invoked with any warning headers returned by the server.
 	/// </summary>
 	public Action<string>? WarningsHandler { get; init; }
+
+	/// <summary>
+	/// Per-request override for <see cref="ITransportConfiguration.DisableDirectStreaming"/>.
+	/// When <c>true</c>, request and response bodies are buffered for capture in <see cref="ApiCallDetails"/>.
+	/// When <c>null</c>, the global configuration value is used.
+	/// </summary>
+	public bool? DisableDirectStreaming { get; init; }
 }

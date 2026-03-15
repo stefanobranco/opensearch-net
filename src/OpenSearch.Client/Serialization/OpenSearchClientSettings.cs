@@ -81,6 +81,12 @@ public sealed class OpenSearchClientSettings : IOpenSearchClientSettings
 	/// <inheritdoc />
 	public Func<HttpMessageHandler, HttpMessageHandler>? HttpMessageHandlerFactory => _transport.HttpMessageHandlerFactory;
 
+	/// <inheritdoc />
+	public bool DisableDirectStreaming => _transport.DisableDirectStreaming;
+
+	/// <inheritdoc />
+	public bool ThrowExceptions => _transport.ThrowExceptions;
+
 	/// <summary>
 	/// Creates a builder configured with the given <paramref name="nodePool"/>.
 	/// </summary>
@@ -201,6 +207,27 @@ public sealed class OpenSearchClientSettings : IOpenSearchClientSettings
 		public Builder HttpMessageHandlerFactory(Func<HttpMessageHandler, HttpMessageHandler> factory)
 		{
 			_transportBuilder.HttpMessageHandlerFactory(factory);
+			return this;
+		}
+
+		/// <summary>
+		/// Enables buffering of request and response bodies so they are captured in
+		/// <see cref="ApiCallDetails"/>. Useful for debugging; has a memory cost proportional to body size.
+		/// </summary>
+		public Builder DisableDirectStreaming(bool disable = true)
+		{
+			_transportBuilder.DisableDirectStreaming(disable);
+			return this;
+		}
+
+		/// <summary>
+		/// When enabled, the transport throws <see cref="OpenSearchServerException"/> on HTTP 4xx/5xx
+		/// errors instead of returning a response with <see cref="OpenSearchResponse.IsValid"/> = <c>false</c>.
+		/// Default is <c>false</c>.
+		/// </summary>
+		public Builder ThrowExceptions(bool throwExceptions = true)
+		{
+			_transportBuilder.ThrowExceptions(throwExceptions);
 			return this;
 		}
 

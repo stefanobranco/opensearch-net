@@ -240,6 +240,8 @@ public sealed class QueryContainerDescriptor
 		_value = QueryContainer.MatchAll(((MatchAllQuery)descriptor)!);
 		return this;
 	}
+	/// <summary>Creates a MatchAll variant with default settings.</summary>
+	public QueryContainerDescriptor MatchAll() { _value = QueryContainer.MatchAll(new MatchAllQuery()); return this; }
 	/// <summary>Creates a MatchBoolPrefix variant.</summary>
 	public QueryContainerDescriptor MatchBoolPrefix(Dictionary<string, MatchBoolPrefixQuery> value) { _value = QueryContainer.MatchBoolPrefix(value); return this; }
 	/// <summary>Creates a MatchBoolPrefix variant for a single field.</summary>

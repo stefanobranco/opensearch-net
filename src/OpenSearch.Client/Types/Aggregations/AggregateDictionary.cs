@@ -92,23 +92,26 @@ public sealed class AggregateDictionary
 
 	// ── Bucket accessors ──
 
-	public IReadOnlyList<TermsBucket>? Terms(string name) =>
-		ParseBuckets<TermsBucket>(name);
+	public BucketAggregate<TermsBucket>? Terms(string name) =>
+		WrapBuckets(ParseBuckets<TermsBucket>(name));
 
-	public IReadOnlyList<DateHistogramBucket>? DateHistogram(string name) =>
-		ParseBuckets<DateHistogramBucket>(name);
+	public BucketAggregate<DateHistogramBucket>? DateHistogram(string name) =>
+		WrapBuckets(ParseBuckets<DateHistogramBucket>(name));
 
-	public IReadOnlyList<HistogramBucket>? Histogram(string name) =>
-		ParseBuckets<HistogramBucket>(name);
+	public BucketAggregate<HistogramBucket>? Histogram(string name) =>
+		WrapBuckets(ParseBuckets<HistogramBucket>(name));
 
-	public IReadOnlyList<RangeBucket>? Range(string name) =>
-		ParseBuckets<RangeBucket>(name);
+	public BucketAggregate<RangeBucket>? Range(string name) =>
+		WrapBuckets(ParseBuckets<RangeBucket>(name));
 
-	public IReadOnlyList<CompositeBucket>? Composite(string name) =>
-		ParseBuckets<CompositeBucket>(name);
+	public BucketAggregate<CompositeBucket>? Composite(string name) =>
+		WrapBuckets(ParseBuckets<CompositeBucket>(name));
 
-	public IReadOnlyList<SignificantTermsBucket>? SignificantTerms(string name) =>
-		ParseBuckets<SignificantTermsBucket>(name);
+	public BucketAggregate<SignificantTermsBucket>? SignificantTerms(string name) =>
+		WrapBuckets(ParseBuckets<SignificantTermsBucket>(name));
+
+	private static BucketAggregate<T>? WrapBuckets<T>(IReadOnlyList<T>? buckets) =>
+		buckets is not null ? new BucketAggregate<T>(buckets) : null;
 
 	public FilterBucket? Filter(string name)
 	{
@@ -131,6 +134,15 @@ public sealed class AggregateDictionary
 	}
 
 	// ── Raw access ──
+
+	/// <summary>Returns all aggregation names in this dictionary.</summary>
+	public IReadOnlyCollection<string> Keys => _raw.Keys;
+
+	/// <summary>Returns the number of aggregations.</summary>
+	public int Count => _raw.Count;
+
+	/// <summary>Returns whether an aggregation with the given name exists.</summary>
+	public bool ContainsKey(string name) => _raw.ContainsKey(name);
 
 	public Aggregate<JsonElement>? GetRaw(string name) => TryGet(name, out var a) ? a : null;
 

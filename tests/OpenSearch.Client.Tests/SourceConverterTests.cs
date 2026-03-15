@@ -83,6 +83,8 @@ public class SourceConverterTests
 		public string? ProxyPassword => null;
 		public Action<HttpRequestMessage>? OnRequestCreated => null;
 		public Func<HttpMessageHandler, HttpMessageHandler>? HttpMessageHandlerFactory => null;
+		public bool DisableDirectStreaming => false;
+		public bool ThrowExceptions => false;
 	}
 
 	[Fact]

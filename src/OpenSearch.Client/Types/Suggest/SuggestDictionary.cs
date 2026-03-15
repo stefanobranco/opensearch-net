@@ -18,6 +18,12 @@ public sealed class SuggestDictionary<TDocument>
 
 	public SuggestDictionary(Dictionary<string, List<JsonElement>>? raw) => _raw = raw;
 
+	/// <summary>Returns all suggest names.</summary>
+	public IReadOnlyCollection<string> Keys => (IReadOnlyCollection<string>?)_raw?.Keys ?? Array.Empty<string>();
+
+	/// <summary>Returns whether a suggest with the given name exists.</summary>
+	public bool ContainsKey(string name) => _raw?.ContainsKey(name) ?? false;
+
 	/// <summary>Retrieves term suggest entries by name.</summary>
 	public IReadOnlyList<SuggestEntry<TermSuggestOption>>? GetTerm(string name)
 		=> Deserialize<SuggestEntry<TermSuggestOption>>(name);

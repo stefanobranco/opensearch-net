@@ -127,7 +127,7 @@ public class SearchResponseExtensionsTests
 		""";
 
 		var response = JsonSerializer.Deserialize<SearchResponse<TestDoc>>(json, JsonOptions)!;
-		response.IsValid().Should().BeTrue();
+		response.IsValid.Should().BeTrue();
 	}
 
 	[Fact]
@@ -143,14 +143,16 @@ public class SearchResponseExtensionsTests
 		""";
 
 		var response = JsonSerializer.Deserialize<SearchResponse<TestDoc>>(json, JsonOptions)!;
-		response.IsValid().Should().BeFalse();
+		response.IsValid.Should().BeFalse();
 	}
 
 	[Fact]
-	public void IsValid_NullShards_ReturnsFalse()
+	public void IsValid_NullShards_AndNoApiCall_ReturnsTrue()
 	{
+		// A manually constructed response with no ApiCall and no Shards
+		// is considered valid (no transport details to indicate failure).
 		var response = new SearchResponse<TestDoc>();
-		response.IsValid().Should().BeFalse();
+		response.IsValid.Should().BeTrue();
 	}
 
 	// ── Aggs() ──

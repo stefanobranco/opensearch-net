@@ -1,16 +1,55 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using OpenSearch.Net;
 
 namespace OpenSearch.Client.Core;
 
 /// <summary>Response from the msearch API.</summary>
-public sealed class MsearchResponse
+public sealed class MsearchResponse : OpenSearchResponse
 {
 	/// <summary>How long the operation took, in milliseconds.</summary>
 	public long Took { get; set; }
 
 	/// <summary>The list of search responses, one per search in the request.</summary>
 	public List<MsearchResponseItem>? Responses { get; set; }
+
+	/// <summary>
+	/// Returns typed search responses for all items in the multi-search response.
+	/// Each item's hits are deserialized into <typeparamref name="T"/>.
+	/// </summary>
+	public IReadOnlyList<MsearchTypedResponse<T>> GetResponses<T>(JsonSerializerOptions? options = null)
+	{
+		if (Responses is null) return [];
+		return Responses.Select(item => new MsearchTypedResponse<T>
+		{
+			Status = item.Status,
+			Took = item.Took,
+			TimedOut = item.TimedOut,
+			Hits = item.GetHits<T>(options),
+			Aggregations = item.GetAggregations(),
+			Error = item.Error,
+		}).ToList();
+	}
+}
+
+/// <summary>A typed multi-search response item with deserialized hits.</summary>
+public sealed class MsearchTypedResponse<T>
+{
+	public int? Status { get; init; }
+	public long? Took { get; init; }
+	public bool? TimedOut { get; init; }
+	public IReadOnlyList<Hit<T>> Hits { get; init; } = [];
+	public AggregateDictionary? Aggregations { get; init; }
+	public JsonElement? Error { get; init; }
+
+	/// <summary>Whether this individual search response is successful (2xx and no error).</summary>
+	public bool IsValid => Status is null or (>= 200 and < 300) && Error is null;
+
+	/// <summary>Returns the source documents from all hits.</summary>
+	public IReadOnlyList<T> Documents => Hits
+		.Where(h => h.Source is not null)
+		.Select(h => h.Source!)
+		.ToList();
 }
 
 /// <summary>A single search response within a multi-search response. On failure, <see cref="Error"/> is populated instead of <see cref="Hits"/>.</summary>
