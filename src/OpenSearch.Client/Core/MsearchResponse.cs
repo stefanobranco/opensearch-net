@@ -27,6 +27,7 @@ public sealed class MsearchResponse : OpenSearchResponse
 			TimedOut = item.TimedOut,
 			Hits = item.GetHits<T>(options),
 			Aggregations = item.GetAggregations(),
+			Suggest = item.GetSuggest<T>(),
 			Error = item.Error,
 		}).ToList();
 	}
@@ -41,6 +42,9 @@ public sealed class MsearchTypedResponse<T>
 	public IReadOnlyList<Hit<T>> Hits { get; init; } = [];
 	public AggregateDictionary? Aggregations { get; init; }
 	public JsonElement? Error { get; init; }
+
+	/// <summary>Raw suggest data from this search response item.</summary>
+	public SuggestDictionary<T>? Suggest { get; init; }
 
 	/// <summary>Whether this individual search response is successful (2xx and no error).</summary>
 	public bool IsValid => Status is null or (>= 200 and < 300) && Error is null;
@@ -91,6 +95,19 @@ public sealed class MsearchResponseItem
 			.Where(h => h is not null)
 			.Select(h => h!)
 			.ToList();
+	}
+
+	/// <summary>
+	/// Parses the raw suggest JsonElement into a typed <see cref="SuggestDictionary{T}"/>.
+	/// </summary>
+	public SuggestDictionary<T>? GetSuggest<T>()
+	{
+		if (Suggest is null || Suggest.Value.ValueKind == JsonValueKind.Undefined)
+			return null;
+
+		var raw = JsonSerializer.Deserialize<Dictionary<string, List<JsonElement>>>(
+			Suggest.Value.GetRawText(), s_options);
+		return new SuggestDictionary<T>(raw);
 	}
 
 	/// <summary>

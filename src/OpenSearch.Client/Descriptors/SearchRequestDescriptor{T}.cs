@@ -71,7 +71,7 @@ public sealed class SearchRequestDescriptor<TDocument>
 		return this;
 	}
 
-	public SearchRequestDescriptor<TDocument> Sort(List<SortOptions>? value) { _value.Sort = value; return this; }
+	public SearchRequestDescriptor<TDocument> Sort(IEnumerable<SortOptions> value) { _value.Sort = value?.ToList(); return this; }
 	public SearchRequestDescriptor<TDocument> Sort(params SortOptions[] sorts) { _value.Sort = sorts.ToList(); return this; }
 
 	public SearchRequestDescriptor<TDocument> Source(SourceConfig? value) { _value.Source = value; return this; }
@@ -86,6 +86,7 @@ public sealed class SearchRequestDescriptor<TDocument>
 	public SearchRequestDescriptor<TDocument> Profile(bool? value) { _value.Profile = value; return this; }
 	public SearchRequestDescriptor<TDocument> TrackScores(bool? value) { _value.TrackScores = value; return this; }
 	public SearchRequestDescriptor<TDocument> TrackTotalHits(System.Text.Json.JsonElement? value) { _value.TrackTotalHits = value; return this; }
+	public SearchRequestDescriptor<TDocument> TrackTotalHits(bool value) { _value.TrackTotalHits = System.Text.Json.JsonSerializer.SerializeToElement(value); return this; }
 	public SearchRequestDescriptor<TDocument> Version(bool? value) { _value.Version = value; return this; }
 	public SearchRequestDescriptor<TDocument> SeqNoPrimaryTerm(bool? value) { _value.SeqNoPrimaryTerm = value; return this; }
 	public SearchRequestDescriptor<TDocument> Timeout(string? value) { _value.Timeout = value; return this; }
@@ -139,6 +140,7 @@ public sealed class SearchRequestDescriptor<TDocument>
 	// ── Query-string parameters ──
 
 	public SearchRequestDescriptor<TDocument> Index(List<string>? value) { _value.Index = value; return this; }
+	public SearchRequestDescriptor<TDocument> Index(string value) { _value.Index = [value]; return this; }
 	public SearchRequestDescriptor<TDocument> Scroll(string? value) { _value.Scroll = value; return this; }
 	public SearchRequestDescriptor<TDocument> Routing(System.Text.Json.JsonElement? value) { _value.Routing = value; return this; }
 	public SearchRequestDescriptor<TDocument> Preference(string? value) { _value.Preference = value; return this; }

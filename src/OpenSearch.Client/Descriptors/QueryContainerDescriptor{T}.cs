@@ -412,5 +412,49 @@ public sealed class QueryContainerDescriptor<TDocument>
 		return this;
 	}
 
+	// ── Pass-through queries (no field expression needed) ──
+
+	public QueryContainerDescriptor<TDocument> MoreLikeThis(MoreLikeThisQuery value)
+	{
+		_value = QueryContainer.MoreLikeThis(value);
+		return this;
+	}
+
+	public QueryContainerDescriptor<TDocument> MoreLikeThis(
+		Action<MoreLikeThisQueryDescriptor> configure)
+	{
+		var descriptor = new MoreLikeThisQueryDescriptor();
+		configure(descriptor);
+		_value = QueryContainer.MoreLikeThis((MoreLikeThisQuery)descriptor);
+		return this;
+	}
+
+	public QueryContainerDescriptor<TDocument> Script(ScriptQuery value)
+	{
+		_value = QueryContainer.Script(value);
+		return this;
+	}
+
+	public QueryContainerDescriptor<TDocument> Script(
+		Action<ScriptQueryDescriptor> configure)
+	{
+		var descriptor = new ScriptQueryDescriptor();
+		configure(descriptor);
+		_value = QueryContainer.Script((ScriptQuery)descriptor);
+		return this;
+	}
+
+	/// <summary>Creates a terms query with string values using a string field name (for field expressions with Suffix).</summary>
+	public QueryContainerDescriptor<TDocument> Terms(
+		Field field, params string[] values)
+	{
+		var query = new TermsQuery();
+		query.AdditionalProperties ??= new();
+		query.AdditionalProperties[field.Name] =
+			System.Text.Json.JsonSerializer.SerializeToElement(values);
+		_value = QueryContainer.Terms(query);
+		return this;
+	}
+
 	public static implicit operator QueryContainer?(QueryContainerDescriptor<TDocument> d) => d._value;
 }
