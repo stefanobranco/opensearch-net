@@ -1,8 +1,10 @@
+using OpenSearch.Client.Common;
+
 namespace OpenSearch.Client.Core;
 
 /// <summary>
-/// Extension methods for the generated <see cref="HighlightDescriptor"/> to add
-/// a fluent field entry builder using tuples of (fieldName, configure).
+/// Extension methods for the generated <see cref="HighlightDescriptor"/> and
+/// <see cref="HighlightFieldDescriptor"/> to bridge generic and non-generic descriptors.
 /// </summary>
 public static class HighlightDescriptorExtensions
 {
@@ -22,6 +24,20 @@ public static class HighlightDescriptorExtensions
 			dict[name] = desc;
 		}
 		d._value.Fields = dict;
+		return d;
+	}
+
+	/// <summary>
+	/// Sets the highlight query using a generic <see cref="QueryContainerDescriptor{TDocument}"/>,
+	/// allowing callers to pass <c>Action&lt;QueryContainerDescriptor&lt;T&gt;&gt;</c> lambdas directly.
+	/// </summary>
+	public static HighlightFieldDescriptor HighlightQuery<TDocument>(
+		this HighlightFieldDescriptor d,
+		Action<QueryContainerDescriptor<TDocument>> configure)
+	{
+		var descriptor = new QueryContainerDescriptor<TDocument>();
+		configure(descriptor);
+		d._value.HighlightQuery = descriptor;
 		return d;
 	}
 }

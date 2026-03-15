@@ -988,4 +988,47 @@ public class SwissLexPatternTests
 			.GetProperty("type_information.book.series.name.de.autocomplete");
 		match.GetProperty("operator").GetString().Should().Be("and");
 	}
+
+	[Fact]
+	public void HighlightQuery_With_Generic_QueryContainerDescriptor()
+	{
+		// Pattern: QueryExtensions.BuildHighlightingQuery — pass Action<QCD<T>> to .HighlightQuery()
+		// Previously required pre-building a QueryContainerDescriptor<T> and casting to QueryContainer
+		Action<QueryContainerDescriptor<ElasticAsset>> highlightQuery = q => q
+			.Bool(b => b
+				.Should(
+					s => s.SimpleQueryString(sq => sq
+						.Fields(new List<string> { "content.content.de" })
+						.DefaultOperator(Operator.And)
+						.Query("Bundesgericht")))
+				.MinimumShouldMatch(1));
+
+		var contentField = Field.From<ElasticAsset>(x => x.ContentObject!.Content!);
+
+		SearchRequest request = new SearchRequestDescriptor<ElasticAsset>()
+			.Highlight(h => h
+				.Fields(
+					((string)contentField, hf => hf
+						.MatchedFields(new List<string>
+						{
+							Field.From<ElasticAsset>(f => f.ContentObject!.Content!.Suffix("de")),
+							Field.From<ElasticAsset>(f => f.ContentObject!.Content!.Suffix("fr"))
+						})
+						.Type("fvh")
+						.HighlightQuery(highlightQuery)
+						.NumberOfFragments(3)
+						.FragmentSize(140)
+						.Order(HighlighterOrder.Score)
+						.NoMatchSize(200)))
+				.PreTags(new List<string> { "#highlightbegin1" })
+				.PostTags(new List<string> { "#highlightend" }));
+
+		var json = JsonSerializer.Serialize(request, JsonOptions);
+		using var doc = JsonDocument.Parse(json);
+
+		var hf = doc.RootElement.GetProperty("highlight").GetProperty("fields")
+			.GetProperty("content.content");
+		hf.TryGetProperty("highlight_query", out var hq).Should().BeTrue();
+		hq.GetProperty("bool").GetProperty("should").GetArrayLength().Should().Be(1);
+	}
 }
