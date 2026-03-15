@@ -30,8 +30,8 @@ public class HighlightDescriptorTests
 			.Highlight(h => h
 				.PreTags(["<em>"]).PostTags(["</em>"])
 				.Fields(
-					f => f.Field("title").FragmentSize(150).NumberOfFragments(3),
-					f => f.Field("body").Type("fvh").NumberOfFragments(0)
+					("title", f => f.FragmentSize(150).NumberOfFragments(3)),
+					("body", f => f.Type("fvh").NumberOfFragments(0))
 				)
 			);
 
@@ -54,8 +54,8 @@ public class HighlightDescriptorTests
 			.Highlight(h => h
 				.PreTags(["<em>"]).PostTags(["</em>"])
 				.Fields(
-					f => f.Field("title").FragmentSize(150),
-					f => f.Field("body").Type("fvh")
+					("title", f => f.FragmentSize(150)),
+					("body", f => f.Type("fvh"))
 				)
 			);
 
@@ -75,26 +75,11 @@ public class HighlightDescriptorTests
 	}
 
 	[Fact]
-	public void Field_Without_Name_Throws()
-	{
-		var act = () =>
-		{
-			SearchRequest _ = new SearchRequestDescriptor()
-				.Highlight(h => h
-					.Fields(f => f.FragmentSize(100))
-				);
-		};
-
-		act.Should().Throw<InvalidOperationException>()
-			.Which.Message.Should().Contain("Field(name)");
-	}
-
-	[Fact]
 	public void Single_Field()
 	{
 		SearchRequest request = new SearchRequestDescriptor()
 			.Highlight(h => h
-				.Fields(f => f.Field("title"))
+				.Fields(("title", f => { }))
 			);
 
 		request.Highlight!.Fields.Should().HaveCount(1);
@@ -107,9 +92,9 @@ public class HighlightDescriptorTests
 		SearchRequest request = new SearchRequestDescriptor()
 			.Highlight(h => h
 				.Fields(
-					f => f.Field("content")
+					("content", f => f
 						.MatchedFields(["content", "content.plain"])
-						.Type("fvh")
+						.Type("fvh"))
 				)
 			);
 

@@ -2,24 +2,24 @@ namespace OpenSearch.Client.Core;
 
 /// <summary>
 /// Extension methods for the generated <see cref="HighlightDescriptor"/> to add
-/// a fluent field entry builder.
+/// a fluent field entry builder using tuples of (fieldName, configure).
 /// </summary>
 public static class HighlightDescriptorExtensions
 {
 	/// <summary>
-	/// Builds the highlight fields dictionary using per-field entry descriptors.
-	/// Each entry must call <c>.Field(name)</c> to set the dictionary key.
+	/// Builds the highlight fields dictionary using the generated <see cref="HighlightFieldDescriptor"/>.
+	/// Each tuple pairs a field name with a configuration action.
 	/// </summary>
 	public static HighlightDescriptor Fields(
-		this HighlightDescriptor d, params Action<HighlightFieldEntryDescriptor>[] configure)
+		this HighlightDescriptor d,
+		params (string Name, Action<HighlightFieldDescriptor> Configure)[] fields)
 	{
-		var dict = new Dictionary<string, HighlightField>();
-		foreach (var action in configure)
+		var dict = new Dictionary<string, HighlightField>(fields.Length);
+		foreach (var (name, configure) in fields)
 		{
-			var entry = new HighlightFieldEntryDescriptor();
-			action(entry);
-			dict[entry._fieldName ?? throw new InvalidOperationException(
-				"HighlightFieldEntryDescriptor requires .Field(name) to be called.")] = entry;
+			var desc = new HighlightFieldDescriptor();
+			configure(desc);
+			dict[name] = desc;
 		}
 		d._value.Fields = dict;
 		return d;
