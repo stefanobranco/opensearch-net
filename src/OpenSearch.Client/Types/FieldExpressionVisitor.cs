@@ -23,14 +23,18 @@ internal static class FieldExpressionVisitor
 		if (body is UnaryExpression { NodeType: ExpressionType.Convert } unary)
 			body = unary.Operand;
 
-		// Detect .Suffix("keyword") calls — check DeclaringType to avoid false positives
+		// Detect chained .Suffix() calls — unwrap from outermost inward
+		// e.g., .Suffix("de").Suffix("raw") → suffix = "de.raw"
 		string? suffix = null;
-		if (body is MethodCallExpression methodCall
+		while (body is MethodCallExpression methodCall
 			&& methodCall.Method.DeclaringType == typeof(SuffixExtensions))
 		{
 			var suffixArg = methodCall.Arguments[^1];
 			if (suffixArg is ConstantExpression constExpr)
-				suffix = constExpr.Value?.ToString();
+			{
+				var segment = constExpr.Value?.ToString();
+				suffix = suffix is not null ? string.Concat(segment, ".", suffix) : segment;
+			}
 
 			body = methodCall.Arguments[0];
 
