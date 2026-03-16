@@ -1,5 +1,6 @@
 using System.Text.Json;
 using OpenSearch.Client.Core;
+using OpenSearch.Client;
 
 namespace OpenSearch.Client.Common;
 
@@ -60,7 +61,7 @@ public sealed class AggregationsDictDescriptor
 		QueryContainer filter,
 		Action<AggregationsDictDescriptor>? subAggs = null)
 	{
-		var element = JsonSerializer.SerializeToElement(filter);
+		var element = JsonSerializer.SerializeToElement(filter, OpenSearchJsonOptions.RequestSerialization);
 		return AddBucket(name, AggregationContainer.Filter(element), subAggs);
 	}
 
@@ -71,7 +72,7 @@ public sealed class AggregationsDictDescriptor
 		var descriptor = new QueryContainerDescriptor();
 		configure(descriptor);
 		QueryContainer? filter = descriptor;
-		var element = JsonSerializer.SerializeToElement(filter);
+		var element = JsonSerializer.SerializeToElement(filter, OpenSearchJsonOptions.RequestSerialization);
 		return AddBucket(name, AggregationContainer.Filter(element), subAggs);
 	}
 
@@ -156,7 +157,7 @@ public sealed class AggregationsDictDescriptor
 	{
 		var desc = new DateHistogramAggregationFieldsDescriptor<T>();
 		configure(desc);
-		var element = JsonSerializer.SerializeToElement((DateHistogramAggregationFields<T>)desc);
+		var element = JsonSerializer.SerializeToElement((DateHistogramAggregationFields<T>)desc, OpenSearchJsonOptions.RequestSerialization);
 		return AddBucket(name, AggregationContainer.DateHistogram(element), subAggs);
 	}
 
@@ -166,7 +167,7 @@ public sealed class AggregationsDictDescriptor
 	{
 		var desc = new HistogramAggregationFieldsDescriptor<T>();
 		configure(desc);
-		var element = JsonSerializer.SerializeToElement((HistogramAggregationFields<T>)desc);
+		var element = JsonSerializer.SerializeToElement((HistogramAggregationFields<T>)desc, OpenSearchJsonOptions.RequestSerialization);
 		return AddBucket(name, AggregationContainer.Histogram(element), subAggs);
 	}
 

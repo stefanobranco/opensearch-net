@@ -6,21 +6,19 @@ namespace OpenSearch.Client;
 /// <summary>
 /// Wraps a raw aggregation response dictionary and provides typed accessors
 /// for metric and bucket aggregation results. Strips typed_keys prefixes
-/// (e.g., "sterms#by_status" → "by_status") on construction.
+/// (e.g., "sterms#by_status" → "by_status") on construction, preserving the
+/// type discriminator for use in typed accessor guards.
 /// </summary>
 public sealed class AggregateDictionary
 {
-	private static readonly JsonSerializerOptions s_bucketOptions = new()
-	{
-		PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
-		NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowReadingFromString,
-	};
+	private static JsonSerializerOptions BucketOptions => OpenSearchJsonOptions.Default;
 
 	private readonly Dictionary<string, Aggregate<JsonElement>> _raw;
+	private readonly Dictionary<string, string> _kinds;
 
 	public AggregateDictionary(Dictionary<string, Aggregate<JsonElement>>? raw)
 	{
-		_raw = StripTypedKeys(raw);
+		(_raw, _kinds) = StripTypedKeys(raw);
 	}
 
 	/// <summary>
@@ -38,8 +36,8 @@ public sealed class AggregateDictionary
 		var converted = new Dictionary<string, Aggregate<JsonElement>>(raw.Count, StringComparer.Ordinal);
 		foreach (var (key, agg) in raw)
 		{
-			var json = JsonSerializer.SerializeToUtf8Bytes(agg, s_bucketOptions);
-			var typed = JsonSerializer.Deserialize<Aggregate<JsonElement>>(json, s_bucketOptions);
+			var json = JsonSerializer.SerializeToUtf8Bytes(agg, BucketOptions);
+			var typed = JsonSerializer.Deserialize<Aggregate<JsonElement>>(json, BucketOptions);
 			if (typed is not null)
 				converted[key] = typed;
 		}
@@ -116,6 +114,7 @@ public sealed class AggregateDictionary
 	public FilterBucket? Filter(string name)
 	{
 		if (!TryGet(name, out var a)) return null;
+		if (!IsSingleBucketKind(name)) return null;
 		return new FilterBucket
 		{
 			DocCount = a.DocCount,
@@ -126,6 +125,7 @@ public sealed class AggregateDictionary
 	public NestedBucket? Nested(string name)
 	{
 		if (!TryGet(name, out var a)) return null;
+		if (!IsSingleBucketKind(name)) return null;
 		return new NestedBucket
 		{
 			DocCount = a.DocCount,
@@ -157,21 +157,48 @@ public sealed class AggregateDictionary
 	private static double? NullableDouble(double v) => v;
 
 	/// <summary>
-	/// Strips typed_keys prefixes. When typed_keys=true, OpenSearch returns keys
-	/// like "sterms#by_status". We strip the prefix and keep just the name.
+	/// Checks whether the aggregation is a single-bucket kind (filter, nested, reverse_nested, global)
+	/// as opposed to a multi-bucket kind (terms, histogram, etc.).
+	/// When typed_keys is available, uses the type discriminator. Otherwise, falls back to
+	/// a structural heuristic: single-bucket aggregates have no buckets array.
 	/// </summary>
-	private static Dictionary<string, Aggregate<JsonElement>> StripTypedKeys(
+	private bool IsSingleBucketKind(string name)
+	{
+		if (_kinds.TryGetValue(name, out var kind))
+		{
+			// typed_keys discriminator available — use it
+			return kind is "filter" or "nested" or "reverse_nested" or "global";
+		}
+
+		// No typed_keys — fall back to structural check:
+		// single-bucket aggregates have doc_count + sub-aggs but no buckets array
+		if (!TryGet(name, out var a)) return false;
+		return a.Buckets is null || a.Buckets.Value.ValueKind != JsonValueKind.Array;
+	}
+
+	/// <summary>
+	/// Strips typed_keys prefixes and preserves the type discriminator.
+	/// When typed_keys=true, OpenSearch returns keys like "sterms#by_status".
+	/// We strip the prefix, keep just the name, and store the type separately.
+	/// </summary>
+	private static (Dictionary<string, Aggregate<JsonElement>> Raw, Dictionary<string, string> Kinds) StripTypedKeys(
 		Dictionary<string, Aggregate<JsonElement>>? raw)
 	{
-		if (raw is null) return new Dictionary<string, Aggregate<JsonElement>>(StringComparer.Ordinal);
+		if (raw is null)
+			return (new Dictionary<string, Aggregate<JsonElement>>(StringComparer.Ordinal),
+				new Dictionary<string, string>(StringComparer.Ordinal));
 
 		var result = new Dictionary<string, Aggregate<JsonElement>>(raw.Count, StringComparer.Ordinal);
+		var kinds = new Dictionary<string, string>(raw.Count, StringComparer.Ordinal);
 		foreach (var (key, value) in raw)
 		{
-			var (_, name) = ExternallyTaggedUnion.ParseKey(key);
-			result[name ?? key] = value;
+			var (type, name) = ExternallyTaggedUnion.ParseKey(key);
+			var resolvedName = name ?? key;
+			result[resolvedName] = value;
+			if (name is not null) // has typed_keys prefix
+				kinds[resolvedName] = type;
 		}
-		return result;
+		return (result, kinds);
 	}
 
 	/// <summary>
@@ -194,7 +221,7 @@ public sealed class AggregateDictionary
 		var buckets = new List<TBucket>();
 		foreach (var bucketEl in bucketsEl.EnumerateArray())
 		{
-			var bucket = JsonSerializer.Deserialize<TBucket>(bucketEl.GetRawText(), s_bucketOptions);
+			var bucket = JsonSerializer.Deserialize<TBucket>(bucketEl.GetRawText(), BucketOptions);
 			if (bucket is null) continue;
 
 			// Parse sub-aggregations from unknown properties
@@ -228,7 +255,7 @@ public sealed class AggregateDictionary
 
 			subAggs ??= new Dictionary<string, Aggregate<JsonElement>>(StringComparer.Ordinal);
 			var subAgg = JsonSerializer.Deserialize<Aggregate<JsonElement>>(
-				prop.Value.GetRawText(), s_bucketOptions);
+				prop.Value.GetRawText(), BucketOptions);
 			if (subAgg is not null)
 				subAggs[prop.Name] = subAgg;
 		}
@@ -236,38 +263,36 @@ public sealed class AggregateDictionary
 		return subAggs is not null ? new AggregateDictionary(subAggs) : null;
 	}
 
-	/// <summary>Sets the Aggregations property on a bucket if it has one.</summary>
+	/// <summary>Sets the Aggregations property on a bucket via the <see cref="IBucketWithSubAggregations"/> interface.</summary>
 	private static void SetSubAggs<TBucket>(TBucket bucket, AggregateDictionary? subAggs)
 	{
 		if (subAggs is null) return;
 
-		// Use reflection-free pattern matching for known bucket types
-		switch (bucket)
-		{
-			case TermsBucket b: b.Aggregations = subAggs; break;
-			case DateHistogramBucket b: b.Aggregations = subAggs; break;
-			case HistogramBucket b: b.Aggregations = subAggs; break;
-			case RangeBucket b: b.Aggregations = subAggs; break;
-			case FilterBucket b: b.Aggregations = subAggs; break;
-			case NestedBucket b: b.Aggregations = subAggs; break;
-			case CompositeBucket b: b.Aggregations = subAggs; break;
-			case SignificantTermsBucket b: b.Aggregations = subAggs; break;
-		}
+		if (bucket is IBucketWithSubAggregations b)
+			b.Aggregations = subAggs;
 	}
 
 	/// <summary>
 	/// Builds sub-aggregation dictionary from a single-bucket aggregate (filter, nested).
 	/// These aggregates don't have a Buckets array — sub-aggs are additional top-level
-	/// properties on the aggregate itself. We can't easily extract them from the flat
-	/// Aggregate&lt;T&gt; type, so we return null for now (sub-aggs on single-bucket aggs
-	/// require the raw JSON, which we don't have at this level).
+	/// properties captured via <see cref="Aggregate{T}.ExtensionData"/>.
 	/// </summary>
 	private static AggregateDictionary? BuildSubAggs(Aggregate<JsonElement> agg)
 	{
-		// Single-bucket aggregates (filter, nested) put sub-aggs as sibling properties.
-		// The flat Aggregate<T> type doesn't preserve unknown properties, so sub-agg
-		// access on filter/nested buckets requires re-parsing from the original JSON.
-		// For now, return null — consumers can use GetRaw() for these cases.
-		return null;
+		if (agg.ExtensionData is not { Count: > 0 })
+			return null;
+
+		var subAggs = new Dictionary<string, Aggregate<JsonElement>>(StringComparer.Ordinal);
+		foreach (var (key, element) in agg.ExtensionData)
+		{
+			if (element.ValueKind != JsonValueKind.Object) continue;
+
+			var subAgg = JsonSerializer.Deserialize<Aggregate<JsonElement>>(
+				element.GetRawText(), BucketOptions);
+			if (subAgg is not null)
+				subAggs[key] = subAgg;
+		}
+
+		return subAggs.Count > 0 ? new AggregateDictionary(subAggs) : null;
 	}
 }

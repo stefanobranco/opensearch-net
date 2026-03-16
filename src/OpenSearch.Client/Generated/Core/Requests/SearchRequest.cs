@@ -237,8 +237,11 @@ public sealed class SearchEndpoint<TDocument> : IEndpoint<SearchRequest, SearchR
 			queryParts.Add($"suggest_size={Uri.EscapeDataString(r.SuggestSize.ToString()!)}");
 		if (r.SuggestText is not null)
 			queryParts.Add($"suggest_text={Uri.EscapeDataString(r.SuggestText!)}");
-		if (r.TypedKeys is not null)
-			queryParts.Add($"typed_keys={Uri.EscapeDataString((r.TypedKeys.Value ? "true" : "false"))}");
+		// Auto-enable typed_keys when aggregations or suggest are present, following ES-NET convention.
+		// This ensures AggregateDictionary can disambiguate aggregation types in the response.
+		var typedKeys = r.TypedKeys ?? (r.Aggregations is { Count: > 0 } || r.Suggest is not null ? true : null);
+		if (typedKeys is not null)
+			queryParts.Add($"typed_keys={Uri.EscapeDataString((typedKeys.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
