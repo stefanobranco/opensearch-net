@@ -18,6 +18,7 @@ public static class OpenSearchJsonOptions
 	{
 		PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
 		NumberHandling = JsonNumberHandling.AllowReadingFromString,
+		Converters = { new JsonEnumConverterFactory() },
 	};
 
 	/// <summary>

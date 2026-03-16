@@ -25,15 +25,26 @@ Work through areas one at a time. For each: read all relevant files, compare aga
   - Architecture aligns with Java blueprint; improvements: handler rotation for DNS, audit trail, zero-alloc DeadNodeState
   - Noted gap: no NodeSelector abstraction for filtering by role (future work)
 
-### 2. Serialization Pipeline
-- [ ] Every `SerializeToElement` call — does it pass snake_case options?
-- [ ] Every `JsonSerializer.Deserialize` call outside the transport — correct options?
-- [ ] Generated types — relying on naming policy vs explicit `[JsonPropertyName]`?
-- [ ] `OpenSearchClientSettings` serializer setup — options complete?
-- [ ] `SystemTextJsonSerializer` — serialize/deserialize paths
-- [ ] `SourceConverter` — user document type serialization
-- [ ] Enum serialization — `JsonEnumConverterFactory`, snake_case enum values
-- [ ] Compare against elasticsearch-net `DefaultRequestResponseSerializer`
+### 2. Serialization Pipeline ✅
+- [x] Every `SerializeToElement` call — does it pass snake_case options?
+  - Verified: all calls serialize primitives, arrays, or dictionaries with wire-format keys — naming policy is irrelevant
+  - `AggregationsDictDescriptor`, `SearchRequestDescriptorExtensions` correctly use `OpenSearchJsonOptions.RequestSerialization`
+- [x] Every `JsonSerializer.Deserialize` call outside the transport — correct options?
+  - All pass either `options` (from converter context), `OpenSearchJsonOptions.Default`, or `RequestSerialization`
+- [x] Generated types — relying on naming policy vs explicit `[JsonPropertyName]`?
+  - Strategy: naming policy for standard PascalCase→snake_case, `[JsonPropertyName]` only for underscore-prefixed or non-standard fields (correct)
+- [x] `OpenSearchClientSettings` serializer setup — options complete?
+  - Correct: snake_case, WhenWritingNull, AllowReadingFromString, 3 converters (ContextProvider, JsonEnumConverterFactory, ServerErrorConverter)
+- [x] `SystemTextJsonSerializer` — serialize/deserialize paths
+  - Clean wrapper, handles empty streams, MemoryStream TryGetBuffer optimization
+- [x] `SourceConverter` — user document type serialization
+  - Correct delegation via ContextProvider. Note: not yet wired to generated types (no `[JsonConverter]` on Hit.Source etc.) — custom SourceSerializer won't work for search hits yet (codegen gap, default case works)
+- [x] Enum serialization — `JsonEnumConverterFactory`, snake_case enum values
+  - `[JsonEnum]` + `[EnumMember(Value)]` pattern, case-insensitive read. `QueryParamSerializer` for query strings. Both correct.
+  - Fixed: added `JsonEnumConverterFactory` to `OpenSearchJsonOptions.Default` (prophylactic — prevents future silent failures when response fragments include enum fields)
+- [x] Compare against elasticsearch-net `DefaultRequestResponseSerializer`
+  - Mirrors Elastic v8 architecture: ContextProvider, dual serializer, JsonEnumConverterFactory, ServerErrorConverter
+  - Gap vs Elastic: SourceConverter not wired to generated types via `[JsonConverter]` attributes (future codegen work)
 
 ### 3. Response Model
 - [ ] `OpenSearchResponse` base class — `IsValid`, `ServerError`, `ApiCall`, `DebugInformation`
