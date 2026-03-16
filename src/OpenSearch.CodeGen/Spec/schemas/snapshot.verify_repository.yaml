@@ -1,0 +1,16 @@
+openapi: 3.1.0
+info:
+  title: Schemas of `snapshot.verify_repository` Category
+  description: Schemas of `snapshot.verify_repository` category.
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    CompactNodeInfo:
+      type: object
+      properties:
+        name:
+          $ref: '_common.yaml#/components/schemas/Name'
+          description: The name of the node that verified the repository.
+      required:
+        - name

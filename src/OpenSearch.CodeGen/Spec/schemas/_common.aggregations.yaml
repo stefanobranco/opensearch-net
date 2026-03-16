@@ -1,0 +1,3445 @@
+openapi: 3.1.0
+info:
+  title: Schemas of `_common.aggregations` Category
+  description: Schemas of `_common.aggregations` category.
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    Aggregate:
+      x-supports-typed-keys: true
+      allOf:
+        - $ref: '#/components/schemas/AggregateBase'
+        - anyOf:
+            - title: adjacency_matrix
+              $ref: '#/components/schemas/AdjacencyMatrixAggregate'
+            - title: auto_date_histogram
+              $ref: '#/components/schemas/AutoDateHistogramAggregate'
+            - title: avg
+              $ref: '#/components/schemas/AvgAggregate'
+            - title: box_plot
+              $ref: '#/components/schemas/BoxPlotAggregate'
+            - title: bucket_metric_value
+              $ref: '#/components/schemas/BucketMetricValueAggregate'
+            - title: cardinality
+              $ref: '#/components/schemas/CardinalityAggregate'
+            - title: children
+              $ref: '#/components/schemas/ChildrenAggregate'
+            - title: composite
+              $ref: '#/components/schemas/CompositeAggregate'
+            - title: date_histogram
+              $ref: '#/components/schemas/DateHistogramAggregate'
+            - title: date_range
+              $ref: '#/components/schemas/DateRangeAggregate'
+            - title: derivative
+              $ref: '#/components/schemas/DerivativeAggregate'
+            - title: dterms
+              $ref: '#/components/schemas/DoubleTermsAggregate'
+            - title: extended_stats
+              $ref: '#/components/schemas/ExtendedStatsAggregate'
+            - title: extended_stats_bucket
+              $ref: '#/components/schemas/ExtendedStatsBucketAggregate'
+            - title: filter
+              $ref: '#/components/schemas/FilterAggregate'
+            - title: filters
+              $ref: '#/components/schemas/FiltersAggregate'
+            - title: geo_bounds
+              $ref: '#/components/schemas/GeoBoundsAggregate'
+            - title: geo_centroid
+              $ref: '#/components/schemas/GeoCentroidAggregate'
+            - title: geo_distance
+              $ref: '#/components/schemas/GeoDistanceAggregate'
+            - title: geohash_grid
+              $ref: '#/components/schemas/GeoHashGridAggregate'
+            - title: geotile_grid
+              $ref: '#/components/schemas/GeoTileGridAggregate'
+            - title: global
+              $ref: '#/components/schemas/GlobalAggregate'
+            - title: hdr_percentiles
+              $ref: '#/components/schemas/HdrPercentilesAggregate'
+            - title: hdr_percentile_ranks
+              $ref: '#/components/schemas/HdrPercentileRanksAggregate'
+            - title: histogram
+              $ref: '#/components/schemas/HistogramAggregate'
+            - title: ip_range
+              $ref: '#/components/schemas/IpRangeAggregate'
+            - title: lrareterms
+              $ref: '#/components/schemas/LongRareTermsAggregate'
+            - title: lterms
+              $ref: '#/components/schemas/LongTermsAggregate'
+            - title: matrix_stats
+              $ref: '#/components/schemas/MatrixStatsAggregate'
+            - title: max
+              $ref: '#/components/schemas/MaxAggregate'
+            - title: median_absolute_deviation
+              $ref: '#/components/schemas/MedianAbsoluteDeviationAggregate'
+            - title: min
+              $ref: '#/components/schemas/MinAggregate'
+            - title: missing
+              $ref: '#/components/schemas/MissingAggregate'
+            - title: multi_terms
+              $ref: '#/components/schemas/MultiTermsAggregate'
+            - title: nested
+              $ref: '#/components/schemas/NestedAggregate'
+            - title: parent
+              $ref: '#/components/schemas/ParentAggregate'
+            - title: percentiles_bucket
+              $ref: '#/components/schemas/PercentilesBucketAggregate'
+            - title: range
+              $ref: '#/components/schemas/RangeAggregate'
+            - title: rate
+              $ref: '#/components/schemas/RateAggregate'
+            - title: reverse_nested
+              $ref: '#/components/schemas/ReverseNestedAggregate'
+            - title: sampler
+              $ref: '#/components/schemas/SamplerAggregate'
+            - title: scripted_metric
+              $ref: '#/components/schemas/ScriptedMetricAggregate'
+            - title: siglterms
+              $ref: '#/components/schemas/SignificantLongTermsAggregate'
+            - title: sigsterms
+              $ref: '#/components/schemas/SignificantStringTermsAggregate'
+            - title: simple_long_value
+              $ref: '#/components/schemas/CumulativeCardinalityAggregate'
+            - title: simple_value
+              $ref: '#/components/schemas/SimpleValueAggregate'
+            - title: stats
+              $ref: '#/components/schemas/StatsAggregate'
+            - title: stats_bucket
+              $ref: '#/components/schemas/StatsBucketAggregate'
+            - title: srareterms
+              $ref: '#/components/schemas/StringRareTermsAggregate'
+            - title: sterms
+              $ref: '#/components/schemas/StringTermsAggregate'
+            - title: sum
+              $ref: '#/components/schemas/SumAggregate'
+            - title: tdigest_percentiles
+              $ref: '#/components/schemas/TDigestPercentilesAggregate'
+            - title: tdigest_percentile_ranks
+              $ref: '#/components/schemas/TDigestPercentileRanksAggregate'
+            - title: t_test
+              $ref: '#/components/schemas/TTestAggregate'
+            - title: top_hits
+              $ref: '#/components/schemas/TopHitsAggregate'
+            - title: ulterms
+              $ref: '#/components/schemas/UnsignedLongTermsAggregate'
+            - title: umrareterms
+              $ref: '#/components/schemas/UnmappedRareTermsAggregate'
+            - title: umsigterms
+              $ref: '#/components/schemas/UnmappedSignificantTermsAggregate'
+            - title: umterms
+              $ref: '#/components/schemas/UnmappedTermsAggregate'
+            - title: value_count
+              $ref: '#/components/schemas/ValueCountAggregate'
+            - title: variable_width_histogram
+              $ref: '#/components/schemas/VariableWidthHistogramAggregate'
+            - title: weighted_avg
+              $ref: '#/components/schemas/WeightedAvgAggregate'
+    CardinalityAggregate:
+      type: object
+      properties:
+        value:
+          type: integer
+          format: int64
+      required:
+        - value
+    AggregateBase:
+      type: object
+      properties:
+        meta:
+          $ref: '_common.yaml#/components/schemas/Metadata'
+    HdrPercentilesAggregate:
+      allOf:
+        - $ref: '#/components/schemas/PercentilesAggregateBase'
+        - type: object
+    PercentilesAggregateBase:
+      type: object
+      properties:
+        values:
+          $ref: '#/components/schemas/Percentiles'
+      required:
+        - values
+    Percentiles:
+      oneOf:
+        - title: keyed
+          $ref: '#/components/schemas/KeyedPercentiles'
+        - title: array
+          type: array
+          items:
+            $ref: '#/components/schemas/ArrayPercentilesItem'
+    KeyedPercentiles:
+      type: object
+      additionalProperties:
+        oneOf:
+          - type: number
+            format: double
+          - type: string
+          - type: 'null'
+    ArrayPercentilesItem:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          oneOf:
+            - type: number
+              format: double
+            - type: 'null'
+        value_as_string:
+          type: string
+      required:
+        - key
+        - value
+    HdrPercentileRanksAggregate:
+      allOf:
+        - $ref: '#/components/schemas/PercentilesAggregateBase'
+        - type: object
+    TDigestPercentilesAggregate:
+      allOf:
+        - $ref: '#/components/schemas/PercentilesAggregateBase'
+        - type: object
+    TDigestPercentileRanksAggregate:
+      allOf:
+        - $ref: '#/components/schemas/PercentilesAggregateBase'
+        - type: object
+    PercentilesBucketAggregate:
+      allOf:
+        - $ref: '#/components/schemas/PercentilesAggregateBase'
+        - type: object
+    MedianAbsoluteDeviationAggregate:
+      allOf:
+        - $ref: '#/components/schemas/SingleMetricAggregateBase'
+        - type: object
+    SingleMetricAggregateBase:
+      type: object
+      properties:
+        value:
+          description: |-
+            The metric value. A missing value generally means that there was no data to aggregate,
+            unless specified otherwise.
+          oneOf:
+            - type: number
+              format: double
+            - type: 'null'
+        value_as_string:
+          type: string
+      required:
+        - value
+    MinAggregate:
+      allOf:
+        - $ref: '#/components/schemas/SingleMetricAggregateBase'
+        - type: object
+    MaxAggregate:
+      allOf:
+        - $ref: '#/components/schemas/SingleMetricAggregateBase'
+        - type: object
+    SumAggregate:
+      allOf:
+        - $ref: '#/components/schemas/SingleMetricAggregateBase'
+        - type: object
+    AvgAggregate:
+      allOf:
+        - $ref: '#/components/schemas/SingleMetricAggregateBase'
+        - type: object
+    WeightedAvgAggregate:
+      allOf:
+        - $ref: '#/components/schemas/SingleMetricAggregateBase'
+        - type: object
+    ValueCountAggregate:
+      allOf:
+        - $ref: '#/components/schemas/SingleMetricAggregateBase'
+        - type: object
+    SimpleValueAggregate:
+      allOf:
+        - $ref: '#/components/schemas/SingleMetricAggregateBase'
+        - type: object
+    DerivativeAggregate:
+      allOf:
+        - $ref: '#/components/schemas/SingleMetricAggregateBase'
+        - type: object
+          properties:
+            normalized_value:
+              type: number
+              format: double
+            normalized_value_as_string:
+              type: string
+    BucketMetricValueAggregate:
+      allOf:
+        - $ref: '#/components/schemas/SingleMetricAggregateBase'
+        - type: object
+          properties:
+            keys:
+              type: array
+              items:
+                type: string
+          required:
+            - keys
+    StatsAggregate:
+      allOf:
+        - $ref: '#/components/schemas/StatsAggregateBase'
+        - type: object
+          properties: {}
+    StatsAggregateBase:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int64
+        min:
+          oneOf:
+            - type: number
+              format: double
+            - type: 'null'
+        max:
+          oneOf:
+            - type: number
+              format: double
+            - type: 'null'
+        avg:
+          oneOf:
+            - type: number
+              format: double
+            - type: 'null'
+        sum:
+          type: number
+          format: double
+        min_as_string:
+          type: string
+        max_as_string:
+          type: string
+        avg_as_string:
+          type: string
+        sum_as_string:
+          type: string
+      required:
+        - avg
+        - count
+        - max
+        - min
+        - sum
+    StatsBucketAggregate:
+      allOf:
+        - $ref: '#/components/schemas/StatsAggregateBase'
+        - type: object
+    ExtendedStatsAggregate:
+      allOf:
+        - $ref: '#/components/schemas/ExtendedStatsAggregateBase'
+        - type: object
+          properties: {}
+    ExtendedStatsAggregateBase:
+      allOf:
+        - $ref: '#/components/schemas/StatsAggregateBase'
+        - type: object
+          properties:
+            sum_of_squares:
+              oneOf:
+                - type: number
+                  format: double
+                - type: 'null'
+            variance:
+              oneOf:
+                - type: number
+                  format: double
+                - type: 'null'
+            variance_population:
+              oneOf:
+                - type: number
+                  format: double
+                - type: 'null'
+            variance_sampling:
+              oneOf:
+                - type: number
+                  format: double
+                - type: 'null'
+            std_deviation:
+              oneOf:
+                - type: number
+                  format: double
+                - type: 'null'
+            std_deviation_population:
+              oneOf:
+                - type: number
+                  format: double
+                - type: 'null'
+            std_deviation_sampling:
+              oneOf:
+                - type: number
+                  format: double
+                - type: 'null'
+            std_deviation_bounds:
+              $ref: '#/components/schemas/StandardDeviationBounds'
+            sum_of_squares_as_string:
+              type: string
+            variance_as_string:
+              type: string
+            variance_population_as_string:
+              type: string
+            variance_sampling_as_string:
+              type: string
+            std_deviation_as_string:
+              type: string
+            std_deviation_bounds_as_string:
+              $ref: '#/components/schemas/StandardDeviationBoundsAsString'
+          required:
+            - std_deviation
+            - std_deviation_population
+            - std_deviation_sampling
+            - sum_of_squares
+            - variance
+            - variance_population
+            - variance_sampling
+    StandardDeviationBounds:
+      type: object
+      properties:
+        upper:
+          oneOf:
+            - type: number
+              format: double
+            - type: 'null'
+        lower:
+          oneOf:
+            - type: number
+              format: double
+            - type: 'null'
+        upper_population:
+          oneOf:
+            - type: number
+              format: double
+            - type: 'null'
+        lower_population:
+          oneOf:
+            - type: number
+              format: double
+            - type: 'null'
+        upper_sampling:
+          oneOf:
+            - type: number
+              format: double
+            - type: 'null'
+        lower_sampling:
+          oneOf:
+            - type: number
+              format: double
+            - type: 'null'
+      required:
+        - lower
+        - lower_population
+        - lower_sampling
+        - upper
+        - upper_population
+        - upper_sampling
+    StandardDeviationBoundsAsString:
+      type: object
+      properties:
+        upper:
+          type: string
+        lower:
+          type: string
+        upper_population:
+          type: string
+        lower_population:
+          type: string
+        upper_sampling:
+          type: string
+        lower_sampling:
+          type: string
+      required:
+        - lower
+        - lower_population
+        - lower_sampling
+        - upper
+        - upper_population
+        - upper_sampling
+    ExtendedStatsBucketAggregate:
+      allOf:
+        - $ref: '#/components/schemas/ExtendedStatsAggregateBase'
+        - type: object
+    GeoBoundsAggregate:
+      type: object
+      properties:
+        bounds:
+          $ref: '_common.yaml#/components/schemas/GeoBounds'
+    GeoCentroidAggregate:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int64
+        location:
+          $ref: '_common.yaml#/components/schemas/GeoLocation'
+      required:
+        - count
+    HistogramAggregate:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketAggregateBaseHistogramBucket'
+        - type: object
+    MultiBucketAggregateBaseHistogramBucket:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketAggregateBase'
+        - type: object
+          properties:
+            buckets:
+              allOf:
+                - $ref: '#/components/schemas/Buckets'
+                - oneOf:
+                    - type: object
+                      additionalProperties:
+                        $ref: '#/components/schemas/HistogramBucket'
+                    - type: array
+                      items:
+                        $ref: '#/components/schemas/HistogramBucket'
+          required:
+            - buckets
+    HistogramBucket:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketBase'
+        - type: object
+          properties:
+            key_as_string:
+              type: string
+            key:
+              type: number
+              format: double
+          required:
+            - key
+    MultiBucketBase:
+      type: object
+      properties:
+        doc_count:
+          type: integer
+          format: int64
+      additionalProperties:
+        $ref: '#/components/schemas/Aggregate'
+      required:
+        - doc_count
+    DateHistogramAggregate:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketAggregateBaseDateHistogramBucket'
+        - type: object
+    MultiBucketAggregateBaseDateHistogramBucket:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketAggregateBase'
+        - type: object
+          properties:
+            buckets:
+              allOf:
+                - $ref: '#/components/schemas/Buckets'
+                - oneOf:
+                    - type: object
+                      additionalProperties:
+                        $ref: '#/components/schemas/DateHistogramBucket'
+                    - type: array
+                      items:
+                        $ref: '#/components/schemas/DateHistogramBucket'
+          required:
+            - buckets
+    DateHistogramBucket:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketBase'
+        - type: object
+          properties:
+            key_as_string:
+              type: string
+            key:
+              $ref: '_common.yaml#/components/schemas/EpochTimeUnitMillis'
+          required:
+            - key
+    AutoDateHistogramAggregate:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketAggregateBaseDateHistogramBucket'
+        - type: object
+          properties:
+            interval:
+              $ref: '_common.yaml#/components/schemas/DurationLarge'
+          required:
+            - interval
+    VariableWidthHistogramAggregate:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketAggregateBaseVariableWidthHistogramBucket'
+        - type: object
+    MultiBucketAggregateBaseVariableWidthHistogramBucket:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketAggregateBase'
+        - type: object
+          properties:
+            buckets:
+              allOf:
+                - $ref: '#/components/schemas/Buckets'
+                - oneOf:
+                    - type: object
+                      additionalProperties:
+                        $ref: '#/components/schemas/VariableWidthHistogramBucket'
+                    - type: array
+                      items:
+                        $ref: '#/components/schemas/VariableWidthHistogramBucket'
+          required:
+            - buckets
+    TBucket:
+      x-is-generic-type-parameter: true
+    MultiBucketAggregateBase:
+      type: object
+      properties:
+        buckets:
+          allOf:
+            - $ref: '#/components/schemas/Buckets'
+            - oneOf:
+                - type: object
+                  additionalProperties:
+                    $ref: '#/components/schemas/TBucket'
+                - type: array
+                  items:
+                    $ref: '#/components/schemas/TBucket'
+      required:
+        - buckets
+    VariableWidthHistogramBucket:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketBase'
+        - type: object
+          properties:
+            min:
+              type: number
+              format: double
+            key:
+              type: number
+              format: double
+            max:
+              type: number
+              format: double
+            min_as_string:
+              type: string
+            key_as_string:
+              type: string
+            max_as_string:
+              type: string
+          required:
+            - key
+            - max
+            - min
+    StringTermsAggregate:
+      description: Result of a `terms` aggregation when the field is a string.
+      allOf:
+        - $ref: '#/components/schemas/TermsAggregateBaseStringTermsBucket'
+    TermsAggregateBaseStringTermsBucket:
+      allOf:
+        - $ref: '#/components/schemas/TermsAggregateBase'
+        - type: object
+          properties:
+            buckets:
+              type: array
+              items:
+                $ref: '#/components/schemas/StringTermsBucket'
+          required:
+            - buckets
+    TermsAggregateBase:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketAggregateBase'
+        - type: object
+          properties:
+            doc_count_error_upper_bound:
+              type: integer
+              format: int64
+            sum_other_doc_count:
+              type: integer
+              format: int64
+    StringTermsBucket:
+      allOf:
+        - $ref: '#/components/schemas/TermsBucketBase'
+        - type: object
+          properties:
+            key:
+              type: string
+          required:
+            - key
+    TermsBucketBase:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketBase'
+        - type: object
+          properties:
+            doc_count_error_upper_bound:
+              type: integer
+              format: int64
+              description: Upper bound of the document count error. Only present when `show_term_doc_count_error` is true.
+    LongTermsAggregate:
+      description: Result of a `terms` aggregation when the field is some kind of whole number like a integer, long, or a date.
+      allOf:
+        - $ref: '#/components/schemas/TermsAggregateBaseLongTermsBucket'
+    TermsAggregateBaseLongTermsBucket:
+      allOf:
+        - $ref: '#/components/schemas/TermsAggregateBase'
+        - type: object
+          properties:
+            buckets:
+              type: array
+              items:
+                $ref: '#/components/schemas/LongTermsBucket'
+          required:
+            - buckets
+    LongTermsBucket:
+      allOf:
+        - $ref: '#/components/schemas/TermsBucketBase'
+        - type: object
+          properties:
+            key:
+              $ref: '#/components/schemas/LongTermsBucketKey'
+            key_as_string:
+              type: string
+          required:
+            - key
+    LongTermsBucketKey:
+      oneOf:
+        - title: signed
+          type: integer
+          format: int64
+        - title: unsigned
+          type: string
+    DoubleTermsAggregate:
+      description: Result of a `terms` aggregation when the field is some kind of decimal number like a float, double, or distance.
+      allOf:
+        - $ref: '#/components/schemas/TermsAggregateBaseDoubleTermsBucket'
+    TermsAggregateBaseDoubleTermsBucket:
+      allOf:
+        - $ref: '#/components/schemas/TermsAggregateBase'
+        - type: object
+          properties:
+            buckets:
+              type: array
+              items:
+                $ref: '#/components/schemas/DoubleTermsBucket'
+          required:
+            - buckets
+    DoubleTermsBucket:
+      allOf:
+        - $ref: '#/components/schemas/TermsBucketBase'
+        - type: object
+          properties:
+            key:
+              type: number
+              format: double
+            key_as_string:
+              type: string
+          required:
+            - key
+    UnsignedLongTermsAggregate:
+      description: |-
+        Result of a `terms` aggregation when the field is an `unsigned_long` (64-bit unsigned integer).
+        OpenSearch stores `unsigned_long` values as Long or BigInteger internally. In JSON responses,
+        bucket keys are represented as numbers, which may lose precision for values larger than 2^53--1
+        due to IEEE 754 double precision limitations. In protocol buffer representations, keys are
+        manually defined as uint64 to preserve the full 64-bit unsigned range. Use `key_as_string` in
+        buckets for exact string representation of large unsigned long values.
+      allOf:
+        - $ref: '#/components/schemas/TermsAggregateBaseUnsignedLongTermsBucket'
+    TermsAggregateBaseUnsignedLongTermsBucket:
+      allOf:
+        - $ref: '#/components/schemas/TermsAggregateBase'
+        - type: object
+          properties:
+            buckets:
+              type: array
+              items:
+                $ref: '#/components/schemas/UnsignedLongTermsBucket'
+          required:
+            - buckets
+    UnsignedLongTermsBucket:
+      description: |-
+        Terms bucket for `unsigned_long` field type. The server returns 64-bit unsigned integer values
+        as Long or BigInteger types. Due to JSON specification limitations (IEEE 754 double precision
+        provides only 53 bits of integer precision), the key is represented as `type: number` in the
+        OpenAPI spec. For protocol buffer definitions, this is manually overridden to `uint64` to
+        preserve the full 64-bit unsigned integer range in binary encoding.
+      allOf:
+        - $ref: '#/components/schemas/TermsBucketBase'
+        - type: object
+          properties:
+            key:
+              type: number
+              description: |
+                The unsigned 64-bit integer bucket key. While JSON represents this as a number,
+                values larger than 2^53--1 may lose precision in JSON serialization. The gRPC
+                protocol buffer definition uses uint64 to preserve full precision. Use `key_as_string`
+                for exact string representation of large values.
+              x-protobuf-data-type: uint64
+            key_as_string:
+              type: string
+              description: String representation of the key. Only present when a custom `format` parameter is specified in the aggregation request.
+          required:
+            - key
+    UnmappedTermsAggregate:
+      description: Result of a `terms` aggregation when the field is unmapped. `buckets` is always empty.
+      allOf:
+        - $ref: '#/components/schemas/TermsAggregateBaseVoid'
+    TermsAggregateBaseVoid:
+      allOf:
+        - $ref: '#/components/schemas/TermsAggregateBase'
+        - type: object
+          properties:
+            buckets:
+              type: array
+              items:
+                $ref: '_common.yaml#/components/schemas/Void'
+          required:
+            - buckets
+    MultiBucketAggregateBaseVoid:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketAggregateBase'
+        - type: object
+          properties:
+            buckets:
+              allOf:
+                - $ref: '#/components/schemas/Buckets'
+                - oneOf:
+                    - type: object
+                      additionalProperties:
+                        $ref: '_common.yaml#/components/schemas/Void'
+                    - type: array
+                      items:
+                        $ref: '_common.yaml#/components/schemas/Void'
+    LongRareTermsAggregate:
+      description: Result of the `rare_terms` aggregation when the field is some kind of whole number like a integer, long, or a date.
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketAggregateBaseLongRareTermsBucket'
+        - type: object
+    MultiBucketAggregateBaseLongRareTermsBucket:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketAggregateBase'
+        - type: object
+          properties:
+            buckets:
+              allOf:
+                - $ref: '#/components/schemas/Buckets'
+                - oneOf:
+                    - type: object
+                      additionalProperties:
+                        $ref: '#/components/schemas/LongRareTermsBucket'
+                    - type: array
+                      items:
+                        $ref: '#/components/schemas/LongRareTermsBucket'
+    LongRareTermsBucket:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketBase'
+        - type: object
+          properties:
+            key:
+              type: integer
+              format: int64
+            key_as_string:
+              type: string
+          required:
+            - key
+    StringRareTermsAggregate:
+      description: Result of the `rare_terms` aggregation when the field is a string.
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketAggregateBaseStringRareTermsBucket'
+        - type: object
+    MultiBucketAggregateBaseStringRareTermsBucket:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketAggregateBase'
+        - type: object
+          properties:
+            buckets:
+              allOf:
+                - $ref: '#/components/schemas/Buckets'
+                - oneOf:
+                    - type: object
+                      additionalProperties:
+                        $ref: '#/components/schemas/StringRareTermsBucket'
+                    - type: array
+                      items:
+                        $ref: '#/components/schemas/StringRareTermsBucket'
+    StringRareTermsBucket:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketBase'
+        - type: object
+          properties:
+            key:
+              type: string
+          required:
+            - key
+    UnmappedRareTermsAggregate:
+      description: Result of a `rare_terms` aggregation when the field is unmapped. `buckets` is always empty.
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketAggregateBaseVoid'
+        - type: object
+    MultiTermsAggregate:
+      allOf:
+        - $ref: '#/components/schemas/TermsAggregateBaseMultiTermsBucket'
+        - type: object
+    TermsAggregateBaseMultiTermsBucket:
+      allOf:
+        - $ref: '#/components/schemas/TermsAggregateBase'
+        - type: object
+          properties:
+            buckets:
+              allOf:
+                - $ref: '#/components/schemas/Buckets'
+                - oneOf:
+                    - type: object
+                      additionalProperties:
+                        $ref: '#/components/schemas/MultiTermsBucket'
+                    - type: array
+                      items:
+                        $ref: '#/components/schemas/MultiTermsBucket'
+    MultiTermsBucket:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketBase'
+        - type: object
+          properties:
+            key:
+              type: array
+              items:
+                $ref: '_common.yaml#/components/schemas/FieldValue'
+            key_as_string:
+              type: string
+            doc_count_error_upper_bound:
+              type: integer
+              format: int64
+          required:
+            - key
+    MissingAggregate:
+      allOf:
+        - $ref: '#/components/schemas/SingleBucketAggregateBase'
+        - type: object
+    SingleBucketAggregateBase:
+      type: object
+      properties:
+        doc_count:
+          type: integer
+          format: int64
+      required:
+        - doc_count
+      additionalProperties:
+        title: aggregations
+        $ref: '#/components/schemas/Aggregate'
+    NestedAggregate:
+      allOf:
+        - $ref: '#/components/schemas/SingleBucketAggregateBase'
+        - type: object
+          properties: {}
+    ReverseNestedAggregate:
+      allOf:
+        - $ref: '#/components/schemas/SingleBucketAggregateBase'
+        - type: object
+    GlobalAggregate:
+      allOf:
+        - $ref: '#/components/schemas/SingleBucketAggregateBase'
+        - type: object
+    FilterAggregate:
+      allOf:
+        - $ref: '#/components/schemas/SingleBucketAggregateBase'
+        - type: object
+    ChildrenAggregate:
+      allOf:
+        - $ref: '#/components/schemas/SingleBucketAggregateBase'
+        - type: object
+    ParentAggregate:
+      allOf:
+        - $ref: '#/components/schemas/SingleBucketAggregateBase'
+        - type: object
+    SamplerAggregate:
+      allOf:
+        - $ref: '#/components/schemas/SingleBucketAggregateBase'
+        - type: object
+    GeoHashGridAggregate:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketAggregateBaseGeoHashGridBucket'
+        - type: object
+    MultiBucketAggregateBaseGeoHashGridBucket:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketAggregateBase'
+        - type: object
+          properties:
+            buckets:
+              allOf:
+                - $ref: '#/components/schemas/Buckets'
+                - oneOf:
+                    - type: object
+                      additionalProperties:
+                        $ref: '#/components/schemas/GeoHashGridBucket'
+                    - type: array
+                      items:
+                        $ref: '#/components/schemas/GeoHashGridBucket'
+          required:
+            - buckets
+    GeoHashGridBucket:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketBase'
+        - type: object
+          properties:
+            key:
+              $ref: '_common.yaml#/components/schemas/GeoHash'
+          required:
+            - key
+    GeoTileGridAggregate:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketAggregateBaseGeoTileGridBucket'
+        - type: object
+    MultiBucketAggregateBaseGeoTileGridBucket:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketAggregateBase'
+        - type: object
+          properties:
+            buckets:
+              allOf:
+                - $ref: '#/components/schemas/Buckets'
+                - oneOf:
+                    - type: object
+                      additionalProperties:
+                        $ref: '#/components/schemas/GeoTileGridBucket'
+                    - type: array
+                      items:
+                        $ref: '#/components/schemas/GeoTileGridBucket'
+          required:
+            - buckets
+    GeoTileGridBucket:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketBase'
+        - type: object
+          properties:
+            key:
+              $ref: '_common.yaml#/components/schemas/GeoTile'
+          required:
+            - key
+    RangeAggregate:
+      allOf:
+        - $ref: '#/components/schemas/RangeAggregateBase'
+        - type: object
+    RangeAggregateBase:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketAggregateBaseRangeBucket'
+        - type: object
+    MultiBucketAggregateBaseRangeBucket:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketAggregateBase'
+        - type: object
+          properties:
+            buckets:
+              allOf:
+                - $ref: '#/components/schemas/Buckets'
+                - oneOf:
+                    - type: object
+                      additionalProperties:
+                        $ref: '#/components/schemas/RangeBucket'
+                    - type: array
+                      items:
+                        $ref: '#/components/schemas/RangeBucket'
+          required:
+            - buckets
+    RangeBucket:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketBase'
+        - type: object
+          properties:
+            from:
+              type: number
+              format: double
+            to:
+              type: number
+              format: double
+            from_as_string:
+              type: string
+            to_as_string:
+              type: string
+            key:
+              description: The bucket key. Present if the aggregation is not keyed.
+              type: string
+    DateRangeAggregate:
+      allOf:
+        - $ref: '#/components/schemas/RangeAggregateBase'
+        - type: object
+    GeoDistanceAggregate:
+      allOf:
+        - $ref: '#/components/schemas/RangeAggregateBase'
+        - type: object
+    IpRangeAggregate:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketAggregateBaseIpRangeBucket'
+        - type: object
+    MultiBucketAggregateBaseIpRangeBucket:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketAggregateBase'
+        - type: object
+          properties:
+            buckets:
+              allOf:
+                - $ref: '#/components/schemas/Buckets'
+                - oneOf:
+                    - type: object
+                      additionalProperties:
+                        $ref: '#/components/schemas/IpRangeBucket'
+                    - type: array
+                      items:
+                        $ref: '#/components/schemas/IpRangeBucket'
+          required:
+            - buckets
+    IpRangeBucket:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketBase'
+        - type: object
+          properties:
+            key:
+              type: string
+            from:
+              type: string
+            to:
+              type: string
+    FiltersAggregate:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketAggregateBaseFiltersBucket'
+        - type: object
+    MultiBucketAggregateBaseFiltersBucket:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketAggregateBase'
+        - type: object
+          properties:
+            buckets:
+              allOf:
+                - $ref: '#/components/schemas/Buckets'
+                - oneOf:
+                    - type: object
+                      additionalProperties:
+                        $ref: '#/components/schemas/FiltersBucket'
+                    - type: array
+                      items:
+                        $ref: '#/components/schemas/FiltersBucket'
+          required:
+            - buckets
+    FiltersBucket:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketBase'
+        - type: object
+    AdjacencyMatrixAggregate:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketAggregateBaseAdjacencyMatrixBucket'
+        - type: object
+    MultiBucketAggregateBaseAdjacencyMatrixBucket:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketAggregateBase'
+        - type: object
+          properties:
+            buckets:
+              allOf:
+                - $ref: '#/components/schemas/Buckets'
+                - oneOf:
+                    - title: keyed
+                      type: object
+                      additionalProperties:
+                        $ref: '#/components/schemas/AdjacencyMatrixBucket'
+                    - title: array
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/AdjacencyMatrixBucket'
+          required:
+            - buckets
+    AdjacencyMatrixBucket:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketBase'
+        - type: object
+          properties:
+            key:
+              type: string
+          required:
+            - key
+    SignificantLongTermsAggregate:
+      allOf:
+        - $ref: '#/components/schemas/SignificantTermsAggregateBaseSignificantLongTermsBucket'
+        - type: object
+    SignificantTermsAggregateBaseSignificantLongTermsBucket:
+      allOf:
+        - $ref: '#/components/schemas/SignificantTermsAggregateBase'
+        - type: object
+          properties:
+            buckets:
+              allOf:
+                - $ref: '#/components/schemas/Buckets'
+                - oneOf:
+                    - type: object
+                      additionalProperties:
+                        $ref: '#/components/schemas/SignificantLongTermsBucket'
+                    - type: array
+                      items:
+                        $ref: '#/components/schemas/SignificantLongTermsBucket'
+    SignificantTermsAggregateBase:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketAggregateBase'
+        - type: object
+          properties:
+            bg_count:
+              type: integer
+              format: int64
+            doc_count:
+              type: integer
+              format: int64
+    SignificantLongTermsBucket:
+      allOf:
+        - $ref: '#/components/schemas/SignificantTermsBucketBase'
+        - type: object
+          properties:
+            key:
+              type: integer
+              format: int64
+            key_as_string:
+              type: string
+          required:
+            - key
+    SignificantTermsBucketBase:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketBase'
+        - type: object
+          properties:
+            score:
+              type: number
+              format: double
+            bg_count:
+              type: integer
+              format: int64
+          required:
+            - bg_count
+            - score
+    SignificantStringTermsAggregate:
+      allOf:
+        - $ref: '#/components/schemas/SignificantTermsAggregateBaseSignificantStringTermsBucket'
+        - type: object
+    SignificantTermsAggregateBaseSignificantStringTermsBucket:
+      allOf:
+        - $ref: '#/components/schemas/SignificantTermsAggregateBase'
+        - type: object
+          properties:
+            buckets:
+              allOf:
+                - $ref: '#/components/schemas/Buckets'
+                - oneOf:
+                    - type: object
+                      additionalProperties:
+                        $ref: '#/components/schemas/SignificantStringTermsBucket'
+                    - type: array
+                      items:
+                        $ref: '#/components/schemas/SignificantStringTermsBucket'
+    SignificantStringTermsBucket:
+      allOf:
+        - $ref: '#/components/schemas/SignificantTermsBucketBase'
+        - type: object
+          properties:
+            key:
+              type: string
+          required:
+            - key
+    UnmappedSignificantTermsAggregate:
+      allOf:
+        - $ref: '#/components/schemas/SignificantTermsAggregateBaseVoid'
+        - type: object
+    SignificantTermsAggregateBaseVoid:
+      allOf:
+        - $ref: '#/components/schemas/SignificantTermsAggregateBase'
+        - type: object
+          properties:
+            buckets:
+              allOf:
+                - $ref: '#/components/schemas/Buckets'
+                - oneOf:
+                    - type: object
+                      additionalProperties:
+                        $ref: '_common.yaml#/components/schemas/Void'
+                    - type: array
+                      items:
+                        $ref: '_common.yaml#/components/schemas/Void'
+    CompositeAggregate:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketAggregateBaseCompositeBucket'
+        - type: object
+          properties:
+            after_key:
+              $ref: '#/components/schemas/CompositeAggregateKey'
+    CompositeAggregateKey:
+      type: object
+      additionalProperties:
+        $ref: '_common.yaml#/components/schemas/FieldValue'
+    MultiBucketAggregateBaseCompositeBucket:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketAggregateBase'
+        - type: object
+          properties:
+            buckets:
+              allOf:
+                - $ref: '#/components/schemas/Buckets'
+                - oneOf:
+                    - type: object
+                      additionalProperties:
+                        $ref: '#/components/schemas/CompositeBucket'
+                    - type: array
+                      items:
+                        $ref: '#/components/schemas/CompositeBucket'
+          required:
+            - buckets
+    CompositeBucket:
+      allOf:
+        - $ref: '#/components/schemas/MultiBucketBase'
+        - type: object
+          properties:
+            key:
+              $ref: '#/components/schemas/CompositeAggregateKey'
+          required:
+            - key
+    ScriptedMetricAggregate:
+      type: object
+      properties:
+        value: {}
+      required:
+        - value
+    TopHitsAggregate:
+      type: object
+      properties:
+        hits:
+          $ref: '_core.search.yaml#/components/schemas/HitsMetadataJsonValue'
+      required:
+        - hits
+    BoxPlotAggregate:
+      type: object
+      properties:
+        min:
+          type: number
+          format: double
+        max:
+          type: number
+          format: double
+        q1:
+          type: number
+          format: double
+        q2:
+          type: number
+          format: double
+        q3:
+          type: number
+          format: double
+        lower:
+          type: number
+          format: double
+        upper:
+          type: number
+          format: double
+        min_as_string:
+          type: string
+        max_as_string:
+          type: string
+        q1_as_string:
+          type: string
+        q2_as_string:
+          type: string
+        q3_as_string:
+          type: string
+        lower_as_string:
+          type: string
+        upper_as_string:
+          type: string
+      required:
+        - lower
+        - max
+        - min
+        - q1
+        - q2
+        - q3
+        - upper
+    TTestAggregate:
+      type: object
+      properties:
+        value:
+          oneOf:
+            - type: number
+              format: double
+            - type: 'null'
+        value_as_string:
+          type: string
+      required:
+        - value
+    RateAggregate:
+      type: object
+      properties:
+        value:
+          type: number
+          format: double
+        value_as_string:
+          type: string
+      required:
+        - value
+    CumulativeCardinalityAggregate:
+      type: object
+      properties:
+        value:
+          type: integer
+          format: int64
+        value_as_string:
+          type: string
+      required:
+        - value
+    MatrixStatsAggregate:
+      type: object
+      properties:
+        doc_count:
+          type: integer
+          format: int64
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/MatrixStatsFields'
+      required:
+        - doc_count
+    MatrixStatsFields:
+      type: object
+      properties:
+        name:
+          $ref: '_common.yaml#/components/schemas/Field'
+        count:
+          type: integer
+          format: int64
+        mean:
+          type: number
+          format: double
+        variance:
+          type: number
+          format: double
+        skewness:
+          type: number
+          format: double
+        kurtosis:
+          type: number
+          format: double
+        covariance:
+          type: object
+          additionalProperties:
+            type: number
+            format: double
+        correlation:
+          type: object
+          additionalProperties:
+            type: number
+            format: double
+      required:
+        - correlation
+        - count
+        - covariance
+        - kurtosis
+        - mean
+        - name
+        - skewness
+        - variance
+    AggregationContainer:
+      allOf:
+        - $ref: '#/components/schemas/Aggregation'
+        - type: object
+          oneOf:
+            - $ref: '#/components/schemas/AdjacencyMatrixAggregation'
+            - $ref: '#/components/schemas/AutoDateHistogramAggregation'
+            - properties:
+                avg:
+                  $ref: '#/components/schemas/AverageAggregation'
+              required: [avg]
+              unevaluatedProperties: true
+            - properties:
+                avg_bucket:
+                  $ref: '#/components/schemas/AverageBucketAggregation'
+              required: [avg_bucket]
+              unevaluatedProperties: true
+            - properties:
+                boxplot:
+                  $ref: '#/components/schemas/BoxplotAggregation'
+              required: [boxplot]
+              unevaluatedProperties: true
+            - properties:
+                bucket_script:
+                  $ref: '#/components/schemas/BucketScriptAggregation'
+              required: [bucket_script]
+              unevaluatedProperties: true
+            - properties:
+                bucket_selector:
+                  $ref: '#/components/schemas/BucketSelectorAggregation'
+              required: [bucket_selector]
+              unevaluatedProperties: true
+            - properties:
+                bucket_sort:
+                  $ref: '#/components/schemas/BucketSortAggregation'
+              required: [bucket_sort]
+              unevaluatedProperties: true
+            - properties:
+                cardinality:
+                  $ref: '#/components/schemas/CardinalityAggregation'
+              required: [cardinality]
+              unevaluatedProperties: true
+            - $ref: '#/components/schemas/ChildrenAggregation'
+            - $ref: '#/components/schemas/CompositeAggregation'
+            - properties:
+                cumulative_cardinality:
+                  $ref: '#/components/schemas/CumulativeCardinalityAggregation'
+              required: [cumulative_cardinality]
+              unevaluatedProperties: true
+            - properties:
+                cumulative_sum:
+                  $ref: '#/components/schemas/CumulativeSumAggregation'
+              required: [cumulative_sum]
+              unevaluatedProperties: true
+            - $ref: '#/components/schemas/DateHistogramAggregation'
+            - $ref: '#/components/schemas/DateRangeAggregation'
+            - properties:
+                derivative:
+                  $ref: '#/components/schemas/DerivativeAggregation'
+              required: [derivative]
+              unevaluatedProperties: true
+            - $ref: '#/components/schemas/DiversifiedSamplerAggregation'
+            - properties:
+                extended_stats:
+                  $ref: '#/components/schemas/ExtendedStatsAggregation'
+              required: [extended_stats]
+              unevaluatedProperties: true
+            - properties:
+                extended_stats_bucket:
+                  $ref: '#/components/schemas/ExtendedStatsBucketAggregation'
+              required: [extended_stats_bucket]
+              unevaluatedProperties: true
+            - $ref: '#/components/schemas/FilterAggregation'
+            - $ref: '#/components/schemas/FiltersAggregation'
+            - properties:
+                geo_bounds:
+                  $ref: '#/components/schemas/GeoBoundsAggregation'
+              required: [geo_bounds]
+              unevaluatedProperties: true
+            - properties:
+                geo_centroid:
+                  $ref: '#/components/schemas/GeoCentroidAggregation'
+              required: [geo_centroid]
+              unevaluatedProperties: true
+            - $ref: '#/components/schemas/GeoDistanceAggregation'
+            - $ref: '#/components/schemas/GeoHashGridAggregation'
+            - $ref: '#/components/schemas/GeoTileGridAggregation'
+            - $ref: '#/components/schemas/GlobalAggregation'
+            - $ref: '#/components/schemas/HistogramAggregation'
+            - $ref: '#/components/schemas/IpRangeAggregation'
+            - properties:
+                matrix_stats:
+                  $ref: '#/components/schemas/MatrixStatsAggregation'
+              required: [matrix_stats]
+              unevaluatedProperties: true
+            - properties:
+                max:
+                  $ref: '#/components/schemas/MaxAggregation'
+              required: [max]
+              unevaluatedProperties: true
+            - properties:
+                max_bucket:
+                  $ref: '#/components/schemas/MaxBucketAggregation'
+              required: [max_bucket]
+              unevaluatedProperties: true
+            - properties:
+                median_absolute_deviation:
+                  $ref: '#/components/schemas/MedianAbsoluteDeviationAggregation'
+              required: [median_absolute_deviation]
+              unevaluatedProperties: true
+            - properties:
+                min:
+                  $ref: '#/components/schemas/MinAggregation'
+              required: [min]
+              unevaluatedProperties: true
+            - properties:
+                min_bucket:
+                  $ref: '#/components/schemas/MinBucketAggregation'
+              required: [min_bucket]
+              unevaluatedProperties: true
+            - $ref: '#/components/schemas/MissingAggregation'
+            - properties:
+                moving_avg:
+                  $ref: '#/components/schemas/MovingAverageAggregation'
+              required: [moving_avg]
+              unevaluatedProperties: true
+            - properties:
+                moving_percentiles:
+                  $ref: '#/components/schemas/MovingPercentilesAggregation'
+              required: [moving_percentiles]
+              unevaluatedProperties: true
+            - properties:
+                moving_fn:
+                  $ref: '#/components/schemas/MovingFunctionAggregation'
+              required: [moving_fn]
+              unevaluatedProperties: true
+            - $ref: '#/components/schemas/MultiTermsAggregation'
+            - $ref: '#/components/schemas/NestedAggregation'
+            - properties:
+                normalize:
+                  $ref: '#/components/schemas/NormalizeAggregation'
+              required: [normalize]
+              unevaluatedProperties: true
+            - $ref: '#/components/schemas/ParentAggregation'
+            - properties:
+                percentile_ranks:
+                  $ref: '#/components/schemas/PercentileRanksAggregation'
+              required: [percentile_ranks]
+              unevaluatedProperties: true
+            - properties:
+                percentiles:
+                  $ref: '#/components/schemas/PercentilesAggregation'
+              required: [percentiles]
+              unevaluatedProperties: true
+            - properties:
+                percentiles_bucket:
+                  $ref: '#/components/schemas/PercentilesBucketAggregation'
+              required: [percentiles_bucket]
+              unevaluatedProperties: true
+            - $ref: '#/components/schemas/RangeAggregation'
+            - $ref: '#/components/schemas/RareTermsAggregation'
+            - properties:
+                rate:
+                  $ref: '#/components/schemas/RateAggregation'
+              required: [rate]
+              unevaluatedProperties: true
+            - $ref: '#/components/schemas/ReverseNestedAggregation'
+            - $ref: '#/components/schemas/SamplerAggregation'
+            - properties:
+                scripted_metric:
+                  $ref: '#/components/schemas/ScriptedMetricAggregation'
+              required: [scripted_metric]
+              unevaluatedProperties: true
+            - properties:
+                serial_diff:
+                  $ref: '#/components/schemas/SerialDifferencingAggregation'
+              required: [serial_diff]
+              unevaluatedProperties: true
+            - $ref: '#/components/schemas/SignificantTermsAggregation'
+            - $ref: '#/components/schemas/SignificantTextAggregation'
+            - properties:
+                stats:
+                  $ref: '#/components/schemas/StatsAggregation'
+              required: [stats]
+              unevaluatedProperties: true
+            - properties:
+                stats_bucket:
+                  $ref: '#/components/schemas/StatsBucketAggregation'
+              required: [stats_bucket]
+              unevaluatedProperties: true
+            - properties:
+                sum:
+                  $ref: '#/components/schemas/SumAggregation'
+              required: [sum]
+              unevaluatedProperties: true
+            - properties:
+                sum_bucket:
+                  $ref: '#/components/schemas/SumBucketAggregation'
+              required: [sum_bucket]
+              unevaluatedProperties: true
+            - $ref: '#/components/schemas/TermsAggregation'
+            - properties:
+                top_hits:
+                  $ref: '#/components/schemas/TopHitsAggregation'
+              required: [top_hits]
+              unevaluatedProperties: true
+            - properties:
+                t_test:
+                  $ref: '#/components/schemas/TTestAggregation'
+              required: [t_test]
+              unevaluatedProperties: true
+            - properties:
+                value_count:
+                  $ref: '#/components/schemas/ValueCountAggregation'
+              required: [value_count]
+              unevaluatedProperties: true
+            - properties:
+                weighted_avg:
+                  $ref: '#/components/schemas/WeightedAverageAggregation'
+              required: [weighted_avg]
+              unevaluatedProperties: true
+            - properties:
+                variable_width_histogram:
+                  $ref: '#/components/schemas/VariableWidthHistogramAggregation'
+              required: [variable_width_histogram]
+              unevaluatedProperties: true
+    AdjacencyMatrixAggregation:
+      allOf:
+        - $ref: '#/components/schemas/BucketAggregationBase'
+        - type: object
+          properties:
+            adjacency_matrix:
+              $ref: '#/components/schemas/AdjacencyMatrixAggregationFields'
+          required: [adjacency_matrix]
+    AdjacencyMatrixAggregationFields:
+      type: object
+      properties:
+        filters:
+          description: |-
+            Filters used to create buckets.
+            At least one filter is required.
+          type: object
+          additionalProperties:
+            $ref: '_common.query_dsl.yaml#/components/schemas/QueryContainer'
+    BucketAggregationBase:
+      type: object
+      properties:
+        aggregations:
+          description: Sub-aggregations for this bucket aggregation
+          type: object
+          propertyNames:
+            title: aggregation_name
+            description: Sub-aggregation name
+            type: string
+          additionalProperties:
+            title: aggregation_container
+            $ref: '#/components/schemas/AggregationContainer'
+        aggs:
+          description: Sub-aggregations for this bucket aggregation (alias for 'aggregations')
+          type: object
+          x-protobuf-excluded: true
+          propertyNames:
+            title: aggregation_name
+            description: Sub-aggregation name
+            type: string
+          additionalProperties:
+            title: aggregation_container
+            $ref: '#/components/schemas/AggregationContainer'
+      not:
+        type: object
+        properties:
+          aggregations:
+            type: object
+          aggs:
+            type: object
+        required: [aggregations, aggs]
+    Aggregation:
+      type: object
+      properties:
+        meta:
+          description: Custom metadata to associate with the aggregation (optional)
+          $ref: '_common.yaml#/components/schemas/Metadata'
+    AutoDateHistogramAggregation:
+      allOf:
+        - $ref: '#/components/schemas/BucketAggregationBase'
+        - type: object
+          properties:
+            auto_date_histogram:
+              $ref: '#/components/schemas/AutoDateHistogramAggregationFields'
+          required: [auto_date_histogram]
+    AutoDateHistogramAggregationFields:
+      type: object
+      properties:
+        buckets:
+          description: The target number of buckets.
+          type: integer
+          format: int32
+        field:
+          $ref: '_common.yaml#/components/schemas/Field'
+        format:
+          description: |-
+            The date format used to format `key_as_string` in the response.
+            If no `format` is specified, the first date format specified in the field mapping is used.
+          type: string
+        minimum_interval:
+          $ref: '#/components/schemas/MinimumInterval'
+        missing:
+          $ref: '_common.yaml#/components/schemas/DateTime'
+        offset:
+          description: Time zone specified as a ISO 8601 UTC offset.
+          type: string
+        params:
+          type: object
+          additionalProperties: true
+        script:
+          $ref: '_common.yaml#/components/schemas/Script'
+        time_zone:
+          $ref: '_common.yaml#/components/schemas/TimeZone'
+    MinimumInterval:
+      type: string
+      enum:
+        - day
+        - hour
+        - minute
+        - month
+        - second
+        - year
+    AverageAggregation:
+      allOf:
+        - $ref: '#/components/schemas/FormatMetricAggregationBase'
+        - type: object
+    FormatMetricAggregationBase:
+      allOf:
+        - $ref: '#/components/schemas/MetricAggregationBase'
+        - type: object
+          properties:
+            format:
+              type: string
+    MetricAggregationBase:
+      allOf:
+        - type: object
+          properties:
+            missing:
+              $ref: '_common.yaml#/components/schemas/FieldValue'
+        - anyOf:
+            - type: object
+              properties:
+                field:
+                  $ref: '_common.yaml#/components/schemas/Field'
+            - type: object
+              properties:
+                script:
+                  $ref: '_common.yaml#/components/schemas/Script'
+    AverageBucketAggregation:
+      allOf:
+        - $ref: '#/components/schemas/PipelineAggregationBase'
+        - type: object
+    PipelineAggregationBase:
+      allOf:
+        - $ref: '#/components/schemas/BucketPathAggregation'
+        - type: object
+          properties:
+            format:
+              description: |-
+                `DecimalFormat` pattern for the output value.
+                If specified, the formatted value is returned in the aggregation's `value_as_string` property.
+              type: string
+            gap_policy:
+              $ref: '#/components/schemas/GapPolicy'
+    GapPolicy:
+      type: string
+      enum:
+        - insert_zeros
+        - keep_values
+        - skip
+    BucketPathAggregation:
+      type: object
+      properties:
+        buckets_path:
+          $ref: '#/components/schemas/BucketsPath'
+    BucketsPath:
+      description: |-
+        Buckets path can be expressed in different ways, and an aggregation may accept some or all of these
+        forms depending on its type. Refer to each aggregation's documentation to know what buckets
+        path forms they accept.
+      oneOf:
+        - title: single
+          type: string
+        - title: array
+          type: array
+          items:
+            type: string
+        - title: dict
+          type: object
+          additionalProperties:
+            type: string
+    BoxplotAggregation:
+      allOf:
+        - $ref: '#/components/schemas/MetricAggregationBase'
+        - type: object
+          properties:
+            compression:
+              description: Limits the maximum number of nodes used by the underlying TDigest algorithm to `20 * compression`, enabling control of memory usage and approximation error.
+              type: number
+              format: double
+    BucketScriptAggregation:
+      allOf:
+        - $ref: '#/components/schemas/PipelineAggregationBase'
+        - type: object
+          properties:
+            script:
+              $ref: '_common.yaml#/components/schemas/Script'
+    BucketSelectorAggregation:
+      allOf:
+        - $ref: '#/components/schemas/PipelineAggregationBase'
+        - type: object
+          properties:
+            script:
+              $ref: '_common.yaml#/components/schemas/Script'
+    BucketSortAggregation:
+      type: object
+      properties:
+        from:
+          description: Buckets in positions prior to `from` will be truncated.
+          type: integer
+          format: int32
+        gap_policy:
+          $ref: '#/components/schemas/GapPolicy'
+        size:
+          description: |-
+            The number of buckets to return.
+            Defaults to all buckets of the parent aggregation.
+          type: integer
+          format: int32
+        sort:
+          $ref: '_common.yaml#/components/schemas/Sort'
+    CardinalityAggregation:
+      allOf:
+        - $ref: '#/components/schemas/MetricAggregationBase'
+        - type: object
+          properties:
+            precision_threshold:
+              description: |-
+                A unique count below which counts are expected to be close to accurate.
+                This allows to trade memory for accuracy.
+              type: integer
+              format: int32
+            execution_hint:
+              $ref: '#/components/schemas/CardinalityExecutionMode'
+    CardinalityExecutionMode:
+      type: string
+      enum:
+        - direct
+        - global_ordinals
+        - segment_ordinals
+    ChildrenAggregation:
+      allOf:
+        - $ref: '#/components/schemas/BucketAggregationBase'
+        - type: object
+          properties:
+            children:
+              $ref: '#/components/schemas/ChildrenAggregationFields'
+          required: [children]
+    ChildrenAggregationFields:
+      type: object
+      properties:
+        type:
+          $ref: '_common.yaml#/components/schemas/RelationName'
+    CompositeAggregation:
+      allOf:
+        - $ref: '#/components/schemas/BucketAggregationBase'
+        - type: object
+          properties:
+            composite:
+              $ref: '#/components/schemas/CompositeAggregationFields'
+          required: [composite]
+    CompositeAggregationFields:
+      type: object
+      properties:
+        after:
+          $ref: '#/components/schemas/CompositeAggregateKey'
+        size:
+          description: The number of composite buckets that should be returned.
+          type: integer
+          format: int32
+        sources:
+          description: |-
+            The value sources used to build composite buckets.
+            Keys are returned in the order of the `sources` definition.
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              $ref: '#/components/schemas/CompositeAggregationSource'
+    CompositeAggregationSource:
+      type: object
+      properties:
+        terms:
+          $ref: '#/components/schemas/CompositeTermsAggregationSource'
+        histogram:
+          $ref: '#/components/schemas/CompositeHistogramAggregationSource'
+        date_histogram:
+          $ref: '#/components/schemas/CompositeDateHistogramAggregationSource'
+        geotile_grid:
+          $ref: '#/components/schemas/CompositeGeoTileGridAggregationSource'
+    CompositeTermsAggregationSource:
+      allOf:
+        - $ref: '#/components/schemas/CompositeValuesSource'
+        - type: object
+    CompositeValuesSource:
+      type: object
+      properties:
+        field:
+          $ref: '_common.yaml#/components/schemas/Field'
+        missing_bucket:
+          type: boolean
+        missing_order:
+          $ref: '#/components/schemas/MissingOrder'
+        script:
+          $ref: '_common.yaml#/components/schemas/Script'
+        value_type:
+          $ref: '#/components/schemas/ValueType'
+        order:
+          $ref: '_common.yaml#/components/schemas/SortOrder'
+    MissingOrder:
+      type: string
+      enum:
+        - default
+        - first
+        - last
+    ValueType:
+      type: string
+      description: |-
+        The data type for a field. The server's `lenientParse` accepts multiple representations
+        for the same underlying type (for example, byte/short/integer/long all map to long).
+      enum:
+        - boolean
+        - byte
+        - date
+        - double
+        - float
+        - integer
+        - ip
+        - long
+        - number
+        - numeric
+        - short
+        - string
+        - unsigned_long
+    CompositeHistogramAggregationSource:
+      allOf:
+        - $ref: '#/components/schemas/CompositeValuesSource'
+        - type: object
+          properties:
+            interval:
+              type: number
+              format: double
+          required:
+            - interval
+    CompositeDateHistogramAggregationSource:
+      allOf:
+        - $ref: '#/components/schemas/CompositeValuesSource'
+        - type: object
+          properties:
+            format:
+              type: string
+            calendar_interval:
+              $ref: '_common.yaml#/components/schemas/DurationLarge'
+            fixed_interval:
+              $ref: '_common.yaml#/components/schemas/DurationLarge'
+            offset:
+              $ref: '_common.yaml#/components/schemas/Duration'
+            time_zone:
+              $ref: '_common.yaml#/components/schemas/TimeZone'
+    CompositeGeoTileGridAggregationSource:
+      allOf:
+        - $ref: '#/components/schemas/CompositeValuesSource'
+        - type: object
+          properties:
+            precision:
+              type: integer
+              format: int32
+            bounds:
+              $ref: '_common.yaml#/components/schemas/GeoBounds'
+    CumulativeCardinalityAggregation:
+      allOf:
+        - $ref: '#/components/schemas/PipelineAggregationBase'
+        - type: object
+    CumulativeSumAggregation:
+      allOf:
+        - $ref: '#/components/schemas/PipelineAggregationBase'
+        - type: object
+    HistogramOrder:
+      type: object
+      properties:
+        _count:
+          $ref: '_common.yaml#/components/schemas/SortOrder'
+        _key:
+          $ref: '_common.yaml#/components/schemas/SortOrder'
+    DateHistogramAggregation:
+      allOf:
+        - $ref: '#/components/schemas/BucketAggregationBase'
+        - type: object
+          properties:
+            date_histogram:
+              $ref: '#/components/schemas/DateHistogramAggregationFields'
+          required: [date_histogram]
+    DateHistogramAggregationFields:
+      type: object
+      properties:
+        calendar_interval:
+          $ref: '#/components/schemas/CalendarInterval'
+        extended_bounds:
+          $ref: '#/components/schemas/ExtendedBoundsFieldDateMath'
+        hard_bounds:
+          $ref: '#/components/schemas/ExtendedBoundsFieldDateMath'
+        field:
+          $ref: '_common.yaml#/components/schemas/Field'
+        fixed_interval:
+          $ref: '_common.yaml#/components/schemas/Duration'
+        format:
+          description: |-
+            The date format used to format `key_as_string` in the response.
+            If no `format` is specified, the first date format specified in the field mapping is used.
+          type: string
+        interval:
+          $ref: '_common.yaml#/components/schemas/Duration'
+        min_doc_count:
+          description: |-
+            Only returns buckets that have `min_doc_count` number of documents.
+            By default, all buckets between the first bucket that matches documents and the last one are returned.
+          type: integer
+          format: int32
+        missing:
+          $ref: '_common.yaml#/components/schemas/DateTime'
+        offset:
+          $ref: '_common.yaml#/components/schemas/Duration'
+        order:
+          $ref: '#/components/schemas/HistogramOrder'
+        params:
+          type: object
+          additionalProperties: true
+        script:
+          $ref: '_common.yaml#/components/schemas/Script'
+        time_zone:
+          $ref: '_common.yaml#/components/schemas/TimeZone'
+        keyed:
+          description: Set to `true` to associate a unique string key with each bucket and return the ranges as a hash rather than an array.
+          type: boolean
+    CalendarInterval:
+      # eslint-disable yml/sort-sequence-values -- The order of `second` & `1s` etc. is important for preferring the more correct variant.
+      oneOf:
+        - title: second
+          type: string
+          enum:
+            - second
+            - 1s
+        - title: minute
+          type: string
+          enum:
+            - minute
+            - 1m
+        - title: hour
+          type: string
+          enum:
+            - hour
+            - 1h
+        - title: day
+          type: string
+          enum:
+            - day
+            - 1d
+        - title: week
+          type: string
+          enum:
+            - week
+            - 1w
+        - title: month
+          type: string
+          enum:
+            - month
+            - 1M
+        - title: quarter
+          type: string
+          enum:
+            - quarter
+            - 1q
+        - title: year
+          type: string
+          enum:
+            - year
+            - 1Y
+      # eslint-enable yml/sort-sequence-values
+    T:
+      x-is-generic-type-parameter: true
+    ExtendedBounds:
+      type: object
+      properties:
+        max:
+          $ref: '#/components/schemas/T'
+        min:
+          $ref: '#/components/schemas/T'
+      required:
+        - max
+        - min
+    ExtendedBoundsFieldDateMath:
+      allOf:
+        - $ref: '#/components/schemas/ExtendedBounds'
+        - type: object
+          properties:
+            max:
+              $ref: '#/components/schemas/FieldDateMath'
+            min:
+              $ref: '#/components/schemas/FieldDateMath'
+    FieldDateMath:
+      description: |-
+        A date range limit, represented either as a DateMath expression or a number expressed
+        according to the target field's precision.
+      oneOf:
+        - title: expr
+          $ref: '_common.yaml#/components/schemas/DateMath'
+        - title: value
+          type: number
+          format: double
+    AggregateOrder:
+      oneOf:
+        - type: object
+          additionalProperties:
+            $ref: '_common.yaml#/components/schemas/SortOrder'
+          minProperties: 1
+          maxProperties: 1
+        - type: array
+          items:
+            type: object
+            additionalProperties:
+              $ref: '_common.yaml#/components/schemas/SortOrder'
+            minProperties: 1
+            maxProperties: 1
+    DateRangeAggregation:
+      allOf:
+        - $ref: '#/components/schemas/BucketAggregationBase'
+        - type: object
+          properties:
+            date_range:
+              $ref: '#/components/schemas/DateRangeAggregationFields'
+          required: [date_range]
+    DateRangeAggregationFields:
+      type: object
+      properties:
+        field:
+          $ref: '_common.yaml#/components/schemas/Field'
+        format:
+          description: The date format used to format `from` and `to` in the response.
+          type: string
+        missing:
+          $ref: '_common.yaml#/components/schemas/FieldValue'
+        ranges:
+          description: Array of date ranges.
+          type: array
+          items:
+            $ref: '#/components/schemas/DateRangeExpression'
+        time_zone:
+          $ref: '_common.yaml#/components/schemas/TimeZone'
+        keyed:
+          description: Set to `true` to associate a unique string key with each bucket and returns the ranges as a hash rather than an array.
+          type: boolean
+    DateRangeExpression:
+      type: object
+      properties:
+        from:
+          $ref: '#/components/schemas/FieldDateMath'
+        key:
+          description: Custom key to return the range with.
+          type: string
+        to:
+          $ref: '#/components/schemas/FieldDateMath'
+    DerivativeAggregation:
+      allOf:
+        - $ref: '#/components/schemas/PipelineAggregationBase'
+        - type: object
+    DiversifiedSamplerAggregation:
+      allOf:
+        - $ref: '#/components/schemas/BucketAggregationBase'
+        - type: object
+          properties:
+            diversified_sampler:
+              $ref: '#/components/schemas/DiversifiedSamplerAggregationFields'
+          required: [diversified_sampler]
+    DiversifiedSamplerAggregationFields:
+      type: object
+      properties:
+        execution_hint:
+          $ref: '#/components/schemas/SamplerAggregationExecutionHint'
+        max_docs_per_value:
+          description: Limits how many documents are permitted per choice of de-duplicating value.
+          type: integer
+          format: int32
+        script:
+          $ref: '_common.yaml#/components/schemas/Script'
+        shard_size:
+          description: Limits how many top-scoring documents are collected in the sample processed on each shard.
+          type: integer
+          format: int32
+        field:
+          $ref: '_common.yaml#/components/schemas/Field'
+    SamplerAggregationExecutionHint:
+      type: string
+      enum:
+        - bytes_hash
+        - global_ordinals
+        - map
+    ExtendedStatsAggregation:
+      allOf:
+        - $ref: '#/components/schemas/FormatMetricAggregationBase'
+        - type: object
+          properties:
+            sigma:
+              description: The number of standard deviations above/below the mean to display.
+              type: number
+              format: double
+    ExtendedStatsBucketAggregation:
+      allOf:
+        - $ref: '#/components/schemas/PipelineAggregationBase'
+        - type: object
+          properties:
+            sigma:
+              description: The number of standard deviations above/below the mean to display.
+              type: number
+              format: double
+    TermsExclude:
+      oneOf:
+        - title: regexp
+          type: string
+        - title: terms
+          type: array
+          items:
+            type: string
+    TermsInclude:
+      oneOf:
+        - title: regexp
+          type: string
+        - title: terms
+          type: array
+          items:
+            type: string
+        - title: partition
+          $ref: '#/components/schemas/TermsPartition'
+    TermsPartition:
+      type: object
+      properties:
+        num_partitions:
+          description: The number of partitions.
+          type: integer
+          format: int32
+        partition:
+          description: The partition number for this request.
+          type: integer
+          format: int32
+      required:
+        - num_partitions
+        - partition
+    FilterAggregation:
+      allOf:
+        - $ref: '#/components/schemas/BucketAggregationBase'
+        - type: object
+          properties:
+            filter:
+              $ref: '#/components/schemas/FilterAggregationFields'
+          required: [filter]
+      x-protobuf-excluded: true
+    FilterAggregationFields:
+      $ref: '_common.query_dsl.yaml#/components/schemas/QueryContainer'
+    FiltersAggregation:
+      allOf:
+        - $ref: '#/components/schemas/BucketAggregationBase'
+        - type: object
+          properties:
+            filters:
+              $ref: '#/components/schemas/FiltersAggregationFields'
+          required: [filters]
+    FiltersAggregationFields:
+      type: object
+      properties:
+        filters:
+          $ref: '#/components/schemas/BucketsQueryContainer'
+        other_bucket:
+          description: Set to `true` to add a bucket to the response which will contain all documents that do not match any of the given filters.
+          type: boolean
+        other_bucket_key:
+          description: The key with which the other bucket is returned.
+          type: string
+        keyed:
+          description: |-
+            By default, the named filters aggregation returns the buckets as an object.
+            Set to `false` to return the buckets as an array of objects.
+          type: boolean
+    Buckets:
+      description: |-
+        Aggregation buckets. By default they are returned as an array, but if the aggregation has keys configured for
+        the different buckets, the result is a dictionary.
+      oneOf:
+        - title: keyed
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/TBucket'
+        - title: array
+          type: array
+          items:
+            $ref: '#/components/schemas/TBucket'
+    BucketsQueryContainer:
+      allOf:
+        - $ref: '#/components/schemas/Buckets'
+        - oneOf:
+            - title: keyed
+              type: object
+              additionalProperties:
+                $ref: '_common.query_dsl.yaml#/components/schemas/QueryContainer'
+            - title: array
+              type: array
+              items:
+                $ref: '_common.query_dsl.yaml#/components/schemas/QueryContainer'
+    GeoBoundsAggregation:
+      allOf:
+        - $ref: '#/components/schemas/MetricAggregationBase'
+        - type: object
+          properties:
+            wrap_longitude:
+              description: Specifies whether the bounding box should be allowed to overlap the international date line.
+              type: boolean
+    GeoCentroidAggregation:
+      allOf:
+        - $ref: '#/components/schemas/MetricAggregationBase'
+        - type: object
+          properties:
+            count:
+              type: integer
+              format: int64
+            location:
+              $ref: '_common.yaml#/components/schemas/GeoLocation'
+    GeoDistanceAggregation:
+      allOf:
+        - $ref: '#/components/schemas/BucketAggregationBase'
+        - type: object
+          properties:
+            geo_distance:
+              $ref: '#/components/schemas/GeoDistanceAggregationFields'
+          required: [geo_distance]
+    GeoDistanceAggregationFields:
+      type: object
+      properties:
+        distance_type:
+          $ref: '_common.yaml#/components/schemas/GeoDistanceType'
+        field:
+          $ref: '_common.yaml#/components/schemas/Field'
+        origin:
+          $ref: '_common.yaml#/components/schemas/GeoLocation'
+        ranges:
+          description: An array of ranges used to bucket documents.
+          type: array
+          items:
+            $ref: '#/components/schemas/AggregationRange'
+        unit:
+          $ref: '_common.yaml#/components/schemas/DistanceUnit'
+    AggregationRange:
+      type: object
+      properties:
+        from:
+          description: Start of the range (inclusive).
+          oneOf:
+            - type: number
+              format: double
+            - type: string
+            - type: 'null'
+        key:
+          description: Custom key to return the range with.
+          type: string
+        to:
+          description: End of the range (exclusive).
+          oneOf:
+            - type: number
+              format: double
+            - type: string
+            - type: 'null'
+    GeoHashGridAggregation:
+      allOf:
+        - $ref: '#/components/schemas/BucketAggregationBase'
+        - type: object
+          properties:
+            geohash_grid:
+              $ref: '#/components/schemas/GeoHashGridAggregationFields'
+          required: [geohash_grid]
+    GeoHashGridAggregationFields:
+      type: object
+      properties:
+        bounds:
+          $ref: '_common.yaml#/components/schemas/GeoBounds'
+        field:
+          $ref: '_common.yaml#/components/schemas/Field'
+        precision:
+          $ref: '_common.yaml#/components/schemas/GeoHashPrecision'
+        shard_size:
+          description: |-
+            Allows for more accurate counting of the top cells returned in the final result the aggregation.
+            Defaults to returning `max(10,(size x number-of-shards))` buckets from each shard.
+          type: integer
+          format: int32
+        size:
+          description: The maximum number of geohash buckets to return.
+          type: integer
+          format: int32
+    GeoTileGridAggregation:
+      allOf:
+        - $ref: '#/components/schemas/BucketAggregationBase'
+        - type: object
+          properties:
+            geotile_grid:
+              $ref: '#/components/schemas/GeoTileGridAggregationFields'
+          required: [geotile_grid]
+    GeoTileGridAggregationFields:
+      type: object
+      properties:
+        field:
+          $ref: '_common.yaml#/components/schemas/Field'
+        precision:
+          $ref: '_common.yaml#/components/schemas/GeoTilePrecision'
+        shard_size:
+          description: |-
+            Allows for more accurate counting of the top cells returned in the final result the aggregation.
+            Defaults to returning `max(10,(size x number-of-shards))` buckets from each shard.
+          type: integer
+          format: int32
+        size:
+          description: The maximum number of buckets to return.
+          type: integer
+          format: int32
+        bounds:
+          $ref: '_common.yaml#/components/schemas/GeoBounds'
+    GlobalAggregation:
+      allOf:
+        - $ref: '#/components/schemas/BucketAggregationBase'
+        - type: object
+          properties:
+            global:
+              $ref: '#/components/schemas/GlobalAggregationFields'
+          required: [global]
+    GlobalAggregationFields:
+      type: object
+    HistogramAggregation:
+      allOf:
+        - $ref: '#/components/schemas/BucketAggregationBase'
+        - type: object
+          properties:
+            histogram:
+              $ref: '#/components/schemas/HistogramAggregationFields'
+          required: [histogram]
+    HistogramAggregationFields:
+      type: object
+      properties:
+        extended_bounds:
+          $ref: '#/components/schemas/ExtendedBoundsDouble'
+        hard_bounds:
+          $ref: '#/components/schemas/ExtendedBoundsDouble'
+        field:
+          $ref: '_common.yaml#/components/schemas/Field'
+        interval:
+          description: |-
+            The interval for the buckets.
+            Must be a positive decimal.
+          type: number
+          format: double
+        min_doc_count:
+          description: |-
+            Only returns buckets that have `min_doc_count` number of documents.
+            By default, the response will fill gaps in the histogram with empty buckets.
+          type: integer
+          format: int32
+        missing:
+          description: |-
+            The value to apply to documents that do not have a value.
+            By default, documents without a value are ignored.
+          type: number
+          format: double
+        offset:
+          description: |-
+            By default, the bucket keys start with 0 and then continue in even spaced steps of `interval`.
+            The bucket boundaries can be shifted by using the `offset` option.
+          type: number
+          format: double
+        order:
+          $ref: '#/components/schemas/HistogramOrder'
+        script:
+          $ref: '_common.yaml#/components/schemas/Script'
+        format:
+          type: string
+        keyed:
+          description: If `true`, returns buckets as a hash instead of an array, keyed by the bucket keys.
+          type: boolean
+    ExtendedBoundsDouble:
+      allOf:
+        - $ref: '#/components/schemas/ExtendedBounds'
+        - type: object
+          properties:
+            max:
+              type: number
+              format: double
+            min:
+              type: number
+              format: double
+    IpRangeAggregation:
+      allOf:
+        - $ref: '#/components/schemas/BucketAggregationBase'
+        - type: object
+          properties:
+            ip_range:
+              $ref: '#/components/schemas/IpRangeAggregationFields'
+          required: [ip_range]
+    IpRangeAggregationFields:
+      type: object
+      properties:
+        field:
+          $ref: '_common.yaml#/components/schemas/Field'
+        ranges:
+          description: Array of IP ranges.
+          type: array
+          items:
+            $ref: '#/components/schemas/IpRangeAggregationRange'
+    IpRangeAggregationRange:
+      type: object
+      properties:
+        from:
+          description: Start of the range.
+          type: ['null', string]
+        mask:
+          description: IP range defined as a CIDR mask.
+          type: string
+        to:
+          description: End of the range.
+          type: ['null', string]
+    MatrixStatsAggregation:
+      allOf:
+        - $ref: '#/components/schemas/MatrixAggregation'
+        - type: object
+          properties:
+            mode:
+              $ref: '_common.yaml#/components/schemas/SortMode'
+    MatrixAggregation:
+      type: object
+      properties:
+        fields:
+          $ref: '_common.yaml#/components/schemas/Fields'
+        missing:
+          description: |-
+            The value to apply to documents that do not have a value.
+            By default, documents without a value are ignored.
+          type: object
+          additionalProperties:
+            type: number
+            format: double
+    MaxAggregation:
+      allOf:
+        - $ref: '#/components/schemas/FormatMetricAggregationBase'
+        - type: object
+          properties:
+            value_type:
+              $ref: '#/components/schemas/ValueType'
+    MaxBucketAggregation:
+      allOf:
+        - $ref: '#/components/schemas/PipelineAggregationBase'
+        - type: object
+    MedianAbsoluteDeviationAggregation:
+      allOf:
+        - $ref: '#/components/schemas/FormatMetricAggregationBase'
+        - type: object
+          properties:
+            compression:
+              description: Limits the maximum number of nodes used by the underlying TDigest algorithm to `20 * compression`, enabling control of memory usage and approximation error.
+              type: number
+              format: double
+    MinAggregation:
+      allOf:
+        - $ref: '#/components/schemas/FormatMetricAggregationBase'
+        - type: object
+          properties:
+            value_type:
+              $ref: '#/components/schemas/ValueType'
+    MinBucketAggregation:
+      allOf:
+        - $ref: '#/components/schemas/PipelineAggregationBase'
+        - type: object
+    MissingAggregation:
+      allOf:
+        - $ref: '#/components/schemas/BucketAggregationBase'
+        - type: object
+          properties:
+            missing:
+              $ref: '#/components/schemas/MissingAggregationFields'
+          required: [missing]
+    MissingAggregationFields:
+      type: object
+      properties:
+        field:
+          $ref: '_common.yaml#/components/schemas/Field'
+        missing:
+          $ref: '_common.yaml#/components/schemas/FieldValue'
+    MovingAverageAggregation:
+      type: object
+      discriminator:
+        propertyName: model
+      oneOf:
+        - $ref: '#/components/schemas/LinearMovingAverageAggregation'
+        - $ref: '#/components/schemas/SimpleMovingAverageAggregation'
+        - $ref: '#/components/schemas/EwmaMovingAverageAggregation'
+        - $ref: '#/components/schemas/HoltMovingAverageAggregation'
+        - $ref: '#/components/schemas/HoltWintersMovingAverageAggregation'
+    LinearMovingAverageAggregation:
+      allOf:
+        - $ref: '#/components/schemas/MovingAverageAggregationBase'
+        - type: object
+          properties:
+            model:
+              type: string
+              enum:
+                - linear
+            settings:
+              $ref: '_common.yaml#/components/schemas/EmptyObject'
+          required:
+            - model
+            - settings
+    MovingAverageAggregationBase:
+      allOf:
+        - $ref: '#/components/schemas/PipelineAggregationBase'
+        - type: object
+          properties:
+            minimize:
+              type: boolean
+            predict:
+              type: integer
+              format: int32
+            window:
+              type: integer
+              format: int32
+    SimpleMovingAverageAggregation:
+      allOf:
+        - $ref: '#/components/schemas/MovingAverageAggregationBase'
+        - type: object
+          properties:
+            model:
+              type: string
+              enum:
+                - simple
+            settings:
+              $ref: '_common.yaml#/components/schemas/EmptyObject'
+          required:
+            - model
+            - settings
+    EwmaMovingAverageAggregation:
+      allOf:
+        - $ref: '#/components/schemas/MovingAverageAggregationBase'
+        - type: object
+          properties:
+            model:
+              type: string
+              enum:
+                - ewma
+            settings:
+              $ref: '#/components/schemas/EwmaModelSettings'
+          required:
+            - model
+            - settings
+    EwmaModelSettings:
+      type: object
+      properties:
+        alpha:
+          type: number
+          format: float
+    HoltMovingAverageAggregation:
+      allOf:
+        - $ref: '#/components/schemas/MovingAverageAggregationBase'
+        - type: object
+          properties:
+            model:
+              type: string
+              enum:
+                - holt
+            settings:
+              $ref: '#/components/schemas/HoltLinearModelSettings'
+          required:
+            - model
+            - settings
+    HoltLinearModelSettings:
+      type: object
+      properties:
+        alpha:
+          type: number
+          format: float
+        beta:
+          type: number
+          format: float
+    HoltWintersMovingAverageAggregation:
+      allOf:
+        - $ref: '#/components/schemas/MovingAverageAggregationBase'
+        - type: object
+          properties:
+            model:
+              type: string
+              enum:
+                - holt_winters
+            settings:
+              $ref: '#/components/schemas/HoltWintersModelSettings'
+          required:
+            - model
+            - settings
+    HoltWintersModelSettings:
+      type: object
+      properties:
+        alpha:
+          type: number
+          format: float
+        beta:
+          type: number
+          format: float
+        gamma:
+          type: number
+          format: float
+        pad:
+          type: boolean
+        period:
+          type: integer
+          format: int32
+        type:
+          $ref: '#/components/schemas/HoltWintersType'
+    HoltWintersType:
+      oneOf:
+        - title: additive
+          type: string
+          const: add
+        - title: multiplicative
+          type: string
+          const: mult
+    MovingPercentilesAggregation:
+      allOf:
+        - $ref: '#/components/schemas/PipelineAggregationBase'
+        - type: object
+          properties:
+            window:
+              description: The size of window to "slide" across the histogram.
+              type: integer
+              format: int32
+            shift:
+              description: |-
+                By default, the window consists of the last n values excluding the current bucket.
+                Increasing `shift` by 1, moves the starting window position by 1 to the right.
+              type: integer
+              format: int32
+            keyed:
+              type: boolean
+    MovingFunctionAggregation:
+      allOf:
+        - $ref: '#/components/schemas/PipelineAggregationBase'
+        - type: object
+          properties:
+            script:
+              description: The script that should be executed on each window of data.
+              type: string
+            shift:
+              description: |-
+                By default, the window consists of the last n values excluding the current bucket.
+                Increasing `shift` by 1, moves the starting window position by 1 to the right.
+              type: integer
+              format: int32
+            window:
+              description: The size of window to "slide" across the histogram.
+              type: integer
+              format: int32
+    MultiTermsAggregation:
+      allOf:
+        - $ref: '#/components/schemas/BucketAggregationBase'
+        - type: object
+          properties:
+            multi_terms:
+              $ref: '#/components/schemas/MultiTermsAggregationFields'
+          required: [multi_terms]
+    MultiTermsAggregationFields:
+      type: object
+      properties:
+        collect_mode:
+          $ref: '#/components/schemas/TermsAggregationCollectMode'
+        order:
+          $ref: '#/components/schemas/HistogramOrder'
+        min_doc_count:
+          description: The minimum number of documents in a bucket for it to be returned.
+          type: integer
+          format: int32
+        shard_min_doc_count:
+          description: The minimum number of documents in a bucket on each shard for it to be returned.
+          type: integer
+          format: int32
+        shard_size:
+          description: |-
+            The number of candidate terms produced by each shard.
+            By default, `shard_size` will be automatically estimated based on the number of shards and the `size` parameter.
+          type: integer
+          format: int32
+        show_term_doc_count_error:
+          description: Calculates the doc count error on per term basis.
+          type: boolean
+        size:
+          description: The number of term buckets should be returned out of the overall terms list.
+          type: integer
+          format: int32
+        terms:
+          description: The field from which to generate sets of terms.
+          type: array
+          items:
+            $ref: '#/components/schemas/MultiTermLookup'
+      required:
+        - terms
+    TermsAggregationCollectMode:
+      type: string
+      enum:
+        - breadth_first
+        - depth_first
+    MultiTermLookup:
+      type: object
+      properties:
+        field:
+          $ref: '_common.yaml#/components/schemas/Field'
+        missing:
+          $ref: '_common.yaml#/components/schemas/FieldValue'
+      required:
+        - field
+    NestedAggregation:
+      allOf:
+        - $ref: '#/components/schemas/BucketAggregationBase'
+        - type: object
+          properties:
+            nested:
+              $ref: '#/components/schemas/NestedAggregationFields'
+          required: [nested]
+    NestedAggregationFields:
+      type: object
+      properties:
+        path:
+          $ref: '_common.yaml#/components/schemas/Field'
+    NormalizeAggregation:
+      allOf:
+        - $ref: '#/components/schemas/PipelineAggregationBase'
+        - type: object
+          properties:
+            method:
+              $ref: '#/components/schemas/NormalizeMethod'
+    NormalizeMethod:
+      type: string
+      enum:
+        - mean
+        - percent_of_sum
+        - rescale_0_1
+        - rescale_0_100
+        - softmax
+        - z-score
+    ParentAggregation:
+      allOf:
+        - $ref: '#/components/schemas/BucketAggregationBase'
+        - type: object
+          properties:
+            parent:
+              $ref: '#/components/schemas/ParentAggregationFields'
+          required: [parent]
+    ParentAggregationFields:
+      type: object
+      properties:
+        type:
+          $ref: '_common.yaml#/components/schemas/RelationName'
+    PercentileRanksAggregation:
+      allOf:
+        - $ref: '#/components/schemas/FormatMetricAggregationBase'
+        - type: object
+          properties:
+            keyed:
+              description: |-
+                By default, the aggregation associates a unique string key with each bucket and returns the ranges as a hash rather than an array.
+                Set to `false` to disable this behavior.
+              type: boolean
+            values:
+              description: An array of values for which to calculate the percentile ranks.
+              type: array
+              items:
+                type: number
+                format: double
+            hdr:
+              $ref: '#/components/schemas/HdrMethod'
+            tdigest:
+              $ref: '#/components/schemas/TDigest'
+    HdrMethod:
+      type: object
+      properties:
+        number_of_significant_value_digits:
+          description: Specifies the resolution of values for the histogram in number of significant digits.
+          type: integer
+          format: int32
+    TDigest:
+      type: object
+      properties:
+        compression:
+          description: Limits the maximum number of nodes used by the underlying TDigest algorithm to `20 * compression`, enabling control of memory usage and approximation error.
+          type: integer
+          format: int32
+    PercentilesAggregation:
+      allOf:
+        - $ref: '#/components/schemas/FormatMetricAggregationBase'
+        - type: object
+          properties:
+            keyed:
+              description: |-
+                By default, the aggregation associates a unique string key with each bucket and returns the ranges as a hash rather than an array.
+                Set to `false` to disable this behavior.
+              type: boolean
+            percents:
+              description: The percentiles to calculate.
+              type: array
+              items:
+                type: number
+                format: double
+            hdr:
+              $ref: '#/components/schemas/HdrMethod'
+            tdigest:
+              $ref: '#/components/schemas/TDigest'
+    PercentilesBucketAggregation:
+      allOf:
+        - $ref: '#/components/schemas/PipelineAggregationBase'
+        - type: object
+          properties:
+            percents:
+              description: The list of percentiles to calculate.
+              type: array
+              items:
+                type: number
+                format: double
+    RangeAggregation:
+      allOf:
+        - $ref: '#/components/schemas/BucketAggregationBase'
+        - type: object
+          properties:
+            range:
+              $ref: '#/components/schemas/RangeAggregationFields'
+          required: [range]
+    RangeAggregationFields:
+      type: object
+      properties:
+        field:
+          $ref: '_common.yaml#/components/schemas/Field'
+        missing:
+          description: |-
+            The value to apply to documents that do not have a value.
+            By default, documents without a value are ignored.
+          type: integer
+          format: int32
+        ranges:
+          description: An array of ranges used to bucket documents.
+          type: array
+          items:
+            $ref: '#/components/schemas/AggregationRange'
+        script:
+          $ref: '_common.yaml#/components/schemas/Script'
+        keyed:
+          description: Set to `true` to associate a unique string key with each bucket and return the ranges as a hash rather than an array.
+          type: boolean
+        format:
+          type: string
+    RareTermsAggregation:
+      allOf:
+        - $ref: '#/components/schemas/BucketAggregationBase'
+        - type: object
+          properties:
+            rare_terms:
+              $ref: '#/components/schemas/RareTermsAggregationFields'
+          required: [rare_terms]
+    RareTermsAggregationFields:
+      type: object
+      properties:
+        exclude:
+          $ref: '#/components/schemas/TermsExclude'
+        field:
+          $ref: '_common.yaml#/components/schemas/Field'
+        include:
+          $ref: '#/components/schemas/TermsInclude'
+        max_doc_count:
+          description: The maximum number of documents a term should appear in.
+          type: integer
+          format: int64
+        missing:
+          $ref: '_common.yaml#/components/schemas/FieldValue'
+        precision:
+          description: |-
+            The precision of the internal CuckooFilters.
+            Smaller precision leads to better approximation, but higher memory usage.
+          type: number
+          format: double
+        value_type:
+          type: string
+    RateAggregation:
+      allOf:
+        - $ref: '#/components/schemas/FormatMetricAggregationBase'
+        - type: object
+          properties:
+            unit:
+              $ref: '#/components/schemas/CalendarInterval'
+            mode:
+              $ref: '#/components/schemas/RateMode'
+    RateMode:
+      type: string
+      enum:
+        - sum
+        - value_count
+    ReverseNestedAggregation:
+      allOf:
+        - $ref: '#/components/schemas/BucketAggregationBase'
+        - type: object
+          properties:
+            reverse_nested:
+              $ref: '#/components/schemas/ReverseNestedAggregationFields'
+          required: [reverse_nested]
+    ReverseNestedAggregationFields:
+      type: object
+      properties:
+        path:
+          $ref: '_common.yaml#/components/schemas/Field'
+    SamplerAggregation:
+      allOf:
+        - $ref: '#/components/schemas/BucketAggregationBase'
+        - type: object
+          properties:
+            sampler:
+              $ref: '#/components/schemas/SamplerAggregationFields'
+          required: [sampler]
+    SamplerAggregationFields:
+      type: object
+      properties:
+        shard_size:
+          description: Limits how many top-scoring documents are collected in the sample processed on each shard.
+          type: integer
+          format: int32
+    ScriptedMetricAggregation:
+      allOf:
+        - $ref: '#/components/schemas/MetricAggregationBase'
+        - type: object
+          properties:
+            combine_script:
+              $ref: '_common.yaml#/components/schemas/Script'
+            init_script:
+              $ref: '_common.yaml#/components/schemas/Script'
+            map_script:
+              $ref: '_common.yaml#/components/schemas/Script'
+            params:
+              description: |-
+                A global object with script parameters for `init`, `map` and `combine` scripts.
+                It is shared between the scripts.
+              type: object
+              additionalProperties: true
+            reduce_script:
+              $ref: '_common.yaml#/components/schemas/Script'
+    SerialDifferencingAggregation:
+      allOf:
+        - $ref: '#/components/schemas/PipelineAggregationBase'
+        - type: object
+          properties:
+            lag:
+              description: |-
+                The historical bucket to subtract from the current value.
+                Must be a positive, non-zero integer.
+              type: integer
+              format: int32
+    SignificantTermsAggregation:
+      allOf:
+        - $ref: '#/components/schemas/BucketAggregationBase'
+        - type: object
+          properties:
+            significant_terms:
+              $ref: '#/components/schemas/SignificantTermsAggregationFields'
+          required: [significant_terms]
+    SignificantTermsAggregationFields:
+      type: object
+      properties:
+        background_filter:
+          $ref: '_common.query_dsl.yaml#/components/schemas/QueryContainer'
+        chi_square:
+          $ref: '#/components/schemas/ChiSquareHeuristic'
+        exclude:
+          $ref: '#/components/schemas/TermsExclude'
+        execution_hint:
+          $ref: '#/components/schemas/TermsAggregationExecutionHint'
+        field:
+          $ref: '_common.yaml#/components/schemas/Field'
+        gnd:
+          $ref: '#/components/schemas/GoogleNormalizedDistanceHeuristic'
+        include:
+          $ref: '#/components/schemas/TermsInclude'
+        jlh:
+          $ref: '_common.yaml#/components/schemas/EmptyObject'
+        min_doc_count:
+          description: Only return terms that are found in more than `min_doc_count` hits.
+          type: integer
+          format: int64
+        mutual_information:
+          $ref: '#/components/schemas/MutualInformationHeuristic'
+        percentage:
+          $ref: '#/components/schemas/PercentageScoreHeuristic'
+        script_heuristic:
+          $ref: '#/components/schemas/ScriptedHeuristic'
+        shard_min_doc_count:
+          description: |-
+            Regulates the certainty a shard has if the term should actually be added to the candidate list or not with respect to the `min_doc_count`.
+            Terms will only be considered if their local shard frequency within the set is higher than the `shard_min_doc_count`.
+          type: integer
+          format: int64
+        shard_size:
+          description: |-
+            Can be used to control the volumes of candidate terms produced by each shard.
+            By default, `shard_size` will be automatically estimated based on the number of shards and the `size` parameter.
+          type: integer
+          format: int32
+        size:
+          description: The number of buckets returned out of the overall terms list.
+          type: integer
+          format: int32
+    ChiSquareHeuristic:
+      type: object
+      properties:
+        background_is_superset:
+          description: Set to `false` if you defined a custom background filter that represents a different set of documents that you want to compare to.
+          type: boolean
+        include_negatives:
+          description: Set to `false` to filter out the terms that appear less often in the subset than in documents outside the subset.
+          type: boolean
+      required:
+        - background_is_superset
+        - include_negatives
+    TermsAggregationExecutionHint:
+      type: string
+      enum:
+        - global_ordinals
+        - global_ordinals_hash
+        - global_ordinals_low_cardinality
+        - map
+    GoogleNormalizedDistanceHeuristic:
+      type: object
+      properties:
+        background_is_superset:
+          description: Set to `false` if you defined a custom background filter that represents a different set of documents that you want to compare to.
+          type: boolean
+    MutualInformationHeuristic:
+      type: object
+      properties:
+        background_is_superset:
+          description: Set to `false` if you defined a custom background filter that represents a different set of documents that you want to compare to.
+          type: boolean
+        include_negatives:
+          description: Set to `false` to filter out the terms that appear less often in the subset than in documents outside the subset.
+          type: boolean
+    PercentageScoreHeuristic:
+      type: object
+    ScriptedHeuristic:
+      type: object
+      properties:
+        script:
+          $ref: '_common.yaml#/components/schemas/Script'
+      required:
+        - script
+    SignificantTextAggregation:
+      allOf:
+        - $ref: '#/components/schemas/BucketAggregationBase'
+        - type: object
+          properties:
+            significant_text:
+              $ref: '#/components/schemas/SignificantTextAggregationFields'
+          required: [significant_text]
+    SignificantTextAggregationFields:
+      type: object
+      properties:
+        background_filter:
+          $ref: '_common.query_dsl.yaml#/components/schemas/QueryContainer'
+        chi_square:
+          $ref: '#/components/schemas/ChiSquareHeuristic'
+        exclude:
+          $ref: '#/components/schemas/TermsExclude'
+        execution_hint:
+          $ref: '#/components/schemas/TermsAggregationExecutionHint'
+        field:
+          $ref: '_common.yaml#/components/schemas/Field'
+        filter_duplicate_text:
+          description: Whether to out duplicate text to deal with noisy data.
+          type: boolean
+        gnd:
+          $ref: '#/components/schemas/GoogleNormalizedDistanceHeuristic'
+        include:
+          $ref: '#/components/schemas/TermsInclude'
+        jlh:
+          $ref: '_common.yaml#/components/schemas/EmptyObject'
+        min_doc_count:
+          description: Only return values that are found in more than `min_doc_count` hits.
+          type: integer
+          format: int64
+        mutual_information:
+          $ref: '#/components/schemas/MutualInformationHeuristic'
+        percentage:
+          $ref: '#/components/schemas/PercentageScoreHeuristic'
+        script_heuristic:
+          $ref: '#/components/schemas/ScriptedHeuristic'
+        shard_min_doc_count:
+          description: |-
+            Regulates the certainty a shard has if the values should actually be added to the candidate list or not with respect to the `min_doc_count`.
+            Values will only be considered if their local shard frequency within the set is higher than the `shard_min_doc_count`.
+          type: integer
+          format: int64
+        shard_size:
+          description: |-
+            The number of candidate terms produced by each shard.
+            By default, `shard_size` will be automatically estimated based on the number of shards and the `size` parameter.
+          type: integer
+          format: int32
+        size:
+          description: The number of buckets returned out of the overall terms list.
+          type: integer
+          format: int32
+        source_fields:
+          $ref: '_common.yaml#/components/schemas/Fields'
+    StatsAggregation:
+      allOf:
+        - $ref: '#/components/schemas/FormatMetricAggregationBase'
+        - type: object
+    StatsBucketAggregation:
+      allOf:
+        - $ref: '#/components/schemas/PipelineAggregationBase'
+        - type: object
+    SumAggregation:
+      allOf:
+        - $ref: '#/components/schemas/FormatMetricAggregationBase'
+        - type: object
+    SumBucketAggregation:
+      allOf:
+        - $ref: '#/components/schemas/PipelineAggregationBase'
+        - type: object
+    TermsAggregation:
+      allOf:
+        - $ref: '#/components/schemas/BucketAggregationBase'
+        - type: object
+          properties:
+            terms:
+              $ref: '#/components/schemas/TermsAggregationFields'
+          required: [terms]
+    TermsAggregationFields:
+      allOf:
+        - type: object
+          properties:
+            collect_mode:
+              $ref: '#/components/schemas/TermsAggregationCollectMode'
+            exclude:
+              $ref: '#/components/schemas/TermsExclude'
+            execution_hint:
+              $ref: '#/components/schemas/TermsAggregationExecutionHint'
+            include:
+              $ref: '#/components/schemas/TermsInclude'
+            min_doc_count:
+              description: Only return values that are found in more than `min_doc_count` hits.
+              type: integer
+              format: int64
+            missing:
+              $ref: '_common.yaml#/components/schemas/FieldValue'
+            value_type:
+              description: Coerced unmapped fields into the specified type.
+              $ref: '#/components/schemas/ValueType'
+            order:
+              $ref: '#/components/schemas/AggregateOrder'
+            shard_size:
+              description: |-
+                The number of candidate terms produced by each shard.
+                By default, `shard_size` will be automatically estimated based on the number of shards and the `size` parameter.
+              type: integer
+              format: int32
+            shard_min_doc_count:
+              description: The minimum number of documents in a bucket on each shard for it to be returned.
+              type: integer
+              format: int64
+            show_term_doc_count_error:
+              description: Set to `true` to return the `doc_count_error_upper_bound`, which is an upper bound to the error on the `doc_count` returned by each shard.
+              type: boolean
+            size:
+              description: The number of buckets returned out of the overall terms list.
+              type: integer
+              format: int32
+            format:
+              type: string
+        - anyOf:
+            - type: object
+              properties:
+                field:
+                  $ref: '_common.yaml#/components/schemas/Field'
+            - type: object
+              properties:
+                script:
+                  $ref: '_common.yaml#/components/schemas/Script'
+    TopHitsAggregation:
+      allOf:
+        - $ref: '#/components/schemas/MetricAggregationBase'
+        - type: object
+          properties:
+            docvalue_fields:
+              $ref: '_common.yaml#/components/schemas/Fields'
+            explain:
+              description: If `true`, returns detailed information about score computation as part of a hit.
+              type: boolean
+            from:
+              description: Starting document offset.
+              type: integer
+              format: int32
+            highlight:
+              $ref: '_core.search.yaml#/components/schemas/Highlight'
+            script_fields:
+              description: Returns the result of one or more script evaluations for each hit.
+              type: object
+              additionalProperties:
+                $ref: '_common.yaml#/components/schemas/ScriptField'
+            size:
+              description: The maximum number of top matching hits to return per bucket.
+              type: integer
+              format: int32
+            sort:
+              $ref: '_common.yaml#/components/schemas/Sort'
+            _source:
+              $ref: '_core.search.yaml#/components/schemas/SourceConfig'
+            stored_fields:
+              $ref: '_common.yaml#/components/schemas/Fields'
+            track_scores:
+              description: If `true`, calculates and returns document scores, even if the scores are not used for sorting.
+              type: boolean
+            version:
+              description: If `true`, returns document version as part of a hit.
+              type: boolean
+            seq_no_primary_term:
+              description: If `true`, returns sequence number and primary term of the last modification of each hit.
+              type: boolean
+    TTestAggregation:
+      type: object
+      properties:
+        a:
+          $ref: '#/components/schemas/TestPopulation'
+        b:
+          $ref: '#/components/schemas/TestPopulation'
+        type:
+          $ref: '#/components/schemas/TTestType'
+    TestPopulation:
+      type: object
+      properties:
+        field:
+          $ref: '_common.yaml#/components/schemas/Field'
+        script:
+          $ref: '_common.yaml#/components/schemas/Script'
+        filter:
+          $ref: '_common.query_dsl.yaml#/components/schemas/QueryContainer'
+      required:
+        - field
+    TTestType:
+      type: string
+      enum:
+        - heteroscedastic
+        - homoscedastic
+        - paired
+    ValueCountAggregation:
+      allOf:
+        - $ref: '#/components/schemas/FormattableMetricAggregation'
+        - type: object
+    FormattableMetricAggregation:
+      allOf:
+        - $ref: '#/components/schemas/MetricAggregationBase'
+        - type: object
+          properties:
+            format:
+              type: string
+    WeightedAverageAggregation:
+      type: object
+      properties:
+        format:
+          description: A numeric response formatter.
+          type: string
+        value:
+          $ref: '#/components/schemas/WeightedAverageValue'
+        value_type:
+          $ref: '#/components/schemas/ValueType'
+        weight:
+          $ref: '#/components/schemas/WeightedAverageValue'
+    WeightedAverageValue:
+      type: object
+      properties:
+        field:
+          $ref: '_common.yaml#/components/schemas/Field'
+        missing:
+          description: A value or weight to use if the field is missing.
+          type: number
+          format: double
+        script:
+          $ref: '_common.yaml#/components/schemas/Script'
+    VariableWidthHistogramAggregation:
+      type: object
+      properties:
+        field:
+          $ref: '_common.yaml#/components/schemas/Field'
+        buckets:
+          description: The target number of buckets.
+          type: integer
+          format: int32
+        shard_size:
+          description: |-
+            The number of buckets that the coordinating node will request from each shard.
+            Defaults to `buckets * 50`.
+          type: integer
+          format: int32
+        initial_buffer:
+          description: |-
+            Specifies the number of individual documents that will be stored in memory on a shard before the initial bucketing algorithm is run.
+            Defaults to `min(10 * shard_size, 50000)`.
+          type: integer
+          format: int32

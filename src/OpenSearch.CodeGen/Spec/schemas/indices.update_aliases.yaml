@@ -1,0 +1,85 @@
+openapi: 3.1.0
+info:
+  title: Schemas of `indices.update_aliases` Category
+  description: Schemas of `indices.update_aliases` category.
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    Action:
+      description: The action to perform on aliases.
+      type: object
+      properties:
+        add:
+          $ref: '#/components/schemas/AddAction'
+        remove:
+          $ref: '#/components/schemas/RemoveAction'
+        remove_index:
+          $ref: '#/components/schemas/RemoveIndexAction'
+      minProperties: 1
+      maxProperties: 1
+    AddAction:
+      description: The configuration for adding an alias.
+      type: object
+      properties:
+        alias:
+          $ref: '_common.yaml#/components/schemas/IndexAlias'
+        aliases:
+          description: The list of aliases to add. Index alias names support date math.
+          oneOf:
+            - $ref: '_common.yaml#/components/schemas/IndexAlias'
+            - type: array
+              items:
+                $ref: '_common.yaml#/components/schemas/IndexAlias'
+        filter:
+          $ref: '_common.query_dsl.yaml#/components/schemas/QueryContainer'
+        index:
+          $ref: '_common.yaml#/components/schemas/IndexName'
+        indices:
+          $ref: '_common.yaml#/components/schemas/Indices'
+        index_routing:
+          $ref: '_common.yaml#/components/schemas/Routing'
+        is_hidden:
+          description: Whether the alias is hidden.
+          type: boolean
+        is_write_index:
+          description: Whether this is the write index or data stream for the alias.
+          type: boolean
+        routing:
+          $ref: '_common.yaml#/components/schemas/Routing'
+        search_routing:
+          $ref: '_common.yaml#/components/schemas/Routing'
+        must_exist:
+          description: Whether the alias must exist to perform the action.
+          type: boolean
+    RemoveAction:
+      description: The configuration for removing an alias.
+      type: object
+      properties:
+        alias:
+          $ref: '_common.yaml#/components/schemas/IndexAlias'
+        aliases:
+          description: The list of aliases to remove. Index alias names support date math.
+          oneOf:
+            - $ref: '_common.yaml#/components/schemas/IndexAlias'
+            - type: array
+              items:
+                $ref: '_common.yaml#/components/schemas/IndexAlias'
+        index:
+          $ref: '_common.yaml#/components/schemas/IndexName'
+        indices:
+          $ref: '_common.yaml#/components/schemas/Indices'
+        must_exist:
+          description: Whether the alias must exist to perform the action.
+          type: boolean
+    RemoveIndexAction:
+      description: The configuration for removing an index.
+      type: object
+      properties:
+        index:
+          $ref: '_common.yaml#/components/schemas/IndexName'
+        indices:
+          $ref: '_common.yaml#/components/schemas/Indices'
+        must_exist:
+          description: Whether the alias must exist to perform the action.
+          type: boolean

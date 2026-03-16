@@ -1,0 +1,78 @@
+openapi: 3.1.0
+info:
+  title: Schemas of `cluster.remote_info` Category
+  description: Schemas of `cluster.remote_info` category.
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    ClusterRemoteInfo:
+      type: object
+      discriminator:
+        propertyName: mode
+      oneOf:
+        - $ref: '#/components/schemas/ClusterRemoteSniffInfo'
+        - $ref: '#/components/schemas/ClusterRemoteProxyInfo'
+    ClusterRemoteSniffInfo:
+      type: object
+      properties:
+        mode:
+          type: string
+          enum:
+            - sniff
+        connected:
+          type: boolean
+        max_connections_per_cluster:
+          type: integer
+          format: int32
+        num_nodes_connected:
+          type: integer
+          format: int64
+        initial_connect_timeout:
+          $ref: '_common.yaml#/components/schemas/Duration'
+        skip_unavailable:
+          type: boolean
+        seeds:
+          type: array
+          items:
+            type: string
+      required:
+        - connected
+        - initial_connect_timeout
+        - max_connections_per_cluster
+        - mode
+        - num_nodes_connected
+        - seeds
+        - skip_unavailable
+    ClusterRemoteProxyInfo:
+      type: object
+      properties:
+        mode:
+          type: string
+          enum:
+            - proxy
+        connected:
+          type: boolean
+        initial_connect_timeout:
+          $ref: '_common.yaml#/components/schemas/Duration'
+        skip_unavailable:
+          type: boolean
+        proxy_address:
+          type: string
+        server_name:
+          type: string
+        num_proxy_sockets_connected:
+          type: integer
+          format: int32
+        max_proxy_socket_connections:
+          type: integer
+          format: int32
+      required:
+        - connected
+        - initial_connect_timeout
+        - max_proxy_socket_connections
+        - mode
+        - num_proxy_sockets_connected
+        - proxy_address
+        - server_name
+        - skip_unavailable

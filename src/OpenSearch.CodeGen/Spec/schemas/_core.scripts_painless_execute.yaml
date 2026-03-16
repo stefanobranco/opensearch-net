@@ -1,0 +1,20 @@
+openapi: 3.1.0
+info:
+  title: Schemas of `_core.scripts_painless_execute` Category
+  description: Schemas of `_core.scripts_painless_execute` category.
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    PainlessContextSetup:
+      type: object
+      properties:
+        document:
+          description: A document temporarily indexed in-memory and accessible from the Painless script.
+        index:
+          $ref: '_common.yaml#/components/schemas/IndexName'
+        query:
+          $ref: '_common.query_dsl.yaml#/components/schemas/QueryContainer'
+      required:
+        - document
+        - index

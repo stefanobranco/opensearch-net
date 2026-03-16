@@ -1,25 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <PackageId>OpenSearch.Net.Auth.AwsSigV4</PackageId>
-    <Title>OpenSearch.Net.Auth.AwsSigV4</Title>
-    <PackageTags>opensearch;opensearch;search;lucene;client;opensearch.client</PackageTags>
-    <Description>
-      Adds support for AWS SigV4 authentication to the OpenSearch.Net client.
-    </Description>
+    <IsPackable>true</IsPackable>
+    <Description>AWS SigV4 authentication handler for OpenSearch .NET client</Description>
+    <PackageTags>opensearch;aws;sigv4;authentication</PackageTags>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <IsPackable>true</IsPackable>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
-  <ItemGroup Condition="'$(TestPackageVersion)'!=''">
-    <PackageReference Include="OpenSearch.Net" Version="$(TestPackageVersion)" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TestPackageVersion)'==''">
-    <ProjectReference Include="$(SolutionRoot)\src\OpenSearch.Net\OpenSearch.Net.csproj" />
-  </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="AWSSDK.Core" Version="4.0.0.16" />
+    <ProjectReference Include="..\OpenSearch.Net\OpenSearch.Net.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.Core" Version="3.7.*" />
   </ItemGroup>
 </Project>

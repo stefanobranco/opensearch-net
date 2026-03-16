@@ -1,0 +1,241 @@
+openapi: 3.1.0
+info:
+  title: OpenSearch SQL API
+  description: OpenSearch SQL API.
+  version: 1.0.0
+paths:
+  /_plugins/_query/settings:
+    put:
+      operationId: sql.settings.0
+      x-operation-group: sql.settings
+      x-version-added: '1.0'
+      description: Updates SQL plugin settings in the OpenSearch cluster configuration.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/search-plugins/sql/settings/
+      parameters:
+        - $ref: '#/components/parameters/sql.settings::query.format'
+      requestBody:
+        $ref: '#/components/requestBodies/sql.settings'
+      responses:
+        '200':
+          $ref: '#/components/responses/sql.settings@200'
+  /_plugins/_sql:
+    post:
+      operationId: sql.query.0
+      x-operation-group: sql.query
+      x-version-added: '1.0'
+      description: Executes SQL or PPL queries against OpenSearch indexes.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/search-plugins/sql/sql-ppl-api/
+      parameters:
+        - $ref: '#/components/parameters/sql.query::query.format'
+        - $ref: '#/components/parameters/sql.query::query.sanitize'
+      requestBody:
+        $ref: '#/components/requestBodies/sql.query'
+      responses:
+        '200':
+          $ref: '#/components/responses/sql.query@200'
+  /_plugins/_sql/_explain:
+    post:
+      operationId: sql.explain.0
+      x-operation-group: sql.explain
+      x-version-added: '1.0'
+      description: Returns the execution plan for a SQL or PPL query.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/search-plugins/sql/sql-ppl-api/
+      parameters:
+        - $ref: '#/components/parameters/sql.explain::query.format'
+        - $ref: '#/components/parameters/sql.explain::query.sanitize'
+      requestBody:
+        $ref: '#/components/requestBodies/sql.explain'
+      responses:
+        '200':
+          $ref: '#/components/responses/sql.explain@200'
+  /_plugins/_sql/close:
+    post:
+      operationId: sql.close.0
+      x-operation-group: sql.close
+      x-version-added: '1.0'
+      description: Closes an open cursor to free server-side resources.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/search-plugins/sql/sql-ppl-api/
+      parameters:
+        - $ref: '#/components/parameters/sql.close::query.format'
+        - $ref: '#/components/parameters/sql.close::query.sanitize'
+      requestBody:
+        $ref: '#/components/requestBodies/sql.close'
+      responses:
+        '200':
+          $ref: '#/components/responses/sql.close@200'
+  /_plugins/_sql/stats:
+    get:
+      operationId: sql.get_stats.0
+      x-operation-group: sql.get_stats
+      x-version-added: '1.0'
+      description: Retrieves performance metrics for the SQL plugin.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/search-plugins/sql/monitoring/
+      parameters:
+        - $ref: '#/components/parameters/sql.get_stats::query.format'
+        - $ref: '#/components/parameters/sql.get_stats::query.sanitize'
+      responses:
+        '200':
+          $ref: '#/components/responses/sql.get_stats@200'
+    post:
+      operationId: sql.post_stats.1
+      x-operation-group: sql.post_stats
+      x-version-added: '1.0'
+      description: Retrieves filtered performance metrics for the SQL plugin.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/search-plugins/sql/monitoring/
+      parameters:
+        - $ref: '#/components/parameters/sql.post_stats::query.format'
+        - $ref: '#/components/parameters/sql.post_stats::query.sanitize'
+      requestBody:
+        $ref: '#/components/requestBodies/sql.post_stats'
+      responses:
+        '200':
+          $ref: '#/components/responses/sql.post_stats@200'
+components:
+  parameters:
+    sql.settings::query.format:
+      name: format
+      in: query
+      description: Specifies the response format (JSON or YAML).
+      schema:
+        type: string
+    sql.query::query.format:
+      name: format
+      in: query
+      description: Specifies the response format (JSON or YAML).
+      schema:
+        type: string
+    sql.query::query.sanitize:
+      name: sanitize
+      in: query
+      description: Whether to escape special characters in the results.
+      schema:
+        type: boolean
+        default: true
+    sql.explain::query.format:
+      name: format
+      in: query
+      description: Specifies the response format (JSON or YAML).
+      schema:
+        type: string
+    sql.explain::query.sanitize:
+      name: sanitize
+      in: query
+      description: Whether to escape special characters in the results.
+      schema:
+        type: boolean
+        default: true
+    sql.close::query.format:
+      name: format
+      in: query
+      description: Specifies the response format (JSON or YAML).
+      schema:
+        type: string
+    sql.close::query.sanitize:
+      name: sanitize
+      in: query
+      description: Whether to escape special characters in the results.
+      schema:
+        type: boolean
+        default: true
+    sql.get_stats::query.format:
+      name: format
+      in: query
+      description: Specifies the response format (JSON or YAML).
+      schema:
+        type: string
+    sql.get_stats::query.sanitize:
+      name: sanitize
+      in: query
+      description: Whether to escape special characters in the results.
+      schema:
+        type: boolean
+        default: true
+    sql.post_stats::query.format:
+      name: format
+      in: query
+      description: Specifies the response format (JSON or YAML).
+      schema:
+        type: string
+    sql.post_stats::query.sanitize:
+      name: sanitize
+      in: query
+      description: Whether to escape special characters in the results.
+      schema:
+        type: boolean
+        default: true
+  requestBodies:
+    sql.settings:
+      description: Contains SQL plugin configuration settings.
+      content:
+        application/json:
+          schema:
+            anyOf:
+              - $ref: '../schemas/sql._common.yaml#/components/schemas/SqlSettingsPlain'
+              - $ref: '../schemas/sql._common.yaml#/components/schemas/SqlSettings'
+    sql.query:
+      description: Contains the SQL or PPL query to execute.
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/sql._common.yaml#/components/schemas/Query'
+    sql.explain:
+      description: Contains the SQL or PPL query to explain.
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/sql._common.yaml#/components/schemas/Explain'
+    sql.close:
+      description: Contains the cursor identifier to close.
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/sql._common.yaml#/components/schemas/SqlClose'
+    sql.post_stats:
+      description: Defines the statistics collection parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/sql._common.yaml#/components/schemas/Stats'
+  responses:
+    sql.settings@200:
+      description: Returns the updated SQL settings.
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/sql._common.yaml#/components/schemas/SqlSettingsResponse'
+    sql.query@200:
+      description: Returns query results and metadata.
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/sql._common.yaml#/components/schemas/QueryResponse'
+    sql.explain@200:
+      description: Returns the query execution plan.
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/sql._common.yaml#/components/schemas/ExplainResponse'
+    sql.close@200:
+      description: Returns cursor closing status.
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/sql._common.yaml#/components/schemas/SqlCloseResponse'
+    sql.get_stats@200:
+      description: Returns plugin performance metrics.
+      content:
+        text/plain:
+          schema:
+            type: string
+    sql.post_stats@200:
+      description: Returns filtered plugin performance metrics.
+      content:
+        text/plain:
+          schema:
+            type: string

@@ -1,0 +1,2567 @@
+openapi: 3.1.0
+info:
+  title: OpenSearch Security API
+  description: OpenSearch Security API.
+  version: 1.0.0
+paths:
+  /_opendistro/_security/sslinfo:
+    get:
+      operationId: security.get_sslinfo.0
+      x-operation-group: security.get_sslinfo
+      x-version-added: '1.0'
+      description: Retrieves information about the SSL configuration.
+      parameters:
+        - $ref: '#/components/parameters/security.get_sslinfo::query.show_dn'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.get_sslinfo@200'
+        '500':
+          $ref: '#/components/responses/security.get_sslinfo@500'
+  /_plugins/_security/authinfo:
+    get:
+      operationId: security.authinfo.0
+      x-operation-group: security.authinfo
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Returns or updates authentication information for the currently authenticated user.
+      parameters:
+        - $ref: '#/components/parameters/security.authinfo::query.auth_type'
+        - $ref: '#/components/parameters/security.authinfo::query.verbose'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.authinfo@200'
+        '500':
+          $ref: '#/components/responses/security.authinfo@500'
+    post:
+      operationId: security.authinfo.1
+      x-operation-group: security.authinfo
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Returns or updates authentication information for the currently authenticated user.
+      parameters:
+        - $ref: '#/components/parameters/security.authinfo::query.auth_type'
+        - $ref: '#/components/parameters/security.authinfo::query.verbose'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.authinfo@200'
+        '500':
+          $ref: '#/components/responses/security.authinfo@500'
+  /_plugins/_security/dashboardsinfo:
+    get:
+      operationId: security.get_dashboards_info.0
+      x-operation-group: security.get_dashboards_info
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Retrieves the current values for dynamic security settings for OpenSearch Dashboards.
+      responses:
+        '200':
+          $ref: '#/components/responses/security.get_dashboards_info@200'
+        '500':
+          $ref: '#/components/responses/security.get_dashboards_info@500'
+    post:
+      operationId: security.post_dashboards_info.1
+      x-operation-group: security.post_dashboards_info
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Retrieves the current values for dynamic security settings for OpenSearch Dashboards.
+      responses:
+        '200':
+          $ref: '#/components/responses/security.post_dashboards_info@200'
+        '500':
+          $ref: '#/components/responses/security.post_dashboards_info@500'
+  /_plugins/_security/health:
+    get:
+      operationId: security.health.0
+      x-operation-group: security.health
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Checks to see if the Security plugin is running.
+      parameters:
+        - $ref: '#/components/parameters/security.health::query.mode'
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#health-check
+      responses:
+        '200':
+          $ref: '#/components/responses/security.health@200'
+    post:
+      operationId: security.health.1
+      x-operation-group: security.health
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Checks to see if the Security plugin is running.
+      parameters:
+        - $ref: '#/components/parameters/security.health::query.mode'
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#health-check
+      responses:
+        '200':
+          $ref: '#/components/responses/security.health@200'
+  /_plugins/_security/tenantinfo:
+    get:
+      operationId: security.tenant_info.0
+      x-operation-group: security.tenant_info
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Retrieves the names of current tenants. Requires super admin or `kibanaserver` permissions. 
+      responses:
+        '200':
+          $ref: '#/components/responses/security.tenant_info@200'
+        '403':
+          $ref: '#/components/responses/security.tenant_info@403'
+        '500':
+          $ref: '#/components/responses/security.tenant_info@500'
+    post:
+      operationId: security.tenant_info.1
+      x-operation-group: security.tenant_info
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Retrieves the names of current tenants. Requires super admin or `kibanaserver` permissions. 
+      responses:
+        '200':
+          $ref: '#/components/responses/security.tenant_info@200'
+        '403':
+          $ref: '#/components/responses/security.tenant_info@403'
+        '500':
+          $ref: '#/components/responses/security.tenant_info@500'
+  /_plugins/_security/whoami:
+    get:
+      operationId: security.who_am_i.0
+      x-operation-group: security.who_am_i
+      x-version-added: '2.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Gets the identity information for the user currently logged in. 
+      responses:
+        '200':
+          $ref: '#/components/responses/security.who_am_i@200'
+        '500':
+          $ref: '#/components/responses/security.who_am_i@500'
+    post:
+      operationId: security.who_am_i.1
+      x-operation-group: security.who_am_i
+      x-version-added: '2.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Gets the identity information for the user currently logged in. 
+      responses:
+        '200':
+          $ref: '#/components/responses/security.who_am_i@200'
+        '500':
+          $ref: '#/components/responses/security.who_am_i@500'
+  /_plugins/_security/whoamiprotected:
+    get:
+      operationId: security.who_am_i_protected.0
+      x-operation-group: security.who_am_i_protected
+      x-version-added: '2.11'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Gets the identity information for the user currently logged in. To use this operation, you must have access to this endpoint when authorization at REST layer is enabled.
+      responses:
+        '200':
+          $ref: '#/components/responses/security.who_am_i_protected@200'
+        '500':
+          $ref: '#/components/responses/security.who_am_i_protected@500'
+  /_plugins/_security/api/_upgrade_check:
+    get:
+      operationId: security.config_upgrade_check.0
+      x-operation-group: security.config_upgrade_check
+      x-version-added: '2.14'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Checks whether or not an upgrade can be performed and which security resources can be updated.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#configuration-upgrade-check
+      responses:
+        '200':
+          $ref: '#/components/responses/security.config_upgrade_check@200'
+  /_plugins/_security/api/_upgrade_perform:
+    post:
+      operationId: security.config_upgrade_perform.0
+      x-operation-group: security.config_upgrade_perform
+      x-version-added: '2.14'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Assists the cluster operator with upgrading missing default values and stale default definitions.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#configuration-upgrade
+      requestBody:
+        $ref: '#/components/requestBodies/security.config_upgrade_perform'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.config_upgrade_perform@200'
+        '400':
+          $ref: '#/components/responses/security.config_upgrade_perform@400'
+  /_plugins/_security/api/account:
+    get:
+      operationId: security.get_account_details.0
+      x-operation-group: security.get_account_details
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Returns account information for the current user.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#get-account-details
+      responses:
+        '200':
+          $ref: '#/components/responses/security.get_account_details@200'
+    put:
+      operationId: security.change_password.0
+      x-operation-group: security.change_password
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Changes the password for the current user.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#change-password
+      requestBody:
+        $ref: '#/components/requestBodies/security.change_password'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.change_password@200'
+        '403':
+          $ref: '#/components/responses/security.change_password@403'
+  /_plugins/_security/api/actiongroups:
+    get:
+      operationId: security.get_action_groups.0
+      x-operation-group: security.get_action_groups
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Retrieves all action groups.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#get-action-groups
+      responses:
+        '200':
+          $ref: '#/components/responses/security.get_action_groups@200'
+    patch:
+      operationId: security.patch_action_groups.1
+      x-operation-group: security.patch_action_groups
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Creates, updates, or deletes multiple action groups in a single request.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#patch-action-groups
+      requestBody:
+        $ref: '#/components/requestBodies/security.patch_action_groups'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.patch_action_groups@200'
+  /_plugins/_security/api/actiongroups/{action_group}:
+    get:
+      operationId: security.get_action_group.0
+      x-operation-group: security.get_action_group
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Retrieves one action group.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#get-action-group
+      parameters:
+        - $ref: '#/components/parameters/security.get_action_group::path.action_group'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.get_action_group@200'
+    put:
+      operationId: security.create_action_group.0
+      x-operation-group: security.create_action_group
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Creates or replaces the specified action group.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#create-action-group
+      parameters:
+        - $ref: '#/components/parameters/security.create_action_group::path.action_group'
+      requestBody:
+        $ref: '#/components/requestBodies/security.create_action_group'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.create_action_group@200'
+        '201':
+          $ref: '#/components/responses/security.create_action_group@201'
+    patch:
+      operationId: security.patch_action_group.0
+      x-operation-group: security.patch_action_group
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Updates the individual attributes of an action group.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#patch-action-group
+      parameters:
+        - $ref: '#/components/parameters/security.patch_action_group::path.action_group'
+      requestBody:
+        $ref: '#/components/requestBodies/security.patch_action_group'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.patch_action_group@200'
+    delete:
+      operationId: security.delete_action_group.0
+      x-operation-group: security.delete_action_group
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Deletes the specified action group.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#delete-action-group
+      parameters:
+        - $ref: '#/components/parameters/security.delete_action_group::path.action_group'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.delete_action_group@200'
+  /_plugins/_security/api/allowlist:
+    get:
+      operationId: security.get_allowlist.0
+      x-operation-group: security.get_allowlist
+      x-version-added: '2.1'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Retrieves the current list of allowed APIs accessible to a normal user.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#access-control-for-the-api
+      responses:
+        '200':
+          $ref: '#/components/responses/security.get_allowlist@200'
+        '403':
+          $ref: '#/components/responses/security.get_allowlist@403'
+    put:
+      operationId: security.create_allowlist.0
+      x-operation-group: security.create_allowlist
+      x-version-added: '2.1'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Creates or replaces APIs permitted for users on the allow list. Requires a super admin certificate or REST API permissions.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#access-control-for-the-api
+      requestBody:
+        $ref: '#/components/requestBodies/security.create_allowlist'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.create_allowlist@200'
+        '403':
+          $ref: '#/components/responses/security.create_allowlist@403'
+    patch:
+      operationId: security.patch_allowlist.0
+      x-operation-group: security.patch_allowlist
+      x-version-added: '2.1'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Updates the current list of APIs accessible for users on the allow list.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#access-control-for-the-api
+      requestBody:
+        $ref: '#/components/requestBodies/security.patch_allowlist'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.patch_allowlist@200'
+        '403':
+          $ref: '#/components/responses/security.patch_allowlist@403'
+  /_plugins/_security/api/audit:
+    get:
+      operationId: security.get_audit_configuration.0
+      x-operation-group: security.get_audit_configuration
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Retrieves the audit configuration.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#audit-logs
+      responses:
+        '200':
+          $ref: '#/components/responses/security.get_audit_configuration@200'
+    patch:
+      operationId: security.patch_audit_configuration.0
+      x-operation-group: security.patch_audit_configuration
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Updates the specified fields in the audit configuration.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#audit-logs
+      requestBody:
+        $ref: '#/components/requestBodies/security.patch_audit_configuration'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.patch_audit_configuration@200'
+  /_plugins/_security/api/audit/config:
+    put:
+      operationId: security.update_audit_configuration.0
+      x-operation-group: security.update_audit_configuration
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Updates the audit configuration.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#audit-logs
+      requestBody:
+        $ref: '#/components/requestBodies/security.update_audit_configuration'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.update_audit_configuration@200'
+  /_plugins/_security/api/authtoken:
+    post:
+      operationId: security.authtoken.0
+      x-operation-group: security.authtoken
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Returns the authorization token for the current user.
+      responses:
+        '200':
+          $ref: '#/components/responses/security.authtoken@200'
+  /_plugins/_security/api/cache:
+    get:
+      operationId: security.cache.1
+      x-operation-group: security.cache
+      x-ignorable: true
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Not supported for the Cache API.
+      responses:
+        '405':
+          $ref: '#/components/responses/security.cache@405'
+        '501':
+          $ref: '#/components/responses/security.cache@501'
+    post:
+      operationId: security.cache.2
+      x-operation-group: security.cache
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      x-ignorable: true
+      description: Not supported for the Cache API.
+      responses:
+        '405':
+          $ref: '#/components/responses/security.cache@405'
+        '501':
+          $ref: '#/components/responses/security.cache@501'
+    put:
+      operationId: security.cache.3
+      x-operation-group: security.cache
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      x-ignorable: true
+      description: Not supported for the Cache API.
+      responses:
+        '405':
+          $ref: '#/components/responses/security.cache@405'
+        '501':
+          $ref: '#/components/responses/security.cache@501'
+    delete:
+      operationId: security.flush_cache.0
+      x-operation-group: security.flush_cache
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Flushes the Security plugin's user, authentication, and authorization cache.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#flush-cache
+      responses:
+        '200':
+          $ref: '#/components/responses/security.flush_cache@200'
+  /_plugins/_security/api/certificates:
+    get:
+      operationId: security.get_all_certificates.0
+      x-operation-group: security.get_all_certificates
+      x-version-added: '2.15'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Retrieves the cluster security certificates.
+      parameters:
+        - $ref: '#/components/parameters/security.get_all_certificates::query.cert_type'
+        - $ref: '#/components/parameters/security.get_all_certificates::query.timeout'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.get_all_certificates@200'
+        '403':
+          $ref: '#/components/responses/security.get_all_certificates@403'
+        '500':
+          $ref: '#/components/responses/security.get_all_certificates@500'
+  /_plugins/_security/api/certificates/{node_id}:
+    get:
+      operationId: security.get_node_certificates.0
+      x-operation-group: security.get_node_certificates
+      x-version-added: '2.15'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Retrieves the specified node's security certificates.
+      parameters:
+        - $ref: '#/components/parameters/security.get_node_certificates::path.node_id'
+        - $ref: '#/components/parameters/security.get_node_certificates::query.cert_type'
+        - $ref: '#/components/parameters/security.get_node_certificates::query.timeout'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.get_node_certificates@200'
+        '403':
+          $ref: '#/components/responses/security.get_node_certificates@403'
+        '500':
+          $ref: '#/components/responses/security.get_node_certificates@500'
+  /_plugins/_security/api/generateonbehalfoftoken:
+    post:
+      operationId: security.generate_obo_token.0
+      x-operation-group: security.generate_obo_token
+      x-version-added: '2.12'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Generates a `On-Behalf-Of` token for the current user.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/authentication-tokens/#api-endpoint
+      requestBody:
+        $ref: '#/components/requestBodies/security.generate_obo_token'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.generate_obo_token@200'
+        '400':
+          $ref: '#/components/responses/security.generate_obo_token@400'
+  /_plugins/_security/api/internalusers:
+    get:
+      operationId: security.get_users.0
+      x-operation-group: security.get_users
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Retrieve all internal users.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#get-users
+      responses:
+        '200':
+          $ref: '#/components/responses/security.get_users@200'
+    patch:
+      operationId: security.patch_users.0
+      x-operation-group: security.patch_users
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Creates, updates, or deletes multiple internal users in a single request.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#patch-users
+      requestBody:
+        $ref: '#/components/requestBodies/security.patch_users'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.patch_users@200'
+  /_plugins/_security/api/internalusers/{username}:
+    get:
+      operationId: security.get_user.0
+      x-operation-group: security.get_user
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Retrieve information about the specified internal user.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#get-user
+      parameters:
+        - $ref: '#/components/parameters/security.get_user::path.username'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.get_user@200'
+    put:
+      operationId: security.create_user.0
+      x-operation-group: security.create_user
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Creates or replaces the specified user.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#create-user
+      parameters:
+        - $ref: '#/components/parameters/security.create_user::path.username'
+      requestBody:
+        $ref: '#/components/requestBodies/security.create_user'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.create_user@200'
+        '201':
+          $ref: '#/components/responses/security.create_user@201'
+    patch:
+      operationId: security.patch_user.0
+      x-operation-group: security.patch_user
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Updates individual attributes for an internal user.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#patch-user
+      parameters:
+        - $ref: '#/components/parameters/security.patch_user::path.username'
+      requestBody:
+        $ref: '#/components/requestBodies/security.patch_user'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.patch_user@200'
+    delete:
+      operationId: security.delete_user.0
+      x-operation-group: security.delete_user
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Deletes the specified internal user.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#delete-user
+      parameters:
+        - $ref: '#/components/parameters/security.delete_user::path.username'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.delete_user@200'
+  /_plugins/_security/api/internalusers/{username}/authtoken:
+    post:
+      operationId: security.generate_user_token.0
+      x-operation-group: security.generate_user_token
+      x-version-added: '2.7'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Generates an authorization token for the specified user.
+      parameters:
+        - $ref: '#/components/parameters/security.generate_user_token::path.username'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.generate_user_token@200'
+        '400':
+          $ref: '#/components/responses/security.generate_user_token@400'
+  /_plugins/_security/api/migrate:
+    post:
+      operationId: security.migrate.0
+      x-operation-group: security.migrate
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Migrates the security configuration from v6 to v7.
+      responses:
+        '200':
+          $ref: '#/components/responses/security.migrate@200'
+        '400':
+          $ref: '#/components/responses/security.migrate@400'
+  /_plugins/_security/api/nodesdn:
+    get:
+      operationId: security.get_distinguished_names.0
+      x-operation-group: security.get_distinguished_names
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Retrieves all node distinguished names. Requires super admin or REST API permissions.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#get-distinguished-names
+      parameters:
+        - $ref: '#/components/parameters/security.get_distinguished_names::query.show_all'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.get_distinguished_names@200'
+        '400':
+          $ref: '#/components/responses/security.get_distinguished_names@400'
+        '403':
+          $ref: '#/components/responses/security.get_distinguished_names@403'
+    patch:
+      operationId: security.patch_distinguished_names.0
+      x-operation-group: security.patch_distinguished_names
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Bulk updates specified node distinguished names. Requires super admin or REST API permissions.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#update-all-distinguished-names
+      requestBody:
+        $ref: '#/components/requestBodies/security.patch_distinguished_names'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.patch_distinguished_names@200'
+        '400':
+          $ref: '#/components/responses/security.patch_distinguished_names@400'
+        '403':
+          $ref: '#/components/responses/security.patch_distinguished_names@403'
+  /_plugins/_security/api/nodesdn/{cluster_name}:
+    get:
+      operationId: security.get_distinguished_name.0
+      x-operation-group: security.get_distinguished_name
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Retrieves all node distinguished names. Requires super admin or REST API permissions.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#get-distinguished-names
+      parameters:
+        - $ref: '#/components/parameters/security.get_distinguished_name::path.cluster_name'
+        - $ref: '#/components/parameters/security.get_distinguished_name::query.show_all'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.get_distinguished_name@200'
+        '400':
+          $ref: '#/components/responses/security.get_distinguished_name@400'
+        '403':
+          $ref: '#/components/responses/security.get_distinguished_name@403'
+    put:
+      operationId: security.update_distinguished_name.0
+      x-operation-group: security.update_distinguished_name
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Adds or updates the specified distinguished names in the cluster or node allowlist. Requires super admin or REST API permissions.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#update-distinguished-names
+      parameters:
+        - $ref: '#/components/parameters/security.update_distinguished_name::path.cluster_name'
+      requestBody:
+        $ref: '#/components/requestBodies/security.update_distinguished_name'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.update_distinguished_name@200'
+        '201':
+          $ref: '#/components/responses/security.update_distinguished_name@201'
+        '400':
+          $ref: '#/components/responses/security.update_distinguished_name@400'
+        '403':
+          $ref: '#/components/responses/security.update_distinguished_name@403'
+    patch:
+      operationId: security.patch_distinguished_name.0
+      x-operation-group: security.patch_distinguished_name
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Updates the distinguished cluster name for the specified cluster. Requires super admin or REST API permissions.
+      parameters:
+        - $ref: '#/components/parameters/security.patch_distinguished_name::path.cluster_name'
+      requestBody:
+        $ref: '#/components/requestBodies/security.patch_distinguished_name'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.patch_distinguished_name@200'
+        '400':
+          $ref: '#/components/responses/security.patch_distinguished_name@400'
+        '403':
+          $ref: '#/components/responses/security.patch_distinguished_name@403'
+    delete:
+      operationId: security.delete_distinguished_name.0
+      x-operation-group: security.delete_distinguished_name
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Deletes all distinguished names in the specified cluster or node allowlist. Requires super admin or REST API permissions.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#delete-distinguished-names
+      parameters:
+        - $ref: '#/components/parameters/security.delete_distinguished_name::path.cluster_name'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.delete_distinguished_name@200'
+        '400':
+          $ref: '#/components/responses/security.delete_distinguished_name@400'
+        '403':
+          $ref: '#/components/responses/security.delete_distinguished_name@403'
+  /_plugins/_security/api/permissionsinfo:
+    get:
+      operationId: security.get_permissions_info.0
+      x-operation-group: security.get_permissions_info
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Retrieves the evaluated REST API permissions for the currently logged in user.
+      responses:
+        '200':
+          $ref: '#/components/responses/security.get_permissions_info@200'
+        '500':
+          $ref: '#/components/responses/security.get_permissions_info@500'
+  /_plugins/_security/api/roles:
+    get:
+      operationId: security.get_roles.0
+      x-operation-group: security.get_roles
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Retrieves all roles.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#get-roles
+      responses:
+        '200':
+          $ref: '#/components/responses/security.get_roles@200'
+    patch:
+      operationId: security.patch_roles.0
+      x-operation-group: security.patch_roles
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Creates, updates, or deletes multiple roles in a single call.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#patch-roles
+      requestBody:
+        $ref: '#/components/requestBodies/security.patch_roles'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.patch_roles@200'
+        '400':
+          $ref: '#/components/responses/security.patch_roles@400'
+  /_plugins/_security/api/roles/{role}:
+    get:
+      operationId: security.get_role.0
+      x-operation-group: security.get_role
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Retrieves one role.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#get-role
+      parameters:
+        - $ref: '#/components/parameters/security.get_role::path.role'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.get_role@200'
+    put:
+      operationId: security.create_role.0
+      x-operation-group: security.create_role
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Creates or replaces the specified role.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#create-role
+      parameters:
+        - $ref: '#/components/parameters/security.create_role::path.role'
+      requestBody:
+        $ref: '#/components/requestBodies/security.create_role'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.create_role@200'
+        '201':
+          $ref: '#/components/responses/security.create_role@201'
+    patch:
+      operationId: security.patch_role.0
+      x-operation-group: security.patch_role
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Updates the individual attributes of a role.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#patch-role
+      parameters:
+        - $ref: '#/components/parameters/security.patch_role::path.role'
+      requestBody:
+        $ref: '#/components/requestBodies/security.patch_role'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.patch_role@200'
+        '400':
+          $ref: '#/components/responses/security.patch_role@400'
+    delete:
+      operationId: security.delete_role.0
+      x-operation-group: security.delete_role
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Deletes the specified role.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#delete-role
+      parameters:
+        - $ref: '#/components/parameters/security.delete_role::path.role'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.delete_role@200'
+  /_plugins/_security/api/rolesmapping:
+    get:
+      operationId: security.get_role_mappings.0
+      x-operation-group: security.get_role_mappings
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Retrieves all role mappings.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#get-role-mappings
+      responses:
+        '200':
+          $ref: '#/components/responses/security.get_role_mappings@200'
+    patch:
+      operationId: security.patch_role_mappings.0
+      x-operation-group: security.patch_role_mappings
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Creates or updates multiple role mappings in a single request.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#patch-role-mappings
+      requestBody:
+        $ref: '#/components/requestBodies/security.patch_role_mappings'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.patch_role_mappings@200'
+        '400':
+          $ref: '#/components/responses/security.patch_role_mappings@400'
+  /_plugins/_security/api/rolesmapping/{role}:
+    get:
+      operationId: security.get_role_mapping.0
+      x-operation-group: security.get_role_mapping
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Retrieves the specified role mapping.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#get-role-mapping
+      parameters:
+        - $ref: '#/components/parameters/security.get_role_mapping::path.role'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.get_role_mapping@200'
+    put:
+      operationId: security.create_role_mapping.0
+      x-operation-group: security.create_role_mapping
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Creates or replaces the specified role mapping.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#create-role-mapping
+      parameters:
+        - $ref: '#/components/parameters/security.create_role_mapping::path.role'
+      requestBody:
+        $ref: '#/components/requestBodies/security.create_role_mapping'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.create_role_mapping@200'
+        '201':
+          $ref: '#/components/responses/security.create_role_mapping@201'
+    patch:
+      operationId: security.patch_role_mapping.0
+      x-operation-group: security.patch_role_mapping
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Updates the individual attributes of a role mapping.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#patch-role-mapping
+      parameters:
+        - $ref: '#/components/parameters/security.patch_role_mapping::path.role'
+      requestBody:
+        $ref: '#/components/requestBodies/security.patch_role_mapping'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.patch_role_mapping@200'
+        '400':
+          $ref: '#/components/responses/security.patch_role_mapping@400'
+    delete:
+      operationId: security.delete_role_mapping.0
+      x-operation-group: security.delete_role_mapping
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Deletes the specified role mapping.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#delete-role-mapping
+      parameters:
+        - $ref: '#/components/parameters/security.delete_role_mapping::path.role'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.delete_role_mapping@200'
+  /_plugins/_security/api/securityconfig:
+    get:
+      operationId: security.get_configuration.0
+      x-operation-group: security.get_configuration
+      x-version-added: '2.10'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Returns the current Security plugin configuration in a JSON format.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#get-configuration
+      responses:
+        '200':
+          $ref: '#/components/responses/security.get_configuration@200'
+    patch:
+      operationId: security.patch_configuration.0
+      x-operation-group: security.patch_configuration
+      x-version-added: '2.10'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Updates the existing security configuration using the REST API. Requires super admin or REST API permissions.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#patch-configuration
+      requestBody:
+        $ref: '#/components/requestBodies/security.patch_configuration'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.patch_configuration@200'
+        '403':
+          $ref: '#/components/responses/security.patch_configuration@403'
+  /_plugins/_security/api/securityconfig/config:
+    put:
+      operationId: security.update_configuration.0
+      x-operation-group: security.update_configuration
+      x-version-added: '2.10'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Updates the settings for an existing security configuration. Requires super admin or REST API permissions.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#update-configuration
+      requestBody:
+        $ref: '#/components/requestBodies/security.update_configuration'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.update_configuration@200'
+        '403':
+          $ref: '#/components/responses/security.update_configuration@403'
+  /_plugins/_security/api/ssl/certs:
+    get:
+      operationId: security.get_certificates.0
+      x-operation-group: security.get_certificates
+      x-version-added: '2.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Retrieves the cluster security certificates.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#get-certificates
+      responses:
+        '200':
+          $ref: '#/components/responses/security.get_certificates@200'
+        '400':
+          $ref: '#/components/responses/security.get_certificates@400'
+        '403':
+          $ref: '#/components/responses/security.get_certificates@403'
+  /_plugins/_security/api/ssl/http/reloadcerts:
+    put:
+      operationId: security.reload_http_certificates.0
+      x-operation-group: security.reload_http_certificates
+      x-version-added: '2.8'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Reloads the HTTP communication certificates.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#reload-http-certificates
+      responses:
+        '200':
+          $ref: '#/components/responses/security.reload_http_certificates@200'
+        '400':
+          $ref: '#/components/responses/security.reload_http_certificates@400'
+        '403':
+          $ref: '#/components/responses/security.reload_http_certificates@403'
+  /_plugins/_security/api/ssl/transport/reloadcerts:
+    put:
+      operationId: security.reload_transport_certificates.0
+      x-operation-group: security.reload_transport_certificates
+      x-version-added: '2.8'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Reloads the transport communication certificates.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#reload-transport-certificates
+      responses:
+        '200':
+          $ref: '#/components/responses/security.reload_transport_certificates@200'
+        '400':
+          $ref: '#/components/responses/security.reload_transport_certificates@400'
+        '403':
+          $ref: '#/components/responses/security.reload_transport_certificates@403'
+  /_plugins/_security/api/tenancy/config:
+    get:
+      operationId: security.get_tenancy_config.0
+      x-operation-group: security.get_tenancy_config
+      x-version-added: '2.7'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Retrieves the multi-tenancy configuration. Requires super admin or REST API permissions.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/multi-tenancy/dynamic-config/#configuring-multi-tenancy-with-the-rest-api
+      responses:
+        '200':
+          $ref: '#/components/responses/security.get_tenancy_config@200'
+        '400':
+          $ref: '#/components/responses/security.get_tenancy_config@400'
+    put:
+      operationId: security.create_update_tenancy_config.0
+      x-operation-group: security.create_update_tenancy_config
+      x-version-added: '2.7'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Creates or replaces the multi-tenancy configuration. Requires super admin or REST API permissions.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/multi-tenancy/dynamic-config/#configuring-multi-tenancy-with-the-rest-api
+      requestBody:
+        $ref: '#/components/requestBodies/security.create_update_tenancy_config'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.create_update_tenancy_config@200'
+        '400':
+          $ref: '#/components/responses/security.create_update_tenancy_config@400'
+  /_plugins/_security/api/tenants:
+    get:
+      operationId: security.get_tenants.0
+      x-operation-group: security.get_tenants
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Retrieves all tenants.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#get-tenants
+      responses:
+        '200':
+          $ref: '#/components/responses/security.get_tenants@200'
+        '400':
+          $ref: '#/components/responses/security.get_tenants@400'
+    patch:
+      operationId: security.patch_tenants.0
+      x-operation-group: security.patch_tenants
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Adds, deletes, or modifies multiple tenants in a single request.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#patch-tenants
+      requestBody:
+        $ref: '#/components/requestBodies/security.patch_tenants'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.patch_tenants@200'
+        '400':
+          $ref: '#/components/responses/security.patch_tenants@400'
+  /_plugins/_security/api/tenants/{tenant}:
+    get:
+      operationId: security.get_tenant.0
+      x-operation-group: security.get_tenant
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Retrieves the specified tenant.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#get-tenant
+      parameters:
+        - $ref: '#/components/parameters/security.get_tenant::path.tenant'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.get_tenant@200'
+    put:
+      operationId: security.create_tenant.0
+      x-operation-group: security.create_tenant
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Creates or replaces the specified tenant.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#create-tenant
+      parameters:
+        - $ref: '#/components/parameters/security.create_tenant::path.tenant'
+      requestBody:
+        $ref: '#/components/requestBodies/security.create_tenant'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.create_tenant@200'
+        '201':
+          $ref: '#/components/responses/security.create_tenant@201'
+        '400':
+          $ref: '#/components/responses/security.create_tenant@400'
+    patch:
+      operationId: security.patch_tenant.0
+      x-operation-group: security.patch_tenant
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Adds, deletes, or modifies a single tenant.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#patch-tenant
+      parameters:
+        - $ref: '#/components/parameters/security.patch_tenant::path.tenant'
+      requestBody:
+        $ref: '#/components/requestBodies/security.patch_tenant'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.patch_tenant@200'
+        '400':
+          $ref: '#/components/responses/security.patch_tenant@400'
+    delete:
+      operationId: security.delete_tenant.0
+      x-operation-group: security.delete_tenant
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Deletes the specified tenant.
+      externalDocs:
+        url: https://opensearch.org/docs/latest/security/access-control/api/#delete-action-group
+      parameters:
+        - $ref: '#/components/parameters/security.delete_tenant::path.tenant'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.delete_tenant@200'
+        '400':
+          $ref: '#/components/responses/security.delete_tenant@400'
+  /_plugins/_security/api/user:
+    get:
+      operationId: security.get_users_legacy.0
+      x-operation-group: security.get_users_legacy
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Retrieve all internal users. Legacy API.
+      responses:
+        '200':
+          $ref: '#/components/responses/security.get_users_legacy@200'
+  /_plugins/_security/api/user/{username}:
+    get:
+      operationId: security.get_user_legacy.0
+      x-operation-group: security.get_user_legacy
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Retrieve one user. Legacy API.
+      parameters:
+        - $ref: '#/components/parameters/security.get_user_legacy::path.username'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.get_user_legacy@200'
+    put:
+      operationId: security.create_user_legacy.0
+      x-operation-group: security.create_user_legacy
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Creates or replaces the specified user. Legacy API.
+      parameters:
+        - $ref: '#/components/parameters/security.create_user_legacy::path.username'
+      requestBody:
+        $ref: '#/components/requestBodies/security.create_user_legacy'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.create_user_legacy@200'
+        '201':
+          $ref: '#/components/responses/security.create_user_legacy@201' 
+    delete:
+      operationId: security.delete_user_legacy.0
+      x-operation-group: security.delete_user_legacy
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Delete the specified user. Legacy API.
+      parameters:
+        - $ref: '#/components/parameters/security.delete_user_legacy::path.username'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.delete_user_legacy@200'
+  /_plugins/_security/api/user/{username}/authtoken:
+    post:
+      operationId: security.generate_user_token_legacy.0
+      x-operation-group: security.generate_user_token_legacy
+      x-version-added: '2.7'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Generates authorization token for the given user. Legacy API. Not Implemented.
+      parameters:
+        - $ref: '#/components/parameters/security.generate_user_token_legacy::path.username'
+      responses:
+        '501':
+          $ref: '#/components/responses/security.generate_user_token_legacy@501'
+  /_plugins/_security/api/validate:
+    get:
+      operationId: security.validate.0
+      x-operation-group: security.validate
+      x-version-added: '1.0'
+      x-distributions-excluded:
+        - amazon-managed
+        - amazon-serverless
+      description: Checks whether the v6 security configuration is valid and ready to be migrated to v7.
+      parameters:
+        - $ref: '#/components/parameters/security.validate::query.accept_invalid'
+      responses:
+        '200':
+          $ref: '#/components/responses/security.validate@200'
+        '400':
+          $ref: '#/components/responses/security.validate@400'
+components:
+  requestBodies:
+    security.change_password:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/ChangePasswordRequestContent'
+      required: true
+    security.config_upgrade_perform:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/ConfigUpgradePayload'
+    security.create_action_group:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/ActionGroup'
+      required: true
+    security.create_allowlist:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/AllowListConfig'
+      required: true
+    security.create_role:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Role'
+      required: true
+    security.create_role_mapping:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/RoleMapping'
+      required: true
+    security.create_tenant:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/CreateTenantParams'
+      required: true
+    security.create_update_tenancy_config:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/MultiTenancyConfig'
+      required: true
+    security.create_user:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/User'
+      required: true
+    security.create_user_legacy:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/User'
+      required: true
+    security.generate_obo_token:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/OBOToken'
+      required: true
+    security.patch_action_group:
+      content:
+        application/json:
+          schema:
+            title: operations
+            type: array
+            items:
+              $ref: '../schemas/security._common.yaml#/components/schemas/PatchOperation'
+      required: true
+    security.patch_action_groups:
+      content:
+        application/json:
+          schema:
+            title: operations
+            type: array
+            items:
+              $ref: '../schemas/security._common.yaml#/components/schemas/PatchOperation'
+      required: true
+    security.patch_allowlist:
+      content:
+        application/json:
+          schema:
+            title: operations
+            type: array
+            items:
+              $ref: '../schemas/security._common.yaml#/components/schemas/PatchOperation'
+      required: true
+    security.patch_audit_configuration:
+      content:
+        application/json:
+          schema:
+            title: operations
+            type: array
+            items:
+              $ref: '../schemas/security._common.yaml#/components/schemas/PatchOperation'
+      required: true
+    security.patch_configuration:
+      content:
+        application/json:
+          schema:
+            title: operations
+            type: array
+            items:
+              $ref: '../schemas/security._common.yaml#/components/schemas/PatchOperation'
+      required: true
+    security.patch_distinguished_name:
+      content:
+        application/json:
+          schema:
+            title: operations
+            type: array
+            items:
+              $ref: '../schemas/security._common.yaml#/components/schemas/PatchOperation'
+    security.patch_distinguished_names:
+      content:
+        application/json:
+          schema:
+            title: operations
+            type: array
+            items:
+              $ref: '../schemas/security._common.yaml#/components/schemas/PatchOperation'
+      required: true
+    security.patch_role:
+      content:
+        application/json:
+          schema:
+            title: operations
+            type: array
+            items:
+              $ref: '../schemas/security._common.yaml#/components/schemas/PatchOperation'
+      required: true
+    security.patch_role_mapping:
+      content:
+        application/json:
+          schema:
+            title: operations
+            type: array
+            items:
+              $ref: '../schemas/security._common.yaml#/components/schemas/PatchOperation'
+      required: true
+    security.patch_role_mappings:
+      content:
+        application/json:
+          schema:
+            title: operations
+            type: array
+            items:
+              $ref: '../schemas/security._common.yaml#/components/schemas/PatchOperation'
+      required: true
+    security.patch_roles:
+      content:
+        application/json:
+          schema:
+            title: operations
+            type: array
+            items:
+              $ref: '../schemas/security._common.yaml#/components/schemas/PatchOperation'
+      required: true
+    security.patch_tenant:
+      content:
+        application/json:
+          schema:
+            title: operations
+            type: array
+            items:
+              $ref: '../schemas/security._common.yaml#/components/schemas/PatchOperation'
+      required: true
+    security.patch_tenants:
+      content:
+        application/json:
+          schema:
+            title: operations
+            type: array
+            items:
+              $ref: '../schemas/security._common.yaml#/components/schemas/PatchOperation'
+      required: true
+    security.patch_user:
+      content:
+        application/json:
+          schema:
+            title: operations
+            type: array
+            items:
+              $ref: '../schemas/security._common.yaml#/components/schemas/PatchOperation'
+      required: true
+    security.patch_users:
+      content:
+        application/json:
+          schema:
+            title: operations
+            type: array
+            items:
+              $ref: '../schemas/security._common.yaml#/components/schemas/PatchOperation'
+      required: true
+    security.update_audit_configuration:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/AuditConfig'
+      required: true
+    security.update_configuration:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/DynamicConfig'
+      required: true
+    security.update_distinguished_name:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/DistinguishedNames'
+  responses:
+    security.authinfo@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/AuthInfo'
+    security.authinfo@500:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/InternalServerError'
+    security.authtoken@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.cache@405:
+      x-version-added: '3.0'
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/ClientError'
+    security.cache@501:
+      x-version-removed: '3.0'
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.change_password@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.change_password@403:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.config_upgrade_check@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/UpgradeCheck'
+    security.config_upgrade_perform@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/UpgradePerform'
+    security.config_upgrade_perform@400:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.create_action_group@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.create_action_group@201:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Created'
+    security.create_allowlist@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/AllowListConfig'
+    security.create_allowlist@403:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.create_role@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.create_role@201:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Created'
+    security.create_role_mapping@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.create_role_mapping@201:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Created'
+    security.create_tenant@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.create_tenant@201:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Created'
+    security.create_tenant@400:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.create_update_tenancy_config@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/MultiTenancyConfig'
+    security.create_update_tenancy_config@400:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.create_user@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.create_user@201:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Created'
+    security.create_user_legacy@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.create_user_legacy@201:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Created'
+    security.delete_action_group@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.delete_distinguished_name@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.delete_distinguished_name@400:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.delete_distinguished_name@403:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.delete_role@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.delete_role_mapping@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.delete_tenant@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.delete_tenant@400:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.delete_user@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.delete_user_legacy@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.flush_cache@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.generate_obo_token@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/GenerateOBOToken'
+    security.generate_obo_token@400:
+      content:
+        text/plain:
+          schema:
+            type: string
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.generate_user_token@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.generate_user_token@400:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.generate_user_token_legacy@501:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.get_account_details@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/AccountDetails'
+    security.get_action_group@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/ActionGroupsMap'
+    security.get_action_groups@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/ActionGroupsMap'
+    security.get_allowlist@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/AllowListConfig'
+    security.get_allowlist@403:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.get_audit_configuration@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/AuditConfigWithReadOnly'
+    security.get_certificates@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/GetCertificates'
+    security.get_all_certificates@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/GetCertificatesNew'
+    security.get_all_certificates@403:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.get_all_certificates@500:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/InternalServerError'
+    security.get_node_certificates@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/GetCertificatesNew'
+    security.get_node_certificates@403:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.get_certificates@400:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.get_certificates@403:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.get_node_certificates@500:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/InternalServerError'
+    security.get_configuration@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/SecurityConfig'
+    security.get_dashboards_info@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/DashboardsInfo'
+    security.get_dashboards_info@500:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/InternalServerError'
+    security.get_distinguished_name@200:
+      description: Show `nodesDn` setting for given cluster.
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/DistinguishedNamesMap'
+    security.get_distinguished_name@400:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.get_distinguished_name@403:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.get_distinguished_names@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/DistinguishedNamesMap'
+    security.get_distinguished_names@400:
+      description: Show `nodesDn` setting for given cluster.
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.get_distinguished_names@403:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.get_permissions_info@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/PermissionsInfo'
+    security.get_permissions_info@500:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/InternalServerError'
+    security.get_role@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/RolesMap'
+    security.get_role_mapping@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/RoleMappings'
+    security.get_role_mappings@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/RoleMappings'
+    security.get_roles@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/RolesMap'
+    security.get_sslinfo@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/SSLInfo'
+    security.get_sslinfo@500:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/InternalServerError'
+    security.get_tenant@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/TenantsMap'
+    security.get_tenancy_config@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/MultiTenancyConfig'
+    security.get_tenancy_config@400:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.get_tenants@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/TenantsMap'
+    security.get_tenants@400:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.get_user@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/UsersMap'
+    security.get_user_legacy@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/UsersMap'
+    security.get_users@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/UsersMap'
+    security.get_users_legacy@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/UsersMap'
+    security.health@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/HealthInfo'
+    security.migrate@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.migrate@400:
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - x-version-removed: '3.0'
+                $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+              - x-version-added: '3.0'
+                $ref: '../schemas/security._common.yaml#/components/schemas/ClientError'
+    security.patch_action_group@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.patch_action_groups@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.patch_allowlist@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/AllowListConfig'
+    security.patch_allowlist@403:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.patch_audit_configuration@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.patch_configuration@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.patch_configuration@403:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.patch_distinguished_name@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.patch_distinguished_name@400:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.patch_distinguished_name@403:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.patch_distinguished_names@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.patch_distinguished_names@400:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.patch_distinguished_names@403:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.patch_role@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.patch_role@400:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.patch_role_mapping@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.patch_role_mapping@400:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.patch_role_mappings@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.patch_role_mappings@400:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.patch_roles@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.patch_roles@400:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.patch_tenant@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.patch_tenant@400:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.patch_tenants@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.patch_tenants@400:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.patch_user@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.patch_users@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.post_dashboards_info@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/DashboardsInfo'
+    security.post_dashboards_info@500:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/InternalServerError'
+    security.reload_http_certificates@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.reload_http_certificates@400:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.reload_http_certificates@403:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.reload_transport_certificates@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.reload_transport_certificates@400:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.reload_transport_certificates@403:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.tenant_info@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/TenantInfo'
+    security.tenant_info@403:
+      content:
+        text/plain:
+          schema:
+            type: string
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.tenant_info@500:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/InternalServerError'
+    security.update_audit_configuration@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.update_configuration@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.update_configuration@403:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.update_distinguished_name@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.update_distinguished_name@201:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.update_distinguished_name@400:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.update_distinguished_name@403:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+    security.validate@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/Ok'
+    security.validate@400:
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - x-version-removed: '3.0'
+                $ref: '../schemas/security._common.yaml#/components/schemas/Error'
+              - x-version-added: '3.0'
+                $ref: '../schemas/security._common.yaml#/components/schemas/ClientError'
+    security.who_am_i@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/WhoAmI'
+    security.who_am_i@500:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/InternalServerError'
+    security.who_am_i_protected@200:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/WhoAmI'
+    security.who_am_i_protected@500:
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/security._common.yaml#/components/schemas/InternalServerError'
+  parameters:
+    security.authinfo::query.auth_type:
+      name: auth_type
+      in: query
+      description: The type of the current authentication request.
+      schema:
+        type: string
+      required: false
+    security.authinfo::query.verbose:
+      name: verbose
+      in: query
+      description: Whether to return a verbose response.
+      schema:
+        type: boolean
+      required: false
+    security.create_action_group::path.action_group:
+      name: action_group
+      in: path
+      description: The name of the action group to create or replace.
+      schema:
+        type: string
+      required: true
+    security.create_role::path.role:
+      name: role
+      in: path
+      description: The name of the role to create.
+      schema:
+        type: string
+      required: true
+    security.create_role_mapping::path.role:
+      name: role
+      in: path
+      description: The name of the role for which to create a role mapping.
+      schema:
+        type: string
+      required: true
+    security.create_tenant::path.tenant:
+      name: tenant
+      in: path
+      description: The name of the tenant to create.
+      schema:
+        type: string
+      required: true
+    security.create_user::path.username:
+      name: username
+      in: path
+      description: The name of the user to create.
+      schema:
+        type: string
+      required: true
+    security.create_user_legacy::path.username:
+      name: username
+      in: path
+      description: The name of the user to create.
+      schema:
+        type: string
+      required: true
+    security.delete_action_group::path.action_group:
+      name: action_group
+      in: path
+      description: The name of the action group to delete.
+      schema:
+        type: string
+      required: true
+    security.delete_distinguished_name::path.cluster_name:
+      name: cluster_name
+      in: path
+      description: The cluster name to delete from list of distinguished names.
+      schema:
+        type: string
+      required: true
+    security.delete_role::path.role:
+      name: role
+      in: path
+      description: The name of the role to delete.
+      schema:
+        type: string
+      required: true
+    security.delete_role_mapping::path.role:
+      name: role
+      in: path
+      description: The name of the role for which to delete the role's mappings.
+      schema:
+        type: string
+      required: true
+    security.delete_tenant::path.tenant:
+      name: tenant
+      in: path
+      description: The name of the tenant to delete.
+      schema:
+        type: string
+      required: true
+    security.delete_user::path.username:
+      name: username
+      in: path
+      description: The name of the user to delete.
+      schema:
+        type: string
+      required: true
+    security.delete_user_legacy::path.username:
+      name: username
+      in: path
+      description: The name of the user to delete.
+      schema:
+        type: string
+      required: true
+    security.generate_user_token::path.username:
+      name: username
+      in: path
+      description: The name of the user for whom to issue an authorization token.
+      schema:
+        type: string
+      required: true
+    security.generate_user_token_legacy::path.username:
+      name: username
+      in: path
+      description: The name of the user for whom to issue an authorization token.
+      schema:
+        type: string
+      required: true
+    security.get_action_group::path.action_group:
+      name: action_group
+      in: path
+      description: The name of the action group to retrieve.
+      schema:
+        type: string
+      required: true
+    security.get_node_certificates::path.node_id:
+      name: node_id
+      in: path
+      description: The node ID to retrieve certificates for.
+      schema:
+        type: string
+      required: true
+    security.get_all_certificates::query.cert_type:
+      name: cert_type
+      in: query
+      description: The type of certificates (`HTTP`, `TRANSPORT`, or `ALL`) to retrieve from all nodes.
+      schema:
+        type: string
+      required: false
+    security.get_node_certificates::query.cert_type:
+      name: cert_type
+      in: query
+      description: The type of certificates (`HTTP`, `TRANSPORT`, or `ALL`) to retrieve from a node.
+      schema:
+        type: string
+      required: false
+    security.get_all_certificates::query.timeout:
+      name: timeout
+      in: query
+      description: The maximum duration, in seconds, to spend retrieving certificates from all nodes before a timeout.
+      schema:
+        $ref: '../schemas/_common.yaml#/components/schemas/Duration'
+      required: false
+    security.get_node_certificates::query.timeout:
+      name: timeout
+      in: query
+      description: The maximum duration, in seconds, to spend retrieving certificates from all nodes before a timeout.
+      schema:
+        $ref: '../schemas/_common.yaml#/components/schemas/Duration'
+      required: false
+    security.get_distinguished_name::path.cluster_name:
+      name: cluster_name
+      in: path
+      description: The name of the cluster to retrieve that cluster's nodes DN settings.
+      schema:
+        type: string
+      required: true
+    security.get_distinguished_name::query.show_all:
+      name: show_all
+      in: query
+      description: Whether to include or exclude any static node's DN settings from the final result.
+      schema:
+        type: boolean
+      required: false
+    security.get_distinguished_names::query.show_all:
+      name: show_all
+      in: query
+      description: Whether to include or exclude any static node's DN settings from the final result.
+      schema:
+        type: boolean
+      required: false
+    security.get_role::path.role:
+      name: role
+      in: path
+      description: The name of the role to retrieve.
+      schema:
+        type: string
+      required: true
+    security.get_role_mapping::path.role:
+      name: role
+      in: path
+      description: The name of the role mapping to retrieve.
+      schema:
+        type: string
+      required: true
+    security.get_sslinfo::query.show_dn:
+      name: show_dn
+      in: query
+      description: Whether to include all domain names in the response.
+      schema:
+        $ref: '../schemas/_common.yaml#/components/schemas/StringifiedBoolean'
+      required: false
+    security.get_tenant::path.tenant:
+      name: tenant
+      in: path
+      description: The name of the tenant to retrieve.
+      schema:
+        type: string
+      required: true
+    security.get_user::path.username:
+      name: username
+      in: path
+      description: The name of the user to retrieve.
+      schema:
+        type: string
+      required: true
+    security.get_user_legacy::path.username:
+      name: username
+      in: path
+      description: The name of the user to retrieve.
+      schema:
+        type: string
+      required: true
+    security.health::query.mode:
+      name: mode
+      in: query
+      description: A flag that determines whether to consider the security status before returning a response for a health query response. For example, `strict` mode indicates service should check the Security plugin status.
+      schema:
+        type: string
+      required: false
+    security.patch_action_group::path.action_group:
+      name: action_group
+      in: path
+      description: The name of the action group to update.
+      schema:
+        type: string
+      required: true
+    security.patch_distinguished_name::path.cluster_name:
+      name: cluster_name
+      in: path
+      description: The cluster name to update the `nodesDn` value.
+      schema:
+        type: string
+      required: true
+    security.patch_role::path.role:
+      name: role
+      in: path
+      description: The name of the role to update.
+      schema:
+        type: string
+      required: true
+    security.patch_role_mapping::path.role:
+      name: role
+      in: path
+      description: The name of the role to update a role mapping for
+      schema:
+        type: string
+      required: true
+    security.patch_tenant::path.tenant:
+      name: tenant
+      in: path
+      description: The name of the tenant to update.
+      schema:
+        type: string
+      required: true
+    security.patch_user::path.username:
+      name: username
+      in: path
+      description: The name of the user to update.
+      schema:
+        type: string
+      required: true
+    security.update_distinguished_name::path.cluster_name:
+      name: cluster_name
+      in: path
+      description: The name of the cluster containing the `nodesDn` value to create or update.
+      schema:
+        type: string
+      required: true
+    security.validate::query.accept_invalid:
+      name: accept_invalid
+      in: query
+      description: Whether an invalid v6 configuration should be allowed.
+      schema:
+        type: boolean
+      required: false
+
+

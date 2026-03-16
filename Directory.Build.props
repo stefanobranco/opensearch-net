@@ -1,43 +1,28 @@
 <Project>
-  <!-- Default Version numbers -->
   <PropertyGroup>
-    <CurrentVersion>2.0.0</CurrentVersion>
-    <CurrentAssemblyVersion>2.0.0</CurrentAssemblyVersion>
-    <CurrentAssemblyFileVersion>2.0.0</CurrentAssemblyFileVersion>
-    <!-- Version and Informational reflect actual version -->
-    <Version>$(CurrentVersion)</Version>
-    <InformationalVersion>$(CurrentVersion)</InformationalVersion>
-    <!-- Assembly version is sticky to MAJOR.0.0.0 to avoid binding redirects because we strong name our assemblies -->
-    <AssemblyVersion>$(CurrentAssemblyVersion)</AssemblyVersion>
-    <!-- File version reflects actual version number without prelease since that not allowed in its struct -->
-    <FileVersion>$(CurrentAssemblyFileVersion)</FileVersion>
+    <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <MSBuildTreatWarningsAsErrors>true</MSBuildTreatWarningsAsErrors>
-    <MajorVersion>$(Version.Split('.')[0])</MajorVersion>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
-  <!-- Common Nuget metadata-->
+
+  <PropertyGroup>
+    <CurrentVersion>2.0.0</CurrentVersion>
+    <Version>$(CurrentVersion)</Version>
+    <InformationalVersion>$(CurrentVersion)</InformationalVersion>
+    <AssemblyVersion>$(CurrentVersion)</AssemblyVersion>
+    <FileVersion>$(CurrentVersion)</FileVersion>
+  </PropertyGroup>
+
   <PropertyGroup>
     <Authors>OpenSearch and contributors</Authors>
     <Copyright>OpenSearch BV</Copyright>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageReleaseNotes>See https://github.com/opensearch-project/opensearch-net/releases</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/opensearch-project/opensearch-net</PackageProjectUrl>
-    <PackageIconUrl>https://raw.githubusercontent.com/opensearch-project/opensearch-net/main/build/nuget-icon.png</PackageIconUrl>
     <RepositoryType>Git</RepositoryType>
   </PropertyGroup>
-
-  <PropertyGroup>
-    <LangVersion>latest</LangVersion>
-    <!-- Default Version numbers -->
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <IsPackable>false</IsPackable>
-
-    <OutputPath Condition="'$(OutputPathBaseDir)' != ''">$(OutputPathBaseDir)\$(MSBuildProjectName)\</OutputPath>
-    <SolutionRoot>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.bat))</SolutionRoot>
-
-    <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
-
-    <ExposedPublicKey>002400000480000094000000060200000024000052534131000400000100010025d3a22bf3781ba85067374ad832dfcba3c4fa8dd89227e36121ba17b2c33ad6b6ce03e45e562050a031e2ff7fe12cff9060a50acbc6a0eef9ef32dc258d90f874b2e76b581938071ccc4b4d98204d1d6ca7a1988d7a211f9fc98efd808cf85f61675b11007d0eb0461dc86a968d6af8ebba7e6b540303b54f1c1f5325c252be</ExposedPublicKey>
-  </PropertyGroup>
-
 </Project>

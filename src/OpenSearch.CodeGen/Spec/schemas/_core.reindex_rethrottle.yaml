@@ -1,0 +1,115 @@
+openapi: 3.1.0
+info:
+  title: Schemas of `_core.reindex_rethrottle` Category
+  description: Schemas of `_core.reindex_rethrottle` category.
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    ReindexNode:
+      allOf:
+        - $ref: '_common.yaml#/components/schemas/BaseNode'
+        - type: object
+          properties:
+            tasks:
+              type: object
+              additionalProperties:
+                $ref: '#/components/schemas/ReindexTask'
+          required:
+            - tasks
+    ReindexTask:
+      type: object
+      properties:
+        action:
+          type: string
+        cancellable:
+          type: boolean
+        cancelled:
+          type: boolean
+        description:
+          type: string
+        id:
+          type: integer
+          format: int64
+        node:
+          $ref: '_common.yaml#/components/schemas/Name'
+        resource_stats:
+          $ref: '_common.yaml#/components/schemas/ResourceStats'
+        running_time_in_nanos:
+          $ref: '_common.yaml#/components/schemas/DurationValueUnitNanos'
+        start_time_in_millis:
+          $ref: '_common.yaml#/components/schemas/EpochTimeUnitMillis'
+        status:
+          $ref: '#/components/schemas/ReindexStatus'
+        type:
+          type: string
+        headers:
+          $ref: '_common.yaml#/components/schemas/HttpHeaders'
+      required:
+        - action
+        - cancellable
+        - description
+        - headers
+        - id
+        - node
+        - running_time_in_nanos
+        - start_time_in_millis
+        - status
+        - type
+    ReindexStatus:
+      type: object
+      properties:
+        batches:
+          description: The number of scroll responses shown by the reindex.
+          type: integer
+          format: int64
+        created:
+          description: The number of documents that were successfully created.
+          type: integer
+          format: int64
+        deleted:
+          description: The number of documents that were successfully deleted.
+          type: integer
+          format: int64
+        noops:
+          description: The number of documents that were ignored because the script used for the reindex operation returned a `noop` value for `ctx.op`.
+          type: integer
+          format: int64
+        requests_per_second:
+          description: The number of successful requests per second during the reindex operation.
+          type: number
+          format: float
+        retries:
+          $ref: '_common.yaml#/components/schemas/Retries'
+        throttled:
+          $ref: '_common.yaml#/components/schemas/Duration'
+        throttled_millis:
+          $ref: '_common.yaml#/components/schemas/DurationValueUnitMillis'
+        throttled_until:
+          $ref: '_common.yaml#/components/schemas/Duration'
+        throttled_until_millis:
+          $ref: '_common.yaml#/components/schemas/DurationValueUnitMillis'
+        total:
+          description: The number of documents that were successfully processed.
+          type: integer
+          format: int64
+        updated:
+          description: The number of documents that were successfully updated.
+          type: integer
+          format: int64
+        version_conflicts:
+          description: The number of version conflicts that reindex hits.
+          type: integer
+          format: int64
+      required:
+        - batches
+        - created
+        - deleted
+        - noops
+        - requests_per_second
+        - retries
+        - throttled_millis
+        - throttled_until_millis
+        - total
+        - updated
+        - version_conflicts

@@ -1,0 +1,38 @@
+openapi: 3.1.0
+info:
+  title: Schemas of `_core.field_caps` Category
+  description: Schemas of `_core.field_caps` category.
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    FieldCapability:
+      type: object
+      properties:
+        aggregatable:
+          description: Whether this field can be aggregated on all indexes.
+          type: boolean
+        indices:
+          $ref: '_common.yaml#/components/schemas/Indices'
+        meta:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        non_aggregatable_indices:
+          $ref: '_common.yaml#/components/schemas/Indices'
+        non_searchable_indices:
+          $ref: '_common.yaml#/components/schemas/Indices'
+        searchable:
+          description: Whether this field is indexed for search on all indexes.
+          type: boolean
+        type:
+          type: string
+        metadata_field:
+          description: Whether this field is registered as a metadata field.
+          type: boolean
+      required:
+        - aggregatable
+        - searchable
+        - type

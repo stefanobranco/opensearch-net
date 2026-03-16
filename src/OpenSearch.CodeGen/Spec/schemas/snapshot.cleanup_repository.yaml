@@ -1,0 +1,22 @@
+openapi: 3.1.0
+info:
+  title: Schemas of `snapshot.cleanup_repository` Category
+  description: Schemas of `snapshot.cleanup_repository` category.
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    CleanupRepositoryResults:
+      type: object
+      properties:
+        deleted_blobs:
+          type: integer
+          format: int64
+          description: The number of binary large objects (blobs) removed during cleanup.
+        deleted_bytes:
+          type: integer
+          format: int64
+          description: The number of bytes freed by cleanup operations.
+      required:
+        - deleted_blobs
+        - deleted_bytes

@@ -1,128 +1,47 @@
-/* SPDX-License-Identifier: Apache-2.0
-*
-* The OpenSearch Contributors require contributions made to
-* this file be licensed under the Apache-2.0 license or a
-* compatible open source license.
-*/
-/*
-* Modifications Copyright OpenSearch Contributors. See
-* GitHub history for details.
-*
-*  Licensed to Elasticsearch B.V. under one or more contributor
-*  license agreements. See the NOTICE file distributed with
-*  this work for additional information regarding copyright
-*  ownership. Elasticsearch B.V. licenses this file to you under
-*  the Apache License, Version 2.0 (the "License"); you may
-*  not use this file except in compliance with the License.
-*  You may obtain a copy of the License at
-*
-* 	http://www.apache.org/licenses/LICENSE-2.0
-*
-*  Unless required by applicable law or agreed to in writing,
-*  software distributed under the License is distributed on an
-*  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-*  KIND, either express or implied.  See the License for the
-*  specific language governing permissions and limitations
-*  under the License.
-*/
+using System.Text.Json.Serialization;
 
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Net.NetworkInformation;
-using OpenSearch.Net.Diagnostics;
+namespace OpenSearch.Net;
 
-namespace OpenSearch.Net
+/// <summary>
+/// Base class for all OpenSearch API responses. Provides transport-level diagnostics
+/// (<see cref="ApiCall"/>), structured error information (<see cref="ServerError"/>),
+/// and validity checking (<see cref="IsValid"/>).
+/// </summary>
+public abstract class OpenSearchResponse
 {
 	/// <summary>
-	/// A response from OpenSearch including details about the request/response life cycle
+	/// Transport-level details about the API call (HTTP method, URI, status code,
+	/// timing, audit trail, request/response bodies).
 	/// </summary>
-	public abstract class OpenSearchResponseBase : IApiCallDetails, IOpenSearchResponse
-	{
-		/// <inheritdoc />
-		public IApiCallDetails ApiCall { get; set; }
-
-		/// <inheritdoc cref="IApiCallDetails.TcpStats"/>
-		public ReadOnlyDictionary<TcpState, int> TcpStats
-		{
-			get => ApiCall.TcpStats;
-			set => ApiCall.TcpStats = value;
-		}
-
-		/// <inheritdoc cref="IApiCallDetails.DebugInformation"/>
-		public string DebugInformation => ApiCall.DebugInformation;
-		/// <inheritdoc cref="IApiCallDetails.HttpMethod"/>
-		public HttpMethod HttpMethod => ApiCall.HttpMethod;
-		/// <inheritdoc cref="IApiCallDetails.AuditTrail"/>
-		public List<Audit> AuditTrail
-		{
-			get => ApiCall.AuditTrail;
-			set => ApiCall.AuditTrail = value;
-		}
-
-		/// <inheritdoc cref="IApiCallDetails.ThreadPoolStats"/>
-		public ReadOnlyDictionary<string, ThreadPoolStatistics> ThreadPoolStats
-		{
-			get => ApiCall.ThreadPoolStats;
-			set => ApiCall.ThreadPoolStats = value;
-		}
-
-		/// <inheritdoc cref="IApiCallDetails.DeprecationWarnings"/>
-		public IEnumerable<string> DeprecationWarnings => ApiCall.DeprecationWarnings;
-		/// <inheritdoc cref="IApiCallDetails.SuccessOrKnownError"/>
-		public bool SuccessOrKnownError => ApiCall.SuccessOrKnownError;
-		/// <inheritdoc cref="IApiCallDetails.HttpStatusCode"/>
-		public int? HttpStatusCode => ApiCall.HttpStatusCode;
-
-		/// <inheritdoc cref="IApiCallDetails.Success"/>
-		public bool Success => ApiCall.Success;
-		/// <inheritdoc cref="IApiCallDetails.OriginalException"/>
-		public Exception OriginalException => ApiCall.OriginalException;
-		/// <inheritdoc cref="IApiCallDetails.ResponseMimeType"/>
-		public string ResponseMimeType => ApiCall.ResponseMimeType;
-		/// <inheritdoc cref="IApiCallDetails.Uri"/>
-		public Uri Uri => ApiCall.Uri;
-
-		/// <inheritdoc cref="IApiCallDetails.ConnectionConfiguration"/>
-		public IConnectionConfigurationValues ConnectionConfiguration => ApiCall.ConnectionConfiguration;
-
-		/// <inheritdoc cref="IApiCallDetails.ResponseBodyInBytes"/>
-		public byte[] ResponseBodyInBytes => ApiCall.ResponseBodyInBytes;
-
-		/// <inheritdoc cref="IApiCallDetails.RequestBodyInBytes"/>
-		public byte[] RequestBodyInBytes => ApiCall.RequestBodyInBytes;
-
-		bool IOpenSearchResponse.TryGetServerErrorReason(out string reason) => TryGetServerErrorReason(out reason);
-
-		public virtual bool TryGetServerError(out ServerError serverError)
-		{
-			serverError = null;
-			var bytes = ApiCall.ResponseBodyInBytes;
-			if (bytes == null || ResponseMimeType != RequestData.MimeType)
-				return false;
-
-			using(var stream = ConnectionConfiguration.MemoryStreamFactory.Create(bytes))
-				return ServerError.TryCreate(stream, out serverError);
-		}
-
-		protected virtual bool TryGetServerErrorReason(out string reason)
-		{
-			reason = null;
-			if (!TryGetServerError(out var serverError)) return false;
-
-			reason = serverError?.Error?.ToString();
-			return !string.IsNullOrEmpty(reason);
-		}
-
-		public override string ToString() => ApiCall.ToString();
-	}
+	[JsonIgnore]
+	public ApiCallDetails? ApiCall { get; internal set; }
 
 	/// <summary>
-	/// A response from OpenSearch including details about the request/response life cycle. Base class for the built in low level response
-	/// types, <see cref="StringResponse"/>, <see cref="BytesResponse"/>, <see cref="DynamicResponse"/> and <see cref="VoidResponse"/>
+	/// The structured server error, populated when OpenSearch returns an error response (4xx/5xx).
 	/// </summary>
-	public abstract class OpenSearchResponse<T> : OpenSearchResponseBase
-	{
-		public T Body { get; protected internal set; }
-	}
+	[JsonIgnore]
+	public ServerError? ServerError { get; internal set; }
+
+	/// <summary>
+	/// Whether this response represents a successful API call.
+	/// Returns <c>true</c> when <see cref="ApiCall"/> is null (manually constructed response)
+	/// or when the HTTP call succeeded and no server error was returned.
+	/// </summary>
+	[JsonIgnore]
+	public virtual bool IsValid =>
+		ApiCall is null || (ApiCall.Success && ServerError is null);
+
+	/// <summary>
+	/// The exception that occurred during the request, if any.
+	/// </summary>
+	[JsonIgnore]
+	public Exception? OriginalException => ApiCall?.OriginalException;
+
+	/// <summary>
+	/// A human-readable diagnostic string with HTTP method, URI, status code,
+	/// audit trail, and optionally request/response bodies.
+	/// </summary>
+	[JsonIgnore]
+	public string DebugInformation =>
+		ApiCall?.DebugInformation() ?? "No transport details available.";
 }
