@@ -444,6 +444,32 @@ public sealed class QueryContainerDescriptor<TDocument>
 		return this;
 	}
 
+	// ── kNN query ──
+
+	public QueryContainerDescriptor<TDocument> Knn(
+		Expression<Func<TDocument, object>> field, Action<KnnQueryDescriptor> configure)
+	{
+		var descriptor = new KnnQueryDescriptor();
+		configure(descriptor);
+		_value = QueryContainer.Knn(Field.ResolveName<TDocument>(field), (KnnQuery)descriptor);
+		return this;
+	}
+
+	public QueryContainerDescriptor<TDocument> Knn(
+		string field, Action<KnnQueryDescriptor> configure)
+	{
+		var descriptor = new KnnQueryDescriptor();
+		configure(descriptor);
+		_value = QueryContainer.Knn(field, (KnnQuery)descriptor);
+		return this;
+	}
+
+	public QueryContainerDescriptor<TDocument> Knn(string field, KnnQuery value)
+	{
+		_value = QueryContainer.Knn(field, value);
+		return this;
+	}
+
 	/// <summary>Creates a terms query with string values using a string field name (for field expressions with Suffix).</summary>
 	public QueryContainerDescriptor<TDocument> Terms(
 		Field field, params string[] values)
