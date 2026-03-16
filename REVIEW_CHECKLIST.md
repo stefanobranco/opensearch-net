@@ -71,16 +71,29 @@ Work through areas one at a time. For each: read all relevant files, compare aga
   - Closely mirrors architecture. Key difference: abstract class vs interface. Bulk/Search IsValid overrides match.
   - 314 generated response types all properly inherit from OpenSearchResponse
 
-### 4. Aggregations
-- [ ] `AggregateDictionary` — all metric accessors (avg, sum, min, max, cardinality, stats, extended_stats)
-- [ ] Bucket accessors — terms, date_histogram, histogram, range, composite, significant_terms
-- [ ] Single-bucket aggs — filter, nested, reverse_nested, global, sampler
-- [ ] Sub-aggregation parsing — `ParseSubAggregations`, `ExtensionData` flow
-- [ ] `BucketAggregate<T>` — IReadOnlyList implementation, `.Buckets` accessor
-- [ ] Bucket sub-agg convenience accessors (TermsBucket.Terms(), .Filter(), etc.)
-- [ ] `typed_keys` handling — prefix stripping
-- [ ] Missing agg types? (percentiles, percentile_ranks, geo_bounds, top_hits, scripted_metric, etc.)
-- [ ] Compare against elasticsearch-net `AggregateDictionary`
+### 4. Aggregations ✅
+- [x] `AggregateDictionary` — all metric accessors (avg, sum, min, max, cardinality, stats, extended_stats)
+  - All common single-value metrics present: Average, Sum, Min, Max, Cardinality, ValueCount, Stats, ExtendedStats
+- [x] Bucket accessors — terms, date_histogram, histogram, range, composite, significant_terms
+  - All 6 multi-bucket types present with typed bucket classes and sub-agg parsing
+- [x] Single-bucket aggs — filter, nested, reverse_nested, global, sampler
+  - Added: ReverseNested() and Global() accessors with ReverseNestedBucket/GlobalBucket types
+  - Expanded IsSingleBucketKind to include "children" and "sampler"
+- [x] Sub-aggregation parsing — `ParseSubAggregations`, `ExtensionData` flow
+  - Correct: multi-bucket via unknown-property collection, single-bucket via ExtensionData
+  - IBucketWithSubAggregations interface for clean injection
+- [x] `BucketAggregate<T>` — IReadOnlyList implementation, `.Buckets` accessor
+  - Correct: implements IReadOnlyList<T>, indexing, enumeration, LINQ
+- [x] Bucket sub-agg convenience accessors (TermsBucket.Terms(), .Filter(), etc.)
+  - Added: consistent convenience accessors (Terms, Filter, Average, Sum, Min, Max, Cardinality) to all bucket types
+  - Previously only TermsBucket and NestedBucket had them
+- [x] `typed_keys` handling — prefix stripping
+  - Correct: StripTypedKeys parses "type#name" format, stores discriminator in separate dict
+- [x] Missing agg types? (percentiles, percentile_ranks, geo_bounds, top_hits, scripted_metric, etc.)
+  - Descriptor covers 42 agg types (20 bucket, 16 metric, 6 pipeline). Response accessors cover common ones.
+  - Noted gap: percentiles, geo_bounds, top_hits, scripted_metric lack typed response accessors (use GetRaw() + manual parsing). Future work — Aggregate<T> already has the raw fields.
+- [x] Compare against elasticsearch-net `AggregateDictionary`
+  - Same pattern: typed accessors for common aggs, extensible architecture. Trade-off: smaller API surface (easier to maintain) vs less type-safe for advanced aggs.
 
 ### 5. Query DSL & Descriptors
 - [ ] `QueryContainerDescriptor<T>` — all query types available?

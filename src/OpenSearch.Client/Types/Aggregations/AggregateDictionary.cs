@@ -133,6 +133,28 @@ public sealed class AggregateDictionary
 		};
 	}
 
+	public ReverseNestedBucket? ReverseNested(string name)
+	{
+		if (!TryGet(name, out var a)) return null;
+		if (!IsSingleBucketKind(name)) return null;
+		return new ReverseNestedBucket
+		{
+			DocCount = a.DocCount,
+			Aggregations = BuildSubAggs(a),
+		};
+	}
+
+	public GlobalBucket? Global(string name)
+	{
+		if (!TryGet(name, out var a)) return null;
+		if (!IsSingleBucketKind(name)) return null;
+		return new GlobalBucket
+		{
+			DocCount = a.DocCount,
+			Aggregations = BuildSubAggs(a),
+		};
+	}
+
 	// ── Raw access ──
 
 	/// <summary>Returns all aggregation names in this dictionary.</summary>
@@ -167,7 +189,7 @@ public sealed class AggregateDictionary
 		if (_kinds.TryGetValue(name, out var kind))
 		{
 			// typed_keys discriminator available — use it
-			return kind is "filter" or "nested" or "reverse_nested" or "global";
+			return kind is "filter" or "nested" or "reverse_nested" or "global" or "children" or "sampler";
 		}
 
 		// No typed_keys — fall back to structural check:
