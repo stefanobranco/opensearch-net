@@ -116,50 +116,90 @@ Work through areas one at a time. For each: read all relevant files, compare aga
 - [x] Compare against elasticsearch-net query descriptors
   - Closely mirrors v8 patterns. Same dual descriptor approach, same field resolution, same tagged union architecture.
 
-### 6. Bulk & NDJSON
-- [ ] `BulkRequest` serialization — NDJSON format correct?
-- [ ] `BulkResponse` deserialization — items, errors, `ItemsWithErrors`
-- [ ] `BulkIndexOperation<T>`, `BulkDeleteOperation`, `BulkUpdateOperation<T>` — all operation types
-- [ ] `MsearchRequest` — NDJSON header + body serialization
-- [ ] `MsearchResponse` — deserialization of multiple search responses
-- [ ] `MsearchRequestExtensions.AddSearch` — body field mapping complete?
-- [ ] Compare against elasticsearch-net bulk/msearch handling
+### 6. Bulk & NDJSON ✅
+- [x] `BulkRequest` serialization — NDJSON format correct?
+  - Correct: NdjsonWriter streams action + optional body lines per operation, zero-copy via RequestBody.Custom
+- [x] `BulkResponse` deserialization — items, errors, `ItemsWithErrors`
+  - Fixed in Area 3: IsValid override for Errors=true. ItemsWithErrors filters status >= 400 across all op types.
+- [x] `BulkIndexOperation<T>`, `BulkDeleteOperation`, `BulkUpdateOperation<T>` — all operation types
+  - All 4 types (Index, Create, Update, Delete) correct. Update supports Doc + DocAsUpsert (script/upsert fields future work).
+- [x] `MsearchRequest` — NDJSON header + body serialization
+  - Correct: MsearchEndpoint uses NdjsonWriter.WriteMsearch, header + body pairs, application/x-ndjson content type
+- [x] `MsearchResponse` — deserialization of multiple search responses
+  - Correct: GetResponses<T>() with typed hits, aggregations, suggest per item
+- [x] `MsearchRequestExtensions.AddSearch` — body field mapping complete?
+  - Comprehensive: 25+ fields mapped including query, aggregations, sort, source, highlight, collapse, knn, suggest, etc.
+- [x] Compare against elasticsearch-net bulk/msearch handling
+  - Cleaner design: RequestBody abstraction + NdjsonWriter vs raw byte streams. Same wire format.
 
-### 7. Search Response Chain
-- [ ] `SearchResponse<T>` — all fields present (hits, aggregations, suggest, _scroll_id, pit_id, etc.)
-- [ ] `Hit<T>` — `_source`, `_id`, `_index`, `_score`, `highlight`, `inner_hits`, `fields`, `sort`
-- [ ] `HitsMetadata<T>` — `Total`, `MaxScore`, `Hits` list
-- [ ] `TotalHits` — `Value`, `Relation` (eq/gte)
-- [ ] `SuggestDictionary<T>` — term, phrase, completion suggest parsing
-- [ ] `SuggestEntry<T>` — options, text, offset, length
-- [ ] Scroll responses — `_scroll_id` preserved, `Documents()` extension
-- [ ] `InnerHits` — deserialization, typed access
-- [ ] Compare against elasticsearch-net search response types
+### 7. Search Response Chain ✅
+- [x] `SearchResponse<T>` — all fields present (hits, aggregations, suggest, _scroll_id, pit_id, etc.)
+  - 14 fields including Took, TimedOut, Shards, Hits, Aggregations, Suggest, ScrollId, PitId, Profile, Clusters, TerminatedEarly, NumReducePhases, PhaseTook, ProcessorResults
+- [x] `Hit<T>` — `_source`, `_id`, `_index`, `_score`, `highlight`, `inner_hits`, `fields`, `sort`
+  - 20+ fields with explicit [JsonPropertyName] for underscore-prefixed fields, [JsonExtensionData] for extensibility
+- [x] `HitsMetadata<T>` — `Total`, `MaxScore`, `Hits` list
+  - Correct, with LINQ extensions (Select, Where, FirstOrDefault, Count)
+- [x] `TotalHits` — `Value`, `Relation` (eq/gte)
+  - Custom TotalHitsConverter handles both integer and object wire formats. Implicit operator to long.
+- [x] `SuggestDictionary<T>` — term, phrase, completion suggest parsing
+  - Typed accessors: GetTerm(), GetPhrase(), GetCompletion() with proper option types
+- [x] `SuggestEntry<T>` — options, text, offset, length
+  - TermSuggestOption, PhraseSuggestOption, CompletionSuggestOption<T> all present
+- [x] Scroll responses — `_scroll_id` preserved, `Documents()` extension
+  - ScrollResponse<T> mirrors SearchResponse, preserves ScrollId, has Documents()/Total() extensions
+- [x] `InnerHits` — deserialization, typed access
+  - InnerHitsResult<T> with full HitsMetadata<T>, typed access via hit.InnerHits["name"]
+- [x] Compare against elasticsearch-net search response types
+  - Mirrors v8 architecture with STJ. Same extension pattern (Documents, Total, Aggs, Suggestions).
 
-### 8. Convenience API & NEST Compat
-- [ ] `OpenSearchClient` root methods — `Index<T>`, `IndexMany<T>`, `Get`, `Delete`, `DeleteByQuery`
-- [ ] `Scroll<T>`, `ClearScroll` — full scroll lifecycle
-- [ ] `MultiSearch`, `MultiGet` aliases
-- [ ] CancellationToken overloads on all async methods
-- [ ] `RefreshIndexRequest` usage — is it ergonomic?
-- [ ] Missing convenience methods consumers need?
-- [ ] Compare against NEST client API surface
+### 8. Convenience API & NEST Compat ✅
+- [x] `OpenSearchClient` root methods — `Index<T>`, `IndexMany<T>`, `Get`, `Delete`, `DeleteByQuery`
+  - Root shortcuts: Search, Index, Get, Delete, Bulk, Mget, Msearch, Scroll (all sync+async)
+  - Noted gap: Create, Update, ClearScroll, DeleteByQuery only via client.Core namespace
+  - Noted gap: IndexMany<T> convenience wrapper not implemented (users build BulkRequest)
+- [x] `Scroll<T>`, `ClearScroll` — full scroll lifecycle
+  - Scroll<T> at root, ClearScroll via client.Core.ClearScroll(). ScrollResponse preserves _scroll_id.
+- [x] `MultiSearch`, `MultiGet` aliases
+  - Abbreviated names Msearch/Mget used (no MultiSearch/MultiGet aliases). Matches spec naming.
+- [x] CancellationToken overloads on all async methods
+  - All async methods accept CancellationToken with default value
+- [x] `RefreshIndexRequest` usage — is it ergonomic?
+  - Available via client.Indices.Refresh() with fluent descriptor. No root-level shortcut.
+- [x] Missing convenience methods consumers need?
+  - Future work: IndexMany<T>, root shortcuts for Create/Update/DeleteByQuery/ClearScroll/Count/Exists
+- [x] Compare against NEST client API surface
+  - Core operations present. NEST had more root-level shortcuts; v2 uses namespace pattern (client.Core, client.Indices) for discoverability.
 
-### 9. Generated Code Quality
-- [ ] Spot-check 10-20 generated types against OpenAPI spec — fields match?
-- [ ] Generated descriptors — do they expose all fields?
-- [ ] Generated endpoints — HTTP method, URL pattern, body serialization
-- [ ] Generated responses — inherit `OpenSearchResponse`?
-- [ ] Generated enums — values match spec, serialization correct?
-- [ ] `[JsonPropertyName]` vs naming policy — consistent strategy?
-- [ ] Compare generated output against opensearch-java codegen output
+### 9. Generated Code Quality ✅
+- [x] Spot-check 10-20 generated types against OpenAPI spec — fields match?
+  - Checked 20+ types across Common, Cluster, Indices, Core namespaces. Fields match spec, proper nullable types, doc comments.
+- [x] Generated descriptors — do they expose all fields?
+  - All fields exposed as fluent builder methods with chaining. Implicit conversion to underlying request type.
+- [x] Generated endpoints — HTTP method, URL pattern, body serialization
+  - HTTP methods correct (GET/POST), URL patterns with dynamic segments, query param encoding via Uri.EscapeDataString, body via RequestBody.Json
+- [x] Generated responses — inherit `OpenSearchResponse`?
+  - All inherit OpenSearchResponse. Polymorphic types handled (Dictionary-based responses).
+- [x] Generated enums — values match spec, serialization correct?
+  - Consistent [JsonEnum] + [EnumMember(Value)] pattern. Wire values match spec (snake_case).
+- [x] `[JsonPropertyName]` vs naming policy — consistent strategy?
+  - Optimal: underscore-prefixed/camelCase get explicit attributes, standard PascalCase relies on naming policy. Consistent across all generated types.
+- [x] Compare generated output against opensearch-java codegen output
+  - Same tagged union approach, same property mapping strategy. C# uses STJ naming policy where Java uses Jackson annotations.
 
-### 10. Test Coverage
-- [ ] Transport tests — all paths covered (success, 4xx, 5xx, retries, timeouts)?
-- [ ] Serialization tests — round-trip for key types
-- [ ] Aggregation tests — all accessor methods, sub-agg parsing
-- [ ] Query DSL tests — serialization of all query types
-- [ ] Bulk/NDJSON tests — format validation
-- [ ] Search response tests — deserialization of full responses
-- [ ] Diagnostics tests — `DebugInformation`, `ServerError` formatting
-- [ ] Integration tests — coverage vs unit tests
+### 10. Test Coverage ✅
+- [x] Transport tests — all paths covered (success, 4xx, 5xx, retries, timeouts)?
+  - 37 tests: success, all error codes, retries, dead nodes, cancellation, timeout vs user cancellation, auth headers, compression
+- [x] Serialization tests — round-trip for key types
+  - 170+ tests: SystemTextJsonSerializer, query DSL, search requests/responses, enums, converters, tagged unions
+- [x] Aggregation tests — all accessor methods, sub-agg parsing
+  - 21 tests: all metric accessors, all bucket types, sub-agg parsing, typed_keys stripping
+- [x] Query DSL tests — serialization of all query types
+  - 22 unit + 5 integration: MatchAll, Match, Term, Terms, Range, Bool, Exists, Prefix, Wildcard, Fuzzy
+- [x] Bulk/NDJSON tests — format validation
+  - 11 tests: response deserialization, mixed operations, IsValid, ItemsWithErrors. Noted gap: no NDJSON write-format verification test.
+- [x] Search response tests — deserialization of full responses
+  - 17 tests: Documents(), Total(), Aggs(), Suggestions(), InnerHits, ScrollId, TotalHits converter
+- [x] Diagnostics tests — `DebugInformation`, `ServerError` formatting
+  - 28 tests: ApiCallDetails attachment, DebugInformation format, ServerError parsing (all shapes), error chain traversal
+- [x] Integration tests — coverage vs unit tests
+  - 48 integration tests across 19 files. Core operations, query DSL, cluster/indices admin, error handling. Unit tests cover serialization/transport depth; integration tests validate end-to-end.
