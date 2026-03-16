@@ -46,15 +46,30 @@ Work through areas one at a time. For each: read all relevant files, compare aga
   - Mirrors Elastic v8 architecture: ContextProvider, dual serializer, JsonEnumConverterFactory, ServerErrorConverter
   - Gap vs Elastic: SourceConverter not wired to generated types via `[JsonConverter]` attributes (future codegen work)
 
-### 3. Response Model
-- [ ] `OpenSearchResponse` base class — `IsValid`, `ServerError`, `ApiCall`, `DebugInformation`
-- [ ] `SearchResponse<T>` — `IsValid` override for shard failures
-- [ ] `BulkResponse` — `ItemsWithErrors`, error detection
-- [ ] `MsearchResponse` — `GetResponses<T>()`, typed item handling
-- [ ] `MgetResponse` — `MgetResponseItem`, `GetDocs<T>()`, `GetMany<T>()`
-- [ ] `DeleteByQueryResponse` — all fields present
-- [ ] `DebugInformation` formatting — complete and useful?
-- [ ] Compare against elasticsearch-net `ElasticsearchResponse`
+### 3. Response Model ✅
+- [x] `OpenSearchResponse` base class — `IsValid`, `ServerError`, `ApiCall`, `DebugInformation`
+  - Correct: virtual IsValid checks ApiCall.Success && ServerError is null; manually constructed responses (null ApiCall) default to valid
+  - All properties `[JsonIgnore]` since they're populated by transport, not deserialized
+- [x] `SearchResponse<T>` — `IsValid` override for shard failures
+  - Correct: overrides to `base.IsValid && (Shards is null || Shards.Failed == 0)`
+  - Extension methods: Documents(), Total(), Aggs(), Suggestions()
+- [x] `BulkResponse` — `ItemsWithErrors`, error detection
+  - Fixed: added `IsValid` override (`base.IsValid && !Errors`) — HTTP 200 with individual item failures was incorrectly returning IsValid=true
+  - `ItemsWithErrors` filters status >= 400 across Index/Create/Update/Delete operations
+- [x] `MsearchResponse` — `GetResponses<T>()`, typed item handling
+  - Correct: deserializes each item's hits, aggregations, suggest with optional custom options
+  - `MsearchTypedResponse<T>.IsValid` checks status + no error
+- [x] `MgetResponse` — `MgetResponseItem`, `GetDocs<T>()`, `GetMany<T>()`
+  - Correct: typed `MgetHit<T>` with all fields, `GetMany` preserves ID order (NEST-compatible)
+- [x] `DeleteByQueryResponse` — all fields present
+  - All fields present. Note: `Failures` typed as `List<object>?` (raw JSON) — could be typed in future codegen
+  - Generated (sealed, not partial) — can't add IsValid override without codegen changes
+- [x] `DebugInformation` formatting — complete and useful?
+  - Rich: includes method/URI, audit trail (per-node events with timing/status), request/response bodies, original exception
+  - SearchResponse adds shard failure details via SearchDebugInformation()
+- [x] Compare against elasticsearch-net `ElasticsearchResponse`
+  - Closely mirrors architecture. Key difference: abstract class vs interface. Bulk/Search IsValid overrides match.
+  - 314 generated response types all properly inherit from OpenSearchResponse
 
 ### 4. Aggregations
 - [ ] `AggregateDictionary` — all metric accessors (avg, sum, min, max, cardinality, stats, extended_stats)

@@ -18,6 +18,14 @@ public sealed class BulkResponse : OpenSearchResponse
 	/// <summary>The results of each operation, in order.</summary>
 	public List<BulkResponseItem>? Items { get; set; }
 
+	/// <summary>
+	/// Whether this response represents a fully successful bulk operation.
+	/// Returns <c>false</c> when any individual operation had errors, even if the
+	/// HTTP call itself succeeded.
+	/// </summary>
+	[JsonIgnore]
+	public override bool IsValid => base.IsValid && !Errors;
+
 	/// <summary>Returns items that had errors (status >= 400).</summary>
 	public IEnumerable<BulkResponseItem> ItemsWithErrors =>
 		Items?.Where(i =>

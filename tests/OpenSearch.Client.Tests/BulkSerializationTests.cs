@@ -269,6 +269,66 @@ public class BulkSerializationTests
 	}
 
 	[Fact]
+	public void BulkResponse_IsValid_FalseWhenErrorsTrue()
+	{
+		var response = new BulkResponse { Errors = true };
+
+		response.IsValid.Should().BeFalse();
+	}
+
+	[Fact]
+	public void BulkResponse_IsValid_TrueWhenNoErrors()
+	{
+		var response = new BulkResponse { Errors = false };
+
+		response.IsValid.Should().BeTrue();
+	}
+
+	[Fact]
+	public void BulkResponse_ItemsWithErrors_FiltersCorrectly()
+	{
+		var json = """
+		{
+			"took": 50,
+			"errors": true,
+			"items": [
+				{
+					"index": {
+						"_index": "test",
+						"_id": "1",
+						"status": 201,
+						"result": "created",
+						"_seq_no": 0,
+						"_primary_term": 1
+					}
+				},
+				{
+					"index": {
+						"_index": "test",
+						"_id": "2",
+						"status": 409,
+						"error": { "type": "version_conflict_engine_exception", "reason": "conflict" }
+					}
+				},
+				{
+					"delete": {
+						"_index": "test",
+						"_id": "3",
+						"status": 404,
+						"result": "not_found"
+					}
+				}
+			]
+		}
+		""";
+
+		var response = JsonSerializer.Deserialize<BulkResponse>(json, JsonOptions)!;
+
+		response.IsValid.Should().BeFalse();
+		response.ItemsWithErrors.Should().HaveCount(2);
+	}
+
+	[Fact]
 	public void Deserialize_BulkResponse_WithNumbersAsStrings()
 	{
 		var json = """
