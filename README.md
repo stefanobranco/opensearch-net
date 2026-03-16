@@ -1,73 +1,82 @@
-[![Build](https://github.com/opensearch-project/opensearch-net/actions/workflows/compile.yml/badge.svg)](https://github.com/opensearch-project/opensearch-net/actions/workflows/compile.yml)
-[![Unit Tests](https://github.com/opensearch-project/opensearch-net/actions/workflows/test-jobs.yml/badge.svg)](https://github.com/opensearch-project/opensearch-net/actions/workflows/test-jobs.yml)
-[![Integration Tests](https://github.com/opensearch-project/opensearch-net/actions/workflows/integration.yml/badge.svg)](https://github.com/opensearch-project/opensearch-net/actions/workflows/integration.yml)
-[![Chat](https://img.shields.io/badge/chat-on%20forums-blue)](https://discuss.opendistrocommunity.dev/c/clients/)
-[![PRs welcome!](https://img.shields.io/badge/PRs-welcome!-success)](https://github.com/opensearch-project/opensearch-net/compare)
+# OpenSearch .NET Client (Experimental)
 
-![OpenSearch logo](OpenSearch.svg)
+> **This is an experimental, work-in-progress, AI-written ground-up rebuild of the OpenSearch .NET client.**
+> It is **not** the official [opensearch-project/opensearch-net](https://github.com/opensearch-project/opensearch-net) client.
+> Do not use in production.
 
-- [OpenSearch .NET Client](#opensearch-net-client)
-  - [Welcome!](#welcome)
-  - [Stable Release](#stable-release)
-  - [Project Resources](#project-resources)
-  - [OpenSearch.Client](#opensearch-client)
-  - [Getting Started](#getting-started)
-  - [Compatibility with OpenSearch](#compatibility-with-opensearch)
-  - [Developer Guide](#developer-guide)
-  - [Code of Conduct](#code-of-conduct)
-  - [License](#license)
-  - [Copyright](#copyright)
+## What is this?
 
-# OpenSearch .NET Client
+A modern .NET client for [OpenSearch](https://opensearch.org/), built from scratch using AI (Claude) with heavy inspiration from:
 
-## Welcome!
+- **[opensearch-java](https://github.com/opensearch-project/opensearch-java)** — architectural blueprint (transport, tagged unions, code generator)
+- **[elasticsearch-net v8](https://github.com/elastic/elasticsearch-net)** — serialization patterns (ContextProvider, dual serializer, SourceConverter)
+- **[OpenSearch API Specification](https://github.com/opensearch-project/opensearch-api-specification)** — generated types, endpoints, and enums (spec version 0.3.0 / API version 2.16.0)
 
-**opensearch-net** is [a community-driven, open source fork](https://aws.amazon.com/blogs/opensource/introducing-opensearch/) of elasticsearch-net licensed under the [Apache v2.0 License](LICENSE.txt). For more information, see [opensearch.org](https://opensearch.org/).
+The goal is a spec-driven, System.Text.Json-based client that can eventually be contributed upstream to replace the aging NEST/Utf8Json-based v1.x client.
 
-**OpenSearch.Client** is [a community-driven, open source fork](https://aws.amazon.com/blogs/opensource/introducing-opensearch/) of elasticsearch-net high level client NEST licensed under the [Apache v2.0 License](LICENSE.txt). For more information, see [opensearch.org](https://opensearch.org/).
+## Status
 
-## Stable Release
-You're reading the documentation for the next release of opensearch-net, which should be **2.0.0**.
-Please read [UPGRADING](UPGRADING.md) when upgrading from a previous version.
-The current stable release is [1.7.1](https://github.com/opensearch-project/opensearch-net/blob/v1.7.1/README.md).
+**Alpha** — tested against OpenSearch 3.4. Core functionality works but the API surface is incomplete and breaking changes are expected.
 
-## Project Resources
+What works:
+- Transport with retry logic, dead-node tracking, handler rotation for DNS refresh
+- System.Text.Json serialization with snake_case naming, tagged unions, enum converters
+- Code-generated types from the OpenSearch API specification (480+ endpoints)
+- Search, Index, Get, Delete, Bulk, Multi-Search, Multi-Get, Scroll
+- Fluent descriptors with expression-based field resolution
+- Aggregations (terms, date_histogram, histogram, range, filter, nested, stats, etc.)
+- Query DSL (55 query types with typed builders)
+- Suggest (term, phrase, completion)
+- NDJSON streaming for Bulk and Multi-Search
+- AWS SigV4 authentication
 
-* [Project Website](https://opensearch.org/)
-* [Downloads](https://opensearch.org/downloads.html)
-* [Documentation](https://opensearch.org/docs/latest/clients/dot-net/)
-* Need help? Try [Forums](https://discuss.opendistrocommunity.dev/)
-* [Project Principles](https://opensearch.org/#principles)
-* [Contributing to OpenSearch](CONTRIBUTING.md)
-* [Maintainer Responsibilities](MAINTAINERS.md)
-* [Release Management](RELEASING.md)
-* [Admin Responsibilities](ADMINS.md)
-* [Security](SECURITY.md)
+What's incomplete or missing:
+- Some advanced aggregation response accessors (percentiles, geo_bounds, top_hits)
+- Custom SourceSerializer not yet wired to generated Hit<T>.Source
+- Some root-level convenience shortcuts (IndexMany, DeleteByQuery, etc.)
+- No Newtonsoft.Json bridge yet
+- Limited integration test coverage for generated endpoints
 
-## [OpenSearch.Client](https://github.com/opensearch-project/opensearch-net/tree/main/src/OpenSearch.Client)
+## Quick Start
 
-OpenSearch.Client is the official high-level .NET client of [OpenSearch](https://github.com/opensearch-project/OpenSearch).
+```csharp
+using OpenSearch.Client;
+using OpenSearch.Client.Core;
 
-## Getting Started
+var client = new OpenSearchClient(new Uri("https://localhost:9200"));
 
-See [USER_GUIDE](USER_GUIDE.md) to get started with the .NET client.
+// Search with fluent descriptors
+var response = client.Search<MyDoc>(s => s
+    .Index(["my-index"])
+    .Query(q => q.Match(f => f.Title!, m => m.Query("opensearch")))
+    .Size(10));
 
-## Compatibility with OpenSearch
+foreach (var doc in response.Documents())
+    Console.WriteLine(doc.Title);
+```
 
-See [COMPATIBILITY](COMPATIBILITY.md).
+## Architecture
 
-## Developer Guide
+| Layer | Package | Description |
+|-------|---------|-------------|
+| Transport | `OpenSearch.Net` | HTTP transport, node pool, retry logic, diagnostics |
+| Client | `OpenSearch.Client` | Typed client, serialization, generated types, descriptors |
+| Code Generator | `OpenSearch.CodeGen` | Generates C# from OpenSearch API specification |
 
-See [DEVELOPER_GUIDE](DEVELOPER_GUIDE.md).
+Targets **net8.0** and **net10.0**. No netstandard2.0.
 
-## Code of Conduct
+## Building
 
-This project has adopted the [Amazon Open Source Code of Conduct](CODE_OF_CONDUCT.md). For more information see the [Code of Conduct FAQ](https://aws.github.io/code-of-conduct-faq), or contact [opensource-codeofconduct@amazon.com](mailto:opensource-codeofconduct@amazon.com) with any additional questions or comments.
+```bash
+dotnet build
+dotnet test
+```
 
 ## License
 
-This project is licensed under the [Apache v2.0 License](LICENSE.txt).
+[Apache v2.0](LICENSE.txt)
 
-## Copyright
+## Acknowledgements
 
-Copyright OpenSearch Contributors. See [NOTICE](./NOTICE.txt) for details.
+This project is a fork of [opensearch-project/opensearch-net](https://github.com/opensearch-project/opensearch-net).
+The rebuild was written using [Claude](https://claude.ai) (Anthropic) as an AI coding assistant.
