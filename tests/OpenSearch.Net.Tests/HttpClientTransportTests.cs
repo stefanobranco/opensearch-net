@@ -364,7 +364,7 @@ public class HttpClientTransportTests : IDisposable
 	}
 
 	[Fact]
-	public void Returns404_OnGetEndpoint_DoesNotThrow()
+	public void Returns404_OnGetEndpoint_DoesNotThrow_AndIsValid()
 	{
 		var handler = new MockHttpMessageHandler(_ =>
 			new HttpResponseMessage(HttpStatusCode.NotFound)
@@ -372,13 +372,17 @@ public class HttpClientTransportTests : IDisposable
 				Content = new StringContent("{\"found\":false}", Encoding.UTF8, "application/json")
 			});
 		var transport = CreateTransport(handler, new Uri("http://localhost:9200"));
-		var endpoint = new SimpleEndpoint<string, TestResponse>(
+		var endpoint = new SimpleEndpoint<string, TestOpenSearchResponse>(
 			method: _ => HttpMethod.Get,
 			requestUrl: _ => "/my-index/_doc/1",
 			deserialize: (statusCode, _, body, serializer) =>
-				new TestResponse { Status = statusCode == 404 ? "not_found" : "ok" });
+				new TestOpenSearchResponse { Value = statusCode == 404 ? "not_found" : "ok" });
 		var response = transport.PerformRequest("request", endpoint);
-		response.Status.Should().Be("not_found");
+		response.Value.Should().Be("not_found");
+		response.IsValid.Should().BeTrue("GET 404 is a valid 'not found' response");
+		response.ApiCall!.Success.Should().BeTrue();
+		response.ApiCall.HttpStatusCode.Should().Be(404);
+		response.ServerError.Should().BeNull();
 	}
 
 	[Fact]
@@ -627,6 +631,305 @@ public class HttpClientTransportTests : IDisposable
 		response.ServerError.Error.Type.Should().BeNull();
 	}
 
+	// ── BUG 1: Retryable status on final attempt — node stays dead, returns response (non-throwing) ──
+
+	[Fact]
+	public void RetryableStatusOnFinalAttempt_ReturnsResponseWithServerError()
+	{
+		// All attempts return 503. With 2 nodes, maxRetries=1, so 2 total attempts.
+		// In non-throwing mode: returns response with IsValid=false and ServerError populated.
+		// Node must be marked dead (not alive).
+		var handler = new MockHttpMessageHandler(_ =>
+			new HttpResponseMessage(HttpStatusCode.ServiceUnavailable)
+			{
+				Content = new StringContent(
+					"{\"error\":{\"type\":\"unavailable_exception\",\"reason\":\"node is shutting down\"},\"status\":503}",
+					Encoding.UTF8, "application/json")
+			});
+
+		var transport = CreateTransport(handler,
+			new Uri("http://node1:9200"),
+			new Uri("http://node2:9200"));
+
+		var endpoint = new SimpleEndpoint<string, TestOpenSearchResponse>(
+			method: _ => HttpMethod.Get,
+			requestUrl: _ => "/_cluster/health",
+			deserialize: (_, _, body, serializer) =>
+				serializer.Deserialize<TestOpenSearchResponse>(body) ?? new TestOpenSearchResponse());
+
+		var response = transport.PerformRequest("request", endpoint);
+
+		response.IsValid.Should().BeFalse();
+		response.ServerError.Should().NotBeNull();
+		response.ServerError!.Status.Should().Be(503);
+		response.ApiCall.Should().NotBeNull();
+		response.ApiCall!.HttpStatusCode.Should().Be(503);
+		response.ApiCall.Success.Should().BeFalse();
+		handler.Requests.Should().HaveCount(2);
+	}
+
+	[Fact]
+	public void RetryableStatusOnFinalAttempt_WithThrowExceptions_Throws()
+	{
+		// With ThrowExceptions=true: throws OpenSearchServerException on final retryable status.
+		var handler = new MockHttpMessageHandler(_ =>
+			new HttpResponseMessage(HttpStatusCode.ServiceUnavailable)
+			{
+				Content = new StringContent(
+					"{\"error\":{\"type\":\"unavailable_exception\",\"reason\":\"shutting down\"},\"status\":503}",
+					Encoding.UTF8, "application/json")
+			});
+
+		var config = TransportConfiguration.Create(
+				new Uri("http://node1:9200"),
+				new Uri("http://node2:9200"))
+			.ThrowExceptions()
+			.Build();
+		var transport = CreateTransport(handler, config);
+
+		var endpoint = new SimpleEndpoint<string, TestOpenSearchResponse>(
+			method: _ => HttpMethod.Get,
+			requestUrl: _ => "/_cluster/health",
+			deserialize: (_, _, body, serializer) =>
+				serializer.Deserialize<TestOpenSearchResponse>(body) ?? new TestOpenSearchResponse());
+
+		var act = () => transport.PerformRequest("request", endpoint);
+
+		act.Should().Throw<OpenSearchServerException>()
+			.Where(e => e.StatusCode == 503);
+		handler.Requests.Should().HaveCount(2);
+	}
+
+	[Fact]
+	public async Task RetryableStatusOnFinalAttempt_Async_ReturnsResponseWithServerError()
+	{
+		var handler = new MockHttpMessageHandler(_ =>
+			new HttpResponseMessage(HttpStatusCode.ServiceUnavailable)
+			{
+				Content = new StringContent(
+					"{\"error\":{\"type\":\"unavailable_exception\",\"reason\":\"node is shutting down\"},\"status\":503}",
+					Encoding.UTF8, "application/json")
+			});
+
+		var transport = CreateTransport(handler,
+			new Uri("http://node1:9200"),
+			new Uri("http://node2:9200"));
+
+		var endpoint = new SimpleEndpoint<string, TestOpenSearchResponse>(
+			method: _ => HttpMethod.Get,
+			requestUrl: _ => "/_cluster/health",
+			deserialize: (_, _, body, serializer) =>
+				serializer.Deserialize<TestOpenSearchResponse>(body) ?? new TestOpenSearchResponse());
+
+		var response = await transport.PerformRequestAsync("request", endpoint);
+
+		response.IsValid.Should().BeFalse();
+		response.ServerError.Should().NotBeNull();
+		response.ServerError!.Status.Should().Be(503);
+	}
+
+	// ── BUG 2: TransportException should include correct HttpMethod and Uri ──
+
+	[Fact]
+	public void TransportException_ContainsCorrectMethodAndUri()
+	{
+		var handler = new MockHttpMessageHandler(_ =>
+			throw new HttpRequestException("Connection refused"));
+
+		var transport = CreateTransport(handler,
+			new Uri("http://node1:9200"),
+			new Uri("http://node2:9200"));
+
+		var endpoint = new SimpleEndpoint<string, TestResponse>(
+			method: _ => HttpMethod.Post,
+			requestUrl: _ => "/my-index/_search",
+			deserialize: (_, _, body, serializer) =>
+				serializer.Deserialize<TestResponse>(body) ?? new TestResponse());
+
+		TransportException? caught = null;
+		try
+		{
+			transport.PerformRequest("request", endpoint);
+		}
+		catch (TransportException ex)
+		{
+			caught = ex;
+		}
+
+		caught.Should().NotBeNull();
+		caught!.ApiCallDetails.Should().NotBeNull();
+		caught.ApiCallDetails!.HttpMethod.Should().Be(HttpMethod.Post);
+		caught.ApiCallDetails.Uri.Should().NotBeNull();
+		caught.ApiCallDetails.Uri!.AbsolutePath.Should().Be("/my-index/_search");
+	}
+
+	// ── BUG 3: GET/DELETE 404 should have Success=true, IsValid=true ──
+
+	[Fact]
+	public void Returns404_OnDeleteEndpoint_IsValid()
+	{
+		var handler = new MockHttpMessageHandler(_ =>
+			new HttpResponseMessage(HttpStatusCode.NotFound)
+			{
+				Content = new StringContent("{\"found\":false,\"result\":\"not_found\"}", Encoding.UTF8, "application/json")
+			});
+		var transport = CreateTransport(handler, new Uri("http://localhost:9200"));
+		var endpoint = new SimpleEndpoint<string, TestOpenSearchResponse>(
+			method: _ => HttpMethod.Delete,
+			requestUrl: _ => "/my-index/_doc/1",
+			deserialize: (statusCode, _, body, serializer) =>
+				new TestOpenSearchResponse { Value = statusCode == 404 ? "not_found" : "ok" });
+		var response = transport.PerformRequest("request", endpoint);
+
+		response.IsValid.Should().BeTrue("DELETE 404 is a valid 'not found' response");
+		response.ApiCall!.Success.Should().BeTrue();
+		response.ApiCall.HttpStatusCode.Should().Be(404);
+	}
+
+	[Fact]
+	public void Returns404_OnPostEndpoint_IsNotValid()
+	{
+		var handler = new MockHttpMessageHandler(_ =>
+			new HttpResponseMessage(HttpStatusCode.NotFound)
+			{
+				Content = new StringContent(
+					"{\"error\":{\"type\":\"index_not_found_exception\",\"reason\":\"no such index\"},\"status\":404}",
+					Encoding.UTF8, "application/json")
+			});
+		var transport = CreateTransport(handler, new Uri("http://localhost:9200"));
+		var endpoint = new SimpleEndpoint<string, TestOpenSearchResponse>(
+			method: _ => HttpMethod.Post,
+			requestUrl: _ => "/missing/_search",
+			deserialize: (_, _, body, serializer) =>
+				serializer.Deserialize<TestOpenSearchResponse>(body) ?? new TestOpenSearchResponse());
+		var response = transport.PerformRequest("request", endpoint);
+
+		response.IsValid.Should().BeFalse("POST 404 is a genuine server error");
+		response.ApiCall!.Success.Should().BeFalse();
+		response.ServerError.Should().NotBeNull();
+		response.ServerError!.Error!.Type.Should().Be("index_not_found_exception");
+	}
+
+	[Fact]
+	public void HeadRequest_Returns404_IsValid()
+	{
+		var handler = new MockHttpMessageHandler(_ =>
+			new HttpResponseMessage(HttpStatusCode.NotFound));
+		var transport = CreateTransport(handler, new Uri("http://localhost:9200"));
+		var endpoint = new SimpleEndpoint<string, TestOpenSearchResponse>(
+			method: _ => HttpMethod.Head,
+			requestUrl: _ => "/my-index",
+			deserialize: (statusCode, _, _, _) =>
+				new TestOpenSearchResponse { Value = statusCode is >= 200 and < 300 ? "exists" : "not_exists" });
+		var response = transport.PerformRequest("request", endpoint);
+
+		response.Value.Should().Be("not_exists");
+		response.IsValid.Should().BeTrue("HEAD 404 is a valid 'not found' response");
+		response.ApiCall!.Success.Should().BeTrue();
+	}
+
+	[Fact]
+	public void HeadRequest_Returns500_IsNotValid()
+	{
+		var handler = new MockHttpMessageHandler(_ =>
+			new HttpResponseMessage(HttpStatusCode.InternalServerError));
+		var transport = CreateTransport(handler, new Uri("http://localhost:9200"));
+		var endpoint = new SimpleEndpoint<string, TestOpenSearchResponse>(
+			method: _ => HttpMethod.Head,
+			requestUrl: _ => "/my-index",
+			deserialize: (statusCode, _, _, _) =>
+				new TestOpenSearchResponse { Value = "error" });
+		var response = transport.PerformRequest("request", endpoint);
+
+		response.IsValid.Should().BeFalse("HEAD 500 is a server error");
+		response.ApiCall!.Success.Should().BeFalse();
+	}
+
+	// ── Cancellation: user cancellation must propagate directly, NOT wrapped in TransportException ──
+
+	[Fact]
+	public async Task UserCancellation_AfterRetryableFailure_PropagatesAsOperationCanceledException()
+	{
+		// Scenario: first attempt returns 503 (retried), second attempt user cancels.
+		// The cancellation must propagate as OperationCanceledException, NOT TransportException.
+		var callCount = 0;
+		using var cts = new CancellationTokenSource();
+
+		var handler = new MockHttpMessageHandler(_ =>
+		{
+			callCount++;
+			if (callCount == 1)
+				return new HttpResponseMessage(HttpStatusCode.ServiceUnavailable);
+
+			// Second attempt: user has cancelled
+			cts.Cancel();
+			throw new TaskCanceledException("Cancelled", new Exception(), cts.Token);
+		});
+
+		var transport = CreateTransport(handler,
+			new Uri("http://node1:9200"),
+			new Uri("http://node2:9200"));
+		var endpoint = CreateSimpleEndpoint();
+
+		// Must throw OperationCanceledException (not TransportException)
+		await Assert.ThrowsAnyAsync<OperationCanceledException>(
+			() => transport.PerformRequestAsync("request", endpoint, ct: cts.Token));
+	}
+
+	[Fact]
+	public async Task Timeout_RetriesExhausted_ThrowsTransportException_NotOperationCanceledException()
+	{
+		// Timeouts (TaskCanceledException when ct is NOT cancelled) should be retried,
+		// and when exhausted should throw TransportException (not OperationCanceledException).
+		var handler = new MockHttpMessageHandler(_ =>
+			throw new TaskCanceledException("Timeout", new TimeoutException()));
+
+		var transport = CreateTransport(handler,
+			new Uri("http://node1:9200"),
+			new Uri("http://node2:9200"));
+		var endpoint = CreateSimpleEndpoint();
+
+		// Must throw TransportException (NOT OperationCanceledException)
+		var ex = await Assert.ThrowsAsync<TransportException>(
+			() => transport.PerformRequestAsync("request", endpoint));
+
+		ex.Message.Should().Contain("Maximum number of retries");
+		ex.InnerException.Should().BeOfType<TaskCanceledException>();
+	}
+
+	// ── Non-JSON error bodies (e.g., nginx HTML errors) ──
+
+	[Fact]
+	public void NonJsonErrorBody_ParsedGracefully()
+	{
+		var handler = new MockHttpMessageHandler(_ =>
+			new HttpResponseMessage(HttpStatusCode.BadGateway)
+			{
+				Content = new StringContent(
+					"<html><body><h1>502 Bad Gateway</h1></body></html>",
+					Encoding.UTF8, "text/html")
+			});
+		// Single node, maxRetries=0, so 502 falls through to server error handling on first attempt.
+		// Non-JSON body should still produce a ServerError (with null Error.Type/Reason).
+		var config = TransportConfiguration.Create(new Uri("http://localhost:9200"))
+			.MaxRetries(0)
+			.Build();
+		var transport = CreateTransport(handler, config);
+		var endpoint = new SimpleEndpoint<string, TestOpenSearchResponse>(
+			method: _ => HttpMethod.Get,
+			requestUrl: _ => "/_cluster/health",
+			deserialize: (_, _, body, serializer) =>
+				serializer.Deserialize<TestOpenSearchResponse>(body) ?? new TestOpenSearchResponse());
+
+		var response = transport.PerformRequest("request", endpoint);
+
+		response.IsValid.Should().BeFalse();
+		response.ServerError.Should().NotBeNull();
+		response.ServerError!.Status.Should().Be(502);
+		// Non-JSON body: Error.Type/Reason are null, but we get a ServerError with status
+		response.ApiCall!.ResponseBodyBytes.Should().NotBeNull();
+	}
+
 	// --- Helpers ---
 
 	private HttpClientTransport CreateTransport(MockHttpMessageHandler handler, params Uri[] uris)
@@ -666,7 +969,7 @@ public class HttpClientTransportTests : IDisposable
 			deserialize: (_, _, body, serializer) =>
 				serializer.Deserialize<TestResponse>(body) ?? new TestResponse());
 
-	public class TestResponse
+	public class TestResponse : OpenSearchResponse
 	{
 		public string? Status { get; set; }
 	}

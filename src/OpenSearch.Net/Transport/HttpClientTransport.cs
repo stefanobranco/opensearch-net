@@ -63,6 +63,8 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 		Exception? lastException = null;
 		int lastRetryableStatusCode = 0;
 		Node? lastRetryableNode = null;
+		var lastMethod = endpoint.Method(request);
+		Uri? lastUri = null;
 
 		for (var attempt = 0; attempt <= maxRetries; attempt++)
 		{
@@ -81,6 +83,7 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 				byte[]? requestBodyBytes = null;
 				using var requestMessage = BuildRequestMessage(request, endpoint, node, mergedOptions,
 					captureBody, out requestBodyBytes);
+				lastUri = requestMessage.RequestUri;
 				GetAuditTrail(ref auditTrail).Add(AuditEventType.RequestSent, node);
 
 				using var responseMessage = client.Send(requestMessage, HttpCompletionOption.ResponseHeadersRead);
@@ -92,18 +95,27 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 
 				ProcessWarningHeaders(responseMessage, mergedOptions);
 
-				if (RetryableStatusCodes.Contains(statusCode) && attempt < maxRetries)
+				if (RetryableStatusCodes.Contains(statusCode))
 				{
 					GetAuditTrail(ref auditTrail).Add(AuditEventType.BadResponse, node, statusCode);
 					nodePool.MarkDead(node);
 					GetAuditTrail(ref auditTrail).Add(AuditEventType.DeadNode, node);
-					lastRetryableStatusCode = statusCode;
-					lastRetryableNode = node;
-					lastException = null;
-					continue;
-				}
 
-				nodePool.MarkAlive(node);
+					if (attempt < maxRetries)
+					{
+						lastRetryableStatusCode = statusCode;
+						lastRetryableNode = node;
+						lastException = null;
+						continue;
+					}
+
+					// Last attempt: fall through to server error handling below
+					// (node stays dead, but we return the response instead of always throwing)
+				}
+				else
+				{
+					nodePool.MarkAlive(node);
+				}
 
 				if (IsServerError(statusCode, method))
 				{
@@ -158,7 +170,7 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 			}
 		}
 
-		return ThrowRetriesExhausted<TResponse>(ref auditTrail, lastException, lastRetryableStatusCode, lastRetryableNode);
+		return ThrowRetriesExhausted<TResponse>(ref auditTrail, lastException, lastRetryableStatusCode, lastRetryableNode, lastMethod, lastUri);
 	}
 
 	/// <inheritdoc />
@@ -177,6 +189,8 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 		Exception? lastException = null;
 		int lastRetryableStatusCode = 0;
 		Node? lastRetryableNode = null;
+		var lastMethod = endpoint.Method(request);
+		Uri? lastUri = null;
 
 		for (var attempt = 0; attempt <= maxRetries; attempt++)
 		{
@@ -195,6 +209,7 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 				byte[]? requestBodyBytes = null;
 				using var requestMessage = BuildRequestMessage(request, endpoint, node, mergedOptions,
 					captureBody, out requestBodyBytes);
+				lastUri = requestMessage.RequestUri;
 				GetAuditTrail(ref auditTrail).Add(AuditEventType.RequestSent, node);
 
 				using var responseMessage = await client
@@ -208,18 +223,26 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 
 				ProcessWarningHeaders(responseMessage, mergedOptions);
 
-				if (RetryableStatusCodes.Contains(statusCode) && attempt < maxRetries)
+				if (RetryableStatusCodes.Contains(statusCode))
 				{
 					GetAuditTrail(ref auditTrail).Add(AuditEventType.BadResponse, node, statusCode);
 					nodePool.MarkDead(node);
 					GetAuditTrail(ref auditTrail).Add(AuditEventType.DeadNode, node);
-					lastRetryableStatusCode = statusCode;
-					lastRetryableNode = node;
-					lastException = null;
-					continue;
-				}
 
-				nodePool.MarkAlive(node);
+					if (attempt < maxRetries)
+					{
+						lastRetryableStatusCode = statusCode;
+						lastRetryableNode = node;
+						lastException = null;
+						continue;
+					}
+
+					// Last attempt: fall through to server error handling below
+				}
+				else
+				{
+					nodePool.MarkAlive(node);
+				}
 
 				if (IsServerError(statusCode, method))
 				{
@@ -278,7 +301,7 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 			}
 		}
 
-		return ThrowRetriesExhausted<TResponse>(ref auditTrail, lastException, lastRetryableStatusCode, lastRetryableNode);
+		return ThrowRetriesExhausted<TResponse>(ref auditTrail, lastException, lastRetryableStatusCode, lastRetryableNode, lastMethod, lastUri);
 	}
 
 	/// <summary>
@@ -378,7 +401,9 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 		ref RequestAuditTrail? auditTrail,
 		Exception? lastException,
 		int lastRetryableStatusCode,
-		Node? lastRetryableNode)
+		Node? lastRetryableNode,
+		HttpMethod lastMethod,
+		Uri? lastUri)
 	{
 		GetAuditTrail(ref auditTrail).Add(AuditEventType.AllNodesDead);
 
@@ -394,8 +419,10 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 
 		var callDetails = new ApiCallDetails
 		{
+			HttpMethod = lastMethod,
+			Uri = lastUri,
 			HttpStatusCode = lastRetryableStatusCode,
-			Node = lastRetryableNode!,
+			Node = lastRetryableNode,
 			Success = false,
 			AuditTrail = auditTrail,
 			OriginalException = lastException
@@ -541,7 +568,9 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 			Uri = uri,
 			Node = node,
 			HttpStatusCode = statusCode,
-			Success = statusCode is >= 200 and < 300,
+			// On the error path (serverError != null), Success is always false.
+			// On the non-error path, 404 is valid for GET/DELETE/HEAD ("not found" is a valid response).
+			Success = serverError is null && statusCode is (>= 200 and < 300) or 404,
 			Duration = duration,
 			AuditTrail = auditTrail,
 			RequestBodyBytes = requestBodyBytes,
@@ -549,15 +578,12 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 			OriginalException = exception
 		};
 
-		// Populate base class properties directly when available
+		// Populate base class properties directly (all response types inherit OpenSearchResponse)
 		if (response is OpenSearchResponse osResponse)
 		{
 			osResponse.ApiCall = details;
 			osResponse.ServerError = serverError;
 		}
-
-		// Also attach via ConditionalWeakTable for backward compatibility
-		ApiCallDetailsStore.Attach(response, details);
 	}
 
 	private static byte[] ReadAllBytes(Stream stream)
