@@ -101,6 +101,31 @@ public class FieldTests
 	}
 
 	[Fact]
+	public void Expression_With_Variable_Suffix()
+	{
+		var lang = "de";
+		var field = Field.From<TestDocument>(f => f.Title!.Suffix(lang));
+		field.Name.Should().Be("title.de");
+	}
+
+	[Fact]
+	public void Expression_With_Chained_Variable_And_Literal_Suffix()
+	{
+		var lang = "fr";
+		var field = Field.From<TestDocument>(f => f.Title!.Suffix(lang).Suffix("raw"));
+		field.Name.Should().Be("title.fr.raw");
+	}
+
+	[Fact]
+	public void Expression_With_Multiple_Variable_Suffixes()
+	{
+		var lang = "en";
+		var analyzer = "stemmed";
+		var field = Field.From<TestDocument>(f => f.Title!.Suffix(lang).Suffix(analyzer));
+		field.Name.Should().Be("title.en.stemmed");
+	}
+
+	[Fact]
 	public void Serialization_RoundTrip()
 	{
 		var field = new Field("status");

@@ -30,11 +30,9 @@ internal static class FieldExpressionVisitor
 			&& methodCall.Method.DeclaringType == typeof(SuffixExtensions))
 		{
 			var suffixArg = methodCall.Arguments[^1];
-			if (suffixArg is ConstantExpression constExpr)
-			{
-				var segment = constExpr.Value?.ToString();
+			var segment = EvaluateStringExpression(suffixArg);
+			if (segment is not null)
 				suffix = suffix is not null ? string.Concat(segment, ".", suffix) : segment;
-			}
 
 			body = methodCall.Arguments[0];
 
@@ -63,6 +61,29 @@ internal static class FieldExpressionVisitor
 		var result = string.Join(".", segments);
 		return suffix is not null ? string.Concat(result, ".", suffix) : result;
 	}
+
+	/// <summary>
+	/// Evaluates an expression that should produce a string value.
+	/// Handles constants, closure-captured variables, and falls back to compile+invoke.
+	/// </summary>
+	private static string? EvaluateStringExpression(Expression expr) => expr switch
+	{
+		ConstantExpression c => c.Value?.ToString(),
+		// Closure-captured variable: field access on a constant (the compiler-generated closure object)
+		MemberExpression { Expression: ConstantExpression target } m =>
+			m.Member switch
+			{
+				FieldInfo fi => fi.GetValue(target.Value)?.ToString(),
+				PropertyInfo pi => pi.GetValue(target.Value)?.ToString(),
+				_ => CompileAndInvoke(expr),
+			},
+		_ => CompileAndInvoke(expr),
+	};
+
+	private static string? CompileAndInvoke(Expression expr) =>
+		Expression.Lambda<Func<string?>>(
+			expr.Type == typeof(string) ? expr : Expression.Convert(expr, typeof(string))
+		).Compile().Invoke();
 
 	private static string ResolveSegment(MemberInfo member) =>
 		s_segmentCache.GetOrAdd(member, static m =>
