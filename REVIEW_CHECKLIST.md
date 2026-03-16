@@ -95,16 +95,26 @@ Work through areas one at a time. For each: read all relevant files, compare aga
 - [x] Compare against elasticsearch-net `AggregateDictionary`
   - Same pattern: typed accessors for common aggs, extensible architecture. Trade-off: smaller API surface (easier to maintain) vs less type-safe for advanced aggs.
 
-### 5. Query DSL & Descriptors
-- [ ] `QueryContainerDescriptor<T>` — all query types available?
-- [ ] `QueryContainerDescriptor` (non-generic) — same coverage?
-- [ ] Field expression resolution — `FieldExpressionVisitor`, property name → field name
-- [ ] Tagged union serialization — `ExternallyTaggedUnion`, `InternallyTaggedUnion`
-- [ ] Sort options — `SortOptions`, `SortOrder`, field sort, score sort, script sort
-- [ ] Source filtering — `SourceConfig`, include/exclude
-- [ ] Highlight — `HighlightDescriptor`, field highlights
-- [ ] `IntervalsQuery` overloads — all interval types
-- [ ] Compare against elasticsearch-net query descriptors
+### 5. Query DSL & Descriptors ✅
+- [x] `QueryContainerDescriptor<T>` — all query types available?
+  - 55 query types with expression-based field selection, dual overloads (expression + string), implicit conversion to QueryContainer
+- [x] `QueryContainerDescriptor` (non-generic) — same coverage?
+  - Auto-generated, 55 query types, dual builder methods (direct + fluent), field-keyed queries as Dictionary<string, T>
+- [x] Field expression resolution — `FieldExpressionVisitor`, property name → field name
+  - Per-member caching, [JsonPropertyName] attribute-first, snake_case fallback, nested property chains, .Suffix() support
+- [x] Tagged union serialization — `ExternallyTaggedUnion`, `InternallyTaggedUnion`
+  - QueryContainer uses externally-tagged format with QueryContainerConverter (bidirectional kind/name mapping)
+  - InternallyTaggedUnionConverter for discriminator-inside-object types (Property, etc.)
+- [x] Sort options — `SortOptions`, `SortOrder`, field sort, score sort, script sort
+  - Polymorphic: Field, Score, Doc, GeoDistance, Script. SortOptionsConverter handles all wire formats including shorthands.
+- [x] Source filtering — `SourceConfig`, include/exclude
+  - Bool/filter polymorphism with SourceConfigConverter, implicit operator from bool
+- [x] Highlight — `HighlightDescriptor`, field highlights
+  - Full highlight support with per-field overrides, query-based highlighting, all options
+- [x] `IntervalsQuery` overloads — all interval types
+  - AllOf, AnyOf, Fuzzy, Match, Prefix, Wildcard with descriptors and field-keyed support
+- [x] Compare against elasticsearch-net query descriptors
+  - Closely mirrors v8 patterns. Same dual descriptor approach, same field resolution, same tagged union architecture.
 
 ### 6. Bulk & NDJSON
 - [ ] `BulkRequest` serialization — NDJSON format correct?
