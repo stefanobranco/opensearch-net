@@ -1,9 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <IsPackable>true</IsPackable>
+    <PackageId>SB.OpenSearch.Net</PackageId>
     <RootNamespace>OpenSearch.Net</RootNamespace>
-    <Description>Low-level transport for OpenSearch .NET clients</Description>
-    <PackageTags>opensearch;search;client;transport</PackageTags>
+    <Description>Low-level transport for OpenSearch .NET clients. Experimental AI-written rebuild — not the official opensearch-net package. Not for production use.</Description>
+    <PackageTags>opensearch;search;client;transport;experimental</PackageTags>
     <PackageReadmeFile>PACKAGE.md</PackageReadmeFile>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>CS1591</NoWarn>

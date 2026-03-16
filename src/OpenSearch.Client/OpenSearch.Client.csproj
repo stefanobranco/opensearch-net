@@ -1,9 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <IsPackable>true</IsPackable>
+    <PackageId>SB.OpenSearch.Client</PackageId>
     <RootNamespace>OpenSearch.Client</RootNamespace>
-    <Description>High-level OpenSearch .NET client</Description>
-    <PackageTags>opensearch;search;client</PackageTags>
+    <Description>High-level OpenSearch .NET client with fluent query DSL and code-generated types. Experimental AI-written rebuild — not the official OpenSearch.Client package. Not for production use.</Description>
+    <PackageTags>opensearch;search;client;experimental</PackageTags>
     <PackageReadmeFile>PACKAGE.md</PackageReadmeFile>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>CS1591</NoWarn>

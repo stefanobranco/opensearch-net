@@ -1,38 +1,24 @@
-# OpenSearch.Net
+# SB.OpenSearch.Net
 
-Low-level transport library for the [OpenSearch](https://opensearch.org/) .NET client.
+> **Experimental, AI-written rebuild. Not the official [OpenSearch.Net](https://www.nuget.org/packages/OpenSearch.Net) package. Not for production use.**
 
-## Overview
+Low-level transport library for [OpenSearch](https://opensearch.org/), providing HTTP transport, node management, retry logic, and serialization infrastructure.
 
-OpenSearch.Net provides the HTTP transport, node management, and serialization infrastructure that `OpenSearch.Client` builds on. You typically don't use this package directly — install `OpenSearch.Client` instead for the full typed client experience.
+This is the transport layer that `SB.OpenSearch.Client` builds on. You typically install the client package instead for the full typed experience.
 
-Use OpenSearch.Net directly when you need:
-- Custom transport behavior or node pool strategies
-- Raw HTTP access to OpenSearch without generated types
-- To build your own higher-level client
+## What is this?
+
+A ground-up rebuild of the OpenSearch .NET transport, written using AI (Claude) with inspiration from [opensearch-java](https://github.com/opensearch-project/opensearch-java) and [elasticsearch-net v8](https://github.com/elastic/elasticsearch-net). Built with System.Text.Json, targeting net8.0 and net10.0.
 
 ## Features
 
-- **HttpClient-based transport** with automatic handler rotation for DNS refresh
-- **Multi-node support** with round-robin selection, dead-node tracking, and exponential backoff
-- **System.Text.Json serialization** with async streaming support
-- **AWS SigV4 authentication** support
-- **Targets net8.0 and net10.0**
-
-## Quick Start
-
-```csharp
-using OpenSearch.Net;
-
-var config = TransportConfiguration
-    .Create(new Uri("https://localhost:9200"))
-    .Build();
-
-var transport = new HttpClientTransport(config);
-```
+- HttpClient-based transport with handler rotation for DNS refresh
+- Multi-node support with round-robin selection, dead-node tracking, and exponential backoff
+- System.Text.Json serialization with async streaming
+- Request audit trail for diagnostics
+- AWS SigV4 authentication support
 
 ## Links
 
-- [GitHub Repository](https://github.com/opensearch-project/opensearch-net)
-- [OpenSearch Documentation](https://opensearch.org/docs/latest/)
-- [API Reference](https://opensearch.org/docs/latest/api-reference/)
+- [GitHub Repository](https://github.com/stefanobranco/opensearch-net)
+- [Official OpenSearch .NET Client](https://github.com/opensearch-project/opensearch-net)
