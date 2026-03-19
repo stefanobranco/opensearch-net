@@ -87,6 +87,12 @@ public sealed class OpenSearchClientSettings : IOpenSearchClientSettings
 	/// <inheritdoc />
 	public bool ThrowExceptions => _transport.ThrowExceptions;
 
+	/// <inheritdoc />
+	public Func<HttpRequestMessage, System.Security.Cryptography.X509Certificates.X509Certificate2?, System.Security.Cryptography.X509Certificates.X509Chain?, System.Net.Security.SslPolicyErrors, bool>? ServerCertificateValidationCallback => _transport.ServerCertificateValidationCallback;
+
+	/// <inheritdoc />
+	public bool SkipCertificateValidation => _transport.SkipCertificateValidation;
+
 	/// <summary>
 	/// Creates a builder configured with the given <paramref name="nodePool"/>.
 	/// </summary>
@@ -228,6 +234,13 @@ public sealed class OpenSearchClientSettings : IOpenSearchClientSettings
 		public Builder ThrowExceptions(bool throwExceptions = true)
 		{
 			_transportBuilder.ThrowExceptions(throwExceptions);
+			return this;
+		}
+
+		/// <summary>Skips all SSL certificate validation. Use for self-signed certs or internal CAs.</summary>
+		public Builder SkipCertificateValidation(bool skip = true)
+		{
+			_transportBuilder.SkipCertificateValidation(skip);
 			return this;
 		}
 

@@ -61,4 +61,11 @@ public sealed class Aggregate<TDocument>
 	public List<MatrixStatsFields>? Fields { get; set; }
 	public long? BgCount { get; set; }
 	public HitsMetadataJsonValue<TDocument>? Hits { get; set; }
+
+	/// <summary>
+	/// Captures unknown JSON properties during deserialization — these are typically
+	/// sub-aggregation results on single-bucket aggregates (filter, nested, etc.).
+	/// </summary>
+	[JsonExtensionData]
+	public Dictionary<string, System.Text.Json.JsonElement>? ExtensionData { get; set; }
 }

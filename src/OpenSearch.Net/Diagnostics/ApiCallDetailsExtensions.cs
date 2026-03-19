@@ -11,11 +11,9 @@ public static class ApiCallDetailsExtensions
 	/// <summary>
 	/// Retrieves the <see cref="ApiCallDetails"/> attached to a response object by the transport,
 	/// or <c>null</c> if none exist (e.g., for manually constructed responses).
-	/// Prefers the <see cref="OpenSearchResponse.ApiCall"/> property when available,
-	/// falling back to the <see cref="ApiCallDetailsStore"/> side-channel.
 	/// </summary>
 	public static ApiCallDetails? GetApiCallDetails<T>(this T response) where T : class =>
-		response is OpenSearchResponse osResponse ? osResponse.ApiCall : ApiCallDetailsStore.Get(response);
+		response is OpenSearchResponse osResponse ? osResponse.ApiCall : null;
 
 	/// <summary>
 	/// Builds a NEST-style diagnostic string from the call details, including HTTP method, URI,

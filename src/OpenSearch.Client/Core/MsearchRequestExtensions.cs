@@ -1,5 +1,4 @@
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using OpenSearch.Client.Core;
 
 namespace OpenSearch.Client;
@@ -10,13 +9,7 @@ namespace OpenSearch.Client;
 /// </summary>
 public static class MsearchRequestExtensions
 {
-	private static readonly JsonSerializerOptions s_options = new()
-	{
-		PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
-		DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-		NumberHandling = JsonNumberHandling.AllowReadingFromString,
-		Converters = { new JsonEnumConverterFactory() },
-	};
+	private static JsonSerializerOptions SerializationOptions => OpenSearchJsonOptions.RequestSerialization;
 
 	/// <summary>
 	/// Adds a search to the multi-search request using a fluent descriptor.
@@ -81,7 +74,7 @@ public static class MsearchRequestExtensions
 	/// </summary>
 	private static MsearchBody ToMsearchBody(SearchRequest search)
 	{
-		var json = JsonSerializer.SerializeToUtf8Bytes(search, s_options);
+		var json = JsonSerializer.SerializeToUtf8Bytes(search, SerializationOptions);
 		using var doc = JsonDocument.Parse(json);
 		var root = doc.RootElement;
 

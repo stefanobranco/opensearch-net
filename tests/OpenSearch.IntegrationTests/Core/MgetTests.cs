@@ -39,12 +39,12 @@ public class MgetTests : IntegrationTestBase
 		mgetResponse.Docs.Should().NotBeNull();
 		mgetResponse.Docs.Should().HaveCount(2);
 
-		// Each doc in the response is a JsonElement; verify they contain found=true
-		mgetResponse.Docs![0].GetProperty("found").GetBoolean().Should().BeTrue();
-		mgetResponse.Docs[0].GetProperty("_id").GetString().Should().Be("1");
+		// Each doc is a typed MgetResponseItem
+		mgetResponse.Docs![0].Found.Should().BeTrue();
+		mgetResponse.Docs[0].Id.Should().Be("1");
 
-		mgetResponse.Docs[1].GetProperty("found").GetBoolean().Should().BeTrue();
-		mgetResponse.Docs[1].GetProperty("_id").GetString().Should().Be("3");
+		mgetResponse.Docs[1].Found.Should().BeTrue();
+		mgetResponse.Docs[1].Id.Should().Be("3");
 	}
 
 	[SkipIfNoCluster]
@@ -78,10 +78,10 @@ public class MgetTests : IntegrationTestBase
 		mgetResponse.Docs.Should().HaveCount(2);
 
 		// First doc found
-		mgetResponse.Docs![0].GetProperty("found").GetBoolean().Should().BeTrue();
+		mgetResponse.Docs![0].Found.Should().BeTrue();
 
 		// Second doc not found
-		mgetResponse.Docs[1].GetProperty("found").GetBoolean().Should().BeFalse();
+		mgetResponse.Docs[1].Found.Should().BeFalse();
 	}
 
 	private sealed class MgetDoc

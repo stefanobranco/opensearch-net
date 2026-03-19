@@ -92,4 +92,17 @@ public interface ITransportConfiguration
 	/// Default is <c>false</c>.
 	/// </summary>
 	bool ThrowExceptions { get; }
+
+	/// <summary>
+	/// Optional callback to validate the server's SSL certificate.
+	/// When set, overrides the default system certificate validation.
+	/// </summary>
+	Func<System.Net.Http.HttpRequestMessage, System.Security.Cryptography.X509Certificates.X509Certificate2?, System.Security.Cryptography.X509Certificates.X509Chain?, System.Net.Security.SslPolicyErrors, bool>? ServerCertificateValidationCallback { get; }
+
+	/// <summary>
+	/// When <c>true</c>, all server SSL certificates are accepted regardless of validity.
+	/// Useful for development, self-signed certificates, or internal CAs.
+	/// Default is <c>false</c>.
+	/// </summary>
+	bool SkipCertificateValidation { get; }
 }

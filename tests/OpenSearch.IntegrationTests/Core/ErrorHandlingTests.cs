@@ -8,17 +8,18 @@ namespace OpenSearch.IntegrationTests.Core;
 public class ErrorHandlingTests : IntegrationTestBase
 {
 	[SkipIfNoCluster]
-	public void SearchOnNonExistentIndex_ThrowsServerException()
+	public void SearchOnNonExistentIndex_ReturnsInvalidWithServerError()
 	{
-		// Search on a non-existent index should throw an OpenSearchServerException
-		// with an index_not_found_exception error type
-		var act = () => Client.Core.Search<ErrorDoc>(new SearchRequest
+		// Search on a non-existent index returns a response with IsValid=false
+		// and ServerError populated (non-throwing by default)
+		var response = Client.Core.Search<ErrorDoc>(new SearchRequest
 		{
 			Index = ["this-index-does-not-exist-" + Guid.NewGuid().ToString("N")]
 		});
 
-		var ex = act.Should().Throw<OpenSearchServerException>().Which;
-		ex.ErrorType.Should().Be("index_not_found_exception");
+		response.IsValid.Should().BeFalse();
+		response.ServerError.Should().NotBeNull();
+		response.ServerError!.Error!.Type.Should().Be("index_not_found_exception");
 	}
 
 	[SkipIfNoCluster]

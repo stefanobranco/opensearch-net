@@ -44,7 +44,7 @@ public static class SearchRequestDescriptorExtensions
 	{
 		d._value.AdditionalProperties ??= new();
 		d._value.AdditionalProperties[name] = JsonSerializer.SerializeToElement(
-			fieldSuggester, SuggesterSerializerOptions.Instance);
+			fieldSuggester, OpenSearchJsonOptions.RequestSerialization);
 		return d;
 	}
 
@@ -78,14 +78,3 @@ public static class SearchRequestDescriptorExtensions
 	}
 }
 
-/// <summary>
-/// Cached <see cref="JsonSerializerOptions"/> with snake_case naming for suggest serialization.
-/// </summary>
-internal static class SuggesterSerializerOptions
-{
-	internal static readonly JsonSerializerOptions Instance = new()
-	{
-		PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
-		DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
-	};
-}

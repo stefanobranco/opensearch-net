@@ -85,6 +85,8 @@ public class SourceConverterTests
 		public Func<HttpMessageHandler, HttpMessageHandler>? HttpMessageHandlerFactory => null;
 		public bool DisableDirectStreaming => false;
 		public bool ThrowExceptions => false;
+		public Func<HttpRequestMessage, System.Security.Cryptography.X509Certificates.X509Certificate2?, System.Security.Cryptography.X509Certificates.X509Chain?, System.Net.Security.SslPolicyErrors, bool>? ServerCertificateValidationCallback => null;
+		public bool SkipCertificateValidation => false;
 	}
 
 	[Fact]
