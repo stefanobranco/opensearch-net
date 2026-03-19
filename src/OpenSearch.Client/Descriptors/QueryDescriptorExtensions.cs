@@ -92,4 +92,44 @@ public static class QueryDescriptorExtensions
 		d._value.AdditionalProperties[FieldExpressionVisitor.Resolve(field)] = JsonSerializer.SerializeToElement(values);
 		return d;
 	}
+
+	// ── MoreLikeThisQueryDescriptor ──
+
+	/// <summary>
+	/// Adds a "like this document" item by index and ID, avoiding manual JsonElement construction.
+	/// Usage: <c>.Like("my-index", "doc-id")</c>
+	/// </summary>
+	public static MoreLikeThisQueryDescriptor LikeDocument(this MoreLikeThisQueryDescriptor d,
+		string index, string id)
+	{
+		d._value.Like ??= [];
+		d._value.Like.Add(JsonSerializer.SerializeToElement(new { _index = index, _id = id }));
+		return d;
+	}
+
+	/// <summary>
+	/// Adds a "like this text" item.
+	/// </summary>
+	public static MoreLikeThisQueryDescriptor LikeText(this MoreLikeThisQueryDescriptor d, string text)
+	{
+		d._value.Like ??= [];
+		d._value.Like.Add(JsonSerializer.SerializeToElement(text));
+		return d;
+	}
+
+	// ── CompletionSuggesterDescriptor ──
+
+	/// <summary>
+	/// Sets completion suggestion contexts with string values, avoiding manual JsonElement construction.
+	/// Usage: <c>.Contexts("language", "en")</c>
+	/// </summary>
+	public static CompletionSuggesterDescriptor Context(this CompletionSuggesterDescriptor d,
+		string name, params string[] values)
+	{
+		d._value.Contexts ??= new();
+		d._value.Contexts[name] = values
+			.Select(v => JsonSerializer.SerializeToElement(new { context = v }))
+			.ToList();
+		return d;
+	}
 }

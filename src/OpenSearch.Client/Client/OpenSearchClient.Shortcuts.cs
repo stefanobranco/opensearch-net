@@ -97,4 +97,64 @@ public sealed partial class OpenSearchClient
 	/// <summary>Allows to retrieve a large numbers of results from a single search request.</summary>
 	public Task<ScrollResponse<TDocument>> ScrollAsync<TDocument>(ScrollRequest request, TransportOptions? options = null, CancellationToken ct = default)
 		=> Core.ScrollAsync<TDocument>(request, options, ct);
+
+	// ── Count ──
+
+	public CountResponse Count(CountRequest request, TransportOptions? options = null)
+		=> Core.Count(request, options);
+
+	public Task<CountResponse> CountAsync(CountRequest request, TransportOptions? options = null, CancellationToken ct = default)
+		=> Core.CountAsync(request, options, ct);
+
+	public CountResponse Count(Action<CountRequestDescriptor> configure, TransportOptions? options = null)
+		=> Core.Count(configure, options);
+
+	public Task<CountResponse> CountAsync(Action<CountRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+		=> Core.CountAsync(configure, options, ct);
+
+	// ── Update ──
+
+	public UpdateResponse<TDocument> Update<TDocument>(UpdateRequest request, TransportOptions? options = null)
+		=> Core.Update<TDocument>(request, options);
+
+	public Task<UpdateResponse<TDocument>> UpdateAsync<TDocument>(UpdateRequest request, TransportOptions? options = null, CancellationToken ct = default)
+		=> Core.UpdateAsync<TDocument>(request, options, ct);
+
+	// ── UpdateByQuery ──
+
+	public UpdateByQueryResponse UpdateByQuery(UpdateByQueryRequest request, TransportOptions? options = null)
+		=> Core.UpdateByQuery(request, options);
+
+	public Task<UpdateByQueryResponse> UpdateByQueryAsync(UpdateByQueryRequest request, TransportOptions? options = null, CancellationToken ct = default)
+		=> Core.UpdateByQueryAsync(request, options, ct);
+
+	public UpdateByQueryResponse UpdateByQuery(Action<UpdateByQueryRequestDescriptor> configure, TransportOptions? options = null)
+		=> Core.UpdateByQuery(configure, options);
+
+	public Task<UpdateByQueryResponse> UpdateByQueryAsync(Action<UpdateByQueryRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+		=> Core.UpdateByQueryAsync(configure, options, ct);
+
+	// ── Exists ──
+
+	public ExistsResponse Exists(ExistsRequest request, TransportOptions? options = null)
+		=> Core.Exists(request, options);
+
+	public Task<ExistsResponse> ExistsAsync(ExistsRequest request, TransportOptions? options = null, CancellationToken ct = default)
+		=> Core.ExistsAsync(request, options, ct);
+
+	// ── Reindex ──
+
+	public ReindexResponse Reindex(ReindexRequest request, TransportOptions? options = null)
+		=> Core.Reindex(request, options);
+
+	public Task<ReindexResponse> ReindexAsync(ReindexRequest request, TransportOptions? options = null, CancellationToken ct = default)
+		=> Core.ReindexAsync(request, options, ct);
+
+	// ── ClearScroll ──
+
+	public ClearScrollResponse ClearScroll(ClearScrollRequest request, TransportOptions? options = null)
+		=> Core.ClearScroll(request, options);
+
+	public Task<ClearScrollResponse> ClearScrollAsync(ClearScrollRequest request, TransportOptions? options = null, CancellationToken ct = default)
+		=> Core.ClearScrollAsync(request, options, ct);
 }
