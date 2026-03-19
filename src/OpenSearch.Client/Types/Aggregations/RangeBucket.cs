@@ -36,4 +36,5 @@ public sealed class RangeBucket : IBucketWithSubAggregations
 	public double? Min(string name) => Aggregations?.Min(name);
 	public double? Max(string name) => Aggregations?.Max(name);
 	public long? Cardinality(string name) => Aggregations?.Cardinality(name);
+	public Core.HitsMetadataJsonValue<TDocument>? TopHits<TDocument>(string name) => Aggregations?.TopHits<TDocument>(name);
 }

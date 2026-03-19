@@ -672,6 +672,22 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 				: DecompressionMethods.None
 		};
 
+		if (configuration.SkipCertificateValidation)
+		{
+			handler.SslOptions.RemoteCertificateValidationCallback = (_, _, _, _) => true;
+		}
+		else if (configuration.ServerCertificateValidationCallback is { } callback)
+		{
+			handler.SslOptions.RemoteCertificateValidationCallback = (sender, cert, chain, errors) =>
+			{
+				// The sender for SocketsHttpHandler is the SslStream, not the HttpRequestMessage.
+				// Pass null for the request message — callers needing request context should use
+				// HttpMessageHandlerFactory with a DelegatingHandler instead.
+				var cert2 = cert as System.Security.Cryptography.X509Certificates.X509Certificate2;
+				return callback(null!, cert2, chain, errors);
+			};
+		}
+
 		if (configuration.DisableAutomaticProxyDetection)
 		{
 			handler.UseProxy = false;

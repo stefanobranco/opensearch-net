@@ -195,9 +195,16 @@ public class ApiCallDetailsTests : IDisposable
 	}
 
 	[Fact]
-	public void Store_AttachAndGet_RoundTrips()
+	public void GetApiCallDetails_ReturnsNullForNonOpenSearchResponse()
 	{
 		var response = new TestResponse { Status = "test" };
+		var retrieved = response.GetApiCallDetails();
+		retrieved.Should().BeNull();
+	}
+
+	[Fact]
+	public void GetApiCallDetails_ReturnsApiCall_ForOpenSearchResponse()
+	{
 		var details = new ApiCallDetails
 		{
 			HttpMethod = HttpMethod.Get,
@@ -206,18 +213,10 @@ public class ApiCallDetailsTests : IDisposable
 			Duration = TimeSpan.FromMilliseconds(42)
 		};
 
-		ApiCallDetailsStore.Attach(response, details);
-		var retrieved = ApiCallDetailsStore.Get(response);
+		var response = new TestOsResponse { ApiCall = details };
+		var retrieved = response.GetApiCallDetails();
 
 		retrieved.Should().BeSameAs(details);
-	}
-
-	[Fact]
-	public void Store_Get_ReturnsNullForUnknownObject()
-	{
-		var response = new TestResponse();
-		var retrieved = ApiCallDetailsStore.Get(response);
-		retrieved.Should().BeNull();
 	}
 
 	[Fact]
@@ -439,7 +438,7 @@ public class ApiCallDetailsTests : IDisposable
 		return transport;
 	}
 
-	public class TestResponse
+	public class TestResponse : OpenSearchResponse
 	{
 		public string? Status { get; set; }
 	}

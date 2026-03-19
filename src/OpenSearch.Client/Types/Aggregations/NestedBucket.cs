@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace OpenSearch.Client;
 
 /// <summary>A bucket from a nested aggregation.</summary>
-public sealed class NestedBucket
+public sealed class NestedBucket : IBucketWithSubAggregations
 {
 	[JsonPropertyName("doc_count")]
 	public long DocCount { get; set; }
@@ -23,4 +23,6 @@ public sealed class NestedBucket
 
 	/// <summary>Returns a nested sum metric.</summary>
 	public double? Sum(string name) => Aggregations?.Sum(name);
+
+	public Core.HitsMetadataJsonValue<TDocument>? TopHits<TDocument>(string name) => Aggregations?.TopHits<TDocument>(name);
 }

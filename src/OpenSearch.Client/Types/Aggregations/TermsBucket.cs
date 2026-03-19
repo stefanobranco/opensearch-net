@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace OpenSearch.Client;
 
 /// <summary>A bucket from a terms aggregation.</summary>
-public sealed class TermsBucket
+public sealed class TermsBucket : IBucketWithSubAggregations
 {
 	[JsonPropertyName("key")]
 	public string Key { get; set; } = default!;
@@ -49,4 +49,7 @@ public sealed class TermsBucket
 
 	/// <summary>Returns a nested cardinality metric.</summary>
 	public long? Cardinality(string name) => Aggregations?.Cardinality(name);
+
+	/// <summary>Returns a nested top_hits sub-aggregation, deserializing sources as <typeparamref name="TDocument"/>.</summary>
+	public Core.HitsMetadataJsonValue<TDocument>? TopHits<TDocument>(string name) => Aggregations?.TopHits<TDocument>(name);
 }

@@ -8,11 +8,7 @@ namespace OpenSearch.Client;
 /// </summary>
 public sealed class SuggestDictionary<TDocument>
 {
-	private static readonly JsonSerializerOptions s_options = new()
-	{
-		PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
-		NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowReadingFromString,
-	};
+	private static JsonSerializerOptions DefaultOptions => OpenSearchJsonOptions.Default;
 
 	private readonly Dictionary<string, List<JsonElement>>? _raw;
 
@@ -44,7 +40,7 @@ public sealed class SuggestDictionary<TDocument>
 		var result = new List<T>(elements.Count);
 		foreach (var el in elements)
 		{
-			var item = JsonSerializer.Deserialize<T>(el.GetRawText(), s_options);
+			var item = JsonSerializer.Deserialize<T>(el.GetRawText(), DefaultOptions);
 			if (item is not null)
 				result.Add(item);
 		}

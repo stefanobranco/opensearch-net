@@ -59,11 +59,7 @@ public sealed class MsearchTypedResponse<T>
 /// <summary>A single search response within a multi-search response. On failure, <see cref="Error"/> is populated instead of <see cref="Hits"/>.</summary>
 public sealed class MsearchResponseItem
 {
-	private static readonly JsonSerializerOptions s_options = new()
-	{
-		PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
-		NumberHandling = JsonNumberHandling.AllowReadingFromString,
-	};
+	private static JsonSerializerOptions DefaultOptions => OpenSearchJsonOptions.Default;
 
 	public int? Status { get; set; }
 
@@ -89,7 +85,7 @@ public sealed class MsearchResponseItem
 	public IReadOnlyList<Hit<T>> GetHits<T>(JsonSerializerOptions? options = null)
 	{
 		if (Hits?.Hits is null) return [];
-		var opts = options ?? s_options;
+		var opts = options ?? DefaultOptions;
 		return Hits.Hits
 			.Select(el => JsonSerializer.Deserialize<Hit<T>>(el.GetRawText(), opts))
 			.Where(h => h is not null)
@@ -106,7 +102,7 @@ public sealed class MsearchResponseItem
 			return null;
 
 		var raw = JsonSerializer.Deserialize<Dictionary<string, List<JsonElement>>>(
-			Suggest.Value.GetRawText(), s_options);
+			Suggest.Value.GetRawText(), DefaultOptions);
 		return new SuggestDictionary<T>(raw);
 	}
 
@@ -119,7 +115,7 @@ public sealed class MsearchResponseItem
 			return new AggregateDictionary(null);
 
 		var raw = JsonSerializer.Deserialize<Dictionary<string, Common.Aggregate<JsonElement>>>(
-			Aggregations.Value.GetRawText(), s_options);
+			Aggregations.Value.GetRawText(), DefaultOptions);
 		return new AggregateDictionary(raw);
 	}
 }

@@ -1,5 +1,6 @@
 using System.Text.Json;
 using OpenSearch.Client.Common;
+using OpenSearch.Client.Core;
 
 namespace OpenSearch.Client;
 
@@ -153,6 +154,21 @@ public sealed class AggregateDictionary
 			DocCount = a.DocCount,
 			Aggregations = BuildSubAggs(a),
 		};
+	}
+
+	// ── TopHits accessor ──
+
+	/// <summary>
+	/// Returns the top_hits aggregation result, deserializing hit sources as <typeparamref name="TDocument"/>.
+	/// </summary>
+	public HitsMetadataJsonValue<TDocument>? TopHits<TDocument>(string name)
+	{
+		if (!TryGet(name, out var a)) return null;
+		if (a.Hits is null) return null;
+
+		// Re-serialize and deserialize to get Hit<TDocument> with proper _source typing
+		var json = JsonSerializer.Serialize(a.Hits, BucketOptions);
+		return JsonSerializer.Deserialize<HitsMetadataJsonValue<TDocument>>(json, BucketOptions);
 	}
 
 	// ── Raw access ──

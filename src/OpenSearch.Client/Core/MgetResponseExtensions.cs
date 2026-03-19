@@ -1,5 +1,4 @@
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using OpenSearch.Client.Core;
 
 namespace OpenSearch.Client;
@@ -9,11 +8,7 @@ namespace OpenSearch.Client;
 /// </summary>
 public static class MgetResponseExtensions
 {
-	private static readonly JsonSerializerOptions s_options = new()
-	{
-		PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
-		NumberHandling = JsonNumberHandling.AllowReadingFromString,
-	};
+	private static JsonSerializerOptions DefaultOptions => OpenSearchJsonOptions.Default;
 
 	/// <summary>
 	/// Deserializes the <c>_source</c> of each doc into <typeparamref name="T"/>.
@@ -23,7 +18,7 @@ public static class MgetResponseExtensions
 	public static IReadOnlyList<MgetHit<T>> GetDocs<T>(this MgetResponse response, JsonSerializerOptions? options = null)
 	{
 		if (response.Docs is null) return [];
-		var opts = options ?? s_options;
+		var opts = options ?? DefaultOptions;
 		return response.Docs
 			.Select(item => new MgetHit<T>
 			{

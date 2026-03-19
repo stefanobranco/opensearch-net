@@ -54,6 +54,12 @@ public sealed class TransportConfiguration : ITransportConfiguration
 	/// <inheritdoc />
 	public bool ThrowExceptions { get; }
 
+	/// <inheritdoc />
+	public Func<HttpRequestMessage, System.Security.Cryptography.X509Certificates.X509Certificate2?, System.Security.Cryptography.X509Certificates.X509Chain?, System.Net.Security.SslPolicyErrors, bool>? ServerCertificateValidationCallback { get; }
+
+	/// <inheritdoc />
+	public bool SkipCertificateValidation { get; }
+
 	private TransportConfiguration(
 		INodePool nodePool,
 		IOpenSearchSerializer? serializer,
@@ -70,7 +76,9 @@ public sealed class TransportConfiguration : ITransportConfiguration
 		Action<HttpRequestMessage>? onRequestCreated,
 		Func<HttpMessageHandler, HttpMessageHandler>? httpMessageHandlerFactory,
 		bool disableDirectStreaming,
-		bool throwExceptions)
+		bool throwExceptions,
+		Func<HttpRequestMessage, System.Security.Cryptography.X509Certificates.X509Certificate2?, System.Security.Cryptography.X509Certificates.X509Chain?, System.Net.Security.SslPolicyErrors, bool>? serverCertificateValidationCallback,
+		bool skipCertificateValidation)
 	{
 		NodePool = nodePool;
 		Serializer = serializer;
@@ -88,6 +96,8 @@ public sealed class TransportConfiguration : ITransportConfiguration
 		HttpMessageHandlerFactory = httpMessageHandlerFactory;
 		DisableDirectStreaming = disableDirectStreaming;
 		ThrowExceptions = throwExceptions;
+		ServerCertificateValidationCallback = serverCertificateValidationCallback;
+		SkipCertificateValidation = skipCertificateValidation;
 	}
 
 	/// <summary>
@@ -121,6 +131,8 @@ public sealed class TransportConfiguration : ITransportConfiguration
 		private Func<HttpMessageHandler, HttpMessageHandler>? _httpMessageHandlerFactory;
 		private bool _disableDirectStreaming;
 		private bool _throwExceptions;
+		private Func<HttpRequestMessage, System.Security.Cryptography.X509Certificates.X509Certificate2?, System.Security.Cryptography.X509Certificates.X509Chain?, System.Net.Security.SslPolicyErrors, bool>? _serverCertificateValidationCallback;
+		private bool _skipCertificateValidation;
 
 		internal Builder(NodePool nodePool)
 		{
@@ -233,6 +245,21 @@ public sealed class TransportConfiguration : ITransportConfiguration
 			return this;
 		}
 
+		/// <summary>Sets a custom SSL certificate validation callback.</summary>
+		public Builder ServerCertificateValidationCallback(
+			Func<HttpRequestMessage, System.Security.Cryptography.X509Certificates.X509Certificate2?, System.Security.Cryptography.X509Certificates.X509Chain?, System.Net.Security.SslPolicyErrors, bool> callback)
+		{
+			_serverCertificateValidationCallback = callback;
+			return this;
+		}
+
+		/// <summary>Skips all SSL certificate validation. Use for self-signed certs or internal CAs.</summary>
+		public Builder SkipCertificateValidation(bool skip = true)
+		{
+			_skipCertificateValidation = skip;
+			return this;
+		}
+
 		/// <summary>
 		/// Builds the immutable <see cref="TransportConfiguration"/>.
 		/// </summary>
@@ -253,6 +280,8 @@ public sealed class TransportConfiguration : ITransportConfiguration
 				_onRequestCreated,
 				_httpMessageHandlerFactory,
 				_disableDirectStreaming,
-				_throwExceptions);
+				_throwExceptions,
+				_serverCertificateValidationCallback,
+				_skipCertificateValidation);
 	}
 }
