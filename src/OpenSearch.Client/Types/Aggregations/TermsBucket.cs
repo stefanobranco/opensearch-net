@@ -6,6 +6,7 @@ namespace OpenSearch.Client;
 public sealed class TermsBucket : IBucketWithSubAggregations
 {
 	[JsonPropertyName("key")]
+	[JsonConverter(typeof(StringOrNumberConverter))]
 	public string Key { get; set; } = default!;
 
 	[JsonPropertyName("key_as_string")]

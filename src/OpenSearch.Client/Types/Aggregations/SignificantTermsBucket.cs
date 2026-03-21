@@ -6,6 +6,7 @@ namespace OpenSearch.Client;
 public sealed class SignificantTermsBucket : IBucketWithSubAggregations
 {
 	[JsonPropertyName("key")]
+	[JsonConverter(typeof(StringOrNumberConverter))]
 	public string Key { get; set; } = default!;
 
 	[JsonPropertyName("doc_count")]
