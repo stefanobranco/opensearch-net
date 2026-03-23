@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <CurrentVersion>3.4.0-alpha.9</CurrentVersion>
+    <CurrentVersion>3.4.0-alpha.10</CurrentVersion>
     <Version>$(CurrentVersion)</Version>
     <InformationalVersion>$(CurrentVersion)</InformationalVersion>
     <AssemblyVersion>3.4.0.0</AssemblyVersion>

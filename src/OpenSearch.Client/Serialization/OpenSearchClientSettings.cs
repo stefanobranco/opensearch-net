@@ -266,6 +266,7 @@ public sealed class OpenSearchClientSettings : IOpenSearchClientSettings
 				PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
 				DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
 				NumberHandling = JsonNumberHandling.AllowReadingFromString,
+				MaxDepth = 256,
 			};
 
 			var transport = _transportBuilder.Build();
