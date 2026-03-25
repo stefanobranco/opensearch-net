@@ -575,6 +575,7 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 			AuditTrail = auditTrail,
 			RequestBodyBytes = requestBodyBytes,
 			ResponseBodyBytes = responseBodyBytes,
+			ServerError = serverError,
 			OriginalException = exception
 		};
 

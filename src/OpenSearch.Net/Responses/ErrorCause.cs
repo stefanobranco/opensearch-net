@@ -22,6 +22,13 @@ public sealed class ErrorCause
 	public string? StackTrace { get; set; }
 
 	/// <inheritdoc />
-	public override string ToString() =>
-		$"Type: {Type ?? "(none)"}, Reason: \"{Reason ?? "(none)"}\"";
+	public override string ToString()
+	{
+		var msg = $"Type: {Type ?? "(none)"}, Reason: \"{Reason ?? "(none)"}\"";
+
+		if (CausedBy is not null)
+			msg += $" CausedBy: [{CausedBy}]";
+
+		return msg;
+	}
 }
