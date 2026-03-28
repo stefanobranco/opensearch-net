@@ -2,7 +2,6 @@
 #nullable enable
 
 using System.Text.Json.Serialization;
-using OpenSearch.Client.Core;
 
 namespace OpenSearch.Client.Common;
 
@@ -12,14 +11,7 @@ public sealed class ShardFailureDescriptor
 
 	public ShardFailureDescriptor Index(string? value) { _value.Index = value; return this; }
 	public ShardFailureDescriptor Node(string? value) { _value.Node = value; return this; }
-	public ShardFailureDescriptor Reason(ErrorCause? value) { _value.Reason = value; return this; }
-	public ShardFailureDescriptor Reason(Action<ErrorCauseDescriptor> configure)
-	{
-		var descriptor = new ErrorCauseDescriptor();
-		configure(descriptor);
-		_value.Reason = descriptor;
-		return this;
-	}
+	public ShardFailureDescriptor Reason(OpenSearch.Net.ErrorCause? value) { _value.Reason = value; return this; }
 	public ShardFailureDescriptor Shard(int value) { _value.Shard = value; return this; }
 	public ShardFailureDescriptor Status(string? value) { _value.Status = value; return this; }
 	public ShardFailureDescriptor Primary(bool value) { _value.Primary = value; return this; }

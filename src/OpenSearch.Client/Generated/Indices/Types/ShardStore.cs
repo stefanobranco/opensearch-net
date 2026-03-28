@@ -16,5 +16,5 @@ public sealed class ShardStore
 	public string? AllocationId { get; set; }
 	public ShardStoreException? StoreException { get; set; }
 	[JsonExtensionData]
-	public Dictionary<string, System.Text.Json.JsonElement>? AdditionalProperties { get; set; }
+	public Dictionary<string, System.Text.Json.JsonElement>? ExtensionData { get; set; }
 }

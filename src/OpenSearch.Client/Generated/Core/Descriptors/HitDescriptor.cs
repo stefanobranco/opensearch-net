@@ -45,7 +45,7 @@ public sealed class HitDescriptor<TDocument>
 	public HitDescriptor<TDocument> Version(long? value) { _value.Version = value; return this; }
 	public HitDescriptor<TDocument> Sort(List<System.Text.Json.JsonElement>? value) { _value.Sort = value; return this; }
 	/// <summary>Additional properties not captured by named fields.</summary>
-	public HitDescriptor<TDocument> AdditionalProperties(Dictionary<string, System.Text.Json.JsonElement>? value) { _value.AdditionalProperties = value; return this; }
+	public HitDescriptor<TDocument> ExtensionData(Dictionary<string, System.Text.Json.JsonElement>? value) { _value.ExtensionData = value; return this; }
 
 	public static implicit operator Hit<TDocument>(HitDescriptor<TDocument> descriptor) => descriptor._value;
 }

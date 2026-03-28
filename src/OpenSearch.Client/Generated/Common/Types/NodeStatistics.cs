@@ -2,7 +2,6 @@
 #nullable enable
 
 using System.Text.Json.Serialization;
-using OpenSearch.Client.Core;
 
 namespace OpenSearch.Client.Common;
 
@@ -13,7 +12,7 @@ namespace OpenSearch.Client.Common;
 
 public sealed class NodeStatistics
 {
-	public List<ErrorCause>? Failures { get; set; }
+	public List<OpenSearch.Net.ErrorCause>? Failures { get; set; }
 	/// <summary>The total number of nodes selected by the request.</summary>
 		public int Total { get; set; }
 	/// <summary>The number of nodes that responded successfully to the request.</summary>

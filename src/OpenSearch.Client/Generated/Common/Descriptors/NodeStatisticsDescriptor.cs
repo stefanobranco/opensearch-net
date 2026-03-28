@@ -2,7 +2,6 @@
 #nullable enable
 
 using System.Text.Json.Serialization;
-using OpenSearch.Client.Core;
 
 namespace OpenSearch.Client.Common;
 
@@ -10,19 +9,7 @@ public sealed class NodeStatisticsDescriptor
 {
 	internal NodeStatistics _value = new();
 
-	public NodeStatisticsDescriptor Failures(List<ErrorCause>? value) { _value.Failures = value; return this; }
-	public NodeStatisticsDescriptor Failures(params Action<ErrorCauseDescriptor>[] configure)
-	{
-		var list = new List<ErrorCause>();
-		foreach (var action in configure)
-		{
-			var descriptor = new ErrorCauseDescriptor();
-			action(descriptor);
-			list.Add(descriptor);
-		}
-		_value.Failures = list;
-		return this;
-	}
+	public NodeStatisticsDescriptor Failures(List<OpenSearch.Net.ErrorCause>? value) { _value.Failures = value; return this; }
 	/// <summary>The total number of nodes selected by the request.</summary>
 		public NodeStatisticsDescriptor Total(int value) { _value.Total = value; return this; }
 	/// <summary>The number of nodes that responded successfully to the request.</summary>

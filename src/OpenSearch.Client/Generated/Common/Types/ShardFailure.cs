@@ -2,7 +2,6 @@
 #nullable enable
 
 using System.Text.Json.Serialization;
-using OpenSearch.Client.Core;
 
 namespace OpenSearch.Client.Common;
 
@@ -11,7 +10,7 @@ public sealed class ShardFailure
 {
 	public string? Index { get; set; }
 	public string? Node { get; set; }
-	public ErrorCause? Reason { get; set; }
+	public OpenSearch.Net.ErrorCause? Reason { get; set; }
 	public int Shard { get; set; }
 	public string? Status { get; set; }
 	public bool Primary { get; set; }

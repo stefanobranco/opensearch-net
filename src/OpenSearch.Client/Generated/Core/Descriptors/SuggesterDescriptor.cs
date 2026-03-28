@@ -12,7 +12,7 @@ public sealed class SuggesterDescriptor
 	/// <summary>The global suggest text, which avoids repetition when the same text is used in several suggesters.</summary>
 		public SuggesterDescriptor Text(string? value) { _value.Text = value; return this; }
 	/// <summary>Additional properties not captured by named fields.</summary>
-	public SuggesterDescriptor AdditionalProperties(Dictionary<string, System.Text.Json.JsonElement>? value) { _value.AdditionalProperties = value; return this; }
+	public SuggesterDescriptor ExtensionData(Dictionary<string, System.Text.Json.JsonElement>? value) { _value.ExtensionData = value; return this; }
 
 	public static implicit operator Suggester(SuggesterDescriptor descriptor) => descriptor._value;
 }

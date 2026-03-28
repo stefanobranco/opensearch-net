@@ -17,7 +17,7 @@ public sealed class TermVectorsResult
 	public long? Took { get; set; }
 	public bool? Found { get; set; }
 	public Dictionary<string, TermVector>? TermVectors { get; set; }
-	public ErrorCause? Error { get; set; }
+	public OpenSearch.Net.ErrorCause? Error { get; set; }
 	[JsonPropertyName("_type")]
 	public string? Type { get; set; }
 }

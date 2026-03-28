@@ -20,7 +20,7 @@ public sealed class ShardStoreDescriptor
 		return this;
 	}
 	/// <summary>Additional properties not captured by named fields.</summary>
-	public ShardStoreDescriptor AdditionalProperties(Dictionary<string, System.Text.Json.JsonElement>? value) { _value.AdditionalProperties = value; return this; }
+	public ShardStoreDescriptor ExtensionData(Dictionary<string, System.Text.Json.JsonElement>? value) { _value.ExtensionData = value; return this; }
 
 	public static implicit operator ShardStore(ShardStoreDescriptor descriptor) => descriptor._value;
 }

@@ -27,7 +27,7 @@ public static class SearchResponseExtensions
 	/// Returns a typed <see cref="AggregateDictionary"/> for accessing aggregation results.
 	/// </summary>
 	public static AggregateDictionary Aggs<TDocument>(this SearchResponse<TDocument> response)
-		=> AggregateDictionary.Create(response.Aggregations);
+		=> new AggregateDictionary(response.Aggregations);
 
 	/// <summary>
 	/// Returns a typed <see cref="SuggestDictionary{TDocument}"/> for accessing suggest results.

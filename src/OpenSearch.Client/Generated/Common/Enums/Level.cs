@@ -6,12 +6,14 @@ namespace OpenSearch.Client;
 
 
 /// <summary>
-/// Specifies the level of detail of the returned information.
+/// Controls the amount of detail included in the cluster health response.
 /// </summary>
 
 [JsonEnum]
 public enum Level
 {
+	[EnumMember(Value = "awareness_attributes")]
+	AwarenessAttributes,
 	[EnumMember(Value = "cluster")]
 	Cluster,
 	[EnumMember(Value = "indices")]

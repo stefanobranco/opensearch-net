@@ -2,7 +2,6 @@
 #nullable enable
 
 using System.Text.Json.Serialization;
-using OpenSearch.Client.Indices;
 
 namespace OpenSearch.Client.Common;
 
@@ -224,7 +223,7 @@ public sealed class IndexSettingsDescriptor
 		return this;
 	}
 	/// <summary>Additional properties not captured by named fields.</summary>
-	public IndexSettingsDescriptor AdditionalProperties(Dictionary<string, System.Text.Json.JsonElement>? value) { _value.AdditionalProperties = value; return this; }
+	public IndexSettingsDescriptor ExtensionData(Dictionary<string, System.Text.Json.JsonElement>? value) { _value.ExtensionData = value; return this; }
 
 	public static implicit operator IndexSettings(IndexSettingsDescriptor descriptor) => descriptor._value;
 }

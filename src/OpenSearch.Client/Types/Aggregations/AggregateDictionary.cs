@@ -14,45 +14,22 @@ public sealed class AggregateDictionary
 {
 	private static JsonSerializerOptions BucketOptions => OpenSearchJsonOptions.Default;
 
-	private readonly Dictionary<string, Aggregate<JsonElement>> _raw;
+	private readonly Dictionary<string, Aggregate> _raw;
 	private readonly Dictionary<string, string> _kinds;
 
-	public AggregateDictionary(Dictionary<string, Aggregate<JsonElement>>? raw)
+	public AggregateDictionary(Dictionary<string, Aggregate>? raw)
 	{
 		(_raw, _kinds) = StripTypedKeys(raw);
-	}
-
-	/// <summary>
-	/// Creates an AggregateDictionary from a generic <c>Dictionary&lt;string, Aggregate&lt;T&gt;&gt;</c>.
-	/// This overload handles the generic-to-JsonElement conversion needed since
-	/// <c>SearchResponse&lt;TDocument&gt;.Aggregations</c> is <c>Dictionary&lt;string, Aggregate&lt;TDocument&gt;&gt;</c>.
-	/// </summary>
-	public static AggregateDictionary Create<TDocument>(Dictionary<string, Aggregate<TDocument>>? raw)
-	{
-		if (raw is null) return new AggregateDictionary(null);
-
-		// Aggregate<T> has the same JSON shape regardless of T (T only matters for top_hits).
-		// Re-serialize and deserialize as Aggregate<JsonElement> to get a clean dictionary.
-		// For the common case this is a dictionary pass-through with no T-dependent fields.
-		var converted = new Dictionary<string, Aggregate<JsonElement>>(raw.Count, StringComparer.Ordinal);
-		foreach (var (key, agg) in raw)
-		{
-			var json = JsonSerializer.SerializeToUtf8Bytes(agg, BucketOptions);
-			var typed = JsonSerializer.Deserialize<Aggregate<JsonElement>>(json, BucketOptions);
-			if (typed is not null)
-				converted[key] = typed;
-		}
-		return new AggregateDictionary(converted);
 	}
 
 	// ── Metric accessors ──
 
 	// All single-value metric aggs (avg, sum, min, max, cardinality, value_count)
 	// return { "value": N } — always read from the Value property.
-	public double? Average(string name) => TryGet(name, out var a) ? NullableDouble(a.Value) : null;
-	public double? Sum(string name) => TryGet(name, out var a) ? NullableDouble(a.Value) : null;
-	public double? Min(string name) => TryGet(name, out var a) ? NullableDouble(a.Value) : null;
-	public double? Max(string name) => TryGet(name, out var a) ? NullableDouble(a.Value) : null;
+	public double? Average(string name) => TryGet(name, out var a) ? a.Value : null;
+	public double? Sum(string name) => TryGet(name, out var a) ? a.Value : null;
+	public double? Min(string name) => TryGet(name, out var a) ? a.Value : null;
+	public double? Max(string name) => TryGet(name, out var a) ? a.Value : null;
 	public long? Cardinality(string name) => TryGet(name, out var a) ? (long?)a.Value : null;
 	public long? ValueCount(string name) => TryGet(name, out var a) ? (long?)a.Value : null;
 
@@ -164,11 +141,10 @@ public sealed class AggregateDictionary
 	public HitsMetadataJsonValue<TDocument>? TopHits<TDocument>(string name)
 	{
 		if (!TryGet(name, out var a)) return null;
-		if (a.Hits is null) return null;
+		if (a.Hits is null || a.Hits.Value.ValueKind == JsonValueKind.Undefined) return null;
 
-		// Re-serialize and deserialize to get Hit<TDocument> with proper _source typing
-		var json = JsonSerializer.Serialize(a.Hits, BucketOptions);
-		return JsonSerializer.Deserialize<HitsMetadataJsonValue<TDocument>>(json, BucketOptions);
+		return JsonSerializer.Deserialize<HitsMetadataJsonValue<TDocument>>(
+			a.Hits.Value, BucketOptions);
 	}
 
 	// ── Raw access ──
@@ -182,17 +158,16 @@ public sealed class AggregateDictionary
 	/// <summary>Returns whether an aggregation with the given name exists.</summary>
 	public bool ContainsKey(string name) => _raw.ContainsKey(name);
 
-	public Aggregate<JsonElement>? GetRaw(string name) => TryGet(name, out var a) ? a : null;
+	public Aggregate? GetRaw(string name) => TryGet(name, out var a) ? a : null;
 
 	// ── Internals ──
 
-	private bool TryGet(string name, out Aggregate<JsonElement> agg)
+	private bool TryGet(string name, out Aggregate agg)
 	{
 		agg = default!;
 		return _raw.TryGetValue(name, out agg!);
 	}
 
-	private static double? NullableDouble(double v) => v;
 
 	/// <summary>
 	/// Checks whether the aggregation is a single-bucket kind (filter, nested, reverse_nested, global)
@@ -219,14 +194,14 @@ public sealed class AggregateDictionary
 	/// When typed_keys=true, OpenSearch returns keys like "sterms#by_status".
 	/// We strip the prefix, keep just the name, and store the type separately.
 	/// </summary>
-	private static (Dictionary<string, Aggregate<JsonElement>> Raw, Dictionary<string, string> Kinds) StripTypedKeys(
-		Dictionary<string, Aggregate<JsonElement>>? raw)
+	private static (Dictionary<string, Aggregate> Raw, Dictionary<string, string> Kinds) StripTypedKeys(
+		Dictionary<string, Aggregate>? raw)
 	{
 		if (raw is null)
-			return (new Dictionary<string, Aggregate<JsonElement>>(StringComparer.Ordinal),
+			return (new Dictionary<string, Aggregate>(StringComparer.Ordinal),
 				new Dictionary<string, string>(StringComparer.Ordinal));
 
-		var result = new Dictionary<string, Aggregate<JsonElement>>(raw.Count, StringComparer.Ordinal);
+		var result = new Dictionary<string, Aggregate>(raw.Count, StringComparer.Ordinal);
 		var kinds = new Dictionary<string, string>(raw.Count, StringComparer.Ordinal);
 		foreach (var (key, value) in raw)
 		{
@@ -276,23 +251,23 @@ public sealed class AggregateDictionary
 	/// Known bucket properties (key, doc_count, etc.) are skipped; remaining object
 	/// properties are treated as sub-aggregation results.
 	/// </summary>
+	private static readonly HashSet<string> s_knownBucketProps = new(StringComparer.Ordinal)
+	{
+		"key", "key_as_string", "doc_count", "doc_count_error_upper_bound",
+		"from", "to", "from_as_string", "to_as_string",
+		"bg_count", "score"
+	};
+
 	private static AggregateDictionary? ParseSubAggregations(JsonElement bucketEl)
 	{
-		var knownProps = new HashSet<string>(StringComparer.Ordinal)
-		{
-			"key", "key_as_string", "doc_count", "doc_count_error_upper_bound",
-			"from", "to", "from_as_string", "to_as_string",
-			"bg_count", "score"
-		};
-
-		Dictionary<string, Aggregate<JsonElement>>? subAggs = null;
+		Dictionary<string, Aggregate>? subAggs = null;
 		foreach (var prop in bucketEl.EnumerateObject())
 		{
-			if (knownProps.Contains(prop.Name)) continue;
+			if (s_knownBucketProps.Contains(prop.Name)) continue;
 			if (prop.Value.ValueKind != JsonValueKind.Object) continue;
 
-			subAggs ??= new Dictionary<string, Aggregate<JsonElement>>(StringComparer.Ordinal);
-			var subAgg = JsonSerializer.Deserialize<Aggregate<JsonElement>>(
+			subAggs ??= new Dictionary<string, Aggregate>(StringComparer.Ordinal);
+			var subAgg = JsonSerializer.Deserialize<Aggregate>(
 				prop.Value.GetRawText(), BucketOptions);
 			if (subAgg is not null)
 				subAggs[prop.Name] = subAgg;
@@ -313,19 +288,19 @@ public sealed class AggregateDictionary
 	/// <summary>
 	/// Builds sub-aggregation dictionary from a single-bucket aggregate (filter, nested).
 	/// These aggregates don't have a Buckets array — sub-aggs are additional top-level
-	/// properties captured via <see cref="Aggregate{T}.ExtensionData"/>.
+	/// properties captured via <see cref="Aggregate.ExtensionData"/>.
 	/// </summary>
-	private static AggregateDictionary? BuildSubAggs(Aggregate<JsonElement> agg)
+	private static AggregateDictionary? BuildSubAggs(Aggregate agg)
 	{
 		if (agg.ExtensionData is not { Count: > 0 })
 			return null;
 
-		var subAggs = new Dictionary<string, Aggregate<JsonElement>>(StringComparer.Ordinal);
+		var subAggs = new Dictionary<string, Aggregate>(StringComparer.Ordinal);
 		foreach (var (key, element) in agg.ExtensionData)
 		{
 			if (element.ValueKind != JsonValueKind.Object) continue;
 
-			var subAgg = JsonSerializer.Deserialize<Aggregate<JsonElement>>(
+			var subAgg = JsonSerializer.Deserialize<Aggregate>(
 				element.GetRawText(), BucketOptions);
 			if (subAgg is not null)
 				subAggs[key] = subAgg;

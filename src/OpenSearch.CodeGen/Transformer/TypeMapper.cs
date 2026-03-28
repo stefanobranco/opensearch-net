@@ -70,12 +70,24 @@ public sealed class TypeMapper
 		["SourceConfig"] = TypeRef.Named("SourceConfig", "SourceConfig"),
 		["HighlightFields"] = TypeRef.DictOf(TypeRef.String(), TypeRef.Named("HighlightField", "HighlightField")),
 		["TotalHits"] = TypeRef.Named("TotalHits", "TotalHits"),
+		["ErrorCause"] = TypeRef.Named("ErrorCause", "OpenSearch.Net.ErrorCause"),
+		["ResponseItem"] = TypeRef.Named("MgetResponseItem", "MgetResponseItem"), // oneOf GetResult|MultiGetError → hand-written
+		["Aggregate"] = TypeRef.Named("Aggregate", "Aggregate"), // non-generic; TDocument only matters for top_hits (lazily deserialized)
 	};
 
 	/// <summary>
 	/// Schema names whose generated types are replaced by hand-written types.
 	/// Includes all override keys plus schemas referenced only by overridden types.
 	/// </summary>
+	/// <summary>
+	/// Schema names that should emit [JsonExtensionData] even though the spec doesn't declare additionalProperties.
+	/// Aggregate needs it to capture sub-aggregation results as extra JSON properties.
+	/// </summary>
+	private static readonly HashSet<string> s_forceAdditionalProperties = new(StringComparer.OrdinalIgnoreCase)
+	{
+		"Aggregate"
+	};
+
 	private static readonly HashSet<string> s_skipGeneration = new(
 		s_typeOverrides.Keys.Concat(["SortOptions", "FieldSort", "SourceFilter", "TotalHits", "TotalHitsRelation"]),
 		StringComparer.OrdinalIgnoreCase);
@@ -108,11 +120,12 @@ public sealed class TypeMapper
 	/// </summary>
 	public TypeRef Map(OpenApiSchema schema)
 	{
-		// Handle $ref first
+		// Handle $ref first — use QualifiedRef so local refs (#/...) carry their source file
+		// context, enabling correct namespace resolution for cross-file type deduplication.
 		if (schema.Ref is not null)
 		{
 			var resolved = schema.Resolved();
-			return MapResolved(resolved, schema.Ref);
+			return MapResolved(resolved, schema.QualifiedRef!);
 		}
 
 		return MapDirect(schema);
@@ -734,6 +747,10 @@ public sealed class TypeMapper
 		// Top-level additionalProperties takes precedence
 		if (schema.AdditionalProperties is not null)
 			additionalPropsType = Map(schema.AdditionalProperties);
+
+		// Force additionalProperties on types that need [JsonExtensionData] for sub-aggregation capture
+		if (additionalPropsType is null && s_forceAdditionalProperties.Contains(schemaName))
+			additionalPropsType = TypeRef.JsonElement();
 
 		var ns = ResolveNamespace(namespaceOverride);
 
