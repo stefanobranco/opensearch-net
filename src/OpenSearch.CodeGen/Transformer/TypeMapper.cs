@@ -70,12 +70,49 @@ public sealed class TypeMapper
 		["SourceConfig"] = TypeRef.Named("SourceConfig", "SourceConfig"),
 		["HighlightFields"] = TypeRef.DictOf(TypeRef.String(), TypeRef.Named("HighlightField", "HighlightField")),
 		["TotalHits"] = TypeRef.Named("TotalHits", "TotalHits"),
+		["ErrorCause"] = TypeRef.Named("ErrorCause", "OpenSearch.Net.ErrorCause"),
+		["ResponseItem"] = TypeRef.Named("MgetResponseItem", "MgetResponseItem"), // oneOf GetResult|MultiGetError → hand-written
+		["Aggregate"] = TypeRef.Named("Aggregate", "Aggregate"), // non-generic; TDocument only matters for top_hits (lazily deserialized)
+		["Script"] = TypeRef.Named("Script", "Script"), // oneOf[InlineScript, StoredScriptId] → hand-written flat type
+		["GeoLocation"] = TypeRef.Named("GeoLocation", "GeoLocation"), // oneOf[LatLon, GeoHash, array, string] → hand-written with converter
+		["FieldAndFormat"] = TypeRef.Named("FieldAndFormat", "FieldAndFormat"), // oneOf[Field, object] → hand-written with converter
+		["RangeQuery"] = TypeRef.JsonElement(), // oneOf[NumberRangeQuery, DateRangeQuery] — variant depends on queried field type
+		["Like"] = TypeRef.JsonElement(), // oneOf[string, LikeDocument] — string shorthand or full document
+		["DecayPlacement"] = TypeRef.JsonElement(), // oneOf[DateDecay, GeoDecay, NumericDecay] — handled by DecayFunction
+		["GeoBounds"] = TypeRef.JsonElement(), // oneOf[4 coordinate formats]
+		["TermsQueryField"] = TypeRef.JsonElement(), // oneOf[array, TermsLookup]
+		["SourceFilter"] = TypeRef.JsonElement(), // oneOf[Fields, object] — handled by SourceConfig
+		["BucketsPath"] = TypeRef.String(), // oneOf[string, array, object] — typically a string path like "my_agg>my_metric"
+		["SourceConfigParam"] = TypeRef.JsonElement(), // oneOf[boolean, Fields] — query parameter form of _source
+		["Suggest"] = TypeRef.JsonElement(), // oneOf[allOf, PhraseSuggest, TermSuggest] — handled by SuggesterDescriptor
+		["TaskInfos"] = TypeRef.JsonElement(), // oneOf[array, object] — task info response varies by group_by
+		["TrackHits"] = TypeRef.JsonElement(), // oneOf[boolean, integer] — true/false or exact count threshold
+		["WaitForActiveShards"] = TypeRef.String(), // oneOf[StringifiedInteger, WaitForActiveShardOptions] — "1" or "all"
+		["Context"] = TypeRef.JsonElement(), // oneOf[string, GeoLocation] — completion context (category string or geo point)
+		["TermsInclude"] = TypeRef.JsonElement(), // oneOf[string, array, TermsPartition] — regex, list of values, or partition
+		["AggregateOrder"] = TypeRef.JsonElement(), // oneOf[object, array] — single or multi-value sort order
+		["CompletionContext"] = TypeRef.JsonElement(), // oneOf[Context, object] — completion context config
+		["IndexSettingsMergePolicy"] = TypeRef.JsonElement(), // oneOf[name, tiered policy config]
+		["CharFilter"] = TypeRef.JsonElement(), // oneOf[string, CharFilterDefinition] — built-in name or custom definition
+		["TokenFilter"] = TypeRef.JsonElement(), // oneOf[string, TokenFilterDefinition] — built-in name or custom definition
+		["Tokenizer"] = TypeRef.JsonElement(), // oneOf[string, TokenizerDefinition] — built-in name or custom definition
+		["XyLocation"] = TypeRef.JsonElement(), // oneOf[XyCartesianCoordinates, array, string] — xy point formats
+		["SegmentReplicationStats"] = TypeRef.JsonElement(), // oneOf[object, object] — different shapes based on context
 	};
 
 	/// <summary>
 	/// Schema names whose generated types are replaced by hand-written types.
 	/// Includes all override keys plus schemas referenced only by overridden types.
 	/// </summary>
+	/// <summary>
+	/// Schema names that should emit [JsonExtensionData] even though the spec doesn't declare additionalProperties.
+	/// Aggregate needs it to capture sub-aggregation results as extra JSON properties.
+	/// </summary>
+	private static readonly HashSet<string> s_forceAdditionalProperties = new(StringComparer.OrdinalIgnoreCase)
+	{
+		"Aggregate"
+	};
+
 	private static readonly HashSet<string> s_skipGeneration = new(
 		s_typeOverrides.Keys.Concat(["SortOptions", "FieldSort", "SourceFilter", "TotalHits", "TotalHitsRelation"]),
 		StringComparer.OrdinalIgnoreCase);
@@ -108,11 +145,12 @@ public sealed class TypeMapper
 	/// </summary>
 	public TypeRef Map(OpenApiSchema schema)
 	{
-		// Handle $ref first
+		// Handle $ref first — use QualifiedRef so local refs (#/...) carry their source file
+		// context, enabling correct namespace resolution for cross-file type deduplication.
 		if (schema.Ref is not null)
 		{
 			var resolved = schema.Resolved();
-			return MapResolved(resolved, schema.Ref);
+			return MapResolved(resolved, schema.QualifiedRef!);
 		}
 
 		return MapDirect(schema);
@@ -389,6 +427,12 @@ public sealed class TypeMapper
 				// (e.g., TotalHits: oneOf[$ref:TotalHits, type:integer] — bare integer is shorthand)
 				if (refType.Kind == TypeRefKind.Named && !refType.IsEnum
 					&& inlineType is "integer" or "number")
+					return refType;
+
+				// Ref resolves to a named object type + inline is boolean → use the named type
+				// (e.g., KnnQueryRescore: oneOf[type:boolean, $ref:RescoreContext] — true is shorthand for default config)
+				if (refType.Kind == TypeRefKind.Named && !refType.IsEnum
+					&& inlineType is "boolean")
 					return refType;
 			}
 		}
@@ -734,6 +778,10 @@ public sealed class TypeMapper
 		// Top-level additionalProperties takes precedence
 		if (schema.AdditionalProperties is not null)
 			additionalPropsType = Map(schema.AdditionalProperties);
+
+		// Force additionalProperties on types that need [JsonExtensionData] for sub-aggregation capture
+		if (additionalPropsType is null && s_forceAdditionalProperties.Contains(schemaName))
+			additionalPropsType = TypeRef.JsonElement();
 
 		var ns = ResolveNamespace(namespaceOverride);
 

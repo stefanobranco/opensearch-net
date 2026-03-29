@@ -33,7 +33,7 @@ public class QueryDslTests : IntegrationTestBase
 		{
 			Index = [index],
 			Size = 10,
-			Query = QueryContainer.Match("category", new OpenSearch.Client.Core.MatchQuery { Query = JsonSerializer.SerializeToElement("engineering") })
+			Query = QueryContainer.Match("category", new MatchQuery { Query = JsonSerializer.SerializeToElement("engineering") })
 		});
 
 		searchResponse.Hits.Should().NotBeNull();
@@ -75,7 +75,7 @@ public class QueryDslTests : IntegrationTestBase
 		{
 			Index = [index],
 			Size = 10,
-			Query = QueryContainer.Term("status", new OpenSearch.Client.Core.TermQuery { Value = JsonSerializer.SerializeToElement("active") })
+			Query = QueryContainer.Term("status", new TermQuery { Value = JsonSerializer.SerializeToElement("active") })
 		});
 
 		searchResponse.Hits.Should().NotBeNull();
@@ -108,11 +108,11 @@ public class QueryDslTests : IntegrationTestBase
 		{
 			Index = [index],
 			Size = 10,
-			Query = QueryContainer.Bool(new OpenSearch.Client.Core.BoolQuery
+			Query = QueryContainer.Bool(new BoolQuery
 			{
 				Must =
 				[
-					QueryContainer.Match("category", new OpenSearch.Client.Core.MatchQuery { Query = JsonSerializer.SerializeToElement("engineering") }),
+					QueryContainer.Match("category", new MatchQuery { Query = JsonSerializer.SerializeToElement("engineering") }),
 					QueryContainer.Range("age", JsonSerializer.SerializeToElement(new { gte = 30 }))
 				]
 			})
@@ -147,7 +147,7 @@ public class QueryDslTests : IntegrationTestBase
 		{
 			Index = [index],
 			Size = 10,
-			Query = QueryContainer.Exists(new OpenSearch.Client.Core.ExistsQuery { Field = "category" })
+			Query = QueryContainer.Exists(new ExistsQuery { Field = "category" })
 		});
 
 		searchResponse.Hits.Should().NotBeNull();
@@ -177,7 +177,7 @@ public class QueryDslTests : IntegrationTestBase
 		{
 			Index = [index],
 			Size = 10,
-			Query = QueryContainer.MatchAll(new OpenSearch.Client.Core.MatchAllQuery())
+			Query = QueryContainer.MatchAll(new MatchAllQuery())
 		});
 
 		searchResponse.Hits.Should().NotBeNull();

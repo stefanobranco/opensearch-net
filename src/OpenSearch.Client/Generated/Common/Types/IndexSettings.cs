@@ -2,7 +2,6 @@
 #nullable enable
 
 using System.Text.Json.Serialization;
-using OpenSearch.Client.Indices;
 
 namespace OpenSearch.Client.Common;
 
@@ -73,5 +72,5 @@ public sealed class IndexSettings
 	public string? Knn { get; set; }
 	public IngestionSource? IngestionSource { get; set; }
 	[JsonExtensionData]
-	public Dictionary<string, System.Text.Json.JsonElement>? AdditionalProperties { get; set; }
+	public Dictionary<string, System.Text.Json.JsonElement>? ExtensionData { get; set; }
 }

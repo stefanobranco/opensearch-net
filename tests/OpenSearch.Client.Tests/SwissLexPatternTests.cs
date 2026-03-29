@@ -696,7 +696,7 @@ public class SwissLexPatternTests
 						.Modifier(FieldValueFactorModifier.Log1p)
 						.Missing(1)),
 					f => f.Exp(e => e
-						.AdditionalProperties(new Dictionary<string, JsonElement>
+						.ExtensionData(new Dictionary<string, JsonElement>
 						{
 							["meta.publication_date"] = JsonSerializer.SerializeToElement(new
 							{

@@ -381,8 +381,8 @@ public sealed class QueryContainerDescriptor<TDocument>
 		Expression<Func<TDocument, object>> field, params string[] values)
 	{
 		var query = new TermsQuery();
-		query.AdditionalProperties ??= new();
-		query.AdditionalProperties[Field.ResolveName<TDocument>(field)] =
+		query.ExtensionData ??= new();
+		query.ExtensionData[Field.ResolveName<TDocument>(field)] =
 			System.Text.Json.JsonSerializer.SerializeToElement(values);
 		_value = QueryContainer.Terms(query);
 		return this;
@@ -393,8 +393,8 @@ public sealed class QueryContainerDescriptor<TDocument>
 		Expression<Func<TDocument, object>> field, params TValue[] values)
 	{
 		var query = new TermsQuery();
-		query.AdditionalProperties ??= new();
-		query.AdditionalProperties[Field.ResolveName<TDocument>(field)] =
+		query.ExtensionData ??= new();
+		query.ExtensionData[Field.ResolveName<TDocument>(field)] =
 			System.Text.Json.JsonSerializer.SerializeToElement(values);
 		_value = QueryContainer.Terms(query);
 		return this;
@@ -405,8 +405,8 @@ public sealed class QueryContainerDescriptor<TDocument>
 		string field, params string[] values)
 	{
 		var query = new TermsQuery();
-		query.AdditionalProperties ??= new();
-		query.AdditionalProperties[field] =
+		query.ExtensionData ??= new();
+		query.ExtensionData[field] =
 			System.Text.Json.JsonSerializer.SerializeToElement(values);
 		_value = QueryContainer.Terms(query);
 		return this;
@@ -475,8 +475,8 @@ public sealed class QueryContainerDescriptor<TDocument>
 		Field field, params string[] values)
 	{
 		var query = new TermsQuery();
-		query.AdditionalProperties ??= new();
-		query.AdditionalProperties[field.Name] =
+		query.ExtensionData ??= new();
+		query.ExtensionData[field.Name] =
 			System.Text.Json.JsonSerializer.SerializeToElement(values);
 		_value = QueryContainer.Terms(query);
 		return this;

@@ -2,7 +2,6 @@
 #nullable enable
 
 using System.Text.Json.Serialization;
-using OpenSearch.Client.Core;
 
 namespace OpenSearch.Client.Common;
 
@@ -15,14 +14,7 @@ public sealed class TaskFailureDescriptor
 	public TaskFailureDescriptor NodeId(string? value) { _value.NodeId = value; return this; }
 	/// <summary>The status of the failed task.</summary>
 		public TaskFailureDescriptor Status(string? value) { _value.Status = value; return this; }
-	public TaskFailureDescriptor Reason(ErrorCause? value) { _value.Reason = value; return this; }
-	public TaskFailureDescriptor Reason(Action<ErrorCauseDescriptor> configure)
-	{
-		var descriptor = new ErrorCauseDescriptor();
-		configure(descriptor);
-		_value.Reason = descriptor;
-		return this;
-	}
+	public TaskFailureDescriptor Reason(OpenSearch.Net.ErrorCause? value) { _value.Reason = value; return this; }
 
 	public static implicit operator TaskFailure(TaskFailureDescriptor descriptor) => descriptor._value;
 }

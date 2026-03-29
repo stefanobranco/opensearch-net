@@ -38,6 +38,11 @@ public sealed class ApiCallDetails
 	public byte[]? ResponseBodyBytes { get; init; }
 
 	/// <summary>
+	/// The parsed server error, when OpenSearch returned a structured error response (4xx/5xx).
+	/// </summary>
+	public ServerError? ServerError { get; init; }
+
+	/// <summary>
 	/// The exception that occurred during the request, if any.
 	/// </summary>
 	public Exception? OriginalException { get; init; }

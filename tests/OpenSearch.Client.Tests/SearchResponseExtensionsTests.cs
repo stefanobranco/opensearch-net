@@ -147,6 +147,50 @@ public class SearchResponseExtensionsTests
 	}
 
 	[Fact]
+	public void ShardFailure_Reason_DeserializesAsErrorCause()
+	{
+		var json = """
+		{
+			"took": 1,
+			"timed_out": false,
+			"_shards": {
+				"total": 5, "successful": 3, "skipped": 0, "failed": 2,
+				"failures": [{
+					"shard": 0,
+					"index": "my-index",
+					"node": "node-1",
+					"reason": {
+						"type": "query_shard_exception",
+						"reason": "No mapping found for [timestamp]",
+						"caused_by": {
+							"type": "illegal_argument_exception",
+							"reason": "No mapping found for [timestamp]"
+						}
+					}
+				}]
+			},
+			"hits": { "hits": [] }
+		}
+		""";
+
+		var response = JsonSerializer.Deserialize<SearchResponse<TestDoc>>(json, JsonOptions)!;
+		response.IsValid.Should().BeFalse();
+		response.Shards!.Failures.Should().HaveCount(1);
+
+		var failure = response.Shards.Failures![0];
+		failure.Index.Should().Be("my-index");
+		failure.Node.Should().Be("node-1");
+		failure.Shard.Should().Be(0);
+
+		// Reason is OpenSearch.Net.ErrorCause (type override from codegen)
+		failure.Reason.Should().NotBeNull();
+		failure.Reason!.Type.Should().Be("query_shard_exception");
+		failure.Reason.Reason.Should().Be("No mapping found for [timestamp]");
+		failure.Reason.CausedBy.Should().NotBeNull();
+		failure.Reason.CausedBy!.Type.Should().Be("illegal_argument_exception");
+	}
+
+	[Fact]
 	public void IsValid_NullShards_AndNoApiCall_ReturnsTrue()
 	{
 		// A manually constructed response with no ApiCall and no Shards

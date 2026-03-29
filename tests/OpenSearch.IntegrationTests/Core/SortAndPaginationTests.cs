@@ -151,7 +151,7 @@ public class SortAndPaginationTests : IntegrationTestBase
 		var countResponse = Client.Core.Count(new CountRequest
 		{
 			Index = [index],
-			Query = QueryContainer.Term("name.keyword", new OpenSearch.Client.Core.TermQuery { Value = JsonSerializer.SerializeToElement("Alice") })
+			Query = QueryContainer.Term("name.keyword", new TermQuery { Value = JsonSerializer.SerializeToElement("Alice") })
 		});
 
 		countResponse.Count.Should().Be(1);

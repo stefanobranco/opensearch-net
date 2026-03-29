@@ -73,7 +73,7 @@ public sealed class UpdateByQueryRequestDescriptor
 	/// <summary>If `true`, returns the document version as part of a hit.</summary>
 		public UpdateByQueryRequestDescriptor Version(bool? value) { _value.Version = value; return this; }
 	/// <summary>The number of shard copies that must be active before proceeding with the operation. Set to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`).</summary>
-		public UpdateByQueryRequestDescriptor WaitForActiveShards(System.Text.Json.JsonElement? value) { _value.WaitForActiveShards = value; return this; }
+		public UpdateByQueryRequestDescriptor WaitForActiveShards(string? value) { _value.WaitForActiveShards = value; return this; }
 	/// <summary>If `true`, the request blocks until the operation is complete.</summary>
 		public UpdateByQueryRequestDescriptor WaitForCompletion(bool? value) { _value.WaitForCompletion = value; return this; }
 	/// <summary>The maximum number of documents to update.</summary>
@@ -86,7 +86,7 @@ public sealed class UpdateByQueryRequestDescriptor
 		_value.Query = descriptor;
 		return this;
 	}
-	public UpdateByQueryRequestDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
+	public UpdateByQueryRequestDescriptor Script(Script? value) { _value.Script = value; return this; }
 	public UpdateByQueryRequestDescriptor Slice(SlicedScroll? value) { _value.Slice = value; return this; }
 	public UpdateByQueryRequestDescriptor Slice(Action<SlicedScrollDescriptor> configure)
 	{

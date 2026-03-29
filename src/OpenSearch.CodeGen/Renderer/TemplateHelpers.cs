@@ -62,6 +62,7 @@ public static class TemplateHelpers
 			? new ScriptArray(response.TypeParameters.Cast<object>())
 			: null;
 		obj["has_additional_properties"] = false;
+		obj["is_response"] = true;
 		return obj;
 	}
 
@@ -106,6 +107,7 @@ public static class TemplateHelpers
 			? new ScriptArray(objectShape.TypeParameters.Cast<object>())
 			: null;
 		obj["has_additional_properties"] = objectShape.AdditionalPropertiesType is not null;
+		obj["is_response"] = false;
 		return obj;
 	}
 
@@ -226,8 +228,9 @@ public static class TemplateHelpers
 
 		if (field.Type.IsValueType)
 		{
-			// Required value types stay non-nullable; optional value types get ?
-			return field.Required ? baseName : baseName + "?";
+			// Required AND non-nullable value types stay non-nullable; otherwise get ?
+			// A field can be required (always present) but nullable (oneOf: [number, null]).
+			return (field.Required && !field.Type.IsNullable) ? baseName : baseName + "?";
 		}
 
 		// Reference types are always nullable in DTOs (no constructor enforcement)

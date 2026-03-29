@@ -51,14 +51,14 @@ public sealed class UpdateRequest
 	public string? Timeout { get; set; }
 	/// <summary>The number of shard copies that must be active before proceeding with the operations. Set to 'all' or any positive integer up to the total number of shards in the index (number_of_replicas+1). Defaults to 1 meaning the primary shard.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? WaitForActiveShards { get; set; }
+	public string? WaitForActiveShards { get; set; }
 	/// <summary>Set to `false` to disable setting `result` in the response to `noop` if no change to the document occurred.</summary>
 		public bool? DetectNoop { get; set; }
 	/// <summary>A partial update to an existing document.</summary>
 		public System.Text.Json.JsonElement? Doc { get; set; }
 	/// <summary>Set to `true` to use the contents of 'doc' as the value of 'upsert'</summary>
 		public bool? DocAsUpsert { get; set; }
-	public System.Text.Json.JsonElement? Script { get; set; }
+	public Script? Script { get; set; }
 	/// <summary>Set to `true` to execute the script whether or not the document exists.</summary>
 		public bool? ScriptedUpsert { get; set; }
 	[JsonPropertyName("_source")]
@@ -97,7 +97,7 @@ public sealed class UpdateEndpoint<TDocument> : IEndpoint<UpdateRequest, UpdateR
 		if (r.Timeout is not null)
 			queryParts.Add($"timeout={Uri.EscapeDataString(r.Timeout!)}");
 		if (r.WaitForActiveShards is not null)
-			queryParts.Add($"wait_for_active_shards={Uri.EscapeDataString(r.WaitForActiveShards.ToString()!)}");
+			queryParts.Add($"wait_for_active_shards={Uri.EscapeDataString(r.WaitForActiveShards!)}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

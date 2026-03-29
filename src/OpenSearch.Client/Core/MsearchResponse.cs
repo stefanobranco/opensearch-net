@@ -114,7 +114,7 @@ public sealed class MsearchResponseItem
 		if (Aggregations is null || Aggregations.Value.ValueKind == JsonValueKind.Undefined)
 			return new AggregateDictionary(null);
 
-		var raw = JsonSerializer.Deserialize<Dictionary<string, Common.Aggregate<JsonElement>>>(
+		var raw = JsonSerializer.Deserialize<Dictionary<string, Common.Aggregate>>(
 			Aggregations.Value.GetRawText(), DefaultOptions);
 		return new AggregateDictionary(raw);
 	}

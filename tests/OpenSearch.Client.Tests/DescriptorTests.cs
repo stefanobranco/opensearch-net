@@ -257,8 +257,8 @@ public class DescriptorTests
 	{
 		// IntegerNumberProperty should have fields inherited from the allOf chain:
 		// PropertyBase → CorePropertyBase → DocValuesPropertyBase → NumberPropertyBase → IntegerNumberProperty
-		var prop = new OpenSearch.Client.Indices.IntegerNumberProperty();
-		var type = typeof(OpenSearch.Client.Indices.IntegerNumberProperty);
+		var prop = new IntegerNumberProperty();
+		var type = typeof(IntegerNumberProperty);
 
 		// Check inherited fields exist as properties
 		type.GetProperty("DocValues").Should().NotBeNull("inherited from DocValuesPropertyBase");

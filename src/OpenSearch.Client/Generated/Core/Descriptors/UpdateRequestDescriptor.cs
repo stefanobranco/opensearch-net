@@ -34,14 +34,14 @@ public sealed class UpdateRequestDescriptor
 	/// <summary>Period to wait for dynamic mapping updates and active shards. This guarantees OpenSearch waits for at least the timeout before failing. The actual wait time could be longer, particularly when multiple waits occur.</summary>
 		public UpdateRequestDescriptor Timeout(string? value) { _value.Timeout = value; return this; }
 	/// <summary>The number of shard copies that must be active before proceeding with the operations. Set to 'all' or any positive integer up to the total number of shards in the index (number_of_replicas+1). Defaults to 1 meaning the primary shard.</summary>
-		public UpdateRequestDescriptor WaitForActiveShards(System.Text.Json.JsonElement? value) { _value.WaitForActiveShards = value; return this; }
+		public UpdateRequestDescriptor WaitForActiveShards(string? value) { _value.WaitForActiveShards = value; return this; }
 	/// <summary>Set to `false` to disable setting `result` in the response to `noop` if no change to the document occurred.</summary>
 		public UpdateRequestDescriptor DetectNoop(bool? value) { _value.DetectNoop = value; return this; }
 	/// <summary>A partial update to an existing document.</summary>
 		public UpdateRequestDescriptor Doc(System.Text.Json.JsonElement? value) { _value.Doc = value; return this; }
 	/// <summary>Set to `true` to use the contents of 'doc' as the value of 'upsert'</summary>
 		public UpdateRequestDescriptor DocAsUpsert(bool? value) { _value.DocAsUpsert = value; return this; }
-	public UpdateRequestDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
+	public UpdateRequestDescriptor Script(Script? value) { _value.Script = value; return this; }
 	/// <summary>Set to `true` to execute the script whether or not the document exists.</summary>
 		public UpdateRequestDescriptor ScriptedUpsert(bool? value) { _value.ScriptedUpsert = value; return this; }
 	public UpdateRequestDescriptor Source(SourceConfig? value) { _value.Source = value; return this; }

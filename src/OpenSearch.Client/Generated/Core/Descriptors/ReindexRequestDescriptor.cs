@@ -21,7 +21,7 @@ public sealed class ReindexRequestDescriptor
 	/// <summary>Period each indexing waits for automatic index creation, dynamic mapping updates, and waiting for active shards.</summary>
 		public ReindexRequestDescriptor Timeout(string? value) { _value.Timeout = value; return this; }
 	/// <summary>The number of shard copies that must be active before proceeding with the operation. Set to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`).</summary>
-		public ReindexRequestDescriptor WaitForActiveShards(System.Text.Json.JsonElement? value) { _value.WaitForActiveShards = value; return this; }
+		public ReindexRequestDescriptor WaitForActiveShards(string? value) { _value.WaitForActiveShards = value; return this; }
 	/// <summary>If `true`, the request blocks until the operation is complete.</summary>
 		public ReindexRequestDescriptor WaitForCompletion(bool? value) { _value.WaitForCompletion = value; return this; }
 	public ReindexRequestDescriptor Conflicts(string? value) { _value.Conflicts = value; return this; }
@@ -35,7 +35,7 @@ public sealed class ReindexRequestDescriptor
 	}
 	/// <summary>The maximum number of documents to reindex.</summary>
 		public ReindexRequestDescriptor MaxDocs(int? value) { _value.MaxDocs = value; return this; }
-	public ReindexRequestDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
+	public ReindexRequestDescriptor Script(Script? value) { _value.Script = value; return this; }
 	public ReindexRequestDescriptor Size(int? value) { _value.Size = value; return this; }
 	public ReindexRequestDescriptor Source(Source? value) { _value.Source = value; return this; }
 	public ReindexRequestDescriptor Source(Action<SourceDescriptor> configure)

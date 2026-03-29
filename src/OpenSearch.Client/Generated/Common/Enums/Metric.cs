@@ -5,47 +5,25 @@ using System.Runtime.Serialization;
 namespace OpenSearch.Client;
 
 
-/// <summary>
-/// The type of statistics to retrieve.
-/// </summary>
-
 [JsonEnum]
 public enum Metric
 {
 	[EnumMember(Value = "_all")]
 	All,
-	[EnumMember(Value = "completion")]
-	Completion,
-	[EnumMember(Value = "docs")]
-	Docs,
-	[EnumMember(Value = "fielddata")]
-	Fielddata,
-	[EnumMember(Value = "flush")]
-	Flush,
-	[EnumMember(Value = "get")]
-	Get,
-	[EnumMember(Value = "indexing")]
-	Indexing,
-	[EnumMember(Value = "merge")]
-	Merge,
-	[EnumMember(Value = "query_cache")]
-	QueryCache,
-	[EnumMember(Value = "recovery")]
-	Recovery,
-	[EnumMember(Value = "refresh")]
-	Refresh,
-	[EnumMember(Value = "request_cache")]
-	RequestCache,
-	[EnumMember(Value = "search")]
-	Search,
-	[EnumMember(Value = "segments")]
-	Segments,
-	[EnumMember(Value = "store")]
-	Store,
-	[EnumMember(Value = "suggest")]
-	Suggest,
-	[EnumMember(Value = "translog")]
-	Translog,
-	[EnumMember(Value = "warmer")]
-	Warmer
+	[EnumMember(Value = "blocks")]
+	Blocks,
+	[EnumMember(Value = "cluster_manager_node")]
+	ClusterManagerNode,
+	[EnumMember(Value = "master_node")]
+	MasterNode,
+	[EnumMember(Value = "metadata")]
+	Metadata,
+	[EnumMember(Value = "nodes")]
+	Nodes,
+	[EnumMember(Value = "routing_nodes")]
+	RoutingNodes,
+	[EnumMember(Value = "routing_table")]
+	RoutingTable,
+	[EnumMember(Value = "version")]
+	Version
 }

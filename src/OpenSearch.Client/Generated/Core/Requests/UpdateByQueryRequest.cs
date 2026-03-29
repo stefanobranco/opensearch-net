@@ -109,14 +109,14 @@ public sealed class UpdateByQueryRequest
 	public bool? Version { get; set; }
 	/// <summary>The number of shard copies that must be active before proceeding with the operation. Set to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`).</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? WaitForActiveShards { get; set; }
+	public string? WaitForActiveShards { get; set; }
 	/// <summary>If `true`, the request blocks until the operation is complete.</summary>
 	[JsonIgnore]
 	public bool? WaitForCompletion { get; set; }
 	/// <summary>The maximum number of documents to update.</summary>
 		public int? MaxDocs { get; set; }
 	public QueryContainer? Query { get; set; }
-	public System.Text.Json.JsonElement? Script { get; set; }
+	public Script? Script { get; set; }
 	public SlicedScroll? Slice { get; set; }
 	public string? Conflicts { get; set; }
 }
@@ -191,7 +191,7 @@ public sealed class UpdateByQueryEndpoint : IEndpoint<UpdateByQueryRequest, Upda
 		if (r.Version is not null)
 			queryParts.Add($"version={Uri.EscapeDataString((r.Version.Value ? "true" : "false"))}");
 		if (r.WaitForActiveShards is not null)
-			queryParts.Add($"wait_for_active_shards={Uri.EscapeDataString(r.WaitForActiveShards.ToString()!)}");
+			queryParts.Add($"wait_for_active_shards={Uri.EscapeDataString(r.WaitForActiveShards!)}");
 		if (r.WaitForCompletion is not null)
 			queryParts.Add($"wait_for_completion={Uri.EscapeDataString((r.WaitForCompletion.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;

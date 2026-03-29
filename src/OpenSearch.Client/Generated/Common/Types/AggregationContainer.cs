@@ -4,7 +4,6 @@
 using System.Runtime.Serialization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using OpenSearch.Client.Core;
 
 namespace OpenSearch.Client.Common;
 

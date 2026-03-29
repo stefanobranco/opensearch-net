@@ -11,5 +11,5 @@ public sealed class Suggester
 	/// <summary>The global suggest text, which avoids repetition when the same text is used in several suggesters.</summary>
 		public string? Text { get; set; }
 	[JsonExtensionData]
-	public Dictionary<string, System.Text.Json.JsonElement>? AdditionalProperties { get; set; }
+	public Dictionary<string, System.Text.Json.JsonElement>? ExtensionData { get; set; }
 }

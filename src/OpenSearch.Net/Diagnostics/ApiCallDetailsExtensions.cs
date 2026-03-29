@@ -53,6 +53,13 @@ public static class ApiCallDetailsExtensions
 			}
 		}
 
+		// Server error
+		if (details.ServerError is { Error: not null } se)
+		{
+			sb.Append($"# ServerError: [{se.Status}] {se.Error}");
+			sb.AppendLine();
+		}
+
 		// Request body
 		if (details.RequestBodyBytes is { Length: > 0 } reqBytes)
 		{

@@ -15,14 +15,7 @@ public sealed class TermVectorsResultDescriptor
 	public TermVectorsResultDescriptor Took(long? value) { _value.Took = value; return this; }
 	public TermVectorsResultDescriptor Found(bool? value) { _value.Found = value; return this; }
 	public TermVectorsResultDescriptor TermVectors(Dictionary<string, TermVector>? value) { _value.TermVectors = value; return this; }
-	public TermVectorsResultDescriptor Error(ErrorCause? value) { _value.Error = value; return this; }
-	public TermVectorsResultDescriptor Error(Action<ErrorCauseDescriptor> configure)
-	{
-		var descriptor = new ErrorCauseDescriptor();
-		configure(descriptor);
-		_value.Error = descriptor;
-		return this;
-	}
+	public TermVectorsResultDescriptor Error(OpenSearch.Net.ErrorCause? value) { _value.Error = value; return this; }
 	public TermVectorsResultDescriptor Type(string? value) { _value.Type = value; return this; }
 
 	public static implicit operator TermVectorsResult(TermVectorsResultDescriptor descriptor) => descriptor._value;

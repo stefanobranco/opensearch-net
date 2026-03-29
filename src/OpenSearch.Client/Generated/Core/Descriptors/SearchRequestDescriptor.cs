@@ -102,7 +102,7 @@ public sealed class SearchRequestDescriptor
 	/// <summary>Boosts the `_score` of documents from specified indexes.</summary>
 		public SearchRequestDescriptor IndicesBoost(List<Dictionary<string, float>>? value) { _value.IndicesBoost = value; return this; }
 	/// <summary>Array of wildcard (`*`) patterns. The request returns doc values for field names matching these patterns in the `hits.fields` property of the response.</summary>
-		public SearchRequestDescriptor DocvalueFields(List<System.Text.Json.JsonElement>? value) { _value.DocvalueFields = value; return this; }
+		public SearchRequestDescriptor DocvalueFields(List<FieldAndFormat>? value) { _value.DocvalueFields = value; return this; }
 	/// <summary>Minimum `_score` for matching documents. Documents with a lower `_score` are not included in the search results.</summary>
 		public SearchRequestDescriptor MinScore(float? value) { _value.MinScore = value; return this; }
 	public SearchRequestDescriptor PostFilter(QueryContainer? value) { _value.PostFilter = value; return this; }
@@ -158,7 +158,7 @@ public sealed class SearchRequestDescriptor
 	public SearchRequestDescriptor Sort(List<SortOptions>? value) { _value.Sort = value; return this; }
 	public SearchRequestDescriptor Source(SourceConfig? value) { _value.Source = value; return this; }
 	/// <summary>Array of wildcard (`*`) patterns. The request returns values for field names matching these patterns in the `hits.fields` property of the response.</summary>
-		public SearchRequestDescriptor Fields(List<System.Text.Json.JsonElement>? value) { _value.Fields = value; return this; }
+		public SearchRequestDescriptor Fields(List<FieldAndFormat>? value) { _value.Fields = value; return this; }
 	public SearchRequestDescriptor Suggest(Suggester? value) { _value.Suggest = value; return this; }
 	public SearchRequestDescriptor Suggest(Action<SuggesterDescriptor> configure)
 	{

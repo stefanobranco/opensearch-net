@@ -13,7 +13,7 @@ namespace OpenSearch.Client.{{ namespace }};
 /// {{ description }}
 /// </summary>
 {{ end }}
-public sealed class {{ class_name }}{{ if type_parameters }}<{{ type_parameters | array.join ", " }}>{{ end }}
+public {{ if is_response }}partial{{ else }}sealed{{ end }} class {{ class_name }}{{ if type_parameters }}<{{ type_parameters | array.join ", " }}>{{ end }}{{ if is_response }} : OpenSearch.Net.OpenSearchResponse{{ end }}
 {
 {{~ for field in fields ~}}
 	{{ if field.description }}/// <summary>{{ field.description }}</summary>
@@ -22,6 +22,6 @@ public sealed class {{ class_name }}{{ if type_parameters }}<{{ type_parameters 
 {{~ end ~}}
 {{~ if has_additional_properties ~}}
 	[JsonExtensionData]
-	public Dictionary<string, System.Text.Json.JsonElement>? AdditionalProperties { get; set; }
+	public Dictionary<string, System.Text.Json.JsonElement>? ExtensionData { get; set; }
 {{~ end ~}}
 }

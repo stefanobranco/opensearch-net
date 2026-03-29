@@ -35,8 +35,20 @@ public sealed class OpenSearchServerException : TransportException
 
 	private static string FormatMessage(ServerError serverError, int statusCode)
 	{
-		var type = serverError.Error?.Type ?? "unknown_error";
-		var msg = serverError.Error?.Reason ?? "No reason provided.";
-		return $"OpenSearch returned [{statusCode}] {type}: {msg}";
+		var error = serverError.Error;
+		var type = error?.Type ?? "unknown_error";
+		var msg = error?.Reason ?? "No reason provided.";
+		var result = $"OpenSearch returned [{statusCode}] {type}: {msg}";
+
+		// Surface the real error from the causal chain — OpenSearch wraps the actual
+		// problem (e.g., mapping errors, parse failures) behind generic messages like
+		// "all shards failed".
+		var causedBy = error?.CausedBy;
+		if (causedBy is not null)
+			result += $" CausedBy: {causedBy.Type}: {causedBy.Reason}";
+		else if (error?.RootCause is [var first, ..])
+			result += $" RootCause: {first.Type}: {first.Reason}";
+
+		return result;
 	}
 }

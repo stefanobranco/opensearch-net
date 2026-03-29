@@ -11,7 +11,7 @@ public sealed class DerivedFieldDescriptor
 
 	public DerivedFieldDescriptor Name(string? value) { _value.Name = value; return this; }
 	public DerivedFieldDescriptor Type(string? value) { _value.Type = value; return this; }
-	public DerivedFieldDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
+	public DerivedFieldDescriptor Script(Script? value) { _value.Script = value; return this; }
 	public DerivedFieldDescriptor PrefilterField(string? value) { _value.PrefilterField = value; return this; }
 	public DerivedFieldDescriptor Properties(System.Text.Json.JsonElement? value) { _value.Properties = value; return this; }
 	public DerivedFieldDescriptor IgnoreMalformed(bool? value) { _value.IgnoreMalformed = value; return this; }

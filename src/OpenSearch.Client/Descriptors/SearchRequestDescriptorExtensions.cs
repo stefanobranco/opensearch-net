@@ -42,8 +42,8 @@ public static class SearchRequestDescriptorExtensions
 	public static SuggesterDescriptor Add(this SuggesterDescriptor d,
 		string name, FieldSuggester fieldSuggester)
 	{
-		d._value.AdditionalProperties ??= new();
-		d._value.AdditionalProperties[name] = JsonSerializer.SerializeToElement(
+		d._value.ExtensionData ??= new();
+		d._value.ExtensionData[name] = JsonSerializer.SerializeToElement(
 			fieldSuggester, OpenSearchJsonOptions.RequestSerialization);
 		return d;
 	}
