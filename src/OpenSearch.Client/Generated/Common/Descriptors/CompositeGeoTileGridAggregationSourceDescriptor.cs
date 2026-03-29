@@ -12,7 +12,7 @@ public sealed class CompositeGeoTileGridAggregationSourceDescriptor
 	public CompositeGeoTileGridAggregationSourceDescriptor Field(string? value) { _value.Field = value; return this; }
 	public CompositeGeoTileGridAggregationSourceDescriptor MissingBucket(bool? value) { _value.MissingBucket = value; return this; }
 	public CompositeGeoTileGridAggregationSourceDescriptor MissingOrder(MissingOrder? value) { _value.MissingOrder = value; return this; }
-	public CompositeGeoTileGridAggregationSourceDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
+	public CompositeGeoTileGridAggregationSourceDescriptor Script(Script? value) { _value.Script = value; return this; }
 	public CompositeGeoTileGridAggregationSourceDescriptor ValueType(ValueType? value) { _value.ValueType = value; return this; }
 	public CompositeGeoTileGridAggregationSourceDescriptor Order(SortOrder? value) { _value.Order = value; return this; }
 	public CompositeGeoTileGridAggregationSourceDescriptor Precision(int? value) { _value.Precision = value; return this; }

@@ -11,7 +11,7 @@ public sealed class GeoDistanceAggregationFieldsDescriptor
 
 	public GeoDistanceAggregationFieldsDescriptor DistanceType(string? value) { _value.DistanceType = value; return this; }
 	public GeoDistanceAggregationFieldsDescriptor Field(string? value) { _value.Field = value; return this; }
-	public GeoDistanceAggregationFieldsDescriptor Origin(System.Text.Json.JsonElement? value) { _value.Origin = value; return this; }
+	public GeoDistanceAggregationFieldsDescriptor Origin(GeoLocation? value) { _value.Origin = value; return this; }
 	/// <summary>An array of ranges used to bucket documents.</summary>
 		public GeoDistanceAggregationFieldsDescriptor Ranges(List<AggregationRange>? value) { _value.Ranges = value; return this; }
 	/// <summary>An array of ranges used to bucket documents.</summary>

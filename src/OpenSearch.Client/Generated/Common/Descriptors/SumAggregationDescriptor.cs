@@ -11,7 +11,7 @@ public sealed class SumAggregationDescriptor
 
 	public SumAggregationDescriptor Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
 	public SumAggregationDescriptor Field(string? value) { _value.Field = value; return this; }
-	public SumAggregationDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
+	public SumAggregationDescriptor Script(Script? value) { _value.Script = value; return this; }
 	public SumAggregationDescriptor Format(string? value) { _value.Format = value; return this; }
 
 	public static implicit operator SumAggregation(SumAggregationDescriptor descriptor) => descriptor._value;

@@ -1,10 +1,10 @@
 using System.Text.Json;
 
-namespace OpenSearch.Client.Core;
+namespace OpenSearch.Client.Common;
 
 /// <summary>
 /// Convenience extension methods for <see cref="DecayFunctionDescriptor"/> to provide
-/// typed field-level decay configuration instead of raw <c>AdditionalProperties</c>.
+/// typed field-level decay configuration instead of raw <c>ExtensionData</c>.
 /// </summary>
 public static class DecayFunctionExtensions
 {
@@ -26,8 +26,8 @@ public static class DecayFunctionExtensions
 		if (offset is not null) props["offset"] = offset;
 		if (decay is not null) props["decay"] = decay.Value;
 
-		d._value.AdditionalProperties ??= new();
-		d._value.AdditionalProperties[field] = JsonSerializer.SerializeToElement(props);
+		d._value.ExtensionData ??= new();
+		d._value.ExtensionData[field] = JsonSerializer.SerializeToElement(props);
 		return d;
 	}
 }

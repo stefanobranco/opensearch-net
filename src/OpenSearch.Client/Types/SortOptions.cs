@@ -1,5 +1,5 @@
 using System.Text.Json.Serialization;
-using OpenSearch.Client.Core;
+using OpenSearch.Client.Common;
 
 namespace OpenSearch.Client;
 

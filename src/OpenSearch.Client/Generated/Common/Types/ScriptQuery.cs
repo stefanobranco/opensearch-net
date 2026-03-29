@@ -12,5 +12,5 @@ public sealed class ScriptQuery
 		public float? Boost { get; set; }
 	[JsonPropertyName("_name")]
 	public string? Name { get; set; }
-	public System.Text.Json.JsonElement? Script { get; set; }
+	public Script? Script { get; set; }
 }

@@ -73,7 +73,7 @@ public sealed class IntervalsFilterDescriptor
 		_value.Overlapping = descriptor;
 		return this;
 	}
-	public IntervalsFilterDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
+	public IntervalsFilterDescriptor Script(Script? value) { _value.Script = value; return this; }
 
 	public static implicit operator IntervalsFilter(IntervalsFilterDescriptor descriptor) => descriptor._value;
 }

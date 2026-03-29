@@ -11,9 +11,9 @@ public sealed class GeoCentroidAggregationDescriptor
 
 	public GeoCentroidAggregationDescriptor Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
 	public GeoCentroidAggregationDescriptor Field(string? value) { _value.Field = value; return this; }
-	public GeoCentroidAggregationDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
+	public GeoCentroidAggregationDescriptor Script(Script? value) { _value.Script = value; return this; }
 	public GeoCentroidAggregationDescriptor Count(long? value) { _value.Count = value; return this; }
-	public GeoCentroidAggregationDescriptor Location(System.Text.Json.JsonElement? value) { _value.Location = value; return this; }
+	public GeoCentroidAggregationDescriptor Location(GeoLocation? value) { _value.Location = value; return this; }
 
 	public static implicit operator GeoCentroidAggregation(GeoCentroidAggregationDescriptor descriptor) => descriptor._value;
 }

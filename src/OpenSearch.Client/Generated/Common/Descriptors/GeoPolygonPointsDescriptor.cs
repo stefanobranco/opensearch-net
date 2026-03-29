@@ -9,7 +9,7 @@ public sealed class GeoPolygonPointsDescriptor
 {
 	internal GeoPolygonPoints _value = new();
 
-	public GeoPolygonPointsDescriptor Points(List<System.Text.Json.JsonElement>? value) { _value.Points = value; return this; }
+	public GeoPolygonPointsDescriptor Points(List<GeoLocation>? value) { _value.Points = value; return this; }
 
 	public static implicit operator GeoPolygonPoints(GeoPolygonPointsDescriptor descriptor) => descriptor._value;
 }

@@ -12,7 +12,7 @@ public sealed class DistanceFeatureQuery
 		public float? Boost { get; set; }
 	[JsonPropertyName("_name")]
 	public string? Name { get; set; }
-	public System.Text.Json.JsonElement? Origin { get; set; }
+	public GeoLocation? Origin { get; set; }
 	public string? Pivot { get; set; }
 	public string? Field { get; set; }
 }

@@ -23,7 +23,7 @@ public sealed class ShrinkIndexRequestDescriptor
 	/// <summary>Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error.</summary>
 		public ShrinkIndexRequestDescriptor Timeout(string? value) { _value.Timeout = value; return this; }
 	/// <summary>The number of shard copies that must be active before proceeding with the operation. Set to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`).</summary>
-		public ShrinkIndexRequestDescriptor WaitForActiveShards(System.Text.Json.JsonElement? value) { _value.WaitForActiveShards = value; return this; }
+		public ShrinkIndexRequestDescriptor WaitForActiveShards(string? value) { _value.WaitForActiveShards = value; return this; }
 	/// <summary>Should this request wait until the operation has completed before returning.</summary>
 		public ShrinkIndexRequestDescriptor WaitForCompletion(bool? value) { _value.WaitForCompletion = value; return this; }
 	/// <summary>The key is the alias name. Index alias names support date math.</summary>

@@ -36,7 +36,7 @@ public sealed class HealthClusterRequest
 	public string? Timeout { get; set; }
 	/// <summary></summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? WaitForActiveShards { get; set; }
+	public string? WaitForActiveShards { get; set; }
 	/// <summary></summary>
 	[JsonIgnore]
 	public string? WaitForEvents { get; set; }
@@ -79,7 +79,7 @@ public sealed class HealthClusterEndpoint : IEndpoint<HealthClusterRequest, Heal
 		if (r.Timeout is not null)
 			queryParts.Add($"timeout={Uri.EscapeDataString(r.Timeout!)}");
 		if (r.WaitForActiveShards is not null)
-			queryParts.Add($"wait_for_active_shards={Uri.EscapeDataString(r.WaitForActiveShards.ToString()!)}");
+			queryParts.Add($"wait_for_active_shards={Uri.EscapeDataString(r.WaitForActiveShards!)}");
 		if (r.WaitForEvents is not null)
 			queryParts.Add($"wait_for_events={Uri.EscapeDataString(r.WaitForEvents!)}");
 		if (r.WaitForNoInitializingShards is not null)

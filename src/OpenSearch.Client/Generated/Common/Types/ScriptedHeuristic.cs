@@ -8,5 +8,5 @@ namespace OpenSearch.Client.Common;
 
 public sealed class ScriptedHeuristic
 {
-	public System.Text.Json.JsonElement? Script { get; set; }
+	public Script? Script { get; set; }
 }

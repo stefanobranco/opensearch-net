@@ -13,7 +13,7 @@ namespace OpenSearch.Client.Common;
 public sealed class ScriptField
 {
 	/// <summary>The script to execute for this field.</summary>
-		public System.Text.Json.JsonElement? Script { get; set; }
+		public Script? Script { get; set; }
 	/// <summary>Whether to ignore failures during script execution.</summary>
 		public bool? IgnoreFailure { get; set; }
 }

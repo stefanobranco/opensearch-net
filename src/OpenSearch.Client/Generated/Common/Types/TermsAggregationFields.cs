@@ -28,5 +28,5 @@ public sealed class TermsAggregationFields
 		public int? Size { get; set; }
 	public string? Format { get; set; }
 	public string? Field { get; set; }
-	public System.Text.Json.JsonElement? Script { get; set; }
+	public Script? Script { get; set; }
 }

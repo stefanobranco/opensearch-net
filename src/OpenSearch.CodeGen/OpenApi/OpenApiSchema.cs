@@ -47,6 +47,25 @@ public sealed class OpenApiSchema
 	}
 
 	public string? Ref => TryGetString("$ref", out var v) ? v : null;
+
+	/// <summary>
+	/// Returns the $ref string qualified with the context file path when it's a local ref.
+	/// Local refs like <c>#/components/schemas/Foo</c> become
+	/// <c>path/to/_common.yaml#/components/schemas/Foo</c> so the caller can determine
+	/// which file the ref belongs to.
+	/// </summary>
+	public string? QualifiedRef
+	{
+		get
+		{
+			if (!TryGetString("$ref", out var v))
+				return null;
+			var hashIndex = v.IndexOf('#');
+			if (hashIndex == 0) // local ref
+				return _contextFile + v;
+			return v;
+		}
+	}
 	public string? Type => GetTypeString();
 	public string? Format => TryGetString("format", out var v) ? v : null;
 	public string? Description => TryGetString("description", out var v) ? v : null;

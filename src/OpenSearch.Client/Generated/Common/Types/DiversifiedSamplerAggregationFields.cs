@@ -11,7 +11,7 @@ public sealed class DiversifiedSamplerAggregationFields
 	public SamplerAggregationExecutionHint? ExecutionHint { get; set; }
 	/// <summary>Limits how many documents are permitted per choice of de-duplicating value.</summary>
 		public int? MaxDocsPerValue { get; set; }
-	public System.Text.Json.JsonElement? Script { get; set; }
+	public Script? Script { get; set; }
 	/// <summary>Limits how many top-scoring documents are collected in the sample processed on each shard.</summary>
 		public int? ShardSize { get; set; }
 	public string? Field { get; set; }

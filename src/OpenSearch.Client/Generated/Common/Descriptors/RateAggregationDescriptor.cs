@@ -11,7 +11,7 @@ public sealed class RateAggregationDescriptor
 
 	public RateAggregationDescriptor Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
 	public RateAggregationDescriptor Field(string? value) { _value.Field = value; return this; }
-	public RateAggregationDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
+	public RateAggregationDescriptor Script(Script? value) { _value.Script = value; return this; }
 	public RateAggregationDescriptor Format(string? value) { _value.Format = value; return this; }
 	public RateAggregationDescriptor Unit(string? value) { _value.Unit = value; return this; }
 	public RateAggregationDescriptor Mode(RateMode? value) { _value.Mode = value; return this; }

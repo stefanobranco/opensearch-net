@@ -12,7 +12,7 @@ public sealed class CompositeHistogramAggregationSourceDescriptor
 	public CompositeHistogramAggregationSourceDescriptor Field(string? value) { _value.Field = value; return this; }
 	public CompositeHistogramAggregationSourceDescriptor MissingBucket(bool? value) { _value.MissingBucket = value; return this; }
 	public CompositeHistogramAggregationSourceDescriptor MissingOrder(MissingOrder? value) { _value.MissingOrder = value; return this; }
-	public CompositeHistogramAggregationSourceDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
+	public CompositeHistogramAggregationSourceDescriptor Script(Script? value) { _value.Script = value; return this; }
 	public CompositeHistogramAggregationSourceDescriptor ValueType(ValueType? value) { _value.ValueType = value; return this; }
 	public CompositeHistogramAggregationSourceDescriptor Order(SortOrder? value) { _value.Order = value; return this; }
 	public CompositeHistogramAggregationSourceDescriptor Interval(double value) { _value.Interval = value; return this; }

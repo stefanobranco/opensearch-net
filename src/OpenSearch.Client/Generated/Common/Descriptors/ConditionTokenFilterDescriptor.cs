@@ -12,7 +12,7 @@ public sealed class ConditionTokenFilterDescriptor
 	public ConditionTokenFilterDescriptor Version(string? value) { _value.Version = value; return this; }
 	public ConditionTokenFilterDescriptor Type(string? value) { _value.Type = value; return this; }
 	public ConditionTokenFilterDescriptor Filter(List<string>? value) { _value.Filter = value; return this; }
-	public ConditionTokenFilterDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
+	public ConditionTokenFilterDescriptor Script(Script? value) { _value.Script = value; return this; }
 
 	public static implicit operator ConditionTokenFilter(ConditionTokenFilterDescriptor descriptor) => descriptor._value;
 }

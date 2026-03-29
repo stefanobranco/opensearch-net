@@ -30,7 +30,14 @@ public sealed class KnnQueryDescriptor
 		return this;
 	}
 	public KnnQueryDescriptor MethodParameters(Dictionary<string, object>? value) { _value.MethodParameters = value; return this; }
-	public KnnQueryDescriptor Rescore(System.Text.Json.JsonElement? value) { _value.Rescore = value; return this; }
+	public KnnQueryDescriptor Rescore(RescoreContext? value) { _value.Rescore = value; return this; }
+	public KnnQueryDescriptor Rescore(Action<RescoreContextDescriptor> configure)
+	{
+		var descriptor = new RescoreContextDescriptor();
+		configure(descriptor);
+		_value.Rescore = descriptor;
+		return this;
+	}
 	public KnnQueryDescriptor ExpandNestedDocs(bool? value) { _value.ExpandNestedDocs = value; return this; }
 
 	public static implicit operator KnnQuery(KnnQueryDescriptor descriptor) => descriptor._value;

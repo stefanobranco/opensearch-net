@@ -9,7 +9,7 @@ public sealed class MovingFunctionAggregationDescriptor
 {
 	internal MovingFunctionAggregation _value = new();
 
-	public MovingFunctionAggregationDescriptor BucketsPath(System.Text.Json.JsonElement? value) { _value.BucketsPath = value; return this; }
+	public MovingFunctionAggregationDescriptor BucketsPath(string? value) { _value.BucketsPath = value; return this; }
 	/// <summary>`DecimalFormat` pattern for the output value. If specified, the formatted value is returned in the aggregation's `value_as_string` property.</summary>
 		public MovingFunctionAggregationDescriptor Format(string? value) { _value.Format = value; return this; }
 	public MovingFunctionAggregationDescriptor GapPolicy(GapPolicy? value) { _value.GapPolicy = value; return this; }

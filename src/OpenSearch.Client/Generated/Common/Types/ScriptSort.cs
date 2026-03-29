@@ -10,7 +10,7 @@ public sealed class ScriptSort
 {
 	public SortOrder? Order { get; set; }
 	/// <summary>The script to use for sorting.</summary>
-		public System.Text.Json.JsonElement? Script { get; set; }
+		public Script? Script { get; set; }
 	/// <summary>The type of the script sort value.</summary>
 		public string? Type { get; set; }
 	/// <summary>The mode for sorting on array or multi-valued fields.</summary>

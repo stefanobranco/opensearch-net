@@ -22,6 +22,6 @@ public sealed class KnnQuery
 	/// <summary>The filter for the k-NN search query.</summary>
 		public QueryContainer? Filter { get; set; }
 	public Dictionary<string, object>? MethodParameters { get; set; }
-	public System.Text.Json.JsonElement? Rescore { get; set; }
+	public RescoreContext? Rescore { get; set; }
 	public bool? ExpandNestedDocs { get; set; }
 }

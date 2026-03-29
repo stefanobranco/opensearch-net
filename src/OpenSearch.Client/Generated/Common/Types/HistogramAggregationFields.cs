@@ -20,7 +20,7 @@ public sealed class HistogramAggregationFields<T>
 	/// <summary>By default, the bucket keys start with 0 and then continue in even spaced steps of `interval`. The bucket boundaries can be shifted by using the `offset` option.</summary>
 		public double? Offset { get; set; }
 	public HistogramOrder? Order { get; set; }
-	public System.Text.Json.JsonElement? Script { get; set; }
+	public Script? Script { get; set; }
 	public string? Format { get; set; }
 	/// <summary>If `true`, returns buckets as a hash instead of an array, keyed by the bucket keys.</summary>
 		public bool? Keyed { get; set; }

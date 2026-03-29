@@ -11,7 +11,7 @@ public sealed class StatsAggregationDescriptor
 
 	public StatsAggregationDescriptor Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
 	public StatsAggregationDescriptor Field(string? value) { _value.Field = value; return this; }
-	public StatsAggregationDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
+	public StatsAggregationDescriptor Script(Script? value) { _value.Script = value; return this; }
 	public StatsAggregationDescriptor Format(string? value) { _value.Format = value; return this; }
 
 	public static implicit operator StatsAggregation(StatsAggregationDescriptor descriptor) => descriptor._value;

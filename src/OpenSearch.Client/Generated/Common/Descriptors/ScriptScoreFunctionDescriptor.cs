@@ -9,7 +9,7 @@ public sealed class ScriptScoreFunctionDescriptor
 {
 	internal ScriptScoreFunction _value = new();
 
-	public ScriptScoreFunctionDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
+	public ScriptScoreFunctionDescriptor Script(Script? value) { _value.Script = value; return this; }
 
 	public static implicit operator ScriptScoreFunction(ScriptScoreFunctionDescriptor descriptor) => descriptor._value;
 }

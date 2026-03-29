@@ -11,7 +11,7 @@ public sealed class ScriptSortDescriptor
 
 	public ScriptSortDescriptor Order(SortOrder? value) { _value.Order = value; return this; }
 	/// <summary>The script to use for sorting.</summary>
-		public ScriptSortDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
+		public ScriptSortDescriptor Script(Script? value) { _value.Script = value; return this; }
 	/// <summary>The type of the script sort value.</summary>
 		public ScriptSortDescriptor Type(string? value) { _value.Type = value; return this; }
 	/// <summary>The mode for sorting on array or multi-valued fields.</summary>

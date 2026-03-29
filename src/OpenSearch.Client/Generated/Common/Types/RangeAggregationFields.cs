@@ -13,7 +13,7 @@ public sealed class RangeAggregationFields
 		public int? Missing { get; set; }
 	/// <summary>An array of ranges used to bucket documents.</summary>
 		public List<AggregationRange>? Ranges { get; set; }
-	public System.Text.Json.JsonElement? Script { get; set; }
+	public Script? Script { get; set; }
 	/// <summary>Set to `true` to associate a unique string key with each bucket and return the ranges as a hash rather than an array.</summary>
 		public bool? Keyed { get; set; }
 	public string? Format { get; set; }

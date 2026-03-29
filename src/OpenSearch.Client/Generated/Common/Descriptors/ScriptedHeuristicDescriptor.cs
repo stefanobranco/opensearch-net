@@ -9,7 +9,7 @@ public sealed class ScriptedHeuristicDescriptor
 {
 	internal ScriptedHeuristic _value = new();
 
-	public ScriptedHeuristicDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
+	public ScriptedHeuristicDescriptor Script(Script? value) { _value.Script = value; return this; }
 
 	public static implicit operator ScriptedHeuristic(ScriptedHeuristicDescriptor descriptor) => descriptor._value;
 }

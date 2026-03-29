@@ -10,7 +10,7 @@ public sealed class MaxAggregation
 {
 	public System.Text.Json.JsonElement? Missing { get; set; }
 	public string? Field { get; set; }
-	public System.Text.Json.JsonElement? Script { get; set; }
+	public Script? Script { get; set; }
 	public string? Format { get; set; }
 	public ValueType? ValueType { get; set; }
 }

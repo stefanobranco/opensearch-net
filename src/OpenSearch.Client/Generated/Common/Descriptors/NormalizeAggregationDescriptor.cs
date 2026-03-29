@@ -9,7 +9,7 @@ public sealed class NormalizeAggregationDescriptor
 {
 	internal NormalizeAggregation _value = new();
 
-	public NormalizeAggregationDescriptor BucketsPath(System.Text.Json.JsonElement? value) { _value.BucketsPath = value; return this; }
+	public NormalizeAggregationDescriptor BucketsPath(string? value) { _value.BucketsPath = value; return this; }
 	/// <summary>`DecimalFormat` pattern for the output value. If specified, the formatted value is returned in the aggregation's `value_as_string` property.</summary>
 		public NormalizeAggregationDescriptor Format(string? value) { _value.Format = value; return this; }
 	public NormalizeAggregationDescriptor GapPolicy(GapPolicy? value) { _value.GapPolicy = value; return this; }

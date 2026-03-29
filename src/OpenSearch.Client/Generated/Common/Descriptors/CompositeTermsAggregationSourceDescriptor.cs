@@ -12,7 +12,7 @@ public sealed class CompositeTermsAggregationSourceDescriptor
 	public CompositeTermsAggregationSourceDescriptor Field(string? value) { _value.Field = value; return this; }
 	public CompositeTermsAggregationSourceDescriptor MissingBucket(bool? value) { _value.MissingBucket = value; return this; }
 	public CompositeTermsAggregationSourceDescriptor MissingOrder(MissingOrder? value) { _value.MissingOrder = value; return this; }
-	public CompositeTermsAggregationSourceDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
+	public CompositeTermsAggregationSourceDescriptor Script(Script? value) { _value.Script = value; return this; }
 	public CompositeTermsAggregationSourceDescriptor ValueType(ValueType? value) { _value.ValueType = value; return this; }
 	public CompositeTermsAggregationSourceDescriptor Order(SortOrder? value) { _value.Order = value; return this; }
 

@@ -9,6 +9,6 @@ namespace OpenSearch.Client.Common;
 public sealed class TestPopulation
 {
 	public string? Field { get; set; }
-	public System.Text.Json.JsonElement? Script { get; set; }
+	public Script? Script { get; set; }
 	public QueryContainer? Filter { get; set; }
 }

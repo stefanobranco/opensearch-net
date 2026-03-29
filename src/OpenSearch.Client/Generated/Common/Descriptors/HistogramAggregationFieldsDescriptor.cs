@@ -28,7 +28,7 @@ public sealed class HistogramAggregationFieldsDescriptor<T>
 		_value.Order = descriptor;
 		return this;
 	}
-	public HistogramAggregationFieldsDescriptor<T> Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
+	public HistogramAggregationFieldsDescriptor<T> Script(Script? value) { _value.Script = value; return this; }
 	public HistogramAggregationFieldsDescriptor<T> Format(string? value) { _value.Format = value; return this; }
 	/// <summary>If `true`, returns buckets as a hash instead of an array, keyed by the bucket keys.</summary>
 		public HistogramAggregationFieldsDescriptor<T> Keyed(bool? value) { _value.Keyed = value; return this; }

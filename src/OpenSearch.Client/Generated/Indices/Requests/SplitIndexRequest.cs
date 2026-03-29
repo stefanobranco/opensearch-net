@@ -34,7 +34,7 @@ public sealed class SplitIndexRequest
 	public string? Timeout { get; set; }
 	/// <summary>The number of shard copies that must be active before proceeding with the operation. Set to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`).</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? WaitForActiveShards { get; set; }
+	public string? WaitForActiveShards { get; set; }
 	/// <summary>Should this request wait until the operation has completed before returning.</summary>
 	[JsonIgnore]
 	public bool? WaitForCompletion { get; set; }
@@ -62,7 +62,7 @@ public sealed class SplitIndexEndpoint : IEndpoint<SplitIndexRequest, SplitIndex
 		if (r.Timeout is not null)
 			queryParts.Add($"timeout={Uri.EscapeDataString(r.Timeout!)}");
 		if (r.WaitForActiveShards is not null)
-			queryParts.Add($"wait_for_active_shards={Uri.EscapeDataString(r.WaitForActiveShards.ToString()!)}");
+			queryParts.Add($"wait_for_active_shards={Uri.EscapeDataString(r.WaitForActiveShards!)}");
 		if (r.WaitForCompletion is not null)
 			queryParts.Add($"wait_for_completion={Uri.EscapeDataString((r.WaitForCompletion.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;

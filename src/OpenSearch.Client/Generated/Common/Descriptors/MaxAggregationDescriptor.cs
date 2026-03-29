@@ -11,7 +11,7 @@ public sealed class MaxAggregationDescriptor
 
 	public MaxAggregationDescriptor Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
 	public MaxAggregationDescriptor Field(string? value) { _value.Field = value; return this; }
-	public MaxAggregationDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
+	public MaxAggregationDescriptor Script(Script? value) { _value.Script = value; return this; }
 	public MaxAggregationDescriptor Format(string? value) { _value.Format = value; return this; }
 	public MaxAggregationDescriptor ValueType(ValueType? value) { _value.ValueType = value; return this; }
 

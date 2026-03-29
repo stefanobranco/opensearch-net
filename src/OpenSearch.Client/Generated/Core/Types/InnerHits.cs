@@ -15,13 +15,13 @@ public sealed class InnerHits
 	/// <summary>The inner hit that initiates document offset.</summary>
 		public int? From { get; set; }
 	public FieldCollapse? Collapse { get; set; }
-	public List<System.Text.Json.JsonElement>? DocvalueFields { get; set; }
+	public List<FieldAndFormat>? DocvalueFields { get; set; }
 	public bool? Explain { get; set; }
 	public Highlight? Highlight { get; set; }
 	public bool? IgnoreUnmapped { get; set; }
 	public Dictionary<string, ScriptField>? ScriptFields { get; set; }
 	public bool? SeqNoPrimaryTerm { get; set; }
-	public List<System.Text.Json.JsonElement>? Fields { get; set; }
+	public List<FieldAndFormat>? Fields { get; set; }
 	public List<SortOptions>? Sort { get; set; }
 	[JsonPropertyName("_source")]
 	public SourceConfig? Source { get; set; }

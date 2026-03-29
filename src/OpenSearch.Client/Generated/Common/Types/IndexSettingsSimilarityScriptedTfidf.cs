@@ -12,6 +12,6 @@ namespace OpenSearch.Client.Common;
 
 public sealed class IndexSettingsSimilarityScriptedTfidf
 {
-	public System.Text.Json.JsonElement? Script { get; set; }
+	public Script? Script { get; set; }
 	public string? Type { get; set; }
 }

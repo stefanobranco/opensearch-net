@@ -73,6 +73,31 @@ public sealed class TypeMapper
 		["ErrorCause"] = TypeRef.Named("ErrorCause", "OpenSearch.Net.ErrorCause"),
 		["ResponseItem"] = TypeRef.Named("MgetResponseItem", "MgetResponseItem"), // oneOf GetResult|MultiGetError → hand-written
 		["Aggregate"] = TypeRef.Named("Aggregate", "Aggregate"), // non-generic; TDocument only matters for top_hits (lazily deserialized)
+		["Script"] = TypeRef.Named("Script", "Script"), // oneOf[InlineScript, StoredScriptId] → hand-written flat type
+		["GeoLocation"] = TypeRef.Named("GeoLocation", "GeoLocation"), // oneOf[LatLon, GeoHash, array, string] → hand-written with converter
+		["FieldAndFormat"] = TypeRef.Named("FieldAndFormat", "FieldAndFormat"), // oneOf[Field, object] → hand-written with converter
+		["RangeQuery"] = TypeRef.JsonElement(), // oneOf[NumberRangeQuery, DateRangeQuery] — variant depends on queried field type
+		["Like"] = TypeRef.JsonElement(), // oneOf[string, LikeDocument] — string shorthand or full document
+		["DecayPlacement"] = TypeRef.JsonElement(), // oneOf[DateDecay, GeoDecay, NumericDecay] — handled by DecayFunction
+		["GeoBounds"] = TypeRef.JsonElement(), // oneOf[4 coordinate formats]
+		["TermsQueryField"] = TypeRef.JsonElement(), // oneOf[array, TermsLookup]
+		["SourceFilter"] = TypeRef.JsonElement(), // oneOf[Fields, object] — handled by SourceConfig
+		["BucketsPath"] = TypeRef.String(), // oneOf[string, array, object] — typically a string path like "my_agg>my_metric"
+		["SourceConfigParam"] = TypeRef.JsonElement(), // oneOf[boolean, Fields] — query parameter form of _source
+		["Suggest"] = TypeRef.JsonElement(), // oneOf[allOf, PhraseSuggest, TermSuggest] — handled by SuggesterDescriptor
+		["TaskInfos"] = TypeRef.JsonElement(), // oneOf[array, object] — task info response varies by group_by
+		["TrackHits"] = TypeRef.JsonElement(), // oneOf[boolean, integer] — true/false or exact count threshold
+		["WaitForActiveShards"] = TypeRef.String(), // oneOf[StringifiedInteger, WaitForActiveShardOptions] — "1" or "all"
+		["Context"] = TypeRef.JsonElement(), // oneOf[string, GeoLocation] — completion context (category string or geo point)
+		["TermsInclude"] = TypeRef.JsonElement(), // oneOf[string, array, TermsPartition] — regex, list of values, or partition
+		["AggregateOrder"] = TypeRef.JsonElement(), // oneOf[object, array] — single or multi-value sort order
+		["CompletionContext"] = TypeRef.JsonElement(), // oneOf[Context, object] — completion context config
+		["IndexSettingsMergePolicy"] = TypeRef.JsonElement(), // oneOf[name, tiered policy config]
+		["CharFilter"] = TypeRef.JsonElement(), // oneOf[string, CharFilterDefinition] — built-in name or custom definition
+		["TokenFilter"] = TypeRef.JsonElement(), // oneOf[string, TokenFilterDefinition] — built-in name or custom definition
+		["Tokenizer"] = TypeRef.JsonElement(), // oneOf[string, TokenizerDefinition] — built-in name or custom definition
+		["XyLocation"] = TypeRef.JsonElement(), // oneOf[XyCartesianCoordinates, array, string] — xy point formats
+		["SegmentReplicationStats"] = TypeRef.JsonElement(), // oneOf[object, object] — different shapes based on context
 	};
 
 	/// <summary>
@@ -402,6 +427,12 @@ public sealed class TypeMapper
 				// (e.g., TotalHits: oneOf[$ref:TotalHits, type:integer] — bare integer is shorthand)
 				if (refType.Kind == TypeRefKind.Named && !refType.IsEnum
 					&& inlineType is "integer" or "number")
+					return refType;
+
+				// Ref resolves to a named object type + inline is boolean → use the named type
+				// (e.g., KnnQueryRescore: oneOf[type:boolean, $ref:RescoreContext] — true is shorthand for default config)
+				if (refType.Kind == TypeRefKind.Named && !refType.IsEnum
+					&& inlineType is "boolean")
 					return refType;
 			}
 		}

@@ -10,7 +10,7 @@ public sealed class TestPopulationDescriptor
 	internal TestPopulation _value = new();
 
 	public TestPopulationDescriptor Field(string? value) { _value.Field = value; return this; }
-	public TestPopulationDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
+	public TestPopulationDescriptor Script(Script? value) { _value.Script = value; return this; }
 	public TestPopulationDescriptor Filter(QueryContainer? value) { _value.Filter = value; return this; }
 	public TestPopulationDescriptor Filter(Action<QueryContainerDescriptor> configure)
 	{

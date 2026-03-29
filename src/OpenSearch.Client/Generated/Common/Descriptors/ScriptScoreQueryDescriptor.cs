@@ -22,7 +22,7 @@ public sealed class ScriptScoreQueryDescriptor
 		_value.Query = descriptor;
 		return this;
 	}
-	public ScriptScoreQueryDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
+	public ScriptScoreQueryDescriptor Script(Script? value) { _value.Script = value; return this; }
 
 	public static implicit operator ScriptScoreQuery(ScriptScoreQueryDescriptor descriptor) => descriptor._value;
 }

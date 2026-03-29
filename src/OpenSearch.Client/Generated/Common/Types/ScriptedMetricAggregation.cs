@@ -10,11 +10,11 @@ public sealed class ScriptedMetricAggregation
 {
 	public System.Text.Json.JsonElement? Missing { get; set; }
 	public string? Field { get; set; }
-	public System.Text.Json.JsonElement? Script { get; set; }
-	public System.Text.Json.JsonElement? CombineScript { get; set; }
-	public System.Text.Json.JsonElement? InitScript { get; set; }
-	public System.Text.Json.JsonElement? MapScript { get; set; }
+	public Script? Script { get; set; }
+	public Script? CombineScript { get; set; }
+	public Script? InitScript { get; set; }
+	public Script? MapScript { get; set; }
 	/// <summary>A global object with script parameters for `init`, `map` and `combine` scripts. It is shared between the scripts.</summary>
 		public Dictionary<string, object>? Params { get; set; }
-	public System.Text.Json.JsonElement? ReduceScript { get; set; }
+	public Script? ReduceScript { get; set; }
 }

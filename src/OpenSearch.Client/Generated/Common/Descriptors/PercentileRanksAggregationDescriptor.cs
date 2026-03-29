@@ -11,7 +11,7 @@ public sealed class PercentileRanksAggregationDescriptor
 
 	public PercentileRanksAggregationDescriptor Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
 	public PercentileRanksAggregationDescriptor Field(string? value) { _value.Field = value; return this; }
-	public PercentileRanksAggregationDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
+	public PercentileRanksAggregationDescriptor Script(Script? value) { _value.Script = value; return this; }
 	public PercentileRanksAggregationDescriptor Format(string? value) { _value.Format = value; return this; }
 	/// <summary>By default, the aggregation associates a unique string key with each bucket and returns the ranges as a hash rather than an array. Set to `false` to disable this behavior.</summary>
 		public PercentileRanksAggregationDescriptor Keyed(bool? value) { _value.Keyed = value; return this; }

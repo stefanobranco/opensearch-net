@@ -56,8 +56,8 @@ public static class QueryDescriptorExtensions
 	/// </summary>
 	public static TermsQueryDescriptor Field(this TermsQueryDescriptor d, string field, params string[] values)
 	{
-		d._value.AdditionalProperties ??= new();
-		d._value.AdditionalProperties[field] = JsonSerializer.SerializeToElement(values);
+		d._value.ExtensionData ??= new();
+		d._value.ExtensionData[field] = JsonSerializer.SerializeToElement(values);
 		return d;
 	}
 
@@ -66,8 +66,8 @@ public static class QueryDescriptorExtensions
 	/// </summary>
 	public static TermsQueryDescriptor Field<TValue>(this TermsQueryDescriptor d, string field, params TValue[] values)
 	{
-		d._value.AdditionalProperties ??= new();
-		d._value.AdditionalProperties[field] = JsonSerializer.SerializeToElement(values);
+		d._value.ExtensionData ??= new();
+		d._value.ExtensionData[field] = JsonSerializer.SerializeToElement(values);
 		return d;
 	}
 
@@ -77,8 +77,8 @@ public static class QueryDescriptorExtensions
 	public static TermsQueryDescriptor Field<TDocument>(this TermsQueryDescriptor d,
 		Expression<Func<TDocument, object>> field, params string[] values)
 	{
-		d._value.AdditionalProperties ??= new();
-		d._value.AdditionalProperties[FieldExpressionVisitor.Resolve(field)] = JsonSerializer.SerializeToElement(values);
+		d._value.ExtensionData ??= new();
+		d._value.ExtensionData[FieldExpressionVisitor.Resolve(field)] = JsonSerializer.SerializeToElement(values);
 		return d;
 	}
 
@@ -88,8 +88,8 @@ public static class QueryDescriptorExtensions
 	public static TermsQueryDescriptor Field<TDocument, TValue>(this TermsQueryDescriptor d,
 		Expression<Func<TDocument, object>> field, params TValue[] values)
 	{
-		d._value.AdditionalProperties ??= new();
-		d._value.AdditionalProperties[FieldExpressionVisitor.Resolve(field)] = JsonSerializer.SerializeToElement(values);
+		d._value.ExtensionData ??= new();
+		d._value.ExtensionData[FieldExpressionVisitor.Resolve(field)] = JsonSerializer.SerializeToElement(values);
 		return d;
 	}
 

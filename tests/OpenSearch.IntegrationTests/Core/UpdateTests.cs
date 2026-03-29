@@ -1,5 +1,6 @@
 using System.Text.Json;
 using FluentAssertions;
+using OpenSearch.Client;
 using OpenSearch.Client.Core;
 using OpenSearch.IntegrationTests.Infrastructure;
 
@@ -74,12 +75,13 @@ public class UpdateTests : IntegrationTestBase
 		{
 			Index = index,
 			Id = "1",
-			Script = JsonSerializer.SerializeToElement(new
-			{
-				source = "ctx._source.value += params.increment",
-				lang = "painless",
-				@params = new { increment = 5 }
-			}),
+			Script = Script.Inline(
+				"ctx._source.value += params.increment",
+				"painless",
+				new Dictionary<string, JsonElement>
+				{
+					["increment"] = JsonSerializer.SerializeToElement(5)
+				}),
 			Refresh = "true"
 		});
 

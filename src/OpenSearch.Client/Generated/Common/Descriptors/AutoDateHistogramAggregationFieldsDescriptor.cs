@@ -19,7 +19,7 @@ public sealed class AutoDateHistogramAggregationFieldsDescriptor
 	/// <summary>Time zone specified as a ISO 8601 UTC offset.</summary>
 		public AutoDateHistogramAggregationFieldsDescriptor Offset(string? value) { _value.Offset = value; return this; }
 	public AutoDateHistogramAggregationFieldsDescriptor Params(Dictionary<string, object>? value) { _value.Params = value; return this; }
-	public AutoDateHistogramAggregationFieldsDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
+	public AutoDateHistogramAggregationFieldsDescriptor Script(Script? value) { _value.Script = value; return this; }
 	public AutoDateHistogramAggregationFieldsDescriptor TimeZone(string? value) { _value.TimeZone = value; return this; }
 
 	public static implicit operator AutoDateHistogramAggregationFields(AutoDateHistogramAggregationFieldsDescriptor descriptor) => descriptor._value;

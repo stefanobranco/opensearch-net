@@ -39,7 +39,7 @@ public sealed class CreateRequest
 	public string? VersionType { get; set; }
 	/// <summary>The number of shard copies that must be active before proceeding with the operation. Set to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`).</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? WaitForActiveShards { get; set; }
+	public string? WaitForActiveShards { get; set; }
 	/// <summary>The document to index.</summary>
 	[JsonIgnore]
 	public object? Body { get; set; }
@@ -67,7 +67,7 @@ public sealed class CreateEndpoint : IEndpoint<CreateRequest, CreateResponse>
 		if (r.VersionType is not null)
 			queryParts.Add($"version_type={Uri.EscapeDataString(r.VersionType!)}");
 		if (r.WaitForActiveShards is not null)
-			queryParts.Add($"wait_for_active_shards={Uri.EscapeDataString(r.WaitForActiveShards.ToString()!)}");
+			queryParts.Add($"wait_for_active_shards={Uri.EscapeDataString(r.WaitForActiveShards!)}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

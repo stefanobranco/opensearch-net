@@ -9,7 +9,7 @@ public sealed class SimpleMovingAverageAggregationDescriptor
 {
 	internal SimpleMovingAverageAggregation _value = new();
 
-	public SimpleMovingAverageAggregationDescriptor BucketsPath(System.Text.Json.JsonElement? value) { _value.BucketsPath = value; return this; }
+	public SimpleMovingAverageAggregationDescriptor BucketsPath(string? value) { _value.BucketsPath = value; return this; }
 	/// <summary>`DecimalFormat` pattern for the output value. If specified, the formatted value is returned in the aggregation's `value_as_string` property.</summary>
 		public SimpleMovingAverageAggregationDescriptor Format(string? value) { _value.Format = value; return this; }
 	public SimpleMovingAverageAggregationDescriptor GapPolicy(GapPolicy? value) { _value.GapPolicy = value; return this; }

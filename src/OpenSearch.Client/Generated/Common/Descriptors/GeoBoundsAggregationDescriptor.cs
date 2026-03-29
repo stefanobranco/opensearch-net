@@ -11,7 +11,7 @@ public sealed class GeoBoundsAggregationDescriptor
 
 	public GeoBoundsAggregationDescriptor Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
 	public GeoBoundsAggregationDescriptor Field(string? value) { _value.Field = value; return this; }
-	public GeoBoundsAggregationDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
+	public GeoBoundsAggregationDescriptor Script(Script? value) { _value.Script = value; return this; }
 	/// <summary>Specifies whether the bounding box should be allowed to overlap the international date line.</summary>
 		public GeoBoundsAggregationDescriptor WrapLongitude(bool? value) { _value.WrapLongitude = value; return this; }
 

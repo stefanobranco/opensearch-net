@@ -10,7 +10,7 @@ public sealed class BoxplotAggregation
 {
 	public System.Text.Json.JsonElement? Missing { get; set; }
 	public string? Field { get; set; }
-	public System.Text.Json.JsonElement? Script { get; set; }
+	public Script? Script { get; set; }
 	/// <summary>Limits the maximum number of nodes used by the underlying TDigest algorithm to `20 * compression`, enabling control of memory usage and approximation error.</summary>
 		public double? Compression { get; set; }
 }

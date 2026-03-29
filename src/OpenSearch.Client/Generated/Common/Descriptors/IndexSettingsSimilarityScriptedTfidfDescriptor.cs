@@ -9,7 +9,7 @@ public sealed class IndexSettingsSimilarityScriptedTfidfDescriptor
 {
 	internal IndexSettingsSimilarityScriptedTfidf _value = new();
 
-	public IndexSettingsSimilarityScriptedTfidfDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
+	public IndexSettingsSimilarityScriptedTfidfDescriptor Script(Script? value) { _value.Script = value; return this; }
 	public IndexSettingsSimilarityScriptedTfidfDescriptor Type(string? value) { _value.Type = value; return this; }
 
 	public static implicit operator IndexSettingsSimilarityScriptedTfidf(IndexSettingsSimilarityScriptedTfidfDescriptor descriptor) => descriptor._value;

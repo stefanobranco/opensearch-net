@@ -28,7 +28,7 @@ public sealed class DeleteRequestDescriptor
 	/// <summary>The specific version type: `external`, `external_gte`.</summary>
 		public DeleteRequestDescriptor VersionType(string? value) { _value.VersionType = value; return this; }
 	/// <summary>The number of shard copies that must be active before proceeding with the operation. Set to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`).</summary>
-		public DeleteRequestDescriptor WaitForActiveShards(System.Text.Json.JsonElement? value) { _value.WaitForActiveShards = value; return this; }
+		public DeleteRequestDescriptor WaitForActiveShards(string? value) { _value.WaitForActiveShards = value; return this; }
 
 	public static implicit operator DeleteRequest(DeleteRequestDescriptor descriptor) => descriptor._value;
 }

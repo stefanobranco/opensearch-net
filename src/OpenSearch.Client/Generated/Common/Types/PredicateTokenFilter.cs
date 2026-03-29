@@ -10,5 +10,5 @@ public sealed class PredicateTokenFilter
 {
 	public string? Version { get; set; }
 	public string? Type { get; set; }
-	public System.Text.Json.JsonElement? Script { get; set; }
+	public Script? Script { get; set; }
 }

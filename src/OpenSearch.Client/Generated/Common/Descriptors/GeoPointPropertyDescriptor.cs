@@ -21,7 +21,7 @@ public sealed class GeoPointPropertyDescriptor
 	public GeoPointPropertyDescriptor DocValues(bool? value) { _value.DocValues = value; return this; }
 	public GeoPointPropertyDescriptor IgnoreMalformed(bool? value) { _value.IgnoreMalformed = value; return this; }
 	public GeoPointPropertyDescriptor IgnoreZValue(bool? value) { _value.IgnoreZValue = value; return this; }
-	public GeoPointPropertyDescriptor NullValue(System.Text.Json.JsonElement? value) { _value.NullValue = value; return this; }
+	public GeoPointPropertyDescriptor NullValue(GeoLocation? value) { _value.NullValue = value; return this; }
 	public GeoPointPropertyDescriptor Type(string? value) { _value.Type = value; return this; }
 
 	public static implicit operator GeoPointProperty(GeoPointPropertyDescriptor descriptor) => descriptor._value;

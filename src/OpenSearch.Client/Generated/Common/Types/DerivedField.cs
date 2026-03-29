@@ -10,7 +10,7 @@ public sealed class DerivedField
 {
 	public string? Name { get; set; }
 	public string? Type { get; set; }
-	public System.Text.Json.JsonElement? Script { get; set; }
+	public Script? Script { get; set; }
 	public string? PrefilterField { get; set; }
 	public System.Text.Json.JsonElement? Properties { get; set; }
 	public bool? IgnoreMalformed { get; set; }

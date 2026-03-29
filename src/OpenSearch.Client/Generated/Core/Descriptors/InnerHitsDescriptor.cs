@@ -23,7 +23,7 @@ public sealed class InnerHitsDescriptor
 		_value.Collapse = descriptor;
 		return this;
 	}
-	public InnerHitsDescriptor DocvalueFields(List<System.Text.Json.JsonElement>? value) { _value.DocvalueFields = value; return this; }
+	public InnerHitsDescriptor DocvalueFields(List<FieldAndFormat>? value) { _value.DocvalueFields = value; return this; }
 	public InnerHitsDescriptor Explain(bool? value) { _value.Explain = value; return this; }
 	public InnerHitsDescriptor Highlight(Highlight? value) { _value.Highlight = value; return this; }
 	public InnerHitsDescriptor Highlight(Action<HighlightDescriptor> configure)
@@ -36,7 +36,7 @@ public sealed class InnerHitsDescriptor
 	public InnerHitsDescriptor IgnoreUnmapped(bool? value) { _value.IgnoreUnmapped = value; return this; }
 	public InnerHitsDescriptor ScriptFields(Dictionary<string, ScriptField>? value) { _value.ScriptFields = value; return this; }
 	public InnerHitsDescriptor SeqNoPrimaryTerm(bool? value) { _value.SeqNoPrimaryTerm = value; return this; }
-	public InnerHitsDescriptor Fields(List<System.Text.Json.JsonElement>? value) { _value.Fields = value; return this; }
+	public InnerHitsDescriptor Fields(List<FieldAndFormat>? value) { _value.Fields = value; return this; }
 	public InnerHitsDescriptor Sort(List<SortOptions>? value) { _value.Sort = value; return this; }
 	public InnerHitsDescriptor Source(SourceConfig? value) { _value.Source = value; return this; }
 	public InnerHitsDescriptor StoredFields(List<string>? value) { _value.StoredFields = value; return this; }

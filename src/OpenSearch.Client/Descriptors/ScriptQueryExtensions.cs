@@ -1,10 +1,10 @@
 using System.Text.Json;
 
-namespace OpenSearch.Client.Core;
+namespace OpenSearch.Client.Common;
 
 /// <summary>
 /// Convenience extension methods for <see cref="ScriptQueryDescriptor"/> to provide
-/// typed inline script configuration instead of raw <c>JsonElement</c>.
+/// typed inline script configuration.
 /// </summary>
 public static class ScriptQueryExtensions
 {
@@ -12,13 +12,9 @@ public static class ScriptQueryExtensions
 	/// Sets the script as an inline script with source, optional language, and optional parameters.
 	/// </summary>
 	public static ScriptQueryDescriptor Script(this ScriptQueryDescriptor d,
-		string source, string? lang = null, Dictionary<string, object>? @params = null)
+		string source, string? lang = null, Dictionary<string, JsonElement>? @params = null)
 	{
-		var script = new Dictionary<string, object> { ["source"] = source };
-		if (lang is not null) script["lang"] = lang;
-		if (@params is not null) script["params"] = @params;
-
-		d._value.Script = JsonSerializer.SerializeToElement(script);
+		d._value.Script = OpenSearch.Client.Script.Inline(source, lang, @params);
 		return d;
 	}
 }

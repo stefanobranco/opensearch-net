@@ -30,7 +30,7 @@ public sealed class DateHistogramAggregationFieldsDescriptor<T>
 		return this;
 	}
 	public DateHistogramAggregationFieldsDescriptor<T> Params(Dictionary<string, object>? value) { _value.Params = value; return this; }
-	public DateHistogramAggregationFieldsDescriptor<T> Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
+	public DateHistogramAggregationFieldsDescriptor<T> Script(Script? value) { _value.Script = value; return this; }
 	public DateHistogramAggregationFieldsDescriptor<T> TimeZone(string? value) { _value.TimeZone = value; return this; }
 	/// <summary>Set to `true` to associate a unique string key with each bucket and return the ranges as a hash rather than an array.</summary>
 		public DateHistogramAggregationFieldsDescriptor<T> Keyed(bool? value) { _value.Keyed = value; return this; }

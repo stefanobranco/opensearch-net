@@ -11,5 +11,5 @@ public sealed class WeightedAverageValue
 	public string? Field { get; set; }
 	/// <summary>A value or weight to use if the field is missing.</summary>
 		public double? Missing { get; set; }
-	public System.Text.Json.JsonElement? Script { get; set; }
+	public Script? Script { get; set; }
 }

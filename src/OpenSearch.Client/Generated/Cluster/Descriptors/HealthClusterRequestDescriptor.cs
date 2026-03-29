@@ -20,7 +20,7 @@ public sealed class HealthClusterRequestDescriptor
 		public HealthClusterRequestDescriptor Local(bool? value) { _value.Local = value; return this; }
 	/// <summary>The amount of time to wait for a response from the cluster manager node. For more information about supported time units, see [Common parameters](https://opensearch.org/docs/latest/api-reference/common-parameters/#time-units).</summary>
 		public HealthClusterRequestDescriptor Timeout(string? value) { _value.Timeout = value; return this; }
-	public HealthClusterRequestDescriptor WaitForActiveShards(System.Text.Json.JsonElement? value) { _value.WaitForActiveShards = value; return this; }
+	public HealthClusterRequestDescriptor WaitForActiveShards(string? value) { _value.WaitForActiveShards = value; return this; }
 	public HealthClusterRequestDescriptor WaitForEvents(string? value) { _value.WaitForEvents = value; return this; }
 	/// <summary>Whether to wait until there are no initializing shards in the cluster.</summary>
 		public HealthClusterRequestDescriptor WaitForNoInitializingShards(bool? value) { _value.WaitForNoInitializingShards = value; return this; }

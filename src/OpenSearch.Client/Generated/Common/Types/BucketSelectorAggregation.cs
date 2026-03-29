@@ -8,9 +8,9 @@ namespace OpenSearch.Client.Common;
 
 public sealed class BucketSelectorAggregation
 {
-	public System.Text.Json.JsonElement? BucketsPath { get; set; }
+	public string? BucketsPath { get; set; }
 	/// <summary>`DecimalFormat` pattern for the output value. If specified, the formatted value is returned in the aggregation's `value_as_string` property.</summary>
 		public string? Format { get; set; }
 	public GapPolicy? GapPolicy { get; set; }
-	public System.Text.Json.JsonElement? Script { get; set; }
+	public Script? Script { get; set; }
 }

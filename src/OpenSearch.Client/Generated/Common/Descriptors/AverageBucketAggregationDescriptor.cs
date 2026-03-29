@@ -9,7 +9,7 @@ public sealed class AverageBucketAggregationDescriptor
 {
 	internal AverageBucketAggregation _value = new();
 
-	public AverageBucketAggregationDescriptor BucketsPath(System.Text.Json.JsonElement? value) { _value.BucketsPath = value; return this; }
+	public AverageBucketAggregationDescriptor BucketsPath(string? value) { _value.BucketsPath = value; return this; }
 	/// <summary>`DecimalFormat` pattern for the output value. If specified, the formatted value is returned in the aggregation's `value_as_string` property.</summary>
 		public AverageBucketAggregationDescriptor Format(string? value) { _value.Format = value; return this; }
 	public AverageBucketAggregationDescriptor GapPolicy(GapPolicy? value) { _value.GapPolicy = value; return this; }

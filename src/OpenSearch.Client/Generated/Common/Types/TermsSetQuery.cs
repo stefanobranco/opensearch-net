@@ -13,6 +13,6 @@ public sealed class TermsSetQuery
 	[JsonPropertyName("_name")]
 	public string? Name { get; set; }
 	public string? MinimumShouldMatchField { get; set; }
-	public System.Text.Json.JsonElement? MinimumShouldMatchScript { get; set; }
+	public Script? MinimumShouldMatchScript { get; set; }
 	public List<string>? Terms { get; set; }
 }

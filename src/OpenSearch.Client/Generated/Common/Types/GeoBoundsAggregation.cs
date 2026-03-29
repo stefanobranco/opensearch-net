@@ -10,7 +10,7 @@ public sealed class GeoBoundsAggregation
 {
 	public System.Text.Json.JsonElement? Missing { get; set; }
 	public string? Field { get; set; }
-	public System.Text.Json.JsonElement? Script { get; set; }
+	public Script? Script { get; set; }
 	/// <summary>Specifies whether the bounding box should be allowed to overlap the international date line.</summary>
 		public bool? WrapLongitude { get; set; }
 }

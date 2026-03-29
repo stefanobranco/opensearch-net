@@ -10,7 +10,7 @@ public sealed class ScriptFieldDescriptor
 	internal ScriptField _value = new();
 
 	/// <summary>The script to execute for this field.</summary>
-		public ScriptFieldDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
+		public ScriptFieldDescriptor Script(Script? value) { _value.Script = value; return this; }
 	/// <summary>Whether to ignore failures during script execution.</summary>
 		public ScriptFieldDescriptor IgnoreFailure(bool? value) { _value.IgnoreFailure = value; return this; }
 

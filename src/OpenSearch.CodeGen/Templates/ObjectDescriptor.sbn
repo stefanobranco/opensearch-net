@@ -51,7 +51,7 @@ public sealed class {{ descriptor_name }}{{ if type_parameters }}<{{ type_parame
 {{~ end ~}}
 {{~ if has_additional_properties ~}}
 	/// <summary>Additional properties not captured by named fields.</summary>
-	public {{ descriptor_name }}{{ if type_parameters }}<{{ type_parameters | array.join ", " }}>{{ end }} AdditionalProperties(Dictionary<string, System.Text.Json.JsonElement>? value) { _value.AdditionalProperties = value; return this; }
+	public {{ descriptor_name }}{{ if type_parameters }}<{{ type_parameters | array.join ", " }}>{{ end }} ExtensionData(Dictionary<string, System.Text.Json.JsonElement>? value) { _value.ExtensionData = value; return this; }
 {{~ end ~}}
 
 	public static implicit operator {{ class_name }}{{ if type_parameters }}<{{ type_parameters | array.join ", " }}>{{ end }}({{ descriptor_name }}{{ if type_parameters }}<{{ type_parameters | array.join ", " }}>{{ end }} descriptor) => descriptor._value;

@@ -11,7 +11,7 @@ public sealed class AverageAggregationDescriptor
 
 	public AverageAggregationDescriptor Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
 	public AverageAggregationDescriptor Field(string? value) { _value.Field = value; return this; }
-	public AverageAggregationDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
+	public AverageAggregationDescriptor Script(Script? value) { _value.Script = value; return this; }
 	public AverageAggregationDescriptor Format(string? value) { _value.Format = value; return this; }
 
 	public static implicit operator AverageAggregation(AverageAggregationDescriptor descriptor) => descriptor._value;

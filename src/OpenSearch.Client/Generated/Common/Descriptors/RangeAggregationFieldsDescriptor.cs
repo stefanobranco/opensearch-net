@@ -27,7 +27,7 @@ public sealed class RangeAggregationFieldsDescriptor
 		_value.Ranges = list;
 		return this;
 	}
-	public RangeAggregationFieldsDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
+	public RangeAggregationFieldsDescriptor Script(Script? value) { _value.Script = value; return this; }
 	/// <summary>Set to `true` to associate a unique string key with each bucket and return the ranges as a hash rather than an array.</summary>
 		public RangeAggregationFieldsDescriptor Keyed(bool? value) { _value.Keyed = value; return this; }
 	public RangeAggregationFieldsDescriptor Format(string? value) { _value.Format = value; return this; }

@@ -10,7 +10,7 @@ public sealed class GeoCentroidAggregation
 {
 	public System.Text.Json.JsonElement? Missing { get; set; }
 	public string? Field { get; set; }
-	public System.Text.Json.JsonElement? Script { get; set; }
+	public Script? Script { get; set; }
 	public long? Count { get; set; }
-	public System.Text.Json.JsonElement? Location { get; set; }
+	public GeoLocation? Location { get; set; }
 }

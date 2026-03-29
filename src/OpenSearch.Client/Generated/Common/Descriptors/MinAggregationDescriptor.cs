@@ -11,7 +11,7 @@ public sealed class MinAggregationDescriptor
 
 	public MinAggregationDescriptor Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
 	public MinAggregationDescriptor Field(string? value) { _value.Field = value; return this; }
-	public MinAggregationDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
+	public MinAggregationDescriptor Script(Script? value) { _value.Script = value; return this; }
 	public MinAggregationDescriptor Format(string? value) { _value.Format = value; return this; }
 	public MinAggregationDescriptor ValueType(ValueType? value) { _value.ValueType = value; return this; }
 

@@ -9,7 +9,7 @@ public sealed class EwmaMovingAverageAggregationDescriptor
 {
 	internal EwmaMovingAverageAggregation _value = new();
 
-	public EwmaMovingAverageAggregationDescriptor BucketsPath(System.Text.Json.JsonElement? value) { _value.BucketsPath = value; return this; }
+	public EwmaMovingAverageAggregationDescriptor BucketsPath(string? value) { _value.BucketsPath = value; return this; }
 	/// <summary>`DecimalFormat` pattern for the output value. If specified, the formatted value is returned in the aggregation's `value_as_string` property.</summary>
 		public EwmaMovingAverageAggregationDescriptor Format(string? value) { _value.Format = value; return this; }
 	public EwmaMovingAverageAggregationDescriptor GapPolicy(GapPolicy? value) { _value.GapPolicy = value; return this; }

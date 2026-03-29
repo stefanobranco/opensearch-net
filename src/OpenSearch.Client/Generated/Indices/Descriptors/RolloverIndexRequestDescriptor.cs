@@ -21,7 +21,7 @@ public sealed class RolloverIndexRequestDescriptor
 	/// <summary>Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error.</summary>
 		public RolloverIndexRequestDescriptor Timeout(string? value) { _value.Timeout = value; return this; }
 	/// <summary>The number of shard copies that must be active before proceeding with the operation. Set to all or any positive integer up to the total number of shards in the index (`number_of_replicas+1`).</summary>
-		public RolloverIndexRequestDescriptor WaitForActiveShards(System.Text.Json.JsonElement? value) { _value.WaitForActiveShards = value; return this; }
+		public RolloverIndexRequestDescriptor WaitForActiveShards(string? value) { _value.WaitForActiveShards = value; return this; }
 	/// <summary>Aliases for the target index. Data streams do not support this parameter.</summary>
 		public RolloverIndexRequestDescriptor Aliases(Dictionary<string, Alias>? value) { _value.Aliases = value; return this; }
 	public RolloverIndexRequestDescriptor Conditions(RolloverConditions? value) { _value.Conditions = value; return this; }

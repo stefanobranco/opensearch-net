@@ -8,5 +8,5 @@ namespace OpenSearch.Client.Common;
 
 public sealed class GeoPolygonPoints
 {
-	public List<System.Text.Json.JsonElement>? Points { get; set; }
+	public List<GeoLocation>? Points { get; set; }
 }

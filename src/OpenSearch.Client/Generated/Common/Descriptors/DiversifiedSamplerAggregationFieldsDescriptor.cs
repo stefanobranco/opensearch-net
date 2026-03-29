@@ -12,7 +12,7 @@ public sealed class DiversifiedSamplerAggregationFieldsDescriptor
 	public DiversifiedSamplerAggregationFieldsDescriptor ExecutionHint(SamplerAggregationExecutionHint? value) { _value.ExecutionHint = value; return this; }
 	/// <summary>Limits how many documents are permitted per choice of de-duplicating value.</summary>
 		public DiversifiedSamplerAggregationFieldsDescriptor MaxDocsPerValue(int? value) { _value.MaxDocsPerValue = value; return this; }
-	public DiversifiedSamplerAggregationFieldsDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
+	public DiversifiedSamplerAggregationFieldsDescriptor Script(Script? value) { _value.Script = value; return this; }
 	/// <summary>Limits how many top-scoring documents are collected in the sample processed on each shard.</summary>
 		public DiversifiedSamplerAggregationFieldsDescriptor ShardSize(int? value) { _value.ShardSize = value; return this; }
 	public DiversifiedSamplerAggregationFieldsDescriptor Field(string? value) { _value.Field = value; return this; }

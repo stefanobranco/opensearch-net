@@ -22,7 +22,7 @@ public sealed class CloseIndexRequestDescriptor
 	/// <summary>Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error.</summary>
 		public CloseIndexRequestDescriptor Timeout(string? value) { _value.Timeout = value; return this; }
 	/// <summary>The number of shard copies that must be active before proceeding with the operation. Set to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`).</summary>
-		public CloseIndexRequestDescriptor WaitForActiveShards(System.Text.Json.JsonElement? value) { _value.WaitForActiveShards = value; return this; }
+		public CloseIndexRequestDescriptor WaitForActiveShards(string? value) { _value.WaitForActiveShards = value; return this; }
 
 	public static implicit operator CloseIndexRequest(CloseIndexRequestDescriptor descriptor) => descriptor._value;
 }

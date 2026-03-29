@@ -18,6 +18,6 @@ public sealed class AutoDateHistogramAggregationFields
 	/// <summary>Time zone specified as a ISO 8601 UTC offset.</summary>
 		public string? Offset { get; set; }
 	public Dictionary<string, object>? Params { get; set; }
-	public System.Text.Json.JsonElement? Script { get; set; }
+	public Script? Script { get; set; }
 	public string? TimeZone { get; set; }
 }

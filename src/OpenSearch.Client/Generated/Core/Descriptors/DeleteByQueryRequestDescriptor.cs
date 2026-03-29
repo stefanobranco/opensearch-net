@@ -73,7 +73,7 @@ public sealed class DeleteByQueryRequestDescriptor
 	/// <summary>If `true`, returns the document version as part of a hit.</summary>
 		public DeleteByQueryRequestDescriptor Version(bool? value) { _value.Version = value; return this; }
 	/// <summary>The number of shard copies that must be active before proceeding with the operation. Set to all or any positive integer up to the total number of shards in the index (`number_of_replicas+1`).</summary>
-		public DeleteByQueryRequestDescriptor WaitForActiveShards(System.Text.Json.JsonElement? value) { _value.WaitForActiveShards = value; return this; }
+		public DeleteByQueryRequestDescriptor WaitForActiveShards(string? value) { _value.WaitForActiveShards = value; return this; }
 	/// <summary>If `true`, the request blocks until the operation is complete.</summary>
 		public DeleteByQueryRequestDescriptor WaitForCompletion(bool? value) { _value.WaitForCompletion = value; return this; }
 	/// <summary>The maximum number of documents to delete.</summary>

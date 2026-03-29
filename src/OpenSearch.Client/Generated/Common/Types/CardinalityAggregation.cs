@@ -10,7 +10,7 @@ public sealed class CardinalityAggregation
 {
 	public System.Text.Json.JsonElement? Missing { get; set; }
 	public string? Field { get; set; }
-	public System.Text.Json.JsonElement? Script { get; set; }
+	public Script? Script { get; set; }
 	/// <summary>A unique count below which counts are expected to be close to accurate. This allows to trade memory for accuracy.</summary>
 		public int? PrecisionThreshold { get; set; }
 	public CardinalityExecutionMode? ExecutionHint { get; set; }

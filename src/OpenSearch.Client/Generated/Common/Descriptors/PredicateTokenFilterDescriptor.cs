@@ -11,7 +11,7 @@ public sealed class PredicateTokenFilterDescriptor
 
 	public PredicateTokenFilterDescriptor Version(string? value) { _value.Version = value; return this; }
 	public PredicateTokenFilterDescriptor Type(string? value) { _value.Type = value; return this; }
-	public PredicateTokenFilterDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
+	public PredicateTokenFilterDescriptor Script(Script? value) { _value.Script = value; return this; }
 
 	public static implicit operator PredicateTokenFilter(PredicateTokenFilterDescriptor descriptor) => descriptor._value;
 }

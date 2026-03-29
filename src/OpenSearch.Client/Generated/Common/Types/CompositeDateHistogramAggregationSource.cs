@@ -11,7 +11,7 @@ public sealed class CompositeDateHistogramAggregationSource
 	public string? Field { get; set; }
 	public bool? MissingBucket { get; set; }
 	public MissingOrder? MissingOrder { get; set; }
-	public System.Text.Json.JsonElement? Script { get; set; }
+	public Script? Script { get; set; }
 	public ValueType? ValueType { get; set; }
 	public SortOrder? Order { get; set; }
 	public string? Format { get; set; }

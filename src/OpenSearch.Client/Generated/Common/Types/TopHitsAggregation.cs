@@ -11,7 +11,7 @@ public sealed class TopHitsAggregation
 {
 	public System.Text.Json.JsonElement? Missing { get; set; }
 	public string? Field { get; set; }
-	public System.Text.Json.JsonElement? Script { get; set; }
+	public Script? Script { get; set; }
 	public List<string>? DocvalueFields { get; set; }
 	/// <summary>If `true`, returns detailed information about score computation as part of a hit.</summary>
 		public bool? Explain { get; set; }

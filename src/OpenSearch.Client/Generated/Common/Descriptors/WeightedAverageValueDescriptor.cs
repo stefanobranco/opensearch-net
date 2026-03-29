@@ -12,7 +12,7 @@ public sealed class WeightedAverageValueDescriptor
 	public WeightedAverageValueDescriptor Field(string? value) { _value.Field = value; return this; }
 	/// <summary>A value or weight to use if the field is missing.</summary>
 		public WeightedAverageValueDescriptor Missing(double? value) { _value.Missing = value; return this; }
-	public WeightedAverageValueDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
+	public WeightedAverageValueDescriptor Script(Script? value) { _value.Script = value; return this; }
 
 	public static implicit operator WeightedAverageValue(WeightedAverageValueDescriptor descriptor) => descriptor._value;
 }

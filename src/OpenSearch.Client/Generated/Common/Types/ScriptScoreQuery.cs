@@ -15,5 +15,5 @@ public sealed class ScriptScoreQuery
 	/// <summary>Documents with a score lower than this floating point number are excluded from the search results.</summary>
 		public float? MinScore { get; set; }
 	public QueryContainer? Query { get; set; }
-	public System.Text.Json.JsonElement? Script { get; set; }
+	public Script? Script { get; set; }
 }

@@ -11,7 +11,7 @@ public sealed class ExtendedStatsAggregationDescriptor
 
 	public ExtendedStatsAggregationDescriptor Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
 	public ExtendedStatsAggregationDescriptor Field(string? value) { _value.Field = value; return this; }
-	public ExtendedStatsAggregationDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
+	public ExtendedStatsAggregationDescriptor Script(Script? value) { _value.Script = value; return this; }
 	public ExtendedStatsAggregationDescriptor Format(string? value) { _value.Format = value; return this; }
 	/// <summary>The number of standard deviations above/below the mean to display.</summary>
 		public ExtendedStatsAggregationDescriptor Sigma(double? value) { _value.Sigma = value; return this; }

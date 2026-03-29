@@ -123,7 +123,7 @@ public sealed class SearchRequest
 	/// <summary>Boosts the `_score` of documents from specified indexes.</summary>
 		public List<Dictionary<string, float>>? IndicesBoost { get; set; }
 	/// <summary>Array of wildcard (`*`) patterns. The request returns doc values for field names matching these patterns in the `hits.fields` property of the response.</summary>
-		public List<System.Text.Json.JsonElement>? DocvalueFields { get; set; }
+		public List<FieldAndFormat>? DocvalueFields { get; set; }
 	/// <summary>Minimum `_score` for matching documents. Documents with a lower `_score` are not included in the search results.</summary>
 		public float? MinScore { get; set; }
 	public QueryContainer? PostFilter { get; set; }
@@ -146,7 +146,7 @@ public sealed class SearchRequest
 	[JsonPropertyName("_source")]
 	public SourceConfig? Source { get; set; }
 	/// <summary>Array of wildcard (`*`) patterns. The request returns values for field names matching these patterns in the `hits.fields` property of the response.</summary>
-		public List<System.Text.Json.JsonElement>? Fields { get; set; }
+		public List<FieldAndFormat>? Fields { get; set; }
 	public Suggester? Suggest { get; set; }
 	/// <summary>Maximum number of documents to collect for each shard. If a query reaches this limit, OpenSearch terminates the query early. OpenSearch collects documents before sorting. Use with caution. OpenSearch applies this parameter to each shard handling the request. When possible, let OpenSearch perform early termination automatically. Avoid specifying this parameter for requests that target data streams with backing indexes across multiple data tiers. If set to `0` (default), the query does not terminate early.</summary>
 		public int? TerminateAfter { get; set; }

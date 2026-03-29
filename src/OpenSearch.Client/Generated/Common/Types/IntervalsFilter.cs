@@ -16,5 +16,5 @@ public sealed class IntervalsFilter
 	public IntervalsContainer? NotContaining { get; set; }
 	public IntervalsContainer? NotOverlapping { get; set; }
 	public IntervalsContainer? Overlapping { get; set; }
-	public System.Text.Json.JsonElement? Script { get; set; }
+	public Script? Script { get; set; }
 }

@@ -13,7 +13,7 @@ public sealed class TermsSetQueryDescriptor
 		public TermsSetQueryDescriptor Boost(float? value) { _value.Boost = value; return this; }
 	public TermsSetQueryDescriptor Name(string? value) { _value.Name = value; return this; }
 	public TermsSetQueryDescriptor MinimumShouldMatchField(string? value) { _value.MinimumShouldMatchField = value; return this; }
-	public TermsSetQueryDescriptor MinimumShouldMatchScript(System.Text.Json.JsonElement? value) { _value.MinimumShouldMatchScript = value; return this; }
+	public TermsSetQueryDescriptor MinimumShouldMatchScript(Script? value) { _value.MinimumShouldMatchScript = value; return this; }
 	public TermsSetQueryDescriptor Terms(List<string>? value) { _value.Terms = value; return this; }
 
 	public static implicit operator TermsSetQuery(TermsSetQueryDescriptor descriptor) => descriptor._value;

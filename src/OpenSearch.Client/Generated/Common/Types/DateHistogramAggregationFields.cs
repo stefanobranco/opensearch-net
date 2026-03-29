@@ -22,7 +22,7 @@ public sealed class DateHistogramAggregationFields<T>
 	public string? Offset { get; set; }
 	public HistogramOrder? Order { get; set; }
 	public Dictionary<string, object>? Params { get; set; }
-	public System.Text.Json.JsonElement? Script { get; set; }
+	public Script? Script { get; set; }
 	public string? TimeZone { get; set; }
 	/// <summary>Set to `true` to associate a unique string key with each bucket and return the ranges as a hash rather than an array.</summary>
 		public bool? Keyed { get; set; }

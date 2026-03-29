@@ -10,7 +10,7 @@ public sealed class GeoDistanceAggregationFields
 {
 	public string? DistanceType { get; set; }
 	public string? Field { get; set; }
-	public System.Text.Json.JsonElement? Origin { get; set; }
+	public GeoLocation? Origin { get; set; }
 	/// <summary>An array of ranges used to bucket documents.</summary>
 		public List<AggregationRange>? Ranges { get; set; }
 	public string? Unit { get; set; }

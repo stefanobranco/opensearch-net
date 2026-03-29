@@ -29,7 +29,7 @@ public sealed class TermsAggregationFieldsDescriptor
 		public TermsAggregationFieldsDescriptor Size(int? value) { _value.Size = value; return this; }
 	public TermsAggregationFieldsDescriptor Format(string? value) { _value.Format = value; return this; }
 	public TermsAggregationFieldsDescriptor Field(string? value) { _value.Field = value; return this; }
-	public TermsAggregationFieldsDescriptor Script(System.Text.Json.JsonElement? value) { _value.Script = value; return this; }
+	public TermsAggregationFieldsDescriptor Script(Script? value) { _value.Script = value; return this; }
 
 	public static implicit operator TermsAggregationFields(TermsAggregationFieldsDescriptor descriptor) => descriptor._value;
 }
