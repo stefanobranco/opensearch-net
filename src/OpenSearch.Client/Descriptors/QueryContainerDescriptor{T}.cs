@@ -275,6 +275,13 @@ public sealed class QueryContainerDescriptor<TDocument>
 		return this;
 	}
 
+	/// <summary>Creates a match_none query with default settings.</summary>
+	public QueryContainerDescriptor<TDocument> MatchNone()
+	{
+		_value = QueryContainer.MatchNone(new MatchNoneQuery());
+		return this;
+	}
+
 	public QueryContainerDescriptor<TDocument> Ids(Action<IdsQueryDescriptor> configure)
 	{
 		var descriptor = new IdsQueryDescriptor();

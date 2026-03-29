@@ -78,10 +78,7 @@ public class UpdateTests : IntegrationTestBase
 			Script = Script.Inline(
 				"ctx._source.value += params.increment",
 				"painless",
-				new Dictionary<string, JsonElement>
-				{
-					["increment"] = JsonSerializer.SerializeToElement(5)
-				}),
+				new Dictionary<string, object> { ["increment"] = 5 }),
 			Refresh = "true"
 		});
 

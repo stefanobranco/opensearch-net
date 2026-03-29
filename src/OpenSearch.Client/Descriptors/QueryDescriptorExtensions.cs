@@ -93,6 +93,16 @@ public static class QueryDescriptorExtensions
 		return d;
 	}
 
+	// ── QueryContainerDescriptor zero-arg shortcuts ──
+
+	/// <summary>Creates a match_all query with default settings.</summary>
+	public static QueryContainerDescriptor MatchAll(this QueryContainerDescriptor d)
+	{ d._value = QueryContainer.MatchAll(new MatchAllQuery()); return d; }
+
+	/// <summary>Creates a match_none query with default settings.</summary>
+	public static QueryContainerDescriptor MatchNone(this QueryContainerDescriptor d)
+	{ d._value = QueryContainer.MatchNone(new MatchNoneQuery()); return d; }
+
 	// ── MoreLikeThisQueryDescriptor ──
 
 	/// <summary>

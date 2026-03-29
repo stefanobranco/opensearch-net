@@ -12,7 +12,7 @@ public static class ScriptQueryExtensions
 	/// Sets the script as an inline script with source, optional language, and optional parameters.
 	/// </summary>
 	public static ScriptQueryDescriptor Script(this ScriptQueryDescriptor d,
-		string source, string? lang = null, Dictionary<string, JsonElement>? @params = null)
+		string source, string? lang = null, Dictionary<string, object>? @params = null)
 	{
 		d._value.Script = OpenSearch.Client.Script.Inline(source, lang, @params);
 		return d;
