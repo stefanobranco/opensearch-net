@@ -20,16 +20,23 @@ public sealed class MsearchResponse : OpenSearchResponse
 	public IReadOnlyList<MsearchTypedResponse<T>> GetResponses<T>(JsonSerializerOptions? options = null)
 	{
 		if (Responses is null) return [];
-		return Responses.Select(item => new MsearchTypedResponse<T>
+		var result = new List<MsearchTypedResponse<T>>(Responses.Count);
+		foreach (var item in Responses)
 		{
-			Status = item.Status,
-			Took = item.Took,
-			TimedOut = item.TimedOut,
-			Hits = item.GetHits<T>(options),
-			Aggregations = item.GetAggregations(),
-			Suggest = item.GetSuggest<T>(),
-			Error = item.Error,
-		}).ToList();
+			result.Add(new MsearchTypedResponse<T>
+			{
+				Status = item.Status,
+				Took = item.Took,
+				TimedOut = item.TimedOut,
+				Hits = item.GetHits<T>(options),
+				Aggregations = item.GetAggregations(),
+				Suggest = item.GetSuggest<T>(),
+				Error = item.Error,
+			});
+			// Release raw JsonElement references so the backing JsonDocument can be GC'd.
+			item.ReleaseRawData();
+		}
+		return result;
 	}
 }
 
@@ -86,11 +93,13 @@ public sealed class MsearchResponseItem
 	{
 		if (Hits?.Hits is null) return [];
 		var opts = options ?? DefaultOptions;
-		return Hits.Hits
-			.Select(el => JsonSerializer.Deserialize<Hit<T>>(el.GetRawText(), opts))
-			.Where(h => h is not null)
-			.Select(h => h!)
-			.ToList();
+		var result = new List<Hit<T>>(Hits.Hits.Count);
+		foreach (var el in Hits.Hits)
+		{
+			var hit = JsonSerializer.Deserialize<Hit<T>>(el, opts);
+			if (hit is not null) result.Add(hit);
+		}
+		return result;
 	}
 
 	/// <summary>
@@ -102,7 +111,7 @@ public sealed class MsearchResponseItem
 			return null;
 
 		var raw = JsonSerializer.Deserialize<Dictionary<string, List<JsonElement>>>(
-			Suggest.Value.GetRawText(), DefaultOptions);
+			Suggest.Value, DefaultOptions);
 		return new SuggestDictionary<T>(raw);
 	}
 
@@ -115,8 +124,21 @@ public sealed class MsearchResponseItem
 			return new AggregateDictionary(null);
 
 		var raw = JsonSerializer.Deserialize<Dictionary<string, Common.Aggregate>>(
-			Aggregations.Value.GetRawText(), DefaultOptions);
+			Aggregations.Value, DefaultOptions);
 		return new AggregateDictionary(raw);
+	}
+
+	/// <summary>
+	/// Releases raw <see cref="JsonElement"/> fields so the backing <see cref="JsonDocument"/> can be GC'd.
+	/// Called after typed extraction to prevent the full response JSON from being retained in memory.
+	/// </summary>
+	internal void ReleaseRawData()
+	{
+		Hits = null;
+		Aggregations = null;
+		Suggest = null;
+		Shards = null;
+		Error = null;
 	}
 }
 
