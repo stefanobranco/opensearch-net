@@ -18,7 +18,7 @@ public static class OpenSearchJsonOptions
 	{
 		PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
 		NumberHandling = JsonNumberHandling.AllowReadingFromString,
-		MaxDepth = 256,
+		MaxDepth = 1024,
 		Converters = { new JsonEnumConverterFactory() },
 	};
 
@@ -31,7 +31,7 @@ public static class OpenSearchJsonOptions
 		PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
 		DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
 		NumberHandling = JsonNumberHandling.AllowReadingFromString,
-		MaxDepth = 256,
+		MaxDepth = 1024,
 		Converters = { new JsonEnumConverterFactory() },
 	};
 }
