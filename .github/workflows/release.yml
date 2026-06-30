@@ -6,6 +6,10 @@ on:
   push:
     tags: ['[0-9]+.[0-9]+.[0-9]+*']
 
+# Least privilege by default; the publish job opts up to contents: write.
+permissions:
+  contents: read
+
 jobs:
   # Gate the publish on the exact same build + test pipeline CI runs.
   test:
