@@ -1,0 +1,57 @@
+name: build-test
+
+# Reusable build + test pipeline. The single source of truth for "is this commit good?",
+# called by both ci.yml (push/PR) and release.yml (gate before publishing).
+on:
+  workflow_call:
+
+jobs:
+  unit:
+    name: Build & unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+
+      - name: Restore
+        run: dotnet restore
+
+      # Warnings-as-errors (set in Directory.Build.props) makes this gate the build.
+      - name: Build
+        run: dotnet build --no-restore -c Release
+
+      # Whole-solution test. Integration tests carry [SkipIfNoCluster] and report as
+      # Skipped when no cluster is reachable, so this runs every unit test — and
+      # auto-discovers any new test project — without a hardcoded project list.
+      - name: Test
+        run: dotnet test OpenSearch.sln --no-build -c Release
+
+  integration:
+    name: Integration tests
+    runs-on: ubuntu-latest
+    services:
+      # Mirrors docker-compose.yaml. single-node skips bootstrap checks (e.g. vm.max_map_count).
+      opensearch:
+        image: opensearchproject/opensearch:3.0.0
+        env:
+          discovery.type: single-node
+          DISABLE_SECURITY_PLUGIN: "true"
+          OPENSEARCH_JAVA_OPTS: -Xms512m -Xmx512m
+        ports:
+          - 9200:9200
+        options: >-
+          --health-cmd "curl -sf http://localhost:9200/_cluster/health || exit 1"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 40
+          --health-start-period 30s
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+
+      - name: Integration tests
+        env:
+          OPENSEARCH_URL: http://localhost:9200
+        run: >-
+          dotnet test tests/OpenSearch.IntegrationTests/OpenSearch.IntegrationTests.csproj
+          -c Release

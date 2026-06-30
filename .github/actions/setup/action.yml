@@ -1,0 +1,23 @@
+name: Setup .NET
+description: >-
+  Installs the pinned .NET SDK (from global.json) plus the net8 runtime needed
+  to execute net8.0 test targets, and restores the NuGet package cache.
+
+runs:
+  using: composite
+  steps:
+    # net8 runtime so net8.0 test targets can run; the SDK itself comes from global.json.
+    - uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+    - uses: actions/setup-dotnet@v4
+      with:
+        global-json-file: global.json
+
+    # No lock files in the repo, so key the cache on the project/build files directly.
+    - uses: actions/cache@v4
+      with:
+        path: ~/.nuget/packages
+        key: nuget-${{ runner.os }}-${{ hashFiles('**/*.csproj', 'Directory.Build.props', 'global.json') }}
+        restore-keys: |
+          nuget-${{ runner.os }}-

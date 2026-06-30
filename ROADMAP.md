@@ -1,0 +1,64 @@
+# Roadmap — "clean as possible"
+
+Internal cleanup plan for the v2 rebuild. Goal: make this client genuinely clean and
+well-engineered **on its own terms**, with no push for upstream adoption.
+
+## Direction (decided 2026-06-30)
+
+- **Independent package**, published to nuget.org as `SB.OpenSearch.Client` / `SB.OpenSearch.Net`.
+- **No upstream push** — no PRs to opensearch-project, no maintainer/adoption discussions.
+  If it organically becomes the client one day, fine; it won't be pushed there.
+- **Keep the honest framing** — "experimental / not the official package" disclaimers stay.
+  They're a deliberate, non-presumptuous posture (opensearch-net is an official AWS repo).
+- "Release properly" = a **technical + process** bar, not an adoption bar.
+
+## Current state (as of beta.4)
+
+- Phases 1–3 of the original build plan essentially done: transport, serialization, code
+  generator, ~349 request/response pairs, 65 query types, 77 aggregation types, NDJSON, SigV4.
+- Clean code (zero TODO/FIXME), `Nullable` + warnings-as-errors, 441 test methods, 23
+  integration-test files against a real cluster.
+- Gaps: no CI/CD, releases hand-run from a laptop; `snapshot` + `tasks` namespaces missing;
+  uneven integration depth for generated-but-untested namespaces; no perf testing.
+
+---
+
+## Phase A — Release infrastructure (foundation, do first)
+
+- [x] **A1. CI on PR** — reusable `build-test.yml` (unit job runs the whole solution; integration
+      tests self-skip via `[SkipIfNoCluster]`, so no hardcoded project list) + an integration job
+      against an OpenSearch service container (mirrors `docker-compose.yaml`). `ci.yml` calls it on
+      push/PR. A composite action (`.github/actions/setup`) centralizes SDK setup + NuGet caching.
+      _Future: matrix across multiple OpenSearch server versions._
+- [x] **A2. Automated publish** — `release.yml`: on a semver tag, gates on the same `build-test.yml`,
+      then packs (version derived from the tag) + `nuget push` + GitHub Release.
+      _Requires `NUGET_API_KEY` repo secret._
+- [ ] **A3. Release hygiene** in `Directory.Build.props` — SourceLink (`Microsoft.SourceLink.GitHub`),
+      `PublishRepositoryUrl`, `EmbedUntrackedSources`, `IncludeSymbols` + `snupkg`,
+      `Deterministic`, `ContinuousIntegrationBuild` (in CI).
+- [ ] **A4. (optional) Backfill tags** for prior published versions so history is traceable.
+
+## Phase B — Functional completeness (core gaps)
+
+- [ ] **B1. `snapshot` namespace** — generate + wire + test (backup/restore is core admin surface).
+- [ ] **B2. `tasks` namespace** — generate + wire + test (task management).
+- [ ] **B3.** Review remaining ungenerated namespaces; decide which (if any) are worth adding.
+
+## Phase C — Test depth / verification
+
+- [ ] **C1.** Integration smoke tests for generated-but-untested namespaces (Security, ML, Geospatial).
+- [ ] **C2.** Fill roundtrip-serialization coverage gaps.
+- [ ] **C3.** A first performance/scale pass.
+
+## Phase D — Package identity (open decision, not yet actioned)
+
+- [ ] **D1.** Decide whether to drop the `SB.` prefix for a cleaner neutral name.
+      Constraint: `OpenSearch.Client` / `OpenSearch.Net` are owned by opensearch-project and are
+      **unavailable** — this means a *different* neutral prefix, not the official IDs.
+- [ ] **D2.** If renaming: migration path — publish under the new ID, mark the old `SB.*` packages
+      deprecated, dual-publish for a transition window so existing consumers don't break.
+
+---
+
+**Recommended order:** A → B → C, with D decided whenever the naming choice firms up.
+Phase A first because it makes everything after it self-verifying and ends manual releases.

@@ -1,0 +1,49 @@
+name: Release
+
+# Fires when a semver tag is pushed (e.g. 3.4.0-beta.4, 3.4.0).
+# The tag is the source of truth for the published version.
+on:
+  push:
+    tags: ['[0-9]+.[0-9]+.[0-9]+*']
+
+jobs:
+  # Gate the publish on the exact same build + test pipeline CI runs.
+  test:
+    uses: ./.github/workflows/build-test.yml
+
+  publish:
+    name: Pack & publish to NuGet
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # create the GitHub Release
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+
+      # GITHUB_REF_NAME is the tag, e.g. "3.4.0-beta.4". Override CurrentVersion so the
+      # package version always matches the tag rather than whatever is committed in props.
+      - name: Pack
+        run: |
+          dotnet pack src/OpenSearch.Net/OpenSearch.Net.csproj \
+            -c Release -o artifacts -p:CurrentVersion="${GITHUB_REF_NAME}"
+          dotnet pack src/OpenSearch.Client/OpenSearch.Client.csproj \
+            -c Release -o artifacts -p:CurrentVersion="${GITHUB_REF_NAME}"
+
+      - name: Push to NuGet
+        run: >-
+          dotnet nuget push "artifacts/*.nupkg"
+          -s https://api.nuget.org/v3/index.json
+          -k "${{ secrets.NUGET_API_KEY }}"
+          --skip-duplicate
+
+      - name: GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          prerelease=""
+          case "${GITHUB_REF_NAME}" in *-*) prerelease="--prerelease" ;; esac
+          gh release create "${GITHUB_REF_NAME}" artifacts/*.nupkg \
+            --title "${GITHUB_REF_NAME}" \
+            --generate-notes \
+            $prerelease
