@@ -1,3 +1,4 @@
+using OpenSearch.CodeGen;
 using OpenSearch.CodeGen.Model;
 using OpenSearch.CodeGen.OpenApi;
 using OpenSearch.CodeGen.Transformer;
@@ -9,7 +10,7 @@ try
 	// Parse arguments
 	string specDir = args.Length > 1 && args[0] == "--spec-dir" ? args[1] : Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "Spec");
 	string outputDir = args.Length > 3 && args[2] == "--output-dir" ? args[3] : Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "OpenSearch.Client", "Generated"));
-	string namespacesArg = "indices";
+	string? namespacesArg = null;
 
 	// Parse --namespaces argument (can appear after --spec-dir and --output-dir)
 	for (int i = 0; i < args.Length - 1; i++)
@@ -21,7 +22,10 @@ try
 		}
 	}
 
-	var namespaces = namespacesArg.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+	// Default to the full committed namespace set when no --namespaces is given.
+	var namespaces = namespacesArg is null
+		? GeneratedNamespaces.All.ToArray()
+		: namespacesArg.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
 
 	// Resolve to absolute paths
 	specDir = Path.GetFullPath(specDir);

@@ -1,0 +1,30 @@
+# API namespaces shipped by the opensearch-java client, used as a cross-reference in the
+# coverage report. CI has no java checkout, so this list is vendored.
+#
+# Source: opensearch-project/opensearch-java @ 0707347 (pulled 2026-06-30)
+# Derived from: java-client/src/generated/java/org/opensearch/client/opensearch/<namespace>/
+# The java "core" namespace maps to our "_core".
+#
+# Refresh: ls that directory, map core->_core, drop _types, and update the commit above.
+#
+# Lines starting with '#' and blank lines are ignored.
+
+_core
+cat
+cluster
+dangling_indices
+geospatial
+indices
+ingest
+ingestion
+ism
+knn
+ltr
+ml
+nodes
+search_pipeline
+search_relevance
+security
+snapshot
+tasks
+ubi
