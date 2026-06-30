@@ -1,5 +1,4 @@
 using System.Linq.Expressions;
-using System.Text.Json;
 
 namespace OpenSearch.Client;
 
@@ -162,7 +161,7 @@ public sealed class QueryContainerDescriptor<TDocument>
 	{
 		var descriptor = new RangeQueryDescriptor();
 		configure(descriptor);
-		_value = QueryContainer.Range(Field.ResolveName<TDocument>(field), (JsonElement)descriptor);
+		_value = QueryContainer.Range(Field.ResolveName<TDocument>(field), (RangeQuery)descriptor);
 		return this;
 	}
 
@@ -171,7 +170,7 @@ public sealed class QueryContainerDescriptor<TDocument>
 	{
 		var descriptor = new RangeQueryDescriptor();
 		configure(descriptor);
-		_value = QueryContainer.Range(field, (JsonElement)descriptor);
+		_value = QueryContainer.Range(field, (RangeQuery)descriptor);
 		return this;
 	}
 

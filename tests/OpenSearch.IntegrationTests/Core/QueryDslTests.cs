@@ -111,7 +111,7 @@ public class QueryDslTests : IntegrationTestBase
 				Must =
 				[
 					QueryContainer.Match("category", new MatchQuery { Query = JsonSerializer.SerializeToElement("engineering") }),
-					QueryContainer.Range("age", JsonSerializer.SerializeToElement(new { gte = 30 }))
+					QueryContainer.Range("age", new RangeQuery { Gte = 30 })
 				]
 			})
 		});

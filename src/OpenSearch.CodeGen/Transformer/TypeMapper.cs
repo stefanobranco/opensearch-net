@@ -76,7 +76,7 @@ public sealed class TypeMapper
 		["Script"] = TypeRef.Named("Script", "Script"), // oneOf[InlineScript, StoredScriptId] → hand-written flat type
 		["GeoLocation"] = TypeRef.Named("GeoLocation", "GeoLocation"), // oneOf[LatLon, GeoHash, array, string] → hand-written with converter
 		["FieldAndFormat"] = TypeRef.Named("FieldAndFormat", "FieldAndFormat"), // oneOf[Field, object] → hand-written with converter
-		["RangeQuery"] = TypeRef.JsonElement(), // oneOf[NumberRangeQuery, DateRangeQuery] — variant depends on queried field type
+		["RangeQuery"] = TypeRef.Named("RangeQuery", "RangeQuery"), // oneOf[NumberRangeQuery, DateRangeQuery] → hand-written merged flat type (Types/RangeQuery.cs)
 		["Like"] = TypeRef.JsonElement(), // oneOf[string, LikeDocument] — string shorthand or full document
 		["DecayPlacement"] = TypeRef.JsonElement(), // oneOf[DateDecay, GeoDecay, NumericDecay] — handled by DecayFunction
 		["GeoBounds"] = TypeRef.JsonElement(), // oneOf[4 coordinate formats]
@@ -123,7 +123,11 @@ public sealed class TypeMapper
 			// collide with the hand-written ones once every type shares the root namespace.
 			"PhraseSuggest", "PhraseSuggestOption",
 			"TermSuggest", "TermSuggestOption",
-			"CompletionSuggest", "CompletionSuggestOption"]),
+			"CompletionSuggest", "CompletionSuggestOption",
+			// oneOf variants of RangeQuery, superseded by the hand-written merged RangeQuery
+			// (Types/RangeQuery.cs). Generated only because they were reachable through
+			// RangeQuery's oneOf; with RangeQuery overridden they would otherwise be orphans.
+			"NumberRangeQuery", "DateRangeQuery"]),
 		StringComparer.OrdinalIgnoreCase);
 
 	private readonly Dictionary<string, TypeRef> _namedTypes = new(StringComparer.Ordinal);

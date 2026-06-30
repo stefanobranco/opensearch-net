@@ -135,15 +135,34 @@ public class FieldQuerySerializationTests : SerializationTestBase
 	}
 
 	[Fact]
-	public void Range_serializes_field_keyed_and_round_trips()
+	public void Range_numeric_serializes_field_keyed_and_round_trips()
 	{
-		// Note: the generated Range variant is weakly typed (Dictionary<string, JsonElement>) — the
-		// typed NumberRangeQuery/DateRangeQuery shapes are not wired into the QueryContainer.Range
-		// factory, so the bound object is supplied as a raw JsonElement here.
-		var query = QueryContainer.Range("age", Element(new { gte = 10, lte = 20, boost = 2.0 }));
+		var query = QueryContainer.Range("age", new RangeQuery
+		{
+			Gte = 10,
+			Lte = 20,
+			Boost = 2.0f,
+			Relation = RangeRelation.Within,
+		});
 
 		var inner = AssertFieldKeyed(AssertRoundTrips(query), "range", "age");
 		inner.GetProperty("gte").GetInt32().Should().Be(10);
 		inner.GetProperty("lte").GetInt32().Should().Be(20);
+	}
+
+	[Fact]
+	public void Range_date_math_serializes_field_keyed_and_round_trips()
+	{
+		// The merged RangeQuery accepts date-math string bounds as well as numbers.
+		var query = QueryContainer.Range("timestamp", new RangeQuery
+		{
+			Gte = "now-1d/d",
+			Lte = "now",
+			Format = "strict_date_optional_time",
+		});
+
+		var inner = AssertFieldKeyed(AssertRoundTrips(query), "range", "timestamp");
+		inner.GetProperty("gte").GetString().Should().Be("now-1d/d");
+		inner.GetProperty("format").GetString().Should().Be("strict_date_optional_time");
 	}
 }
