@@ -1,7 +1,6 @@
 using System.Text.Json;
-using OpenSearch.Client.Common;
 
-namespace OpenSearch.Client.Core;
+namespace OpenSearch.Client;
 
 /// <summary>
 /// Extension methods for the generated <see cref="SearchRequestDescriptor"/> to add

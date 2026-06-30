@@ -2,8 +2,6 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using FluentAssertions;
 using OpenSearch.Client;
-using OpenSearch.Client.Common;
-using OpenSearch.Client.Core;
 using Xunit;
 
 namespace OpenSearch.Client.Tests;

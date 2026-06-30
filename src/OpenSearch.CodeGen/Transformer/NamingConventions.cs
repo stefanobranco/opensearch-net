@@ -113,10 +113,14 @@ public static partial class NamingConventions
 	/// </summary>
 	public static string NamespaceToClassName(string ns) => ToPascalCase(ns.TrimStart('_'));
 
-	// Class names that collide with System types (e.g., System.Action)
+	// Class names that collide with System types (e.g., System.Action,
+	// System.Threading.Tasks.Task). Now that every type lives in the root
+	// OpenSearch.Client namespace, an unprefixed DTO named like a commonly-used
+	// System type would shadow it for any code in the namespace tree.
 	private static readonly Dictionary<string, string> s_classNameRenames = new(StringComparer.Ordinal)
 	{
 		["Action"] = "IndexAction",
+		["Task"] = "OpenSearchTask",
 	};
 
 	/// <summary>

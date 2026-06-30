@@ -2,9 +2,8 @@
 #nullable enable
 
 using System.Text.Json.Serialization;
-using OpenSearch.Client.Core;
 
-namespace OpenSearch.Client.Common;
+namespace OpenSearch.Client;
 
 
 public sealed class SearchHitsHit
@@ -22,7 +21,7 @@ public sealed class SearchHitsHit
 	public string? Id { get; set; }
 	/// <summary>The score.</summary>
 		[JsonPropertyName("_score")]
-	public float Score { get; set; }
+	public float? Score { get; set; }
 	[JsonPropertyName("_source")]
 	public Source? Source { get; set; }
 	public string? ModelId { get; set; }

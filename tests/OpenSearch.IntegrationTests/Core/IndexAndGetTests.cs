@@ -1,6 +1,6 @@
 using FluentAssertions;
-using OpenSearch.Client.Core;
 using OpenSearch.IntegrationTests.Infrastructure;
+using OpenSearch.Client;
 
 namespace OpenSearch.IntegrationTests.Core;
 
@@ -12,7 +12,7 @@ public class IndexAndGetTests : IntegrationTestBase
 		var index = UniqueIndex();
 
 		// Create index first
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.CreateIndexRequest { Index = index });
 
 		// Index a document via bulk
 		var doc = new TestDocument { Title = "Hello OpenSearch", Count = 42 };
@@ -34,7 +34,7 @@ public class IndexAndGetTests : IntegrationTestBase
 		bulkResponse.Items.Should().HaveCount(1);
 
 		// Get the document back
-		var getResponse = Client.Core.Get<TestDocument>(new OpenSearch.Client.Core.GetRequest
+		var getResponse = Client.Core.Get<TestDocument>(new OpenSearch.Client.GetRequest
 		{
 			Index = index,
 			Id = "doc-1"

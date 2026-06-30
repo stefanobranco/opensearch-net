@@ -2,9 +2,8 @@
 #nullable enable
 
 using System.Text.Json.Serialization;
-using OpenSearch.Client.Common;
 
-namespace OpenSearch.Client.Geospatial;
+namespace OpenSearch.Client;
 
 public sealed class GeojsonUploadPostGeospatialRequestDescriptor
 {

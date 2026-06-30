@@ -2,9 +2,8 @@
 #nullable enable
 
 using System.Text.Json.Serialization;
-using OpenSearch.Client.Indices;
 
-namespace OpenSearch.Client.Ml;
+namespace OpenSearch.Client;
 
 
 /// <summary>

@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace OpenSearch.Client.Core;
+namespace OpenSearch.Client;
 
 /// <summary>
 /// Convenience overloads for SearchRequestDescriptor (non-generic) that accept

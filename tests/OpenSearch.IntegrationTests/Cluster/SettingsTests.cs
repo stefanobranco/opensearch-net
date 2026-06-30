@@ -1,6 +1,6 @@
 using FluentAssertions;
-using OpenSearch.Client.Cluster;
 using OpenSearch.IntegrationTests.Infrastructure;
+using OpenSearch.Client;
 
 namespace OpenSearch.IntegrationTests.Cluster;
 

@@ -2,7 +2,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using OpenSearch.Net;
 
-namespace OpenSearch.Client.Core;
+namespace OpenSearch.Client;
 
 /// <summary>Response from the msearch API.</summary>
 public sealed class MsearchResponse : OpenSearchResponse
@@ -123,7 +123,7 @@ public sealed class MsearchResponseItem
 		if (Aggregations is null || Aggregations.Value.ValueKind == JsonValueKind.Undefined)
 			return new AggregateDictionary(null);
 
-		var raw = JsonSerializer.Deserialize<Dictionary<string, Common.Aggregate>>(
+		var raw = JsonSerializer.Deserialize<Dictionary<string, Aggregate>>(
 			Aggregations.Value, DefaultOptions);
 		return new AggregateDictionary(raw);
 	}

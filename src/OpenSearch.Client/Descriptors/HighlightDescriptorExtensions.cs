@@ -1,6 +1,5 @@
-using OpenSearch.Client.Common;
 
-namespace OpenSearch.Client.Core;
+namespace OpenSearch.Client;
 
 /// <summary>
 /// Extension methods for the generated <see cref="HighlightDescriptor"/> and

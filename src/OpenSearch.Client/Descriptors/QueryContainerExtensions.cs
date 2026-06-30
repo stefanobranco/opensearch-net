@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace OpenSearch.Client.Common;
+namespace OpenSearch.Client;
 
 /// <summary>
 /// Static convenience methods for constructing <see cref="QueryContainer"/> instances

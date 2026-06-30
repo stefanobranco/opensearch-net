@@ -3,7 +3,7 @@
 
 using System.Text.Json.Serialization;
 
-namespace OpenSearch.Client.Ingest;
+namespace OpenSearch.Client;
 
 public sealed class GetPipelineIngestRequestDescriptor
 {

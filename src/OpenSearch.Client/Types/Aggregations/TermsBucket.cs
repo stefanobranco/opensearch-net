@@ -52,5 +52,5 @@ public sealed class TermsBucket : IBucketWithSubAggregations
 	public long? Cardinality(string name) => Aggregations?.Cardinality(name);
 
 	/// <summary>Returns a nested top_hits sub-aggregation, deserializing sources as <typeparamref name="TDocument"/>.</summary>
-	public Core.HitsMetadataJsonValue<TDocument>? TopHits<TDocument>(string name) => Aggregations?.TopHits<TDocument>(name);
+	public HitsMetadataJsonValue<TDocument>? TopHits<TDocument>(string name) => Aggregations?.TopHits<TDocument>(name);
 }

@@ -1,4 +1,4 @@
-namespace OpenSearch.Client.Core;
+namespace OpenSearch.Client;
 
 public partial class SearchResponse<TDocument>
 {

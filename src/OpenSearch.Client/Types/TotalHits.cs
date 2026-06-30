@@ -1,5 +1,4 @@
 using System.Text.Json.Serialization;
-using OpenSearch.Client.Converters;
 
 namespace OpenSearch.Client;
 

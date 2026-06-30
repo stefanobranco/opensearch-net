@@ -1,5 +1,4 @@
 using System.Text.Json;
-using OpenSearch.Client.Core;
 
 namespace OpenSearch.Client;
 

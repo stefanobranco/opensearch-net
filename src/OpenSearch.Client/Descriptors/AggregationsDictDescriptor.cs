@@ -1,8 +1,7 @@
 using System.Text.Json;
-using OpenSearch.Client.Core;
 using OpenSearch.Client;
 
-namespace OpenSearch.Client.Common;
+namespace OpenSearch.Client;
 
 /// <summary>
 /// Builds a <c>Dictionary&lt;string, AggregationContainer&gt;</c> with named aggregations.

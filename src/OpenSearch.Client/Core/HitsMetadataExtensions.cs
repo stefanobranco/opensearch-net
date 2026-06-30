@@ -1,4 +1,3 @@
-using OpenSearch.Client.Core;
 
 namespace OpenSearch.Client;
 

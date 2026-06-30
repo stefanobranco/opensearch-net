@@ -1,6 +1,5 @@
-using OpenSearch.Client.Common;
 
-namespace OpenSearch.Client.Core;
+namespace OpenSearch.Client;
 
 /// <summary>
 /// Generic companion to <see cref="SearchRequestDescriptor"/> that provides

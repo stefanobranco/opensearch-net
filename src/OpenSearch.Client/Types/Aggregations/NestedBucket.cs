@@ -24,5 +24,5 @@ public sealed class NestedBucket : IBucketWithSubAggregations
 	/// <summary>Returns a nested sum metric.</summary>
 	public double? Sum(string name) => Aggregations?.Sum(name);
 
-	public Core.HitsMetadataJsonValue<TDocument>? TopHits<TDocument>(string name) => Aggregations?.TopHits<TDocument>(name);
+	public HitsMetadataJsonValue<TDocument>? TopHits<TDocument>(string name) => Aggregations?.TopHits<TDocument>(name);
 }

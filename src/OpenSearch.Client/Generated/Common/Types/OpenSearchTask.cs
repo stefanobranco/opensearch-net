@@ -3,10 +3,10 @@
 
 using System.Text.Json.Serialization;
 
-namespace OpenSearch.Client.Common;
+namespace OpenSearch.Client;
 
 
-public sealed class Task
+public sealed class OpenSearchTask
 {
 	public string? ModelId { get; set; }
 	public string? TaskId { get; set; }

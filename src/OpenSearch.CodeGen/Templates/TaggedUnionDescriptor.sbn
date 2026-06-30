@@ -2,11 +2,8 @@
 #nullable enable
 
 using System.Text.Json.Serialization;
-{{~ for ns in extra_usings ~}}
-using OpenSearch.Client.{{ ns }};
-{{~ end ~}}
 
-namespace OpenSearch.Client.{{ namespace }};
+namespace OpenSearch.Client;
 
 public sealed class {{ descriptor_name }}
 {

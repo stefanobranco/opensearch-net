@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace OpenSearch.Client.Indices;
+namespace OpenSearch.Client;
 
 /// <summary>
 /// Convenience extension methods for <see cref="AnalyzeIndexRequestDescriptor"/> to provide

@@ -1,8 +1,6 @@
 using System.Text.Json;
 using FluentAssertions;
 using OpenSearch.Client;
-using OpenSearch.Client.Common;
-using OpenSearch.Client.Core;
 using OpenSearch.IntegrationTests.Infrastructure;
 
 namespace OpenSearch.IntegrationTests.Core;
@@ -14,7 +12,7 @@ public class SortAndPaginationTests : IntegrationTestBase
 	{
 		var index = UniqueIndex("paging");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.CreateIndexRequest { Index = index });
 
 		// Index 5 documents
 		var operations = Enumerable.Range(1, 5).Select(i =>
@@ -78,7 +76,7 @@ public class SortAndPaginationTests : IntegrationTestBase
 	{
 		var index = UniqueIndex("sort");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.CreateIndexRequest { Index = index });
 
 		Client.Core.Bulk(new BulkRequest
 		{
@@ -111,7 +109,7 @@ public class SortAndPaginationTests : IntegrationTestBase
 	{
 		var index = UniqueIndex("count");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.CreateIndexRequest { Index = index });
 
 		Client.Core.Bulk(new BulkRequest
 		{
@@ -134,7 +132,7 @@ public class SortAndPaginationTests : IntegrationTestBase
 	{
 		var index = UniqueIndex("count");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.CreateIndexRequest { Index = index });
 
 		Client.Core.Bulk(new BulkRequest
 		{

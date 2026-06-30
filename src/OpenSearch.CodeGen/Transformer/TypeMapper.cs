@@ -114,7 +114,16 @@ public sealed class TypeMapper
 	};
 
 	private static readonly HashSet<string> s_skipGeneration = new(
-		s_typeOverrides.Keys.Concat(["SortOptions", "FieldSort", "SourceFilter", "TotalHits", "TotalHitsRelation"]),
+		s_typeOverrides.Keys.Concat([
+			"SortOptions", "FieldSort", "SourceFilter", "TotalHits", "TotalHitsRelation",
+			// Response-side suggester schemas. These are hand-written in OpenSearch.Client
+			// (Types/Suggest/) and materialized at read time via SuggestDictionary<T>; the
+			// suggest field on search responses is already JsonElement (see "Suggest" override).
+			// The generated copies are orphaned (no live references) and their option types would
+			// collide with the hand-written ones once every type shares the root namespace.
+			"PhraseSuggest", "PhraseSuggestOption",
+			"TermSuggest", "TermSuggestOption",
+			"CompletionSuggest", "CompletionSuggestOption"]),
 		StringComparer.OrdinalIgnoreCase);
 
 	private readonly Dictionary<string, TypeRef> _namedTypes = new(StringComparer.Ordinal);

@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace OpenSearch.Client.Core;
+namespace OpenSearch.Client;
 
 /// <summary>
 /// Request for the bulk API. Contains a list of <see cref="BulkOperation"/> items

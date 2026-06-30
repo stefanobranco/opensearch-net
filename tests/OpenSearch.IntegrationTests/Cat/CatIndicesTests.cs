@@ -1,7 +1,6 @@
 using FluentAssertions;
-using OpenSearch.Client.Cat;
-using OpenSearch.Client.Core;
 using OpenSearch.IntegrationTests.Infrastructure;
+using OpenSearch.Client;
 
 namespace OpenSearch.IntegrationTests.Cat;
 
@@ -12,7 +11,7 @@ public class CatIndicesTests : IntegrationTestBase
 	{
 		var index = UniqueIndex("catidx");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.CreateIndexRequest { Index = index });
 
 		// Index a document so the index is not empty
 		Client.Core.Bulk(new BulkRequest

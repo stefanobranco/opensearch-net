@@ -50,8 +50,8 @@ build/tools/*
 !build/tools/sn/*
 !build/tools/ilmerge
 !build/*.fsx
-!build/*.fsx
 !build/*.ps1
+!build/*.sh
 !build/*.nuspec
 !build/*.png
 !build/*.targets

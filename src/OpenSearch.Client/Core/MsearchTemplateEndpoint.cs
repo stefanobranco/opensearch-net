@@ -1,6 +1,6 @@
 using OpenSearch.Net;
 
-namespace OpenSearch.Client.Core;
+namespace OpenSearch.Client;
 
 /// <summary>Endpoint for the msearch_template API. Serializes search template items as NDJSON (header + body pairs).</summary>
 public sealed class MsearchTemplateEndpoint : IEndpoint<MsearchTemplateRequest, MsearchResponse>

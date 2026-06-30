@@ -1,8 +1,7 @@
 using System.Linq.Expressions;
 using System.Text.Json;
-using OpenSearch.Client.Core;
 
-namespace OpenSearch.Client.Common;
+namespace OpenSearch.Client;
 
 /// <summary>
 /// Generic companion to <see cref="QueryContainerDescriptor"/> that provides
