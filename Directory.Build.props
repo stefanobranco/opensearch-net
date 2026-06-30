@@ -17,8 +17,10 @@
     <CurrentVersion>3.4.0-beta.4</CurrentVersion>
     <Version>$(CurrentVersion)</Version>
     <InformationalVersion>$(CurrentVersion)</InformationalVersion>
-    <AssemblyVersion>3.4.0.0</AssemblyVersion>
-    <FileVersion>3.4.0.0</FileVersion>
+    <!-- Assembly/file versions track the release's numeric part (e.g. "3.4.0-beta.4" -> "3.4.0"),
+         so they follow the tag instead of being frozen. -->
+    <AssemblyVersion>$(CurrentVersion.Split('-')[0])</AssemblyVersion>
+    <FileVersion>$(CurrentVersion.Split('-')[0])</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup>
