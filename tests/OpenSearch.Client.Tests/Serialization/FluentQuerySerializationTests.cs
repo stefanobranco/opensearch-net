@@ -100,4 +100,103 @@ public class FluentQuerySerializationTests : SerializationTestBase
 		query.TryGetProperty("exists", out var inner).Should().BeTrue();
 		inner.GetProperty("field").GetString().Should().Be("meta.published_at");
 	}
+
+	[Fact]
+	public void MatchPhrase_via_field_expression_serializes()
+	{
+		var query = Query(q => q.MatchPhrase(d => d.Title!, m => m.Query("quick brown fox").Slop(2)));
+
+		var inner = AssertFieldKeyed(query, "match_phrase", "title");
+		inner.GetProperty("query").GetString().Should().Be("quick brown fox");
+		inner.GetProperty("slop").GetInt32().Should().Be(2);
+	}
+
+	[Fact]
+	public void MatchPhrasePrefix_via_field_expression_serializes()
+	{
+		var query = Query(q => q.MatchPhrasePrefix(d => d.Title!, m => m.Query("quick br").MaxExpansions(50)));
+
+		var inner = AssertFieldKeyed(query, "match_phrase_prefix", "title");
+		inner.GetProperty("query").GetString().Should().Be("quick br");
+		inner.GetProperty("max_expansions").GetInt32().Should().Be(50);
+	}
+
+	[Fact]
+	public void Regexp_via_field_expression_serializes()
+	{
+		var query = Query(q => q.Regexp(d => d.Status!, r => r.Value("a.*e").Flags("ALL")));
+
+		var inner = AssertFieldKeyed(query, "regexp", "status");
+		inner.GetProperty("value").GetString().Should().Be("a.*e");
+		inner.GetProperty("flags").GetString().Should().Be("ALL");
+	}
+
+	[Fact]
+	public void Fuzzy_via_field_expression_serializes()
+	{
+		var query = Query(q => q.Fuzzy(d => d.Status!, f => f.Value(Element("activ")).Fuzziness("AUTO")));
+
+		var inner = AssertFieldKeyed(query, "fuzzy", "status");
+		inner.GetProperty("value").GetString().Should().Be("activ");
+		inner.GetProperty("fuzziness").GetString().Should().Be("AUTO");
+	}
+
+	[Fact]
+	public void Terms_via_field_expression_serializes()
+	{
+		var query = Query(q => q.Terms(d => d.Status!, "active", "pending"));
+
+		var inner = AssertFieldKeyed(query, "terms", "status");
+		inner.GetArrayLength().Should().Be(2);
+		inner[0].GetString().Should().Be("active");
+	}
+
+	[Fact]
+	public void MatchAll_fluent_serializes()
+	{
+		var query = Query(q => q.MatchAll(m => m.Boost(1.0f)));
+
+		query.TryGetProperty("match_all", out var inner).Should().BeTrue();
+		inner.GetProperty("boost").GetSingle().Should().Be(1.0f);
+	}
+
+	[Fact]
+	public void QueryString_fluent_serializes()
+	{
+		var query = Query(q => q.QueryString(qs => qs.Query("(new york) OR london").DefaultField("content")));
+
+		query.TryGetProperty("query_string", out var inner).Should().BeTrue();
+		inner.GetProperty("query").GetString().Should().Be("(new york) OR london");
+		inner.GetProperty("default_field").GetString().Should().Be("content");
+	}
+
+	[Fact]
+	public void Bool_fluent_with_nested_field_expressions_serializes()
+	{
+		// Compound fluent: Bool clauses each contain field-expression leaf queries —
+		// validates BoolQueryDescriptor<T> plus nested FieldExpressionVisitor resolution.
+		var query = Query(q => q.Bool(b => b
+			.Must(m => m.Term(d => d.Status!, t => t.Value(Element("active"))))
+			.Filter(f => f.Range(d => d.Age, r => r.Gte(18)))
+			.MinimumShouldMatch("1")));
+
+		query.TryGetProperty("bool", out var inner).Should().BeTrue();
+		AssertFieldKeyed(inner.GetProperty("must")[0], "term", "status");
+		inner.GetProperty("filter")[0].GetProperty("range").GetProperty("age").GetProperty("gte").GetInt32().Should().Be(18);
+		inner.GetProperty("minimum_should_match").GetString().Should().Be("1");
+	}
+
+	[Fact]
+	public void Nested_fluent_with_inner_field_expression_serializes()
+	{
+		var query = Query(q => q.Nested(n => n
+			.Path("comments")
+			.ScoreMode(ChildScoreMode.Avg)
+			.Query(nq => nq.Match(d => d.Title!, m => m.Query(Element("great"))))));
+
+		query.TryGetProperty("nested", out var inner).Should().BeTrue();
+		inner.GetProperty("path").GetString().Should().Be("comments");
+		inner.GetProperty("score_mode").GetString().Should().Be("avg");
+		AssertFieldKeyed(inner.GetProperty("query"), "match", "title");
+	}
 }
