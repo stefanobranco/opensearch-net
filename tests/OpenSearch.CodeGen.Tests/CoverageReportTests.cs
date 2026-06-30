@@ -82,17 +82,18 @@ public class CoverageReportTests
 	private static IReadOnlyCollection<string> ScanHandWrittenRequestNames(string clientSrcDir)
 	{
 		var names = new HashSet<string>(StringComparer.Ordinal);
-		var classRegex = new Regex(@"\bclass\s+(?<name>\w+Request)\b");
+		var typeRegex = new Regex(@"\b(?:class|struct|record)(?:\s+(?:class|struct))?\s+(?<name>\w+Request)\b");
 
 		foreach (var file in Directory.EnumerateFiles(clientSrcDir, "*.cs", SearchOption.AllDirectories))
 		{
 			var rel = Path.GetRelativePath(clientSrcDir, file).Replace('\\', '/');
+			var segments = rel.Split('/');
 			if (rel.StartsWith("Generated/", StringComparison.Ordinal)
-				|| rel.Contains("/obj/", StringComparison.Ordinal)
-				|| rel.Contains("/bin/", StringComparison.Ordinal))
+				|| segments.Contains("obj")
+				|| segments.Contains("bin"))
 				continue;
 
-			foreach (Match m in classRegex.Matches(File.ReadAllText(file)))
+			foreach (Match m in typeRegex.Matches(File.ReadAllText(file)))
 				names.Add(m.Groups["name"].Value);
 		}
 
