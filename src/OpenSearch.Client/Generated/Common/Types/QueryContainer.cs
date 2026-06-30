@@ -222,9 +222,9 @@ public sealed class QueryContainer : TaggedUnion<QueryKind, object>
 	/// <summary>Creates a QueryString variant.</summary>
 	public static QueryContainer QueryString(QueryStringQuery value) => new(QueryKind.QueryString, value);
 	/// <summary>Creates a Range variant.</summary>
-	public static QueryContainer Range(Dictionary<string, System.Text.Json.JsonElement> value) => new(QueryKind.Range, value);
+	public static QueryContainer Range(Dictionary<string, RangeQuery> value) => new(QueryKind.Range, value);
 	/// <summary>Creates a Range variant for a single field.</summary>
-	public static QueryContainer Range(string field, System.Text.Json.JsonElement value) => new(QueryKind.Range, new Dictionary<string, System.Text.Json.JsonElement> { [field] = value });
+	public static QueryContainer Range(string field, RangeQuery value) => new(QueryKind.Range, new Dictionary<string, RangeQuery> { [field] = value });
 	/// <summary>Creates a RankFeature variant.</summary>
 	public static QueryContainer RankFeature(RankFeatureQuery value) => new(QueryKind.RankFeature, value);
 	/// <summary>Creates a Regexp variant.</summary>
@@ -321,7 +321,7 @@ public sealed class QueryContainerConverter : TaggedUnionConverter<QueryContaine
 		["percolate"] = (QueryKind.Percolate, typeof(PercolateQuery)),
 		["prefix"] = (QueryKind.Prefix, typeof(Dictionary<string, PrefixQuery>)),
 		["query_string"] = (QueryKind.QueryString, typeof(QueryStringQuery)),
-		["range"] = (QueryKind.Range, typeof(Dictionary<string, System.Text.Json.JsonElement>)),
+		["range"] = (QueryKind.Range, typeof(Dictionary<string, RangeQuery>)),
 		["rank_feature"] = (QueryKind.RankFeature, typeof(RankFeatureQuery)),
 		["regexp"] = (QueryKind.Regexp, typeof(Dictionary<string, RegexpQuery>)),
 		["script"] = (QueryKind.Script, typeof(ScriptQuery)),
@@ -443,7 +443,7 @@ public sealed class QueryContainerConverter : TaggedUnionConverter<QueryContaine
 		QueryKind.Percolate => QueryContainer.Percolate((PercolateQuery)value),
 		QueryKind.Prefix => QueryContainer.Prefix((Dictionary<string, PrefixQuery>)value),
 		QueryKind.QueryString => QueryContainer.QueryString((QueryStringQuery)value),
-		QueryKind.Range => QueryContainer.Range((Dictionary<string, System.Text.Json.JsonElement>)value),
+		QueryKind.Range => QueryContainer.Range((Dictionary<string, RangeQuery>)value),
 		QueryKind.RankFeature => QueryContainer.RankFeature((RankFeatureQuery)value),
 		QueryKind.Regexp => QueryContainer.Regexp((Dictionary<string, RegexpQuery>)value),
 		QueryKind.Script => QueryContainer.Script((ScriptQuery)value),

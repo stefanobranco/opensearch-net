@@ -370,9 +370,9 @@ public sealed class QueryContainerDescriptor
 		return this;
 	}
 	/// <summary>Creates a Range variant.</summary>
-	public QueryContainerDescriptor Range(Dictionary<string, System.Text.Json.JsonElement> value) { _value = QueryContainer.Range(value); return this; }
+	public QueryContainerDescriptor Range(Dictionary<string, RangeQuery> value) { _value = QueryContainer.Range(value); return this; }
 	/// <summary>Creates a Range variant for a single field.</summary>
-	public QueryContainerDescriptor Range(string field, System.Text.Json.JsonElement value) { _value = QueryContainer.Range(field, value); return this; }
+	public QueryContainerDescriptor Range(string field, RangeQuery value) { _value = QueryContainer.Range(field, value); return this; }
 	/// <summary>Creates a RankFeature variant.</summary>
 	public QueryContainerDescriptor RankFeature(RankFeatureQuery value) { _value = QueryContainer.RankFeature(value); return this; }
 	/// <summary>Creates a RankFeature variant.</summary>

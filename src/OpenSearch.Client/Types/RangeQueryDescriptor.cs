@@ -1,24 +1,20 @@
-using System.Text.Json;
-
 namespace OpenSearch.Client;
 
 /// <summary>
-/// Fluent builder for range query values. Builds a <see cref="JsonElement"/>
-/// suitable for range queries in <c>QueryContainer</c>.
+/// Fluent builder for <see cref="RangeQuery"/> values used in <c>QueryContainer.Range</c>.
 /// </summary>
 public sealed class RangeQueryDescriptor
 {
-	private readonly Dictionary<string, object> _props = new();
+	private readonly RangeQuery _query = new();
 
-	public RangeQueryDescriptor Gte(object value) { _props["gte"] = value; return this; }
-	public RangeQueryDescriptor Gt(object value) { _props["gt"] = value; return this; }
-	public RangeQueryDescriptor Lte(object value) { _props["lte"] = value; return this; }
-	public RangeQueryDescriptor Lt(object value) { _props["lt"] = value; return this; }
-	public RangeQueryDescriptor Format(string value) { _props["format"] = value; return this; }
-	public RangeQueryDescriptor TimeZone(string value) { _props["time_zone"] = value; return this; }
-	public RangeQueryDescriptor Boost(float value) { _props["boost"] = value; return this; }
-	public RangeQueryDescriptor Relation(string value) { _props["relation"] = value; return this; }
+	public RangeQueryDescriptor Gte(object value) { _query.Gte = value; return this; }
+	public RangeQueryDescriptor Gt(object value) { _query.Gt = value; return this; }
+	public RangeQueryDescriptor Lte(object value) { _query.Lte = value; return this; }
+	public RangeQueryDescriptor Lt(object value) { _query.Lt = value; return this; }
+	public RangeQueryDescriptor Format(string value) { _query.Format = value; return this; }
+	public RangeQueryDescriptor TimeZone(string value) { _query.TimeZone = value; return this; }
+	public RangeQueryDescriptor Boost(float value) { _query.Boost = value; return this; }
+	public RangeQueryDescriptor Relation(RangeRelation value) { _query.Relation = value; return this; }
 
-	public static implicit operator JsonElement(RangeQueryDescriptor d) =>
-		JsonSerializer.SerializeToElement(d._props);
+	public static implicit operator RangeQuery(RangeQueryDescriptor d) => d._query;
 }
