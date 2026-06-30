@@ -100,7 +100,7 @@ public class TotalHitsConverterTests
 		}
 		""";
 
-		var response = JsonSerializer.Deserialize<OpenSearch.Client.Core.SearchResponse<object>>(json, JsonOptions);
+		var response = JsonSerializer.Deserialize<OpenSearch.Client.SearchResponse<object>>(json, JsonOptions);
 		response!.Hits!.Total.Should().NotBeNull();
 		response.Hits.Total!.Value.Should().Be(200);
 		response.Hits.Total.Relation.Should().Be("gte");
@@ -121,7 +121,7 @@ public class TotalHitsConverterTests
 		}
 		""";
 
-		var response = JsonSerializer.Deserialize<OpenSearch.Client.Core.SearchResponse<object>>(json, JsonOptions);
+		var response = JsonSerializer.Deserialize<OpenSearch.Client.SearchResponse<object>>(json, JsonOptions);
 		response!.Hits!.Total.Should().NotBeNull();
 		response.Hits.Total!.Value.Should().Be(42);
 		response.Hits.Total.Relation.Should().Be("eq");

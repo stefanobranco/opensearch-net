@@ -1,6 +1,6 @@
 using OpenSearch.Net;
 
-namespace OpenSearch.Client.Core;
+namespace OpenSearch.Client;
 
 /// <summary>
 /// Endpoint for the bulk API. Serializes operations as NDJSON.

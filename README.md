@@ -39,12 +39,12 @@ What's incomplete or missing:
 - Some root-level convenience shortcuts (IndexMany, DeleteByQuery, etc.)
 - No Newtonsoft.Json bridge yet
 - Limited integration test coverage for generated endpoints
+- `Node` is defined in both `OpenSearch.Net` (transport) and `OpenSearch.Client` (cluster info); qualify it if you import both namespaces
 
 ## Quick Start
 
 ```csharp
-using OpenSearch.Client;
-using OpenSearch.Client.Core;
+using OpenSearch.Client;   // one namespace exposes the client, query DSL, requests and responses
 
 var client = new OpenSearchClient(new Uri("https://localhost:9200"));
 

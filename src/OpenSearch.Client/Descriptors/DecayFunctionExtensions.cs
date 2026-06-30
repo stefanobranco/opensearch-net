@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace OpenSearch.Client.Common;
+namespace OpenSearch.Client;
 
 /// <summary>
 /// Convenience extension methods for <see cref="DecayFunctionDescriptor"/> to provide

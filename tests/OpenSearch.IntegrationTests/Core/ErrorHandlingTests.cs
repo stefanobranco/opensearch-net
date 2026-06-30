@@ -1,7 +1,7 @@
 using FluentAssertions;
-using OpenSearch.Client.Core;
 using OpenSearch.Net;
 using OpenSearch.IntegrationTests.Infrastructure;
+using OpenSearch.Client;
 
 namespace OpenSearch.IntegrationTests.Core;
 
@@ -27,7 +27,7 @@ public class ErrorHandlingTests : IntegrationTestBase
 	{
 		var index = UniqueIndex("err");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.CreateIndexRequest { Index = index });
 
 		// GET on non-existent doc returns found=false (not an exception)
 		var getResponse = Client.Core.Get<ErrorDoc>(new GetRequest { Index = index, Id = "does-not-exist" });
@@ -39,7 +39,7 @@ public class ErrorHandlingTests : IntegrationTestBase
 	{
 		var index = UniqueIndex("err");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.CreateIndexRequest { Index = index });
 
 		var existsResponse = Client.Core.Exists(new ExistsRequest { Index = index, Id = "does-not-exist" });
 		existsResponse.Exists.Should().BeFalse();
@@ -50,7 +50,7 @@ public class ErrorHandlingTests : IntegrationTestBase
 	{
 		var index = UniqueIndex("err");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.CreateIndexRequest { Index = index });
 
 		Client.Core.Bulk(new BulkRequest
 		{

@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace OpenSearch.Client.Converters;
+namespace OpenSearch.Client;
 
 /// <summary>
 /// Reads <see cref="TotalHits"/> from either the object form

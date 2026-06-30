@@ -1,7 +1,6 @@
 using System.Text.Json;
 using FluentAssertions;
 using OpenSearch.Client;
-using OpenSearch.Client.Core;
 using OpenSearch.IntegrationTests.Infrastructure;
 
 namespace OpenSearch.IntegrationTests.Core;
@@ -13,7 +12,7 @@ public class UpdateTests : IntegrationTestBase
 	{
 		var index = UniqueIndex("update");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.CreateIndexRequest { Index = index });
 
 		// Index a document
 		Client.Core.Bulk(new BulkRequest
@@ -54,7 +53,7 @@ public class UpdateTests : IntegrationTestBase
 	{
 		var index = UniqueIndex("update");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.CreateIndexRequest { Index = index });
 
 		Client.Core.Bulk(new BulkRequest
 		{
@@ -96,7 +95,7 @@ public class UpdateTests : IntegrationTestBase
 	{
 		var index = UniqueIndex("update");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.CreateIndexRequest { Index = index });
 
 		// Upsert: doc doesn't exist, so upsert value is used
 		var updateResponse = Client.Core.Update<UpdateDoc>(new UpdateRequest

@@ -1,6 +1,6 @@
 using FluentAssertions;
-using OpenSearch.Client.Core;
 using OpenSearch.IntegrationTests.Infrastructure;
+using OpenSearch.Client;
 
 namespace OpenSearch.IntegrationTests.Core;
 
@@ -10,7 +10,7 @@ public class IndexDocumentTests : IntegrationTestBase
 	public void IndexDocumentViaIndexApi()
 	{
 		var index = UniqueIndex();
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.CreateIndexRequest { Index = index });
 
 		var doc = new IndexDoc { Title = "Via Index API", Score = 99 };
 
@@ -44,7 +44,7 @@ public class IndexDocumentTests : IntegrationTestBase
 	public void IndexDocumentWithoutId()
 	{
 		var index = UniqueIndex();
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.CreateIndexRequest { Index = index });
 
 		var doc = new IndexDoc { Title = "Auto ID", Score = 7 };
 
@@ -65,7 +65,7 @@ public class IndexDocumentTests : IntegrationTestBase
 	public void CreateDocumentViaCreateApi()
 	{
 		var index = UniqueIndex();
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.CreateIndexRequest { Index = index });
 
 		var doc = new IndexDoc { Title = "Via Create API", Score = 55 };
 

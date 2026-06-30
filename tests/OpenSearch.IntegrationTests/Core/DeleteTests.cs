@@ -1,6 +1,6 @@
 using FluentAssertions;
-using OpenSearch.Client.Core;
 using OpenSearch.IntegrationTests.Infrastructure;
+using OpenSearch.Client;
 
 namespace OpenSearch.IntegrationTests.Core;
 
@@ -11,7 +11,7 @@ public class DeleteTests : IntegrationTestBase
 	{
 		var index = UniqueIndex("delete");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.CreateIndexRequest { Index = index });
 
 		Client.Core.Bulk(new BulkRequest
 		{
@@ -42,7 +42,7 @@ public class DeleteTests : IntegrationTestBase
 	{
 		var index = UniqueIndex("delete");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.CreateIndexRequest { Index = index });
 
 		// DELETE on non-existent doc returns result "not_found" (404 is not thrown for DELETE)
 		var response = Client.Core.Delete(new DeleteRequest { Index = index, Id = "nonexistent" });
@@ -55,7 +55,7 @@ public class DeleteTests : IntegrationTestBase
 	{
 		var index = UniqueIndex("dbq");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.CreateIndexRequest { Index = index });
 
 		Client.Core.Bulk(new BulkRequest
 		{

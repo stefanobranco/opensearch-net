@@ -20,6 +20,14 @@ jobs:
       - name: Build
         run: dotnet build --no-restore -c Release
 
+      # Generated/ must be reproducible from the spec: regenerate and fail on any drift.
+      # Catches a stale checkout, an un-regenerated spec bump, or a hand-edit under Generated/.
+      - name: Verify generated code is up to date
+        run: |
+          ./build/regenerate.sh
+          git diff --exit-code -- src/OpenSearch.Client/Generated \
+            || { echo "::error::Generated/ is out of date — run ./build/regenerate.sh and commit the result."; exit 1; }
+
       # Whole-solution test. Integration tests carry [SkipIfNoCluster] and report as
       # Skipped when no cluster is reachable, so this runs every unit test — and
       # auto-discovers any new test project — without a hardcoded project list.

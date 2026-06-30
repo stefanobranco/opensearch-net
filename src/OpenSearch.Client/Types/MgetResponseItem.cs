@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace OpenSearch.Client.Core;
+namespace OpenSearch.Client;
 
 /// <summary>
 /// A single document result from a multi-get response.

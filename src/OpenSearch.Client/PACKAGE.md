@@ -17,8 +17,7 @@ Built with System.Text.Json, targeting net8.0 and net10.0.
 ## Quick Start
 
 ```csharp
-using OpenSearch.Client;
-using OpenSearch.Client.Core;
+using OpenSearch.Client;   // one namespace exposes the client, query DSL, requests and responses
 
 var client = new OpenSearchClient(new Uri("https://localhost:9200"));
 

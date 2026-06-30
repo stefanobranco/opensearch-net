@@ -1,9 +1,6 @@
 using System.Text.Json;
 using FluentAssertions;
 using OpenSearch.Client;
-using OpenSearch.Client.Common;
-using OpenSearch.Client.Core;
-using OpenSearch.Client.Indices;
 using OpenSearch.IntegrationTests.Infrastructure;
 
 namespace OpenSearch.IntegrationTests.Core;

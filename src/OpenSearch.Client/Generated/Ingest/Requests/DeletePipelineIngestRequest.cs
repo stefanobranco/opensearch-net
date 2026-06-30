@@ -4,7 +4,7 @@
 using System.Text.Json.Serialization;
 using OpenSearch.Net;
 
-namespace OpenSearch.Client.Ingest;
+namespace OpenSearch.Client;
 
 
 /// <summary>

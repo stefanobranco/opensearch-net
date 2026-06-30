@@ -3,7 +3,7 @@
 
 using System.Text.Json.Serialization;
 
-namespace OpenSearch.Client.Geospatial;
+namespace OpenSearch.Client;
 
 public sealed class DeleteIp2geoDatasourceGeospatialRequestDescriptor
 {

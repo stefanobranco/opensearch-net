@@ -1,7 +1,7 @@
 using System.Text.Json;
 using FluentAssertions;
-using OpenSearch.Client.Core;
 using OpenSearch.IntegrationTests.Infrastructure;
+using OpenSearch.Client;
 
 namespace OpenSearch.IntegrationTests.Core;
 
@@ -11,7 +11,7 @@ public class MsearchTests : IntegrationTestBase
 	public void MsearchWithTwoQueries()
 	{
 		var index = UniqueIndex();
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.CreateIndexRequest { Index = index });
 
 		// Bulk index test data
 		Client.Core.Bulk(new BulkRequest

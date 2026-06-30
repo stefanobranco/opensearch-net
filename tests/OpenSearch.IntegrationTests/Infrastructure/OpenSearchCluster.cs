@@ -1,3 +1,4 @@
+using OpenSearch.Client;
 namespace OpenSearch.IntegrationTests.Infrastructure;
 
 /// <summary>

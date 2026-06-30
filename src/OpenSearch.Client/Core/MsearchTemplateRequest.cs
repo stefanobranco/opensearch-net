@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace OpenSearch.Client.Core;
+namespace OpenSearch.Client;
 
 /// <summary>Request for the msearch_template API. Items are serialized as NDJSON (header + body pairs).</summary>
 public sealed class MsearchTemplateRequest

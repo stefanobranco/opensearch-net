@@ -2,9 +2,8 @@
 #nullable enable
 
 using System.Text.Json.Serialization;
-using OpenSearch.Client.Core;
 
-namespace OpenSearch.Client.Common;
+namespace OpenSearch.Client;
 
 public sealed class SearchHitsHitDescriptor
 {
@@ -17,7 +16,7 @@ public sealed class SearchHitsHitDescriptor
 	public SearchHitsHitDescriptor Index(string? value) { _value.Index = value; return this; }
 	public SearchHitsHitDescriptor Id(string? value) { _value.Id = value; return this; }
 	/// <summary>The score.</summary>
-		public SearchHitsHitDescriptor Score(float value) { _value.Score = value; return this; }
+		public SearchHitsHitDescriptor Score(float? value) { _value.Score = value; return this; }
 	public SearchHitsHitDescriptor Source(Source? value) { _value.Source = value; return this; }
 	public SearchHitsHitDescriptor Source(Action<SourceDescriptor> configure)
 	{

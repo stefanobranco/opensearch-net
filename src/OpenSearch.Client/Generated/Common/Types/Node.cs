@@ -3,11 +3,11 @@
 
 using System.Text.Json.Serialization;
 
-namespace OpenSearch.Client.Common;
+namespace OpenSearch.Client;
 
 
 public sealed class Node
 {
-	public Dictionary<string, Task>? Tasks { get; set; }
+	public Dictionary<string, OpenSearchTask>? Tasks { get; set; }
 	public Dictionary<string, ModelProfile>? Models { get; set; }
 }

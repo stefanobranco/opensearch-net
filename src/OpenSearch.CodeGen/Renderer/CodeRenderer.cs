@@ -67,7 +67,7 @@ public sealed class CodeRenderer
 			if (!_renderedTypes.Add($"Object:{objectShape.Namespace}:{objectShape.ClassName}"))
 				continue;
 			var dir = Path.Combine(_outputDir, objectShape.Namespace, "Types");
-			var ctx = TemplateHelpers.BuildObjectContext(objectShape, allObjects);
+			var ctx = TemplateHelpers.BuildObjectContext(objectShape);
 			RenderToFile(_templates.Load("Response.sbn"), ctx, dir, $"{objectShape.ClassName}.cs");
 		}
 
@@ -76,19 +76,19 @@ public sealed class CodeRenderer
 		{
 			// Request + Endpoint
 			var reqDir = Path.Combine(nsDir, "Requests");
-			var reqCtx = TemplateHelpers.BuildRequestContext(request, allObjects);
+			var reqCtx = TemplateHelpers.BuildRequestContext(request);
 			RenderToFile(_templates.Load("Request.sbn"), reqCtx, reqDir, $"{request.ClassName}.cs");
 
 			// Response
 			var respDir = Path.Combine(nsDir, "Responses");
 			if (request.Response.IsDictionary)
 			{
-				var respCtx = TemplateHelpers.BuildDictionaryResponseContext(request.Response, allObjects);
+				var respCtx = TemplateHelpers.BuildDictionaryResponseContext(request.Response);
 				RenderToFile(_templates.Load("DictionaryResponse.sbn"), respCtx, respDir, $"{request.Response.ClassName}.cs");
 			}
 			else
 			{
-				var respCtx = TemplateHelpers.BuildResponseContext(request.Response, allObjects);
+				var respCtx = TemplateHelpers.BuildResponseContext(request.Response);
 				RenderToFile(_templates.Load("Response.sbn"), respCtx, respDir, $"{request.Response.ClassName}.cs");
 			}
 		}
@@ -99,7 +99,7 @@ public sealed class CodeRenderer
 			if (!_renderedTypes.Add($"Union:{union.Namespace}:{union.ClassName}"))
 				continue;
 			var dir = Path.Combine(_outputDir, union.Namespace, "Types");
-			var ctx = TemplateHelpers.BuildTaggedUnionContext(union, allObjects, _globalUnions);
+			var ctx = TemplateHelpers.BuildTaggedUnionContext(union);
 			RenderToFile(_templates.Load("TaggedUnion.sbn"), ctx, dir, $"{union.ClassName}.cs");
 		}
 

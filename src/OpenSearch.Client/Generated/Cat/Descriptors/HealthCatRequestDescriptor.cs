@@ -3,7 +3,7 @@
 
 using System.Text.Json.Serialization;
 
-namespace OpenSearch.Client.Cat;
+namespace OpenSearch.Client;
 
 public sealed class HealthCatRequestDescriptor
 {

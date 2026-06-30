@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace OpenSearch.Client.Common;
+namespace OpenSearch.Client;
 
 /// <summary>
 /// Non-generic aggregate response type. Covers all aggregation variants (metric, bucket,

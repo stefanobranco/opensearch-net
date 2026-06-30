@@ -1,7 +1,6 @@
 using System.Text.Json;
-using OpenSearch.Client.Common;
 
-namespace OpenSearch.Client.Core;
+namespace OpenSearch.Client;
 
 /// <summary>
 /// Convenience extension methods for generated aggregation descriptors that accept

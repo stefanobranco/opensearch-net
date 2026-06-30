@@ -1,6 +1,6 @@
 using FluentAssertions;
-using OpenSearch.Client.Core;
 using OpenSearch.IntegrationTests.Infrastructure;
+using OpenSearch.Client;
 
 namespace OpenSearch.IntegrationTests.Core;
 
@@ -12,8 +12,8 @@ public class ReindexTests : IntegrationTestBase
 		var sourceIndex = UniqueIndex("reindex-src");
 		var destIndex = UniqueIndex("reindex-dst");
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = sourceIndex });
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = destIndex });
+		Client.Indices.Create(new OpenSearch.Client.CreateIndexRequest { Index = sourceIndex });
+		Client.Indices.Create(new OpenSearch.Client.CreateIndexRequest { Index = destIndex });
 
 		// Index 3 documents in the source
 		Client.Core.Bulk(new BulkRequest

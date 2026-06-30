@@ -1,6 +1,6 @@
 using FluentAssertions;
-using OpenSearch.Client.Core;
 using OpenSearch.IntegrationTests.Infrastructure;
+using OpenSearch.Client;
 
 namespace OpenSearch.IntegrationTests.Core;
 
@@ -11,7 +11,7 @@ public class BulkTests : IntegrationTestBase
 	{
 		var index = UniqueIndex();
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.CreateIndexRequest { Index = index });
 
 		// Bulk index 10 documents
 		var operations = Enumerable.Range(1, 10).Select(i =>
@@ -47,7 +47,7 @@ public class BulkTests : IntegrationTestBase
 	{
 		var index = UniqueIndex();
 
-		Client.Indices.Create(new OpenSearch.Client.Indices.CreateIndexRequest { Index = index });
+		Client.Indices.Create(new OpenSearch.Client.CreateIndexRequest { Index = index });
 
 		// First bulk: create two documents
 		Client.Core.Bulk(new BulkRequest
@@ -76,11 +76,11 @@ public class BulkTests : IntegrationTestBase
 		bulkResponse.Errors.Should().BeFalse();
 
 		// Verify: doc 1 updated, doc 2 deleted
-		var getDoc1 = Client.Core.Get<BulkDoc>(new OpenSearch.Client.Core.GetRequest { Index = index, Id = "1" });
+		var getDoc1 = Client.Core.Get<BulkDoc>(new OpenSearch.Client.GetRequest { Index = index, Id = "1" });
 		getDoc1.Found.Should().BeTrue();
 		getDoc1.Source!.Title.Should().Be("First Updated");
 
-		var getDoc2 = Client.Core.Get<BulkDoc>(new OpenSearch.Client.Core.GetRequest { Index = index, Id = "2" });
+		var getDoc2 = Client.Core.Get<BulkDoc>(new OpenSearch.Client.GetRequest { Index = index, Id = "2" });
 		getDoc2.Found.Should().BeFalse();
 	}
 

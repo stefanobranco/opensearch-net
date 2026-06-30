@@ -3,11 +3,8 @@
 
 using System.Text.Json.Serialization;
 using OpenSearch.Net;
-{{~ for ns in extra_usings ~}}
-using OpenSearch.Client.{{ ns }};
-{{~ end ~}}
 
-namespace OpenSearch.Client.{{ namespace }};
+namespace OpenSearch.Client;
 
 {{ if description }}
 /// <summary>

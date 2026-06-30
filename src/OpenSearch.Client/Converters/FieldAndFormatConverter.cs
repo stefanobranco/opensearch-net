@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace OpenSearch.Client.Converters;
+namespace OpenSearch.Client;
 
 /// <summary>
 /// Reads FieldAndFormat from either a plain string or an object with "field" and optional "format".

@@ -11,7 +11,7 @@ namespace OpenSearch.Client;
 ///   <item><c>"40.7,-74.0"</c> — "lat,lon" string</item>
 /// </list>
 /// </summary>
-[JsonConverter(typeof(Converters.GeoLocationConverter))]
+[JsonConverter(typeof(GeoLocationConverter))]
 public sealed class GeoLocation
 {
 	public double Lat { get; set; }

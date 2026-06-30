@@ -3,7 +3,7 @@
 
 using System.Text.Json.Serialization;
 
-namespace OpenSearch.Client.Common;
+namespace OpenSearch.Client;
 
 public sealed class ProcessorContainerDescriptor
 {
@@ -200,7 +200,7 @@ public sealed class ProcessorContainerDescriptor
 		return this;
 	}
 	/// <summary>Creates a Script variant.</summary>
-	public ProcessorContainerDescriptor Script(System.Text.Json.JsonElement value) { _value = ProcessorContainer.Script(value); return this; }
+	public ProcessorContainerDescriptor Script(Script value) { _value = ProcessorContainer.Script(value); return this; }
 	/// <summary>Creates a Set variant.</summary>
 	public ProcessorContainerDescriptor Set(SetProcessor value) { _value = ProcessorContainer.Set(value); return this; }
 	/// <summary>Creates a Set variant.</summary>

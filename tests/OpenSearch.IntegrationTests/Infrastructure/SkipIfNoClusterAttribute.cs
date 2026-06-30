@@ -1,4 +1,5 @@
 using Xunit;
+using OpenSearch.Client;
 
 namespace OpenSearch.IntegrationTests.Infrastructure;
 

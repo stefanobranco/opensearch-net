@@ -3,9 +3,8 @@
 
 using System.Text.Json.Serialization;
 using OpenSearch.Net;
-using OpenSearch.Client.Common;
 
-namespace OpenSearch.Client.Ml;
+namespace OpenSearch.Client;
 
 
 /// <summary>

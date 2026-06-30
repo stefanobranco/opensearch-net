@@ -2,7 +2,6 @@
 #nullable enable
 
 using OpenSearch.Net;
-using OpenSearch.Client.Core;
 
 namespace OpenSearch.Client;
 

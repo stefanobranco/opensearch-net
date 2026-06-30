@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace OpenSearch.Client.Common;
+namespace OpenSearch.Client;
 
 
 [JsonEnum]
@@ -124,7 +124,7 @@ public sealed class ProcessorContainer : TaggedUnion<ProcessorKind, object>
 	/// <summary>Creates a Rename variant.</summary>
 	public static ProcessorContainer Rename(RenameProcessor value) => new(ProcessorKind.Rename, value);
 	/// <summary>Creates a Script variant.</summary>
-	public static ProcessorContainer Script(System.Text.Json.JsonElement value) => new(ProcessorKind.Script, value);
+	public static ProcessorContainer Script(Script value) => new(ProcessorKind.Script, value);
 	/// <summary>Creates a Set variant.</summary>
 	public static ProcessorContainer Set(SetProcessor value) => new(ProcessorKind.Set, value);
 	/// <summary>Creates a Sort variant.</summary>
@@ -176,7 +176,7 @@ public sealed class ProcessorContainerConverter : TaggedUnionConverter<Processor
 		["lowercase"] = (ProcessorKind.Lowercase, typeof(LowercaseProcessor)),
 		["remove"] = (ProcessorKind.Remove, typeof(RemoveProcessor)),
 		["rename"] = (ProcessorKind.Rename, typeof(RenameProcessor)),
-		["script"] = (ProcessorKind.Script, typeof(System.Text.Json.JsonElement)),
+		["script"] = (ProcessorKind.Script, typeof(Script)),
 		["set"] = (ProcessorKind.Set, typeof(SetProcessor)),
 		["sort"] = (ProcessorKind.Sort, typeof(SortProcessor)),
 		["split"] = (ProcessorKind.Split, typeof(SplitProcessor)),
@@ -250,7 +250,7 @@ public sealed class ProcessorContainerConverter : TaggedUnionConverter<Processor
 		ProcessorKind.Lowercase => ProcessorContainer.Lowercase((LowercaseProcessor)value),
 		ProcessorKind.Remove => ProcessorContainer.Remove((RemoveProcessor)value),
 		ProcessorKind.Rename => ProcessorContainer.Rename((RenameProcessor)value),
-		ProcessorKind.Script => ProcessorContainer.Script((System.Text.Json.JsonElement)value),
+		ProcessorKind.Script => ProcessorContainer.Script((Script)value),
 		ProcessorKind.Set => ProcessorContainer.Set((SetProcessor)value),
 		ProcessorKind.Sort => ProcessorContainer.Sort((SortProcessor)value),
 		ProcessorKind.Split => ProcessorContainer.Split((SplitProcessor)value),

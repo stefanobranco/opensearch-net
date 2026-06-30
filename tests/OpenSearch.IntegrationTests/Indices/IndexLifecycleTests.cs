@@ -1,6 +1,6 @@
 using FluentAssertions;
-using OpenSearch.Client.Indices;
 using OpenSearch.IntegrationTests.Infrastructure;
+using OpenSearch.Client;
 
 namespace OpenSearch.IntegrationTests.Indices;
 

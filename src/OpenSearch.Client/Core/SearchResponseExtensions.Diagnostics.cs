@@ -1,5 +1,4 @@
 using System.Text;
-using OpenSearch.Client.Core;
 using OpenSearch.Net;
 
 namespace OpenSearch.Client;
@@ -38,7 +37,7 @@ public static class SearchResponseDiagnosticsExtensions
 		return null;
 	}
 
-	private static string? FormatShardError(OpenSearch.Client.Common.ShardStatistics? shards)
+	private static string? FormatShardError(OpenSearch.Client.ShardStatistics? shards)
 	{
 		if (shards?.Failures is not { Count: > 0 } failures)
 			return null;
@@ -57,7 +56,7 @@ public static class SearchResponseDiagnosticsExtensions
 	}
 
 	private static string BuildDebugInfo(
-		bool isValid, long took, bool timedOut, OpenSearch.Client.Common.ShardStatistics? shards,
+		bool isValid, long took, bool timedOut, OpenSearch.Client.ShardStatistics? shards,
 		ApiCallDetails? callDetails)
 	{
 		var sb = new StringBuilder();

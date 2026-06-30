@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace OpenSearch.Client.Converters;
+namespace OpenSearch.Client;
 
 /// <summary>
 /// Reads GeoLocation from lat/lon objects, "lat,lon" strings, geohash strings, or [lon, lat] arrays.
