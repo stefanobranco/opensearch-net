@@ -24,9 +24,7 @@ public enum CoverageStatus
 /// <summary>Coverage of one operation group (e.g. <c>indices.create</c>).</summary>
 public sealed record OperationCoverage(
 	string OperationGroup,
-	CoverageStatus Status,
-	string HttpMethod,
-	bool Deprecated);
+	CoverageStatus Status);
 
 /// <summary>Coverage of one API namespace and all its operation groups.</summary>
 public sealed record NamespaceCoverage(

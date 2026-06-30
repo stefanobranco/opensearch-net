@@ -69,9 +69,6 @@ public static class CoverageAnalyzer
 		HashSet<string>? generated,
 		HashSet<string> handWritten)
 	{
-		var httpMethod = RepresentativeMethod(variants);
-		var deprecated = variants.All(v => v.Deprecated);
-
 		CoverageStatus status;
 		if (!isWired)
 		{
@@ -96,22 +93,10 @@ public static class CoverageAnalyzer
 				: CoverageStatus.NdjsonMissing;
 		}
 
-		return new OperationCoverage(operationGroup, status, httpMethod, deprecated);
+		return new OperationCoverage(operationGroup, status);
 	}
 
 	/// <summary>The namespace owning an operation group: the prefix before the first dot, or _core for bare names.</summary>
 	private static string NamespaceOf(string operationGroup) =>
 		operationGroup.IndexOf('.') is var i and >= 0 ? operationGroup[..i] : "_core";
-
-	private static readonly string[] s_methodPriority = ["put", "post", "get", "delete", "head", "patch"];
-
-	/// <summary>Picks one representative HTTP method for display, mirroring the generator's preference order.</summary>
-	private static string RepresentativeMethod(IReadOnlyList<OpenApiOperation> variants)
-	{
-		var methods = variants.Select(v => v.HttpMethod.ToLowerInvariant()).ToHashSet(StringComparer.Ordinal);
-		foreach (var m in s_methodPriority)
-			if (methods.Contains(m))
-				return m.ToUpperInvariant();
-		return methods.OrderBy(m => m, StringComparer.Ordinal).First().ToUpperInvariant();
-	}
 }
