@@ -42,6 +42,7 @@ public class FieldQuerySerializationTests : SerializationTestBase
 		inner.GetProperty("query").GetString().Should().Be("quick brown fox");
 		inner.GetProperty("analyzer").GetString().Should().Be("standard");
 		inner.GetProperty("minimum_should_match").GetString().Should().Be("2");
+		inner.GetProperty("boost").GetSingle().Should().Be(2.0f);
 	}
 
 	[Fact]

@@ -1,36 +1,46 @@
+using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using FluentAssertions;
+using OpenSearch.Net;
 
 namespace OpenSearch.Client.Tests;
 
 /// <summary>
-/// Shared scaffolding for STJ serialization fixtures: the canonical client options plus
-/// serialize/deserialize/round-trip helpers, so each fixture file stays focused on the wire
-/// format of the type under test. Mirrors the inline options used by the older serialization
-/// tests (SnakeCaseLower + omit-null + read-numbers-from-string + enum factory).
+/// Shared scaffolding for serialization fixtures. Serializes through the <em>production</em>
+/// request/response serializer built by <see cref="OpenSearchClientSettings"/> — i.e. the real
+/// <see cref="SystemTextJsonSerializer"/> with its <c>ContextProvider</c>, enum factory and error
+/// converters wired exactly as a live client configures them — so a green fixture means the actual
+/// serialization pipeline is correct, not just a hand-rolled options bag.
 /// </summary>
 public abstract class SerializationTestBase
 {
-	protected static readonly JsonSerializerOptions Json = CreateOptions();
+	private static readonly OpenSearchClientSettings Settings =
+		OpenSearchClientSettings.Create(new Uri("http://localhost:9200")).Build();
 
-	private static JsonSerializerOptions CreateOptions()
+	/// <summary>The production request/response serializer.</summary>
+	protected static readonly IOpenSearchSerializer Serializer = Settings.RequestResponseSerializer;
+
+	/// <summary>The exact <see cref="JsonSerializerOptions"/> the production serializer uses.</summary>
+	protected static readonly JsonSerializerOptions Json = Settings.RequestResponseOptions;
+
+	protected static string Serialize<T>(T value)
 	{
-		var options = new JsonSerializerOptions
-		{
-			PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
-			DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-			NumberHandling = JsonNumberHandling.AllowReadingFromString,
-		};
-		options.Converters.Add(new JsonEnumConverterFactory());
-		return options;
+		using var stream = new MemoryStream();
+		Serializer.Serialize(value, stream);
+		return Encoding.UTF8.GetString(stream.ToArray());
 	}
 
-	protected static string Serialize<T>(T value) => JsonSerializer.Serialize(value, Json);
+	protected static T? Deserialize<T>(string json)
+	{
+		using var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
+		return Serializer.Deserialize<T>(stream);
+	}
 
-	protected static T? Deserialize<T>(string json) => JsonSerializer.Deserialize<T>(json, Json);
-
-	protected static JsonElement Parse(string json) => JsonDocument.Parse(json).RootElement;
+	protected static JsonElement Parse(string json)
+	{
+		using var doc = JsonDocument.Parse(json);
+		return doc.RootElement.Clone();
+	}
 
 	/// <summary>Wraps a CLR value as a <see cref="JsonElement"/> for properties typed as JsonElement.</summary>
 	protected static JsonElement Element(object? value) => JsonSerializer.SerializeToElement(value, Json);

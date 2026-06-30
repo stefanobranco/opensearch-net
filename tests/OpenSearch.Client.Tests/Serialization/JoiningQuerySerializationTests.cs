@@ -24,7 +24,7 @@ public class JoiningQuerySerializationTests : SerializationTestBase
 		root.TryGetProperty("nested", out var inner).Should().BeTrue();
 		inner.GetProperty("path").GetString().Should().Be("comments");
 		inner.GetProperty("query").TryGetProperty("match", out _).Should().BeTrue();
-		inner.TryGetProperty("score_mode", out _).Should().BeTrue();
+		inner.GetProperty("score_mode").GetString().Should().Be("avg");
 	}
 
 	[Fact]
@@ -44,6 +44,7 @@ public class JoiningQuerySerializationTests : SerializationTestBase
 		inner.GetProperty("type").GetString().Should().Be("comment");
 		inner.GetProperty("min_children").GetInt32().Should().Be(1);
 		inner.GetProperty("max_children").GetInt32().Should().Be(10);
+		inner.GetProperty("score_mode").GetString().Should().Be("max");
 		inner.GetProperty("query").TryGetProperty("match_all", out _).Should().BeTrue();
 	}
 
