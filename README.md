@@ -1,5 +1,8 @@
 # OpenSearch .NET Client (Experimental)
 
+[![CI](https://github.com/stefanobranco/opensearch-net/actions/workflows/ci.yml/badge.svg)](https://github.com/stefanobranco/opensearch-net/actions/workflows/ci.yml)
+[![SB.OpenSearch.Client](https://img.shields.io/nuget/vpre/SB.OpenSearch.Client.svg?label=SB.OpenSearch.Client)](https://www.nuget.org/packages/SB.OpenSearch.Client)
+
 > **This is an experimental, work-in-progress, AI-written ground-up rebuild of the OpenSearch .NET client.**
 > It is **not** the official [opensearch-project/opensearch-net](https://github.com/opensearch-project/opensearch-net) client.
 > Do not use in production.
@@ -16,7 +19,7 @@ The goal is a spec-driven, System.Text.Json-based client that can eventually be 
 
 ## Status
 
-**Alpha** — tested against OpenSearch 3.4. Core functionality works but the API surface is incomplete and breaking changes are expected.
+**Beta** — integration-tested in CI against OpenSearch **3.0.0, 3.4.0, and 3.7.0** on every commit (see [`build-test.yml`](.github/workflows/build-test.yml)). Core functionality works, but the API surface is incomplete and breaking changes are expected.
 
 What works:
 - Transport with retry logic, dead-node tracking, handler rotation for DNS refresh

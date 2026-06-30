@@ -38,7 +38,10 @@ well-engineered **on its own terms**, with no push for upstream adoption.
       no package reference), `PublishRepositoryUrl`, `EmbedUntrackedSources`, `IncludeSymbols` +
       `snupkg`, `Deterministic`, and `ContinuousIntegrationBuild` (CI only). Verified: pack produces
       a `.snupkg` and the nuspec embeds the repo URL + commit.
-- [ ] **A4. (optional) Backfill tags** for prior published versions so history is traceable.
+- [x] **A4. Backfill tags — won't do.** A faithful backfill isn't achievable: `alpha.5`/`alpha.8`
+      have no identifiable bump commit, a `bump to alpha.12` commit was never published, and version
+      strings collide for mechanical matching. SourceLink (A3) now stamps every future package with
+      its commit, so historical tags would be guesswork for no benefit. Tagged from `beta.4` forward.
 - [x] **Hardening** — `.github/dependabot.yml` (github-actions + nuget, grouped weekly) and
       least-privilege `permissions: contents: read` on `ci.yml`.
 
