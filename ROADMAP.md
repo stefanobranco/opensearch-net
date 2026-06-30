@@ -29,7 +29,8 @@ well-engineered **on its own terms**, with no push for upstream adoption.
       tests self-skip via `[SkipIfNoCluster]`, so no hardcoded project list) + an integration job
       against an OpenSearch service container (mirrors `docker-compose.yaml`). `ci.yml` calls it on
       push/PR. A composite action (`.github/actions/setup`) centralizes SDK setup + NuGet caching.
-      _Future: matrix across multiple OpenSearch server versions._
+      The integration job matrixes over OpenSearch 3.0.0 / 3.4.0 / 3.7.0 (`fail-fast: false`);
+      2.x is an opt-in addition once its tests are validated.
 - [x] **A2. Automated publish** — `release.yml`: on a semver tag, gates on the same `build-test.yml`,
       then packs (version derived from the tag) + `nuget push` + GitHub Release.
       _Requires `NUGET_API_KEY` repo secret._

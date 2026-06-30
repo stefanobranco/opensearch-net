@@ -27,12 +27,17 @@ jobs:
         run: dotnet test OpenSearch.sln --no-build -c Release
 
   integration:
-    name: Integration tests
+    name: Integration (OpenSearch ${{ matrix.opensearch }})
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false   # one version failing should not cancel the others
+      matrix:
+        # 3.x support range: baseline (also pinned in docker-compose.yaml), stated target, latest.
+        opensearch: ['3.0.0', '3.4.0', '3.7.0']
     services:
       # Mirrors docker-compose.yaml. single-node skips bootstrap checks (e.g. vm.max_map_count).
       opensearch:
-        image: opensearchproject/opensearch:3.0.0
+        image: opensearchproject/opensearch:${{ matrix.opensearch }}
         env:
           discovery.type: single-node
           DISABLE_SECURITY_PLUGIN: "true"
