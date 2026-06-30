@@ -30,4 +30,17 @@
     <RepositoryUrl>https://github.com/stefanobranco/opensearch-net</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
   </PropertyGroup>
+
+  <!-- Package debugging & reproducibility. SourceLink ships in the .NET 8+ SDK (no package
+       reference needed): it embeds the repo URL + commit so debuggers can step into source.
+       A .snupkg symbol package is produced on pack; ContinuousIntegrationBuild normalizes
+       paths for deterministic output and is only set under CI. -->
+  <PropertyGroup>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <Deterministic>true</Deterministic>
+    <ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
+  </PropertyGroup>
 </Project>

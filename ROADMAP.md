@@ -34,10 +34,13 @@ well-engineered **on its own terms**, with no push for upstream adoption.
 - [x] **A2. Automated publish** — `release.yml`: on a semver tag, gates on the same `build-test.yml`,
       then packs (version derived from the tag) + `nuget push` + GitHub Release.
       _Requires `NUGET_API_KEY` repo secret._
-- [ ] **A3. Release hygiene** in `Directory.Build.props` — SourceLink (`Microsoft.SourceLink.GitHub`),
-      `PublishRepositoryUrl`, `EmbedUntrackedSources`, `IncludeSymbols` + `snupkg`,
-      `Deterministic`, `ContinuousIntegrationBuild` (in CI).
+- [x] **A3. Release hygiene** in `Directory.Build.props` — SourceLink (built into the .NET 8+ SDK,
+      no package reference), `PublishRepositoryUrl`, `EmbedUntrackedSources`, `IncludeSymbols` +
+      `snupkg`, `Deterministic`, and `ContinuousIntegrationBuild` (CI only). Verified: pack produces
+      a `.snupkg` and the nuspec embeds the repo URL + commit.
 - [ ] **A4. (optional) Backfill tags** for prior published versions so history is traceable.
+- [x] **Hardening** — `.github/dependabot.yml` (github-actions + nuget, grouped weekly) and
+      least-privilege `permissions: contents: read` on `ci.yml`.
 
 ## Phase B — Functional completeness (core gaps)
 
