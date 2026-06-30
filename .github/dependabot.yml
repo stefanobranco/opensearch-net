@@ -1,0 +1,21 @@
+version: 2
+updates:
+  # Keep GitHub Actions (in workflows and the composite action) current. Also retires
+  # the Node 20 deprecation warning as those actions cut new releases.
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+    groups:
+      github-actions:
+        patterns: ["*"]
+
+  # Keep NuGet dependencies patched. Pairs with the NU19xx audit policy: a published
+  # advisory surfaces as a build warning, and Dependabot opens the PR that fixes it.
+  - package-ecosystem: nuget
+    directory: "/"
+    schedule:
+      interval: weekly
+    groups:
+      nuget:
+        patterns: ["*"]
