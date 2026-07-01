@@ -12,7 +12,7 @@ public sealed class DateRangeAggregationFieldsDescriptor
 	public DateRangeAggregationFieldsDescriptor Field(string? value) { _value.Field = value; return this; }
 	/// <summary>The date format used to format `from` and `to` in the response.</summary>
 		public DateRangeAggregationFieldsDescriptor Format(string? value) { _value.Format = value; return this; }
-	public DateRangeAggregationFieldsDescriptor Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
+	public DateRangeAggregationFieldsDescriptor Missing(FieldValue? value) { _value.Missing = value; return this; }
 	/// <summary>Array of date ranges.</summary>
 		public DateRangeAggregationFieldsDescriptor Ranges(List<DateRangeExpression>? value) { _value.Ranges = value; return this; }
 	/// <summary>Array of date ranges.</summary>

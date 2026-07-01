@@ -10,10 +10,10 @@ public sealed class RareTermsAggregationFields
 {
 	public List<string>? Exclude { get; set; }
 	public string? Field { get; set; }
-	public System.Text.Json.JsonElement? Include { get; set; }
+	public TermsInclude? Include { get; set; }
 	/// <summary>The maximum number of documents a term should appear in.</summary>
 		public long? MaxDocCount { get; set; }
-	public System.Text.Json.JsonElement? Missing { get; set; }
+	public FieldValue? Missing { get; set; }
 	/// <summary>The precision of the internal CuckooFilters. Smaller precision leads to better approximation, but higher memory usage.</summary>
 		public double? Precision { get; set; }
 	public string? ValueType { get; set; }

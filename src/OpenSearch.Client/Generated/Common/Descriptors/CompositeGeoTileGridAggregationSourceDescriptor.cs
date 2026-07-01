@@ -16,7 +16,7 @@ public sealed class CompositeGeoTileGridAggregationSourceDescriptor
 	public CompositeGeoTileGridAggregationSourceDescriptor ValueType(ValueType? value) { _value.ValueType = value; return this; }
 	public CompositeGeoTileGridAggregationSourceDescriptor Order(SortOrder? value) { _value.Order = value; return this; }
 	public CompositeGeoTileGridAggregationSourceDescriptor Precision(int? value) { _value.Precision = value; return this; }
-	public CompositeGeoTileGridAggregationSourceDescriptor Bounds(System.Text.Json.JsonElement? value) { _value.Bounds = value; return this; }
+	public CompositeGeoTileGridAggregationSourceDescriptor Bounds(GeoBounds? value) { _value.Bounds = value; return this; }
 
 	public static implicit operator CompositeGeoTileGridAggregationSource(CompositeGeoTileGridAggregationSourceDescriptor descriptor) => descriptor._value;
 }

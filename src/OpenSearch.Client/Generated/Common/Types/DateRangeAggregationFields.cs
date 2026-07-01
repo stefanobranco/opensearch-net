@@ -11,7 +11,7 @@ public sealed class DateRangeAggregationFields
 	public string? Field { get; set; }
 	/// <summary>The date format used to format `from` and `to` in the response.</summary>
 		public string? Format { get; set; }
-	public System.Text.Json.JsonElement? Missing { get; set; }
+	public FieldValue? Missing { get; set; }
 	/// <summary>Array of date ranges.</summary>
 		public List<DateRangeExpression>? Ranges { get; set; }
 	public string? TimeZone { get; set; }

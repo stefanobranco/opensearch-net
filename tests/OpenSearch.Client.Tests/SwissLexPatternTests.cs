@@ -382,7 +382,7 @@ public class SwissLexPatternTests
 		var metaName = "practice_area";
 
 		var filterQuery = QueryContainer.Term("aggregations.custom_metadata.meta_name.keyword",
-			new TermQuery { Value = JsonSerializer.SerializeToElement(metaName) });
+			new TermQuery { Value = metaName });
 
 		SearchRequest request = new SearchRequestDescriptor<ElasticAsset>()
 			.Size(0)

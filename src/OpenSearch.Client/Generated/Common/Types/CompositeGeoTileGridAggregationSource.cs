@@ -15,5 +15,5 @@ public sealed class CompositeGeoTileGridAggregationSource
 	public ValueType? ValueType { get; set; }
 	public SortOrder? Order { get; set; }
 	public int? Precision { get; set; }
-	public System.Text.Json.JsonElement? Bounds { get; set; }
+	public GeoBounds? Bounds { get; set; }
 }

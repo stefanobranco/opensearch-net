@@ -9,7 +9,7 @@ public sealed class PercentilesAggregationDescriptor
 {
 	internal PercentilesAggregation _value = new();
 
-	public PercentilesAggregationDescriptor Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
+	public PercentilesAggregationDescriptor Missing(FieldValue? value) { _value.Missing = value; return this; }
 	public PercentilesAggregationDescriptor Field(string? value) { _value.Field = value; return this; }
 	public PercentilesAggregationDescriptor Script(Script? value) { _value.Script = value; return this; }
 	public PercentilesAggregationDescriptor Format(string? value) { _value.Format = value; return this; }

@@ -23,7 +23,7 @@ public sealed class MoreLikeThisQuery
 	/// <summary>Specifies whether the input documents should also be included in the search results returned.</summary>
 		public bool? Include { get; set; }
 	/// <summary>Specifies free form text and/or a single or multiple documents for which you want to find similar documents.</summary>
-		public List<System.Text.Json.JsonElement>? Like { get; set; }
+		public List<Like>? Like { get; set; }
 	/// <summary>The maximum document frequency above which the terms are ignored from the input document.</summary>
 		public int? MaxDocFreq { get; set; }
 	/// <summary>The maximum number of query terms that can be selected.</summary>
@@ -42,7 +42,7 @@ public sealed class MoreLikeThisQuery
 	public string? Routing { get; set; }
 	public List<string>? StopWords { get; set; }
 	/// <summary>Used in combination with `like` to exclude documents that match a set of terms.</summary>
-		public List<System.Text.Json.JsonElement>? Unlike { get; set; }
+		public List<Like>? Unlike { get; set; }
 	public long? Version { get; set; }
 	public string? VersionType { get; set; }
 }

@@ -9,7 +9,7 @@ public sealed class AverageAggregationDescriptor
 {
 	internal AverageAggregation _value = new();
 
-	public AverageAggregationDescriptor Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
+	public AverageAggregationDescriptor Missing(FieldValue? value) { _value.Missing = value; return this; }
 	public AverageAggregationDescriptor Field(string? value) { _value.Field = value; return this; }
 	public AverageAggregationDescriptor Script(Script? value) { _value.Script = value; return this; }
 	public AverageAggregationDescriptor Format(string? value) { _value.Format = value; return this; }

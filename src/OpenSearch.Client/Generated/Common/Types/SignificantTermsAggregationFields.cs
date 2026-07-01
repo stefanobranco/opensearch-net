@@ -14,7 +14,7 @@ public sealed class SignificantTermsAggregationFields
 	public TermsAggregationExecutionHint? ExecutionHint { get; set; }
 	public string? Field { get; set; }
 	public GoogleNormalizedDistanceHeuristic? Gnd { get; set; }
-	public System.Text.Json.JsonElement? Include { get; set; }
+	public TermsInclude? Include { get; set; }
 	public System.Text.Json.JsonElement? Jlh { get; set; }
 	/// <summary>Only return terms that are found in more than `min_doc_count` hits.</summary>
 		public long? MinDocCount { get; set; }

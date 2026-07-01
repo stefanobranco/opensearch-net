@@ -183,12 +183,12 @@ public class DescriptorTests
 	[Fact]
 	public void QueryContainer_Term_FieldKeyed_Convenience()
 	{
-		var query = QueryContainer.Term("status", new TermQuery { Value = JsonSerializer.SerializeToElement("active") });
+		var query = QueryContainer.Term("status", new TermQuery { Value = "active" });
 
 		query.Kind.Should().Be(QueryKind.Term);
 		var dict = query.Get<Dictionary<string, TermQuery>>();
 		dict.Should().ContainKey("status");
-		dict["status"].Value!.Value.GetString().Should().Be("active");
+		dict["status"].Value!.Value.ToString().Should().Be("active");
 	}
 
 	// ── 12. Field-keyed convenience: QueryContainer.Match(string, MatchQuery) ──
@@ -196,7 +196,7 @@ public class DescriptorTests
 	[Fact]
 	public void QueryContainer_Match_FieldKeyed_Convenience()
 	{
-		var query = QueryContainer.Match("title", new MatchQuery { Query = JsonSerializer.SerializeToElement("hello") });
+		var query = QueryContainer.Match("title", new MatchQuery { Query = "hello" });
 
 		query.Kind.Should().Be(QueryKind.Match);
 		var dict = query.Get<Dictionary<string, MatchQuery>>();
@@ -209,13 +209,13 @@ public class DescriptorTests
 	public void QueryContainerDescriptor_Term_FieldKeyed_Lambda()
 	{
 		QueryContainer? query = new QueryContainerDescriptor()
-			.Term("status", t => t.Value(JsonSerializer.SerializeToElement("active")));
+			.Term("status", t => t.Value("active"));
 
 		query.Should().NotBeNull();
 		query!.Kind.Should().Be(QueryKind.Term);
 		var dict = query.Get<Dictionary<string, TermQuery>>();
 		dict.Should().ContainKey("status");
-		dict["status"].Value!.Value.GetString().Should().Be("active");
+		dict["status"].Value!.Value.ToString().Should().Be("active");
 	}
 
 	// ── 14. Field-keyed descriptor: d.Match("field", m => m.Query(...)) ──
@@ -224,7 +224,7 @@ public class DescriptorTests
 	public void QueryContainerDescriptor_Match_FieldKeyed_Lambda()
 	{
 		QueryContainer? query = new QueryContainerDescriptor()
-			.Match("title", m => m.Query(JsonSerializer.SerializeToElement("hello")));
+			.Match("title", m => m.Query("hello"));
 
 		query.Should().NotBeNull();
 		query!.Kind.Should().Be(QueryKind.Match);
@@ -237,7 +237,7 @@ public class DescriptorTests
 	[Fact]
 	public void FieldKeyed_Term_RoundTrip_JsonShape()
 	{
-		var query = QueryContainer.Term("status", new TermQuery { Value = JsonSerializer.SerializeToElement("active") });
+		var query = QueryContainer.Term("status", new TermQuery { Value = "active" });
 
 		var json = JsonSerializer.Serialize(query, JsonOptions);
 		var doc = JsonDocument.Parse(json);

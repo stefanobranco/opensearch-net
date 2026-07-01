@@ -9,7 +9,7 @@ public sealed class ExtendedStatsAggregationDescriptor
 {
 	internal ExtendedStatsAggregation _value = new();
 
-	public ExtendedStatsAggregationDescriptor Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
+	public ExtendedStatsAggregationDescriptor Missing(FieldValue? value) { _value.Missing = value; return this; }
 	public ExtendedStatsAggregationDescriptor Field(string? value) { _value.Field = value; return this; }
 	public ExtendedStatsAggregationDescriptor Script(Script? value) { _value.Script = value; return this; }
 	public ExtendedStatsAggregationDescriptor Format(string? value) { _value.Format = value; return this; }

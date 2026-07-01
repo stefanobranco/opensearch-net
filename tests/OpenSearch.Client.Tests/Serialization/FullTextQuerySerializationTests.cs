@@ -87,8 +87,8 @@ public class FullTextQuerySerializationTests : SerializationTestBase
 			TieBreaker = 0.7f,
 			Queries =
 			[
-				QueryContainer.Term("status", new TermQuery { Value = Element("active") }),
-				QueryContainer.Match("title", new MatchQuery { Query = Element("brown fox") }),
+				QueryContainer.Term("status", new TermQuery { Value = "active" }),
+				QueryContainer.Match("title", new MatchQuery { Query = "brown fox" }),
 			],
 		});
 

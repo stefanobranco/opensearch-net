@@ -20,7 +20,7 @@ public class CompoundQuerySerializationTests : SerializationTestBase
 			[
 				new FunctionScoreContainer
 				{
-					Filter = QueryContainer.Term("status", new TermQuery { Value = Element("active") }),
+					Filter = QueryContainer.Term("status", new TermQuery { Value = "active" }),
 					Weight = 2.0f,
 				},
 				new FunctionScoreContainer

@@ -16,5 +16,5 @@ public partial class CancelTaskResponse : OpenSearch.Net.OpenSearchResponse
 	public List<TaskFailure>? TaskFailures { get; set; }
 	/// <summary>Task information grouped by node, if `group_by` was set to `node` (the default).</summary>
 		public Dictionary<string, TaskExecutingNode>? Nodes { get; set; }
-	public System.Text.Json.JsonElement? Tasks { get; set; }
+	public TaskInfos? Tasks { get; set; }
 }

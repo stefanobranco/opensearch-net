@@ -97,7 +97,7 @@ public sealed class SearchRequestDescriptor
 		_value.Highlight = descriptor;
 		return this;
 	}
-	public SearchRequestDescriptor TrackTotalHits(System.Text.Json.JsonElement? value) { _value.TrackTotalHits = value; return this; }
+	public SearchRequestDescriptor TrackTotalHits(TrackHits? value) { _value.TrackTotalHits = value; return this; }
 	/// <summary>Boosts the `_score` of documents from specified indexes.</summary>
 		public SearchRequestDescriptor IndicesBoost(List<Dictionary<string, float>>? value) { _value.IndicesBoost = value; return this; }
 	/// <summary>Array of wildcard (`*`) patterns. The request returns doc values for field names matching these patterns in the `hits.fields` property of the response.</summary>
@@ -143,7 +143,7 @@ public sealed class SearchRequestDescriptor
 	}
 	/// <summary>Retrieve a script evaluation (based on different fields) for each hit.</summary>
 		public SearchRequestDescriptor ScriptFields(Dictionary<string, ScriptField>? value) { _value.ScriptFields = value; return this; }
-	public SearchRequestDescriptor SearchAfter(List<System.Text.Json.JsonElement>? value) { _value.SearchAfter = value; return this; }
+	public SearchRequestDescriptor SearchAfter(List<FieldValue>? value) { _value.SearchAfter = value; return this; }
 	/// <summary>The number of hits to return. By default, you cannot page through more than 10,000 hits using the `from` and `size` parameters. To page through more hits, use the `search_after` parameter.</summary>
 		public SearchRequestDescriptor Size(int? value) { _value.Size = value; return this; }
 	public SearchRequestDescriptor Slice(SlicedScroll? value) { _value.Slice = value; return this; }

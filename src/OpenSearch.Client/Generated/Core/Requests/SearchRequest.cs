@@ -118,7 +118,7 @@ public sealed class SearchRequest
 	/// <summary>Starting document offset. Needs to be non-negative. By default, you cannot page through more than 10,000 hits using the `from` and `size` parameters. To page through more hits, use the `search_after` parameter.</summary>
 		public int? From { get; set; }
 	public Highlight? Highlight { get; set; }
-	public System.Text.Json.JsonElement? TrackTotalHits { get; set; }
+	public TrackHits? TrackTotalHits { get; set; }
 	/// <summary>Boosts the `_score` of documents from specified indexes.</summary>
 		public List<Dictionary<string, float>>? IndicesBoost { get; set; }
 	/// <summary>Array of wildcard (`*`) patterns. The request returns doc values for field names matching these patterns in the `hits.fields` property of the response.</summary>
@@ -137,7 +137,7 @@ public sealed class SearchRequest
 		public List<Rescore>? Rescore { get; set; }
 	/// <summary>Retrieve a script evaluation (based on different fields) for each hit.</summary>
 		public Dictionary<string, ScriptField>? ScriptFields { get; set; }
-	public List<System.Text.Json.JsonElement>? SearchAfter { get; set; }
+	public List<FieldValue>? SearchAfter { get; set; }
 	/// <summary>The number of hits to return. By default, you cannot page through more than 10,000 hits using the `from` and `size` parameters. To page through more hits, use the `search_after` parameter.</summary>
 		public int? Size { get; set; }
 	public SlicedScroll? Slice { get; set; }

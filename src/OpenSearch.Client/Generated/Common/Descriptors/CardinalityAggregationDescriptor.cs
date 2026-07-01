@@ -9,7 +9,7 @@ public sealed class CardinalityAggregationDescriptor
 {
 	internal CardinalityAggregation _value = new();
 
-	public CardinalityAggregationDescriptor Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
+	public CardinalityAggregationDescriptor Missing(FieldValue? value) { _value.Missing = value; return this; }
 	public CardinalityAggregationDescriptor Field(string? value) { _value.Field = value; return this; }
 	public CardinalityAggregationDescriptor Script(Script? value) { _value.Script = value; return this; }
 	/// <summary>A unique count below which counts are expected to be close to accurate. This allows to trade memory for accuracy.</summary>

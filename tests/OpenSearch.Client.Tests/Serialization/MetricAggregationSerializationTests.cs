@@ -17,7 +17,7 @@ public class MetricAggregationSerializationTests : AggregationSerializationTestB
 		var body = AggBody(AggregationContainer.Avg(new AverageAggregation
 		{
 			Field = "number_of_commits",
-			Missing = Element(10.0),
+			Missing = 10.0,
 			Script = Script.Inline("_value * 1.2"),
 		}), "avg");
 

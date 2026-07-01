@@ -20,6 +20,6 @@ public sealed class XyPointProperty
 	public bool? DocValues { get; set; }
 	public bool? IgnoreMalformed { get; set; }
 	public bool? IgnoreZValue { get; set; }
-	public System.Text.Json.JsonElement? NullValue { get; set; }
+	public XyLocation? NullValue { get; set; }
 	public string? Type { get; set; }
 }

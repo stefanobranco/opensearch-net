@@ -8,7 +8,7 @@ namespace OpenSearch.Client;
 
 public sealed class CardinalityAggregation
 {
-	public System.Text.Json.JsonElement? Missing { get; set; }
+	public FieldValue? Missing { get; set; }
 	public string? Field { get; set; }
 	public Script? Script { get; set; }
 	/// <summary>A unique count below which counts are expected to be close to accurate. This allows to trade memory for accuracy.</summary>

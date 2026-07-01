@@ -37,7 +37,7 @@ public sealed class IndexSettingsMerge : TaggedUnion<IndexSettingsMergeKind, obj
 	/// <summary>Creates a LogByteSizePolicy variant.</summary>
 	public static IndexSettingsMerge LogByteSizePolicy(IndexSettingsMergeLogByteSizePolicy value) => new(IndexSettingsMergeKind.LogByteSizePolicy, value);
 	/// <summary>Creates a Policy variant.</summary>
-	public static IndexSettingsMerge Policy(System.Text.Json.JsonElement value) => new(IndexSettingsMergeKind.Policy, value);
+	public static IndexSettingsMerge Policy(IndexSettingsMergePolicy value) => new(IndexSettingsMergeKind.Policy, value);
 	/// <summary>Creates a Scheduler variant.</summary>
 	public static IndexSettingsMerge Scheduler(IndexSettingsMergeScheduler value) => new(IndexSettingsMergeKind.Scheduler, value);
 }
@@ -47,7 +47,7 @@ public sealed class IndexSettingsMergeConverter : TaggedUnionConverter<IndexSett
 	private static readonly Dictionary<string, (IndexSettingsMergeKind Kind, Type Type)> s_kindByName = new(StringComparer.Ordinal)
 	{
 		["log_byte_size_policy"] = (IndexSettingsMergeKind.LogByteSizePolicy, typeof(IndexSettingsMergeLogByteSizePolicy)),
-		["policy"] = (IndexSettingsMergeKind.Policy, typeof(System.Text.Json.JsonElement)),
+		["policy"] = (IndexSettingsMergeKind.Policy, typeof(IndexSettingsMergePolicy)),
 		["scheduler"] = (IndexSettingsMergeKind.Scheduler, typeof(IndexSettingsMergeScheduler)),
 	};
 
@@ -61,7 +61,7 @@ public sealed class IndexSettingsMergeConverter : TaggedUnionConverter<IndexSett
 	protected override IndexSettingsMerge CreateFromKind(IndexSettingsMergeKind kind, object value) => kind switch
 	{
 		IndexSettingsMergeKind.LogByteSizePolicy => IndexSettingsMerge.LogByteSizePolicy((IndexSettingsMergeLogByteSizePolicy)value),
-		IndexSettingsMergeKind.Policy => IndexSettingsMerge.Policy((System.Text.Json.JsonElement)value),
+		IndexSettingsMergeKind.Policy => IndexSettingsMerge.Policy((IndexSettingsMergePolicy)value),
 		IndexSettingsMergeKind.Scheduler => IndexSettingsMerge.Scheduler((IndexSettingsMergeScheduler)value),
 		_ => throw new JsonException($"Unknown IndexSettingsMergeKind: {kind}")
 	};

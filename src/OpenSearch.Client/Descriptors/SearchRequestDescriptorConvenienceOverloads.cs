@@ -1,18 +1,16 @@
-using System.Text.Json;
-
 namespace OpenSearch.Client;
 
 /// <summary>
-/// Convenience overloads for SearchRequestDescriptor (non-generic) that accept
-/// primitive types where the generated code uses JsonElement?.
+/// Convenience overloads for SearchRequestDescriptor (non-generic). <c>TrackTotalHits</c> is a
+/// <see cref="TrackHits"/> that converts implicitly from a bool or int, so these just forward the value.
 /// </summary>
 public static class SearchRequestDescriptorConvenienceOverloads
 {
-	/// <summary>Sets TrackTotalHits with a bool value.</summary>
+	/// <summary>Track the exact total (<c>true</c>) or disable total tracking (<c>false</c>).</summary>
 	public static SearchRequestDescriptor TrackTotalHits(this SearchRequestDescriptor d, bool value)
-	{ d._value.TrackTotalHits = JsonSerializer.SerializeToElement(value); return d; }
+	{ d._value.TrackTotalHits = value; return d; }
 
-	/// <summary>Sets TrackTotalHits with an int value (track up to N hits).</summary>
+	/// <summary>Track the total exactly up to the given threshold.</summary>
 	public static SearchRequestDescriptor TrackTotalHits(this SearchRequestDescriptor d, int value)
-	{ d._value.TrackTotalHits = JsonSerializer.SerializeToElement(value); return d; }
+	{ d._value.TrackTotalHits = value; return d; }
 }

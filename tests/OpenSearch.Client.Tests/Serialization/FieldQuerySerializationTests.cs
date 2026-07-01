@@ -16,7 +16,7 @@ public class FieldQuerySerializationTests : SerializationTestBase
 	{
 		var query = QueryContainer.Term("status", new TermQuery
 		{
-			Value = Element("active"),
+			Value = "active",
 			Boost = 1.5f,
 			CaseInsensitive = true,
 		});
@@ -32,7 +32,7 @@ public class FieldQuerySerializationTests : SerializationTestBase
 	{
 		var query = QueryContainer.Match("title", new MatchQuery
 		{
-			Query = Element("quick brown fox"),
+			Query = "quick brown fox",
 			Analyzer = "standard",
 			MinimumShouldMatch = "2",
 			Boost = 2.0f,
@@ -124,7 +124,7 @@ public class FieldQuerySerializationTests : SerializationTestBase
 	{
 		var query = QueryContainer.Fuzzy("user.id", new FuzzyQuery
 		{
-			Value = Element("ki"),
+			Value = "ki",
 			Fuzziness = "AUTO",
 			MaxExpansions = 50,
 		});

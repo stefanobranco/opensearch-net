@@ -20,7 +20,7 @@ public sealed class IndexSettingsMergeDescriptor
 		return this;
 	}
 	/// <summary>Creates a Policy variant.</summary>
-	public IndexSettingsMergeDescriptor Policy(System.Text.Json.JsonElement value) { _value = IndexSettingsMerge.Policy(value); return this; }
+	public IndexSettingsMergeDescriptor Policy(IndexSettingsMergePolicy value) { _value = IndexSettingsMerge.Policy(value); return this; }
 	/// <summary>Creates a Scheduler variant.</summary>
 	public IndexSettingsMergeDescriptor Scheduler(IndexSettingsMergeScheduler value) { _value = IndexSettingsMerge.Scheduler(value); return this; }
 	/// <summary>Creates a Scheduler variant.</summary>

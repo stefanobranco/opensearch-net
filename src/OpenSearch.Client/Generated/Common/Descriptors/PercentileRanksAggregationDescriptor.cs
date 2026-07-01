@@ -9,7 +9,7 @@ public sealed class PercentileRanksAggregationDescriptor
 {
 	internal PercentileRanksAggregation _value = new();
 
-	public PercentileRanksAggregationDescriptor Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
+	public PercentileRanksAggregationDescriptor Missing(FieldValue? value) { _value.Missing = value; return this; }
 	public PercentileRanksAggregationDescriptor Field(string? value) { _value.Field = value; return this; }
 	public PercentileRanksAggregationDescriptor Script(Script? value) { _value.Script = value; return this; }
 	public PercentileRanksAggregationDescriptor Format(string? value) { _value.Format = value; return this; }

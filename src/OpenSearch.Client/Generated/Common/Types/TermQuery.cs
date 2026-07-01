@@ -12,7 +12,7 @@ public sealed class TermQuery
 		public float? Boost { get; set; }
 	[JsonPropertyName("_name")]
 	public string? Name { get; set; }
-	public System.Text.Json.JsonElement? Value { get; set; }
+	public FieldValue? Value { get; set; }
 	/// <summary>Allows ASCII case insensitive matching of the value with the indexed field values when set to `true`. When `false`, the case sensitivity of matching depends on the underlying field's mapping.</summary>
 		public bool? CaseInsensitive { get; set; }
 }

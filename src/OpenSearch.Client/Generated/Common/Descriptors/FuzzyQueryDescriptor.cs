@@ -21,7 +21,7 @@ public sealed class FuzzyQueryDescriptor
 		public FuzzyQueryDescriptor Transpositions(bool? value) { _value.Transpositions = value; return this; }
 	public FuzzyQueryDescriptor Fuzziness(string? value) { _value.Fuzziness = value; return this; }
 	/// <summary>Term you wish to find in the provided field.</summary>
-		public FuzzyQueryDescriptor Value(System.Text.Json.JsonElement? value) { _value.Value = value; return this; }
+		public FuzzyQueryDescriptor Value(FieldValue? value) { _value.Value = value; return this; }
 
 	public static implicit operator FuzzyQuery(FuzzyQueryDescriptor descriptor) => descriptor._value;
 }

@@ -9,7 +9,7 @@ public sealed class GeoHashGridAggregationFieldsDescriptor
 {
 	internal GeoHashGridAggregationFields _value = new();
 
-	public GeoHashGridAggregationFieldsDescriptor Bounds(System.Text.Json.JsonElement? value) { _value.Bounds = value; return this; }
+	public GeoHashGridAggregationFieldsDescriptor Bounds(GeoBounds? value) { _value.Bounds = value; return this; }
 	public GeoHashGridAggregationFieldsDescriptor Field(string? value) { _value.Field = value; return this; }
 	public GeoHashGridAggregationFieldsDescriptor Precision(string? value) { _value.Precision = value; return this; }
 	/// <summary>Allows for more accurate counting of the top cells returned in the final result the aggregation. Defaults to returning `max(10,(size x number-of-shards))` buckets from each shard.</summary>

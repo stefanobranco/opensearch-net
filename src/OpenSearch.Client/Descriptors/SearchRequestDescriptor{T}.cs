@@ -84,8 +84,7 @@ public sealed class SearchRequestDescriptor<TDocument>
 	public SearchRequestDescriptor<TDocument> MinScore(float? value) { _value.MinScore = value; return this; }
 	public SearchRequestDescriptor<TDocument> Profile(bool? value) { _value.Profile = value; return this; }
 	public SearchRequestDescriptor<TDocument> TrackScores(bool? value) { _value.TrackScores = value; return this; }
-	public SearchRequestDescriptor<TDocument> TrackTotalHits(System.Text.Json.JsonElement? value) { _value.TrackTotalHits = value; return this; }
-	public SearchRequestDescriptor<TDocument> TrackTotalHits(bool value) { _value.TrackTotalHits = System.Text.Json.JsonSerializer.SerializeToElement(value); return this; }
+	public SearchRequestDescriptor<TDocument> TrackTotalHits(TrackHits? value) { _value.TrackTotalHits = value; return this; }
 	public SearchRequestDescriptor<TDocument> Version(bool? value) { _value.Version = value; return this; }
 	public SearchRequestDescriptor<TDocument> SeqNoPrimaryTerm(bool? value) { _value.SeqNoPrimaryTerm = value; return this; }
 	public SearchRequestDescriptor<TDocument> Timeout(string? value) { _value.Timeout = value; return this; }

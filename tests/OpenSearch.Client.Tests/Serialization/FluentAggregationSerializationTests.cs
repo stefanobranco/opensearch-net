@@ -103,7 +103,7 @@ public class FluentAggregationSerializationTests : SerializationTestBase
 	public void Filter_fluent_action_query_with_sub_aggregation_serializes()
 	{
 		var aggs = Aggs(a => a.Filter("electronics",
-			q => q.Term("category", t => t.Value(Element("electronics"))),
+			q => q.Term("category", t => t.Value("electronics")),
 			sub => sub.Avg("avg_price", av => av.Field("price"))));
 
 		var filter = aggs.GetProperty("electronics");

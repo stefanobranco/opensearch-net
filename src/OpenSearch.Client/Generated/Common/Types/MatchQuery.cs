@@ -30,6 +30,6 @@ public sealed class MatchQuery
 	/// <summary>Number of beginning characters left unchanged for fuzzy matching.</summary>
 		public int? PrefixLength { get; set; }
 	/// <summary>Text, number, Boolean value or date you wish to find in the provided field.</summary>
-		public System.Text.Json.JsonElement? Query { get; set; }
+		public FieldValue? Query { get; set; }
 	public ZeroTermsQuery? ZeroTermsQuery { get; set; }
 }

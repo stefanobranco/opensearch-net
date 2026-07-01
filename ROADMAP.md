@@ -97,6 +97,21 @@ well-engineered **on its own terms**, with no push for upstream adoption.
       **Still empty/loose:** a handful that are genuinely bodiless (voting-config 202s), streaming
       (`ml` predict/execute streams), or freeform (`cluster.state`), plus `nodes.info`/`nodes.stats`
       which expose only the `_nodes` summary (no per-node details).
+- [x] **C5. Punted-union ergonomics (surfaced while writing the README Quick Start).** The single most
+      common query — a `match`/`term` on a string — required `JsonSerializer.SerializeToElement("...")`
+      because the spec's scalar/union value schemas were punted to opaque `JsonElement` in the generator's
+      override table. That table read as "handled" to our own tooling, so no metric flagged it; the gap
+      only surfaced when the first genuine consumer-perspective exercise (a compiling Quick Start) forced
+      it. Fixed at the root: the spec's named `FieldValue` (anyOf of scalars) and 10 further punted unions
+      (`Like`, `TermsQueryField`, `TermsInclude`, `Context`, `TrackHits`, `IndexSettingsMergePolicy`,
+      `GeoBounds`, `XyLocation`, `TaskInfos`, `AggregateOrder`) are now hand-written types with implicit
+      conversions + converters, registered through the same override table (mirroring `GeoLocation` /
+      `BucketsPath`). So `new TermQuery { Value = "active" }` and `TrackTotalHits = true` just work, and the
+      hand-written descriptor extensions that wrapped `SerializeToElement` are deleted. To stop this class
+      of gap recurring, the codegen validator now **censuses every override→`JsonElement`** as a tracked
+      degradation (not "handled"). **Deliberately left opaque, documented:** `DecayPlacement` (absorbed by
+      `DecayFunction`), `CompletionContext` (nests the still-unmodeled `GeoHashPrecision` int|string union),
+      `SegmentReplicationStats` (version-divergent response encodings).
 - [ ] **C3.** A first performance/scale pass.
 
 ## Phase D — Package identity (open decision, not yet actioned)
