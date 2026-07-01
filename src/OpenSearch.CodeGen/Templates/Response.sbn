@@ -15,6 +15,7 @@ public {{ if is_response }}partial{{ else }}sealed{{ end }} class {{ class_name 
 {{~ for field in fields ~}}
 	{{ if field.description }}/// <summary>{{ field.description }}</summary>
 	{{ end }}{{ if field.needs_json_property_name }}[JsonPropertyName("{{ field.wire_name }}")]
+	{{ end }}{{ if field.is_source_document }}[JsonConverter(typeof(SourceConverterFactory))]
 	{{ end }}public {{ field.type }} {{ field.name }} { get; set; }
 {{~ end ~}}
 {{~ if is_plain_text_response ~}}

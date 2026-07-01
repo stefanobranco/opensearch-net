@@ -34,6 +34,9 @@ What works:
 - Fluent descriptors with expression-based field resolution
 - Query DSL (57 query types) and aggregations (65 types) with typed builders
 - Scalar query values accept primitives directly (`new TermQuery { Value = "active" }`) via `FieldValue`
+- Dual serializer: a custom `SourceSerializer` (bring-your-own `JsonSerializerOptions` or serializer) is
+  honored for user documents — `Hit<T>.Source`, get responses, and index/create/bulk document bodies —
+  while API types stay on the built-in serializer
 - NDJSON streaming for Bulk and Multi-Search
 - AWS SigV4 authentication
 

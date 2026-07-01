@@ -138,6 +138,8 @@ public sealed class SpecTransformer
 				BodyFields = bodyFields,
 				IsRawBody = isRawBody,
 				RawBodyType = rawBodyType,
+				IsDocumentBody = isRawBody && rawBodyType is null
+					&& group.OperationGroupName is "index" or "create",
 				EndpointName = endpointName,
 				Response = responseShape
 			};

@@ -27,6 +27,7 @@ public partial class GetResponse<TDocument> : OpenSearch.Net.OpenSearchResponse
 	[JsonPropertyName("_seq_no")]
 	public long? SeqNo { get; set; }
 	[JsonPropertyName("_source")]
+	[JsonConverter(typeof(SourceConverterFactory))]
 	public TDocument? Source { get; set; }
 	[JsonPropertyName("_version")]
 	public long? Version { get; set; }
