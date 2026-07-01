@@ -93,9 +93,9 @@ public sealed class TypeMapper
 		["AggregateOrder"] = TypeRef.JsonElement(), // oneOf[object, array] — single or multi-value sort order
 		["CompletionContext"] = TypeRef.JsonElement(), // oneOf[Context, object] — completion context config
 		["IndexSettingsMergePolicy"] = TypeRef.JsonElement(), // oneOf[name, tiered policy config]
-		["CharFilter"] = TypeRef.JsonElement(), // oneOf[string, CharFilterDefinition] — built-in name or custom definition
-		["TokenFilter"] = TypeRef.JsonElement(), // oneOf[string, TokenFilterDefinition] — built-in name or custom definition
-		["Tokenizer"] = TypeRef.JsonElement(), // oneOf[string, TokenizerDefinition] — built-in name or custom definition
+		["CharFilter"] = TypeRef.Named("CharFilter", "CharFilter"), // oneOf[string, CharFilterDefinition] → hand-written string-or-definition wrapper (Types/CharFilter.cs)
+		["TokenFilter"] = TypeRef.Named("TokenFilter", "TokenFilter"), // oneOf[string, TokenFilterDefinition] → hand-written string-or-definition wrapper (Types/TokenFilter.cs)
+		["Tokenizer"] = TypeRef.Named("Tokenizer", "Tokenizer"), // oneOf[string, TokenizerDefinition] → hand-written string-or-definition wrapper (Types/Tokenizer.cs)
 		["XyLocation"] = TypeRef.JsonElement(), // oneOf[XyCartesianCoordinates, array, string] — xy point formats
 		["SegmentReplicationStats"] = TypeRef.JsonElement(), // oneOf[object, object] — different shapes based on context
 	};

@@ -16,16 +16,16 @@ public sealed class AnalyzeIndexRequestDescriptor
 	/// <summary>Array of token attributes used to filter the output of the `explain` parameter.</summary>
 		public AnalyzeIndexRequestDescriptor Attributes(List<string>? value) { _value.Attributes = value; return this; }
 	/// <summary>Array of character filters used to preprocess characters before the tokenizer.</summary>
-		public AnalyzeIndexRequestDescriptor CharFilter(List<System.Text.Json.JsonElement>? value) { _value.CharFilter = value; return this; }
+		public AnalyzeIndexRequestDescriptor CharFilter(List<CharFilter>? value) { _value.CharFilter = value; return this; }
 	/// <summary>If `true`, the response includes token attributes and additional details.</summary>
 		public AnalyzeIndexRequestDescriptor Explain(bool? value) { _value.Explain = value; return this; }
 	public AnalyzeIndexRequestDescriptor Field(string? value) { _value.Field = value; return this; }
 	/// <summary>Array of token filters used to apply after the tokenizer.</summary>
-		public AnalyzeIndexRequestDescriptor Filter(List<System.Text.Json.JsonElement>? value) { _value.Filter = value; return this; }
+		public AnalyzeIndexRequestDescriptor Filter(List<TokenFilter>? value) { _value.Filter = value; return this; }
 	/// <summary>Normalizer to use to convert text into a single token.</summary>
 		public AnalyzeIndexRequestDescriptor Normalizer(string? value) { _value.Normalizer = value; return this; }
 	public AnalyzeIndexRequestDescriptor Text(List<string>? value) { _value.Text = value; return this; }
-	public AnalyzeIndexRequestDescriptor Tokenizer(System.Text.Json.JsonElement? value) { _value.Tokenizer = value; return this; }
+	public AnalyzeIndexRequestDescriptor Tokenizer(Tokenizer? value) { _value.Tokenizer = value; return this; }
 
 	public static implicit operator AnalyzeIndexRequest(AnalyzeIndexRequestDescriptor descriptor) => descriptor._value;
 }

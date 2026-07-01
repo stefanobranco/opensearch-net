@@ -15,11 +15,11 @@ public sealed class IndexSettingsAnalysis
 	/// <summary>The custom analyzer configurations.</summary>
 		public Dictionary<string, Analyzer>? Analyzer { get; set; }
 	/// <summary>The custom character filter configurations.</summary>
-		public Dictionary<string, System.Text.Json.JsonElement>? CharFilter { get; set; }
+		public Dictionary<string, CharFilter>? CharFilter { get; set; }
 	/// <summary>The custom token filter configurations.</summary>
-		public Dictionary<string, System.Text.Json.JsonElement>? Filter { get; set; }
+		public Dictionary<string, TokenFilter>? Filter { get; set; }
 	/// <summary>The custom normalizer configurations.</summary>
 		public Dictionary<string, Normalizer>? Normalizer { get; set; }
 	/// <summary>The custom tokenizer configurations.</summary>
-		public Dictionary<string, System.Text.Json.JsonElement>? Tokenizer { get; set; }
+		public Dictionary<string, Tokenizer>? Tokenizer { get; set; }
 }
