@@ -47,9 +47,22 @@ well-engineered **on its own terms**, with no push for upstream adoption.
 
 ## Phase B — Functional completeness (core gaps)
 
-- [ ] **B1. `snapshot` namespace** — generate + wire + test (backup/restore is core admin surface).
-- [ ] **B2. `tasks` namespace** — generate + wire + test (task management).
-- [ ] **B3.** Review remaining ungenerated namespaces; decide which (if any) are worth adding.
+- [~] **B1. `snapshot` namespace** — generated + wired (11 ops, `SnapshotInfo`/rich Create/Restore
+      bodies). Serialization fixtures + integration tests still pending.
+- [~] **B2. `tasks` namespace** — generated + wired (Cancel/Get/List, `TaskInfo`). Serialization
+      fixtures + integration tests still pending.
+- [x] **B3. Reviewed remaining namespaces.** Wired every namespace opensearch-java ships that we
+      were missing — `snapshot`, `tasks`, `search_pipeline`, `search_relevance`, `ubi` — reaching
+      **19/19 java parity**. The other 17 spec namespaces are shipped by neither client (see
+      `API_COVERAGE.md`) and are left unwired pending demand.
+
+  Known follow-ups surfaced while wiring (tracked for the next generator PR):
+  - Request bodies shaped as `type: array`, `oneOf`/`anyOf`, `$ref`-alias chains, or scalars are
+    silently dropped (`GetBody => null`) — a latent bug affecting shipped `ism.put_policy`, the
+    `security.patch_*` family, and the new `search_relevance.put_experiments`/`put_judgments`.
+  - `search_pipeline` processor lists (`RequestProcessor`/`ResponseProcessor`/`PhaseResultsProcessor`)
+    are externally-tagged unions the generator emits as `JsonElement`.
+  - `ubi.initialize` returns `text/plain`; the generated response deserializes it as JSON.
 
 ## Phase C — Test depth / verification
 
