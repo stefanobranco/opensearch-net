@@ -38,6 +38,9 @@ public class AnalysisSerializationTests : SerializationTestBase
 		root.ValueKind.Should().Be(JsonValueKind.Object);
 		root.GetProperty("type").GetString().Should().Be("mapping");
 		root.GetProperty("mappings").GetArrayLength().Should().Be(2);
+		// The wrapper delegates to the internally-tagged definition converter, which must write the
+		// `type` discriminator exactly once (from the union Kind, not also from the POCO property).
+		root.EnumerateObject().Count(p => p.Name == "type").Should().Be(1, "the `type` discriminator must not be double-written");
 	}
 
 	[Fact]
@@ -141,6 +144,37 @@ public class AnalysisSerializationTests : SerializationTestBase
 		analyzer.GetProperty("type").GetString().Should().Be("custom");
 		analyzer.GetProperty("tokenizer").GetString().Should().Be("my_ngram");
 		analyzer.GetProperty("filter")[1].GetString().Should().Be("lowercase");
+	}
+
+	[Fact]
+	public void AnalyzeIndexRequest_body_serializes_filter_lists_and_tokenizer()
+	{
+		// The other consumer of these wrappers: AnalyzeIndexRequest carries char_filter/filter as JSON
+		// arrays (List<CharFilter>/List<TokenFilter>) and tokenizer as a single value — each element mixing
+		// the built-in-name (bare string) and inline-definition forms.
+		AnalyzeIndexRequest request = new AnalyzeIndexRequestDescriptor()
+			.Index("i")
+			.Text("the quick brown fox")
+			.Tokenizer(TokenizerDefinition.NGramTokenizer(new NGramTokenizer { MinGram = 2, MaxGram = 3 }))
+			.CharFilter(new List<CharFilter> { "html_strip", CharFilterDefinition.MappingCharFilter(new MappingCharFilter { Mappings = ["a => b"] }) })
+			.Filter(new List<TokenFilter> { "lowercase", TokenFilterDefinition.StopTokenFilter(new StopTokenFilter { Stopwords = ["the"] }) });
+
+		var root = Parse(Serialize(request));
+
+		// index is a URL param ([JsonIgnore]), not in the body.
+		root.TryGetProperty("index", out _).Should().BeFalse();
+
+		var charFilters = root.GetProperty("char_filter");
+		charFilters.GetArrayLength().Should().Be(2);
+		charFilters[0].ValueKind.Should().Be(JsonValueKind.String);
+		charFilters[0].GetString().Should().Be("html_strip");
+		charFilters[1].GetProperty("type").GetString().Should().Be("mapping");
+
+		var filters = root.GetProperty("filter");
+		filters[0].GetString().Should().Be("lowercase");
+		filters[1].GetProperty("type").GetString().Should().Be("stop");
+
+		root.GetProperty("tokenizer").GetProperty("type").GetString().Should().Be("ngram");
 	}
 
 	[Fact]
