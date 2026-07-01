@@ -71,11 +71,15 @@ well-engineered **on its own terms**, with no push for upstream adoption.
 
 ## Phase C — Test depth / verification
 
-- [ ] **C1.** Integration smoke tests for generated-but-untested namespaces. 14 wired namespaces have
-      zero integration coverage (snapshot, tasks, ubi, search_pipeline, search_relevance, nodes, ml,
-      knn, ltr, ism, geospatial, ingestion, dangling_indices, security). CI runs against a
-      `DISABLE_SECURITY_PLUGIN=true` cluster, so security stays serialization-only and snapshot needs a
-      `path.repo` added to the CI container.
+- [~] **C1.** Integration smoke tests for generated-but-untested namespaces. Added CI-verified
+      integration tests (3.0/3.4/3.7) for **nodes, tasks, search_pipeline, snapshot (repo lifecycle),
+      ism, knn (vector search + stats)** — 11 namespaces now have integration coverage (with the
+      pre-existing core/cat/cluster/indices/ingest). The CI container now sets `path.repo`.
+      This surfaced a real bug (epoch integer fields overflowing Int32 — now promoted to long).
+      **Not CI-testable here** (covered by serialization fixtures instead): `security` (plugin disabled
+      in CI), `ltr`/`ubi`/`search_relevance` (not in the base image), `ingestion`/`dangling_indices`
+      (need external sources/scenarios). `ml`/`geospatial` are bundled but need heavier setup (model
+      registration / external datasources) — possible stretch.
 - [~] **C2.** Fill roundtrip/response-deserialization coverage gaps. Response fixtures for
       snapshot/tasks/cluster/ingest, plus the recovered responses below (the request/DSL side was
       already well covered). Remaining: response parsing for more namespaces.
