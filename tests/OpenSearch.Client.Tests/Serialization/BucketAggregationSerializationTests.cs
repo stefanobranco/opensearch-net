@@ -86,15 +86,15 @@ public class BucketAggregationSerializationTests : AggregationSerializationTestB
 			Field = "age",
 			Ranges =
 			[
-				new AggregationRange { To = "50" },
-				new AggregationRange { From = "50", To = "100" },
-				new AggregationRange { From = "100" },
+				new AggregationRange { To = 50 },
+				new AggregationRange { From = 50, To = 100 },
+				new AggregationRange { From = 100 },
 			],
 		}), "range");
 
 		body.GetProperty("field").GetString().Should().Be("age");
 		body.GetProperty("ranges").GetArrayLength().Should().Be(3);
-		body.GetProperty("ranges")[1].GetProperty("from").GetString().Should().Be("50");
+		body.GetProperty("ranges")[1].GetProperty("from").GetDouble().Should().Be(50);
 	}
 
 	[Fact]
@@ -242,7 +242,7 @@ public class BucketAggregationSerializationTests : AggregationSerializationTestB
 			Field = "location",
 			Origin = GeoLocation.FromLatLon(52.3760, 4.894),
 			Unit = "km",
-			Ranges = [new AggregationRange { To = "100" }, new AggregationRange { From = "100", To = "300" }],
+			Ranges = [new AggregationRange { To = 100 }, new AggregationRange { From = 100, To = 300 }],
 		}), "geo_distance");
 
 		body.GetProperty("field").GetString().Should().Be("location");

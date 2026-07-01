@@ -126,6 +126,37 @@ public class PipelineAggregationSerializationTests : AggregationSerializationTes
 	}
 
 	[Fact]
+	public void BucketScript_with_named_buckets_path_serializes_map_form_and_round_trips()
+	{
+		// The named-paths (map) form of buckets_path — required by bucket_script/bucket_selector,
+		// whose scripts reference the names. Previously inexpressible (buckets_path was string-only).
+		var body = AggBody(AggregationContainer.BucketScript(new BucketScriptAggregation
+		{
+			BucketsPath = new Dictionary<string, string> { ["totalSales"] = "total_sales", ["tShirts"] = "t_shirts>sales" },
+			Script = Script.Inline("params.tShirts / params.totalSales * 100"),
+		}), "bucket_script");
+
+		var path = body.GetProperty("buckets_path");
+		path.ValueKind.Should().Be(System.Text.Json.JsonValueKind.Object);
+		path.GetProperty("totalSales").GetString().Should().Be("total_sales");
+		path.GetProperty("tShirts").GetString().Should().Be("t_shirts>sales");
+	}
+
+	[Fact]
+	public void BucketsPath_array_form_serializes_and_round_trips()
+	{
+		var body = AggBody(AggregationContainer.AvgBucket(new AverageBucketAggregation
+		{
+			BucketsPath = new[] { "sales", "costs" },
+		}), "avg_bucket");
+
+		var path = body.GetProperty("buckets_path");
+		path.ValueKind.Should().Be(System.Text.Json.JsonValueKind.Array);
+		path.GetArrayLength().Should().Be(2);
+		path[0].GetString().Should().Be("sales");
+	}
+
+	[Fact]
 	public void BucketSelector_serializes_and_round_trips()
 	{
 		var body = AggBody(AggregationContainer.BucketSelector(new BucketSelectorAggregation

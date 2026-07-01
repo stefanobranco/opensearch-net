@@ -82,7 +82,7 @@ public sealed class TypeMapper
 		["GeoBounds"] = TypeRef.JsonElement(), // oneOf[4 coordinate formats]
 		["TermsQueryField"] = TypeRef.JsonElement(), // oneOf[array, TermsLookup]
 		["SourceFilter"] = TypeRef.JsonElement(), // oneOf[Fields, object] — handled by SourceConfig
-		["BucketsPath"] = TypeRef.String(), // oneOf[string, array, object] — typically a string path like "my_agg>my_metric"
+		["BucketsPath"] = TypeRef.Named("BucketsPath", "BucketsPath"), // oneOf[string, array, object] → hand-written union with converter (Types/BucketsPath.cs)
 		["SourceConfigParam"] = TypeRef.JsonElement(), // oneOf[boolean, Fields] — query parameter form of _source
 		["Suggest"] = TypeRef.JsonElement(), // oneOf[allOf, PhraseSuggest, TermSuggest] — handled by SuggesterDescriptor
 		["TaskInfos"] = TypeRef.JsonElement(), // oneOf[array, object] — task info response varies by group_by
@@ -392,7 +392,8 @@ public sealed class TypeMapper
 		// Pattern 3: Primitive union — all members are inline primitives, string among them
 		{
 			var allPrimitives = true;
-			var hasString = false;
+			bool hasString = false, hasBoolean = false, hasNull = false, hasNumber = false, hasInteger = false;
+			string? numberFormat = null, integerFormat = null;
 			foreach (var s in schemas)
 			{
 				var t = s.Type;
@@ -401,10 +402,29 @@ public sealed class TypeMapper
 					allPrimitives = false;
 					break;
 				}
-				if (t == "string") hasString = true;
+				switch (t)
+				{
+					case "string": hasString = true; break;
+					case "boolean": hasBoolean = true; break;
+					case "null": hasNull = true; break;
+					case "number": hasNumber = true; numberFormat = s.Format; break;
+					case "integer": hasInteger = true; integerFormat = s.Format; break;
+				}
 			}
 			if (allPrimitives && hasString)
+			{
+				// A nullable "stringified number" — oneOf[<numeric>, string, null] — is best typed as the
+				// number; the production serializer reads the string form via NumberHandling.AllowReadingFromString.
+				// The explicit null member distinguishes this from a number-or-keyword union (e.g. oneOf[integer,
+				// "auto"]), which has no null member and must stay string. (e.g. AggregationRange.from/to)
+				if (hasNull && !hasBoolean && (hasNumber || hasInteger))
+				{
+					if (hasNumber)
+						return numberFormat == "double" ? TypeRef.Double() : TypeRef.Float();
+					return integerFormat == "int64" ? TypeRef.Long() : TypeRef.Int();
+				}
 				return TypeRef.String();
+			}
 		}
 
 		// Pattern 3b: Ref + primitive — one $ref member + one inline primitive type.

@@ -9,9 +9,9 @@ namespace OpenSearch.Client;
 public sealed class AggregationRange
 {
 	/// <summary>Start of the range (inclusive).</summary>
-		public string? From { get; set; }
+		public double? From { get; set; }
 	/// <summary>Custom key to return the range with.</summary>
 		public string? Key { get; set; }
 	/// <summary>End of the range (exclusive).</summary>
-		public string? To { get; set; }
+		public double? To { get; set; }
 }
