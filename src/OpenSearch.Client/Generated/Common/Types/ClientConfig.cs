@@ -13,6 +13,6 @@ public sealed class ClientConfig
 	public int? ReadTimeout { get; set; }
 	public string? RetryBackoffPolicy { get; set; }
 	public int? MaxRetryTimes { get; set; }
-	public int? RetryBackoffMillis { get; set; }
+	public long? RetryBackoffMillis { get; set; }
 	public int? RetryTimeoutSeconds { get; set; }
 }

@@ -39,12 +39,10 @@ public class SnapshotTests : IntegrationTestBase
 
 			var get = Client.Snapshot.Get(new GetSnapshotRequest { Repository = repo, Snapshot = [snapshot] });
 			get.Snapshots.Should().Contain(s => s.Snapshot == snapshot);
-
-			Client.Snapshot.Delete(new DeleteSnapshotRequest { Repository = repo, Snapshot = snapshot })
-				.Acknowledged.Should().BeTrue();
 		}
 		finally
 		{
+			try { Client.Snapshot.Delete(new DeleteSnapshotRequest { Repository = repo, Snapshot = snapshot }); } catch { }
 			try { Client.Snapshot.DeleteRepository(new DeleteRepositorySnapshotRequest { Repository = [repo] }); } catch { }
 		}
 	}

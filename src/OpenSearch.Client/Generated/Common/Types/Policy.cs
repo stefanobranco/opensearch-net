@@ -17,7 +17,7 @@ public sealed class Policy
 	/// <summary>The description of the policy.</summary>
 		public string? Description { get; set; }
 	/// <summary>When the policy was last updated.</summary>
-		public int? LastUpdatedTime { get; set; }
+		public long? LastUpdatedTime { get; set; }
 	/// <summary>The version of the policy schema.</summary>
 		public float? SchemaVersion { get; set; }
 	/// <summary>The configuration for error notifications.</summary>

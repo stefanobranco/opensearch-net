@@ -12,7 +12,7 @@ public sealed class ErrorNotificationDestinationDescriptor
 	/// <summary>The name of the notification destination.</summary>
 		public ErrorNotificationDestinationDescriptor Name(string? value) { _value.Name = value; return this; }
 	/// <summary>When the notification destination was last updated.</summary>
-		public ErrorNotificationDestinationDescriptor LastUpdateTime(int? value) { _value.LastUpdateTime = value; return this; }
+		public ErrorNotificationDestinationDescriptor LastUpdateTime(long? value) { _value.LastUpdateTime = value; return this; }
 	/// <summary>Additional properties not captured by named fields.</summary>
 	public ErrorNotificationDestinationDescriptor ExtensionData(Dictionary<string, System.Text.Json.JsonElement>? value) { _value.ExtensionData = value; return this; }
 

@@ -14,7 +14,7 @@ public sealed class PolicyDescriptor
 	/// <summary>The description of the policy.</summary>
 		public PolicyDescriptor Description(string? value) { _value.Description = value; return this; }
 	/// <summary>When the policy was last updated.</summary>
-		public PolicyDescriptor LastUpdatedTime(int? value) { _value.LastUpdatedTime = value; return this; }
+		public PolicyDescriptor LastUpdatedTime(long? value) { _value.LastUpdatedTime = value; return this; }
 	/// <summary>The version of the policy schema.</summary>
 		public PolicyDescriptor SchemaVersion(float? value) { _value.SchemaVersion = value; return this; }
 	/// <summary>The configuration for error notifications.</summary>
