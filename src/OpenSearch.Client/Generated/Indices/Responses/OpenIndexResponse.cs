@@ -12,4 +12,7 @@ namespace OpenSearch.Client;
 
 public partial class OpenIndexResponse : OpenSearch.Net.OpenSearchResponse
 {
+	public string? Task { get; set; }
+	public bool? Acknowledged { get; set; }
+	public bool? ShardsAcknowledged { get; set; }
 }
