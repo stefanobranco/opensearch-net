@@ -67,5 +67,5 @@ public sealed class NodeattrsCatEndpoint : IEndpoint<NodeattrsCatRequest, Nodeat
 	public RequestBody? GetBody(NodeattrsCatRequest r) => null;
 
 	public NodeattrsCatResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		new();
+		serializer.Deserialize<NodeattrsCatResponse>(body)!;
 }

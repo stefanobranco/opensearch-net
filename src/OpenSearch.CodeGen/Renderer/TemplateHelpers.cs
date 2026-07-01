@@ -71,6 +71,16 @@ public static class TemplateHelpers
 		return obj;
 	}
 
+	public static ScriptObject BuildListResponseContext(ResponseShape response)
+	{
+		var obj = new ScriptObject();
+		obj["namespace"] = response.Namespace;
+		obj["class_name"] = response.ClassName;
+		obj["description"] = SanitizeDescription(response.Description);
+		obj["item_type"] = response.ListItemType!.CSharpName;
+		return obj;
+	}
+
 	public static ScriptObject BuildEnumContext(EnumShape enumShape)
 	{
 		var obj = new ScriptObject();

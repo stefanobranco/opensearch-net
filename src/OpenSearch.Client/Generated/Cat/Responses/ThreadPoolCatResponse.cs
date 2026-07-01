@@ -10,6 +10,6 @@ namespace OpenSearch.Client;
 /// Returns cluster-wide thread pool statistics per node. By default the active, queued, and rejected statistics are returned for all thread pools.
 /// </summary>
 
-public partial class ThreadPoolCatResponse : OpenSearch.Net.OpenSearchResponse
+public sealed class ThreadPoolCatResponse : List<ThreadPoolRecord>
 {
 }

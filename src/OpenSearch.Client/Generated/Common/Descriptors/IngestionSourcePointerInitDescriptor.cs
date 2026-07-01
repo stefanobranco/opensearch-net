@@ -10,6 +10,8 @@ public sealed class IngestionSourcePointerInitDescriptor
 	internal IngestionSourcePointerInit _value = new();
 
 	public IngestionSourcePointerInitDescriptor Reset(IngestionSourcePointerInitReset? value) { _value.Reset = value; return this; }
+	/// <summary>Specifies the offset value or timestamp in milliseconds.</summary>
+		public IngestionSourcePointerInitDescriptor ResetValue(string? value) { _value.ResetValue = value; return this; }
 
 	public static implicit operator IngestionSourcePointerInit(IngestionSourcePointerInitDescriptor descriptor) => descriptor._value;
 }

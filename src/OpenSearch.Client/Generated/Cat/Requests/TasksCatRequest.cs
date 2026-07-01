@@ -82,5 +82,5 @@ public sealed class TasksCatEndpoint : IEndpoint<TasksCatRequest, TasksCatRespon
 	public RequestBody? GetBody(TasksCatRequest r) => null;
 
 	public TasksCatResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		new();
+		serializer.Deserialize<TasksCatResponse>(body)!;
 }

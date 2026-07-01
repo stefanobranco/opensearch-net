@@ -63,5 +63,5 @@ public sealed class CountCatEndpoint : IEndpoint<CountCatRequest, CountCatRespon
 	public RequestBody? GetBody(CountCatRequest r) => null;
 
 	public CountCatResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		new();
+		serializer.Deserialize<CountCatResponse>(body)!;
 }

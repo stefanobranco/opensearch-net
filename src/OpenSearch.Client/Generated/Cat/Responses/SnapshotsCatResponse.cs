@@ -10,6 +10,6 @@ namespace OpenSearch.Client;
 /// Lists all of the snapshots stored in a specific repository.
 /// </summary>
 
-public partial class SnapshotsCatResponse : OpenSearch.Net.OpenSearchResponse
+public sealed class SnapshotsCatResponse : List<SnapshotsRecord>
 {
 }

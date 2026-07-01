@@ -67,5 +67,5 @@ public sealed class RepositoriesCatEndpoint : IEndpoint<RepositoriesCatRequest, 
 	public RequestBody? GetBody(RepositoriesCatRequest r) => null;
 
 	public RepositoriesCatResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		new();
+		serializer.Deserialize<RepositoriesCatResponse>(body)!;
 }

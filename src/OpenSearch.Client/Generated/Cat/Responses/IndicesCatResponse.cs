@@ -10,6 +10,6 @@ namespace OpenSearch.Client;
 /// Lists information related to indexes, that is, how much disk space they are using, how many shards they have, their health status, and so on.
 /// </summary>
 
-public partial class IndicesCatResponse : OpenSearch.Net.OpenSearchResponse
+public sealed class IndicesCatResponse : List<IndicesRecord>
 {
 }

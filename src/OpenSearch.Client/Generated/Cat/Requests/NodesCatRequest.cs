@@ -82,5 +82,5 @@ public sealed class NodesCatEndpoint : IEndpoint<NodesCatRequest, NodesCatRespon
 	public RequestBody? GetBody(NodesCatRequest r) => null;
 
 	public NodesCatResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		new();
+		serializer.Deserialize<NodesCatResponse>(body)!;
 }

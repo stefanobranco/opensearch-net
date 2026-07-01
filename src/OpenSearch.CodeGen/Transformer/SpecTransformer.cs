@@ -177,6 +177,7 @@ public sealed class SpecTransformer
 						Description = oldResp.Description,
 						Fields = oldResp.Fields,
 						DictionaryValueType = oldResp.DictionaryValueType,
+						ListItemType = oldResp.ListItemType,
 						IsHeadResponse = oldResp.IsHeadResponse,
 						IsPlainTextResponse = oldResp.IsPlainTextResponse,
 						TypeParameters = responseTypeParams
@@ -255,6 +256,20 @@ public sealed class SpecTransformer
 				Description = resolved.Description ?? group.CanonicalOperation.Description,
 				Fields = [],
 				DictionaryValueType = valueType,
+				IsHeadResponse = false
+			};
+		}
+
+		// Array response (e.g. the cat APIs return an array of records) → List<ItemType>.
+		if (resolved.Type is "array" && resolved.Items is not null)
+		{
+			return new ResponseShape
+			{
+				ClassName = responseName,
+				Namespace = nsName,
+				Description = resolved.Description ?? group.CanonicalOperation.Description,
+				Fields = [],
+				ListItemType = typeMapper.Map(resolved.Items),
 				IsHeadResponse = false
 			};
 		}

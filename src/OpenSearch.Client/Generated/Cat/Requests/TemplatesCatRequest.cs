@@ -73,5 +73,5 @@ public sealed class TemplatesCatEndpoint : IEndpoint<TemplatesCatRequest, Templa
 	public RequestBody? GetBody(TemplatesCatRequest r) => null;
 
 	public TemplatesCatResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		new();
+		serializer.Deserialize<TemplatesCatResponse>(body)!;
 }

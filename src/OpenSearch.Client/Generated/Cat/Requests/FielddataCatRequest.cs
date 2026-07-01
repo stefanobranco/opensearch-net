@@ -68,5 +68,5 @@ public sealed class FielddataCatEndpoint : IEndpoint<FielddataCatRequest, Fieldd
 	public RequestBody? GetBody(FielddataCatRequest r) => null;
 
 	public FielddataCatResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		new();
+		serializer.Deserialize<FielddataCatResponse>(body)!;
 }

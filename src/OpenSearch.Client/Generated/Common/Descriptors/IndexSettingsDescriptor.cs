@@ -27,6 +27,7 @@ public sealed class IndexSettingsDescriptor
 		_value.SoftDeletes = descriptor;
 		return this;
 	}
+	public IndexSettingsDescriptor SoftDeletesRetentionLeasePeriod(string? value) { _value.SoftDeletesRetentionLeasePeriod = value; return this; }
 	public IndexSettingsDescriptor Sort(IndexSegmentSort? value) { _value.Sort = value; return this; }
 	public IndexSettingsDescriptor Sort(Action<IndexSegmentSortDescriptor> configure)
 	{
@@ -54,6 +55,7 @@ public sealed class IndexSettingsDescriptor
 		_value.Merge = descriptor;
 		return this;
 	}
+	public IndexSettingsDescriptor MergeSchedulerMaxThreadCount(string? value) { _value.MergeSchedulerMaxThreadCount = value; return this; }
 	public IndexSettingsDescriptor Search(IndexSettingsSearch? value) { _value.Search = value; return this; }
 	public IndexSettingsDescriptor Search(Action<IndexSettingsSearchDescriptor> configure)
 	{
@@ -62,6 +64,7 @@ public sealed class IndexSettingsDescriptor
 		_value.Search = descriptor;
 		return this;
 	}
+	public IndexSettingsDescriptor SearchIdleAfter(string? value) { _value.SearchIdleAfter = value; return this; }
 	public IndexSettingsDescriptor RefreshInterval(string? value) { _value.RefreshInterval = value; return this; }
 	public IndexSettingsDescriptor MaxResultWindow(string? value) { _value.MaxResultWindow = value; return this; }
 	public IndexSettingsDescriptor MaxInnerResultWindow(string? value) { _value.MaxInnerResultWindow = value; return this; }
@@ -78,6 +81,11 @@ public sealed class IndexSettingsDescriptor
 		_value.Blocks = descriptor;
 		return this;
 	}
+	public IndexSettingsDescriptor BlocksReadOnly(string? value) { _value.BlocksReadOnly = value; return this; }
+	public IndexSettingsDescriptor BlocksReadOnlyAllowDelete(string? value) { _value.BlocksReadOnlyAllowDelete = value; return this; }
+	public IndexSettingsDescriptor BlocksRead(string? value) { _value.BlocksRead = value; return this; }
+	public IndexSettingsDescriptor BlocksWrite(string? value) { _value.BlocksWrite = value; return this; }
+	public IndexSettingsDescriptor BlocksMetadata(string? value) { _value.BlocksMetadata = value; return this; }
 	public IndexSettingsDescriptor MaxRefreshListeners(string? value) { _value.MaxRefreshListeners = value; return this; }
 	public IndexSettingsDescriptor Analyze(IndexSettingsAnalyze? value) { _value.Analyze = value; return this; }
 	public IndexSettingsDescriptor Analyze(Action<IndexSettingsAnalyzeDescriptor> configure)
@@ -87,6 +95,7 @@ public sealed class IndexSettingsDescriptor
 		_value.Analyze = descriptor;
 		return this;
 	}
+	public IndexSettingsDescriptor AnalyzeMaxTokenCount(string? value) { _value.AnalyzeMaxTokenCount = value; return this; }
 	public IndexSettingsDescriptor Highlight(IndexSettingsHighlight? value) { _value.Highlight = value; return this; }
 	public IndexSettingsDescriptor Highlight(Action<IndexSettingsHighlightDescriptor> configure)
 	{
@@ -95,6 +104,7 @@ public sealed class IndexSettingsDescriptor
 		_value.Highlight = descriptor;
 		return this;
 	}
+	public IndexSettingsDescriptor HighlightMaxAnalyzedOffset(string? value) { _value.HighlightMaxAnalyzedOffset = value; return this; }
 	public IndexSettingsDescriptor MaxTermsCount(string? value) { _value.MaxTermsCount = value; return this; }
 	public IndexSettingsDescriptor MaxRegexLength(string? value) { _value.MaxRegexLength = value; return this; }
 	public IndexSettingsDescriptor Routing(IndexRouting? value) { _value.Routing = value; return this; }
@@ -116,6 +126,7 @@ public sealed class IndexSettingsDescriptor
 		_value.Lifecycle = descriptor;
 		return this;
 	}
+	public IndexSettingsDescriptor LifecycleName(string? value) { _value.LifecycleName = value; return this; }
 	public IndexSettingsDescriptor ProvidedName(string? value) { _value.ProvidedName = value; return this; }
 	public IndexSettingsDescriptor CreationDate(string? value) { _value.CreationDate = value; return this; }
 	public IndexSettingsDescriptor CreationDateString(string? value) { _value.CreationDateString = value; return this; }
@@ -139,6 +150,8 @@ public sealed class IndexSettingsDescriptor
 		_value.Translog = descriptor;
 		return this;
 	}
+	public IndexSettingsDescriptor TranslogDurability(string? value) { _value.TranslogDurability = value; return this; }
+	public IndexSettingsDescriptor TranslogFlushThresholdSize(string? value) { _value.TranslogFlushThresholdSize = value; return this; }
 	public IndexSettingsDescriptor QueryString(IndexSettingsQueryString? value) { _value.QueryString = value; return this; }
 	public IndexSettingsDescriptor QueryString(Action<IndexSettingsQueryStringDescriptor> configure)
 	{
@@ -147,6 +160,7 @@ public sealed class IndexSettingsDescriptor
 		_value.QueryString = descriptor;
 		return this;
 	}
+	public IndexSettingsDescriptor QueryStringLenient(string? value) { _value.QueryStringLenient = value; return this; }
 	public IndexSettingsDescriptor Priority(string? value) { _value.Priority = value; return this; }
 	public IndexSettingsDescriptor TopMetricsMaxSize(string? value) { _value.TopMetricsMaxSize = value; return this; }
 	public IndexSettingsDescriptor Analysis(IndexSettingsAnalysis? value) { _value.Analysis = value; return this; }
@@ -214,6 +228,15 @@ public sealed class IndexSettingsDescriptor
 		return this;
 	}
 	public IndexSettingsDescriptor Knn(string? value) { _value.Knn = value; return this; }
+	public IndexSettingsDescriptor KnnAlgoParamEfSearch(string? value) { _value.KnnAlgoParamEfSearch = value; return this; }
+	public IndexSettingsDescriptor CompositeIndexStarTree(IndexSettingsStarTree? value) { _value.CompositeIndexStarTree = value; return this; }
+	public IndexSettingsDescriptor CompositeIndexStarTree(Action<IndexSettingsStarTreeDescriptor> configure)
+	{
+		var descriptor = new IndexSettingsStarTreeDescriptor();
+		configure(descriptor);
+		_value.CompositeIndexStarTree = descriptor;
+		return this;
+	}
 	public IndexSettingsDescriptor IngestionSource(IngestionSource? value) { _value.IngestionSource = value; return this; }
 	public IndexSettingsDescriptor IngestionSource(Action<IngestionSourceDescriptor> configure)
 	{
@@ -222,6 +245,8 @@ public sealed class IndexSettingsDescriptor
 		_value.IngestionSource = descriptor;
 		return this;
 	}
+	/// <summary>Defines the replication type.</summary>
+		public IndexSettingsDescriptor ReplicationType(ReplicationType? value) { _value.ReplicationType = value; return this; }
 	/// <summary>Additional properties not captured by named fields.</summary>
 	public IndexSettingsDescriptor ExtensionData(Dictionary<string, System.Text.Json.JsonElement>? value) { _value.ExtensionData = value; return this; }
 

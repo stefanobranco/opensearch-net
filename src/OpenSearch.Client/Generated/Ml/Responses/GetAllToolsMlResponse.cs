@@ -10,6 +10,6 @@ namespace OpenSearch.Client;
 /// Get tools.
 /// </summary>
 
-public partial class GetAllToolsMlResponse : OpenSearch.Net.OpenSearchResponse
+public sealed class GetAllToolsMlResponse : List<Tool>
 {
 }

@@ -10,6 +10,6 @@ namespace OpenSearch.Client;
 /// Shows how much heap memory is currently being used by field data on every data node in the cluster.
 /// </summary>
 
-public partial class FielddataCatResponse : OpenSearch.Net.OpenSearchResponse
+public sealed class FielddataCatResponse : List<FielddataRecord>
 {
 }

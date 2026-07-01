@@ -72,5 +72,5 @@ public sealed class PendingTasksCatEndpoint : IEndpoint<PendingTasksCatRequest, 
 	public RequestBody? GetBody(PendingTasksCatRequest r) => null;
 
 	public PendingTasksCatResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		new();
+		serializer.Deserialize<PendingTasksCatResponse>(body)!;
 }

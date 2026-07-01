@@ -10,6 +10,6 @@ namespace OpenSearch.Client;
 /// Returns information about the names, components, and versions of the installed plugins.
 /// </summary>
 
-public partial class PluginsCatResponse : OpenSearch.Net.OpenSearchResponse
+public sealed class PluginsCatResponse : List<PluginsRecord>
 {
 }

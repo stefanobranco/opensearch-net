@@ -10,6 +10,6 @@ namespace OpenSearch.Client;
 /// Returns information about active and last-completed segment replication events on each replica shard, including related shard-level metrics. These metrics provide information about how far behind the primary shard the replicas are lagging.
 /// </summary>
 
-public partial class SegmentReplicationCatResponse : OpenSearch.Net.OpenSearchResponse
+public sealed class SegmentReplicationCatResponse : List<SegmentReplicationRecord>
 {
 }

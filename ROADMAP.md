@@ -85,10 +85,14 @@ well-engineered **on its own terms**, with no push for upstream adoption.
       followed (recovers `ism.get_policy` and ~12 others), and discriminator-less `oneOf`/`anyOf`
       responses merge into a typed superset (recovers `delete_by_query`/`update_by_query`/`reindex` —
       the full bulk-by-scroll result *or* the async `{task}` form — plus `indices.open`). ~18 responses
-      recovered total.
-      **Still empty/loose:** `cat.*` (23 — array-of-rows responses discarded by the `is_cat` path; need
-      a typed row-list model), plus a handful that are genuinely bodiless (voting-config 202s), streaming
-      (`ml` predict/execute streams), or freeform (`cluster.state`).
+      recovered total. Array responses are now modelled as `List<Item>` (a new response shape alongside
+      dictionary responses), so the **23 `cat.*` APIs** deserialize their record arrays instead of being
+      discarded; dotted record columns (`docs.count`, `store.size`) are kept as `[JsonPropertyName]`
+      fields (recovers the full cat row — `IndicesRecord` went 6 → 145 fields — and adds the flat
+      dotted-settings form to ~17 shared types).
+      **Still empty/loose:** a handful that are genuinely bodiless (voting-config 202s), streaming
+      (`ml` predict/execute streams), or freeform (`cluster.state`), plus `nodes.info`/`nodes.stats`
+      which expose only the `_nodes` summary (no per-node details).
 - [ ] **C3.** A first performance/scale pass.
 
 ## Phase D — Package identity (open decision, not yet actioned)

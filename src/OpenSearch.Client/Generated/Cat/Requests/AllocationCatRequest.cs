@@ -78,5 +78,5 @@ public sealed class AllocationCatEndpoint : IEndpoint<AllocationCatRequest, Allo
 	public RequestBody? GetBody(AllocationCatRequest r) => null;
 
 	public AllocationCatResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		new();
+		serializer.Deserialize<AllocationCatResponse>(body)!;
 }
