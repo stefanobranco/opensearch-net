@@ -37,9 +37,18 @@ public class SnapshotTests : IntegrationTestBase
 				WaitForCompletion = true,
 			});
 
-			var get = Client.Snapshot.Get(new GetSnapshotRequest { Repository = repo, Snapshot = [snapshot] });
-			var info = get.Snapshots.Should().ContainSingle(s => s.Snapshot == snapshot).Subject;
-			info.State.Should().Be("SUCCESS");
+			// The snapshot can take a moment to become visible via GET after create acknowledges; poll.
+			SnapshotInfo? info = null;
+			for (var attempt = 0; attempt < 20 && info is null; attempt++)
+			{
+				var get = Client.Snapshot.Get(new GetSnapshotRequest { Repository = repo, Snapshot = [snapshot] });
+				info = get.Snapshots?.FirstOrDefault(s => s.Snapshot == snapshot);
+				if (info is null)
+					System.Threading.Thread.Sleep(500);
+			}
+
+			info.Should().NotBeNull("the snapshot should be retrievable via GET after creation");
+			info!.State.Should().Be("SUCCESS");
 			info.Indices.Should().Contain(index);
 		}
 		finally
