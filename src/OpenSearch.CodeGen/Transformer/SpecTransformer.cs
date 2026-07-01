@@ -392,7 +392,7 @@ public sealed class SpecTransformer
 			var pascalName = NamingConventions.ToPascalCase(name);
 			if (!existingNames.Add(pascalName))
 				continue;
-			var fieldType = typeMapper.Map(propSchema);
+			var fieldType = typeMapper.MapField(name, propSchema);
 			fields.Add(new Field
 			{
 				Name = pascalName,
@@ -421,7 +421,7 @@ public sealed class SpecTransformer
 			{
 				Name = pascalName,
 				WireName = name,
-				Type = typeMapper.Map(propSchema),
+				Type = typeMapper.MapField(name, propSchema),
 				Required = !forceOptional && required.Contains(name),
 				Description = propSchema.Description,
 				Deprecated = propSchema.Deprecated

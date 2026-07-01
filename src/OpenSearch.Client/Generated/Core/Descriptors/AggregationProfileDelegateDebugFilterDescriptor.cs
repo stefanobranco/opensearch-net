@@ -12,7 +12,7 @@ public sealed class AggregationProfileDelegateDebugFilterDescriptor
 	public AggregationProfileDelegateDebugFilterDescriptor ResultsFromMetadata(int? value) { _value.ResultsFromMetadata = value; return this; }
 	public AggregationProfileDelegateDebugFilterDescriptor Query(string? value) { _value.Query = value; return this; }
 	public AggregationProfileDelegateDebugFilterDescriptor SpecializedFor(string? value) { _value.SpecializedFor = value; return this; }
-	public AggregationProfileDelegateDebugFilterDescriptor SegmentsCountedInConstantTime(int? value) { _value.SegmentsCountedInConstantTime = value; return this; }
+	public AggregationProfileDelegateDebugFilterDescriptor SegmentsCountedInConstantTime(long? value) { _value.SegmentsCountedInConstantTime = value; return this; }
 
 	public static implicit operator AggregationProfileDelegateDebugFilter(AggregationProfileDelegateDebugFilterDescriptor descriptor) => descriptor._value;
 }

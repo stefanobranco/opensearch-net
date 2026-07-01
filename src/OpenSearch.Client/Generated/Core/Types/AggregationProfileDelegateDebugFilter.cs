@@ -11,5 +11,5 @@ public sealed class AggregationProfileDelegateDebugFilter
 	public int? ResultsFromMetadata { get; set; }
 	public string? Query { get; set; }
 	public string? SpecializedFor { get; set; }
-	public int? SegmentsCountedInConstantTime { get; set; }
+	public long? SegmentsCountedInConstantTime { get; set; }
 }

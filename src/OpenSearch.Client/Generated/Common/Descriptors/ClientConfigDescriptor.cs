@@ -14,7 +14,7 @@ public sealed class ClientConfigDescriptor
 	public ClientConfigDescriptor ReadTimeout(int? value) { _value.ReadTimeout = value; return this; }
 	public ClientConfigDescriptor RetryBackoffPolicy(string? value) { _value.RetryBackoffPolicy = value; return this; }
 	public ClientConfigDescriptor MaxRetryTimes(int? value) { _value.MaxRetryTimes = value; return this; }
-	public ClientConfigDescriptor RetryBackoffMillis(int? value) { _value.RetryBackoffMillis = value; return this; }
+	public ClientConfigDescriptor RetryBackoffMillis(long? value) { _value.RetryBackoffMillis = value; return this; }
 	public ClientConfigDescriptor RetryTimeoutSeconds(int? value) { _value.RetryTimeoutSeconds = value; return this; }
 
 	public static implicit operator ClientConfig(ClientConfigDescriptor descriptor) => descriptor._value;

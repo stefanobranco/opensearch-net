@@ -156,6 +156,30 @@ public sealed class TypeMapper
 	/// <summary>
 	/// Maps an OpenAPI schema to a TypeRef.
 	/// </summary>
+	/// <summary>
+	/// Maps a property's schema to a type, promoting epoch/time integer fields to <c>long</c>. The spec
+	/// often types epoch-millis fields (e.g. <c>last_updated_time</c>, <c>start_time_in_millis</c>) as a
+	/// bare <c>integer</c>, which overflows Int32 at runtime.
+	/// </summary>
+	public TypeRef MapField(string wireName, OpenApiSchema schema)
+	{
+		var type = Map(schema);
+		if (type.Name == "int" && IsEpochIntegerName(wireName))
+			return new TypeRef { Kind = TypeRefKind.Primitive, Name = "long", CSharpName = "long", IsNullable = type.IsNullable };
+		return type;
+	}
+
+	private static readonly string[] s_epochIntegerSuffixes =
+		["_time", "_millis", "_timestamp", "_in_millis", "_time_in_millis"];
+
+	private static bool IsEpochIntegerName(string wireName)
+	{
+		foreach (var suffix in s_epochIntegerSuffixes)
+			if (wireName.EndsWith(suffix, StringComparison.Ordinal))
+				return true;
+		return false;
+	}
+
 	public TypeRef Map(OpenApiSchema schema)
 	{
 		// Handle $ref first — use QualifiedRef so local refs (#/...) carry their source file
@@ -957,7 +981,7 @@ public sealed class TypeMapper
 				continue;
 			}
 
-			var fieldType = Map(propSchema);
+			var fieldType = MapField(name, propSchema);
 			fields.Add(new Field
 			{
 				Name = pascalName,
