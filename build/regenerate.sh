@@ -15,7 +15,7 @@ spec_dir="$repo_root/src/OpenSearch.CodeGen/Spec"
 out_dir="$repo_root/src/OpenSearch.Client/Generated"
 
 # The committed namespace set. Shared "Common" types are emitted as a byproduct of these.
-namespaces="_core,cat,cluster,dangling_indices,geospatial,indices,ingest,ingestion,ism,knn,ltr,ml,nodes,security"
+namespaces="_core,cat,cluster,dangling_indices,geospatial,indices,ingest,ingestion,ism,knn,ltr,ml,nodes,search_pipeline,search_relevance,security,snapshot,tasks,ubi"
 
 # Generated/ is disposable: wipe first so renamed or removed types leave no stale files.
 rm -rf "$out_dir"

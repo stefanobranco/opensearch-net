@@ -17,15 +17,15 @@ the generated set; every other spec namespace is a gap.
 | Metric | Count |
 | --- | ---: |
 | Spec namespaces | 36 |
-| Wired (generated) | 14 |
+| Wired (generated) | 19 |
 | Shipped by opensearch-java | 19 |
 | Operation groups (spec) | 481 |
-| Covered (generated + hand-written) | 352 |
-| — generated | 349 |
+| Covered (generated + hand-written) | 388 |
+| — generated | 385 |
 | — hand-written (NDJSON) | 3 |
 | Excluded (x-ignorable) | 1 |
 | Gap — NDJSON not hand-written | 1 |
-| Gap — namespace not wired | 127 |
+| Gap — namespace not wired | 91 |
 
 ## Namespaces
 
@@ -56,27 +56,23 @@ the generated set; every other spec namespace is a gap.
 | remote_store | not wired | 0 / 1 | — |
 | replication | not wired | 0 / 11 | — |
 | rollups | not wired | 0 / 6 | — |
-| search_pipeline | not wired | 0 / 3 | yes |
-| search_relevance | not wired | 0 / 18 | yes |
+| search_pipeline | wired | 3 / 3 | yes |
+| search_relevance | wired | 18 / 18 | yes |
 | security | wired | 76 / 77 | yes |
 | security_analytics | not wired | 0 / 3 | — |
 | sm | not wired | 0 / 8 | — |
-| snapshot | not wired | 0 / 11 | yes |
+| snapshot | wired | 11 / 11 | yes |
 | sql | not wired | 0 / 6 | — |
-| tasks | not wired | 0 / 3 | yes |
+| tasks | wired | 3 / 3 | yes |
 | transforms | not wired | 0 / 8 | — |
-| ubi | not wired | 0 / 1 | yes |
+| ubi | wired | 1 / 1 | yes |
 | wlm | not wired | 0 / 4 | — |
 
 ## Gaps
 
 ### Namespaces not wired — opensearch-java ships these (next priority)
 
-- **search_pipeline** (3): search_pipeline.delete, search_pipeline.get, search_pipeline.put
-- **search_relevance** (18): search_relevance.delete_experiments, search_relevance.delete_judgments, search_relevance.delete_query_sets, search_relevance.delete_scheduled_experiments, search_relevance.delete_search_configurations, search_relevance.get_experiments, search_relevance.get_judgments, search_relevance.get_node_stats, search_relevance.get_query_sets, search_relevance.get_scheduled_experiments, search_relevance.get_search_configurations, search_relevance.get_stats, search_relevance.post_query_sets, search_relevance.post_scheduled_experiments, search_relevance.put_experiments, search_relevance.put_judgments, search_relevance.put_query_sets, search_relevance.put_search_configurations
-- **snapshot** (11): snapshot.cleanup_repository, snapshot.clone, snapshot.create, snapshot.create_repository, snapshot.delete, snapshot.delete_repository, snapshot.get, snapshot.get_repository, snapshot.restore, snapshot.status, snapshot.verify_repository
-- **tasks** (3): tasks.cancel, tasks.get, tasks.list
-- **ubi** (1): ubi.initialize
+_None._
 
 ### Namespaces not wired — neither client ships these
 

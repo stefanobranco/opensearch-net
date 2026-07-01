@@ -23,6 +23,11 @@ public static class GeneratedNamespaces
 		"ltr",
 		"ml",
 		"nodes",
+		"search_pipeline",
+		"search_relevance",
 		"security",
+		"snapshot",
+		"tasks",
+		"ubi",
 	];
 }
