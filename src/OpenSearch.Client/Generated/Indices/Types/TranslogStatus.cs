@@ -20,5 +20,5 @@ public sealed class TranslogStatus
 	/// <summary>The number of transaction log operations at start.</summary>
 		public int TotalOnStart { get; set; }
 	public string? TotalTime { get; set; }
-	public System.Text.Json.JsonElement? TotalTimeInMillis { get; set; }
+	public long TotalTimeInMillis { get; set; }
 }

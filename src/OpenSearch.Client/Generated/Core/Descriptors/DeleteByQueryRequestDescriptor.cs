@@ -48,7 +48,7 @@ public sealed class DeleteByQueryRequestDescriptor
 	/// <summary>The throttle for this request in sub-requests per second.</summary>
 		public DeleteByQueryRequestDescriptor RequestsPerSecond(float? value) { _value.RequestsPerSecond = value; return this; }
 	/// <summary>A custom value used to route operations to a specific shard.</summary>
-		public DeleteByQueryRequestDescriptor Routing(System.Text.Json.JsonElement? value) { _value.Routing = value; return this; }
+		public DeleteByQueryRequestDescriptor Routing(List<string>? value) { _value.Routing = value; return this; }
 	/// <summary>Period to retain the search context for scrolling.</summary>
 		public DeleteByQueryRequestDescriptor Scroll(string? value) { _value.Scroll = value; return this; }
 	/// <summary>Size of the scroll request that powers the operation.</summary>

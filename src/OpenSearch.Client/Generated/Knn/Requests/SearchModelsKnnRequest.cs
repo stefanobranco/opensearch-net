@@ -87,7 +87,7 @@ public sealed class SearchModelsKnnRequest
 	public bool? RestTotalHitsAsInt { get; set; }
 	/// <summary>A comma-separated list of specific routing values.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? Routing { get; set; }
+	public List<string>? Routing { get; set; }
 	/// <summary>Specify how long a consistent view of the index should be maintained for scrolled search.</summary>
 	[JsonIgnore]
 	public string? Scroll { get; set; }
@@ -202,7 +202,7 @@ public sealed class SearchModelsKnnEndpoint : IEndpoint<SearchModelsKnnRequest, 
 		if (r.RestTotalHitsAsInt is not null)
 			queryParts.Add($"rest_total_hits_as_int={Uri.EscapeDataString((r.RestTotalHitsAsInt.Value ? "true" : "false"))}");
 		if (r.Routing is not null)
-			queryParts.Add($"routing={Uri.EscapeDataString(r.Routing.ToString()!)}");
+			queryParts.Add($"routing={Uri.EscapeDataString(string.Join(",", r.Routing!))}");
 		if (r.Scroll is not null)
 			queryParts.Add($"scroll={Uri.EscapeDataString(r.Scroll!)}");
 		if (r.SearchType is not null)

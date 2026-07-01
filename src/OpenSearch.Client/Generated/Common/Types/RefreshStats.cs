@@ -17,7 +17,7 @@ public sealed class RefreshStats
 	/// <summary>The total amount of time spent on external refresh operations.</summary>
 		public string? ExternalTotalTime { get; set; }
 	/// <summary>The total amount of time spent on external refresh operations in milliseconds.</summary>
-		public System.Text.Json.JsonElement? ExternalTotalTimeInMillis { get; set; }
+		public long ExternalTotalTimeInMillis { get; set; }
 	/// <summary>The number of refresh listeners.</summary>
 		public long Listeners { get; set; }
 	/// <summary>The total number of refresh operations.</summary>
@@ -25,5 +25,5 @@ public sealed class RefreshStats
 	/// <summary>The total amount of time spent on refresh operations.</summary>
 		public string? TotalTime { get; set; }
 	/// <summary>The total amount of time spent on refresh operations in milliseconds.</summary>
-		public System.Text.Json.JsonElement? TotalTimeInMillis { get; set; }
+		public long TotalTimeInMillis { get; set; }
 }

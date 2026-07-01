@@ -5,12 +5,12 @@ using System.Text.Json.Serialization;
 
 namespace OpenSearch.Client;
 
-public sealed class ExtendedBoundsFieldDateMathDescriptor<T>
+public sealed class ExtendedBoundsFieldDateMathDescriptor
 {
-	internal ExtendedBoundsFieldDateMath<T> _value = new();
+	internal ExtendedBoundsFieldDateMath _value = new();
 
-	public ExtendedBoundsFieldDateMathDescriptor<T> Max(T? value) { _value.Max = value; return this; }
-	public ExtendedBoundsFieldDateMathDescriptor<T> Min(T? value) { _value.Min = value; return this; }
+	public ExtendedBoundsFieldDateMathDescriptor Max(string? value) { _value.Max = value; return this; }
+	public ExtendedBoundsFieldDateMathDescriptor Min(string? value) { _value.Min = value; return this; }
 
-	public static implicit operator ExtendedBoundsFieldDateMath<T>(ExtendedBoundsFieldDateMathDescriptor<T> descriptor) => descriptor._value;
+	public static implicit operator ExtendedBoundsFieldDateMath(ExtendedBoundsFieldDateMathDescriptor descriptor) => descriptor._value;
 }

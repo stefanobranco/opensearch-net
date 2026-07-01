@@ -18,7 +18,7 @@ public sealed class CreateRequestDescriptor
 	/// <summary>If `true`, OpenSearch refreshes the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` do nothing with refreshes. Valid values: `true`, `false`, `wait_for`.</summary>
 		public CreateRequestDescriptor Refresh(string? value) { _value.Refresh = value; return this; }
 	/// <summary>A custom value used to route operations to a specific shard.</summary>
-		public CreateRequestDescriptor Routing(System.Text.Json.JsonElement? value) { _value.Routing = value; return this; }
+		public CreateRequestDescriptor Routing(List<string>? value) { _value.Routing = value; return this; }
 	/// <summary>Period the request waits for the following operations: automatic index creation, dynamic mapping updates, waiting for active shards.</summary>
 		public CreateRequestDescriptor Timeout(string? value) { _value.Timeout = value; return this; }
 	/// <summary>Explicit version number for concurrency control. The specified version must match the current version of the document for the request to succeed.</summary>

@@ -1,6 +1,3 @@
-using System.Text.Json;
-using OpenSearch.Client;
-
 namespace OpenSearch.Client;
 
 /// <summary>
@@ -58,11 +55,8 @@ public sealed class AggregationsDictDescriptor
 
 	public AggregationsDictDescriptor Filter(string name,
 		QueryContainer filter,
-		Action<AggregationsDictDescriptor>? subAggs = null)
-	{
-		var element = JsonSerializer.SerializeToElement(filter, OpenSearchJsonOptions.RequestSerialization);
-		return AddBucket(name, AggregationContainer.Filter(element), subAggs);
-	}
+		Action<AggregationsDictDescriptor>? subAggs = null) =>
+		AddBucket(name, AggregationContainer.Filter(filter), subAggs);
 
 	public AggregationsDictDescriptor Filter(string name,
 		Action<QueryContainerDescriptor> configure,
@@ -70,9 +64,7 @@ public sealed class AggregationsDictDescriptor
 	{
 		var descriptor = new QueryContainerDescriptor();
 		configure(descriptor);
-		QueryContainer? filter = descriptor;
-		var element = JsonSerializer.SerializeToElement(filter, OpenSearchJsonOptions.RequestSerialization);
-		return AddBucket(name, AggregationContainer.Filter(element), subAggs);
+		return AddBucket(name, AggregationContainer.Filter((QueryContainer)descriptor!), subAggs);
 	}
 
 	public AggregationsDictDescriptor Filters(string name,
@@ -150,25 +142,24 @@ public sealed class AggregationsDictDescriptor
 		Action<AggregationsDictDescriptor>? subAggs = null) =>
 		AddBucket(name, configure, d => AggregationContainer.IpRange(d), subAggs);
 
-	public AggregationsDictDescriptor DateHistogram<T>(string name,
-		Action<DateHistogramAggregationFieldsDescriptor<T>> configure,
-		Action<AggregationsDictDescriptor>? subAggs = null)
-	{
-		var desc = new DateHistogramAggregationFieldsDescriptor<T>();
-		configure(desc);
-		var element = JsonSerializer.SerializeToElement((DateHistogramAggregationFields<T>)desc, OpenSearchJsonOptions.RequestSerialization);
-		return AddBucket(name, AggregationContainer.DateHistogram(element), subAggs);
-	}
+	public AggregationsDictDescriptor DateHistogram(string name,
+		Action<DateHistogramAggregationFieldsDescriptor> configure,
+		Action<AggregationsDictDescriptor>? subAggs = null) =>
+		AddBucket(name, configure, d => AggregationContainer.DateHistogram(d), subAggs);
 
-	public AggregationsDictDescriptor Histogram<T>(string name,
-		Action<HistogramAggregationFieldsDescriptor<T>> configure,
-		Action<AggregationsDictDescriptor>? subAggs = null)
-	{
-		var desc = new HistogramAggregationFieldsDescriptor<T>();
-		configure(desc);
-		var element = JsonSerializer.SerializeToElement((HistogramAggregationFields<T>)desc, OpenSearchJsonOptions.RequestSerialization);
-		return AddBucket(name, AggregationContainer.Histogram(element), subAggs);
-	}
+	public AggregationsDictDescriptor Histogram(string name,
+		Action<HistogramAggregationFieldsDescriptor> configure,
+		Action<AggregationsDictDescriptor>? subAggs = null) =>
+		AddBucket(name, configure, d => AggregationContainer.Histogram(d), subAggs);
+
+	/// <summary>A global aggregation has no parameters of its own; it exists to hold sub-aggregations
+	/// evaluated over all documents, ignoring the query.</summary>
+	public AggregationsDictDescriptor Global(string name,
+		Action<AggregationsDictDescriptor>? subAggs = null) =>
+		AddBucket(name, AggregationContainer.Global(s_emptyObject), subAggs);
+
+	private static readonly System.Text.Json.JsonElement s_emptyObject =
+		System.Text.Json.JsonSerializer.SerializeToElement(new { });
 
 	// ── Metric aggregations ──
 

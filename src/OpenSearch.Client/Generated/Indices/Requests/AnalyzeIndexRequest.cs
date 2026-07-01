@@ -29,7 +29,7 @@ public sealed class AnalyzeIndexRequest
 		public List<System.Text.Json.JsonElement>? Filter { get; set; }
 	/// <summary>Normalizer to use to convert text into a single token.</summary>
 		public string? Normalizer { get; set; }
-	public System.Text.Json.JsonElement? Text { get; set; }
+	public List<string>? Text { get; set; }
 	public System.Text.Json.JsonElement? Tokenizer { get; set; }
 }
 public sealed class AnalyzeIndexEndpoint : IEndpoint<AnalyzeIndexRequest, AnalyzeIndexResponse>

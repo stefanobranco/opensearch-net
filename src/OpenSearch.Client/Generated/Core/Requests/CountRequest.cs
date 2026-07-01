@@ -54,7 +54,7 @@ public sealed class CountRequest
 	public string? Q { get; set; }
 	/// <summary>A custom value used to route operations to a specific shard.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? Routing { get; set; }
+	public List<string>? Routing { get; set; }
 	/// <summary>Maximum number of documents to collect for each shard. If a query reaches this limit, OpenSearch terminates the query early. OpenSearch collects documents before sorting.</summary>
 	[JsonIgnore]
 	public int? TerminateAfter { get; set; }
@@ -98,7 +98,7 @@ public sealed class CountEndpoint : IEndpoint<CountRequest, CountResponse>
 		if (r.Q is not null)
 			queryParts.Add($"q={Uri.EscapeDataString(r.Q!)}");
 		if (r.Routing is not null)
-			queryParts.Add($"routing={Uri.EscapeDataString(r.Routing.ToString()!)}");
+			queryParts.Add($"routing={Uri.EscapeDataString(string.Join(",", r.Routing!))}");
 		if (r.TerminateAfter is not null)
 			queryParts.Add($"terminate_after={Uri.EscapeDataString(r.TerminateAfter.ToString()!)}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;

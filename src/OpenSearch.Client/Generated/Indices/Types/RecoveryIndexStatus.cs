@@ -16,9 +16,9 @@ public sealed class RecoveryIndexStatus
 	public RecoveryFiles? Files { get; set; }
 	public RecoveryBytes? Size { get; set; }
 	public string? SourceThrottleTime { get; set; }
-	public System.Text.Json.JsonElement? SourceThrottleTimeInMillis { get; set; }
+	public long SourceThrottleTimeInMillis { get; set; }
 	public string? TargetThrottleTime { get; set; }
-	public System.Text.Json.JsonElement? TargetThrottleTimeInMillis { get; set; }
+	public long TargetThrottleTimeInMillis { get; set; }
 	public string? TotalTime { get; set; }
-	public System.Text.Json.JsonElement? TotalTimeInMillis { get; set; }
+	public long TotalTimeInMillis { get; set; }
 }

@@ -18,7 +18,7 @@ public sealed class QueryProfileDescriptor
 		return this;
 	}
 	public QueryProfileDescriptor Description(string? value) { _value.Description = value; return this; }
-	public QueryProfileDescriptor TimeInNanos(System.Text.Json.JsonElement? value) { _value.TimeInNanos = value; return this; }
+	public QueryProfileDescriptor TimeInNanos(long value) { _value.TimeInNanos = value; return this; }
 	public QueryProfileDescriptor Type(string? value) { _value.Type = value; return this; }
 	public QueryProfileDescriptor Children(List<QueryProfile>? value) { _value.Children = value; return this; }
 	public QueryProfileDescriptor Children(params Action<QueryProfileDescriptor>[] configure)

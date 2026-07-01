@@ -16,7 +16,7 @@ public sealed class DataSourceDescriptor
 		public DataSourceDescriptor Endpoint(string? value) { _value.Endpoint = value; return this; }
 	/// <summary>Update interval.</summary>
 		public DataSourceDescriptor UpdateIntervalInDays(int value) { _value.UpdateIntervalInDays = value; return this; }
-	public DataSourceDescriptor NextUpdateAtInEpochMillis(System.Text.Json.JsonElement? value) { _value.NextUpdateAtInEpochMillis = value; return this; }
+	public DataSourceDescriptor NextUpdateAtInEpochMillis(long value) { _value.NextUpdateAtInEpochMillis = value; return this; }
 	public DataSourceDescriptor Database(Database? value) { _value.Database = value; return this; }
 	public DataSourceDescriptor Database(Action<DatabaseDescriptor> configure)
 	{

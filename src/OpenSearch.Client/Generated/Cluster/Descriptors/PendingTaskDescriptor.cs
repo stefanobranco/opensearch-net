@@ -18,9 +18,9 @@ public sealed class PendingTaskDescriptor
 	/// <summary>A general description of the cluster task that may include a reason and origin.</summary>
 		public PendingTaskDescriptor Source(string? value) { _value.Source = value; return this; }
 	public PendingTaskDescriptor TimeInQueue(string? value) { _value.TimeInQueue = value; return this; }
-	public PendingTaskDescriptor TimeInQueueMillis(System.Text.Json.JsonElement? value) { _value.TimeInQueueMillis = value; return this; }
+	public PendingTaskDescriptor TimeInQueueMillis(long value) { _value.TimeInQueueMillis = value; return this; }
 	public PendingTaskDescriptor TimeInExecution(string? value) { _value.TimeInExecution = value; return this; }
-	public PendingTaskDescriptor TimeInExecutionMillis(System.Text.Json.JsonElement? value) { _value.TimeInExecutionMillis = value; return this; }
+	public PendingTaskDescriptor TimeInExecutionMillis(long? value) { _value.TimeInExecutionMillis = value; return this; }
 
 	public static implicit operator PendingTask(PendingTaskDescriptor descriptor) => descriptor._value;
 }

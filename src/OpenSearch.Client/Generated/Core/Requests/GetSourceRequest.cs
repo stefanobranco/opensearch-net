@@ -39,7 +39,7 @@ public sealed class GetSourceRequest
 	public string? Refresh { get; set; }
 	/// <summary>Target the specified primary shard.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? Routing { get; set; }
+	public List<string>? Routing { get; set; }
 	/// <summary>Explicit version number for concurrency control. The specified version must match the current version of the document for the request to succeed.</summary>
 	[JsonIgnore]
 	public long? Version { get; set; }
@@ -70,7 +70,7 @@ public sealed class GetSourceEndpoint : IEndpoint<GetSourceRequest, GetSourceRes
 		if (r.Refresh is not null)
 			queryParts.Add($"refresh={Uri.EscapeDataString(r.Refresh!)}");
 		if (r.Routing is not null)
-			queryParts.Add($"routing={Uri.EscapeDataString(r.Routing.ToString()!)}");
+			queryParts.Add($"routing={Uri.EscapeDataString(string.Join(",", r.Routing!))}");
 		if (r.Version is not null)
 			queryParts.Add($"version={Uri.EscapeDataString(r.Version.ToString()!)}");
 		if (r.VersionType is not null)

@@ -42,7 +42,7 @@ public partial class HealthClusterResponse : OpenSearch.Net.OpenSearchResponse
 		public int RelocatingShards { get; set; }
 	public string? Status { get; set; }
 	public string? TaskMaxWaitingInQueue { get; set; }
-	public System.Text.Json.JsonElement? TaskMaxWaitingInQueueMillis { get; set; }
+	public long TaskMaxWaitingInQueueMillis { get; set; }
 	/// <summary>If `false` the response returned within the period of time that is specified by the timeout parameter (`30s` by default).</summary>
 		public bool TimedOut { get; set; }
 	/// <summary>The number of shards that are not allocated.</summary>

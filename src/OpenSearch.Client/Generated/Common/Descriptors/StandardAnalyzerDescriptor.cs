@@ -11,7 +11,7 @@ public sealed class StandardAnalyzerDescriptor
 
 	public StandardAnalyzerDescriptor Type(string? value) { _value.Type = value; return this; }
 	public StandardAnalyzerDescriptor MaxTokenLength(int? value) { _value.MaxTokenLength = value; return this; }
-	public StandardAnalyzerDescriptor Stopwords(System.Text.Json.JsonElement? value) { _value.Stopwords = value; return this; }
+	public StandardAnalyzerDescriptor Stopwords(List<string>? value) { _value.Stopwords = value; return this; }
 
 	public static implicit operator StandardAnalyzer(StandardAnalyzerDescriptor descriptor) => descriptor._value;
 }

@@ -141,7 +141,8 @@ public sealed class SearchRequestDescriptor<TDocument>
 	public SearchRequestDescriptor<TDocument> Index(List<string>? value) { _value.Index = value; return this; }
 	public SearchRequestDescriptor<TDocument> Index(string value) { _value.Index = [value]; return this; }
 	public SearchRequestDescriptor<TDocument> Scroll(string? value) { _value.Scroll = value; return this; }
-	public SearchRequestDescriptor<TDocument> Routing(System.Text.Json.JsonElement? value) { _value.Routing = value; return this; }
+	public SearchRequestDescriptor<TDocument> Routing(List<string>? value) { _value.Routing = value; return this; }
+	public SearchRequestDescriptor<TDocument> Routing(string value) { _value.Routing = [value]; return this; }
 	public SearchRequestDescriptor<TDocument> Preference(string? value) { _value.Preference = value; return this; }
 	public SearchRequestDescriptor<TDocument> AllowNoIndices(bool? value) { _value.AllowNoIndices = value; return this; }
 	public SearchRequestDescriptor<TDocument> IgnoreUnavailable(bool? value) { _value.IgnoreUnavailable = value; return this; }

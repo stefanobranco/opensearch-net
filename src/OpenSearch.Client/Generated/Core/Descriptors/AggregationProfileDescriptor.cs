@@ -18,7 +18,7 @@ public sealed class AggregationProfileDescriptor
 		return this;
 	}
 	public AggregationProfileDescriptor Description(string? value) { _value.Description = value; return this; }
-	public AggregationProfileDescriptor TimeInNanos(System.Text.Json.JsonElement? value) { _value.TimeInNanos = value; return this; }
+	public AggregationProfileDescriptor TimeInNanos(long value) { _value.TimeInNanos = value; return this; }
 	public AggregationProfileDescriptor Type(string? value) { _value.Type = value; return this; }
 	public AggregationProfileDescriptor Debug(AggregationProfileDebug? value) { _value.Debug = value; return this; }
 	public AggregationProfileDescriptor Debug(Action<AggregationProfileDebugDescriptor> configure)

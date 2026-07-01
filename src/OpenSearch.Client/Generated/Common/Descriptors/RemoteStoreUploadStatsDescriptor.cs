@@ -12,7 +12,7 @@ public sealed class RemoteStoreUploadStatsDescriptor
 	/// <summary>The maximum duration that the remote refresh is behind the local refresh.</summary>
 		public RemoteStoreUploadStatsDescriptor MaxRefreshTimeLag(string? value) { _value.MaxRefreshTimeLag = value; return this; }
 	/// <summary>The maximum duration, in milliseconds, that the remote refresh is behind the local refresh.</summary>
-		public RemoteStoreUploadStatsDescriptor MaxRefreshTimeLagInMillis(System.Text.Json.JsonElement? value) { _value.MaxRefreshTimeLagInMillis = value; return this; }
+		public RemoteStoreUploadStatsDescriptor MaxRefreshTimeLagInMillis(long value) { _value.MaxRefreshTimeLagInMillis = value; return this; }
 	public RemoteStoreUploadStatsDescriptor Pressure(RemoteStoreUploadPressureStats? value) { _value.Pressure = value; return this; }
 	public RemoteStoreUploadStatsDescriptor Pressure(Action<RemoteStoreUploadPressureStatsDescriptor> configure)
 	{
@@ -32,7 +32,7 @@ public sealed class RemoteStoreUploadStatsDescriptor
 	/// <summary>The total amount of time spent on uploads to the remote segment store.</summary>
 		public RemoteStoreUploadStatsDescriptor TotalTimeSpent(string? value) { _value.TotalTimeSpent = value; return this; }
 	/// <summary>The total amount of time, in milliseconds, spent on uploads to the remote segment store.</summary>
-		public RemoteStoreUploadStatsDescriptor TotalTimeSpentInMillis(System.Text.Json.JsonElement? value) { _value.TotalTimeSpentInMillis = value; return this; }
+		public RemoteStoreUploadStatsDescriptor TotalTimeSpentInMillis(long value) { _value.TotalTimeSpentInMillis = value; return this; }
 	public RemoteStoreUploadStatsDescriptor TotalUploadSize(RemoteStoreUploadDownloadStats? value) { _value.TotalUploadSize = value; return this; }
 	public RemoteStoreUploadStatsDescriptor TotalUploadSize(Action<RemoteStoreUploadDownloadStatsDescriptor> configure)
 	{

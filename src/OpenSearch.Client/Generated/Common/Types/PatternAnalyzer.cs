@@ -13,5 +13,5 @@ public sealed class PatternAnalyzer
 	public string? Flags { get; set; }
 	public bool? Lowercase { get; set; }
 	public string? Pattern { get; set; }
-	public System.Text.Json.JsonElement? Stopwords { get; set; }
+	public List<string>? Stopwords { get; set; }
 }

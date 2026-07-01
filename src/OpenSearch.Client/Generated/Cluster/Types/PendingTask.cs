@@ -17,7 +17,7 @@ public sealed class PendingTask
 	/// <summary>A general description of the cluster task that may include a reason and origin.</summary>
 		public string? Source { get; set; }
 	public string? TimeInQueue { get; set; }
-	public System.Text.Json.JsonElement? TimeInQueueMillis { get; set; }
+	public long TimeInQueueMillis { get; set; }
 	public string? TimeInExecution { get; set; }
-	public System.Text.Json.JsonElement? TimeInExecutionMillis { get; set; }
+	public long? TimeInExecutionMillis { get; set; }
 }

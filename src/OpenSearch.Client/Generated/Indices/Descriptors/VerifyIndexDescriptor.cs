@@ -10,9 +10,9 @@ public sealed class VerifyIndexDescriptor
 	internal VerifyIndex _value = new();
 
 	public VerifyIndexDescriptor CheckIndexTime(string? value) { _value.CheckIndexTime = value; return this; }
-	public VerifyIndexDescriptor CheckIndexTimeInMillis(System.Text.Json.JsonElement? value) { _value.CheckIndexTimeInMillis = value; return this; }
+	public VerifyIndexDescriptor CheckIndexTimeInMillis(long value) { _value.CheckIndexTimeInMillis = value; return this; }
 	public VerifyIndexDescriptor TotalTime(string? value) { _value.TotalTime = value; return this; }
-	public VerifyIndexDescriptor TotalTimeInMillis(System.Text.Json.JsonElement? value) { _value.TotalTimeInMillis = value; return this; }
+	public VerifyIndexDescriptor TotalTimeInMillis(long value) { _value.TotalTimeInMillis = value; return this; }
 
 	public static implicit operator VerifyIndex(VerifyIndexDescriptor descriptor) => descriptor._value;
 }

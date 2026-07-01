@@ -23,8 +23,8 @@ public sealed class ReindexTaskDescriptor
 		_value.ResourceStats = descriptor;
 		return this;
 	}
-	public ReindexTaskDescriptor RunningTimeInNanos(System.Text.Json.JsonElement? value) { _value.RunningTimeInNanos = value; return this; }
-	public ReindexTaskDescriptor StartTimeInMillis(System.Text.Json.JsonElement? value) { _value.StartTimeInMillis = value; return this; }
+	public ReindexTaskDescriptor RunningTimeInNanos(long value) { _value.RunningTimeInNanos = value; return this; }
+	public ReindexTaskDescriptor StartTimeInMillis(long value) { _value.StartTimeInMillis = value; return this; }
 	public ReindexTaskDescriptor Status(ReindexStatus? value) { _value.Status = value; return this; }
 	public ReindexTaskDescriptor Status(Action<ReindexStatusDescriptor> configure)
 	{

@@ -28,7 +28,7 @@ public sealed class SearchTemplateRequestDescriptor
 	/// <summary>If `true`, `hits.total` are rendered as an integer in the response.</summary>
 		public SearchTemplateRequestDescriptor RestTotalHitsAsInt(bool? value) { _value.RestTotalHitsAsInt = value; return this; }
 	/// <summary>A custom value used to route operations to a specific shard.</summary>
-		public SearchTemplateRequestDescriptor Routing(System.Text.Json.JsonElement? value) { _value.Routing = value; return this; }
+		public SearchTemplateRequestDescriptor Routing(List<string>? value) { _value.Routing = value; return this; }
 	/// <summary>Specifies how long a consistent view of the index should be maintained for scrolled search.</summary>
 		public SearchTemplateRequestDescriptor Scroll(string? value) { _value.Scroll = value; return this; }
 	/// <summary>Customizable sequence of processing stages applied to search queries.</summary>

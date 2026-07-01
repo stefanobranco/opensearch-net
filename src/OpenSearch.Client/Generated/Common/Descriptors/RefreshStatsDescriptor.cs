@@ -14,7 +14,7 @@ public sealed class RefreshStatsDescriptor
 	/// <summary>The total amount of time spent on external refresh operations.</summary>
 		public RefreshStatsDescriptor ExternalTotalTime(string? value) { _value.ExternalTotalTime = value; return this; }
 	/// <summary>The total amount of time spent on external refresh operations in milliseconds.</summary>
-		public RefreshStatsDescriptor ExternalTotalTimeInMillis(System.Text.Json.JsonElement? value) { _value.ExternalTotalTimeInMillis = value; return this; }
+		public RefreshStatsDescriptor ExternalTotalTimeInMillis(long value) { _value.ExternalTotalTimeInMillis = value; return this; }
 	/// <summary>The number of refresh listeners.</summary>
 		public RefreshStatsDescriptor Listeners(long value) { _value.Listeners = value; return this; }
 	/// <summary>The total number of refresh operations.</summary>
@@ -22,7 +22,7 @@ public sealed class RefreshStatsDescriptor
 	/// <summary>The total amount of time spent on refresh operations.</summary>
 		public RefreshStatsDescriptor TotalTime(string? value) { _value.TotalTime = value; return this; }
 	/// <summary>The total amount of time spent on refresh operations in milliseconds.</summary>
-		public RefreshStatsDescriptor TotalTimeInMillis(System.Text.Json.JsonElement? value) { _value.TotalTimeInMillis = value; return this; }
+		public RefreshStatsDescriptor TotalTimeInMillis(long value) { _value.TotalTimeInMillis = value; return this; }
 
 	public static implicit operator RefreshStats(RefreshStatsDescriptor descriptor) => descriptor._value;
 }

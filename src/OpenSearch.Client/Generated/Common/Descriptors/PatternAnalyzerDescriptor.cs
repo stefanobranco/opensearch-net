@@ -14,7 +14,7 @@ public sealed class PatternAnalyzerDescriptor
 	public PatternAnalyzerDescriptor Flags(string? value) { _value.Flags = value; return this; }
 	public PatternAnalyzerDescriptor Lowercase(bool? value) { _value.Lowercase = value; return this; }
 	public PatternAnalyzerDescriptor Pattern(string? value) { _value.Pattern = value; return this; }
-	public PatternAnalyzerDescriptor Stopwords(System.Text.Json.JsonElement? value) { _value.Stopwords = value; return this; }
+	public PatternAnalyzerDescriptor Stopwords(List<string>? value) { _value.Stopwords = value; return this; }
 
 	public static implicit operator PatternAnalyzer(PatternAnalyzerDescriptor descriptor) => descriptor._value;
 }

@@ -5,12 +5,12 @@ using System.Text.Json.Serialization;
 
 namespace OpenSearch.Client;
 
-public sealed class ExtendedBoundsDoubleDescriptor<T>
+public sealed class ExtendedBoundsDoubleDescriptor
 {
-	internal ExtendedBoundsDouble<T> _value = new();
+	internal ExtendedBoundsDouble _value = new();
 
-	public ExtendedBoundsDoubleDescriptor<T> Max(T? value) { _value.Max = value; return this; }
-	public ExtendedBoundsDoubleDescriptor<T> Min(T? value) { _value.Min = value; return this; }
+	public ExtendedBoundsDoubleDescriptor Max(double value) { _value.Max = value; return this; }
+	public ExtendedBoundsDoubleDescriptor Min(double value) { _value.Min = value; return this; }
 
-	public static implicit operator ExtendedBoundsDouble<T>(ExtendedBoundsDoubleDescriptor<T> descriptor) => descriptor._value;
+	public static implicit operator ExtendedBoundsDouble(ExtendedBoundsDoubleDescriptor descriptor) => descriptor._value;
 }

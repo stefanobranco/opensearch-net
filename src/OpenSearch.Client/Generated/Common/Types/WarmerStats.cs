@@ -19,5 +19,5 @@ public sealed class WarmerStats
 	/// <summary>The total time spent on warmer operations.</summary>
 		public string? TotalTime { get; set; }
 	/// <summary>The total time spent on warmer operations in milliseconds.</summary>
-		public System.Text.Json.JsonElement? TotalTimeInMillis { get; set; }
+		public long TotalTimeInMillis { get; set; }
 }

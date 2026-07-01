@@ -9,8 +9,8 @@ public sealed class UpdateStatsDescriptor
 {
 	internal UpdateStats _value = new();
 
-	public UpdateStatsDescriptor LastSucceededAtInEpochMillis(System.Text.Json.JsonElement? value) { _value.LastSucceededAtInEpochMillis = value; return this; }
-	public UpdateStatsDescriptor LastProcessingTimeInMillis(System.Text.Json.JsonElement? value) { _value.LastProcessingTimeInMillis = value; return this; }
+	public UpdateStatsDescriptor LastSucceededAtInEpochMillis(long? value) { _value.LastSucceededAtInEpochMillis = value; return this; }
+	public UpdateStatsDescriptor LastProcessingTimeInMillis(long? value) { _value.LastProcessingTimeInMillis = value; return this; }
 
 	public static implicit operator UpdateStats(UpdateStatsDescriptor descriptor) => descriptor._value;
 }

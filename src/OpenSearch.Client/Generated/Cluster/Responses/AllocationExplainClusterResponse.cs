@@ -14,7 +14,7 @@ public partial class AllocationExplainClusterResponse : OpenSearch.Net.OpenSearc
 {
 	public string? AllocateExplanation { get; set; }
 	public string? AllocationDelay { get; set; }
-	public System.Text.Json.JsonElement? AllocationDelayInMillis { get; set; }
+	public long? AllocationDelayInMillis { get; set; }
 	public Decision? CanAllocate { get; set; }
 	public Decision? CanMoveToOtherNode { get; set; }
 	public Decision? CanRebalanceCluster { get; set; }
@@ -24,7 +24,7 @@ public partial class AllocationExplainClusterResponse : OpenSearch.Net.OpenSearc
 	public Decision? CanRemainOnCurrentNode { get; set; }
 	public ClusterInfo? ClusterInfo { get; set; }
 	public string? ConfiguredDelay { get; set; }
-	public System.Text.Json.JsonElement? ConfiguredDelayInMillis { get; set; }
+	public long? ConfiguredDelayInMillis { get; set; }
 	public CurrentNode? CurrentNode { get; set; }
 	public string? CurrentState { get; set; }
 	public string? Index { get; set; }
@@ -33,7 +33,7 @@ public partial class AllocationExplainClusterResponse : OpenSearch.Net.OpenSearc
 	public bool Primary { get; set; }
 	public string? RebalanceExplanation { get; set; }
 	public string? RemainingDelay { get; set; }
-	public System.Text.Json.JsonElement? RemainingDelayInMillis { get; set; }
+	public long? RemainingDelayInMillis { get; set; }
 	public int Shard { get; set; }
 	public UnassignedInformation? UnassignedInfo { get; set; }
 	public string? Note { get; set; }

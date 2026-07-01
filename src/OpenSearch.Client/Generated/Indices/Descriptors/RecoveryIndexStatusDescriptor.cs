@@ -34,11 +34,11 @@ public sealed class RecoveryIndexStatusDescriptor
 		return this;
 	}
 	public RecoveryIndexStatusDescriptor SourceThrottleTime(string? value) { _value.SourceThrottleTime = value; return this; }
-	public RecoveryIndexStatusDescriptor SourceThrottleTimeInMillis(System.Text.Json.JsonElement? value) { _value.SourceThrottleTimeInMillis = value; return this; }
+	public RecoveryIndexStatusDescriptor SourceThrottleTimeInMillis(long value) { _value.SourceThrottleTimeInMillis = value; return this; }
 	public RecoveryIndexStatusDescriptor TargetThrottleTime(string? value) { _value.TargetThrottleTime = value; return this; }
-	public RecoveryIndexStatusDescriptor TargetThrottleTimeInMillis(System.Text.Json.JsonElement? value) { _value.TargetThrottleTimeInMillis = value; return this; }
+	public RecoveryIndexStatusDescriptor TargetThrottleTimeInMillis(long value) { _value.TargetThrottleTimeInMillis = value; return this; }
 	public RecoveryIndexStatusDescriptor TotalTime(string? value) { _value.TotalTime = value; return this; }
-	public RecoveryIndexStatusDescriptor TotalTimeInMillis(System.Text.Json.JsonElement? value) { _value.TotalTimeInMillis = value; return this; }
+	public RecoveryIndexStatusDescriptor TotalTimeInMillis(long value) { _value.TotalTimeInMillis = value; return this; }
 
 	public static implicit operator RecoveryIndexStatus(RecoveryIndexStatusDescriptor descriptor) => descriptor._value;
 }

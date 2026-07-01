@@ -24,7 +24,7 @@ public sealed class MgetRequestDescriptor
 	/// <summary>If `true`, the request refreshes relevant shards before retrieving documents.</summary>
 		public MgetRequestDescriptor Refresh(string? value) { _value.Refresh = value; return this; }
 	/// <summary>A custom value used to route operations to a specific shard.</summary>
-		public MgetRequestDescriptor Routing(System.Text.Json.JsonElement? value) { _value.Routing = value; return this; }
+		public MgetRequestDescriptor Routing(List<string>? value) { _value.Routing = value; return this; }
 	/// <summary>If `true`, retrieves the document fields stored in the index rather than the document `_source`.</summary>
 		public MgetRequestDescriptor StoredFields(List<string>? value) { _value.StoredFields = value; return this; }
 	/// <summary>The documents you want to retrieve. Required if no index is specified in the request URI.</summary>

@@ -10,7 +10,7 @@ public sealed class FetchProfile
 {
 	public string? Type { get; set; }
 	public string? Description { get; set; }
-	public System.Text.Json.JsonElement? TimeInNanos { get; set; }
+	public long TimeInNanos { get; set; }
 	public FetchProfileBreakdown? Breakdown { get; set; }
 	public FetchProfileDebug? Debug { get; set; }
 	public List<FetchProfile>? Children { get; set; }

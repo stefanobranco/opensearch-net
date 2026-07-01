@@ -26,7 +26,7 @@ public sealed class ExistsSourceRequestDescriptor
 	/// <summary>If `true`, OpenSearch refreshes all shards involved in the delete by query after the request completes.</summary>
 		public ExistsSourceRequestDescriptor Refresh(string? value) { _value.Refresh = value; return this; }
 	/// <summary>Target the specified primary shard.</summary>
-		public ExistsSourceRequestDescriptor Routing(System.Text.Json.JsonElement? value) { _value.Routing = value; return this; }
+		public ExistsSourceRequestDescriptor Routing(List<string>? value) { _value.Routing = value; return this; }
 	/// <summary>Explicit version number for concurrency control. The specified version must match the current version of the document for the request to succeed.</summary>
 		public ExistsSourceRequestDescriptor Version(long? value) { _value.Version = value; return this; }
 	/// <summary>The specific version type: `external`, `external_gte`.</summary>

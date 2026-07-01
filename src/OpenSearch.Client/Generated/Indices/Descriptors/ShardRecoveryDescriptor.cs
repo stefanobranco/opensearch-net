@@ -40,9 +40,9 @@ public sealed class ShardRecoveryDescriptor
 		return this;
 	}
 	public ShardRecoveryDescriptor StartTime(string? value) { _value.StartTime = value; return this; }
-	public ShardRecoveryDescriptor StartTimeInMillis(System.Text.Json.JsonElement? value) { _value.StartTimeInMillis = value; return this; }
+	public ShardRecoveryDescriptor StartTimeInMillis(long value) { _value.StartTimeInMillis = value; return this; }
 	public ShardRecoveryDescriptor StopTime(string? value) { _value.StopTime = value; return this; }
-	public ShardRecoveryDescriptor StopTimeInMillis(System.Text.Json.JsonElement? value) { _value.StopTimeInMillis = value; return this; }
+	public ShardRecoveryDescriptor StopTimeInMillis(long? value) { _value.StopTimeInMillis = value; return this; }
 	public ShardRecoveryDescriptor Target(RecoveryOrigin? value) { _value.Target = value; return this; }
 	public ShardRecoveryDescriptor Target(Action<RecoveryOriginDescriptor> configure)
 	{
@@ -52,7 +52,7 @@ public sealed class ShardRecoveryDescriptor
 		return this;
 	}
 	public ShardRecoveryDescriptor TotalTime(string? value) { _value.TotalTime = value; return this; }
-	public ShardRecoveryDescriptor TotalTimeInMillis(System.Text.Json.JsonElement? value) { _value.TotalTimeInMillis = value; return this; }
+	public ShardRecoveryDescriptor TotalTimeInMillis(long value) { _value.TotalTimeInMillis = value; return this; }
 	public ShardRecoveryDescriptor Translog(TranslogStatus? value) { _value.Translog = value; return this; }
 	public ShardRecoveryDescriptor Translog(Action<TranslogStatusDescriptor> configure)
 	{

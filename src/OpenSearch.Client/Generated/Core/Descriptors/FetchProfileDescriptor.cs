@@ -11,7 +11,7 @@ public sealed class FetchProfileDescriptor
 
 	public FetchProfileDescriptor Type(string? value) { _value.Type = value; return this; }
 	public FetchProfileDescriptor Description(string? value) { _value.Description = value; return this; }
-	public FetchProfileDescriptor TimeInNanos(System.Text.Json.JsonElement? value) { _value.TimeInNanos = value; return this; }
+	public FetchProfileDescriptor TimeInNanos(long value) { _value.TimeInNanos = value; return this; }
 	public FetchProfileDescriptor Breakdown(FetchProfileBreakdown? value) { _value.Breakdown = value; return this; }
 	public FetchProfileDescriptor Breakdown(Action<FetchProfileBreakdownDescriptor> configure)
 	{

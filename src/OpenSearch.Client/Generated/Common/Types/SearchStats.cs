@@ -19,14 +19,14 @@ public sealed class SearchStats
 	/// <summary>The total amount of time taken to complete all shard query operations.</summary>
 		public string? QueryTime { get; set; }
 	/// <summary>The total amount of time taken to complete all shard query operations, in milliseconds.</summary>
-		public System.Text.Json.JsonElement? QueryTimeInMillis { get; set; }
+		public long QueryTimeInMillis { get; set; }
 	/// <summary>The total number of shard query operations.</summary>
 		public long QueryTotal { get; set; }
 	/// <summary>The total number of query operations using concurrent segment search.</summary>
 		public long? ConcurrentQueryTotal { get; set; }
 	public string? ConcurrentQueryTime { get; set; }
 	/// <summary>The total amount of time taken by all query operations using concurrent segment search, in milliseconds.</summary>
-		public System.Text.Json.JsonElement? ConcurrentQueryTimeInMillis { get; set; }
+		public long? ConcurrentQueryTimeInMillis { get; set; }
 	/// <summary>The number of currently running query operations using concurrent segment search.</summary>
 		public long? ConcurrentQueryCurrent { get; set; }
 	/// <summary>The average slice count of all search requests. This is computed as the total slice count divided by the total number of concurrent search requests.</summary>
@@ -36,7 +36,7 @@ public sealed class SearchStats
 	/// <summary>The total amount of time taken to complete all shard fetch operations.</summary>
 		public string? FetchTime { get; set; }
 	/// <summary>The total amount of time taken to complete all shard fetch operations, in milliseconds.</summary>
-		public System.Text.Json.JsonElement? FetchTimeInMillis { get; set; }
+		public long FetchTimeInMillis { get; set; }
 	/// <summary>The total number of shard fetch operations.</summary>
 		public long FetchTotal { get; set; }
 	/// <summary>The number of shard scroll operations that are currently running.</summary>
@@ -44,14 +44,14 @@ public sealed class SearchStats
 	/// <summary>The total amount of time taken to complete all shard scroll operations.</summary>
 		public string? ScrollTime { get; set; }
 	/// <summary>The total amount of time taken to complete all shard scroll operations, in milliseconds.</summary>
-		public System.Text.Json.JsonElement? ScrollTimeInMillis { get; set; }
+		public long ScrollTimeInMillis { get; set; }
 	/// <summary>The total number of shard scroll operations.</summary>
 		public long ScrollTotal { get; set; }
 	/// <summary>The total number of shard Point in Time (PIT) contexts created (completed and active) since the node last restarted.</summary>
 		public long? PointInTimeTotal { get; set; }
 	public string? PointInTimeTime { get; set; }
 	/// <summary>The amount of time that shard PIT contexts have been held open since the node last restarted, in milliseconds.</summary>
-		public System.Text.Json.JsonElement? PointInTimeTimeInMillis { get; set; }
+		public long? PointInTimeTimeInMillis { get; set; }
 	/// <summary>The number of currently open shard PIT contexts.</summary>
 		public long? PointInTimeCurrent { get; set; }
 	/// <summary>The number of currently running shard suggest operations.</summary>
@@ -59,7 +59,7 @@ public sealed class SearchStats
 	/// <summary>The total amount of time take to complete all shard suggest operations.</summary>
 		public string? SuggestTime { get; set; }
 	/// <summary>The total amount of time taken to complete all shard suggest operations, in milliseconds.</summary>
-		public System.Text.Json.JsonElement? SuggestTimeInMillis { get; set; }
+		public long SuggestTimeInMillis { get; set; }
 	/// <summary>The total number of shard suggest operations.</summary>
 		public long SuggestTotal { get; set; }
 	/// <summary>The total number of idle search reactivations.</summary>

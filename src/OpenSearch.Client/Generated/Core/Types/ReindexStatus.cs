@@ -20,9 +20,9 @@ public sealed class ReindexStatus
 		public float RequestsPerSecond { get; set; }
 	public Retries? Retries { get; set; }
 	public string? Throttled { get; set; }
-	public System.Text.Json.JsonElement? ThrottledMillis { get; set; }
+	public long ThrottledMillis { get; set; }
 	public string? ThrottledUntil { get; set; }
-	public System.Text.Json.JsonElement? ThrottledUntilMillis { get; set; }
+	public long ThrottledUntilMillis { get; set; }
 	/// <summary>The number of documents that were successfully processed.</summary>
 		public long Total { get; set; }
 	/// <summary>The number of documents that were successfully updated.</summary>

@@ -14,7 +14,7 @@ public sealed class FlushStatsDescriptor
 	/// <summary>The total number of flush operations.</summary>
 		public FlushStatsDescriptor Total(long value) { _value.Total = value; return this; }
 	public FlushStatsDescriptor TotalTime(string? value) { _value.TotalTime = value; return this; }
-	public FlushStatsDescriptor TotalTimeInMillis(System.Text.Json.JsonElement? value) { _value.TotalTimeInMillis = value; return this; }
+	public FlushStatsDescriptor TotalTimeInMillis(long value) { _value.TotalTimeInMillis = value; return this; }
 
 	public static implicit operator FlushStats(FlushStatsDescriptor descriptor) => descriptor._value;
 }

@@ -40,7 +40,7 @@ public sealed class MoreLikeThisQueryDescriptor
 	/// <summary>Overrides the default analyzer.</summary>
 		public MoreLikeThisQueryDescriptor PerFieldAnalyzer(Dictionary<string, string>? value) { _value.PerFieldAnalyzer = value; return this; }
 	public MoreLikeThisQueryDescriptor Routing(string? value) { _value.Routing = value; return this; }
-	public MoreLikeThisQueryDescriptor StopWords(System.Text.Json.JsonElement? value) { _value.StopWords = value; return this; }
+	public MoreLikeThisQueryDescriptor StopWords(List<string>? value) { _value.StopWords = value; return this; }
 	/// <summary>Used in combination with `like` to exclude documents that match a set of terms.</summary>
 		public MoreLikeThisQueryDescriptor Unlike(List<System.Text.Json.JsonElement>? value) { _value.Unlike = value; return this; }
 	public MoreLikeThisQueryDescriptor Version(long? value) { _value.Version = value; return this; }

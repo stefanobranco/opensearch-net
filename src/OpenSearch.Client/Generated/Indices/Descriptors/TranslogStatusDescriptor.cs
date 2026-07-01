@@ -17,7 +17,7 @@ public sealed class TranslogStatusDescriptor
 	/// <summary>The number of transaction log operations at start.</summary>
 		public TranslogStatusDescriptor TotalOnStart(int value) { _value.TotalOnStart = value; return this; }
 	public TranslogStatusDescriptor TotalTime(string? value) { _value.TotalTime = value; return this; }
-	public TranslogStatusDescriptor TotalTimeInMillis(System.Text.Json.JsonElement? value) { _value.TotalTimeInMillis = value; return this; }
+	public TranslogStatusDescriptor TotalTimeInMillis(long value) { _value.TotalTimeInMillis = value; return this; }
 
 	public static implicit operator TranslogStatus(TranslogStatusDescriptor descriptor) => descriptor._value;
 }

@@ -5,35 +5,49 @@ using System.Text.Json.Serialization;
 
 namespace OpenSearch.Client;
 
-public sealed class DateHistogramAggregationFieldsDescriptor<T>
+public sealed class DateHistogramAggregationFieldsDescriptor
 {
-	internal DateHistogramAggregationFields<T> _value = new();
+	internal DateHistogramAggregationFields _value = new();
 
-	public DateHistogramAggregationFieldsDescriptor<T> CalendarInterval(string? value) { _value.CalendarInterval = value; return this; }
-	public DateHistogramAggregationFieldsDescriptor<T> ExtendedBounds(ExtendedBoundsFieldDateMath<T>? value) { _value.ExtendedBounds = value; return this; }
-	public DateHistogramAggregationFieldsDescriptor<T> HardBounds(ExtendedBoundsFieldDateMath<T>? value) { _value.HardBounds = value; return this; }
-	public DateHistogramAggregationFieldsDescriptor<T> Field(string? value) { _value.Field = value; return this; }
-	public DateHistogramAggregationFieldsDescriptor<T> FixedInterval(string? value) { _value.FixedInterval = value; return this; }
+	public DateHistogramAggregationFieldsDescriptor CalendarInterval(string? value) { _value.CalendarInterval = value; return this; }
+	public DateHistogramAggregationFieldsDescriptor ExtendedBounds(ExtendedBoundsFieldDateMath? value) { _value.ExtendedBounds = value; return this; }
+	public DateHistogramAggregationFieldsDescriptor ExtendedBounds(Action<ExtendedBoundsFieldDateMathDescriptor> configure)
+	{
+		var descriptor = new ExtendedBoundsFieldDateMathDescriptor();
+		configure(descriptor);
+		_value.ExtendedBounds = descriptor;
+		return this;
+	}
+	public DateHistogramAggregationFieldsDescriptor HardBounds(ExtendedBoundsFieldDateMath? value) { _value.HardBounds = value; return this; }
+	public DateHistogramAggregationFieldsDescriptor HardBounds(Action<ExtendedBoundsFieldDateMathDescriptor> configure)
+	{
+		var descriptor = new ExtendedBoundsFieldDateMathDescriptor();
+		configure(descriptor);
+		_value.HardBounds = descriptor;
+		return this;
+	}
+	public DateHistogramAggregationFieldsDescriptor Field(string? value) { _value.Field = value; return this; }
+	public DateHistogramAggregationFieldsDescriptor FixedInterval(string? value) { _value.FixedInterval = value; return this; }
 	/// <summary>The date format used to format `key_as_string` in the response. If no `format` is specified, the first date format specified in the field mapping is used.</summary>
-		public DateHistogramAggregationFieldsDescriptor<T> Format(string? value) { _value.Format = value; return this; }
-	public DateHistogramAggregationFieldsDescriptor<T> Interval(string? value) { _value.Interval = value; return this; }
+		public DateHistogramAggregationFieldsDescriptor Format(string? value) { _value.Format = value; return this; }
+	public DateHistogramAggregationFieldsDescriptor Interval(string? value) { _value.Interval = value; return this; }
 	/// <summary>Only returns buckets that have `min_doc_count` number of documents. By default, all buckets between the first bucket that matches documents and the last one are returned.</summary>
-		public DateHistogramAggregationFieldsDescriptor<T> MinDocCount(int? value) { _value.MinDocCount = value; return this; }
-	public DateHistogramAggregationFieldsDescriptor<T> Missing(string? value) { _value.Missing = value; return this; }
-	public DateHistogramAggregationFieldsDescriptor<T> Offset(string? value) { _value.Offset = value; return this; }
-	public DateHistogramAggregationFieldsDescriptor<T> Order(HistogramOrder? value) { _value.Order = value; return this; }
-	public DateHistogramAggregationFieldsDescriptor<T> Order(Action<HistogramOrderDescriptor> configure)
+		public DateHistogramAggregationFieldsDescriptor MinDocCount(int? value) { _value.MinDocCount = value; return this; }
+	public DateHistogramAggregationFieldsDescriptor Missing(string? value) { _value.Missing = value; return this; }
+	public DateHistogramAggregationFieldsDescriptor Offset(string? value) { _value.Offset = value; return this; }
+	public DateHistogramAggregationFieldsDescriptor Order(HistogramOrder? value) { _value.Order = value; return this; }
+	public DateHistogramAggregationFieldsDescriptor Order(Action<HistogramOrderDescriptor> configure)
 	{
 		var descriptor = new HistogramOrderDescriptor();
 		configure(descriptor);
 		_value.Order = descriptor;
 		return this;
 	}
-	public DateHistogramAggregationFieldsDescriptor<T> Params(Dictionary<string, object>? value) { _value.Params = value; return this; }
-	public DateHistogramAggregationFieldsDescriptor<T> Script(Script? value) { _value.Script = value; return this; }
-	public DateHistogramAggregationFieldsDescriptor<T> TimeZone(string? value) { _value.TimeZone = value; return this; }
+	public DateHistogramAggregationFieldsDescriptor Params(Dictionary<string, object>? value) { _value.Params = value; return this; }
+	public DateHistogramAggregationFieldsDescriptor Script(Script? value) { _value.Script = value; return this; }
+	public DateHistogramAggregationFieldsDescriptor TimeZone(string? value) { _value.TimeZone = value; return this; }
 	/// <summary>Set to `true` to associate a unique string key with each bucket and return the ranges as a hash rather than an array.</summary>
-		public DateHistogramAggregationFieldsDescriptor<T> Keyed(bool? value) { _value.Keyed = value; return this; }
+		public DateHistogramAggregationFieldsDescriptor Keyed(bool? value) { _value.Keyed = value; return this; }
 
-	public static implicit operator DateHistogramAggregationFields<T>(DateHistogramAggregationFieldsDescriptor<T> descriptor) => descriptor._value;
+	public static implicit operator DateHistogramAggregationFields(DateHistogramAggregationFieldsDescriptor descriptor) => descriptor._value;
 }

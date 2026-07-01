@@ -183,6 +183,16 @@ public sealed class TypeMapper
 			return overrideType;
 		}
 
+		// Alias-of-alias: the resolved schema is itself a bare $ref (e.g. FilterAggregationFields → QueryContainer,
+		// a one-line `$ref` alias). Resolved() follows only one hop, so follow the remaining chain here — otherwise
+		// the alias adopts none of the target's shape and falls through to the empty-object → JsonElement fallback.
+		if (resolved.Ref is not null)
+		{
+			var aliasTarget = Map(resolved);
+			_namedTypes[schemaName] = aliasTarget;
+			return aliasTarget;
+		}
+
 		// Check if it's a numeric alias (explicit override)
 		if (s_longAliases.Contains(schemaName))
 			return TypeRef.Long();
@@ -864,7 +874,21 @@ public sealed class TypeMapper
 			var pascalName = NamingConventions.ToPascalCase(name);
 			// Skip duplicate property names (can happen with allOf merging)
 			if (!existingNames.Add(pascalName))
+			{
+				// allOf specialization: a later member may bind a property that an earlier
+				// (generic-base) member declared as an open generic parameter to a concrete
+				// type — e.g. ExtendedBounds<T>.max: T specialized to max: FieldDateMath by
+				// ExtendedBoundsFieldDateMath. The concrete override wins over the open param,
+				// so the specialization is non-generic instead of inheriting a spurious <T>.
+				var existingIdx = fields.FindIndex(f => f.Name == pascalName);
+				if (existingIdx >= 0 && fields[existingIdx].Type.IsGenericParameter)
+				{
+					var specialized = Map(propSchema);
+					if (!specialized.IsGenericParameter)
+						fields[existingIdx] = CloneFieldWithType(fields[existingIdx], specialized);
+				}
 				continue;
+			}
 
 			var fieldType = Map(propSchema);
 			fields.Add(new Field
@@ -878,6 +902,17 @@ public sealed class TypeMapper
 			});
 		}
 	}
+
+	/// <summary>Copies a <see cref="Field"/> with a replaced <see cref="Field.Type"/> (Field is init-only, not a record).</summary>
+	private static Field CloneFieldWithType(Field field, TypeRef type) => new()
+	{
+		Name = field.Name,
+		WireName = field.WireName,
+		Type = type,
+		Required = field.Required,
+		Description = field.Description,
+		Deprecated = field.Deprecated
+	};
 
 	/// <summary>
 	/// Detects property-keyed tagged unions: objects with many optional properties,

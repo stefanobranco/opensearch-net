@@ -26,7 +26,7 @@ public sealed class IndexRequestDescriptor
 	/// <summary>If `true`, the destination must be an index alias.</summary>
 		public IndexRequestDescriptor RequireAlias(bool? value) { _value.RequireAlias = value; return this; }
 	/// <summary>A custom value used to route operations to a specific shard.</summary>
-		public IndexRequestDescriptor Routing(System.Text.Json.JsonElement? value) { _value.Routing = value; return this; }
+		public IndexRequestDescriptor Routing(List<string>? value) { _value.Routing = value; return this; }
 	/// <summary>Period the request waits for the following operations: automatic index creation, dynamic mapping updates, waiting for active shards.</summary>
 		public IndexRequestDescriptor Timeout(string? value) { _value.Timeout = value; return this; }
 	/// <summary>Explicit version number for concurrency control. The specified version must match the current version of the document for the request to succeed.</summary>

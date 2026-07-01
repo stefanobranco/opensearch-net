@@ -12,7 +12,7 @@ public sealed class RequestStatsDescriptor
 	/// <summary>The total time spent on request operations.</summary>
 		public RequestStatsDescriptor Time(string? value) { _value.Time = value; return this; }
 	/// <summary>The total time spent on request operations in milliseconds.</summary>
-		public RequestStatsDescriptor TimeInMillis(System.Text.Json.JsonElement? value) { _value.TimeInMillis = value; return this; }
+		public RequestStatsDescriptor TimeInMillis(long? value) { _value.TimeInMillis = value; return this; }
 	/// <summary>The number of current request operations.</summary>
 		public RequestStatsDescriptor Current(long? value) { _value.Current = value; return this; }
 	/// <summary>The total number of request operations.</summary>

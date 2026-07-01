@@ -13,6 +13,6 @@ public sealed class FingerprintAnalyzer
 	public int MaxOutputSize { get; set; }
 	public bool PreserveOriginal { get; set; }
 	public string? Separator { get; set; }
-	public System.Text.Json.JsonElement? Stopwords { get; set; }
+	public List<string>? Stopwords { get; set; }
 	public string? StopwordsPath { get; set; }
 }

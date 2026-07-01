@@ -11,7 +11,7 @@ public sealed class DatabaseDescriptor
 
 	public DatabaseDescriptor Provider(string? value) { _value.Provider = value; return this; }
 	public DatabaseDescriptor Sha256Hash(string? value) { _value.Sha256Hash = value; return this; }
-	public DatabaseDescriptor UpdatedAtInEpochMillis(System.Text.Json.JsonElement? value) { _value.UpdatedAtInEpochMillis = value; return this; }
+	public DatabaseDescriptor UpdatedAtInEpochMillis(long? value) { _value.UpdatedAtInEpochMillis = value; return this; }
 	public DatabaseDescriptor ValidForInDays(int? value) { _value.ValidForInDays = value; return this; }
 	public DatabaseDescriptor Fields(List<string>? value) { _value.Fields = value; return this; }
 

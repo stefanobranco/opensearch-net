@@ -6,10 +6,10 @@ using System.Text.Json.Serialization;
 namespace OpenSearch.Client;
 
 
-public sealed class HistogramAggregationFields<T>
+public sealed class HistogramAggregationFields
 {
-	public ExtendedBoundsDouble<T>? ExtendedBounds { get; set; }
-	public ExtendedBoundsDouble<T>? HardBounds { get; set; }
+	public ExtendedBoundsDouble? ExtendedBounds { get; set; }
+	public ExtendedBoundsDouble? HardBounds { get; set; }
 	public string? Field { get; set; }
 	/// <summary>The interval for the buckets. Must be a positive decimal.</summary>
 		public double? Interval { get; set; }

@@ -10,7 +10,7 @@ public sealed class DutchAnalyzerDescriptor
 	internal DutchAnalyzer _value = new();
 
 	public DutchAnalyzerDescriptor Type(string? value) { _value.Type = value; return this; }
-	public DutchAnalyzerDescriptor Stopwords(System.Text.Json.JsonElement? value) { _value.Stopwords = value; return this; }
+	public DutchAnalyzerDescriptor Stopwords(List<string>? value) { _value.Stopwords = value; return this; }
 
 	public static implicit operator DutchAnalyzer(DutchAnalyzerDescriptor descriptor) => descriptor._value;
 }

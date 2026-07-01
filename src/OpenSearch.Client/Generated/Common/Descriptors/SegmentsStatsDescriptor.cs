@@ -27,7 +27,7 @@ public sealed class SegmentsStatsDescriptor
 	/// <summary>The total amount, in bytes, of memory used by all index writers across all shards assigned to the selected nodes.</summary>
 		public SegmentsStatsDescriptor IndexWriterMemoryInBytes(long value) { _value.IndexWriterMemoryInBytes = value; return this; }
 	/// <summary>The Unix timestamp, in milliseconds, of the most recently retried indexing request.</summary>
-		public SegmentsStatsDescriptor MaxUnsafeAutoIdTimestamp(System.Text.Json.JsonElement? value) { _value.MaxUnsafeAutoIdTimestamp = value; return this; }
+		public SegmentsStatsDescriptor MaxUnsafeAutoIdTimestamp(long value) { _value.MaxUnsafeAutoIdTimestamp = value; return this; }
 	/// <summary>The total amount of memory used for segments across all shards assigned to the selected nodes.</summary>
 		public SegmentsStatsDescriptor Memory(string? value) { _value.Memory = value; return this; }
 	/// <summary>The total amount, in bytes, of memory used for segments across all shards assigned to the selected nodes.</summary>

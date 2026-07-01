@@ -10,7 +10,7 @@ public sealed class AggregationProfile
 {
 	public AggregationBreakdown? Breakdown { get; set; }
 	public string? Description { get; set; }
-	public System.Text.Json.JsonElement? TimeInNanos { get; set; }
+	public long TimeInNanos { get; set; }
 	public string? Type { get; set; }
 	public AggregationProfileDebug? Debug { get; set; }
 	public List<AggregationProfile>? Children { get; set; }

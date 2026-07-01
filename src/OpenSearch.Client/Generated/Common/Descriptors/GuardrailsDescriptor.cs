@@ -26,7 +26,7 @@ public sealed class GuardrailsDescriptor
 		_value.OutputGuardrail = descriptor;
 		return this;
 	}
-	public GuardrailsDescriptor StopWords(System.Text.Json.JsonElement? value) { _value.StopWords = value; return this; }
+	public GuardrailsDescriptor StopWords(List<string>? value) { _value.StopWords = value; return this; }
 	public GuardrailsDescriptor IndexName(string? value) { _value.IndexName = value; return this; }
 	public GuardrailsDescriptor SourceFields(List<string>? value) { _value.SourceFields = value; return this; }
 	/// <summary>The regex used for input/output validation.</summary>

@@ -12,7 +12,7 @@ public sealed class SnowballAnalyzerDescriptor
 	public SnowballAnalyzerDescriptor Type(string? value) { _value.Type = value; return this; }
 	public SnowballAnalyzerDescriptor Version(string? value) { _value.Version = value; return this; }
 	public SnowballAnalyzerDescriptor Language(SnowballLanguage? value) { _value.Language = value; return this; }
-	public SnowballAnalyzerDescriptor Stopwords(System.Text.Json.JsonElement? value) { _value.Stopwords = value; return this; }
+	public SnowballAnalyzerDescriptor Stopwords(List<string>? value) { _value.Stopwords = value; return this; }
 
 	public static implicit operator SnowballAnalyzer(SnowballAnalyzerDescriptor descriptor) => descriptor._value;
 }

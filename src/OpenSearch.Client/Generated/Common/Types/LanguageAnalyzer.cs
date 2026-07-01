@@ -12,6 +12,6 @@ public sealed class LanguageAnalyzer
 	public string? Version { get; set; }
 	public Language? Language { get; set; }
 	public List<string>? StemExclusion { get; set; }
-	public System.Text.Json.JsonElement? Stopwords { get; set; }
+	public List<string>? Stopwords { get; set; }
 	public string? StopwordsPath { get; set; }
 }

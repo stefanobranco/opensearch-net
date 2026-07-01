@@ -12,7 +12,7 @@ public sealed class DataStreamStatsDescriptor
 	/// <summary>Current number of backing indexes for the data stream.</summary>
 		public DataStreamStatsDescriptor BackingIndices(int value) { _value.BackingIndices = value; return this; }
 	public DataStreamStatsDescriptor DataStream(string? value) { _value.DataStream = value; return this; }
-	public DataStreamStatsDescriptor MaximumTimestamp(System.Text.Json.JsonElement? value) { _value.MaximumTimestamp = value; return this; }
+	public DataStreamStatsDescriptor MaximumTimestamp(long value) { _value.MaximumTimestamp = value; return this; }
 	public DataStreamStatsDescriptor StoreSize(string? value) { _value.StoreSize = value; return this; }
 	/// <summary>The total size, in bytes, of all shards for the data stream's backing indexes.</summary>
 		public DataStreamStatsDescriptor StoreSizeBytes(long value) { _value.StoreSizeBytes = value; return this; }

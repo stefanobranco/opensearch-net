@@ -6,8 +6,8 @@ using System.Text.Json.Serialization;
 namespace OpenSearch.Client;
 
 
-public sealed class ExtendedBoundsFieldDateMath<T>
+public sealed class ExtendedBoundsFieldDateMath
 {
-	public T? Max { get; set; }
-	public T? Min { get; set; }
+	public string? Max { get; set; }
+	public string? Min { get; set; }
 }

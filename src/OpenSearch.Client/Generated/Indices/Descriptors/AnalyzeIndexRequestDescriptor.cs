@@ -24,7 +24,7 @@ public sealed class AnalyzeIndexRequestDescriptor
 		public AnalyzeIndexRequestDescriptor Filter(List<System.Text.Json.JsonElement>? value) { _value.Filter = value; return this; }
 	/// <summary>Normalizer to use to convert text into a single token.</summary>
 		public AnalyzeIndexRequestDescriptor Normalizer(string? value) { _value.Normalizer = value; return this; }
-	public AnalyzeIndexRequestDescriptor Text(System.Text.Json.JsonElement? value) { _value.Text = value; return this; }
+	public AnalyzeIndexRequestDescriptor Text(List<string>? value) { _value.Text = value; return this; }
 	public AnalyzeIndexRequestDescriptor Tokenizer(System.Text.Json.JsonElement? value) { _value.Tokenizer = value; return this; }
 
 	public static implicit operator AnalyzeIndexRequest(AnalyzeIndexRequestDescriptor descriptor) => descriptor._value;

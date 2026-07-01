@@ -11,7 +11,7 @@ public sealed class StopAnalyzerDescriptor
 
 	public StopAnalyzerDescriptor Type(string? value) { _value.Type = value; return this; }
 	public StopAnalyzerDescriptor Version(string? value) { _value.Version = value; return this; }
-	public StopAnalyzerDescriptor Stopwords(System.Text.Json.JsonElement? value) { _value.Stopwords = value; return this; }
+	public StopAnalyzerDescriptor Stopwords(List<string>? value) { _value.Stopwords = value; return this; }
 	public StopAnalyzerDescriptor StopwordsPath(string? value) { _value.StopwordsPath = value; return this; }
 
 	public static implicit operator StopAnalyzer(StopAnalyzerDescriptor descriptor) => descriptor._value;

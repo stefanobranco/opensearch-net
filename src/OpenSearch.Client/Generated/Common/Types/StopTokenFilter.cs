@@ -12,6 +12,6 @@ public sealed class StopTokenFilter
 	public string? Type { get; set; }
 	public bool? IgnoreCase { get; set; }
 	public bool? RemoveTrailing { get; set; }
-	public System.Text.Json.JsonElement? Stopwords { get; set; }
+	public List<string>? Stopwords { get; set; }
 	public string? StopwordsPath { get; set; }
 }

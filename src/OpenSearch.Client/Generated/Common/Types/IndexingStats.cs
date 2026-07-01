@@ -17,7 +17,7 @@ public sealed class IndexingStats
 	/// <summary>The total amount of time spent on indexing operations.</summary>
 		public string? IndexTime { get; set; }
 	/// <summary>The total amount of time spent on indexing operations in milliseconds.</summary>
-		public System.Text.Json.JsonElement? IndexTimeInMillis { get; set; }
+		public long IndexTimeInMillis { get; set; }
 	/// <summary>The number of current indexing operations.</summary>
 		public long IndexCurrent { get; set; }
 	/// <summary>The number of failed indexing operations.</summary>
@@ -25,7 +25,7 @@ public sealed class IndexingStats
 	/// <summary>The total number of delete operations.</summary>
 		public long DeleteTotal { get; set; }
 	public string? DeleteTime { get; set; }
-	public System.Text.Json.JsonElement? DeleteTimeInMillis { get; set; }
+	public long DeleteTimeInMillis { get; set; }
 	/// <summary>The number of current delete operations.</summary>
 		public long DeleteCurrent { get; set; }
 	/// <summary>The total number of noop update operations.</summary>
@@ -35,7 +35,7 @@ public sealed class IndexingStats
 	/// <summary>The total amount of time spent throttling indexing operations.</summary>
 		public string? ThrottleTime { get; set; }
 	/// <summary>The total amount of time spent throttling indexing operations in milliseconds.</summary>
-		public System.Text.Json.JsonElement? ThrottleTimeInMillis { get; set; }
+		public long ThrottleTimeInMillis { get; set; }
 	public DocStatus? DocStatus { get; set; }
 	public Dictionary<string, IndexingStats>? Types { get; set; }
 }

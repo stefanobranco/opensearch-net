@@ -16,5 +16,5 @@ public sealed class UploadStatsTotal
 		public int Success { get; set; }
 	/// <summary>Total failed uploads.</summary>
 		public int Failed { get; set; }
-	public System.Text.Json.JsonElement? Duration { get; set; }
+	public long Duration { get; set; }
 }

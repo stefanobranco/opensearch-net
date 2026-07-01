@@ -28,9 +28,9 @@ public sealed class ReindexStatusDescriptor
 		return this;
 	}
 	public ReindexStatusDescriptor Throttled(string? value) { _value.Throttled = value; return this; }
-	public ReindexStatusDescriptor ThrottledMillis(System.Text.Json.JsonElement? value) { _value.ThrottledMillis = value; return this; }
+	public ReindexStatusDescriptor ThrottledMillis(long value) { _value.ThrottledMillis = value; return this; }
 	public ReindexStatusDescriptor ThrottledUntil(string? value) { _value.ThrottledUntil = value; return this; }
-	public ReindexStatusDescriptor ThrottledUntilMillis(System.Text.Json.JsonElement? value) { _value.ThrottledUntilMillis = value; return this; }
+	public ReindexStatusDescriptor ThrottledUntilMillis(long value) { _value.ThrottledUntilMillis = value; return this; }
 	/// <summary>The number of documents that were successfully processed.</summary>
 		public ReindexStatusDescriptor Total(long value) { _value.Total = value; return this; }
 	/// <summary>The number of documents that were successfully updated.</summary>

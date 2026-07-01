@@ -17,5 +17,5 @@ public sealed class FlushStats
 	/// <summary>The total number of flush operations.</summary>
 		public long Total { get; set; }
 	public string? TotalTime { get; set; }
-	public System.Text.Json.JsonElement? TotalTimeInMillis { get; set; }
+	public long TotalTimeInMillis { get; set; }
 }

@@ -35,7 +35,7 @@ public sealed class CountRequestDescriptor
 	/// <summary>Query in the Lucene query string syntax.</summary>
 		public CountRequestDescriptor Q(string? value) { _value.Q = value; return this; }
 	/// <summary>A custom value used to route operations to a specific shard.</summary>
-		public CountRequestDescriptor Routing(System.Text.Json.JsonElement? value) { _value.Routing = value; return this; }
+		public CountRequestDescriptor Routing(List<string>? value) { _value.Routing = value; return this; }
 	/// <summary>Maximum number of documents to collect for each shard. If a query reaches this limit, OpenSearch terminates the query early. OpenSearch collects documents before sorting.</summary>
 		public CountRequestDescriptor TerminateAfter(int? value) { _value.TerminateAfter = value; return this; }
 	public CountRequestDescriptor Query(QueryContainer? value) { _value.Query = value; return this; }

@@ -176,7 +176,7 @@ public sealed class AggregationContainer : TaggedUnion<AggregationKind, object>
 	/// <summary>Creates a CumulativeSum variant.</summary>
 	public static AggregationContainer CumulativeSum(CumulativeSumAggregation value) => new(AggregationKind.CumulativeSum, value);
 	/// <summary>Creates a DateHistogram variant.</summary>
-	public static AggregationContainer DateHistogram(System.Text.Json.JsonElement value) => new(AggregationKind.DateHistogram, value);
+	public static AggregationContainer DateHistogram(DateHistogramAggregationFields value) => new(AggregationKind.DateHistogram, value);
 	/// <summary>Creates a DateRange variant.</summary>
 	public static AggregationContainer DateRange(DateRangeAggregationFields value) => new(AggregationKind.DateRange, value);
 	/// <summary>Creates a Derivative variant.</summary>
@@ -188,7 +188,7 @@ public sealed class AggregationContainer : TaggedUnion<AggregationKind, object>
 	/// <summary>Creates a ExtendedStatsBucket variant.</summary>
 	public static AggregationContainer ExtendedStatsBucket(ExtendedStatsBucketAggregation value) => new(AggregationKind.ExtendedStatsBucket, value);
 	/// <summary>Creates a Filter variant.</summary>
-	public static AggregationContainer Filter(System.Text.Json.JsonElement value) => new(AggregationKind.Filter, value);
+	public static AggregationContainer Filter(QueryContainer value) => new(AggregationKind.Filter, value);
 	/// <summary>Creates a Filters variant.</summary>
 	public static AggregationContainer Filters(FiltersAggregationFields value) => new(AggregationKind.Filters, value);
 	/// <summary>Creates a GeoBounds variant.</summary>
@@ -204,7 +204,7 @@ public sealed class AggregationContainer : TaggedUnion<AggregationKind, object>
 	/// <summary>Creates a Global variant.</summary>
 	public static AggregationContainer Global(System.Text.Json.JsonElement value) => new(AggregationKind.Global, value);
 	/// <summary>Creates a Histogram variant.</summary>
-	public static AggregationContainer Histogram(System.Text.Json.JsonElement value) => new(AggregationKind.Histogram, value);
+	public static AggregationContainer Histogram(HistogramAggregationFields value) => new(AggregationKind.Histogram, value);
 	/// <summary>Creates a IpRange variant.</summary>
 	public static AggregationContainer IpRange(IpRangeAggregationFields value) => new(AggregationKind.IpRange, value);
 	/// <summary>Creates a MatrixStats variant.</summary>
@@ -307,13 +307,13 @@ public sealed class AggregationContainerConverter : TaggedUnionConverter<Aggrega
 		["composite"] = (AggregationKind.Composite, typeof(CompositeAggregationFields)),
 		["cumulative_cardinality"] = (AggregationKind.CumulativeCardinality, typeof(CumulativeCardinalityAggregation)),
 		["cumulative_sum"] = (AggregationKind.CumulativeSum, typeof(CumulativeSumAggregation)),
-		["date_histogram"] = (AggregationKind.DateHistogram, typeof(System.Text.Json.JsonElement)),
+		["date_histogram"] = (AggregationKind.DateHistogram, typeof(DateHistogramAggregationFields)),
 		["date_range"] = (AggregationKind.DateRange, typeof(DateRangeAggregationFields)),
 		["derivative"] = (AggregationKind.Derivative, typeof(DerivativeAggregation)),
 		["diversified_sampler"] = (AggregationKind.DiversifiedSampler, typeof(DiversifiedSamplerAggregationFields)),
 		["extended_stats"] = (AggregationKind.ExtendedStats, typeof(ExtendedStatsAggregation)),
 		["extended_stats_bucket"] = (AggregationKind.ExtendedStatsBucket, typeof(ExtendedStatsBucketAggregation)),
-		["filter"] = (AggregationKind.Filter, typeof(System.Text.Json.JsonElement)),
+		["filter"] = (AggregationKind.Filter, typeof(QueryContainer)),
 		["filters"] = (AggregationKind.Filters, typeof(FiltersAggregationFields)),
 		["geo_bounds"] = (AggregationKind.GeoBounds, typeof(GeoBoundsAggregation)),
 		["geo_centroid"] = (AggregationKind.GeoCentroid, typeof(GeoCentroidAggregation)),
@@ -321,7 +321,7 @@ public sealed class AggregationContainerConverter : TaggedUnionConverter<Aggrega
 		["geohash_grid"] = (AggregationKind.GeohashGrid, typeof(GeoHashGridAggregationFields)),
 		["geotile_grid"] = (AggregationKind.GeotileGrid, typeof(GeoTileGridAggregationFields)),
 		["global"] = (AggregationKind.Global, typeof(System.Text.Json.JsonElement)),
-		["histogram"] = (AggregationKind.Histogram, typeof(System.Text.Json.JsonElement)),
+		["histogram"] = (AggregationKind.Histogram, typeof(HistogramAggregationFields)),
 		["ip_range"] = (AggregationKind.IpRange, typeof(IpRangeAggregationFields)),
 		["matrix_stats"] = (AggregationKind.MatrixStats, typeof(MatrixStatsAggregation)),
 		["max"] = (AggregationKind.Max, typeof(MaxAggregation)),
@@ -445,13 +445,13 @@ public sealed class AggregationContainerConverter : TaggedUnionConverter<Aggrega
 		AggregationKind.Composite => AggregationContainer.Composite((CompositeAggregationFields)value),
 		AggregationKind.CumulativeCardinality => AggregationContainer.CumulativeCardinality((CumulativeCardinalityAggregation)value),
 		AggregationKind.CumulativeSum => AggregationContainer.CumulativeSum((CumulativeSumAggregation)value),
-		AggregationKind.DateHistogram => AggregationContainer.DateHistogram((System.Text.Json.JsonElement)value),
+		AggregationKind.DateHistogram => AggregationContainer.DateHistogram((DateHistogramAggregationFields)value),
 		AggregationKind.DateRange => AggregationContainer.DateRange((DateRangeAggregationFields)value),
 		AggregationKind.Derivative => AggregationContainer.Derivative((DerivativeAggregation)value),
 		AggregationKind.DiversifiedSampler => AggregationContainer.DiversifiedSampler((DiversifiedSamplerAggregationFields)value),
 		AggregationKind.ExtendedStats => AggregationContainer.ExtendedStats((ExtendedStatsAggregation)value),
 		AggregationKind.ExtendedStatsBucket => AggregationContainer.ExtendedStatsBucket((ExtendedStatsBucketAggregation)value),
-		AggregationKind.Filter => AggregationContainer.Filter((System.Text.Json.JsonElement)value),
+		AggregationKind.Filter => AggregationContainer.Filter((QueryContainer)value),
 		AggregationKind.Filters => AggregationContainer.Filters((FiltersAggregationFields)value),
 		AggregationKind.GeoBounds => AggregationContainer.GeoBounds((GeoBoundsAggregation)value),
 		AggregationKind.GeoCentroid => AggregationContainer.GeoCentroid((GeoCentroidAggregation)value),
@@ -459,7 +459,7 @@ public sealed class AggregationContainerConverter : TaggedUnionConverter<Aggrega
 		AggregationKind.GeohashGrid => AggregationContainer.GeohashGrid((GeoHashGridAggregationFields)value),
 		AggregationKind.GeotileGrid => AggregationContainer.GeotileGrid((GeoTileGridAggregationFields)value),
 		AggregationKind.Global => AggregationContainer.Global((System.Text.Json.JsonElement)value),
-		AggregationKind.Histogram => AggregationContainer.Histogram((System.Text.Json.JsonElement)value),
+		AggregationKind.Histogram => AggregationContainer.Histogram((HistogramAggregationFields)value),
 		AggregationKind.IpRange => AggregationContainer.IpRange((IpRangeAggregationFields)value),
 		AggregationKind.MatrixStats => AggregationContainer.MatrixStats((MatrixStatsAggregation)value),
 		AggregationKind.Max => AggregationContainer.Max((MaxAggregation)value),

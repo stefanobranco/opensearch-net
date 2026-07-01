@@ -17,7 +17,7 @@ public sealed class UploadStatsTotalDescriptor
 		public UploadStatsTotalDescriptor Success(int value) { _value.Success = value; return this; }
 	/// <summary>Total failed uploads.</summary>
 		public UploadStatsTotalDescriptor Failed(int value) { _value.Failed = value; return this; }
-	public UploadStatsTotalDescriptor Duration(System.Text.Json.JsonElement? value) { _value.Duration = value; return this; }
+	public UploadStatsTotalDescriptor Duration(long value) { _value.Duration = value; return this; }
 
 	public static implicit operator UploadStatsTotal(UploadStatsTotalDescriptor descriptor) => descriptor._value;
 }

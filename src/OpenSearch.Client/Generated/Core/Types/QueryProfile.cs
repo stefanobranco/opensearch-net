@@ -10,7 +10,7 @@ public sealed class QueryProfile
 {
 	public QueryBreakdown? Breakdown { get; set; }
 	public string? Description { get; set; }
-	public System.Text.Json.JsonElement? TimeInNanos { get; set; }
+	public long TimeInNanos { get; set; }
 	public string? Type { get; set; }
 	public List<QueryProfile>? Children { get; set; }
 }
