@@ -12,4 +12,10 @@ namespace OpenSearch.Client;
 
 public partial class AddPolicyIsmResponse : OpenSearch.Net.OpenSearchResponse
 {
+	/// <summary>The number of updated indices.</summary>
+		public float? UpdatedIndices { get; set; }
+	/// <summary>Whether there were any failures.</summary>
+		public bool? Failures { get; set; }
+	/// <summary>The list of indices that failed to update.</summary>
+		public List<FailedIndex>? FailedIndices { get; set; }
 }

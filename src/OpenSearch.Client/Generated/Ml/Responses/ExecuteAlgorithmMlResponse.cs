@@ -12,4 +12,7 @@ namespace OpenSearch.Client;
 
 public partial class ExecuteAlgorithmMlResponse : OpenSearch.Net.OpenSearchResponse
 {
+	/// <summary>The result.</summary>
+		public float? Result { get; set; }
+	public List<ExecuteAnomalyLocalizationResponse>? Results { get; set; }
 }

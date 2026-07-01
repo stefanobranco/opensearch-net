@@ -7,9 +7,26 @@ namespace OpenSearch.Client;
 
 
 /// <summary>
-/// Deletes a policy.
+/// The base response for write operations.
 /// </summary>
 
 public partial class DeletePolicyIsmResponse : OpenSearch.Net.OpenSearchResponse
 {
+	[JsonPropertyName("_type")]
+	public string? Type { get; set; }
+	[JsonPropertyName("_id")]
+	public string? Id { get; set; }
+	[JsonPropertyName("_index")]
+	public string? Index { get; set; }
+	/// <summary>The primary term of the document.</summary>
+		[JsonPropertyName("_primary_term")]
+	public long PrimaryTerm { get; set; }
+	public string? Result { get; set; }
+	[JsonPropertyName("_seq_no")]
+	public long SeqNo { get; set; }
+	[JsonPropertyName("_shards")]
+	public ShardStatistics? Shards { get; set; }
+	[JsonPropertyName("_version")]
+	public long Version { get; set; }
+	public bool? ForcedRefresh { get; set; }
 }

@@ -12,4 +12,37 @@ namespace OpenSearch.Client;
 
 public partial class ReindexResponse : OpenSearch.Net.OpenSearchResponse
 {
+	public int? SliceId { get; set; }
+	/// <summary>The number of documents that were successfully processed.</summary>
+		public long? Total { get; set; }
+	/// <summary>The number of documents that were successfully updated after the reindex operation.</summary>
+		public long? Updated { get; set; }
+	/// <summary>The number of documents that were successfully created.</summary>
+		public long? Created { get; set; }
+	/// <summary>The number of documents that were successfully deleted.</summary>
+		public long? Deleted { get; set; }
+	/// <summary>The number of scroll responses pulled back by the reindex operation.</summary>
+		public int? Batches { get; set; }
+	/// <summary>The number of version conflicts encountered by the reindex operation.</summary>
+		public long? VersionConflicts { get; set; }
+	/// <summary>The number of documents that were ignored.</summary>
+		public long? Noops { get; set; }
+	public Retries? Retries { get; set; }
+	public long? ThrottledMillis { get; set; }
+	public string? Throttled { get; set; }
+	/// <summary>The number of requests per second effectively executed during the reindex operation.</summary>
+		public float? RequestsPerSecond { get; set; }
+	public string? Canceled { get; set; }
+	/// <summary>When the throttling will end in milliseconds.</summary>
+		public long? ThrottledUntilMillis { get; set; }
+	/// <summary>The amount time before the throttling will end.</summary>
+		public string? ThrottledUntil { get; set; }
+	public List<System.Text.Json.JsonElement>? Slices { get; set; }
+	/// <summary>The time taken by the operation in milliseconds.</summary>
+		public long? Took { get; set; }
+	/// <summary>Whether the operation timed out.</summary>
+		public bool? TimedOut { get; set; }
+	/// <summary>The list of failures that occurred during the operation.</summary>
+		public List<System.Text.Json.JsonElement>? Failures { get; set; }
+	public string? Task { get; set; }
 }

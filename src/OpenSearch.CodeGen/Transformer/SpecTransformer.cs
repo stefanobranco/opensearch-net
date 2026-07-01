@@ -235,7 +235,11 @@ public sealed class SpecTransformer
 			};
 		}
 
-		var resolved = responseSchema.Ref is not null ? responseSchema.Resolved() : responseSchema;
+		// Follow $ref-alias chains fully (Resolved() advances one hop) so a response that is a bare alias
+		// (e.g. GetPolicyResponse → PolicyWithMetadata) adopts its target's shape instead of staying empty.
+		var resolved = responseSchema;
+		while (resolved.Ref is not null)
+			resolved = resolved.Resolved();
 
 		// Check if it's a dictionary response (object with additionalProperties, no named properties)
 		if (resolved.HasAdditionalProperties && resolved.Properties.Count == 0)
@@ -253,6 +257,42 @@ public sealed class SpecTransformer
 				DictionaryValueType = valueType,
 				IsHeadResponse = false
 			};
+		}
+
+		// A oneOf/anyOf response of objects with no discriminator (e.g. delete_by_query/reindex/open,
+		// which return either the full result or an async {task}) is merged into the superset of its
+		// variants' fields — each optional, since only one variant is returned. Mirrors request-body
+		// union handling. Non-object unions are left empty (a later typed-response pass can model them).
+		var unionMembers = resolved.OneOf.Count > 0 ? resolved.OneOf
+			: resolved.AnyOf.Count > 0 ? resolved.AnyOf
+			: (IReadOnlyList<OpenApiSchema>?)null;
+		if (unionMembers is not null)
+		{
+			var memberSchemas = new List<OpenApiSchema>();
+			foreach (var member in unionMembers)
+			{
+				var mr = member;
+				while (mr.Ref is not null)
+					mr = mr.Resolved();
+				memberSchemas.Add(mr);
+			}
+			if (memberSchemas.All(m => m.AllOf.Count > 0 || m.Properties.Count > 0 || m.Type is "object"))
+			{
+				var mergedFields = new List<Field>();
+				foreach (var member in memberSchemas)
+					CollectResponseFieldsWithAllOf(member, mergedFields, typeMapper, forceOptional: true);
+
+				NamingConventions.FixFieldNameClash(mergedFields, responseName);
+				return new ResponseShape
+				{
+					ClassName = responseName,
+					Namespace = nsName,
+					Description = resolved.Description ?? group.CanonicalOperation.Description,
+					Fields = mergedFields,
+					IsHeadResponse = false,
+					TypeParameters = typeMapper.CollectGenericParams(mergedFields)
+				};
+			}
 		}
 
 		// Regular response with fields
@@ -350,7 +390,7 @@ public sealed class SpecTransformer
 		}
 	}
 
-	private static void CollectResponseFields(OpenApiSchema schema, List<Field> fields, HashSet<string> required, TypeMapper typeMapper)
+	private static void CollectResponseFields(OpenApiSchema schema, List<Field> fields, HashSet<string> required, TypeMapper typeMapper, bool forceOptional = false)
 	{
 		var existingNames = new HashSet<string>(fields.Select(f => f.Name), StringComparer.OrdinalIgnoreCase);
 
@@ -367,11 +407,24 @@ public sealed class SpecTransformer
 				Name = pascalName,
 				WireName = name,
 				Type = typeMapper.Map(propSchema),
-				Required = required.Contains(name),
+				Required = !forceOptional && required.Contains(name),
 				Description = propSchema.Description,
 				Deprecated = propSchema.Deprecated
 			});
 		}
+	}
+
+	/// <summary>Collects response fields from a schema, flattening nested allOf. Used when merging the
+	/// members of a oneOf/anyOf response into a superset.</summary>
+	private static void CollectResponseFieldsWithAllOf(OpenApiSchema schema, List<Field> fields, TypeMapper typeMapper, bool forceOptional)
+	{
+		if (schema.AllOf.Count > 0)
+		{
+			foreach (var member in schema.AllOf)
+				CollectResponseFieldsWithAllOf(member.Resolved(), fields, typeMapper, forceOptional);
+			return;
+		}
+		CollectResponseFields(schema, fields, new HashSet<string>(schema.Required), typeMapper, forceOptional);
 	}
 
 	private static string MapHttpMethod(string method) => method.ToLowerInvariant() switch
