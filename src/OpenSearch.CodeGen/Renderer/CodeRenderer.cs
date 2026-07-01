@@ -123,6 +123,12 @@ public sealed class CodeRenderer
 			var dir = Path.Combine(_outputDir, union.Namespace, "Descriptors");
 			var ctx = TemplateHelpers.BuildTaggedUnionDescriptorContext(union, allObjects, _globalUnions);
 			RenderToFile(_templates.Load("TaggedUnionDescriptor.sbn"), ctx, dir, $"{union.ClassName}Descriptor.cs");
+
+			// QueryContainer additionally gets a generic <TDocument> descriptor for the typed fluent
+			// query API (Field-expression overloads). Emitted as a partial; the hand-written partial
+			// (src/OpenSearch.Client/Descriptors) supplies the variants in s_handWrittenGenericVariants.
+			if (union.ClassName == "QueryContainer")
+				RenderToFile(_templates.Load("GenericTaggedUnionDescriptor.sbn"), ctx, dir, $"{union.ClassName}Descriptor.Generic.cs");
 		}
 
 		// Render request descriptors (uses same template as object descriptors)

@@ -199,4 +199,51 @@ public class FluentQuerySerializationTests : SerializationTestBase
 		inner.GetProperty("score_mode").GetString().Should().Be("avg");
 		AssertFieldKeyed(inner.GetProperty("query"), "match", "title");
 	}
+
+	// ── Newly-generated variants (previously unreachable on the generic descriptor) ──
+
+	[Fact]
+	public void SpanTerm_generated_field_expression_serializes()
+	{
+		var query = Query(q => q.SpanTerm(d => d.Status!, s => s.Value("active")));
+
+		var inner = AssertFieldKeyed(query, "span_term", "status");
+		inner.GetProperty("value").GetString().Should().Be("active");
+	}
+
+	[Fact]
+	public void Common_generated_field_expression_serializes()
+	{
+		var query = Query(q => q.Common(d => d.Title!, c => c.Query("nelly the elephant").CutoffFrequency(0.001f)));
+
+		var inner = AssertFieldKeyed(query, "common", "title");
+		inner.GetProperty("query").GetString().Should().Be("nelly the elephant");
+	}
+
+	[Fact]
+	public void Wrapper_generated_action_serializes()
+	{
+		var query = Query(q => q.Wrapper(w => w.Query("eyJ0ZXJtIjoge319")));
+
+		query.TryGetProperty("wrapper", out var inner).Should().BeTrue();
+		inner.GetProperty("query").GetString().Should().Be("eyJ0ZXJtIjoge319");
+	}
+
+	[Fact]
+	public void Type_generated_action_serializes()
+	{
+		var query = Query(q => q.Type(t => t.Value("_doc")));
+
+		query.TryGetProperty("type", out var inner).Should().BeTrue();
+		inner.GetProperty("value").GetString().Should().Be("_doc");
+	}
+
+	[Fact]
+	public void DisMax_generated_value_form_is_reachable()
+	{
+		var query = Query(q => q.DisMax(new DisMaxQuery { TieBreaker = 0.5f }));
+
+		query.TryGetProperty("dis_max", out var inner).Should().BeTrue();
+		inner.GetProperty("tie_breaker").GetSingle().Should().Be(0.5f);
+	}
 }

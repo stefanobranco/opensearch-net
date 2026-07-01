@@ -325,6 +325,14 @@ public static class TemplateHelpers
 		return ctx;
 	}
 
+	// Variants whose generic (<TDocument>) form is hand-written because it threads TDocument into a
+	// nested-query sub-descriptor (BoolQueryDescriptor<TDocument>, etc.), which the generator can't
+	// emit. The generic descriptor template skips these; the hand-written partial supplies them.
+	private static readonly HashSet<string> s_handWrittenGenericVariants = new(StringComparer.Ordinal)
+	{
+		"Bool", "Nested", "ConstantScore"
+	};
+
 	public static ScriptObject BuildTaggedUnionDescriptorContext(TaggedUnionShape union, IReadOnlyDictionary<string, ObjectShape> allObjects, IReadOnlyDictionary<string, TaggedUnionShape> allUnions)
 	{
 		var obj = new ScriptObject();
@@ -353,6 +361,7 @@ public static class TemplateHelpers
 			}
 
 			PopulateFieldKeyedProperties(v, variant, allObjects, allUnions);
+			v["skip_generic"] = s_handWrittenGenericVariants.Contains(variant.Name);
 
 			variants.Add(v);
 		}
