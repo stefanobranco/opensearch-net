@@ -40,7 +40,7 @@ public sealed class CreateRequest
 	/// <summary>The number of shard copies that must be active before proceeding with the operation. Set to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`).</summary>
 	[JsonIgnore]
 	public string? WaitForActiveShards { get; set; }
-	/// <summary>The document to index.</summary>
+	/// <summary>The request body.</summary>
 	[JsonIgnore]
 	public object? Body { get; set; }
 }

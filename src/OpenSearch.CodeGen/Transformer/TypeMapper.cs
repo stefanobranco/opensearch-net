@@ -527,6 +527,14 @@ public sealed class TypeMapper
 				return GetOrCreateOneOfTaggedUnion(schemaName, schemas, ns, discriminatorProperty);
 		}
 
+		// Pattern 5b: Externally-tagged wrapper-object union — every member is an object with a single
+		// property whose value is a $ref (e.g. search_pipeline RequestProcessor:
+		// oneOf[{filter_query: FilterQueryRequestProcessor}, {oversample: OversampleRequestProcessor}, ...]).
+		// The wrapper property name is the wire discriminator; emit a property-keyed tagged union
+		// (same shape as QueryContainer) instead of falling back to JsonElement.
+		if (schemaName is not null && schemas.Count >= 2 && schemas.All(IsSingleRefPropertyObject))
+			return GetOrCreateWrapperObjectUnion(schemaName, schemas, ns);
+
 		// Pattern 6: Fallback → JsonElement + record warning
 		var context = schemaName ?? "inline";
 		var memberDescs = string.Join(", ", schemas.Select(s =>
@@ -542,6 +550,47 @@ public sealed class TypeMapper
 	/// When a discriminator property is present (e.g., "type" for Property), extracts
 	/// the actual wire value from each variant's schema instead of using the class name.
 	/// </summary>
+	/// <summary>True if the schema is an object with exactly one property whose value is a $ref —
+	/// the wrapper shape of an externally-tagged union member (e.g. <c>{filter_query: {$ref: ...}}</c>).</summary>
+	private static bool IsSingleRefPropertyObject(OpenApiSchema member)
+	{
+		var resolved = member.Resolved();
+		if (resolved.Type is not "object" || resolved.Properties.Count != 1)
+			return false;
+		foreach (var (_, propSchema) in resolved.Properties)
+			return propSchema.Ref is not null;
+		return false;
+	}
+
+	/// <summary>
+	/// Builds an externally-tagged tagged union from a oneOf whose members are single-property wrapper
+	/// objects. Each member contributes one variant keyed by its wrapper property name (the wire
+	/// discriminator), typed by that property's $ref — identical in shape to <c>QueryContainer</c>.
+	/// </summary>
+	private TypeRef GetOrCreateWrapperObjectUnion(string schemaName, IReadOnlyList<OpenApiSchema> oneOfSchemas, string? namespaceOverride)
+	{
+		if (_namedTypes.TryGetValue(schemaName, out var existing))
+			return existing;
+
+		var variants = new List<UnionVariant>();
+		foreach (var member in oneOfSchemas)
+		{
+			foreach (var (propName, propSchema) in member.Resolved().Properties)
+			{
+				variants.Add(new UnionVariant
+				{
+					Name = NamingConventions.ToPascalCase(propName),
+					WireName = propName,
+					Type = Map(propSchema),
+					Description = propSchema.Description
+				});
+			}
+		}
+
+		EraseGenericVariants(variants);
+		return RegisterTaggedUnion(schemaName, namespaceOverride, null, variants);
+	}
+
 	private TypeRef GetOrCreateOneOfTaggedUnion(string schemaName, IReadOnlyList<OpenApiSchema> oneOfSchemas, string? namespaceOverride, string? discriminatorProperty = null)
 	{
 		if (_namedTypes.TryGetValue(schemaName, out var existing))

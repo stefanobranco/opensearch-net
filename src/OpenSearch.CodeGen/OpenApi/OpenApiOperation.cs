@@ -17,6 +17,9 @@ public sealed class OpenApiOperation
 	public required IReadOnlyList<OpenApiParameter> Parameters { get; init; }
 	public required OpenApiSchema? RequestBody { get; init; }
 	public required OpenApiSchema? ResponseSchema { get; init; }
+
+	/// <summary>The 2xx response body is served as <c>text/plain</c> (a raw string), not JSON.</summary>
+	public required bool ResponseIsPlainText { get; init; }
 	public required string ContextFile { get; init; }
 
 	/// <summary>Whether the request body uses NDJSON content type (application/x-ndjson).</summary>
@@ -57,6 +60,7 @@ public sealed class OpenApiOperation
 
 		// Parse response (use first 2xx response)
 		OpenApiSchema? responseSchema = null;
+		bool responseIsPlainText = false;
 		if (node.Children.TryGetValue(new YamlScalarNode("responses"), out var responsesNode) && responsesNode is YamlMappingNode responsesMapping)
 		{
 			foreach (var kv in responsesMapping.Children)
@@ -65,6 +69,9 @@ public sealed class OpenApiOperation
 				if (statusCode.StartsWith('2'))
 				{
 					responseSchema = ResolveBodySchema(kv.Value, resolver, contextFile);
+					// A response with no application/json schema but a text/plain body is a raw string.
+					if (responseSchema is null)
+						responseIsPlainText = ResponseHasContentType(kv.Value, resolver, contextFile, "text/plain");
 					break;
 				}
 			}
@@ -82,9 +89,25 @@ public sealed class OpenApiOperation
 			Parameters = parameters,
 			RequestBody = requestBody,
 			ResponseSchema = responseSchema,
+			ResponseIsPlainText = responseIsPlainText,
 			ContextFile = contextFile,
 			IsNdjsonBody = isNdjsonBody
 		};
+	}
+
+	/// <summary>Returns true if the response node (following any $ref) declares the given content type.</summary>
+	private static bool ResponseHasContentType(YamlNode node, RefResolver resolver, string contextFile, string contentType)
+	{
+		if (node is YamlMappingNode mapping && mapping.Children.TryGetValue(new YamlScalarNode("$ref"), out var refNode))
+		{
+			var refStr = ((YamlScalarNode)refNode).Value!;
+			node = resolver.Resolve(refStr, contextFile);
+		}
+		if (node is not YamlMappingNode m
+			|| !m.Children.TryGetValue(new YamlScalarNode("content"), out var contentNode)
+			|| contentNode is not YamlMappingNode contentMapping)
+			return false;
+		return contentMapping.Children.ContainsKey(new YamlScalarNode(contentType));
 	}
 
 	private static bool IsNdjsonContentType(YamlNode node, RefResolver resolver, string contextFile)

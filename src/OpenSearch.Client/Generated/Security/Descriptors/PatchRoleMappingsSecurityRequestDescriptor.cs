@@ -9,6 +9,8 @@ public sealed class PatchRoleMappingsSecurityRequestDescriptor
 {
 	internal PatchRoleMappingsSecurityRequest _value = new();
 
+	/// <summary>The request body.</summary>
+	public PatchRoleMappingsSecurityRequestDescriptor Body(List<PatchOperation>? value) { _value.Body = value; return this; }
 
 	public static implicit operator PatchRoleMappingsSecurityRequest(PatchRoleMappingsSecurityRequestDescriptor descriptor) => descriptor._value;
 }

@@ -9,6 +9,8 @@ public sealed class PutExperimentsSearchRelevanceRequestDescriptor
 {
 	internal PutExperimentsSearchRelevanceRequest _value = new();
 
+	/// <summary>The request body.</summary>
+	public PutExperimentsSearchRelevanceRequestDescriptor Body(System.Text.Json.JsonElement? value) { _value.Body = value; return this; }
 
 	public static implicit operator PutExperimentsSearchRelevanceRequest(PutExperimentsSearchRelevanceRequestDescriptor descriptor) => descriptor._value;
 }

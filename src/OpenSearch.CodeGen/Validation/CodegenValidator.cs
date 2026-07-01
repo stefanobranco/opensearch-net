@@ -180,6 +180,20 @@ public static class CodegenValidator
 			Console.WriteLine("\n[OK] No oneOf fallbacks to JsonElement");
 		}
 
+		// Check 5: Typed raw bodies — requests whose body is an array/union/scalar payload
+		// (not flattened into named fields). A JsonElement payload means the body could not be
+		// typed (e.g. a union without a discriminator) and is sent as raw JSON.
+		var rawBodies = requestsByName.Values
+			.Where(r => r.IsRawBody && r.RawBodyType is not null)
+			.OrderBy(r => r.ClassName, StringComparer.Ordinal)
+			.ToList();
+		if (rawBodies.Count > 0)
+		{
+			Console.WriteLine($"\n[INFO] {rawBodies.Count} requests use a typed raw body:");
+			foreach (var r in rawBodies)
+				Console.WriteLine($"  {r.Namespace}.{r.ClassName}: {r.RawBodyType!.CSharpName}");
+		}
+
 		Console.WriteLine($"\n=== Validation {(hasCriticalFailure ? "FAILED" : "PASSED")} ===\n");
 		return !hasCriticalFailure;
 	}

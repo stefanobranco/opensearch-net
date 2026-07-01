@@ -93,7 +93,7 @@ public sealed class SearchModelsKnnRequestDescriptor
 		public SearchModelsKnnRequestDescriptor TypedKeys(bool? value) { _value.TypedKeys = value; return this; }
 	/// <summary>Whether to return document version as part of a hit.</summary>
 		public SearchModelsKnnRequestDescriptor Version(bool? value) { _value.Version = value; return this; }
-	/// <summary>The document to index.</summary>
+	/// <summary>The request body.</summary>
 	public SearchModelsKnnRequestDescriptor Body(object? value) { _value.Body = value; return this; }
 
 	public static implicit operator SearchModelsKnnRequest(SearchModelsKnnRequestDescriptor descriptor) => descriptor._value;

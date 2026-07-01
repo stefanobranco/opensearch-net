@@ -13,6 +13,9 @@ namespace OpenSearch.Client;
 
 public sealed class PatchRoleMappingsSecurityRequest
 {
+	/// <summary>The request body.</summary>
+	[JsonIgnore]
+	public List<PatchOperation>? Body { get; set; }
 }
 public sealed class PatchRoleMappingsSecurityEndpoint : IEndpoint<PatchRoleMappingsSecurityRequest, PatchRoleMappingsSecurityResponse>
 {
@@ -26,7 +29,7 @@ public sealed class PatchRoleMappingsSecurityEndpoint : IEndpoint<PatchRoleMappi
 		return path;
 	}
 
-	public RequestBody? GetBody(PatchRoleMappingsSecurityRequest r) => null;
+	public RequestBody? GetBody(PatchRoleMappingsSecurityRequest r) => r.Body is not null ? RequestBody.Json(r.Body) : null;
 
 	public PatchRoleMappingsSecurityResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<PatchRoleMappingsSecurityResponse>(body)!;

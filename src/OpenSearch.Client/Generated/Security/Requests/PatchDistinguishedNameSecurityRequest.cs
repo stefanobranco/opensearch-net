@@ -16,6 +16,9 @@ public sealed class PatchDistinguishedNameSecurityRequest
 	/// <summary>The cluster name to update the `nodesDn` value.</summary>
 	[JsonIgnore]
 	public string? ClusterName { get; set; }
+	/// <summary>The request body.</summary>
+	[JsonIgnore]
+	public List<PatchOperation>? Body { get; set; }
 }
 public sealed class PatchDistinguishedNameSecurityEndpoint : IEndpoint<PatchDistinguishedNameSecurityRequest, PatchDistinguishedNameSecurityResponse>
 {
@@ -29,7 +32,7 @@ public sealed class PatchDistinguishedNameSecurityEndpoint : IEndpoint<PatchDist
 		return path;
 	}
 
-	public RequestBody? GetBody(PatchDistinguishedNameSecurityRequest r) => null;
+	public RequestBody? GetBody(PatchDistinguishedNameSecurityRequest r) => r.Body is not null ? RequestBody.Json(r.Body) : null;
 
 	public PatchDistinguishedNameSecurityResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<PatchDistinguishedNameSecurityResponse>(body)!;

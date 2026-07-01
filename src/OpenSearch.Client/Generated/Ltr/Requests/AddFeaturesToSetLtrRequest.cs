@@ -28,7 +28,7 @@ public sealed class AddFeaturesToSetLtrRequest
 	/// <summary>Version check to ensure feature set is modified with expected version.</summary>
 	[JsonIgnore]
 	public int? Version { get; set; }
-	/// <summary>The document to index.</summary>
+	/// <summary>The request body.</summary>
 	[JsonIgnore]
 	public object? Body { get; set; }
 }

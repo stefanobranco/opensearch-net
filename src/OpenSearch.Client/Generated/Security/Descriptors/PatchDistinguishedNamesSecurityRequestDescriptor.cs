@@ -9,6 +9,8 @@ public sealed class PatchDistinguishedNamesSecurityRequestDescriptor
 {
 	internal PatchDistinguishedNamesSecurityRequest _value = new();
 
+	/// <summary>The request body.</summary>
+	public PatchDistinguishedNamesSecurityRequestDescriptor Body(List<PatchOperation>? value) { _value.Body = value; return this; }
 
 	public static implicit operator PatchDistinguishedNamesSecurityRequest(PatchDistinguishedNamesSecurityRequestDescriptor descriptor) => descriptor._value;
 }

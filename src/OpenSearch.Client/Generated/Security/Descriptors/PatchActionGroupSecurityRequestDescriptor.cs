@@ -11,6 +11,8 @@ public sealed class PatchActionGroupSecurityRequestDescriptor
 
 	/// <summary>The name of the action group to update.</summary>
 		public PatchActionGroupSecurityRequestDescriptor ActionGroup(string? value) { _value.ActionGroup = value; return this; }
+	/// <summary>The request body.</summary>
+	public PatchActionGroupSecurityRequestDescriptor Body(List<PatchOperation>? value) { _value.Body = value; return this; }
 
 	public static implicit operator PatchActionGroupSecurityRequest(PatchActionGroupSecurityRequestDescriptor descriptor) => descriptor._value;
 }

@@ -20,7 +20,9 @@ public static class TemplateHelpers
 		obj["http_method"] = request.HttpMethod;
 		obj["has_body"] = request.HasBody;
 		obj["is_raw_body"] = request.IsRawBody;
+		obj["raw_body_type"] = RenderRawBodyType(request.RawBodyType);
 		obj["is_head"] = request.IsHead;
+		obj["is_plain_text_response"] = request.Response.IsPlainTextResponse;
 
 		// Index-style operations: POST when no Id, PUT when Id is present
 		var hasPathWithId = request.HttpPaths.Any(p => p.ParameterNames.Contains("id"));
@@ -54,6 +56,7 @@ public static class TemplateHelpers
 			? new ScriptArray(response.TypeParameters.Cast<object>())
 			: null;
 		obj["has_additional_properties"] = false;
+		obj["is_plain_text_response"] = response.IsPlainTextResponse;
 		obj["is_response"] = true;
 		return obj;
 	}
@@ -97,6 +100,7 @@ public static class TemplateHelpers
 			? new ScriptArray(objectShape.TypeParameters.Cast<object>())
 			: null;
 		obj["has_additional_properties"] = objectShape.AdditionalPropertiesType is not null;
+		obj["is_plain_text_response"] = false;
 		obj["is_response"] = false;
 		return obj;
 	}
@@ -211,6 +215,13 @@ public static class TemplateHelpers
 	/// Returns the full C# property type string, including ? suffix where needed.
 	/// For DTOs: all properties are nullable except required value types.
 	/// </summary>
+	/// <summary>The C# type of the raw <c>Body</c> property: a specific nullable type for array/union/scalar
+	/// bodies, or <c>object?</c> for a bare user document.</summary>
+	private static string RenderRawBodyType(TypeRef? rawBodyType) =>
+		rawBodyType is { } t
+			? t.CSharpName + (t.CSharpName.EndsWith("?") ? "" : "?")
+			: "object?";
+
 	private static string ComputePropertyType(Field field)
 	{
 		var baseName = field.Type.CSharpName;
@@ -444,7 +455,7 @@ public static class TemplateHelpers
 		allFields.AddRange(request.BodyFields);
 
 		return BuildDescriptorContext(request.Namespace, request.ClassName, allFields, typeParameters: null,
-			request.IsRawBody, allObjects, allUnions);
+			request.IsRawBody, allObjects, allUnions, rawBodyType: RenderRawBodyType(request.RawBodyType));
 	}
 
 	public static ScriptObject BuildNamespaceClientContext(string namespaceName, IReadOnlyList<RequestShape> requests, IReadOnlyDictionary<string, ObjectShape> allObjects, IReadOnlyDictionary<string, TaggedUnionShape> allUnions)
@@ -491,7 +502,7 @@ public static class TemplateHelpers
 	private static ScriptObject BuildDescriptorContext(
 		string ns, string className, IReadOnlyList<Field> fields, ScriptArray? typeParameters,
 		bool isRawBody, IReadOnlyDictionary<string, ObjectShape> allObjects, IReadOnlyDictionary<string, TaggedUnionShape> allUnions,
-		IReadOnlySet<string>? genericTypes = null)
+		IReadOnlySet<string>? genericTypes = null, string rawBodyType = "object?")
 	{
 		var obj = new ScriptObject();
 		obj["namespace"] = ns;
@@ -503,6 +514,7 @@ public static class TemplateHelpers
 		// BuildGenericObjectDescriptorContext overrides this where the value type is non-generic.
 		obj["value_type"] = className + (typeParameters is { Count: > 0 } ? "<" + string.Join(", ", typeParameters) + ">" : "");
 		obj["is_raw_body"] = isRawBody;
+		obj["raw_body_type"] = rawBodyType;
 		obj["has_additional_properties"] = false;
 		return obj;
 	}

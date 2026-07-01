@@ -11,6 +11,8 @@ public sealed class PatchTenantSecurityRequestDescriptor
 
 	/// <summary>The name of the tenant to update.</summary>
 		public PatchTenantSecurityRequestDescriptor Tenant(string? value) { _value.Tenant = value; return this; }
+	/// <summary>The request body.</summary>
+	public PatchTenantSecurityRequestDescriptor Body(List<PatchOperation>? value) { _value.Body = value; return this; }
 
 	public static implicit operator PatchTenantSecurityRequest(PatchTenantSecurityRequestDescriptor descriptor) => descriptor._value;
 }

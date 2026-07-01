@@ -14,6 +14,14 @@ public sealed class PutPolicyIsmRequestDescriptor
 		public PutPolicyIsmRequestDescriptor IfPrimaryTerm(float? value) { _value.IfPrimaryTerm = value; return this; }
 	/// <summary>Only perform the operation if the document has this sequence number.</summary>
 		public PutPolicyIsmRequestDescriptor IfSeqNo(long? value) { _value.IfSeqNo = value; return this; }
+	public PutPolicyIsmRequestDescriptor Policy(Policy? value) { _value.Policy = value; return this; }
+	public PutPolicyIsmRequestDescriptor Policy(Action<PolicyDescriptor> configure)
+	{
+		var descriptor = new PolicyDescriptor();
+		configure(descriptor);
+		_value.Policy = descriptor;
+		return this;
+	}
 
 	public static implicit operator PutPolicyIsmRequest(PutPolicyIsmRequestDescriptor descriptor) => descriptor._value;
 }

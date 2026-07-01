@@ -17,6 +17,11 @@ public {{ if is_response }}partial{{ else }}sealed{{ end }} class {{ class_name 
 	{{ end }}{{ if field.needs_json_property_name }}[JsonPropertyName("{{ field.wire_name }}")]
 	{{ end }}public {{ field.type }} {{ field.name }} { get; set; }
 {{~ end ~}}
+{{~ if is_plain_text_response ~}}
+	/// <summary>The raw <c>text/plain</c> response body.</summary>
+	[JsonIgnore]
+	public string? Value { get; set; }
+{{~ end ~}}
 {{~ if has_additional_properties ~}}
 	[JsonExtensionData]
 	public Dictionary<string, System.Text.Json.JsonElement>? ExtensionData { get; set; }

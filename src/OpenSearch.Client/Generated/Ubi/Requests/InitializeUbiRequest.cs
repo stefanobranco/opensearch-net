@@ -29,5 +29,5 @@ public sealed class InitializeUbiEndpoint : IEndpoint<InitializeUbiRequest, Init
 	public RequestBody? GetBody(InitializeUbiRequest r) => null;
 
 	public InitializeUbiResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		serializer.Deserialize<InitializeUbiResponse>(body)!;
+		new() { Value = new StreamReader(body).ReadToEnd() };
 }
