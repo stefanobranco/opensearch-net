@@ -21,5 +21,5 @@ public sealed class FuzzyQuery
 		public bool? Transpositions { get; set; }
 	public string? Fuzziness { get; set; }
 	/// <summary>Term you wish to find in the provided field.</summary>
-		public System.Text.Json.JsonElement? Value { get; set; }
+		public FieldValue? Value { get; set; }
 }

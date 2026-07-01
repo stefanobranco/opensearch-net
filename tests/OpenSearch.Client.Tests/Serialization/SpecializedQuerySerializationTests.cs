@@ -132,7 +132,7 @@ public class SpecializedQuerySerializationTests : SerializationTestBase
 		var query = QueryContainer.MoreLikeThis(new MoreLikeThisQuery
 		{
 			Fields = ["title", "description"],
-			Like = [Element("Once upon a time")],
+			Like = ["Once upon a time"],
 			MinTermFreq = 1,
 			MaxQueryTerms = 12,
 		});
@@ -180,8 +180,8 @@ public class SpecializedQuerySerializationTests : SerializationTestBase
 		{
 			Queries =
 			[
-				QueryContainer.Term("status", new TermQuery { Value = Element("active") }),
-				QueryContainer.Match("title", new MatchQuery { Query = Element("brown fox") }),
+				QueryContainer.Term("status", new TermQuery { Value = "active" }),
+				QueryContainer.Match("title", new MatchQuery { Query = "brown fox" }),
 			],
 		});
 

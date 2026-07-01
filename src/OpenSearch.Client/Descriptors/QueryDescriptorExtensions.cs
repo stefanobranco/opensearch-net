@@ -9,30 +9,8 @@ namespace OpenSearch.Client;
 /// </summary>
 public static class QueryDescriptorExtensions
 {
-	// ── TermQueryDescriptor ──
-
-	public static TermQueryDescriptor Value(this TermQueryDescriptor d, string value)
-	{ d._value.Value = JsonSerializer.SerializeToElement(value); return d; }
-
-	public static TermQueryDescriptor Value(this TermQueryDescriptor d, bool value)
-	{ d._value.Value = JsonSerializer.SerializeToElement(value); return d; }
-
-	public static TermQueryDescriptor Value(this TermQueryDescriptor d, long value)
-	{ d._value.Value = JsonSerializer.SerializeToElement(value); return d; }
-
-	public static TermQueryDescriptor Value(this TermQueryDescriptor d, double value)
-	{ d._value.Value = JsonSerializer.SerializeToElement(value); return d; }
-
-	public static TermQueryDescriptor Value(this TermQueryDescriptor d, object value)
-	{ d._value.Value = JsonSerializer.SerializeToElement(value); return d; }
-
-	// ── MatchQueryDescriptor ──
-
-	public static MatchQueryDescriptor Query(this MatchQueryDescriptor d, string value)
-	{ d._value.Query = JsonSerializer.SerializeToElement(value); return d; }
-
-	// Note: MatchPhraseQueryDescriptor.Query() and MatchPhrasePrefixQueryDescriptor.Query()
-	// already accept string? natively — no extension needed.
+	// TermQueryDescriptor.Value and MatchQueryDescriptor.Query accept a FieldValue natively (with
+	// implicit conversions from string/number/bool), so no JsonElement-wrapping extensions are needed.
 
 	// ── BoolQueryDescriptor / BoolQueryDescriptor<T> ──
 
@@ -112,7 +90,7 @@ public static class QueryDescriptorExtensions
 		string index, string id)
 	{
 		d._value.Like ??= [];
-		d._value.Like.Add(JsonSerializer.SerializeToElement(new { _index = index, _id = id }));
+		d._value.Like.Add(new LikeDocument { Index = index, Id = id });
 		return d;
 	}
 
@@ -122,7 +100,7 @@ public static class QueryDescriptorExtensions
 	public static MoreLikeThisQueryDescriptor LikeText(this MoreLikeThisQueryDescriptor d, string text)
 	{
 		d._value.Like ??= [];
-		d._value.Like.Add(JsonSerializer.SerializeToElement(text));
+		d._value.Like.Add(text);
 		return d;
 	}
 

@@ -9,7 +9,7 @@ public sealed class MedianAbsoluteDeviationAggregationDescriptor
 {
 	internal MedianAbsoluteDeviationAggregation _value = new();
 
-	public MedianAbsoluteDeviationAggregationDescriptor Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
+	public MedianAbsoluteDeviationAggregationDescriptor Missing(FieldValue? value) { _value.Missing = value; return this; }
 	public MedianAbsoluteDeviationAggregationDescriptor Field(string? value) { _value.Field = value; return this; }
 	public MedianAbsoluteDeviationAggregationDescriptor Script(Script? value) { _value.Script = value; return this; }
 	public MedianAbsoluteDeviationAggregationDescriptor Format(string? value) { _value.Format = value; return this; }

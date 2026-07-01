@@ -10,7 +10,7 @@ public sealed class MissingAggregationFieldsDescriptor
 	internal MissingAggregationFields _value = new();
 
 	public MissingAggregationFieldsDescriptor Field(string? value) { _value.Field = value; return this; }
-	public MissingAggregationFieldsDescriptor Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
+	public MissingAggregationFieldsDescriptor Missing(FieldValue? value) { _value.Missing = value; return this; }
 
 	public static implicit operator MissingAggregationFields(MissingAggregationFieldsDescriptor descriptor) => descriptor._value;
 }

@@ -77,27 +77,28 @@ public sealed class TypeMapper
 		["GeoLocation"] = TypeRef.Named("GeoLocation", "GeoLocation"), // oneOf[LatLon, GeoHash, array, string] → hand-written with converter
 		["FieldAndFormat"] = TypeRef.Named("FieldAndFormat", "FieldAndFormat"), // oneOf[Field, object] → hand-written with converter
 		["RangeQuery"] = TypeRef.Named("RangeQuery", "RangeQuery"), // oneOf[NumberRangeQuery, DateRangeQuery] → hand-written merged flat type (Types/RangeQuery.cs)
-		["Like"] = TypeRef.JsonElement(), // oneOf[string, LikeDocument] — string shorthand or full document
-		["DecayPlacement"] = TypeRef.JsonElement(), // oneOf[DateDecay, GeoDecay, NumericDecay] — handled by DecayFunction
-		["GeoBounds"] = TypeRef.JsonElement(), // oneOf[4 coordinate formats]
-		["TermsQueryField"] = TypeRef.JsonElement(), // oneOf[array, TermsLookup]
+		["FieldValue"] = TypeRef.Named("FieldValue", "FieldValue"), // anyOf[bool, null, number, string] → hand-written readonly struct with implicit conversions (Types/FieldValue.cs)
+		["Like"] = TypeRef.Named("Like", "Like"), // oneOf[string, LikeDocument] → hand-written string-or-document union (Types/Like.cs)
+		["DecayPlacement"] = TypeRef.JsonElement(), // oneOf[DateDecay, GeoDecay, NumericDecay] — absorbed by DecayFunction; concrete Date/Geo/NumericDecayPlacement types exist
+		["GeoBounds"] = TypeRef.Named("GeoBounds", "GeoBounds"), // oneOf[4 coordinate formats] → hand-written union with property-sniffing converter (Types/GeoBounds.cs)
+		["TermsQueryField"] = TypeRef.Named("TermsQueryField", "TermsQueryField"), // oneOf[array<FieldValue>, TermsLookup] → hand-written union (Types/TermsQueryField.cs)
 		["SourceFilter"] = TypeRef.JsonElement(), // oneOf[Fields, object] — handled by SourceConfig
 		["BucketsPath"] = TypeRef.Named("BucketsPath", "BucketsPath"), // oneOf[string, array, object] → hand-written union with converter (Types/BucketsPath.cs)
 		["SourceConfigParam"] = TypeRef.JsonElement(), // oneOf[boolean, Fields] — query parameter form of _source
 		["Suggest"] = TypeRef.JsonElement(), // oneOf[allOf, PhraseSuggest, TermSuggest] — handled by SuggesterDescriptor
-		["TaskInfos"] = TypeRef.JsonElement(), // oneOf[array, object] — task info response varies by group_by
-		["TrackHits"] = TypeRef.JsonElement(), // oneOf[boolean, integer] — true/false or exact count threshold
+		["TaskInfos"] = TypeRef.Named("TaskInfos", "TaskInfos"), // oneOf[array<TaskInfo>, map<TaskGroup>] → hand-written union (Types/TaskInfos.cs)
+		["TrackHits"] = TypeRef.Named("TrackHits", "TrackHits"), // oneOf[boolean, integer] → hand-written struct with implicit conversions (Types/TrackHits.cs)
 		["WaitForActiveShards"] = TypeRef.String(), // oneOf[StringifiedInteger, WaitForActiveShardOptions] — "1" or "all"
-		["Context"] = TypeRef.JsonElement(), // oneOf[string, GeoLocation] — completion context (category string or geo point)
-		["TermsInclude"] = TypeRef.JsonElement(), // oneOf[string, array, TermsPartition] — regex, list of values, or partition
-		["AggregateOrder"] = TypeRef.JsonElement(), // oneOf[object, array] — single or multi-value sort order
-		["CompletionContext"] = TypeRef.JsonElement(), // oneOf[Context, object] — completion context config
-		["IndexSettingsMergePolicy"] = TypeRef.JsonElement(), // oneOf[name, tiered policy config]
+		["Context"] = TypeRef.Named("Context", "Context"), // oneOf[string, GeoLocation] → hand-written string-or-location union (Types/Context.cs)
+		["TermsInclude"] = TypeRef.Named("TermsInclude", "TermsInclude"), // oneOf[string, array, TermsPartition] → hand-written union (Types/TermsInclude.cs)
+		["AggregateOrder"] = TypeRef.Named("AggregateOrder", "AggregateOrder"), // oneOf[object, array] → hand-written ordered field/direction list (Types/AggregateOrder.cs)
+		["CompletionContext"] = TypeRef.JsonElement(), // oneOf[Context, object] — object form nests the unmodeled GeoHashPrecision (int|string) union; left opaque pending that
+		["IndexSettingsMergePolicy"] = TypeRef.Named("IndexSettingsMergePolicy", "IndexSettingsMergePolicy"), // oneOf[name enum, tiered config] → hand-written union (Types/IndexSettingsMergePolicy.cs)
 		["CharFilter"] = TypeRef.Named("CharFilter", "CharFilter"), // oneOf[string, CharFilterDefinition] → hand-written string-or-definition wrapper (Types/CharFilter.cs)
 		["TokenFilter"] = TypeRef.Named("TokenFilter", "TokenFilter"), // oneOf[string, TokenFilterDefinition] → hand-written string-or-definition wrapper (Types/TokenFilter.cs)
 		["Tokenizer"] = TypeRef.Named("Tokenizer", "Tokenizer"), // oneOf[string, TokenizerDefinition] → hand-written string-or-definition wrapper (Types/Tokenizer.cs)
-		["XyLocation"] = TypeRef.JsonElement(), // oneOf[XyCartesianCoordinates, array, string] — xy point formats
-		["SegmentReplicationStats"] = TypeRef.JsonElement(), // oneOf[object, object] — different shapes based on context
+		["XyLocation"] = TypeRef.Named("XyLocation", "XyLocation"), // oneOf[XyCartesianCoordinates, array, string] → hand-written union (Types/XyLocation.cs)
+		["SegmentReplicationStats"] = TypeRef.JsonElement(), // oneOf[object, object] — same field names, version-divergent value encodings (ByteCount vs HumanReadableByteCount); response-only, left opaque
 	};
 
 	/// <summary>
@@ -152,6 +153,18 @@ public sealed class TypeMapper
 	public IReadOnlyDictionary<string, ObjectShape> DiscoveredObjects => _discoveredObjects;
 	public IReadOnlyDictionary<string, TaggedUnionShape> DiscoveredTaggedUnions => _discoveredTaggedUnions;
 	public IReadOnlyList<string> OneOfFallbacks => _oneOfFallbacks;
+
+	/// <summary>
+	/// Schema names whose type override deliberately maps to a raw <c>JsonElement</c> — a punt, not a
+	/// modeled type. Surfaced by the validator so these degradations stay visible instead of reading as
+	/// "handled" merely because they sit in the override table (the blind spot that once hid FieldValue).
+	/// </summary>
+	public static IReadOnlyList<string> JsonElementOverrides =>
+		s_typeOverrides
+			.Where(kv => kv.Value.Name == "JsonElement")
+			.Select(kv => kv.Key)
+			.OrderBy(k => k, StringComparer.Ordinal)
+			.ToList();
 
 	/// <summary>
 	/// Maps an OpenAPI schema to a TypeRef.

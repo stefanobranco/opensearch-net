@@ -8,7 +8,7 @@ namespace OpenSearch.Client;
 
 public sealed class CompositeAggregationFields
 {
-	public Dictionary<string, System.Text.Json.JsonElement>? After { get; set; }
+	public Dictionary<string, FieldValue>? After { get; set; }
 	/// <summary>The number of composite buckets that should be returned.</summary>
 		public int? Size { get; set; }
 	/// <summary>The value sources used to build composite buckets. Keys are returned in the order of the `sources` definition.</summary>

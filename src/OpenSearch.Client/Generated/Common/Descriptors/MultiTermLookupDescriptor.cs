@@ -10,7 +10,7 @@ public sealed class MultiTermLookupDescriptor
 	internal MultiTermLookup _value = new();
 
 	public MultiTermLookupDescriptor Field(string? value) { _value.Field = value; return this; }
-	public MultiTermLookupDescriptor Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
+	public MultiTermLookupDescriptor Missing(FieldValue? value) { _value.Missing = value; return this; }
 
 	public static implicit operator MultiTermLookup(MultiTermLookupDescriptor descriptor) => descriptor._value;
 }

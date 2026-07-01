@@ -38,7 +38,7 @@ public sealed class SignificantTextAggregationFieldsDescriptor
 		_value.Gnd = descriptor;
 		return this;
 	}
-	public SignificantTextAggregationFieldsDescriptor Include(System.Text.Json.JsonElement? value) { _value.Include = value; return this; }
+	public SignificantTextAggregationFieldsDescriptor Include(TermsInclude? value) { _value.Include = value; return this; }
 	public SignificantTextAggregationFieldsDescriptor Jlh(System.Text.Json.JsonElement? value) { _value.Jlh = value; return this; }
 	/// <summary>Only return values that are found in more than `min_doc_count` hits.</summary>
 		public SignificantTextAggregationFieldsDescriptor MinDocCount(long? value) { _value.MinDocCount = value; return this; }

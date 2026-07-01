@@ -30,7 +30,7 @@ public class AggregationContainerSerializationTests : AggregationSerializationTe
 	[Fact]
 	public void Aggs_alias_serializes_as_aggs_key()
 	{
-		var agg = AggregationContainer.Filter(QueryContainer.Term("category", new TermQuery { Value = Element("books") }));
+		var agg = AggregationContainer.Filter(QueryContainer.Term("category", new TermQuery { Value = "books" }));
 		agg.Aggs = new Dictionary<string, AggregationContainer>
 		{
 			["count"] = AggregationContainer.ValueCount(new ValueCountAggregation { Field = "id" }),

@@ -11,13 +11,13 @@ public sealed class TermsAggregationFields
 	public TermsAggregationCollectMode? CollectMode { get; set; }
 	public List<string>? Exclude { get; set; }
 	public TermsAggregationExecutionHint? ExecutionHint { get; set; }
-	public System.Text.Json.JsonElement? Include { get; set; }
+	public TermsInclude? Include { get; set; }
 	/// <summary>Only return values that are found in more than `min_doc_count` hits.</summary>
 		public long? MinDocCount { get; set; }
-	public System.Text.Json.JsonElement? Missing { get; set; }
+	public FieldValue? Missing { get; set; }
 	/// <summary>Coerced unmapped fields into the specified type.</summary>
 		public ValueType? ValueType { get; set; }
-	public System.Text.Json.JsonElement? Order { get; set; }
+	public AggregateOrder? Order { get; set; }
 	/// <summary>The number of candidate terms produced by each shard. By default, `shard_size` will be automatically estimated based on the number of shards and the `size` parameter.</summary>
 		public int? ShardSize { get; set; }
 	/// <summary>The minimum number of documents in a bucket on each shard for it to be returned.</summary>

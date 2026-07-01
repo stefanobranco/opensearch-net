@@ -11,10 +11,10 @@ public sealed class RareTermsAggregationFieldsDescriptor
 
 	public RareTermsAggregationFieldsDescriptor Exclude(List<string>? value) { _value.Exclude = value; return this; }
 	public RareTermsAggregationFieldsDescriptor Field(string? value) { _value.Field = value; return this; }
-	public RareTermsAggregationFieldsDescriptor Include(System.Text.Json.JsonElement? value) { _value.Include = value; return this; }
+	public RareTermsAggregationFieldsDescriptor Include(TermsInclude? value) { _value.Include = value; return this; }
 	/// <summary>The maximum number of documents a term should appear in.</summary>
 		public RareTermsAggregationFieldsDescriptor MaxDocCount(long? value) { _value.MaxDocCount = value; return this; }
-	public RareTermsAggregationFieldsDescriptor Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
+	public RareTermsAggregationFieldsDescriptor Missing(FieldValue? value) { _value.Missing = value; return this; }
 	/// <summary>The precision of the internal CuckooFilters. Smaller precision leads to better approximation, but higher memory usage.</summary>
 		public RareTermsAggregationFieldsDescriptor Precision(double? value) { _value.Precision = value; return this; }
 	public RareTermsAggregationFieldsDescriptor ValueType(string? value) { _value.ValueType = value; return this; }

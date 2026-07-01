@@ -37,7 +37,7 @@ public class FluentQuerySerializationTests : SerializationTestBase
 	[Fact]
 	public void Term_via_field_expression_resolves_field_and_serializes()
 	{
-		var query = Query(q => q.Term(d => d.Status!, t => t.Value(Element("active")).Boost(1.5f)));
+		var query = Query(q => q.Term(d => d.Status!, t => t.Value("active").Boost(1.5f)));
 
 		var inner = AssertFieldKeyed(query, "term", "status");
 		inner.GetProperty("value").GetString().Should().Be("active");
@@ -47,7 +47,7 @@ public class FluentQuerySerializationTests : SerializationTestBase
 	[Fact]
 	public void Match_via_field_expression_resolves_field_and_serializes()
 	{
-		var query = Query(q => q.Match(d => d.Title!, m => m.Query(Element("quick brown fox")).Analyzer("standard")));
+		var query = Query(q => q.Match(d => d.Title!, m => m.Query("quick brown fox").Analyzer("standard")));
 
 		var inner = AssertFieldKeyed(query, "match", "title");
 		inner.GetProperty("query").GetString().Should().Be("quick brown fox");
@@ -134,7 +134,7 @@ public class FluentQuerySerializationTests : SerializationTestBase
 	[Fact]
 	public void Fuzzy_via_field_expression_serializes()
 	{
-		var query = Query(q => q.Fuzzy(d => d.Status!, f => f.Value(Element("activ")).Fuzziness("AUTO")));
+		var query = Query(q => q.Fuzzy(d => d.Status!, f => f.Value("activ").Fuzziness("AUTO")));
 
 		var inner = AssertFieldKeyed(query, "fuzzy", "status");
 		inner.GetProperty("value").GetString().Should().Be("activ");
@@ -176,7 +176,7 @@ public class FluentQuerySerializationTests : SerializationTestBase
 		// Compound fluent: Bool clauses each contain field-expression leaf queries —
 		// validates BoolQueryDescriptor<T> plus nested FieldExpressionVisitor resolution.
 		var query = Query(q => q.Bool(b => b
-			.Must(m => m.Term(d => d.Status!, t => t.Value(Element("active"))))
+			.Must(m => m.Term(d => d.Status!, t => t.Value("active")))
 			.Filter(f => f.Range(d => d.Age, r => r.Gte(18)))
 			.MinimumShouldMatch("1")));
 
@@ -192,7 +192,7 @@ public class FluentQuerySerializationTests : SerializationTestBase
 		var query = Query(q => q.Nested(n => n
 			.Path("comments")
 			.ScoreMode(ChildScoreMode.Avg)
-			.Query(nq => nq.Match(d => d.Title!, m => m.Query(Element("great"))))));
+			.Query(nq => nq.Match(d => d.Title!, m => m.Query("great")))));
 
 		query.TryGetProperty("nested", out var inner).Should().BeTrue();
 		inner.GetProperty("path").GetString().Should().Be("comments");
@@ -255,8 +255,8 @@ public class FluentQuerySerializationTests : SerializationTestBase
 		var query = Query(q => q.DisMax(d => d
 			.TieBreaker(0.5f)
 			.Queries(
-				sq => sq.Term(x => x.Status!, t => t.Value(Element("active"))),
-				sq => sq.Match(x => x.Title!, m => m.Query(Element("brown fox"))))));
+				sq => sq.Term(x => x.Status!, t => t.Value("active")),
+				sq => sq.Match(x => x.Title!, m => m.Query("brown fox")))));
 
 		query.TryGetProperty("dis_max", out var inner).Should().BeTrue();
 		var queries = inner.GetProperty("queries");
@@ -270,7 +270,7 @@ public class FluentQuerySerializationTests : SerializationTestBase
 	{
 		var query = Query(q => q.HasChild(h => h
 			.Type("comment")
-			.Query(cq => cq.Term(x => x.Status!, t => t.Value(Element("active"))))));
+			.Query(cq => cq.Term(x => x.Status!, t => t.Value("active")))));
 
 		query.TryGetProperty("has_child", out var inner).Should().BeTrue();
 		inner.GetProperty("type").GetString().Should().Be("comment");

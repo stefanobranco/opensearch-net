@@ -1,4 +1,3 @@
-using System.Text.Json;
 using FluentAssertions;
 using OpenSearch.Client;
 using OpenSearch.IntegrationTests.Infrastructure;
@@ -149,7 +148,7 @@ public class SortAndPaginationTests : IntegrationTestBase
 		var countResponse = Client.Core.Count(new CountRequest
 		{
 			Index = [index],
-			Query = QueryContainer.Term("name.keyword", new TermQuery { Value = JsonSerializer.SerializeToElement("Alice") })
+			Query = QueryContainer.Term("name.keyword", new TermQuery { Value = "Alice" })
 		});
 
 		countResponse.Count.Should().Be(1);

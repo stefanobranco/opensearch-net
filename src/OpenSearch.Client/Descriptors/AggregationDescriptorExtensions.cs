@@ -1,52 +1,30 @@
-using System.Text.Json;
-
 namespace OpenSearch.Client;
 
 /// <summary>
-/// Convenience extension methods for generated aggregation descriptors that accept
-/// <see cref="JsonElement"/> where callers typically pass typed values.
+/// Named ordering shortcuts for terms-aggregation descriptors. The underlying <c>Order</c> property is an
+/// <see cref="AggregateOrder"/>, and <c>Include</c> accepts a string/array/<see cref="TermsInclude"/>
+/// directly, so no JsonElement wrapping is needed.
 /// </summary>
 public static class AggregationDescriptorExtensions
 {
-	private static readonly JsonElement s_countDesc = JsonSerializer.SerializeToElement(new { _count = "desc" });
-	private static readonly JsonElement s_countAsc = JsonSerializer.SerializeToElement(new { _count = "asc" });
-	private static readonly JsonElement s_keyAsc = JsonSerializer.SerializeToElement(new { _key = "asc" });
-	private static readonly JsonElement s_keyDesc = JsonSerializer.SerializeToElement(new { _key = "desc" });
-
-	// ── TermsAggregationFieldsDescriptor: Order ──
-
 	/// <summary>Order by document count descending (default).</summary>
 	public static TermsAggregationFieldsDescriptor CountDescending(this TermsAggregationFieldsDescriptor d)
-	{ d._value.Order = s_countDesc; return d; }
+	{ d._value.Order = AggregateOrder.CountDescending; return d; }
 
 	/// <summary>Order by document count ascending.</summary>
 	public static TermsAggregationFieldsDescriptor CountAscending(this TermsAggregationFieldsDescriptor d)
-	{ d._value.Order = s_countAsc; return d; }
+	{ d._value.Order = AggregateOrder.CountAscending; return d; }
 
 	/// <summary>Order by bucket key ascending.</summary>
 	public static TermsAggregationFieldsDescriptor KeyAscending(this TermsAggregationFieldsDescriptor d)
-	{ d._value.Order = s_keyAsc; return d; }
+	{ d._value.Order = AggregateOrder.KeyAscending; return d; }
 
 	/// <summary>Order by bucket key descending.</summary>
 	public static TermsAggregationFieldsDescriptor KeyDescending(this TermsAggregationFieldsDescriptor d)
-	{ d._value.Order = s_keyDesc; return d; }
+	{ d._value.Order = AggregateOrder.KeyDescending; return d; }
 
 	/// <summary>Order by a sub-aggregation metric.</summary>
 	public static TermsAggregationFieldsDescriptor OrderBy(this TermsAggregationFieldsDescriptor d,
 		string subAggName, SortOrder order = SortOrder.Asc)
-	{
-		var dict = new Dictionary<string, string> { [subAggName] = order == SortOrder.Asc ? "asc" : "desc" };
-		d._value.Order = JsonSerializer.SerializeToElement(dict);
-		return d;
-	}
-
-	// ── TermsAggregationFieldsDescriptor: Include ──
-
-	/// <summary>Include only buckets matching the specified terms.</summary>
-	public static TermsAggregationFieldsDescriptor Include(this TermsAggregationFieldsDescriptor d, List<string> values)
-	{ d._value.Include = JsonSerializer.SerializeToElement(values); return d; }
-
-	/// <summary>Include only buckets matching the specified regex pattern.</summary>
-	public static TermsAggregationFieldsDescriptor Include(this TermsAggregationFieldsDescriptor d, string pattern)
-	{ d._value.Include = JsonSerializer.SerializeToElement(pattern); return d; }
+	{ d._value.Order = AggregateOrder.By(subAggName, order); return d; }
 }

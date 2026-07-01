@@ -9,7 +9,7 @@ public sealed class GeoCentroidAggregationDescriptor
 {
 	internal GeoCentroidAggregation _value = new();
 
-	public GeoCentroidAggregationDescriptor Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
+	public GeoCentroidAggregationDescriptor Missing(FieldValue? value) { _value.Missing = value; return this; }
 	public GeoCentroidAggregationDescriptor Field(string? value) { _value.Field = value; return this; }
 	public GeoCentroidAggregationDescriptor Script(Script? value) { _value.Script = value; return this; }
 	public GeoCentroidAggregationDescriptor Count(long? value) { _value.Count = value; return this; }

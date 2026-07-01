@@ -42,7 +42,7 @@ public sealed class Hit<TDocument>
 	public long? PrimaryTerm { get; set; }
 	[JsonPropertyName("_version")]
 	public long? Version { get; set; }
-	public List<System.Text.Json.JsonElement>? Sort { get; set; }
+	public List<FieldValue>? Sort { get; set; }
 	[JsonExtensionData]
 	public Dictionary<string, System.Text.Json.JsonElement>? ExtensionData { get; set; }
 }

@@ -121,7 +121,7 @@ public class BucketAggregationSerializationTests : AggregationSerializationTestB
 	{
 		// Previously untyped (JsonElement) — now typed as QueryContainer.
 		var body = AggBody(AggregationContainer.Filter(
-			QueryContainer.Term("category", new TermQuery { Value = Element("electronics") })), "filter");
+			QueryContainer.Term("category", new TermQuery { Value = "electronics" })), "filter");
 
 		body.GetProperty("term").GetProperty("category").GetProperty("value").GetString().Should().Be("electronics");
 	}
@@ -226,8 +226,8 @@ public class BucketAggregationSerializationTests : AggregationSerializationTestB
 		{
 			Filters = new Dictionary<string, QueryContainer>
 			{
-				["grpA"] = QueryContainer.Term("accounts", new TermQuery { Value = Element("hillary") }),
-				["grpB"] = QueryContainer.Term("accounts", new TermQuery { Value = Element("sidney") }),
+				["grpA"] = QueryContainer.Term("accounts", new TermQuery { Value = "hillary" }),
+				["grpB"] = QueryContainer.Term("accounts", new TermQuery { Value = "sidney" }),
 			},
 		}), "adjacency_matrix");
 

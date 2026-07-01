@@ -63,7 +63,7 @@ public class AggregationTests : IntegrationTestBase
 			.Aggregations(a => a
 				.Filter("electronics_only",
 					QueryContainer.Term("category",
-						new TermQuery { Value = JsonSerializer.SerializeToElement("electronics") }),
+						new TermQuery { Value = "electronics" }),
 					sub => sub.Avg("avg_price", avg => avg.Field("price")))
 			);
 		request.Index = [index];

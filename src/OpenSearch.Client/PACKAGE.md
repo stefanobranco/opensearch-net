@@ -32,8 +32,9 @@ foreach (var doc in response.Documents())
 
 ## Features
 
-- 480+ code-generated API endpoints
-- Fluent query DSL with 55 query types and expression-based field resolution
+- Code-generated types across 19 namespaces (full opensearch-java parity) — 388 of 481 spec operations
+- Fluent query DSL with 57 query types and expression-based field resolution
+- Scalar query values accept primitives directly (`new TermQuery { Value = "active" }`)
 - Aggregations with typed bucket and metric accessors
 - Bulk and Multi-Search with NDJSON streaming
 - Suggest (term, phrase, completion)

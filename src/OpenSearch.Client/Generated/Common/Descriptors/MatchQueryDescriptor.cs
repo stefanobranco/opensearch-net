@@ -30,7 +30,7 @@ public sealed class MatchQueryDescriptor
 	/// <summary>Number of beginning characters left unchanged for fuzzy matching.</summary>
 		public MatchQueryDescriptor PrefixLength(int? value) { _value.PrefixLength = value; return this; }
 	/// <summary>Text, number, Boolean value or date you wish to find in the provided field.</summary>
-		public MatchQueryDescriptor Query(System.Text.Json.JsonElement? value) { _value.Query = value; return this; }
+		public MatchQueryDescriptor Query(FieldValue? value) { _value.Query = value; return this; }
 	public MatchQueryDescriptor ZeroTermsQuery(ZeroTermsQuery? value) { _value.ZeroTermsQuery = value; return this; }
 
 	public static implicit operator MatchQuery(MatchQueryDescriptor descriptor) => descriptor._value;

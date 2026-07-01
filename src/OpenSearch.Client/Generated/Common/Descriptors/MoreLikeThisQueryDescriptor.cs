@@ -23,7 +23,7 @@ public sealed class MoreLikeThisQueryDescriptor
 	/// <summary>Specifies whether the input documents should also be included in the search results returned.</summary>
 		public MoreLikeThisQueryDescriptor Include(bool? value) { _value.Include = value; return this; }
 	/// <summary>Specifies free form text and/or a single or multiple documents for which you want to find similar documents.</summary>
-		public MoreLikeThisQueryDescriptor Like(List<System.Text.Json.JsonElement>? value) { _value.Like = value; return this; }
+		public MoreLikeThisQueryDescriptor Like(List<Like>? value) { _value.Like = value; return this; }
 	/// <summary>The maximum document frequency above which the terms are ignored from the input document.</summary>
 		public MoreLikeThisQueryDescriptor MaxDocFreq(int? value) { _value.MaxDocFreq = value; return this; }
 	/// <summary>The maximum number of query terms that can be selected.</summary>
@@ -42,7 +42,7 @@ public sealed class MoreLikeThisQueryDescriptor
 	public MoreLikeThisQueryDescriptor Routing(string? value) { _value.Routing = value; return this; }
 	public MoreLikeThisQueryDescriptor StopWords(List<string>? value) { _value.StopWords = value; return this; }
 	/// <summary>Used in combination with `like` to exclude documents that match a set of terms.</summary>
-		public MoreLikeThisQueryDescriptor Unlike(List<System.Text.Json.JsonElement>? value) { _value.Unlike = value; return this; }
+		public MoreLikeThisQueryDescriptor Unlike(List<Like>? value) { _value.Unlike = value; return this; }
 	public MoreLikeThisQueryDescriptor Version(long? value) { _value.Version = value; return this; }
 	public MoreLikeThisQueryDescriptor VersionType(string? value) { _value.VersionType = value; return this; }
 

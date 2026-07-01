@@ -16,7 +16,7 @@ public sealed class SignificantTextAggregationFields
 	/// <summary>Whether to out duplicate text to deal with noisy data.</summary>
 		public bool? FilterDuplicateText { get; set; }
 	public GoogleNormalizedDistanceHeuristic? Gnd { get; set; }
-	public System.Text.Json.JsonElement? Include { get; set; }
+	public TermsInclude? Include { get; set; }
 	public System.Text.Json.JsonElement? Jlh { get; set; }
 	/// <summary>Only return values that are found in more than `min_doc_count` hits.</summary>
 		public long? MinDocCount { get; set; }

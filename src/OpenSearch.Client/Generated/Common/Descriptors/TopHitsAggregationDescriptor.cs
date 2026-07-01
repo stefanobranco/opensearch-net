@@ -9,7 +9,7 @@ public sealed class TopHitsAggregationDescriptor
 {
 	internal TopHitsAggregation _value = new();
 
-	public TopHitsAggregationDescriptor Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
+	public TopHitsAggregationDescriptor Missing(FieldValue? value) { _value.Missing = value; return this; }
 	public TopHitsAggregationDescriptor Field(string? value) { _value.Field = value; return this; }
 	public TopHitsAggregationDescriptor Script(Script? value) { _value.Script = value; return this; }
 	public TopHitsAggregationDescriptor DocvalueFields(List<string>? value) { _value.DocvalueFields = value; return this; }

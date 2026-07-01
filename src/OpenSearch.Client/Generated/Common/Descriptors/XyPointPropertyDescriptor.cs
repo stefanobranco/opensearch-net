@@ -21,7 +21,7 @@ public sealed class XyPointPropertyDescriptor
 	public XyPointPropertyDescriptor DocValues(bool? value) { _value.DocValues = value; return this; }
 	public XyPointPropertyDescriptor IgnoreMalformed(bool? value) { _value.IgnoreMalformed = value; return this; }
 	public XyPointPropertyDescriptor IgnoreZValue(bool? value) { _value.IgnoreZValue = value; return this; }
-	public XyPointPropertyDescriptor NullValue(System.Text.Json.JsonElement? value) { _value.NullValue = value; return this; }
+	public XyPointPropertyDescriptor NullValue(XyLocation? value) { _value.NullValue = value; return this; }
 	public XyPointPropertyDescriptor Type(string? value) { _value.Type = value; return this; }
 
 	public static implicit operator XyPointProperty(XyPointPropertyDescriptor descriptor) => descriptor._value;

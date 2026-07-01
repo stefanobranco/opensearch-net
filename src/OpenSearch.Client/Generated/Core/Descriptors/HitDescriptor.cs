@@ -43,7 +43,7 @@ public sealed class HitDescriptor<TDocument>
 	public HitDescriptor<TDocument> SeqNo(long? value) { _value.SeqNo = value; return this; }
 	public HitDescriptor<TDocument> PrimaryTerm(long? value) { _value.PrimaryTerm = value; return this; }
 	public HitDescriptor<TDocument> Version(long? value) { _value.Version = value; return this; }
-	public HitDescriptor<TDocument> Sort(List<System.Text.Json.JsonElement>? value) { _value.Sort = value; return this; }
+	public HitDescriptor<TDocument> Sort(List<FieldValue>? value) { _value.Sort = value; return this; }
 	/// <summary>Additional properties not captured by named fields.</summary>
 	public HitDescriptor<TDocument> ExtensionData(Dictionary<string, System.Text.Json.JsonElement>? value) { _value.ExtensionData = value; return this; }
 

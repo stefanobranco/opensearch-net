@@ -15,7 +15,7 @@ public class JoiningQuerySerializationTests : SerializationTestBase
 		var query = QueryContainer.Nested(new NestedQuery
 		{
 			Path = "comments",
-			Query = QueryContainer.Match("comments.text", new MatchQuery { Query = Element("great") }),
+			Query = QueryContainer.Match("comments.text", new MatchQuery { Query = "great" }),
 			ScoreMode = ChildScoreMode.Avg,
 			IgnoreUnmapped = true,
 		});

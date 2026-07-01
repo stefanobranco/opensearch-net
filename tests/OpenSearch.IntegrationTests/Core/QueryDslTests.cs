@@ -1,4 +1,3 @@
-using System.Text.Json;
 using FluentAssertions;
 using OpenSearch.IntegrationTests.Infrastructure;
 using OpenSearch.Client;
@@ -31,7 +30,7 @@ public class QueryDslTests : IntegrationTestBase
 		{
 			Index = [index],
 			Size = 10,
-			Query = QueryContainer.Match("category", new MatchQuery { Query = JsonSerializer.SerializeToElement("engineering") })
+			Query = QueryContainer.Match("category", new MatchQuery { Query = "engineering" })
 		});
 
 		searchResponse.Hits.Should().NotBeNull();
@@ -73,7 +72,7 @@ public class QueryDslTests : IntegrationTestBase
 		{
 			Index = [index],
 			Size = 10,
-			Query = QueryContainer.Term("status", new TermQuery { Value = JsonSerializer.SerializeToElement("active") })
+			Query = QueryContainer.Term("status", new TermQuery { Value = "active" })
 		});
 
 		searchResponse.Hits.Should().NotBeNull();
@@ -110,7 +109,7 @@ public class QueryDslTests : IntegrationTestBase
 			{
 				Must =
 				[
-					QueryContainer.Match("category", new MatchQuery { Query = JsonSerializer.SerializeToElement("engineering") }),
+					QueryContainer.Match("category", new MatchQuery { Query = "engineering" }),
 					QueryContainer.Range("age", new RangeQuery { Gte = 30 })
 				]
 			})

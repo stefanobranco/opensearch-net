@@ -9,7 +9,7 @@ public sealed class ValueCountAggregationDescriptor
 {
 	internal ValueCountAggregation _value = new();
 
-	public ValueCountAggregationDescriptor Missing(System.Text.Json.JsonElement? value) { _value.Missing = value; return this; }
+	public ValueCountAggregationDescriptor Missing(FieldValue? value) { _value.Missing = value; return this; }
 	public ValueCountAggregationDescriptor Field(string? value) { _value.Field = value; return this; }
 	public ValueCountAggregationDescriptor Script(Script? value) { _value.Script = value; return this; }
 	public ValueCountAggregationDescriptor Format(string? value) { _value.Format = value; return this; }

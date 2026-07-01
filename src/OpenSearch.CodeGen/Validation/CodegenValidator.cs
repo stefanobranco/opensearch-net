@@ -180,7 +180,19 @@ public static class CodegenValidator
 			Console.WriteLine("\n[OK] No oneOf fallbacks to JsonElement");
 		}
 
-		// Check 5: Typed raw bodies — requests whose body is an array/union/scalar payload
+		// Check 4b: Named-schema overrides that punt to JsonElement. Unlike Check 4 these are
+			// *deliberate* — but an override to JsonElement is still a degradation, not a modeled type.
+			// Tracking them here keeps them visible so a punt can't masquerade as "handled" (which is
+			// how a spec-named scalar union like FieldValue once hid behind an opaque JsonElement).
+			var jsonElementOverrides = TypeMapper.JsonElementOverrides;
+			if (jsonElementOverrides.Count > 0)
+			{
+				Console.WriteLine($"\n[INFO] {jsonElementOverrides.Count} named schemas are deliberately left as raw JsonElement (tracked degradations):");
+				foreach (var name in jsonElementOverrides)
+					Console.WriteLine($"  {name}");
+			}
+
+			// Check 5: Typed raw bodies — requests whose body is an array/union/scalar payload
 		// (not flattened into named fields). A JsonElement payload means the body could not be
 		// typed (e.g. a union without a discriminator) and is sent as raw JSON.
 		var rawBodies = requestsByName.Values
