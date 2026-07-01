@@ -43,8 +43,8 @@ public sealed class {{ descriptor_name }}{{ if type_parameters }}<{{ type_parame
 {{~ end ~}}
 {{~ end ~}}
 {{~ if is_raw_body ~}}
-	/// <summary>The document to index.</summary>
-	public {{ descriptor_name }}{{ if type_parameters }}<{{ type_parameters | array.join ", " }}>{{ end }} Body(object? value) { _value.Body = value; return this; }
+	/// <summary>The request body.</summary>
+	public {{ descriptor_name }}{{ if type_parameters }}<{{ type_parameters | array.join ", " }}>{{ end }} Body({{ raw_body_type }} value) { _value.Body = value; return this; }
 {{~ end ~}}
 {{~ if has_additional_properties ~}}
 	/// <summary>Additional properties not captured by named fields.</summary>

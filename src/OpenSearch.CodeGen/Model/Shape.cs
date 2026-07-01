@@ -122,8 +122,14 @@ public sealed class RequestShape : Shape
 	/// <summary>Body fields (properties serialized as JSON body).</summary>
 	public required IReadOnlyList<Field> BodyFields { get; init; }
 
-	/// <summary>Whether the body is the raw user document (e.g., index, create — bare type:object with no properties).</summary>
+	/// <summary>Whether the body is a single raw payload rather than flattened fields (e.g., index/create's
+	/// bare document, or a body typed as an array/union/scalar). Emitted as a single <c>Body</c> property.</summary>
 	public bool IsRawBody { get; init; }
+
+	/// <summary>The type of the raw <c>Body</c> payload when it is not a bare document. Null means the legacy
+	/// untyped <c>object?</c> body (index/create). Set for array (<c>List&lt;PatchOperation&gt;</c>),
+	/// union, or scalar bodies that cannot be flattened into named fields.</summary>
+	public TypeRef? RawBodyType { get; init; }
 
 	/// <summary>Whether this operation has a request body.</summary>
 	public bool HasBody => BodyFields.Count > 0 || IsRawBody;
@@ -156,6 +162,10 @@ public sealed class ResponseShape : Shape
 
 	/// <summary>Whether this is a HEAD endpoint where the response is derived from status code only.</summary>
 	public bool IsHeadResponse { get; init; }
+
+	/// <summary>Whether the response body is served as <c>text/plain</c> (a raw string captured in
+	/// a <c>Value</c> property) rather than JSON-deserialized.</summary>
+	public bool IsPlainTextResponse { get; init; }
 
 	/// <summary>Generic type parameter names (e.g., ["TDocument"]) if any field references a generic parameter.</summary>
 	public IReadOnlyList<string> TypeParameters { get; init; } = [];

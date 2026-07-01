@@ -13,6 +13,9 @@ namespace OpenSearch.Client;
 
 public sealed class PatchDistinguishedNamesSecurityRequest
 {
+	/// <summary>The request body.</summary>
+	[JsonIgnore]
+	public List<PatchOperation>? Body { get; set; }
 }
 public sealed class PatchDistinguishedNamesSecurityEndpoint : IEndpoint<PatchDistinguishedNamesSecurityRequest, PatchDistinguishedNamesSecurityResponse>
 {
@@ -26,7 +29,7 @@ public sealed class PatchDistinguishedNamesSecurityEndpoint : IEndpoint<PatchDis
 		return path;
 	}
 
-	public RequestBody? GetBody(PatchDistinguishedNamesSecurityRequest r) => null;
+	public RequestBody? GetBody(PatchDistinguishedNamesSecurityRequest r) => r.Body is not null ? RequestBody.Json(r.Body) : null;
 
 	public PatchDistinguishedNamesSecurityResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<PatchDistinguishedNamesSecurityResponse>(body)!;

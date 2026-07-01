@@ -17,9 +17,45 @@ public sealed class PutSearchPipelineRequestDescriptor
 		public PutSearchPipelineRequestDescriptor Timeout(string? value) { _value.Timeout = value; return this; }
 	public PutSearchPipelineRequestDescriptor Description(string? value) { _value.Description = value; return this; }
 	public PutSearchPipelineRequestDescriptor Version(int? value) { _value.Version = value; return this; }
-	public PutSearchPipelineRequestDescriptor RequestProcessors(List<System.Text.Json.JsonElement>? value) { _value.RequestProcessors = value; return this; }
-	public PutSearchPipelineRequestDescriptor ResponseProcessors(List<System.Text.Json.JsonElement>? value) { _value.ResponseProcessors = value; return this; }
-	public PutSearchPipelineRequestDescriptor PhaseResultsProcessors(List<System.Text.Json.JsonElement>? value) { _value.PhaseResultsProcessors = value; return this; }
+	public PutSearchPipelineRequestDescriptor RequestProcessors(List<RequestProcessor>? value) { _value.RequestProcessors = value; return this; }
+	public PutSearchPipelineRequestDescriptor RequestProcessors(params Action<RequestProcessorDescriptor>[] configure)
+	{
+		var list = new List<RequestProcessor>();
+		foreach (var action in configure)
+		{
+			var descriptor = new RequestProcessorDescriptor();
+			action(descriptor);
+			list.Add(((RequestProcessor)descriptor)!);
+		}
+		_value.RequestProcessors = list;
+		return this;
+	}
+	public PutSearchPipelineRequestDescriptor ResponseProcessors(List<ResponseProcessor>? value) { _value.ResponseProcessors = value; return this; }
+	public PutSearchPipelineRequestDescriptor ResponseProcessors(params Action<ResponseProcessorDescriptor>[] configure)
+	{
+		var list = new List<ResponseProcessor>();
+		foreach (var action in configure)
+		{
+			var descriptor = new ResponseProcessorDescriptor();
+			action(descriptor);
+			list.Add(((ResponseProcessor)descriptor)!);
+		}
+		_value.ResponseProcessors = list;
+		return this;
+	}
+	public PutSearchPipelineRequestDescriptor PhaseResultsProcessors(List<PhaseResultsProcessor>? value) { _value.PhaseResultsProcessors = value; return this; }
+	public PutSearchPipelineRequestDescriptor PhaseResultsProcessors(params Action<PhaseResultsProcessorDescriptor>[] configure)
+	{
+		var list = new List<PhaseResultsProcessor>();
+		foreach (var action in configure)
+		{
+			var descriptor = new PhaseResultsProcessorDescriptor();
+			action(descriptor);
+			list.Add(((PhaseResultsProcessor)descriptor)!);
+		}
+		_value.PhaseResultsProcessors = list;
+		return this;
+	}
 
 	public static implicit operator PutSearchPipelineRequest(PutSearchPipelineRequestDescriptor descriptor) => descriptor._value;
 }

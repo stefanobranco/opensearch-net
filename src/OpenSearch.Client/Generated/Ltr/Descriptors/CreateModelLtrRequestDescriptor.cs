@@ -15,7 +15,7 @@ public sealed class CreateModelLtrRequestDescriptor
 		public CreateModelLtrRequestDescriptor Store(string? value) { _value.Store = value; return this; }
 	/// <summary>Specific routing value.</summary>
 		public CreateModelLtrRequestDescriptor Routing(string? value) { _value.Routing = value; return this; }
-	/// <summary>The document to index.</summary>
+	/// <summary>The request body.</summary>
 	public CreateModelLtrRequestDescriptor Body(object? value) { _value.Body = value; return this; }
 
 	public static implicit operator CreateModelLtrRequest(CreateModelLtrRequestDescriptor descriptor) => descriptor._value;

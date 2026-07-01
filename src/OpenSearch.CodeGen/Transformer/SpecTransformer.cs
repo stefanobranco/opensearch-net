@@ -79,17 +79,34 @@ public sealed class SpecTransformer
 			// Collect body fields (excluding any that clash with path/query params)
 			var bodyFields = new List<Field>();
 			var isRawBody = false;
+			TypeRef? rawBodyType = null;
 			var bodySchema = group.CanonicalOperation.RequestBody;
 			if (bodySchema is not null)
 			{
-				var resolved = bodySchema.Ref is not null ? bodySchema.Resolved() : bodySchema;
+				// Fully follow $ref-alias chains (Resolved() advances one hop) so a body that is a bare
+				// alias (e.g. PutPolicyRequest → PolicyEnvelope) flattens like its target object.
+				var resolved = bodySchema;
+				while (resolved.Ref is not null)
+					resolved = resolved.Resolved();
+
 				CollectBodyFields(resolved, bodyFields, typeMapper);
 
-				// Bare object body (type: object, no properties, no allOf) → raw document body
-				if (resolved.Properties.Count == 0 && resolved.AllOf.Count == 0
-					&& resolved.Type is "object")
+				// A body that did not flatten into named fields is a single raw payload.
+				if (bodyFields.Count == 0)
 				{
-					isRawBody = true;
+					if (resolved.Type is "object" && resolved.AllOf.Count == 0)
+					{
+						// Bare object (index/create) → untyped raw document body.
+						isRawBody = true;
+					}
+					else if (resolved.Type is "array"
+						|| resolved.OneOf.Count > 0 || resolved.AnyOf.Count > 0
+						|| resolved.Type is "string" or "integer" or "number" or "boolean")
+					{
+						// Array (e.g. array<PatchOperation>), union, or scalar body → typed raw payload.
+						isRawBody = true;
+						rawBodyType = typeMapper.Map(resolved);
+					}
 				}
 
 				// Body fields take precedence over query params with the same name.
@@ -120,6 +137,7 @@ public sealed class SpecTransformer
 				QueryParams = queryParams,
 				BodyFields = bodyFields,
 				IsRawBody = isRawBody,
+				RawBodyType = rawBodyType,
 				EndpointName = endpointName,
 				Response = responseShape
 			};
@@ -150,6 +168,7 @@ public sealed class SpecTransformer
 					QueryParams = request.QueryParams,
 					BodyFields = request.BodyFields,
 					IsRawBody = request.IsRawBody,
+					RawBodyType = request.RawBodyType,
 					EndpointName = request.EndpointName,
 					Response = new ResponseShape
 					{
@@ -159,6 +178,7 @@ public sealed class SpecTransformer
 						Fields = oldResp.Fields,
 						DictionaryValueType = oldResp.DictionaryValueType,
 						IsHeadResponse = oldResp.IsHeadResponse,
+						IsPlainTextResponse = oldResp.IsPlainTextResponse,
 						TypeParameters = responseTypeParams
 					}
 				};
@@ -210,7 +230,8 @@ public sealed class SpecTransformer
 				Namespace = nsName,
 				Description = group.CanonicalOperation.Description,
 				Fields = [],
-				IsHeadResponse = false
+				IsHeadResponse = false,
+				IsPlainTextResponse = group.CanonicalOperation.ResponseIsPlainText
 			};
 		}
 

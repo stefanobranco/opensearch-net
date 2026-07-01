@@ -11,6 +11,8 @@ public sealed class PatchDistinguishedNameSecurityRequestDescriptor
 
 	/// <summary>The cluster name to update the `nodesDn` value.</summary>
 		public PatchDistinguishedNameSecurityRequestDescriptor ClusterName(string? value) { _value.ClusterName = value; return this; }
+	/// <summary>The request body.</summary>
+	public PatchDistinguishedNameSecurityRequestDescriptor Body(List<PatchOperation>? value) { _value.Body = value; return this; }
 
 	public static implicit operator PatchDistinguishedNameSecurityRequest(PatchDistinguishedNameSecurityRequestDescriptor descriptor) => descriptor._value;
 }

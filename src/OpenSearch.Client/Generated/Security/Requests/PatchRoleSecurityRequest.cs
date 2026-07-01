@@ -16,6 +16,9 @@ public sealed class PatchRoleSecurityRequest
 	/// <summary>The name of the role to update.</summary>
 	[JsonIgnore]
 	public string? Role { get; set; }
+	/// <summary>The request body.</summary>
+	[JsonIgnore]
+	public List<PatchOperation>? Body { get; set; }
 }
 public sealed class PatchRoleSecurityEndpoint : IEndpoint<PatchRoleSecurityRequest, PatchRoleSecurityResponse>
 {
@@ -29,7 +32,7 @@ public sealed class PatchRoleSecurityEndpoint : IEndpoint<PatchRoleSecurityReque
 		return path;
 	}
 
-	public RequestBody? GetBody(PatchRoleSecurityRequest r) => null;
+	public RequestBody? GetBody(PatchRoleSecurityRequest r) => r.Body is not null ? RequestBody.Json(r.Body) : null;
 
 	public PatchRoleSecurityResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<PatchRoleSecurityResponse>(body)!;

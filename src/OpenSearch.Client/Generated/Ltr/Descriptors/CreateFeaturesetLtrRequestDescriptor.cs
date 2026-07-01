@@ -15,7 +15,7 @@ public sealed class CreateFeaturesetLtrRequestDescriptor
 		public CreateFeaturesetLtrRequestDescriptor Store(string? value) { _value.Store = value; return this; }
 	/// <summary>Specific routing value.</summary>
 		public CreateFeaturesetLtrRequestDescriptor Routing(string? value) { _value.Routing = value; return this; }
-	/// <summary>The document to index.</summary>
+	/// <summary>The request body.</summary>
 	public CreateFeaturesetLtrRequestDescriptor Body(object? value) { _value.Body = value; return this; }
 
 	public static implicit operator CreateFeaturesetLtrRequest(CreateFeaturesetLtrRequestDescriptor descriptor) => descriptor._value;

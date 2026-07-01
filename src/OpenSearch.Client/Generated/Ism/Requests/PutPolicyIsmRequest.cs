@@ -22,6 +22,7 @@ public sealed class PutPolicyIsmRequest
 	/// <summary>Only perform the operation if the document has this sequence number.</summary>
 	[JsonIgnore]
 	public long? IfSeqNo { get; set; }
+	public Policy? Policy { get; set; }
 }
 public sealed class PutPolicyIsmEndpoint : IEndpoint<PutPolicyIsmRequest, PutPolicyIsmResponse>
 {
@@ -40,7 +41,7 @@ public sealed class PutPolicyIsmEndpoint : IEndpoint<PutPolicyIsmRequest, PutPol
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-	public RequestBody? GetBody(PutPolicyIsmRequest r) => null;
+	public RequestBody? GetBody(PutPolicyIsmRequest r) => RequestBody.Json(r);
 
 	public PutPolicyIsmResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<PutPolicyIsmResponse>(body)!;

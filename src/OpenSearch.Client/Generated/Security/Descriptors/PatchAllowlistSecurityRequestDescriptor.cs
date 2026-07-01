@@ -9,6 +9,8 @@ public sealed class PatchAllowlistSecurityRequestDescriptor
 {
 	internal PatchAllowlistSecurityRequest _value = new();
 
+	/// <summary>The request body.</summary>
+	public PatchAllowlistSecurityRequestDescriptor Body(List<PatchOperation>? value) { _value.Body = value; return this; }
 
 	public static implicit operator PatchAllowlistSecurityRequest(PatchAllowlistSecurityRequestDescriptor descriptor) => descriptor._value;
 }

@@ -27,7 +27,7 @@ public sealed class CreateRequestDescriptor
 		public CreateRequestDescriptor VersionType(string? value) { _value.VersionType = value; return this; }
 	/// <summary>The number of shard copies that must be active before proceeding with the operation. Set to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`).</summary>
 		public CreateRequestDescriptor WaitForActiveShards(string? value) { _value.WaitForActiveShards = value; return this; }
-	/// <summary>The document to index.</summary>
+	/// <summary>The request body.</summary>
 	public CreateRequestDescriptor Body(object? value) { _value.Body = value; return this; }
 
 	public static implicit operator CreateRequest(CreateRequestDescriptor descriptor) => descriptor._value;

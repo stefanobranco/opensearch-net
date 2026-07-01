@@ -139,7 +139,7 @@ public sealed class SearchModelsKnnRequest
 	/// <summary>Whether to return document version as part of a hit.</summary>
 	[JsonIgnore]
 	public bool? Version { get; set; }
-	/// <summary>The document to index.</summary>
+	/// <summary>The request body.</summary>
 	[JsonIgnore]
 	public object? Body { get; set; }
 }

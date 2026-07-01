@@ -22,6 +22,7 @@ public sealed class PutPoliciesIsmRequest
 	/// <summary></summary>
 	[JsonIgnore]
 	public string? PolicyID { get; set; }
+	public Policy? Policy { get; set; }
 }
 public sealed class PutPoliciesIsmEndpoint : IEndpoint<PutPoliciesIsmRequest, PutPoliciesIsmResponse>
 {
@@ -42,7 +43,7 @@ public sealed class PutPoliciesIsmEndpoint : IEndpoint<PutPoliciesIsmRequest, Pu
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-	public RequestBody? GetBody(PutPoliciesIsmRequest r) => null;
+	public RequestBody? GetBody(PutPoliciesIsmRequest r) => RequestBody.Json(r);
 
 	public PutPoliciesIsmResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<PutPoliciesIsmResponse>(body)!;

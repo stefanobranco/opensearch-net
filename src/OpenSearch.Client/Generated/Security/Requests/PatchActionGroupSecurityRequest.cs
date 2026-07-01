@@ -16,6 +16,9 @@ public sealed class PatchActionGroupSecurityRequest
 	/// <summary>The name of the action group to update.</summary>
 	[JsonIgnore]
 	public string? ActionGroup { get; set; }
+	/// <summary>The request body.</summary>
+	[JsonIgnore]
+	public List<PatchOperation>? Body { get; set; }
 }
 public sealed class PatchActionGroupSecurityEndpoint : IEndpoint<PatchActionGroupSecurityRequest, PatchActionGroupSecurityResponse>
 {
@@ -29,7 +32,7 @@ public sealed class PatchActionGroupSecurityEndpoint : IEndpoint<PatchActionGrou
 		return path;
 	}
 
-	public RequestBody? GetBody(PatchActionGroupSecurityRequest r) => null;
+	public RequestBody? GetBody(PatchActionGroupSecurityRequest r) => r.Body is not null ? RequestBody.Json(r.Body) : null;
 
 	public PatchActionGroupSecurityResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<PatchActionGroupSecurityResponse>(body)!;

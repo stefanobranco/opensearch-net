@@ -12,4 +12,7 @@ namespace OpenSearch.Client;
 
 public partial class HelpCatResponse : OpenSearch.Net.OpenSearchResponse
 {
+	/// <summary>The raw <c>text/plain</c> response body.</summary>
+	[JsonIgnore]
+	public string? Value { get; set; }
 }

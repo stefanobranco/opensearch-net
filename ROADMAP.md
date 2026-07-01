@@ -56,13 +56,17 @@ well-engineered **on its own terms**, with no push for upstream adoption.
       **19/19 java parity**. The other 17 spec namespaces are shipped by neither client (see
       `API_COVERAGE.md`) and are left unwired pending demand.
 
-  Known follow-ups surfaced while wiring (tracked for the next generator PR):
-  - Request bodies shaped as `type: array`, `oneOf`/`anyOf`, `$ref`-alias chains, or scalars are
-    silently dropped (`GetBody => null`) — a latent bug affecting shipped `ism.put_policy`, the
-    `security.patch_*` family, and the new `search_relevance.put_experiments`/`put_judgments`.
-  - `search_pipeline` processor lists (`RequestProcessor`/`ResponseProcessor`/`PhaseResultsProcessor`)
-    are externally-tagged unions the generator emits as `JsonElement`.
-  - `ubi.initialize` returns `text/plain`; the generated response deserializes it as JSON.
+  Generator correctness fixes surfaced while wiring (all resolved in the follow-up generator PR):
+  - [x] Request bodies shaped as `type: array`, `oneOf`/`anyOf`, `$ref`-alias chains, or scalars were
+    silently dropped (`GetBody => null`). The generator now follows alias chains (so `ism.put_policy`
+    flattens to a typed `Policy` field) and models array/union/scalar bodies as a typed `Body` payload
+    (the `security.patch_*` family carries `List<PatchOperation>`; the `search_relevance` union bodies
+    carry a sendable `JsonElement`). A validator census reports every typed raw body.
+  - [x] `search_pipeline` processor lists (`RequestProcessor`/`ResponseProcessor`/`PhaseResultsProcessor`)
+    are now typed tagged unions (externally-tagged, like `QueryContainer`) — the generator learned the
+    "oneOf of single-property wrapper objects" pattern.
+  - [x] `text/plain` responses (`ubi.initialize`, `nodes.hot_threads`, `cat.help`) now capture the raw
+    body in a `Value` string instead of JSON-deserializing it (a runtime failure).
 
 ## Phase C — Test depth / verification
 

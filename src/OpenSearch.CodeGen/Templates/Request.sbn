@@ -29,9 +29,9 @@ public sealed class {{ class_name }}
 	{{ end }}public {{ field.type }} {{ field.name }} { get; set; }
 {{~ end ~}}
 {{~ if is_raw_body ~}}
-	/// <summary>The document to index.</summary>
+	/// <summary>The request body.</summary>
 	[JsonIgnore]
-	public object? Body { get; set; }
+	public {{ raw_body_type }} Body { get; set; }
 {{~ end ~}}
 }
 {{~ ## Compute type suffix for generic vs non-generic endpoints ~}}
@@ -91,6 +91,9 @@ public sealed class {{ endpoint_name }} : IEndpoint<{{ class_name }}, {{ respons
 {{~ if is_head ~}}
 	public {{ response_name }}{{ type_suffix }} DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		new() { Exists = statusCode is >= 200 and < 300 };
+{{~ else if is_plain_text_response ~}}
+	public {{ response_name }}{{ type_suffix }} DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
+		new() { Value = new StreamReader(body).ReadToEnd() };
 {{~ else if is_cat ~}}
 	public {{ response_name }}{{ type_suffix }} DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		new();

@@ -11,6 +11,8 @@ public sealed class PatchRoleSecurityRequestDescriptor
 
 	/// <summary>The name of the role to update.</summary>
 		public PatchRoleSecurityRequestDescriptor Role(string? value) { _value.Role = value; return this; }
+	/// <summary>The request body.</summary>
+	public PatchRoleSecurityRequestDescriptor Body(List<PatchOperation>? value) { _value.Body = value; return this; }
 
 	public static implicit operator PatchRoleSecurityRequest(PatchRoleSecurityRequestDescriptor descriptor) => descriptor._value;
 }

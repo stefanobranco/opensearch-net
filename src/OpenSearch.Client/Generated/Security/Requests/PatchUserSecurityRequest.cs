@@ -16,6 +16,9 @@ public sealed class PatchUserSecurityRequest
 	/// <summary>The name of the user to update.</summary>
 	[JsonIgnore]
 	public string? Username { get; set; }
+	/// <summary>The request body.</summary>
+	[JsonIgnore]
+	public List<PatchOperation>? Body { get; set; }
 }
 public sealed class PatchUserSecurityEndpoint : IEndpoint<PatchUserSecurityRequest, PatchUserSecurityResponse>
 {
@@ -29,7 +32,7 @@ public sealed class PatchUserSecurityEndpoint : IEndpoint<PatchUserSecurityReque
 		return path;
 	}
 
-	public RequestBody? GetBody(PatchUserSecurityRequest r) => null;
+	public RequestBody? GetBody(PatchUserSecurityRequest r) => r.Body is not null ? RequestBody.Json(r.Body) : null;
 
 	public PatchUserSecurityResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<PatchUserSecurityResponse>(body)!;

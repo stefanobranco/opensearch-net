@@ -13,6 +13,9 @@ namespace OpenSearch.Client;
 
 public sealed class PutJudgmentsSearchRelevanceRequest
 {
+	/// <summary>The request body.</summary>
+	[JsonIgnore]
+	public System.Text.Json.JsonElement? Body { get; set; }
 }
 public sealed class PutJudgmentsSearchRelevanceEndpoint : IEndpoint<PutJudgmentsSearchRelevanceRequest, PutJudgmentsSearchRelevanceResponse>
 {
@@ -26,7 +29,7 @@ public sealed class PutJudgmentsSearchRelevanceEndpoint : IEndpoint<PutJudgments
 		return path;
 	}
 
-	public RequestBody? GetBody(PutJudgmentsSearchRelevanceRequest r) => null;
+	public RequestBody? GetBody(PutJudgmentsSearchRelevanceRequest r) => r.Body is not null ? RequestBody.Json(r.Body) : null;
 
 	public PutJudgmentsSearchRelevanceResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<PutJudgmentsSearchRelevanceResponse>(body)!;

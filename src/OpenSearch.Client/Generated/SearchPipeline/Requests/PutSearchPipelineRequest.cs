@@ -24,9 +24,9 @@ public sealed class PutSearchPipelineRequest
 	public string? Timeout { get; set; }
 	public string? Description { get; set; }
 	public int? Version { get; set; }
-	public List<System.Text.Json.JsonElement>? RequestProcessors { get; set; }
-	public List<System.Text.Json.JsonElement>? ResponseProcessors { get; set; }
-	public List<System.Text.Json.JsonElement>? PhaseResultsProcessors { get; set; }
+	public List<RequestProcessor>? RequestProcessors { get; set; }
+	public List<ResponseProcessor>? ResponseProcessors { get; set; }
+	public List<PhaseResultsProcessor>? PhaseResultsProcessors { get; set; }
 }
 public sealed class PutSearchPipelineEndpoint : IEndpoint<PutSearchPipelineRequest, PutSearchPipelineResponse>
 {

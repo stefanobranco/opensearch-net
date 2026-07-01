@@ -11,7 +11,7 @@ public sealed class CreateDataStreamIndexRequestDescriptor
 
 	/// <summary>Name of the data stream, which must meet the following criteria: Lowercase only; Cannot include `\`, `/`, `*`, `?`, `"`, `&lt;`, `&gt;`, `|`, `,`, `#`, `:`, or a space character; Cannot start with `-`, `_`, `+`, or `.ds-`; Cannot be `.` or `..`; Cannot be longer than 255 bytes. Multi-byte characters count towards this limit faster.</summary>
 		public CreateDataStreamIndexRequestDescriptor Name(string? value) { _value.Name = value; return this; }
-	/// <summary>The document to index.</summary>
+	/// <summary>The request body.</summary>
 	public CreateDataStreamIndexRequestDescriptor Body(object? value) { _value.Body = value; return this; }
 
 	public static implicit operator CreateDataStreamIndexRequest(CreateDataStreamIndexRequestDescriptor descriptor) => descriptor._value;

@@ -66,5 +66,5 @@ public sealed class HotThreadsNodeEndpoint : IEndpoint<HotThreadsNodeRequest, Ho
 	public RequestBody? GetBody(HotThreadsNodeRequest r) => null;
 
 	public HotThreadsNodeResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		serializer.Deserialize<HotThreadsNodeResponse>(body)!;
+		new() { Value = new StreamReader(body).ReadToEnd() };
 }

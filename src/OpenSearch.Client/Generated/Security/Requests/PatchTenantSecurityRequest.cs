@@ -16,6 +16,9 @@ public sealed class PatchTenantSecurityRequest
 	/// <summary>The name of the tenant to update.</summary>
 	[JsonIgnore]
 	public string? Tenant { get; set; }
+	/// <summary>The request body.</summary>
+	[JsonIgnore]
+	public List<PatchOperation>? Body { get; set; }
 }
 public sealed class PatchTenantSecurityEndpoint : IEndpoint<PatchTenantSecurityRequest, PatchTenantSecurityResponse>
 {
@@ -29,7 +32,7 @@ public sealed class PatchTenantSecurityEndpoint : IEndpoint<PatchTenantSecurityR
 		return path;
 	}
 
-	public RequestBody? GetBody(PatchTenantSecurityRequest r) => null;
+	public RequestBody? GetBody(PatchTenantSecurityRequest r) => r.Body is not null ? RequestBody.Json(r.Body) : null;
 
 	public PatchTenantSecurityResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<PatchTenantSecurityResponse>(body)!;

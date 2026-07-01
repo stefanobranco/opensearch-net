@@ -11,6 +11,8 @@ public sealed class PatchUserSecurityRequestDescriptor
 
 	/// <summary>The name of the user to update.</summary>
 		public PatchUserSecurityRequestDescriptor Username(string? value) { _value.Username = value; return this; }
+	/// <summary>The request body.</summary>
+	public PatchUserSecurityRequestDescriptor Body(List<PatchOperation>? value) { _value.Body = value; return this; }
 
 	public static implicit operator PatchUserSecurityRequest(PatchUserSecurityRequestDescriptor descriptor) => descriptor._value;
 }

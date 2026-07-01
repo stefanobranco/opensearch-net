@@ -16,7 +16,7 @@ public sealed class CreateDataStreamIndexRequest
 	/// <summary>Name of the data stream, which must meet the following criteria: Lowercase only; Cannot include `\`, `/`, `*`, `?`, `"`, `&lt;`, `&gt;`, `|`, `,`, `#`, `:`, or a space character; Cannot start with `-`, `_`, `+`, or `.ds-`; Cannot be `.` or `..`; Cannot be longer than 255 bytes. Multi-byte characters count towards this limit faster.</summary>
 	[JsonIgnore]
 	public string? Name { get; set; }
-	/// <summary>The document to index.</summary>
+	/// <summary>The request body.</summary>
 	[JsonIgnore]
 	public object? Body { get; set; }
 }

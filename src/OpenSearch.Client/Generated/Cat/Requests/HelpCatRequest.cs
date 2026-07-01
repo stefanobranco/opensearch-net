@@ -29,5 +29,5 @@ public sealed class HelpCatEndpoint : IEndpoint<HelpCatRequest, HelpCatResponse>
 	public RequestBody? GetBody(HelpCatRequest r) => null;
 
 	public HelpCatResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		new();
+		new() { Value = new StreamReader(body).ReadToEnd() };
 }

@@ -22,7 +22,7 @@ public sealed class CreateModelFromSetLtrRequest
 	/// <summary>Specific routing value.</summary>
 	[JsonIgnore]
 	public string? Routing { get; set; }
-	/// <summary>The document to index.</summary>
+	/// <summary>The request body.</summary>
 	[JsonIgnore]
 	public object? Body { get; set; }
 }

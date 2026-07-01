@@ -19,7 +19,7 @@ public sealed class AddFeaturesToSetLtrRequestDescriptor
 		public AddFeaturesToSetLtrRequestDescriptor Routing(string? value) { _value.Routing = value; return this; }
 	/// <summary>Version check to ensure feature set is modified with expected version.</summary>
 		public AddFeaturesToSetLtrRequestDescriptor Version(int? value) { _value.Version = value; return this; }
-	/// <summary>The document to index.</summary>
+	/// <summary>The request body.</summary>
 	public AddFeaturesToSetLtrRequestDescriptor Body(object? value) { _value.Body = value; return this; }
 
 	public static implicit operator AddFeaturesToSetLtrRequest(AddFeaturesToSetLtrRequestDescriptor descriptor) => descriptor._value;
