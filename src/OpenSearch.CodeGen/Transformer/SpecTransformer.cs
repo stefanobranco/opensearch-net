@@ -291,7 +291,7 @@ public sealed class SpecTransformer
 		};
 	}
 
-	private void CollectBodyFields(OpenApiSchema schema, List<Field> fields, TypeMapper typeMapper, HashSet<string>? parentRequired = null)
+	private void CollectBodyFields(OpenApiSchema schema, List<Field> fields, TypeMapper typeMapper, HashSet<string>? parentRequired = null, bool forceOptional = false)
 	{
 		var required = new HashSet<string>(schema.Required);
 		if (parentRequired is not null)
@@ -311,6 +311,23 @@ public sealed class SpecTransformer
 			return;
 		}
 
+		// A body that is a oneOf/anyOf of objects with no discriminator (e.g. search_relevance
+		// put_experiments/put_judgments) is flattened into the superset of its variants' fields. Only
+		// one variant applies per request, so every merged field is optional. Non-object unions
+		// (e.g. string-or-object) are left for the caller to model as a typed raw body.
+		if (schema.OneOf.Count > 0 || schema.AnyOf.Count > 0)
+		{
+			var members = (schema.OneOf.Count > 0 ? schema.OneOf : schema.AnyOf)
+				.Select(m => m.Resolved())
+				.ToList();
+			if (members.All(m => m.Type is "object" && m.Properties.Count > 0))
+			{
+				foreach (var member in members)
+					CollectBodyFields(member, fields, typeMapper, forceOptional: true);
+				return;
+			}
+		}
+
 		var existingNames = new HashSet<string>(fields.Select(f => f.Name), StringComparer.OrdinalIgnoreCase);
 
 		foreach (var (name, propSchema) in schema.Properties)
@@ -326,7 +343,7 @@ public sealed class SpecTransformer
 				Name = pascalName,
 				WireName = name,
 				Type = fieldType,
-				Required = required.Contains(name),
+				Required = !forceOptional && required.Contains(name),
 				Description = propSchema.Description,
 				Deprecated = propSchema.Deprecated
 			});

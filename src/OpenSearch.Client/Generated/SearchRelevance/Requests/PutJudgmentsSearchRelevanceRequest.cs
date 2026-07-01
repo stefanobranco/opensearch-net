@@ -13,9 +13,26 @@ namespace OpenSearch.Client;
 
 public sealed class PutJudgmentsSearchRelevanceRequest
 {
-	/// <summary>The request body.</summary>
-	[JsonIgnore]
-	public System.Text.Json.JsonElement? Body { get; set; }
+	public string? Name { get; set; }
+	public string? Description { get; set; }
+	public string? Type { get; set; }
+	[JsonPropertyName("modelId")]
+	public string? ModelId { get; set; }
+	[JsonPropertyName("querySetId")]
+	public string? QuerySetId { get; set; }
+	[JsonPropertyName("searchConfigurationList")]
+	public List<string>? SearchConfigurationList { get; set; }
+	public int? Size { get; set; }
+	[JsonPropertyName("ignoreFailure")]
+	public bool? IgnoreFailure { get; set; }
+	[JsonPropertyName("contextFields")]
+	public List<string>? ContextFields { get; set; }
+	[JsonPropertyName("clickModel")]
+	public string? ClickModel { get; set; }
+	[JsonPropertyName("maxRank")]
+	public int? MaxRank { get; set; }
+	[JsonPropertyName("judgmentRatings")]
+	public List<System.Text.Json.JsonElement>? JudgmentRatings { get; set; }
 }
 public sealed class PutJudgmentsSearchRelevanceEndpoint : IEndpoint<PutJudgmentsSearchRelevanceRequest, PutJudgmentsSearchRelevanceResponse>
 {
@@ -29,7 +46,7 @@ public sealed class PutJudgmentsSearchRelevanceEndpoint : IEndpoint<PutJudgments
 		return path;
 	}
 
-	public RequestBody? GetBody(PutJudgmentsSearchRelevanceRequest r) => r.Body is not null ? RequestBody.Json(r.Body) : null;
+	public RequestBody? GetBody(PutJudgmentsSearchRelevanceRequest r) => RequestBody.Json(r);
 
 	public PutJudgmentsSearchRelevanceResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<PutJudgmentsSearchRelevanceResponse>(body)!;

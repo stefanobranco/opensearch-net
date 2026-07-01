@@ -13,9 +13,14 @@ namespace OpenSearch.Client;
 
 public sealed class PutExperimentsSearchRelevanceRequest
 {
-	/// <summary>The request body.</summary>
-	[JsonIgnore]
-	public System.Text.Json.JsonElement? Body { get; set; }
+	[JsonPropertyName("querySetId")]
+	public string? QuerySetId { get; set; }
+	[JsonPropertyName("searchConfigurationList")]
+	public List<string>? SearchConfigurationList { get; set; }
+	[JsonPropertyName("judgmentList")]
+	public List<string>? JudgmentList { get; set; }
+	public int? Size { get; set; }
+	public string? Type { get; set; }
 }
 public sealed class PutExperimentsSearchRelevanceEndpoint : IEndpoint<PutExperimentsSearchRelevanceRequest, PutExperimentsSearchRelevanceResponse>
 {
@@ -29,7 +34,7 @@ public sealed class PutExperimentsSearchRelevanceEndpoint : IEndpoint<PutExperim
 		return path;
 	}
 
-	public RequestBody? GetBody(PutExperimentsSearchRelevanceRequest r) => r.Body is not null ? RequestBody.Json(r.Body) : null;
+	public RequestBody? GetBody(PutExperimentsSearchRelevanceRequest r) => RequestBody.Json(r);
 
 	public PutExperimentsSearchRelevanceResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<PutExperimentsSearchRelevanceResponse>(body)!;
