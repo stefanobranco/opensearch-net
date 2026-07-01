@@ -246,4 +246,51 @@ public class FluentQuerySerializationTests : SerializationTestBase
 		query.TryGetProperty("dis_max", out var inner).Should().BeTrue();
 		inner.GetProperty("tie_breaker").GetSingle().Should().Be(0.5f);
 	}
+
+	// ── Nested Field expressions inside compound queries (full TDocument threading) ──
+
+	[Fact]
+	public void DisMax_fluent_nests_field_expressions()
+	{
+		var query = Query(q => q.DisMax(d => d
+			.TieBreaker(0.5f)
+			.Queries(
+				sq => sq.Term(x => x.Status!, t => t.Value(Element("active"))),
+				sq => sq.Match(x => x.Title!, m => m.Query(Element("brown fox"))))));
+
+		query.TryGetProperty("dis_max", out var inner).Should().BeTrue();
+		var queries = inner.GetProperty("queries");
+		queries.GetArrayLength().Should().Be(2);
+		AssertFieldKeyed(queries[0], "term", "status");
+		AssertFieldKeyed(queries[1], "match", "title");
+	}
+
+	[Fact]
+	public void HasChild_fluent_nests_field_expression_query()
+	{
+		var query = Query(q => q.HasChild(h => h
+			.Type("comment")
+			.Query(cq => cq.Term(x => x.Status!, t => t.Value(Element("active"))))));
+
+		query.TryGetProperty("has_child", out var inner).Should().BeTrue();
+		inner.GetProperty("type").GetString().Should().Be("comment");
+		AssertFieldKeyed(inner.GetProperty("query"), "term", "status");
+	}
+
+	[Fact]
+	public void SpanNear_fluent_nests_field_expression_span_terms()
+	{
+		var query = Query(q => q.SpanNear(sn => sn
+			.Slop(2)
+			.Clauses(
+				sq => sq.SpanTerm(x => x.Status!, s => s.Value("active")),
+				sq => sq.SpanTerm(x => x.Title!, s => s.Value("fox")))));
+
+		query.TryGetProperty("span_near", out var inner).Should().BeTrue();
+		inner.GetProperty("slop").GetInt32().Should().Be(2);
+		var clauses = inner.GetProperty("clauses");
+		clauses.GetArrayLength().Should().Be(2);
+		AssertFieldKeyed(clauses[0], "span_term", "status");
+		AssertFieldKeyed(clauses[1], "span_term", "title");
+	}
 }

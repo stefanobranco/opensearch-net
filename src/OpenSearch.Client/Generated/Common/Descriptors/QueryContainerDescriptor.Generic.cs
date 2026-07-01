@@ -10,10 +10,20 @@ public sealed partial class QueryContainerDescriptor<TDocument>
 {
 	internal QueryContainer? _value;
 
-	/// <summary>Creates a Boosting variant.</summary>
-	public QueryContainerDescriptor<TDocument> Boosting(Action<BoostingQueryDescriptor> configure)
+	/// <summary>Creates a Bool variant.</summary>
+	public QueryContainerDescriptor<TDocument> Bool(Action<BoolQueryDescriptor<TDocument>> configure)
 	{
-		var descriptor = new BoostingQueryDescriptor();
+		var descriptor = new BoolQueryDescriptor<TDocument>();
+		configure(descriptor);
+		_value = QueryContainer.Bool(((BoolQuery)descriptor)!);
+		return this;
+	}
+	/// <summary>Creates a Bool variant.</summary>
+	public QueryContainerDescriptor<TDocument> Bool(BoolQuery value) { _value = QueryContainer.Bool(value); return this; }
+	/// <summary>Creates a Boosting variant.</summary>
+	public QueryContainerDescriptor<TDocument> Boosting(Action<BoostingQueryDescriptor<TDocument>> configure)
+	{
+		var descriptor = new BoostingQueryDescriptor<TDocument>();
 		configure(descriptor);
 		_value = QueryContainer.Boosting(((BoostingQuery)descriptor)!);
 		return this;
@@ -52,10 +62,20 @@ public sealed partial class QueryContainerDescriptor<TDocument>
 	}
 	/// <summary>Creates a CombinedFields variant.</summary>
 	public QueryContainerDescriptor<TDocument> CombinedFields(CombinedFieldsQuery value) { _value = QueryContainer.CombinedFields(value); return this; }
-	/// <summary>Creates a DisMax variant.</summary>
-	public QueryContainerDescriptor<TDocument> DisMax(Action<DisMaxQueryDescriptor> configure)
+	/// <summary>Creates a ConstantScore variant.</summary>
+	public QueryContainerDescriptor<TDocument> ConstantScore(Action<ConstantScoreQueryDescriptor<TDocument>> configure)
 	{
-		var descriptor = new DisMaxQueryDescriptor();
+		var descriptor = new ConstantScoreQueryDescriptor<TDocument>();
+		configure(descriptor);
+		_value = QueryContainer.ConstantScore(((ConstantScoreQuery)descriptor)!);
+		return this;
+	}
+	/// <summary>Creates a ConstantScore variant.</summary>
+	public QueryContainerDescriptor<TDocument> ConstantScore(ConstantScoreQuery value) { _value = QueryContainer.ConstantScore(value); return this; }
+	/// <summary>Creates a DisMax variant.</summary>
+	public QueryContainerDescriptor<TDocument> DisMax(Action<DisMaxQueryDescriptor<TDocument>> configure)
+	{
+		var descriptor = new DisMaxQueryDescriptor<TDocument>();
 		configure(descriptor);
 		_value = QueryContainer.DisMax(((DisMaxQuery)descriptor)!);
 		return this;
@@ -83,9 +103,9 @@ public sealed partial class QueryContainerDescriptor<TDocument>
 	/// <summary>Creates a Exists variant.</summary>
 	public QueryContainerDescriptor<TDocument> Exists(ExistsQuery value) { _value = QueryContainer.Exists(value); return this; }
 	/// <summary>Creates a FunctionScore variant.</summary>
-	public QueryContainerDescriptor<TDocument> FunctionScore(Action<FunctionScoreQueryDescriptor> configure)
+	public QueryContainerDescriptor<TDocument> FunctionScore(Action<FunctionScoreQueryDescriptor<TDocument>> configure)
 	{
-		var descriptor = new FunctionScoreQueryDescriptor();
+		var descriptor = new FunctionScoreQueryDescriptor<TDocument>();
 		configure(descriptor);
 		_value = QueryContainer.FunctionScore(((FunctionScoreQuery)descriptor)!);
 		return this;
@@ -155,9 +175,9 @@ public sealed partial class QueryContainerDescriptor<TDocument>
 	/// <summary>Creates a GeoShape variant.</summary>
 	public QueryContainerDescriptor<TDocument> GeoShape(GeoShapeQuery value) { _value = QueryContainer.GeoShape(value); return this; }
 	/// <summary>Creates a HasChild variant.</summary>
-	public QueryContainerDescriptor<TDocument> HasChild(Action<HasChildQueryDescriptor> configure)
+	public QueryContainerDescriptor<TDocument> HasChild(Action<HasChildQueryDescriptor<TDocument>> configure)
 	{
-		var descriptor = new HasChildQueryDescriptor();
+		var descriptor = new HasChildQueryDescriptor<TDocument>();
 		configure(descriptor);
 		_value = QueryContainer.HasChild(((HasChildQuery)descriptor)!);
 		return this;
@@ -165,9 +185,9 @@ public sealed partial class QueryContainerDescriptor<TDocument>
 	/// <summary>Creates a HasChild variant.</summary>
 	public QueryContainerDescriptor<TDocument> HasChild(HasChildQuery value) { _value = QueryContainer.HasChild(value); return this; }
 	/// <summary>Creates a HasParent variant.</summary>
-	public QueryContainerDescriptor<TDocument> HasParent(Action<HasParentQueryDescriptor> configure)
+	public QueryContainerDescriptor<TDocument> HasParent(Action<HasParentQueryDescriptor<TDocument>> configure)
 	{
-		var descriptor = new HasParentQueryDescriptor();
+		var descriptor = new HasParentQueryDescriptor<TDocument>();
 		configure(descriptor);
 		_value = QueryContainer.HasParent(((HasParentQuery)descriptor)!);
 		return this;
@@ -175,9 +195,9 @@ public sealed partial class QueryContainerDescriptor<TDocument>
 	/// <summary>Creates a HasParent variant.</summary>
 	public QueryContainerDescriptor<TDocument> HasParent(HasParentQuery value) { _value = QueryContainer.HasParent(value); return this; }
 	/// <summary>Creates a Hybrid variant.</summary>
-	public QueryContainerDescriptor<TDocument> Hybrid(Action<HybridQueryDescriptor> configure)
+	public QueryContainerDescriptor<TDocument> Hybrid(Action<HybridQueryDescriptor<TDocument>> configure)
 	{
-		var descriptor = new HybridQueryDescriptor();
+		var descriptor = new HybridQueryDescriptor<TDocument>();
 		configure(descriptor);
 		_value = QueryContainer.Hybrid(((HybridQuery)descriptor)!);
 		return this;
@@ -223,17 +243,17 @@ public sealed partial class QueryContainerDescriptor<TDocument>
 	/// <summary>Creates a Knn variant for a single field selected by an expression.</summary>
 	public QueryContainerDescriptor<TDocument> Knn(Expression<Func<TDocument, object>> field, KnnQuery value) { _value = QueryContainer.Knn(Field.ResolveName<TDocument>(field), value); return this; }
 	/// <summary>Creates a Knn variant for a single field using a descriptor.</summary>
-	public QueryContainerDescriptor<TDocument> Knn(string field, Action<KnnQueryDescriptor> configure)
+	public QueryContainerDescriptor<TDocument> Knn(string field, Action<KnnQueryDescriptor<TDocument>> configure)
 	{
-		var descriptor = new KnnQueryDescriptor();
+		var descriptor = new KnnQueryDescriptor<TDocument>();
 		configure(descriptor);
 		_value = QueryContainer.Knn(field, ((KnnQuery)descriptor)!);
 		return this;
 	}
 	/// <summary>Creates a Knn variant for a single field selected by an expression, using a descriptor.</summary>
-	public QueryContainerDescriptor<TDocument> Knn(Expression<Func<TDocument, object>> field, Action<KnnQueryDescriptor> configure)
+	public QueryContainerDescriptor<TDocument> Knn(Expression<Func<TDocument, object>> field, Action<KnnQueryDescriptor<TDocument>> configure)
 	{
-		var descriptor = new KnnQueryDescriptor();
+		var descriptor = new KnnQueryDescriptor<TDocument>();
 		configure(descriptor);
 		_value = QueryContainer.Knn(Field.ResolveName<TDocument>(field), ((KnnQuery)descriptor)!);
 		return this;
@@ -366,6 +386,16 @@ public sealed partial class QueryContainerDescriptor<TDocument>
 	}
 	/// <summary>Creates a MultiMatch variant.</summary>
 	public QueryContainerDescriptor<TDocument> MultiMatch(MultiMatchQuery value) { _value = QueryContainer.MultiMatch(value); return this; }
+	/// <summary>Creates a Nested variant.</summary>
+	public QueryContainerDescriptor<TDocument> Nested(Action<NestedQueryDescriptor<TDocument>> configure)
+	{
+		var descriptor = new NestedQueryDescriptor<TDocument>();
+		configure(descriptor);
+		_value = QueryContainer.Nested(((NestedQuery)descriptor)!);
+		return this;
+	}
+	/// <summary>Creates a Nested variant.</summary>
+	public QueryContainerDescriptor<TDocument> Nested(NestedQuery value) { _value = QueryContainer.Nested(value); return this; }
 	/// <summary>Creates a Neural variant.</summary>
 	public QueryContainerDescriptor<TDocument> Neural(Dictionary<string, NeuralQuery> value) { _value = QueryContainer.Neural(value); return this; }
 	/// <summary>Creates a Neural variant for a single field.</summary>
@@ -373,17 +403,17 @@ public sealed partial class QueryContainerDescriptor<TDocument>
 	/// <summary>Creates a Neural variant for a single field selected by an expression.</summary>
 	public QueryContainerDescriptor<TDocument> Neural(Expression<Func<TDocument, object>> field, NeuralQuery value) { _value = QueryContainer.Neural(Field.ResolveName<TDocument>(field), value); return this; }
 	/// <summary>Creates a Neural variant for a single field using a descriptor.</summary>
-	public QueryContainerDescriptor<TDocument> Neural(string field, Action<NeuralQueryDescriptor> configure)
+	public QueryContainerDescriptor<TDocument> Neural(string field, Action<NeuralQueryDescriptor<TDocument>> configure)
 	{
-		var descriptor = new NeuralQueryDescriptor();
+		var descriptor = new NeuralQueryDescriptor<TDocument>();
 		configure(descriptor);
 		_value = QueryContainer.Neural(field, ((NeuralQuery)descriptor)!);
 		return this;
 	}
 	/// <summary>Creates a Neural variant for a single field selected by an expression, using a descriptor.</summary>
-	public QueryContainerDescriptor<TDocument> Neural(Expression<Func<TDocument, object>> field, Action<NeuralQueryDescriptor> configure)
+	public QueryContainerDescriptor<TDocument> Neural(Expression<Func<TDocument, object>> field, Action<NeuralQueryDescriptor<TDocument>> configure)
 	{
-		var descriptor = new NeuralQueryDescriptor();
+		var descriptor = new NeuralQueryDescriptor<TDocument>();
 		configure(descriptor);
 		_value = QueryContainer.Neural(Field.ResolveName<TDocument>(field), ((NeuralQuery)descriptor)!);
 		return this;
@@ -489,9 +519,9 @@ public sealed partial class QueryContainerDescriptor<TDocument>
 	/// <summary>Creates a Script variant.</summary>
 	public QueryContainerDescriptor<TDocument> Script(ScriptQuery value) { _value = QueryContainer.Script(value); return this; }
 	/// <summary>Creates a ScriptScore variant.</summary>
-	public QueryContainerDescriptor<TDocument> ScriptScore(Action<ScriptScoreQueryDescriptor> configure)
+	public QueryContainerDescriptor<TDocument> ScriptScore(Action<ScriptScoreQueryDescriptor<TDocument>> configure)
 	{
-		var descriptor = new ScriptScoreQueryDescriptor();
+		var descriptor = new ScriptScoreQueryDescriptor<TDocument>();
 		configure(descriptor);
 		_value = QueryContainer.ScriptScore(((ScriptScoreQuery)descriptor)!);
 		return this;
@@ -509,9 +539,9 @@ public sealed partial class QueryContainerDescriptor<TDocument>
 	/// <summary>Creates a SimpleQueryString variant.</summary>
 	public QueryContainerDescriptor<TDocument> SimpleQueryString(SimpleQueryStringQuery value) { _value = QueryContainer.SimpleQueryString(value); return this; }
 	/// <summary>Creates a SpanContaining variant.</summary>
-	public QueryContainerDescriptor<TDocument> SpanContaining(Action<SpanContainingQueryDescriptor> configure)
+	public QueryContainerDescriptor<TDocument> SpanContaining(Action<SpanContainingQueryDescriptor<TDocument>> configure)
 	{
-		var descriptor = new SpanContainingQueryDescriptor();
+		var descriptor = new SpanContainingQueryDescriptor<TDocument>();
 		configure(descriptor);
 		_value = QueryContainer.SpanContaining(((SpanContainingQuery)descriptor)!);
 		return this;
@@ -519,9 +549,9 @@ public sealed partial class QueryContainerDescriptor<TDocument>
 	/// <summary>Creates a SpanContaining variant.</summary>
 	public QueryContainerDescriptor<TDocument> SpanContaining(SpanContainingQuery value) { _value = QueryContainer.SpanContaining(value); return this; }
 	/// <summary>Creates a FieldMaskingSpan variant.</summary>
-	public QueryContainerDescriptor<TDocument> FieldMaskingSpan(Action<SpanFieldMaskingQueryDescriptor> configure)
+	public QueryContainerDescriptor<TDocument> FieldMaskingSpan(Action<SpanFieldMaskingQueryDescriptor<TDocument>> configure)
 	{
-		var descriptor = new SpanFieldMaskingQueryDescriptor();
+		var descriptor = new SpanFieldMaskingQueryDescriptor<TDocument>();
 		configure(descriptor);
 		_value = QueryContainer.FieldMaskingSpan(((SpanFieldMaskingQuery)descriptor)!);
 		return this;
@@ -529,9 +559,9 @@ public sealed partial class QueryContainerDescriptor<TDocument>
 	/// <summary>Creates a FieldMaskingSpan variant.</summary>
 	public QueryContainerDescriptor<TDocument> FieldMaskingSpan(SpanFieldMaskingQuery value) { _value = QueryContainer.FieldMaskingSpan(value); return this; }
 	/// <summary>Creates a SpanFirst variant.</summary>
-	public QueryContainerDescriptor<TDocument> SpanFirst(Action<SpanFirstQueryDescriptor> configure)
+	public QueryContainerDescriptor<TDocument> SpanFirst(Action<SpanFirstQueryDescriptor<TDocument>> configure)
 	{
-		var descriptor = new SpanFirstQueryDescriptor();
+		var descriptor = new SpanFirstQueryDescriptor<TDocument>();
 		configure(descriptor);
 		_value = QueryContainer.SpanFirst(((SpanFirstQuery)descriptor)!);
 		return this;
@@ -539,9 +569,9 @@ public sealed partial class QueryContainerDescriptor<TDocument>
 	/// <summary>Creates a SpanFirst variant.</summary>
 	public QueryContainerDescriptor<TDocument> SpanFirst(SpanFirstQuery value) { _value = QueryContainer.SpanFirst(value); return this; }
 	/// <summary>Creates a SpanMulti variant.</summary>
-	public QueryContainerDescriptor<TDocument> SpanMulti(Action<SpanMultiTermQueryDescriptor> configure)
+	public QueryContainerDescriptor<TDocument> SpanMulti(Action<SpanMultiTermQueryDescriptor<TDocument>> configure)
 	{
-		var descriptor = new SpanMultiTermQueryDescriptor();
+		var descriptor = new SpanMultiTermQueryDescriptor<TDocument>();
 		configure(descriptor);
 		_value = QueryContainer.SpanMulti(((SpanMultiTermQuery)descriptor)!);
 		return this;
@@ -549,9 +579,9 @@ public sealed partial class QueryContainerDescriptor<TDocument>
 	/// <summary>Creates a SpanMulti variant.</summary>
 	public QueryContainerDescriptor<TDocument> SpanMulti(SpanMultiTermQuery value) { _value = QueryContainer.SpanMulti(value); return this; }
 	/// <summary>Creates a SpanNear variant.</summary>
-	public QueryContainerDescriptor<TDocument> SpanNear(Action<SpanNearQueryDescriptor> configure)
+	public QueryContainerDescriptor<TDocument> SpanNear(Action<SpanNearQueryDescriptor<TDocument>> configure)
 	{
-		var descriptor = new SpanNearQueryDescriptor();
+		var descriptor = new SpanNearQueryDescriptor<TDocument>();
 		configure(descriptor);
 		_value = QueryContainer.SpanNear(((SpanNearQuery)descriptor)!);
 		return this;
@@ -559,9 +589,9 @@ public sealed partial class QueryContainerDescriptor<TDocument>
 	/// <summary>Creates a SpanNear variant.</summary>
 	public QueryContainerDescriptor<TDocument> SpanNear(SpanNearQuery value) { _value = QueryContainer.SpanNear(value); return this; }
 	/// <summary>Creates a SpanNot variant.</summary>
-	public QueryContainerDescriptor<TDocument> SpanNot(Action<SpanNotQueryDescriptor> configure)
+	public QueryContainerDescriptor<TDocument> SpanNot(Action<SpanNotQueryDescriptor<TDocument>> configure)
 	{
-		var descriptor = new SpanNotQueryDescriptor();
+		var descriptor = new SpanNotQueryDescriptor<TDocument>();
 		configure(descriptor);
 		_value = QueryContainer.SpanNot(((SpanNotQuery)descriptor)!);
 		return this;
@@ -569,9 +599,9 @@ public sealed partial class QueryContainerDescriptor<TDocument>
 	/// <summary>Creates a SpanNot variant.</summary>
 	public QueryContainerDescriptor<TDocument> SpanNot(SpanNotQuery value) { _value = QueryContainer.SpanNot(value); return this; }
 	/// <summary>Creates a SpanOr variant.</summary>
-	public QueryContainerDescriptor<TDocument> SpanOr(Action<SpanOrQueryDescriptor> configure)
+	public QueryContainerDescriptor<TDocument> SpanOr(Action<SpanOrQueryDescriptor<TDocument>> configure)
 	{
-		var descriptor = new SpanOrQueryDescriptor();
+		var descriptor = new SpanOrQueryDescriptor<TDocument>();
 		configure(descriptor);
 		_value = QueryContainer.SpanOr(((SpanOrQuery)descriptor)!);
 		return this;
@@ -601,9 +631,9 @@ public sealed partial class QueryContainerDescriptor<TDocument>
 		return this;
 	}
 	/// <summary>Creates a SpanWithin variant.</summary>
-	public QueryContainerDescriptor<TDocument> SpanWithin(Action<SpanWithinQueryDescriptor> configure)
+	public QueryContainerDescriptor<TDocument> SpanWithin(Action<SpanWithinQueryDescriptor<TDocument>> configure)
 	{
-		var descriptor = new SpanWithinQueryDescriptor();
+		var descriptor = new SpanWithinQueryDescriptor<TDocument>();
 		configure(descriptor);
 		_value = QueryContainer.SpanWithin(((SpanWithinQuery)descriptor)!);
 		return this;

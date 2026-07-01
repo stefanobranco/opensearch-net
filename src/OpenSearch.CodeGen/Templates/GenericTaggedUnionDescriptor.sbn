@@ -11,12 +11,11 @@ public sealed partial class {{ descriptor_name }}<TDocument>
 	internal {{ class_name }}? _value;
 
 {{~ for variant in variants ~}}
-{{~ if variant.skip_generic ~}}{{~ continue ~}}{{~ end ~}}
 {{~ if variant.variant_kind != "simple" ~}}
 	/// <summary>Creates a {{ variant.name }} variant.</summary>
-	public {{ descriptor_name }}<TDocument> {{ variant.name }}(Action<{{ variant.descriptor_name }}> configure)
+	public {{ descriptor_name }}<TDocument> {{ variant.name }}(Action<{{ variant.generic_descriptor_name }}> configure)
 	{
-		var descriptor = new {{ variant.descriptor_name }}();
+		var descriptor = new {{ variant.generic_descriptor_name }}();
 		configure(descriptor);
 		_value = {{ class_name }}.{{ variant.name }}((({{ variant.type_name }}{{ if variant.variant_kind == "union" }}?{{ end }})descriptor)!);
 		return this;
@@ -34,17 +33,17 @@ public sealed partial class {{ descriptor_name }}<TDocument>
 	public {{ descriptor_name }}<TDocument> {{ variant.name }}(Expression<Func<TDocument, object>> field, {{ variant.field_value_type }} value) { _value = {{ class_name }}.{{ variant.name }}(Field.ResolveName<TDocument>(field), value); return this; }
 {{~ if variant.field_has_descriptor ~}}
 	/// <summary>Creates a {{ variant.name }} variant for a single field using a descriptor.</summary>
-	public {{ descriptor_name }}<TDocument> {{ variant.name }}(string field, Action<{{ variant.field_value_descriptor_name }}> configure)
+	public {{ descriptor_name }}<TDocument> {{ variant.name }}(string field, Action<{{ variant.field_value_generic_descriptor_name }}> configure)
 	{
-		var descriptor = new {{ variant.field_value_descriptor_name }}();
+		var descriptor = new {{ variant.field_value_generic_descriptor_name }}();
 		configure(descriptor);
 		_value = {{ class_name }}.{{ variant.name }}(field, (({{ variant.field_value_type }})descriptor)!);
 		return this;
 	}
 	/// <summary>Creates a {{ variant.name }} variant for a single field selected by an expression, using a descriptor.</summary>
-	public {{ descriptor_name }}<TDocument> {{ variant.name }}(Expression<Func<TDocument, object>> field, Action<{{ variant.field_value_descriptor_name }}> configure)
+	public {{ descriptor_name }}<TDocument> {{ variant.name }}(Expression<Func<TDocument, object>> field, Action<{{ variant.field_value_generic_descriptor_name }}> configure)
 	{
-		var descriptor = new {{ variant.field_value_descriptor_name }}();
+		var descriptor = new {{ variant.field_value_generic_descriptor_name }}();
 		configure(descriptor);
 		_value = {{ class_name }}.{{ variant.name }}(Field.ResolveName<TDocument>(field), (({{ variant.field_value_type }})descriptor)!);
 		return this;

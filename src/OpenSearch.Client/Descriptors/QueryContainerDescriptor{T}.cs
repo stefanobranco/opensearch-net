@@ -12,50 +12,6 @@ namespace OpenSearch.Client;
 /// </summary>
 public sealed partial class QueryContainerDescriptor<TDocument>
 {
-	// ── Compound queries that propagate <TDocument> into nested clauses ──
-
-	public QueryContainerDescriptor<TDocument> Bool(Action<BoolQueryDescriptor<TDocument>> configure)
-	{
-		var descriptor = new BoolQueryDescriptor<TDocument>();
-		configure(descriptor);
-		_value = QueryContainer.Bool((BoolQuery)descriptor);
-		return this;
-	}
-
-	public QueryContainerDescriptor<TDocument> Bool(BoolQuery value)
-	{
-		_value = QueryContainer.Bool(value);
-		return this;
-	}
-
-	public QueryContainerDescriptor<TDocument> ConstantScore(Action<ConstantScoreQueryDescriptor<TDocument>> configure)
-	{
-		var descriptor = new ConstantScoreQueryDescriptor<TDocument>();
-		configure(descriptor);
-		_value = QueryContainer.ConstantScore((ConstantScoreQuery)descriptor);
-		return this;
-	}
-
-	public QueryContainerDescriptor<TDocument> ConstantScore(ConstantScoreQuery value)
-	{
-		_value = QueryContainer.ConstantScore(value);
-		return this;
-	}
-
-	public QueryContainerDescriptor<TDocument> Nested(Action<NestedQueryDescriptor<TDocument>> configure)
-	{
-		var descriptor = new NestedQueryDescriptor<TDocument>();
-		configure(descriptor);
-		_value = QueryContainer.Nested((NestedQuery)descriptor);
-		return this;
-	}
-
-	public QueryContainerDescriptor<TDocument> Nested(NestedQuery value)
-	{
-		_value = QueryContainer.Nested(value);
-		return this;
-	}
-
 	// ── Range: its value descriptor (RangeQueryDescriptor) is hand-written, so the generator can't
 	//    emit the Action-based overloads; the generated partial supplies only the value forms. ──
 
