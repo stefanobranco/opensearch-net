@@ -71,8 +71,19 @@ well-engineered **on its own terms**, with no push for upstream adoption.
 
 ## Phase C — Test depth / verification
 
-- [ ] **C1.** Integration smoke tests for generated-but-untested namespaces (Security, ML, Geospatial).
-- [ ] **C2.** Fill roundtrip-serialization coverage gaps.
+- [ ] **C1.** Integration smoke tests for generated-but-untested namespaces. 14 wired namespaces have
+      zero integration coverage (snapshot, tasks, ubi, search_pipeline, search_relevance, nodes, ml,
+      knn, ltr, ism, geospatial, ingestion, dangling_indices, security). CI runs against a
+      `DISABLE_SECURITY_PLUGIN=true` cluster, so security stays serialization-only and snapshot needs a
+      `path.repo` added to the CI container.
+- [~] **C2.** Fill roundtrip/response-deserialization coverage gaps. Started: response fixtures for
+      snapshot/tasks/cluster/ingest (the request/DSL side was already well covered). Remaining: response
+      parsing for more namespaces.
+- [ ] **C4. Thin/empty response types (feature gap surfaced while writing response fixtures).** Several
+      dictionary- or dynamically-shaped responses generate empty/near-empty types that discard cluster
+      data opensearch-java exposes: `cat.*` responses are `{}` (rows dropped), `nodes.info`/`nodes.stats`
+      expose only the `_nodes` summary (no per-node details), `ism.get_policy` is `{}`. The generator
+      needs a typed model for these response shapes.
 - [ ] **C3.** A first performance/scale pass.
 
 ## Phase D — Package identity (open decision, not yet actioned)
