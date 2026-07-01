@@ -27,18 +27,20 @@ public class SnapshotTests : IntegrationTestBase
 			// Something to snapshot.
 			Client.Indices.Create(new CreateIndexRequest { Index = index });
 
-			var create = Client.Snapshot.Create(new CreateSnapshotRequest
+			// The create response shape (snapshot vs accepted) varies across versions; GET below is the
+			// version-robust way to inspect the finished snapshot.
+			Client.Snapshot.Create(new CreateSnapshotRequest
 			{
 				Repository = repo,
 				Snapshot = snapshot,
 				Indices = [index],
 				WaitForCompletion = true,
 			});
-			create.Snapshot!.State.Should().Be("SUCCESS");
-			create.Snapshot.Indices.Should().Contain(index);
 
 			var get = Client.Snapshot.Get(new GetSnapshotRequest { Repository = repo, Snapshot = [snapshot] });
-			get.Snapshots.Should().Contain(s => s.Snapshot == snapshot);
+			var info = get.Snapshots.Should().ContainSingle(s => s.Snapshot == snapshot).Subject;
+			info.State.Should().Be("SUCCESS");
+			info.Indices.Should().Contain(index);
 		}
 		finally
 		{
