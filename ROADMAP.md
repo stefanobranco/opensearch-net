@@ -76,14 +76,19 @@ well-engineered **on its own terms**, with no push for upstream adoption.
       knn, ltr, ism, geospatial, ingestion, dangling_indices, security). CI runs against a
       `DISABLE_SECURITY_PLUGIN=true` cluster, so security stays serialization-only and snapshot needs a
       `path.repo` added to the CI container.
-- [~] **C2.** Fill roundtrip/response-deserialization coverage gaps. Started: response fixtures for
-      snapshot/tasks/cluster/ingest (the request/DSL side was already well covered). Remaining: response
-      parsing for more namespaces.
-- [ ] **C4. Thin/empty response types (feature gap surfaced while writing response fixtures).** Several
-      dictionary- or dynamically-shaped responses generate empty/near-empty types that discard cluster
-      data opensearch-java exposes: `cat.*` responses are `{}` (rows dropped), `nodes.info`/`nodes.stats`
-      expose only the `_nodes` summary (no per-node details), `ism.get_policy` is `{}`. The generator
-      needs a typed model for these response shapes.
+- [~] **C2.** Fill roundtrip/response-deserialization coverage gaps. Response fixtures for
+      snapshot/tasks/cluster/ingest, plus the recovered responses below (the request/DSL side was
+      already well covered). Remaining: response parsing for more namespaces.
+- [~] **C4. Thin/empty response types (feature gap surfaced while writing response fixtures).** Several
+      responses generated empty types that discarded cluster data opensearch-java exposes. Fixed at the
+      generator root by mirroring the request-body handling: response `$ref`-alias chains are now
+      followed (recovers `ism.get_policy` and ~12 others), and discriminator-less `oneOf`/`anyOf`
+      responses merge into a typed superset (recovers `delete_by_query`/`update_by_query`/`reindex` —
+      the full bulk-by-scroll result *or* the async `{task}` form — plus `indices.open`). ~18 responses
+      recovered total.
+      **Still empty/loose:** `cat.*` (23 — array-of-rows responses discarded by the `is_cat` path; need
+      a typed row-list model), plus a handful that are genuinely bodiless (voting-config 202s), streaming
+      (`ml` predict/execute streams), or freeform (`cluster.state`).
 - [ ] **C3.** A first performance/scale pass.
 
 ## Phase D — Package identity (open decision, not yet actioned)

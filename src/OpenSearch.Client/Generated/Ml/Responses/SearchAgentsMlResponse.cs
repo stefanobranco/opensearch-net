@@ -12,4 +12,11 @@ namespace OpenSearch.Client;
 
 public partial class SearchAgentsMlResponse : OpenSearch.Net.OpenSearchResponse
 {
+	/// <summary>The time taken to execute the search.</summary>
+		public int? Took { get; set; }
+	/// <summary>Whether the search timed out.</summary>
+		public bool? TimedOut { get; set; }
+	[JsonPropertyName("_shards")]
+	public ShardStatistics? Shards { get; set; }
+	public SearchHits? Hits { get; set; }
 }

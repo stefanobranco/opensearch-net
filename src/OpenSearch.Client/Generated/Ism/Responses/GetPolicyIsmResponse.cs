@@ -12,4 +12,14 @@ namespace OpenSearch.Client;
 
 public partial class GetPolicyIsmResponse : OpenSearch.Net.OpenSearchResponse
 {
+	[JsonPropertyName("_id")]
+	public string? Id { get; set; }
+	/// <summary>The primary term of the document.</summary>
+		[JsonPropertyName("_primary_term")]
+	public float? PrimaryTerm { get; set; }
+	[JsonPropertyName("_seq_no")]
+	public long? SeqNo { get; set; }
+	[JsonPropertyName("_version")]
+	public long? Version { get; set; }
+	public Policy? Policy { get; set; }
 }
