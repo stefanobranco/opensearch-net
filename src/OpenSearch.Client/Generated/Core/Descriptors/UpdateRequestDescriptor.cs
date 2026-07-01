@@ -30,7 +30,7 @@ public sealed class UpdateRequestDescriptor
 	/// <summary>Specify how many times should the operation be retried when a conflict occurs.</summary>
 		public UpdateRequestDescriptor RetryOnConflict(int? value) { _value.RetryOnConflict = value; return this; }
 	/// <summary>A custom value used to route operations to a specific shard.</summary>
-		public UpdateRequestDescriptor Routing(System.Text.Json.JsonElement? value) { _value.Routing = value; return this; }
+		public UpdateRequestDescriptor Routing(List<string>? value) { _value.Routing = value; return this; }
 	/// <summary>Period to wait for dynamic mapping updates and active shards. This guarantees OpenSearch waits for at least the timeout before failing. The actual wait time could be longer, particularly when multiple waits occur.</summary>
 		public UpdateRequestDescriptor Timeout(string? value) { _value.Timeout = value; return this; }
 	/// <summary>The number of shard copies that must be active before proceeding with the operations. Set to 'all' or any positive integer up to the total number of shards in the index (number_of_replicas+1). Defaults to 1 meaning the primary shard.</summary>

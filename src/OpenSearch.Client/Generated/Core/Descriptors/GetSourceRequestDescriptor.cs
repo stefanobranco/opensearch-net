@@ -26,7 +26,7 @@ public sealed class GetSourceRequestDescriptor
 	/// <summary>If `true`, OpenSearch refreshes the affected shards to make this operation visible to search. If `false`, do nothing with refreshes.</summary>
 		public GetSourceRequestDescriptor Refresh(string? value) { _value.Refresh = value; return this; }
 	/// <summary>Target the specified primary shard.</summary>
-		public GetSourceRequestDescriptor Routing(System.Text.Json.JsonElement? value) { _value.Routing = value; return this; }
+		public GetSourceRequestDescriptor Routing(List<string>? value) { _value.Routing = value; return this; }
 	/// <summary>Explicit version number for concurrency control. The specified version must match the current version of the document for the request to succeed.</summary>
 		public GetSourceRequestDescriptor Version(long? value) { _value.Version = value; return this; }
 	/// <summary>The specific version type. One of `internal`, `external`, `external_gte`.</summary>

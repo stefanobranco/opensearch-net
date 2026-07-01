@@ -32,15 +32,15 @@ public sealed class MergesStatsDescriptor
 	/// <summary>The total amount of time merge operations have been stopped.</summary>
 		public MergesStatsDescriptor TotalStoppedTime(string? value) { _value.TotalStoppedTime = value; return this; }
 	/// <summary>The total amount of time merge operations have been stopped in milliseconds.</summary>
-		public MergesStatsDescriptor TotalStoppedTimeInMillis(System.Text.Json.JsonElement? value) { _value.TotalStoppedTimeInMillis = value; return this; }
+		public MergesStatsDescriptor TotalStoppedTimeInMillis(long value) { _value.TotalStoppedTimeInMillis = value; return this; }
 	/// <summary>The total amount of time merge operations have been throttled.</summary>
 		public MergesStatsDescriptor TotalThrottledTime(string? value) { _value.TotalThrottledTime = value; return this; }
 	/// <summary>The total amount of time merge operations have been throttled in milliseconds.</summary>
-		public MergesStatsDescriptor TotalThrottledTimeInMillis(System.Text.Json.JsonElement? value) { _value.TotalThrottledTimeInMillis = value; return this; }
+		public MergesStatsDescriptor TotalThrottledTimeInMillis(long value) { _value.TotalThrottledTimeInMillis = value; return this; }
 	/// <summary>The total amount of time spent on merge operations.</summary>
 		public MergesStatsDescriptor TotalTime(string? value) { _value.TotalTime = value; return this; }
 	/// <summary>The total amount of time spent on merge operations in milliseconds.</summary>
-		public MergesStatsDescriptor TotalTimeInMillis(System.Text.Json.JsonElement? value) { _value.TotalTimeInMillis = value; return this; }
+		public MergesStatsDescriptor TotalTimeInMillis(long value) { _value.TotalTimeInMillis = value; return this; }
 	/// <summary>The number of unreferenced file cleanups performed.</summary>
 		public MergesStatsDescriptor UnreferencedFileCleanupsPerformed(long? value) { _value.UnreferencedFileCleanupsPerformed = value; return this; }
 

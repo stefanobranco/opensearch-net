@@ -42,7 +42,7 @@ public sealed class TermvectorsRequest
 	public bool? Realtime { get; set; }
 	/// <summary>A custom value used to route operations to a specific shard.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? Routing { get; set; }
+	public List<string>? Routing { get; set; }
 	/// <summary>If `true`, the response includes term frequency and document frequency.</summary>
 	[JsonIgnore]
 	public bool? TermStatistics { get; set; }
@@ -86,7 +86,7 @@ public sealed class TermvectorsEndpoint : IEndpoint<TermvectorsRequest, Termvect
 		if (r.Realtime is not null)
 			queryParts.Add($"realtime={Uri.EscapeDataString((r.Realtime.Value ? "true" : "false"))}");
 		if (r.Routing is not null)
-			queryParts.Add($"routing={Uri.EscapeDataString(r.Routing.ToString()!)}");
+			queryParts.Add($"routing={Uri.EscapeDataString(string.Join(",", r.Routing!))}");
 		if (r.TermStatistics is not null)
 			queryParts.Add($"term_statistics={Uri.EscapeDataString((r.TermStatistics.Value ? "true" : "false"))}");
 		if (r.Version is not null)

@@ -12,14 +12,14 @@ public sealed class TaskInfoDescriptor
 	public TaskInfoDescriptor Action(string? value) { _value.Action = value; return this; }
 	public TaskInfoDescriptor Cancelled(bool? value) { _value.Cancelled = value; return this; }
 	public TaskInfoDescriptor Cancellable(bool value) { _value.Cancellable = value; return this; }
-	public TaskInfoDescriptor CancellationTimeMillis(System.Text.Json.JsonElement? value) { _value.CancellationTimeMillis = value; return this; }
+	public TaskInfoDescriptor CancellationTimeMillis(long? value) { _value.CancellationTimeMillis = value; return this; }
 	public TaskInfoDescriptor Description(string? value) { _value.Description = value; return this; }
 	public TaskInfoDescriptor Headers(Dictionary<string, string>? value) { _value.Headers = value; return this; }
 	public TaskInfoDescriptor Id(long value) { _value.Id = value; return this; }
 	public TaskInfoDescriptor Node(string? value) { _value.Node = value; return this; }
 	public TaskInfoDescriptor RunningTime(string? value) { _value.RunningTime = value; return this; }
-	public TaskInfoDescriptor RunningTimeInNanos(System.Text.Json.JsonElement? value) { _value.RunningTimeInNanos = value; return this; }
-	public TaskInfoDescriptor StartTimeInMillis(System.Text.Json.JsonElement? value) { _value.StartTimeInMillis = value; return this; }
+	public TaskInfoDescriptor RunningTimeInNanos(long value) { _value.RunningTimeInNanos = value; return this; }
+	public TaskInfoDescriptor StartTimeInMillis(long value) { _value.StartTimeInMillis = value; return this; }
 	public TaskInfoDescriptor Status(System.Text.Json.JsonElement? value) { _value.Status = value; return this; }
 	public TaskInfoDescriptor Type(string? value) { _value.Type = value; return this; }
 	public TaskInfoDescriptor ParentTaskId(string? value) { _value.ParentTaskId = value; return this; }

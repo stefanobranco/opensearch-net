@@ -12,7 +12,7 @@ namespace OpenSearch.Client;
 
 public partial class GeojsonUploadPostGeospatialResponse : OpenSearch.Net.OpenSearchResponse
 {
-	public System.Text.Json.JsonElement? Took { get; set; }
+	public long Took { get; set; }
 	/// <summary>Whether there were any errors.</summary>
 		public bool Errors { get; set; }
 	/// <summary>Total number of features processed.</summary>

@@ -19,5 +19,5 @@ public sealed class RecoveryStats
 	/// <summary>The total amount of time recovery operations have been throttled.</summary>
 		public string? ThrottleTime { get; set; }
 	/// <summary>The total amount of time recovery operations have been throttled in milliseconds.</summary>
-		public System.Text.Json.JsonElement? ThrottleTimeInMillis { get; set; }
+		public long ThrottleTimeInMillis { get; set; }
 }

@@ -84,7 +84,7 @@ public sealed class SearchRequest
 	public bool? RestTotalHitsAsInt { get; set; }
 	/// <summary>A custom value used to route operations to a specific shard.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? Routing { get; set; }
+	public List<string>? Routing { get; set; }
 	/// <summary>Period to retain the search context for scrolling. See Scroll search results. By default, this value cannot exceed `1d` (24 hours). You can change this limit using the `search.max_keep_alive` cluster-level setting.</summary>
 	[JsonIgnore]
 	public string? Scroll { get; set; }
@@ -223,7 +223,7 @@ public sealed class SearchEndpoint<TDocument> : IEndpoint<SearchRequest, SearchR
 		if (r.RestTotalHitsAsInt is not null)
 			queryParts.Add($"rest_total_hits_as_int={Uri.EscapeDataString((r.RestTotalHitsAsInt.Value ? "true" : "false"))}");
 		if (r.Routing is not null)
-			queryParts.Add($"routing={Uri.EscapeDataString(r.Routing.ToString()!)}");
+			queryParts.Add($"routing={Uri.EscapeDataString(string.Join(",", r.Routing!))}");
 		if (r.Scroll is not null)
 			queryParts.Add($"scroll={Uri.EscapeDataString(r.Scroll!)}");
 		if (r.SearchType is not null)

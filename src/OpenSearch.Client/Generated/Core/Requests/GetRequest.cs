@@ -39,7 +39,7 @@ public sealed class GetRequest
 	public string? Refresh { get; set; }
 	/// <summary>Target the specified primary shard.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? Routing { get; set; }
+	public List<string>? Routing { get; set; }
 	/// <summary>List of stored fields to return as part of a hit. If no fields are specified, no stored fields are included in the response. If this field is specified, the `_source` parameter defaults to false.</summary>
 	[JsonIgnore]
 	public List<string>? StoredFields { get; set; }
@@ -73,7 +73,7 @@ public sealed class GetEndpoint<TDocument> : IEndpoint<GetRequest, GetResponse<T
 		if (r.Refresh is not null)
 			queryParts.Add($"refresh={Uri.EscapeDataString(r.Refresh!)}");
 		if (r.Routing is not null)
-			queryParts.Add($"routing={Uri.EscapeDataString(r.Routing.ToString()!)}");
+			queryParts.Add($"routing={Uri.EscapeDataString(string.Join(",", r.Routing!))}");
 		if (r.StoredFields is not null)
 			queryParts.Add($"stored_fields={Uri.EscapeDataString(string.Join(",", r.StoredFields!))}");
 		if (r.Version is not null)

@@ -15,8 +15,8 @@ public sealed class ReindexTask
 	public long Id { get; set; }
 	public string? Node { get; set; }
 	public ResourceStats? ResourceStats { get; set; }
-	public System.Text.Json.JsonElement? RunningTimeInNanos { get; set; }
-	public System.Text.Json.JsonElement? StartTimeInMillis { get; set; }
+	public long RunningTimeInNanos { get; set; }
+	public long StartTimeInMillis { get; set; }
 	public ReindexStatus? Status { get; set; }
 	public string? Type { get; set; }
 	public Dictionary<string, List<string>>? Headers { get; set; }

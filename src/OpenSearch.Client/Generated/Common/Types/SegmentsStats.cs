@@ -30,7 +30,7 @@ public sealed class SegmentsStats
 	/// <summary>The total amount, in bytes, of memory used by all index writers across all shards assigned to the selected nodes.</summary>
 		public long IndexWriterMemoryInBytes { get; set; }
 	/// <summary>The Unix timestamp, in milliseconds, of the most recently retried indexing request.</summary>
-		public System.Text.Json.JsonElement? MaxUnsafeAutoIdTimestamp { get; set; }
+		public long MaxUnsafeAutoIdTimestamp { get; set; }
 	/// <summary>The total amount of memory used for segments across all shards assigned to the selected nodes.</summary>
 		public string? Memory { get; set; }
 	/// <summary>The total amount, in bytes, of memory used for segments across all shards assigned to the selected nodes.</summary>

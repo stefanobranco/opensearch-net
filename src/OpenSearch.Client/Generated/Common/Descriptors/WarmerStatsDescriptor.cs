@@ -16,7 +16,7 @@ public sealed class WarmerStatsDescriptor
 	/// <summary>The total time spent on warmer operations.</summary>
 		public WarmerStatsDescriptor TotalTime(string? value) { _value.TotalTime = value; return this; }
 	/// <summary>The total time spent on warmer operations in milliseconds.</summary>
-		public WarmerStatsDescriptor TotalTimeInMillis(System.Text.Json.JsonElement? value) { _value.TotalTimeInMillis = value; return this; }
+		public WarmerStatsDescriptor TotalTimeInMillis(long value) { _value.TotalTimeInMillis = value; return this; }
 
 	public static implicit operator WarmerStats(WarmerStatsDescriptor descriptor) => descriptor._value;
 }

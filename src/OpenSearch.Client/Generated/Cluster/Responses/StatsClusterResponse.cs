@@ -24,5 +24,5 @@ public partial class StatsClusterResponse : OpenSearch.Net.OpenSearchResponse
 	/// <summary>The health status of the cluster, based on the state of its primary and replica shards.</summary>
 		public string? Status { get; set; }
 	/// <summary>The Unix timestamp, in milliseconds, indicating when any cluster statistics were last refreshed.</summary>
-		public System.Text.Json.JsonElement? Timestamp { get; set; }
+		public long Timestamp { get; set; }
 }

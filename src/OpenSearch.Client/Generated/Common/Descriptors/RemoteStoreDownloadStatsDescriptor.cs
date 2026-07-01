@@ -22,7 +22,7 @@ public sealed class RemoteStoreDownloadStatsDescriptor
 	/// <summary>The total amount of time spent on downloads from the remote segment store.</summary>
 		public RemoteStoreDownloadStatsDescriptor TotalTimeSpent(string? value) { _value.TotalTimeSpent = value; return this; }
 	/// <summary>The total duration, in milliseconds, spent on downloads from the remote segment store.</summary>
-		public RemoteStoreDownloadStatsDescriptor TotalTimeSpentInMillis(System.Text.Json.JsonElement? value) { _value.TotalTimeSpentInMillis = value; return this; }
+		public RemoteStoreDownloadStatsDescriptor TotalTimeSpentInMillis(long value) { _value.TotalTimeSpentInMillis = value; return this; }
 
 	public static implicit operator RemoteStoreDownloadStats(RemoteStoreDownloadStatsDescriptor descriptor) => descriptor._value;
 }

@@ -16,7 +16,7 @@ public sealed class RecoveryStatsDescriptor
 	/// <summary>The total amount of time recovery operations have been throttled.</summary>
 		public RecoveryStatsDescriptor ThrottleTime(string? value) { _value.ThrottleTime = value; return this; }
 	/// <summary>The total amount of time recovery operations have been throttled in milliseconds.</summary>
-		public RecoveryStatsDescriptor ThrottleTimeInMillis(System.Text.Json.JsonElement? value) { _value.ThrottleTimeInMillis = value; return this; }
+		public RecoveryStatsDescriptor ThrottleTimeInMillis(long value) { _value.ThrottleTimeInMillis = value; return this; }
 
 	public static implicit operator RecoveryStats(RecoveryStatsDescriptor descriptor) => descriptor._value;
 }

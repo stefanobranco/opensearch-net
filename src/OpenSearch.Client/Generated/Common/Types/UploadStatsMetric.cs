@@ -18,5 +18,5 @@ public sealed class UploadStatsMetric
 		public int Success { get; set; }
 	/// <summary>Number of failed features in this upload.</summary>
 		public int Failed { get; set; }
-	public System.Text.Json.JsonElement? Duration { get; set; }
+	public long Duration { get; set; }
 }

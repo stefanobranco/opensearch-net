@@ -42,7 +42,7 @@ public sealed class SearchTemplateRequest
 	public bool? RestTotalHitsAsInt { get; set; }
 	/// <summary>A custom value used to route operations to a specific shard.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? Routing { get; set; }
+	public List<string>? Routing { get; set; }
 	/// <summary>Specifies how long a consistent view of the index should be maintained for scrolled search.</summary>
 	[JsonIgnore]
 	public string? Scroll { get; set; }
@@ -95,7 +95,7 @@ public sealed class SearchTemplateEndpoint<TDocument> : IEndpoint<SearchTemplate
 		if (r.RestTotalHitsAsInt is not null)
 			queryParts.Add($"rest_total_hits_as_int={Uri.EscapeDataString((r.RestTotalHitsAsInt.Value ? "true" : "false"))}");
 		if (r.Routing is not null)
-			queryParts.Add($"routing={Uri.EscapeDataString(r.Routing.ToString()!)}");
+			queryParts.Add($"routing={Uri.EscapeDataString(string.Join(",", r.Routing!))}");
 		if (r.Scroll is not null)
 			queryParts.Add($"scroll={Uri.EscapeDataString(r.Scroll!)}");
 		if (r.SearchPipeline is not null)

@@ -6,8 +6,8 @@ using System.Text.Json.Serialization;
 namespace OpenSearch.Client;
 
 
-public sealed class ExtendedBoundsDouble<T>
+public sealed class ExtendedBoundsDouble
 {
-	public T? Max { get; set; }
-	public T? Min { get; set; }
+	public double Max { get; set; }
+	public double Min { get; set; }
 }

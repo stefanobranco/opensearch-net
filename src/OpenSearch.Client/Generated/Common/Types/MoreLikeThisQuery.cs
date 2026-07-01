@@ -40,7 +40,7 @@ public sealed class MoreLikeThisQuery
 	/// <summary>Overrides the default analyzer.</summary>
 		public Dictionary<string, string>? PerFieldAnalyzer { get; set; }
 	public string? Routing { get; set; }
-	public System.Text.Json.JsonElement? StopWords { get; set; }
+	public List<string>? StopWords { get; set; }
 	/// <summary>Used in combination with `like` to exclude documents that match a set of terms.</summary>
 		public List<System.Text.Json.JsonElement>? Unlike { get; set; }
 	public long? Version { get; set; }

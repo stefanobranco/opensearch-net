@@ -56,7 +56,7 @@ public sealed class SearchRequestDescriptor
 	/// <summary>Indicates whether `hits.total` should be rendered as an integer or an object in the rest search response.</summary>
 		public SearchRequestDescriptor RestTotalHitsAsInt(bool? value) { _value.RestTotalHitsAsInt = value; return this; }
 	/// <summary>A custom value used to route operations to a specific shard.</summary>
-		public SearchRequestDescriptor Routing(System.Text.Json.JsonElement? value) { _value.Routing = value; return this; }
+		public SearchRequestDescriptor Routing(List<string>? value) { _value.Routing = value; return this; }
 	/// <summary>Period to retain the search context for scrolling. See Scroll search results. By default, this value cannot exceed `1d` (24 hours). You can change this limit using the `search.max_keep_alive` cluster-level setting.</summary>
 		public SearchRequestDescriptor Scroll(string? value) { _value.Scroll = value; return this; }
 	/// <summary>How distributed term frequencies are calculated for relevance scoring.</summary>

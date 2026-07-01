@@ -19,7 +19,7 @@ public sealed class UploadStatsMetricDescriptor
 		public UploadStatsMetricDescriptor Success(int value) { _value.Success = value; return this; }
 	/// <summary>Number of failed features in this upload.</summary>
 		public UploadStatsMetricDescriptor Failed(int value) { _value.Failed = value; return this; }
-	public UploadStatsMetricDescriptor Duration(System.Text.Json.JsonElement? value) { _value.Duration = value; return this; }
+	public UploadStatsMetricDescriptor Duration(long value) { _value.Duration = value; return this; }
 
 	public static implicit operator UploadStatsMetric(UploadStatsMetricDescriptor descriptor) => descriptor._value;
 }

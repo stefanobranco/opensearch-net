@@ -17,5 +17,5 @@ public sealed class RemoteStoreDownloadStats
 	/// <summary>The total amount of time spent on downloads from the remote segment store.</summary>
 		public string? TotalTimeSpent { get; set; }
 	/// <summary>The total duration, in milliseconds, spent on downloads from the remote segment store.</summary>
-		public System.Text.Json.JsonElement? TotalTimeSpentInMillis { get; set; }
+		public long TotalTimeSpentInMillis { get; set; }
 }

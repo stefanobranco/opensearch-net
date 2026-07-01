@@ -8,6 +8,6 @@ namespace OpenSearch.Client;
 
 public sealed class UpdateStats
 {
-	public System.Text.Json.JsonElement? LastSucceededAtInEpochMillis { get; set; }
-	public System.Text.Json.JsonElement? LastProcessingTimeInMillis { get; set; }
+	public long? LastSucceededAtInEpochMillis { get; set; }
+	public long? LastProcessingTimeInMillis { get; set; }
 }

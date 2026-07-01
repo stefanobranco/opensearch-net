@@ -140,7 +140,15 @@ public sealed class AggregationContainerDescriptor
 		return this;
 	}
 	/// <summary>Creates a DateHistogram variant.</summary>
-	public AggregationContainerDescriptor DateHistogram(System.Text.Json.JsonElement value) { _value = AggregationContainer.DateHistogram(value); return this; }
+	public AggregationContainerDescriptor DateHistogram(DateHistogramAggregationFields value) { _value = AggregationContainer.DateHistogram(value); return this; }
+	/// <summary>Creates a DateHistogram variant.</summary>
+	public AggregationContainerDescriptor DateHistogram(Action<DateHistogramAggregationFieldsDescriptor> configure)
+	{
+		var descriptor = new DateHistogramAggregationFieldsDescriptor();
+		configure(descriptor);
+		_value = AggregationContainer.DateHistogram(((DateHistogramAggregationFields)descriptor)!);
+		return this;
+	}
 	/// <summary>Creates a DateRange variant.</summary>
 	public AggregationContainerDescriptor DateRange(DateRangeAggregationFields value) { _value = AggregationContainer.DateRange(value); return this; }
 	/// <summary>Creates a DateRange variant.</summary>
@@ -192,7 +200,15 @@ public sealed class AggregationContainerDescriptor
 		return this;
 	}
 	/// <summary>Creates a Filter variant.</summary>
-	public AggregationContainerDescriptor Filter(System.Text.Json.JsonElement value) { _value = AggregationContainer.Filter(value); return this; }
+	public AggregationContainerDescriptor Filter(QueryContainer value) { _value = AggregationContainer.Filter(value); return this; }
+	/// <summary>Creates a Filter variant.</summary>
+	public AggregationContainerDescriptor Filter(Action<QueryContainerDescriptor> configure)
+	{
+		var descriptor = new QueryContainerDescriptor();
+		configure(descriptor);
+		_value = AggregationContainer.Filter(((QueryContainer?)descriptor)!);
+		return this;
+	}
 	/// <summary>Creates a Filters variant.</summary>
 	public AggregationContainerDescriptor Filters(FiltersAggregationFields value) { _value = AggregationContainer.Filters(value); return this; }
 	/// <summary>Creates a Filters variant.</summary>
@@ -256,7 +272,15 @@ public sealed class AggregationContainerDescriptor
 	/// <summary>Creates a Global variant.</summary>
 	public AggregationContainerDescriptor Global(System.Text.Json.JsonElement value) { _value = AggregationContainer.Global(value); return this; }
 	/// <summary>Creates a Histogram variant.</summary>
-	public AggregationContainerDescriptor Histogram(System.Text.Json.JsonElement value) { _value = AggregationContainer.Histogram(value); return this; }
+	public AggregationContainerDescriptor Histogram(HistogramAggregationFields value) { _value = AggregationContainer.Histogram(value); return this; }
+	/// <summary>Creates a Histogram variant.</summary>
+	public AggregationContainerDescriptor Histogram(Action<HistogramAggregationFieldsDescriptor> configure)
+	{
+		var descriptor = new HistogramAggregationFieldsDescriptor();
+		configure(descriptor);
+		_value = AggregationContainer.Histogram(((HistogramAggregationFields)descriptor)!);
+		return this;
+	}
 	/// <summary>Creates a IpRange variant.</summary>
 	public AggregationContainerDescriptor IpRange(IpRangeAggregationFields value) { _value = AggregationContainer.IpRange(value); return this; }
 	/// <summary>Creates a IpRange variant.</summary>

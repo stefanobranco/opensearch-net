@@ -51,7 +51,7 @@ public sealed class ExplainRequest
 	public string? Q { get; set; }
 	/// <summary>A custom value used to route operations to a specific shard.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? Routing { get; set; }
+	public List<string>? Routing { get; set; }
 	/// <summary>A comma-separated list of stored fields to return in the response.</summary>
 	[JsonIgnore]
 	public List<string>? StoredFields { get; set; }
@@ -88,7 +88,7 @@ public sealed class ExplainEndpoint<TDocument> : IEndpoint<ExplainRequest, Expla
 		if (r.Q is not null)
 			queryParts.Add($"q={Uri.EscapeDataString(r.Q!)}");
 		if (r.Routing is not null)
-			queryParts.Add($"routing={Uri.EscapeDataString(r.Routing.ToString()!)}");
+			queryParts.Add($"routing={Uri.EscapeDataString(string.Join(",", r.Routing!))}");
 		if (r.StoredFields is not null)
 			queryParts.Add($"stored_fields={Uri.EscapeDataString(string.Join(",", r.StoredFields!))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;

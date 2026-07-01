@@ -33,7 +33,7 @@ public sealed class SearchShardsRequest
 	public string? Preference { get; set; }
 	/// <summary>A custom value used to route operations to a specific shard.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? Routing { get; set; }
+	public List<string>? Routing { get; set; }
 	public SlicedScroll? Slice { get; set; }
 }
 public sealed class SearchShardsEndpoint : IEndpoint<SearchShardsRequest, SearchShardsResponse>
@@ -60,7 +60,7 @@ public sealed class SearchShardsEndpoint : IEndpoint<SearchShardsRequest, Search
 		if (r.Preference is not null)
 			queryParts.Add($"preference={Uri.EscapeDataString(r.Preference!)}");
 		if (r.Routing is not null)
-			queryParts.Add($"routing={Uri.EscapeDataString(r.Routing.ToString()!)}");
+			queryParts.Add($"routing={Uri.EscapeDataString(string.Join(",", r.Routing!))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

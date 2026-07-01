@@ -34,7 +34,7 @@ public sealed class ExplainRequestDescriptor
 	/// <summary>Query in the Lucene query string syntax.</summary>
 		public ExplainRequestDescriptor Q(string? value) { _value.Q = value; return this; }
 	/// <summary>A custom value used to route operations to a specific shard.</summary>
-		public ExplainRequestDescriptor Routing(System.Text.Json.JsonElement? value) { _value.Routing = value; return this; }
+		public ExplainRequestDescriptor Routing(List<string>? value) { _value.Routing = value; return this; }
 	/// <summary>A comma-separated list of stored fields to return in the response.</summary>
 		public ExplainRequestDescriptor StoredFields(List<string>? value) { _value.StoredFields = value; return this; }
 	public ExplainRequestDescriptor Query(QueryContainer? value) { _value.Query = value; return this; }

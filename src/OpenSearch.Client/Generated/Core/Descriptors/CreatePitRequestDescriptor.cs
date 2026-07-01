@@ -20,7 +20,7 @@ public sealed class CreatePitRequestDescriptor
 	/// <summary>Specify the node or shard the operation should be performed on.</summary>
 		public CreatePitRequestDescriptor Preference(string? value) { _value.Preference = value; return this; }
 	/// <summary>A comma-separated list of specific routing values.</summary>
-		public CreatePitRequestDescriptor Routing(System.Text.Json.JsonElement? value) { _value.Routing = value; return this; }
+		public CreatePitRequestDescriptor Routing(List<string>? value) { _value.Routing = value; return this; }
 
 	public static implicit operator CreatePitRequest(CreatePitRequestDescriptor descriptor) => descriptor._value;
 }

@@ -27,7 +27,7 @@ public sealed class TermvectorsRequestDescriptor
 	/// <summary>If `true`, the request is real time as opposed to near real time.</summary>
 		public TermvectorsRequestDescriptor Realtime(bool? value) { _value.Realtime = value; return this; }
 	/// <summary>A custom value used to route operations to a specific shard.</summary>
-		public TermvectorsRequestDescriptor Routing(System.Text.Json.JsonElement? value) { _value.Routing = value; return this; }
+		public TermvectorsRequestDescriptor Routing(List<string>? value) { _value.Routing = value; return this; }
 	/// <summary>If `true`, the response includes term frequency and document frequency.</summary>
 		public TermvectorsRequestDescriptor TermStatistics(bool? value) { _value.TermStatistics = value; return this; }
 	/// <summary>If `true`, returns the document version as part of a hit.</summary>

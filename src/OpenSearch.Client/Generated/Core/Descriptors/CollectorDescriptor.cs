@@ -11,7 +11,7 @@ public sealed class CollectorDescriptor
 
 	public CollectorDescriptor Name(string? value) { _value.Name = value; return this; }
 	public CollectorDescriptor Reason(string? value) { _value.Reason = value; return this; }
-	public CollectorDescriptor TimeInNanos(System.Text.Json.JsonElement? value) { _value.TimeInNanos = value; return this; }
+	public CollectorDescriptor TimeInNanos(long value) { _value.TimeInNanos = value; return this; }
 	public CollectorDescriptor Children(List<Collector>? value) { _value.Children = value; return this; }
 	public CollectorDescriptor Children(params Action<CollectorDescriptor>[] configure)
 	{

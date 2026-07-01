@@ -13,7 +13,7 @@ namespace OpenSearch.Client;
 public sealed class RecoveryStartStatus
 {
 	public string? CheckIndexTime { get; set; }
-	public System.Text.Json.JsonElement? CheckIndexTimeInMillis { get; set; }
+	public long CheckIndexTimeInMillis { get; set; }
 	public string? TotalTime { get; set; }
-	public System.Text.Json.JsonElement? TotalTimeInMillis { get; set; }
+	public long TotalTimeInMillis { get; set; }
 }

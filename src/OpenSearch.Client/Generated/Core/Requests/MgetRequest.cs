@@ -36,7 +36,7 @@ public sealed class MgetRequest
 	public string? Refresh { get; set; }
 	/// <summary>A custom value used to route operations to a specific shard.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? Routing { get; set; }
+	public List<string>? Routing { get; set; }
 	/// <summary>If `true`, retrieves the document fields stored in the index rather than the document `_source`.</summary>
 	[JsonIgnore]
 	public List<string>? StoredFields { get; set; }
@@ -70,7 +70,7 @@ public sealed class MgetEndpoint : IEndpoint<MgetRequest, MgetResponse>
 		if (r.Refresh is not null)
 			queryParts.Add($"refresh={Uri.EscapeDataString(r.Refresh!)}");
 		if (r.Routing is not null)
-			queryParts.Add($"routing={Uri.EscapeDataString(r.Routing.ToString()!)}");
+			queryParts.Add($"routing={Uri.EscapeDataString(string.Join(",", r.Routing!))}");
 		if (r.StoredFields is not null)
 			queryParts.Add($"stored_fields={Uri.EscapeDataString(string.Join(",", r.StoredFields!))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;

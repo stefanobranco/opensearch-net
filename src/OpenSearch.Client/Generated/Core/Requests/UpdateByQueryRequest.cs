@@ -72,7 +72,7 @@ public sealed class UpdateByQueryRequest
 	public float? RequestsPerSecond { get; set; }
 	/// <summary>A custom value used to route operations to a specific shard.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? Routing { get; set; }
+	public List<string>? Routing { get; set; }
 	/// <summary>Period to retain the search context for scrolling.</summary>
 	[JsonIgnore]
 	public string? Scroll { get; set; }
@@ -166,7 +166,7 @@ public sealed class UpdateByQueryEndpoint : IEndpoint<UpdateByQueryRequest, Upda
 		if (r.RequestsPerSecond is not null)
 			queryParts.Add($"requests_per_second={Uri.EscapeDataString(r.RequestsPerSecond.ToString()!)}");
 		if (r.Routing is not null)
-			queryParts.Add($"routing={Uri.EscapeDataString(r.Routing.ToString()!)}");
+			queryParts.Add($"routing={Uri.EscapeDataString(string.Join(",", r.Routing!))}");
 		if (r.Scroll is not null)
 			queryParts.Add($"scroll={Uri.EscapeDataString(r.Scroll!)}");
 		if (r.ScrollSize is not null)

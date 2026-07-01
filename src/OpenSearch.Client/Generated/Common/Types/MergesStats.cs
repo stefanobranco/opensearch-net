@@ -35,15 +35,15 @@ public sealed class MergesStats
 	/// <summary>The total amount of time merge operations have been stopped.</summary>
 		public string? TotalStoppedTime { get; set; }
 	/// <summary>The total amount of time merge operations have been stopped in milliseconds.</summary>
-		public System.Text.Json.JsonElement? TotalStoppedTimeInMillis { get; set; }
+		public long TotalStoppedTimeInMillis { get; set; }
 	/// <summary>The total amount of time merge operations have been throttled.</summary>
 		public string? TotalThrottledTime { get; set; }
 	/// <summary>The total amount of time merge operations have been throttled in milliseconds.</summary>
-		public System.Text.Json.JsonElement? TotalThrottledTimeInMillis { get; set; }
+		public long TotalThrottledTimeInMillis { get; set; }
 	/// <summary>The total amount of time spent on merge operations.</summary>
 		public string? TotalTime { get; set; }
 	/// <summary>The total amount of time spent on merge operations in milliseconds.</summary>
-		public System.Text.Json.JsonElement? TotalTimeInMillis { get; set; }
+		public long TotalTimeInMillis { get; set; }
 	/// <summary>The number of unreferenced file cleanups performed.</summary>
 		public long? UnreferencedFileCleanupsPerformed { get; set; }
 }

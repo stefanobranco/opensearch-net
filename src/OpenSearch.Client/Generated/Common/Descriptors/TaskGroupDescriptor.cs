@@ -12,14 +12,14 @@ public sealed class TaskGroupDescriptor
 	public TaskGroupDescriptor Action(string? value) { _value.Action = value; return this; }
 	public TaskGroupDescriptor Cancelled(bool? value) { _value.Cancelled = value; return this; }
 	public TaskGroupDescriptor Cancellable(bool value) { _value.Cancellable = value; return this; }
-	public TaskGroupDescriptor CancellationTimeMillis(System.Text.Json.JsonElement? value) { _value.CancellationTimeMillis = value; return this; }
+	public TaskGroupDescriptor CancellationTimeMillis(long? value) { _value.CancellationTimeMillis = value; return this; }
 	public TaskGroupDescriptor Description(string? value) { _value.Description = value; return this; }
 	public TaskGroupDescriptor Headers(Dictionary<string, string>? value) { _value.Headers = value; return this; }
 	public TaskGroupDescriptor Id(long value) { _value.Id = value; return this; }
 	public TaskGroupDescriptor Node(string? value) { _value.Node = value; return this; }
 	public TaskGroupDescriptor RunningTime(string? value) { _value.RunningTime = value; return this; }
-	public TaskGroupDescriptor RunningTimeInNanos(System.Text.Json.JsonElement? value) { _value.RunningTimeInNanos = value; return this; }
-	public TaskGroupDescriptor StartTimeInMillis(System.Text.Json.JsonElement? value) { _value.StartTimeInMillis = value; return this; }
+	public TaskGroupDescriptor RunningTimeInNanos(long value) { _value.RunningTimeInNanos = value; return this; }
+	public TaskGroupDescriptor StartTimeInMillis(long value) { _value.StartTimeInMillis = value; return this; }
 	public TaskGroupDescriptor Status(System.Text.Json.JsonElement? value) { _value.Status = value; return this; }
 	public TaskGroupDescriptor Type(string? value) { _value.Type = value; return this; }
 	public TaskGroupDescriptor ParentTaskId(string? value) { _value.ParentTaskId = value; return this; }

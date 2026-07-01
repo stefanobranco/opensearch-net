@@ -10,6 +10,6 @@ public sealed class Collector
 {
 	public string? Name { get; set; }
 	public string? Reason { get; set; }
-	public System.Text.Json.JsonElement? TimeInNanos { get; set; }
+	public long TimeInNanos { get; set; }
 	public List<Collector>? Children { get; set; }
 }

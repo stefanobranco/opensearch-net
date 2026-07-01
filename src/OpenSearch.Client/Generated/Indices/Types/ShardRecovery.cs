@@ -22,12 +22,12 @@ public sealed class ShardRecovery
 		public string? Stage { get; set; }
 	public RecoveryStartStatus? Start { get; set; }
 	public string? StartTime { get; set; }
-	public System.Text.Json.JsonElement? StartTimeInMillis { get; set; }
+	public long StartTimeInMillis { get; set; }
 	public string? StopTime { get; set; }
-	public System.Text.Json.JsonElement? StopTimeInMillis { get; set; }
+	public long? StopTimeInMillis { get; set; }
 	public RecoveryOrigin? Target { get; set; }
 	public string? TotalTime { get; set; }
-	public System.Text.Json.JsonElement? TotalTimeInMillis { get; set; }
+	public long TotalTimeInMillis { get; set; }
 	public TranslogStatus? Translog { get; set; }
 	/// <summary>The type of recovery operation.</summary>
 		public string? Type { get; set; }

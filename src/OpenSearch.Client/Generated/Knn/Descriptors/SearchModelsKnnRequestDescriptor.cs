@@ -58,7 +58,7 @@ public sealed class SearchModelsKnnRequestDescriptor
 	/// <summary>Indicates whether `hits.total` should be rendered as an integer or an object in the rest search response.</summary>
 		public SearchModelsKnnRequestDescriptor RestTotalHitsAsInt(bool? value) { _value.RestTotalHitsAsInt = value; return this; }
 	/// <summary>A comma-separated list of specific routing values.</summary>
-		public SearchModelsKnnRequestDescriptor Routing(System.Text.Json.JsonElement? value) { _value.Routing = value; return this; }
+		public SearchModelsKnnRequestDescriptor Routing(List<string>? value) { _value.Routing = value; return this; }
 	/// <summary>Specify how long a consistent view of the index should be maintained for scrolled search.</summary>
 		public SearchModelsKnnRequestDescriptor Scroll(string? value) { _value.Scroll = value; return this; }
 	/// <summary>Search operation type.</summary>

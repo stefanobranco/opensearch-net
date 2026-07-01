@@ -6,11 +6,11 @@ using System.Text.Json.Serialization;
 namespace OpenSearch.Client;
 
 
-public sealed class DateHistogramAggregationFields<T>
+public sealed class DateHistogramAggregationFields
 {
 	public string? CalendarInterval { get; set; }
-	public ExtendedBoundsFieldDateMath<T>? ExtendedBounds { get; set; }
-	public ExtendedBoundsFieldDateMath<T>? HardBounds { get; set; }
+	public ExtendedBoundsFieldDateMath? ExtendedBounds { get; set; }
+	public ExtendedBoundsFieldDateMath? HardBounds { get; set; }
 	public string? Field { get; set; }
 	public string? FixedInterval { get; set; }
 	/// <summary>The date format used to format `key_as_string` in the response. If no `format` is specified, the first date format specified in the field mapping is used.</summary>

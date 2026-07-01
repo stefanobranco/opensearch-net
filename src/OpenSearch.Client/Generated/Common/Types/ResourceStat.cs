@@ -12,6 +12,6 @@ namespace OpenSearch.Client;
 
 public sealed class ResourceStat
 {
-	public System.Text.Json.JsonElement? CpuTimeInNanos { get; set; }
+	public long CpuTimeInNanos { get; set; }
 	public long MemoryInBytes { get; set; }
 }

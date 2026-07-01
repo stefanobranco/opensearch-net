@@ -22,7 +22,7 @@ public sealed class SearchShardsRequestDescriptor
 	/// <summary>Specifies the node or shard the operation should be performed on. Random by default.</summary>
 		public SearchShardsRequestDescriptor Preference(string? value) { _value.Preference = value; return this; }
 	/// <summary>A custom value used to route operations to a specific shard.</summary>
-		public SearchShardsRequestDescriptor Routing(System.Text.Json.JsonElement? value) { _value.Routing = value; return this; }
+		public SearchShardsRequestDescriptor Routing(List<string>? value) { _value.Routing = value; return this; }
 	public SearchShardsRequestDescriptor Slice(SlicedScroll? value) { _value.Slice = value; return this; }
 	public SearchShardsRequestDescriptor Slice(Action<SlicedScrollDescriptor> configure)
 	{

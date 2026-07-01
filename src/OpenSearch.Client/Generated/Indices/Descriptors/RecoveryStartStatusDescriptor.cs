@@ -10,9 +10,9 @@ public sealed class RecoveryStartStatusDescriptor
 	internal RecoveryStartStatus _value = new();
 
 	public RecoveryStartStatusDescriptor CheckIndexTime(string? value) { _value.CheckIndexTime = value; return this; }
-	public RecoveryStartStatusDescriptor CheckIndexTimeInMillis(System.Text.Json.JsonElement? value) { _value.CheckIndexTimeInMillis = value; return this; }
+	public RecoveryStartStatusDescriptor CheckIndexTimeInMillis(long value) { _value.CheckIndexTimeInMillis = value; return this; }
 	public RecoveryStartStatusDescriptor TotalTime(string? value) { _value.TotalTime = value; return this; }
-	public RecoveryStartStatusDescriptor TotalTimeInMillis(System.Text.Json.JsonElement? value) { _value.TotalTimeInMillis = value; return this; }
+	public RecoveryStartStatusDescriptor TotalTimeInMillis(long value) { _value.TotalTimeInMillis = value; return this; }
 
 	public static implicit operator RecoveryStartStatus(RecoveryStartStatusDescriptor descriptor) => descriptor._value;
 }

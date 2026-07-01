@@ -17,7 +17,7 @@ public sealed class RolloverConditions
 	/// <summary>The maximum age of the index before rollover.</summary>
 		public string? MaxAge { get; set; }
 	/// <summary>The maximum age in milliseconds of the index before rollover.</summary>
-		public System.Text.Json.JsonElement? MaxAgeMillis { get; set; }
+		public long? MaxAgeMillis { get; set; }
 	/// <summary>The minimum number of documents in the index before rollover.</summary>
 		public long? MinDocs { get; set; }
 	/// <summary>The maximum number of documents in the index before rollover.</summary>

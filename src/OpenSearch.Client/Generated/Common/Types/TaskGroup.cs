@@ -11,14 +11,14 @@ public sealed class TaskGroup
 	public string? Action { get; set; }
 	public bool? Cancelled { get; set; }
 	public bool Cancellable { get; set; }
-	public System.Text.Json.JsonElement? CancellationTimeMillis { get; set; }
+	public long? CancellationTimeMillis { get; set; }
 	public string? Description { get; set; }
 	public Dictionary<string, string>? Headers { get; set; }
 	public long Id { get; set; }
 	public string? Node { get; set; }
 	public string? RunningTime { get; set; }
-	public System.Text.Json.JsonElement? RunningTimeInNanos { get; set; }
-	public System.Text.Json.JsonElement? StartTimeInMillis { get; set; }
+	public long RunningTimeInNanos { get; set; }
+	public long StartTimeInMillis { get; set; }
 	public System.Text.Json.JsonElement? Status { get; set; }
 	public string? Type { get; set; }
 	public string? ParentTaskId { get; set; }

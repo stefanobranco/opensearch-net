@@ -14,7 +14,7 @@ public sealed class RolloverConditionsDescriptor
 	/// <summary>The maximum age of the index before rollover.</summary>
 		public RolloverConditionsDescriptor MaxAge(string? value) { _value.MaxAge = value; return this; }
 	/// <summary>The maximum age in milliseconds of the index before rollover.</summary>
-		public RolloverConditionsDescriptor MaxAgeMillis(System.Text.Json.JsonElement? value) { _value.MaxAgeMillis = value; return this; }
+		public RolloverConditionsDescriptor MaxAgeMillis(long? value) { _value.MaxAgeMillis = value; return this; }
 	/// <summary>The minimum number of documents in the index before rollover.</summary>
 		public RolloverConditionsDescriptor MinDocs(long? value) { _value.MinDocs = value; return this; }
 	/// <summary>The maximum number of documents in the index before rollover.</summary>

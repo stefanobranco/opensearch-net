@@ -30,7 +30,7 @@ public sealed class CreatePitRequest
 	public string? Preference { get; set; }
 	/// <summary>A comma-separated list of specific routing values.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? Routing { get; set; }
+	public List<string>? Routing { get; set; }
 }
 public sealed class CreatePitEndpoint : IEndpoint<CreatePitRequest, CreatePitResponse>
 {
@@ -51,7 +51,7 @@ public sealed class CreatePitEndpoint : IEndpoint<CreatePitRequest, CreatePitRes
 		if (r.Preference is not null)
 			queryParts.Add($"preference={Uri.EscapeDataString(r.Preference!)}");
 		if (r.Routing is not null)
-			queryParts.Add($"routing={Uri.EscapeDataString(r.Routing.ToString()!)}");
+			queryParts.Add($"routing={Uri.EscapeDataString(string.Join(",", r.Routing!))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

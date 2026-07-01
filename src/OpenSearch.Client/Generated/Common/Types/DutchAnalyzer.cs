@@ -9,5 +9,5 @@ namespace OpenSearch.Client;
 public sealed class DutchAnalyzer
 {
 	public string? Type { get; set; }
-	public System.Text.Json.JsonElement? Stopwords { get; set; }
+	public List<string>? Stopwords { get; set; }
 }

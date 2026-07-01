@@ -14,7 +14,7 @@ public sealed class IndexingStatsDescriptor
 	/// <summary>The total amount of time spent on indexing operations.</summary>
 		public IndexingStatsDescriptor IndexTime(string? value) { _value.IndexTime = value; return this; }
 	/// <summary>The total amount of time spent on indexing operations in milliseconds.</summary>
-		public IndexingStatsDescriptor IndexTimeInMillis(System.Text.Json.JsonElement? value) { _value.IndexTimeInMillis = value; return this; }
+		public IndexingStatsDescriptor IndexTimeInMillis(long value) { _value.IndexTimeInMillis = value; return this; }
 	/// <summary>The number of current indexing operations.</summary>
 		public IndexingStatsDescriptor IndexCurrent(long value) { _value.IndexCurrent = value; return this; }
 	/// <summary>The number of failed indexing operations.</summary>
@@ -22,7 +22,7 @@ public sealed class IndexingStatsDescriptor
 	/// <summary>The total number of delete operations.</summary>
 		public IndexingStatsDescriptor DeleteTotal(long value) { _value.DeleteTotal = value; return this; }
 	public IndexingStatsDescriptor DeleteTime(string? value) { _value.DeleteTime = value; return this; }
-	public IndexingStatsDescriptor DeleteTimeInMillis(System.Text.Json.JsonElement? value) { _value.DeleteTimeInMillis = value; return this; }
+	public IndexingStatsDescriptor DeleteTimeInMillis(long value) { _value.DeleteTimeInMillis = value; return this; }
 	/// <summary>The number of current delete operations.</summary>
 		public IndexingStatsDescriptor DeleteCurrent(long value) { _value.DeleteCurrent = value; return this; }
 	/// <summary>The total number of noop update operations.</summary>
@@ -32,7 +32,7 @@ public sealed class IndexingStatsDescriptor
 	/// <summary>The total amount of time spent throttling indexing operations.</summary>
 		public IndexingStatsDescriptor ThrottleTime(string? value) { _value.ThrottleTime = value; return this; }
 	/// <summary>The total amount of time spent throttling indexing operations in milliseconds.</summary>
-		public IndexingStatsDescriptor ThrottleTimeInMillis(System.Text.Json.JsonElement? value) { _value.ThrottleTimeInMillis = value; return this; }
+		public IndexingStatsDescriptor ThrottleTimeInMillis(long value) { _value.ThrottleTimeInMillis = value; return this; }
 	public IndexingStatsDescriptor DocStatus(DocStatus? value) { _value.DocStatus = value; return this; }
 	public IndexingStatsDescriptor DocStatus(Action<DocStatusDescriptor> configure)
 	{
