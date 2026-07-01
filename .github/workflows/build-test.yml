@@ -50,6 +50,8 @@ jobs:
           discovery.type: single-node
           DISABLE_SECURITY_PLUGIN: "true"
           OPENSEARCH_JAVA_OPTS: -Xms512m -Xmx512m
+          # Registered snapshot repository path so the snapshot integration tests can create an fs repo.
+          path.repo: /tmp/snapshots
         ports:
           - 9200:9200
         options: >-
