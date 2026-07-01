@@ -10,6 +10,6 @@ namespace OpenSearch.Client;
 /// Shows information about aliases currently configured to indexes, including filter and routing information.
 /// </summary>
 
-public partial class AliasesCatResponse : OpenSearch.Net.OpenSearchResponse
+public sealed class AliasesCatResponse : List<AliasesRecord>
 {
 }

@@ -67,5 +67,5 @@ public sealed class MasterCatEndpoint : IEndpoint<MasterCatRequest, MasterCatRes
 	public RequestBody? GetBody(MasterCatRequest r) => null;
 
 	public MasterCatResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		new();
+		serializer.Deserialize<MasterCatResponse>(body)!;
 }

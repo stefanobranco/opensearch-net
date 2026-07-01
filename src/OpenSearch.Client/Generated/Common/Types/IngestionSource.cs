@@ -15,9 +15,20 @@ public sealed class IngestionSource
 	/// <summary>The streaming source type.</summary>
 		public IngestionSourceType? Type { get; set; }
 	public IngestionSourcePointer? Pointer { get; set; }
+	[JsonPropertyName("pointer.init.reset")]
+	public IngestionSourcePointerInitReset? PointerInitReset { get; set; }
+	/// <summary>Specifies the offset value or timestamp in milliseconds.</summary>
+		[JsonPropertyName("pointer.init.reset.value")]
+	public string? PointerInitResetValue { get; set; }
 	/// <summary>Defines the policy for error handling.</summary>
 		public ErrorPolicy? ErrorStrategy { get; set; }
 	public IngestionSourcePoll? Poll { get; set; }
+	/// <summary>The maximum number of records to retrieve in each poll operation.</summary>
+		[JsonPropertyName("poll.max_batch_size")]
+	public string? PollMaxBatchSize { get; set; }
+	/// <summary>Determines the Poll timeout value.</summary>
+		[JsonPropertyName("poll.timeout")]
+	public string? PollTimeout { get; set; }
 	/// <summary>Defines the number of processor or writer threads.</summary>
 		public string? NumProcessorThreads { get; set; }
 	/// <summary>Defines the size of the internal blocking queue in pull-based ingestion.</summary>

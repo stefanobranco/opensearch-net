@@ -103,5 +103,5 @@ public sealed class IndicesCatEndpoint : IEndpoint<IndicesCatRequest, IndicesCat
 	public RequestBody? GetBody(IndicesCatRequest r) => null;
 
 	public IndicesCatResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		new();
+		serializer.Deserialize<IndicesCatResponse>(body)!;
 }

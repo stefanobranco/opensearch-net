@@ -78,5 +78,5 @@ public sealed class ThreadPoolCatEndpoint : IEndpoint<ThreadPoolCatRequest, Thre
 	public RequestBody? GetBody(ThreadPoolCatRequest r) => null;
 
 	public ThreadPoolCatResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		new();
+		serializer.Deserialize<ThreadPoolCatResponse>(body)!;
 }

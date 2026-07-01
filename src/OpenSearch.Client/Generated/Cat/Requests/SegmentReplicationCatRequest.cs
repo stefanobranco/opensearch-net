@@ -118,5 +118,5 @@ public sealed class SegmentReplicationCatEndpoint : IEndpoint<SegmentReplication
 	public RequestBody? GetBody(SegmentReplicationCatRequest r) => null;
 
 	public SegmentReplicationCatResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		new();
+		serializer.Deserialize<SegmentReplicationCatResponse>(body)!;
 }

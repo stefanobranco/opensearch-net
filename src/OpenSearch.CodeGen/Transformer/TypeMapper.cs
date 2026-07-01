@@ -936,10 +936,8 @@ public sealed class TypeMapper
 
 		foreach (var (name, propSchema) in schema.Properties)
 		{
-			// Skip dotted properties like "blocks.read_only" (flattened settings)
-			if (name.Contains('.'))
-				continue;
-
+			// Dotted properties (e.g. cat records' "docs.count", "store.size") become PascalCase fields
+			// with a [JsonPropertyName] carrying the dotted wire name.
 			var pascalName = NamingConventions.ToPascalCase(name);
 			// Skip duplicate property names (can happen with allOf merging)
 			if (!existingNames.Add(pascalName))

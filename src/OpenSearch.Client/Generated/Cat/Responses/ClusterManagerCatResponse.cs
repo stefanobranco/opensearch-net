@@ -10,6 +10,6 @@ namespace OpenSearch.Client;
 /// Returns information about the cluster-manager node.
 /// </summary>
 
-public partial class ClusterManagerCatResponse : OpenSearch.Net.OpenSearchResponse
+public sealed class ClusterManagerCatResponse : List<ClusterManagerRecord>
 {
 }

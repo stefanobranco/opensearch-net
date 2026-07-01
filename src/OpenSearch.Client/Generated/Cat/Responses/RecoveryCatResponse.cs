@@ -10,6 +10,6 @@ namespace OpenSearch.Client;
 /// Returns all completed and ongoing index and shard recoveries.
 /// </summary>
 
-public partial class RecoveryCatResponse : OpenSearch.Net.OpenSearchResponse
+public sealed class RecoveryCatResponse : List<RecoveryRecord>
 {
 }

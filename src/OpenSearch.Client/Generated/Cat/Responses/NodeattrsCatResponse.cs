@@ -10,6 +10,6 @@ namespace OpenSearch.Client;
 /// Returns information about custom node attributes.
 /// </summary>
 
-public partial class NodeattrsCatResponse : OpenSearch.Net.OpenSearchResponse
+public sealed class NodeattrsCatResponse : List<NodeAttributesRecord>
 {
 }

@@ -67,5 +67,5 @@ public sealed class PluginsCatEndpoint : IEndpoint<PluginsCatRequest, PluginsCat
 	public RequestBody? GetBody(PluginsCatRequest r) => null;
 
 	public PluginsCatResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		new();
+		serializer.Deserialize<PluginsCatResponse>(body)!;
 }

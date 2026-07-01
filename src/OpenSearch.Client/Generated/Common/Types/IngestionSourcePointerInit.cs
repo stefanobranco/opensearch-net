@@ -9,4 +9,7 @@ namespace OpenSearch.Client;
 public sealed class IngestionSourcePointerInit
 {
 	public IngestionSourcePointerInitReset? Reset { get; set; }
+	/// <summary>Specifies the offset value or timestamp in milliseconds.</summary>
+		[JsonPropertyName("reset.value")]
+	public string? ResetValue { get; set; }
 }

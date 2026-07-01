@@ -10,6 +10,6 @@ namespace OpenSearch.Client;
 /// Provides quick access to the document count of the entire cluster or of an individual index.
 /// </summary>
 
-public partial class CountCatResponse : OpenSearch.Net.OpenSearchResponse
+public sealed class CountCatResponse : List<CountRecord>
 {
 }
