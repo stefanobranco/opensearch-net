@@ -9,8 +9,11 @@ public sealed class PutExperimentsSearchRelevanceRequestDescriptor
 {
 	internal PutExperimentsSearchRelevanceRequest _value = new();
 
-	/// <summary>The request body.</summary>
-	public PutExperimentsSearchRelevanceRequestDescriptor Body(System.Text.Json.JsonElement? value) { _value.Body = value; return this; }
+	public PutExperimentsSearchRelevanceRequestDescriptor QuerySetId(string? value) { _value.QuerySetId = value; return this; }
+	public PutExperimentsSearchRelevanceRequestDescriptor SearchConfigurationList(List<string>? value) { _value.SearchConfigurationList = value; return this; }
+	public PutExperimentsSearchRelevanceRequestDescriptor JudgmentList(List<string>? value) { _value.JudgmentList = value; return this; }
+	public PutExperimentsSearchRelevanceRequestDescriptor Size(int? value) { _value.Size = value; return this; }
+	public PutExperimentsSearchRelevanceRequestDescriptor Type(string? value) { _value.Type = value; return this; }
 
 	public static implicit operator PutExperimentsSearchRelevanceRequest(PutExperimentsSearchRelevanceRequestDescriptor descriptor) => descriptor._value;
 }

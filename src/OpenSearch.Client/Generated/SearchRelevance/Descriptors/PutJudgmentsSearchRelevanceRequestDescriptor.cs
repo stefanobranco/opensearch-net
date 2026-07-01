@@ -9,8 +9,18 @@ public sealed class PutJudgmentsSearchRelevanceRequestDescriptor
 {
 	internal PutJudgmentsSearchRelevanceRequest _value = new();
 
-	/// <summary>The request body.</summary>
-	public PutJudgmentsSearchRelevanceRequestDescriptor Body(System.Text.Json.JsonElement? value) { _value.Body = value; return this; }
+	public PutJudgmentsSearchRelevanceRequestDescriptor Name(string? value) { _value.Name = value; return this; }
+	public PutJudgmentsSearchRelevanceRequestDescriptor Description(string? value) { _value.Description = value; return this; }
+	public PutJudgmentsSearchRelevanceRequestDescriptor Type(string? value) { _value.Type = value; return this; }
+	public PutJudgmentsSearchRelevanceRequestDescriptor ModelId(string? value) { _value.ModelId = value; return this; }
+	public PutJudgmentsSearchRelevanceRequestDescriptor QuerySetId(string? value) { _value.QuerySetId = value; return this; }
+	public PutJudgmentsSearchRelevanceRequestDescriptor SearchConfigurationList(List<string>? value) { _value.SearchConfigurationList = value; return this; }
+	public PutJudgmentsSearchRelevanceRequestDescriptor Size(int? value) { _value.Size = value; return this; }
+	public PutJudgmentsSearchRelevanceRequestDescriptor IgnoreFailure(bool? value) { _value.IgnoreFailure = value; return this; }
+	public PutJudgmentsSearchRelevanceRequestDescriptor ContextFields(List<string>? value) { _value.ContextFields = value; return this; }
+	public PutJudgmentsSearchRelevanceRequestDescriptor ClickModel(string? value) { _value.ClickModel = value; return this; }
+	public PutJudgmentsSearchRelevanceRequestDescriptor MaxRank(int? value) { _value.MaxRank = value; return this; }
+	public PutJudgmentsSearchRelevanceRequestDescriptor JudgmentRatings(List<System.Text.Json.JsonElement>? value) { _value.JudgmentRatings = value; return this; }
 
 	public static implicit operator PutJudgmentsSearchRelevanceRequest(PutJudgmentsSearchRelevanceRequestDescriptor descriptor) => descriptor._value;
 }

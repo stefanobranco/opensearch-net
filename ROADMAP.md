@@ -59,9 +59,10 @@ well-engineered **on its own terms**, with no push for upstream adoption.
   Generator correctness fixes surfaced while wiring (all resolved in the follow-up generator PR):
   - [x] Request bodies shaped as `type: array`, `oneOf`/`anyOf`, `$ref`-alias chains, or scalars were
     silently dropped (`GetBody => null`). The generator now follows alias chains (so `ism.put_policy`
-    flattens to a typed `Policy` field) and models array/union/scalar bodies as a typed `Body` payload
-    (the `security.patch_*` family carries `List<PatchOperation>`; the `search_relevance` union bodies
-    carry a sendable `JsonElement`). A validator census reports every typed raw body.
+    flattens to a typed `Policy` field), merges discriminator-less `oneOf`/`anyOf`-of-objects bodies
+    into a typed superset (the `search_relevance.put_experiments`/`put_judgments` bodies), and models
+    array/scalar bodies as a typed `Body` payload (the `security.patch_*` family carries
+    `List<PatchOperation>`). A validator census reports every typed raw body.
   - [x] `search_pipeline` processor lists (`RequestProcessor`/`ResponseProcessor`/`PhaseResultsProcessor`)
     are now typed tagged unions (externally-tagged, like `QueryContainer`) — the generator learned the
     "oneOf of single-property wrapper objects" pattern.

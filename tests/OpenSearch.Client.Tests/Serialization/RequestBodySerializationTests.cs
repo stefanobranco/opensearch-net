@@ -56,21 +56,45 @@ public class RequestBodySerializationTests : SerializationTestBase
 	}
 
 	[Fact]
-	public void Search_relevance_union_body_is_sendable_raw_json()
+	public void Search_relevance_union_body_flattens_to_typed_superset()
 	{
-		// search_relevance.put_experiments' body is an anyOf of 3 experiment shapes with no clean
-		// discriminator — modelled as a sendable raw JsonElement body (the caller supplies verbatim
-		// JSON) rather than dropped.
+		// search_relevance.put_experiments' body is an anyOf of 3 overlapping experiment shapes with
+		// no discriminator — flattened into the typed superset of their fields (only one variant applies
+		// per request, so every field is optional). The wire body is the flat object.
 		PutExperimentsSearchRelevanceRequest request = new()
 		{
-			Body = Parse("""{"querySetId":"qs1","type":"PAIRWISE_COMPARISON","size":10}"""),
+			QuerySetId = "qs1",
+			Type = "PAIRWISE_COMPARISON",
+			Size = 10,
+			SearchConfigurationList = ["cfg-a", "cfg-b"],
 		};
 
-		var root = Parse(Serialize(request.Body));
+		var root = AssertRoundTrips(request);
 
-		root.GetProperty("querySetId").GetString().Should().Be("qs1");
+		root.GetProperty("querySetId").GetString().Should().Be("qs1"); // spec declares camelCase field names
 		root.GetProperty("type").GetString().Should().Be("PAIRWISE_COMPARISON");
 		root.GetProperty("size").GetInt32().Should().Be(10);
+		root.GetProperty("searchConfigurationList").GetArrayLength().Should().Be(2);
+	}
+
+	[Fact]
+	public void Search_relevance_judgments_body_exposes_all_variant_fields()
+	{
+		// put_judgments is a oneOf of LLM/UBI/Import judgment shapes; the merged superset exposes every
+		// variant's fields (the caller sets `type` plus the relevant ones).
+		PutJudgmentsSearchRelevanceRequest request = new()
+		{
+			Name = "llm-judgments",
+			Type = "LLM_JUDGMENT",
+			ModelId = "model-1",   // LLM-specific
+			ClickModel = "coec",   // UBI-specific — same flat type, server dispatches on `type`
+		};
+
+		var root = AssertRoundTrips(request);
+
+		root.GetProperty("type").GetString().Should().Be("LLM_JUDGMENT");
+		root.GetProperty("modelId").GetString().Should().Be("model-1"); // spec declares camelCase field names
+		root.GetProperty("clickModel").GetString().Should().Be("coec");
 	}
 
 	[Fact]
