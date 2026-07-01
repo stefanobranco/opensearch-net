@@ -112,6 +112,24 @@ well-engineered **on its own terms**, with no push for upstream adoption.
       degradation (not "handled"). **Deliberately left opaque, documented:** `DecayPlacement` (absorbed by
       `DecayFunction`), `CompletionContext` (nests the still-unmodeled `GeoHashPrecision` int|string union),
       `SegmentReplicationStats` (version-divergent response encodings).
+- [x] **C6. Release-readiness audit for beta.5 (production-adoption bar).** Auditing "ready for our
+      production" surfaced two real gaps, both fixed at the root:
+      - **`SourceSerializer` was accepted but silently inert** — `SourceConverter<T>` existed with zero
+        references; a configured custom document serializer did nothing. Now wired on both sides: the
+        generator emits `[JsonConverter(typeof(SourceConverterFactory))]` on `TDocument` fields
+        (`Hit<T>.Source`, `GetResult<T>`/`GetResponse<T>.Source`, `InlineGet<T>` — found by the uniform
+        rule, not by enumeration), and document write paths (`index`/`create` bodies via an explicit
+        generator list, bulk NDJSON ops via `SourceDocument`) route through the source serializer.
+        Two converter modes on purpose: type-level `SourceConverter<T>` keeps its strict delegate-or-throw
+        contract; the property-attribute `SourcePropertyConverter<T>` falls back to in-place
+        (de)serialization so generated types stay usable as plain POCOs and the default path pays no
+        buffering (a first cut that reused one converter for both modes stack-overflowed under the
+        type-level contract — caught by the full suite, split into two).
+      - **`SB.OpenSearch.Net.Auth.AwsSigV4` was packable but never packed** — missing from `release.yml`
+        and missing its `SB.` PackageId/disclaimer/readme. All added.
+      Verified beyond CI: packed all three as beta.5 and ran a **consumer smoke test** — a fresh console
+      app restoring from the local feed, compiling the README Quick Start verbatim, asserting wire format
+      and the custom-SourceSerializer path. `SourceSerializerTests` pins the dual-serializer contract.
 - [ ] **C3.** A first performance/scale pass.
 
 ## Phase D — Package identity (open decision, not yet actioned)

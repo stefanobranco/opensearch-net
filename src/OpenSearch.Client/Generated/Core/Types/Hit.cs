@@ -35,6 +35,7 @@ public sealed class Hit<TDocument>
 	[JsonPropertyName("_routing")]
 	public string? Routing { get; set; }
 	[JsonPropertyName("_source")]
+	[JsonConverter(typeof(SourceConverterFactory))]
 	public TDocument? Source { get; set; }
 	[JsonPropertyName("_seq_no")]
 	public long? SeqNo { get; set; }

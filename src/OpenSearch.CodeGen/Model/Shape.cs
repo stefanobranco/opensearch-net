@@ -131,6 +131,10 @@ public sealed class RequestShape : Shape
 	/// union, or scalar bodies that cannot be flattened into named fields.</summary>
 	public TypeRef? RawBodyType { get; init; }
 
+	/// <summary>Whether the raw body is a user document (index/create). Document bodies serialize
+	/// through the configured source serializer rather than the request/response serializer.</summary>
+	public bool IsDocumentBody { get; init; }
+
 	/// <summary>Whether this operation has a request body.</summary>
 	public bool HasBody => BodyFields.Count > 0 || IsRawBody;
 

@@ -21,6 +21,7 @@ public static class TemplateHelpers
 		obj["has_body"] = request.HasBody;
 		obj["is_raw_body"] = request.IsRawBody;
 		obj["raw_body_type"] = RenderRawBodyType(request.RawBodyType);
+		obj["is_document_body"] = request.IsDocumentBody;
 		obj["is_head"] = request.IsHead;
 		obj["is_plain_text_response"] = request.Response.IsPlainTextResponse;
 
@@ -168,6 +169,8 @@ public static class TemplateHelpers
 			f["deprecated"] = field.Deprecated;
 			// Emit [JsonPropertyName] when the wire name won't round-trip through SnakeCaseLower
 			f["needs_json_property_name"] = NamingConventions.NeedsJsonPropertyName(field.WireName, field.Name);
+			// User-document fields (Hit<TDocument>.Source etc.) route through the source serializer.
+			f["is_source_document"] = field.Type.IsGenericParameter && field.Type.Name == "TDocument";
 			arr.Add(f);
 		}
 		return arr;

@@ -33,6 +33,8 @@ jobs:
             -c Release -o artifacts -p:CurrentVersion="${GITHUB_REF_NAME}"
           dotnet pack src/OpenSearch.Client/OpenSearch.Client.csproj \
             -c Release -o artifacts -p:CurrentVersion="${GITHUB_REF_NAME}"
+          dotnet pack src/OpenSearch.Net.Auth.AwsSigV4/OpenSearch.Net.Auth.AwsSigV4.csproj \
+            -c Release -o artifacts -p:CurrentVersion="${GITHUB_REF_NAME}"
 
       # Pushing each .nupkg also pushes its adjacent .snupkg symbol package automatically.
       - name: Push to NuGet
