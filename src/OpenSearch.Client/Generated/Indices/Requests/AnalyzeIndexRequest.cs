@@ -21,16 +21,16 @@ public sealed class AnalyzeIndexRequest
 	/// <summary>Array of token attributes used to filter the output of the `explain` parameter.</summary>
 		public List<string>? Attributes { get; set; }
 	/// <summary>Array of character filters used to preprocess characters before the tokenizer.</summary>
-		public List<System.Text.Json.JsonElement>? CharFilter { get; set; }
+		public List<CharFilter>? CharFilter { get; set; }
 	/// <summary>If `true`, the response includes token attributes and additional details.</summary>
 		public bool? Explain { get; set; }
 	public string? Field { get; set; }
 	/// <summary>Array of token filters used to apply after the tokenizer.</summary>
-		public List<System.Text.Json.JsonElement>? Filter { get; set; }
+		public List<TokenFilter>? Filter { get; set; }
 	/// <summary>Normalizer to use to convert text into a single token.</summary>
 		public string? Normalizer { get; set; }
 	public List<string>? Text { get; set; }
-	public System.Text.Json.JsonElement? Tokenizer { get; set; }
+	public Tokenizer? Tokenizer { get; set; }
 }
 public sealed class AnalyzeIndexEndpoint : IEndpoint<AnalyzeIndexRequest, AnalyzeIndexResponse>
 {

@@ -12,13 +12,13 @@ public sealed class IndexSettingsAnalysisDescriptor
 	/// <summary>The custom analyzer configurations.</summary>
 		public IndexSettingsAnalysisDescriptor Analyzer(Dictionary<string, Analyzer>? value) { _value.Analyzer = value; return this; }
 	/// <summary>The custom character filter configurations.</summary>
-		public IndexSettingsAnalysisDescriptor CharFilter(Dictionary<string, System.Text.Json.JsonElement>? value) { _value.CharFilter = value; return this; }
+		public IndexSettingsAnalysisDescriptor CharFilter(Dictionary<string, CharFilter>? value) { _value.CharFilter = value; return this; }
 	/// <summary>The custom token filter configurations.</summary>
-		public IndexSettingsAnalysisDescriptor Filter(Dictionary<string, System.Text.Json.JsonElement>? value) { _value.Filter = value; return this; }
+		public IndexSettingsAnalysisDescriptor Filter(Dictionary<string, TokenFilter>? value) { _value.Filter = value; return this; }
 	/// <summary>The custom normalizer configurations.</summary>
 		public IndexSettingsAnalysisDescriptor Normalizer(Dictionary<string, Normalizer>? value) { _value.Normalizer = value; return this; }
 	/// <summary>The custom tokenizer configurations.</summary>
-		public IndexSettingsAnalysisDescriptor Tokenizer(Dictionary<string, System.Text.Json.JsonElement>? value) { _value.Tokenizer = value; return this; }
+		public IndexSettingsAnalysisDescriptor Tokenizer(Dictionary<string, Tokenizer>? value) { _value.Tokenizer = value; return this; }
 
 	public static implicit operator IndexSettingsAnalysis(IndexSettingsAnalysisDescriptor descriptor) => descriptor._value;
 }
