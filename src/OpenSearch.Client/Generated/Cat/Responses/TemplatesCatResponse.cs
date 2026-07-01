@@ -10,6 +10,6 @@ namespace OpenSearch.Client;
 /// Lists the names, patterns, order numbers, and version numbers of index templates.
 /// </summary>
 
-public partial class TemplatesCatResponse : OpenSearch.Net.OpenSearchResponse
+public sealed class TemplatesCatResponse : List<TemplatesRecord>
 {
 }

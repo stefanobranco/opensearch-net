@@ -10,6 +10,6 @@ namespace OpenSearch.Client;
 /// Provides low-level information about the segments in the shards of an index.
 /// </summary>
 
-public partial class SegmentsCatResponse : OpenSearch.Net.OpenSearchResponse
+public sealed class SegmentsCatResponse : List<SegmentsRecord>
 {
 }

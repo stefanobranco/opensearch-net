@@ -160,6 +160,15 @@ public sealed class ResponseShape : Shape
 	/// <summary>Whether this response is a dictionary type.</summary>
 	public bool IsDictionary => DictionaryValueType is not null;
 
+	/// <summary>
+	/// If the response is a JSON array (e.g. the cat APIs return an array of records), this is the
+	/// item type. The response class derives from <c>List&lt;ItemType&gt;</c>.
+	/// </summary>
+	public TypeRef? ListItemType { get; init; }
+
+	/// <summary>Whether this response is a list type.</summary>
+	public bool IsList => ListItemType is not null;
+
 	/// <summary>Whether this is a HEAD endpoint where the response is derived from status code only.</summary>
 	public bool IsHeadResponse { get; init; }
 

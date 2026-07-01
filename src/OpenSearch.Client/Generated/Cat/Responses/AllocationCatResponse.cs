@@ -10,6 +10,6 @@ namespace OpenSearch.Client;
 /// Provides a snapshot of how many shards are allocated to each data node and how much disk space they are using.
 /// </summary>
 
-public partial class AllocationCatResponse : OpenSearch.Net.OpenSearchResponse
+public sealed class AllocationCatResponse : List<AllocationRecord>
 {
 }

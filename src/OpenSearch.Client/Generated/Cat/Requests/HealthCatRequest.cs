@@ -67,5 +67,5 @@ public sealed class HealthCatEndpoint : IEndpoint<HealthCatRequest, HealthCatRes
 	public RequestBody? GetBody(HealthCatRequest r) => null;
 
 	public HealthCatResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		new();
+		serializer.Deserialize<HealthCatResponse>(body)!;
 }

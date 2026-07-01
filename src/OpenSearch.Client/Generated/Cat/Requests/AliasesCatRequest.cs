@@ -73,5 +73,5 @@ public sealed class AliasesCatEndpoint : IEndpoint<AliasesCatRequest, AliasesCat
 	public RequestBody? GetBody(AliasesCatRequest r) => null;
 
 	public AliasesCatResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		new();
+		serializer.Deserialize<AliasesCatResponse>(body)!;
 }

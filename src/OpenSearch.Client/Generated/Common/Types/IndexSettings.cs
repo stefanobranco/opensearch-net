@@ -16,6 +16,8 @@ public sealed class IndexSettings
 	public string? Mode { get; set; }
 	public List<string>? RoutingPath { get; set; }
 	public SoftDeletes? SoftDeletes { get; set; }
+	[JsonPropertyName("soft_deletes.retention_lease.period")]
+	public string? SoftDeletesRetentionLeasePeriod { get; set; }
 	public IndexSegmentSort? Sort { get; set; }
 	public string? NumberOfShards { get; set; }
 	public string? NumberOfReplicas { get; set; }
@@ -29,7 +31,11 @@ public sealed class IndexSettings
 	/// <summary>The range of replicas to maintain.</summary>
 		public string? AutoExpandReplicas { get; set; }
 	public IndexSettingsMerge? Merge { get; set; }
+	[JsonPropertyName("merge.scheduler.max_thread_count")]
+	public string? MergeSchedulerMaxThreadCount { get; set; }
 	public IndexSettingsSearch? Search { get; set; }
+	[JsonPropertyName("search.idle.after")]
+	public string? SearchIdleAfter { get; set; }
 	public string? RefreshInterval { get; set; }
 	public string? MaxResultWindow { get; set; }
 	public string? MaxInnerResultWindow { get; set; }
@@ -39,9 +45,23 @@ public sealed class IndexSettings
 	public string? MaxNgramDiff { get; set; }
 	public string? MaxShingleDiff { get; set; }
 	public IndexSettingBlocks? Blocks { get; set; }
+	[JsonPropertyName("blocks.read_only")]
+	public string? BlocksReadOnly { get; set; }
+	[JsonPropertyName("blocks.read_only_allow_delete")]
+	public string? BlocksReadOnlyAllowDelete { get; set; }
+	[JsonPropertyName("blocks.read")]
+	public string? BlocksRead { get; set; }
+	[JsonPropertyName("blocks.write")]
+	public string? BlocksWrite { get; set; }
+	[JsonPropertyName("blocks.metadata")]
+	public string? BlocksMetadata { get; set; }
 	public string? MaxRefreshListeners { get; set; }
 	public IndexSettingsAnalyze? Analyze { get; set; }
+	[JsonPropertyName("analyze.max_token_count")]
+	public string? AnalyzeMaxTokenCount { get; set; }
 	public IndexSettingsHighlight? Highlight { get; set; }
+	[JsonPropertyName("highlight.max_analyzed_offset")]
+	public string? HighlightMaxAnalyzedOffset { get; set; }
 	public string? MaxTermsCount { get; set; }
 	public string? MaxRegexLength { get; set; }
 	public IndexRouting? Routing { get; set; }
@@ -49,6 +69,8 @@ public sealed class IndexSettings
 	public string? DefaultPipeline { get; set; }
 	public string? FinalPipeline { get; set; }
 	public IndexSettingsLifecycle? Lifecycle { get; set; }
+	[JsonPropertyName("lifecycle.name")]
+	public string? LifecycleName { get; set; }
 	public string? ProvidedName { get; set; }
 	public string? CreationDate { get; set; }
 	public string? CreationDateString { get; set; }
@@ -58,7 +80,13 @@ public sealed class IndexSettings
 	public string? Format { get; set; }
 	public string? MaxSlicesPerScroll { get; set; }
 	public Translog? Translog { get; set; }
+	[JsonPropertyName("translog.durability")]
+	public string? TranslogDurability { get; set; }
+	[JsonPropertyName("translog.flush_threshold_size")]
+	public string? TranslogFlushThresholdSize { get; set; }
 	public IndexSettingsQueryString? QueryString { get; set; }
+	[JsonPropertyName("query_string.lenient")]
+	public string? QueryStringLenient { get; set; }
 	public string? Priority { get; set; }
 	public string? TopMetricsMaxSize { get; set; }
 	public IndexSettingsAnalysis? Analysis { get; set; }
@@ -70,7 +98,14 @@ public sealed class IndexSettings
 	public IndexingPressure? IndexingPressure { get; set; }
 	public IndexSettingsStore? Store { get; set; }
 	public string? Knn { get; set; }
+	[JsonPropertyName("knn.algo_param.ef_search")]
+	public string? KnnAlgoParamEfSearch { get; set; }
+	[JsonPropertyName("composite_index.star_tree")]
+	public IndexSettingsStarTree? CompositeIndexStarTree { get; set; }
 	public IngestionSource? IngestionSource { get; set; }
+	/// <summary>Defines the replication type.</summary>
+		[JsonPropertyName("replication.type")]
+	public ReplicationType? ReplicationType { get; set; }
 	[JsonExtensionData]
 	public Dictionary<string, System.Text.Json.JsonElement>? ExtensionData { get; set; }
 }

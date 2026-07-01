@@ -10,6 +10,6 @@ namespace OpenSearch.Client;
 /// Lists the progress of all tasks currently running on the cluster.
 /// </summary>
 
-public partial class TasksCatResponse : OpenSearch.Net.OpenSearchResponse
+public sealed class TasksCatResponse : List<TasksRecord>
 {
 }

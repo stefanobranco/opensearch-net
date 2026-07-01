@@ -10,6 +10,6 @@ namespace OpenSearch.Client;
 /// Lists one or several CAT point-in-time segments.
 /// </summary>
 
-public partial class PitSegmentsCatResponse : OpenSearch.Net.OpenSearchResponse
+public sealed class PitSegmentsCatResponse : List<SegmentsRecord>
 {
 }

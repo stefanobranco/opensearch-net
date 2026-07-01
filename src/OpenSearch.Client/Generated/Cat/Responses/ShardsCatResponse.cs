@@ -10,6 +10,6 @@ namespace OpenSearch.Client;
 /// Lists the states of all primary and replica shards and how they are distributed.
 /// </summary>
 
-public partial class ShardsCatResponse : OpenSearch.Net.OpenSearchResponse
+public sealed class ShardsCatResponse : List<ShardsRecord>
 {
 }

@@ -10,6 +10,6 @@ namespace OpenSearch.Client;
 /// Returns information about all snapshot repositories for a cluster.
 /// </summary>
 
-public partial class RepositoriesCatResponse : OpenSearch.Net.OpenSearchResponse
+public sealed class RepositoriesCatResponse : List<RepositoriesRecord>
 {
 }

@@ -78,5 +78,5 @@ public sealed class SnapshotsCatEndpoint : IEndpoint<SnapshotsCatRequest, Snapsh
 	public RequestBody? GetBody(SnapshotsCatRequest r) => null;
 
 	public SnapshotsCatResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		new();
+		serializer.Deserialize<SnapshotsCatResponse>(body)!;
 }

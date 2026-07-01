@@ -19,6 +19,9 @@ public sealed class IngestionSourceDescriptor
 		_value.Pointer = descriptor;
 		return this;
 	}
+	public IngestionSourceDescriptor PointerInitReset(IngestionSourcePointerInitReset? value) { _value.PointerInitReset = value; return this; }
+	/// <summary>Specifies the offset value or timestamp in milliseconds.</summary>
+		public IngestionSourceDescriptor PointerInitResetValue(string? value) { _value.PointerInitResetValue = value; return this; }
 	/// <summary>Defines the policy for error handling.</summary>
 		public IngestionSourceDescriptor ErrorStrategy(ErrorPolicy? value) { _value.ErrorStrategy = value; return this; }
 	public IngestionSourceDescriptor Poll(IngestionSourcePoll? value) { _value.Poll = value; return this; }
@@ -29,6 +32,10 @@ public sealed class IngestionSourceDescriptor
 		_value.Poll = descriptor;
 		return this;
 	}
+	/// <summary>The maximum number of records to retrieve in each poll operation.</summary>
+		public IngestionSourceDescriptor PollMaxBatchSize(string? value) { _value.PollMaxBatchSize = value; return this; }
+	/// <summary>Determines the Poll timeout value.</summary>
+		public IngestionSourceDescriptor PollTimeout(string? value) { _value.PollTimeout = value; return this; }
 	/// <summary>Defines the number of processor or writer threads.</summary>
 		public IngestionSourceDescriptor NumProcessorThreads(string? value) { _value.NumProcessorThreads = value; return this; }
 	/// <summary>Defines the size of the internal blocking queue in pull-based ingestion.</summary>

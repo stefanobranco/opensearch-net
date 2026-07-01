@@ -83,5 +83,5 @@ public sealed class RecoveryCatEndpoint : IEndpoint<RecoveryCatRequest, Recovery
 	public RequestBody? GetBody(RecoveryCatRequest r) => null;
 
 	public RecoveryCatResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		new();
+		serializer.Deserialize<RecoveryCatResponse>(body)!;
 }

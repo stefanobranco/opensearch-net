@@ -10,6 +10,6 @@ namespace OpenSearch.Client;
 /// Returns basic statistics about the performance of cluster nodes.
 /// </summary>
 
-public partial class NodesCatResponse : OpenSearch.Net.OpenSearchResponse
+public sealed class NodesCatResponse : List<NodesRecord>
 {
 }

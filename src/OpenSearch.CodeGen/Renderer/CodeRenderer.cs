@@ -91,6 +91,11 @@ public sealed class CodeRenderer
 				var respCtx = TemplateHelpers.BuildDictionaryResponseContext(request.Response);
 				RenderToFile(_templates.Load("DictionaryResponse.sbn"), respCtx, respDir, $"{request.Response.ClassName}.cs");
 			}
+			else if (request.Response.IsList)
+			{
+				var respCtx = TemplateHelpers.BuildListResponseContext(request.Response);
+				RenderToFile(_templates.Load("ListResponse.sbn"), respCtx, respDir, $"{request.Response.ClassName}.cs");
+			}
 			else
 			{
 				var respCtx = TemplateHelpers.BuildResponseContext(request.Response);

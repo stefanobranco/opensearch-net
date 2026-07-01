@@ -62,5 +62,5 @@ public sealed class AllPitSegmentsCatEndpoint : IEndpoint<AllPitSegmentsCatReque
 	public RequestBody? GetBody(AllPitSegmentsCatRequest r) => null;
 
 	public AllPitSegmentsCatResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		new();
+		serializer.Deserialize<AllPitSegmentsCatResponse>(body)!;
 }

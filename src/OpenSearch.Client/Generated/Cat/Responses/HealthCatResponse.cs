@@ -10,6 +10,6 @@ namespace OpenSearch.Client;
 /// Returns a concise representation of the cluster health.
 /// </summary>
 
-public partial class HealthCatResponse : OpenSearch.Net.OpenSearchResponse
+public sealed class HealthCatResponse : List<HealthRecord>
 {
 }

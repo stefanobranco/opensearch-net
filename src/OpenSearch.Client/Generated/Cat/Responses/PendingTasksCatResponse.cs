@@ -10,6 +10,6 @@ namespace OpenSearch.Client;
 /// Returns a concise representation of the cluster's pending tasks.
 /// </summary>
 
-public partial class PendingTasksCatResponse : OpenSearch.Net.OpenSearchResponse
+public sealed class PendingTasksCatResponse : List<PendingTasksRecord>
 {
 }
