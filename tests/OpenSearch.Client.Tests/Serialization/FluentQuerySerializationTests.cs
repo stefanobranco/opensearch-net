@@ -199,4 +199,98 @@ public class FluentQuerySerializationTests : SerializationTestBase
 		inner.GetProperty("score_mode").GetString().Should().Be("avg");
 		AssertFieldKeyed(inner.GetProperty("query"), "match", "title");
 	}
+
+	// ── Newly-generated variants (previously unreachable on the generic descriptor) ──
+
+	[Fact]
+	public void SpanTerm_generated_field_expression_serializes()
+	{
+		var query = Query(q => q.SpanTerm(d => d.Status!, s => s.Value("active")));
+
+		var inner = AssertFieldKeyed(query, "span_term", "status");
+		inner.GetProperty("value").GetString().Should().Be("active");
+	}
+
+	[Fact]
+	public void Common_generated_field_expression_serializes()
+	{
+		var query = Query(q => q.Common(d => d.Title!, c => c.Query("nelly the elephant").CutoffFrequency(0.001f)));
+
+		var inner = AssertFieldKeyed(query, "common", "title");
+		inner.GetProperty("query").GetString().Should().Be("nelly the elephant");
+	}
+
+	[Fact]
+	public void Wrapper_generated_action_serializes()
+	{
+		var query = Query(q => q.Wrapper(w => w.Query("eyJ0ZXJtIjoge319")));
+
+		query.TryGetProperty("wrapper", out var inner).Should().BeTrue();
+		inner.GetProperty("query").GetString().Should().Be("eyJ0ZXJtIjoge319");
+	}
+
+	[Fact]
+	public void Type_generated_action_serializes()
+	{
+		var query = Query(q => q.Type(t => t.Value("_doc")));
+
+		query.TryGetProperty("type", out var inner).Should().BeTrue();
+		inner.GetProperty("value").GetString().Should().Be("_doc");
+	}
+
+	[Fact]
+	public void DisMax_generated_value_form_is_reachable()
+	{
+		var query = Query(q => q.DisMax(new DisMaxQuery { TieBreaker = 0.5f }));
+
+		query.TryGetProperty("dis_max", out var inner).Should().BeTrue();
+		inner.GetProperty("tie_breaker").GetSingle().Should().Be(0.5f);
+	}
+
+	// ── Nested Field expressions inside compound queries (full TDocument threading) ──
+
+	[Fact]
+	public void DisMax_fluent_nests_field_expressions()
+	{
+		var query = Query(q => q.DisMax(d => d
+			.TieBreaker(0.5f)
+			.Queries(
+				sq => sq.Term(x => x.Status!, t => t.Value(Element("active"))),
+				sq => sq.Match(x => x.Title!, m => m.Query(Element("brown fox"))))));
+
+		query.TryGetProperty("dis_max", out var inner).Should().BeTrue();
+		var queries = inner.GetProperty("queries");
+		queries.GetArrayLength().Should().Be(2);
+		AssertFieldKeyed(queries[0], "term", "status");
+		AssertFieldKeyed(queries[1], "match", "title");
+	}
+
+	[Fact]
+	public void HasChild_fluent_nests_field_expression_query()
+	{
+		var query = Query(q => q.HasChild(h => h
+			.Type("comment")
+			.Query(cq => cq.Term(x => x.Status!, t => t.Value(Element("active"))))));
+
+		query.TryGetProperty("has_child", out var inner).Should().BeTrue();
+		inner.GetProperty("type").GetString().Should().Be("comment");
+		AssertFieldKeyed(inner.GetProperty("query"), "term", "status");
+	}
+
+	[Fact]
+	public void SpanNear_fluent_nests_field_expression_span_terms()
+	{
+		var query = Query(q => q.SpanNear(sn => sn
+			.Slop(2)
+			.Clauses(
+				sq => sq.SpanTerm(x => x.Status!, s => s.Value("active")),
+				sq => sq.SpanTerm(x => x.Title!, s => s.Value("fox")))));
+
+		query.TryGetProperty("span_near", out var inner).Should().BeTrue();
+		inner.GetProperty("slop").GetInt32().Should().Be(2);
+		var clauses = inner.GetProperty("clauses");
+		clauses.GetArrayLength().Should().Be(2);
+		AssertFieldKeyed(clauses[0], "span_term", "status");
+		AssertFieldKeyed(clauses[1], "span_term", "title");
+	}
 }

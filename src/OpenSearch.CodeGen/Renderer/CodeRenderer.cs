@@ -25,6 +25,11 @@ public sealed class CodeRenderer
 	private readonly Dictionary<string, ObjectShape> _globalObjects = new(StringComparer.Ordinal);
 	private readonly Dictionary<string, TaggedUnionShape> _globalUnions = new(StringComparer.Ordinal);
 
+	// Query/span types that get a generic <TDocument> descriptor (computed once, after all types registered).
+	private HashSet<string>? _genericQueryTypes;
+	private HashSet<string> GenericQueryTypes() =>
+		_genericQueryTypes ??= TemplateHelpers.ComputeGenericQueryTypes(_globalObjects, _globalUnions);
+
 	/// <summary>
 	/// Registers all types from a <see cref="TransformResult"/> into the global type lookup.
 	/// Must be called for ALL namespaces before any <see cref="Render"/> calls.
@@ -111,6 +116,14 @@ public sealed class CodeRenderer
 			var dir = Path.Combine(_outputDir, objectShape.Namespace, "Descriptors");
 			var ctx = TemplateHelpers.BuildObjectDescriptorContext(objectShape, allObjects, _globalUnions);
 			RenderToFile(_templates.Load("ObjectDescriptor.sbn"), ctx, dir, $"{objectShape.ClassName}Descriptor.cs");
+
+			// Query/span value-types that nest a query also get a generic <TDocument> descriptor, so
+			// Field expressions thread through nested clauses (e.g. DisMaxQueryDescriptor<TDocument>).
+			if (GenericQueryTypes().Contains(objectShape.ClassName))
+			{
+				var genericCtx = TemplateHelpers.BuildGenericObjectDescriptorContext(objectShape, allObjects, _globalUnions, GenericQueryTypes());
+				RenderToFile(_templates.Load("ObjectDescriptor.sbn"), genericCtx, dir, $"{objectShape.ClassName}Descriptor.Generic.cs");
+			}
 		}
 
 		// Render tagged union descriptors (skip unions with no variants — empty descriptors cause CS0649)
@@ -123,6 +136,16 @@ public sealed class CodeRenderer
 			var dir = Path.Combine(_outputDir, union.Namespace, "Descriptors");
 			var ctx = TemplateHelpers.BuildTaggedUnionDescriptorContext(union, allObjects, _globalUnions);
 			RenderToFile(_templates.Load("TaggedUnionDescriptor.sbn"), ctx, dir, $"{union.ClassName}Descriptor.cs");
+
+			// The query/span unions additionally get a generic <TDocument> descriptor for the typed
+			// fluent API (Field-expression overloads + generic nested sub-descriptors). QueryContainer's
+			// is a partial: the hand-written partial (src/OpenSearch.Client/Descriptors) adds the few
+			// convenience overloads the generator can't produce.
+			if (GenericQueryTypes().Contains(union.ClassName))
+			{
+				var genericCtx = TemplateHelpers.BuildTaggedUnionDescriptorContext(union, allObjects, _globalUnions, GenericQueryTypes());
+				RenderToFile(_templates.Load("GenericTaggedUnionDescriptor.sbn"), genericCtx, dir, $"{union.ClassName}Descriptor.Generic.cs");
+			}
 		}
 
 		// Render request descriptors (uses same template as object descriptors)

@@ -325,7 +325,68 @@ public static class TemplateHelpers
 		return ctx;
 	}
 
-	public static ScriptObject BuildTaggedUnionDescriptorContext(TaggedUnionShape union, IReadOnlyDictionary<string, ObjectShape> allObjects, IReadOnlyDictionary<string, TaggedUnionShape> allUnions)
+	/// <summary>
+	/// The set of query/span types that need a generic (<c>&lt;TDocument&gt;</c>) descriptor so
+	/// <see cref="Field"/> expressions thread all the way through nested clauses. Seeded with the
+	/// <c>QueryContainer</c> and <c>SpanQuery</c> unions, then the fixpoint of every type reachable
+	/// from their variants that (transitively) nests one of those unions.
+	/// </summary>
+	public static HashSet<string> ComputeGenericQueryTypes(
+		IReadOnlyDictionary<string, ObjectShape> allObjects,
+		IReadOnlyDictionary<string, TaggedUnionShape> allUnions)
+	{
+		var roots = new[] { "QueryContainer", "SpanQuery" }.Where(allUnions.ContainsKey).ToList();
+
+		// 1. Everything reachable downward from those unions' variants — the query object graph.
+		var reachable = new HashSet<string>(StringComparer.Ordinal);
+		var stack = new Stack<string>(roots);
+		while (stack.Count > 0)
+		{
+			var name = stack.Pop();
+			if (!reachable.Add(name))
+				continue;
+			if (allUnions.TryGetValue(name, out var u))
+				foreach (var variant in u.Variants)
+					foreach (var t in TypeNames(variant.Type))
+						stack.Push(t);
+			if (allObjects.TryGetValue(name, out var o))
+				foreach (var f in o.Fields)
+					foreach (var t in TypeNames(f.Type))
+						stack.Push(t);
+		}
+
+		// 2. Within the graph, a type is generic if it (transitively) nests a query/span union.
+		var generic = new HashSet<string>(roots, StringComparer.Ordinal);
+		bool changed = true;
+		while (changed)
+		{
+			changed = false;
+			foreach (var name in reachable)
+			{
+				if (generic.Contains(name) || !allObjects.TryGetValue(name, out var o))
+					continue;
+				if (o.Fields.Any(f => TypeNames(f.Type).Any(generic.Contains)))
+					changed |= generic.Add(name);
+			}
+		}
+		return generic;
+	}
+
+	/// <summary>The type names referenced by a <see cref="TypeRef"/> (itself plus element/key/value types).</summary>
+	private static IEnumerable<string> TypeNames(TypeRef type)
+	{
+		yield return type.CSharpName;
+		if (type.ItemType is not null)
+			yield return type.ItemType.CSharpName;
+		if (type.ValueType is not null)
+			yield return type.ValueType.CSharpName;
+	}
+
+	/// <summary>Appends <c>&lt;TDocument&gt;</c> to a descriptor name when the described type has a generic descriptor.</summary>
+	private static string GenericName(string descriptorName, string typeName, IReadOnlySet<string>? genericTypes) =>
+		genericTypes is not null && genericTypes.Contains(typeName) ? descriptorName + "<TDocument>" : descriptorName;
+
+	public static ScriptObject BuildTaggedUnionDescriptorContext(TaggedUnionShape union, IReadOnlyDictionary<string, ObjectShape> allObjects, IReadOnlyDictionary<string, TaggedUnionShape> allUnions, IReadOnlySet<string>? genericTypes = null)
 	{
 		var obj = new ScriptObject();
 		obj["namespace"] = union.Namespace;
@@ -344,15 +405,18 @@ public static class TemplateHelpers
 			if (HasDescriptor(variant.Type, allObjects, allUnions))
 			{
 				v["variant_kind"] = allUnions.ContainsKey(variant.Type.CSharpName) ? "union" : "object";
-				v["descriptor_name"] = GetDescriptorName(variant.Type);
+				var dn = GetDescriptorName(variant.Type);
+				v["descriptor_name"] = dn;
+				v["generic_descriptor_name"] = GenericName(dn, variant.Type.CSharpName, genericTypes);
 			}
 			else
 			{
 				v["variant_kind"] = "simple";
 				v["descriptor_name"] = "";
+				v["generic_descriptor_name"] = "";
 			}
 
-			PopulateFieldKeyedProperties(v, variant, allObjects, allUnions);
+			PopulateFieldKeyedProperties(v, variant, allObjects, allUnions, genericTypes);
 
 			variants.Add(v);
 		}
@@ -408,22 +472,42 @@ public static class TemplateHelpers
 		return obj;
 	}
 
+	/// <summary>
+	/// Builds a generic (<c>&lt;TDocument&gt;</c>) descriptor context for an object that nests a query,
+	/// so its query/span-typed fields build via the generic sub-descriptors and thread Field expressions.
+	/// </summary>
+	public static ScriptObject BuildGenericObjectDescriptorContext(ObjectShape objectShape, IReadOnlyDictionary<string, ObjectShape> allObjects, IReadOnlyDictionary<string, TaggedUnionShape> allUnions, IReadOnlySet<string> genericTypes)
+	{
+		var typeParams = new ScriptArray { "TDocument" };
+		var ctx = BuildDescriptorContext(objectShape.Namespace, objectShape.ClassName, objectShape.Fields, typeParams,
+			isRawBody: false, allObjects, allUnions, genericTypes);
+		ctx["has_additional_properties"] = objectShape.AdditionalPropertiesType is not null;
+		// The descriptor is generic (<TDocument>) but the value type it builds is not — only its
+		// nested query/span fields carry TDocument (via the generic sub-descriptors).
+		ctx["value_type"] = objectShape.ClassName;
+		return ctx;
+	}
+
 	private static ScriptObject BuildDescriptorContext(
 		string ns, string className, IReadOnlyList<Field> fields, ScriptArray? typeParameters,
-		bool isRawBody, IReadOnlyDictionary<string, ObjectShape> allObjects, IReadOnlyDictionary<string, TaggedUnionShape> allUnions)
+		bool isRawBody, IReadOnlyDictionary<string, ObjectShape> allObjects, IReadOnlyDictionary<string, TaggedUnionShape> allUnions,
+		IReadOnlySet<string>? genericTypes = null)
 	{
 		var obj = new ScriptObject();
 		obj["namespace"] = ns;
 		obj["class_name"] = className;
 		obj["descriptor_name"] = className + "Descriptor";
-		obj["fields"] = BuildDescriptorFieldArray(fields, allObjects, allUnions);
+		obj["fields"] = BuildDescriptorFieldArray(fields, allObjects, allUnions, genericTypes);
 		obj["type_parameters"] = typeParameters;
+		// By default the value type carries the same type parameters as the descriptor (e.g. Hit<TDocument>);
+		// BuildGenericObjectDescriptorContext overrides this where the value type is non-generic.
+		obj["value_type"] = className + (typeParameters is { Count: > 0 } ? "<" + string.Join(", ", typeParameters) + ">" : "");
 		obj["is_raw_body"] = isRawBody;
 		obj["has_additional_properties"] = false;
 		return obj;
 	}
 
-	private static ScriptArray BuildDescriptorFieldArray(IReadOnlyList<Field> fields, IReadOnlyDictionary<string, ObjectShape> allObjects, IReadOnlyDictionary<string, TaggedUnionShape> allUnions)
+	private static ScriptArray BuildDescriptorFieldArray(IReadOnlyList<Field> fields, IReadOnlyDictionary<string, ObjectShape> allObjects, IReadOnlyDictionary<string, TaggedUnionShape> allUnions, IReadOnlySet<string>? genericTypes = null)
 	{
 		var arr = new ScriptArray();
 		foreach (var field in fields)
@@ -435,14 +519,14 @@ public static class TemplateHelpers
 			f["descriptor_kind"] = ComputeDescriptorKind(field, allObjects, allUnions);
 
 			if (HasDescriptor(field.Type, allObjects, allUnions))
-				f["descriptor_name"] = GetDescriptorName(field.Type);
+				f["descriptor_name"] = GenericName(GetDescriptorName(field.Type), field.Type.CSharpName, genericTypes);
 			else
 				f["descriptor_name"] = "";
 
 			// For list types with descriptors, provide the item descriptor name and item type
 			if (field.Type.Kind == TypeRefKind.List && field.Type.ItemType is not null && HasDescriptor(field.Type.ItemType, allObjects, allUnions))
 			{
-				f["item_descriptor_name"] = GetDescriptorName(field.Type.ItemType);
+				f["item_descriptor_name"] = GenericName(GetDescriptorName(field.Type.ItemType), field.Type.ItemType.CSharpName, genericTypes);
 				f["item_type"] = field.Type.ItemType.CSharpName;
 			}
 			else
@@ -465,7 +549,8 @@ public static class TemplateHelpers
 	private static void PopulateFieldKeyedProperties(
 		ScriptObject v, UnionVariant variant,
 		IReadOnlyDictionary<string, ObjectShape>? allObjects = null,
-		IReadOnlyDictionary<string, TaggedUnionShape>? allUnions = null)
+		IReadOnlyDictionary<string, TaggedUnionShape>? allUnions = null,
+		IReadOnlySet<string>? genericTypes = null)
 	{
 		if (variant.Type.Kind == TypeRefKind.Dictionary
 			&& variant.Type.KeyType?.Name == "string"
@@ -477,13 +562,16 @@ public static class TemplateHelpers
 			if (allObjects is not null && allUnions is not null
 				&& HasDescriptor(variant.Type.ValueType, allObjects, allUnions))
 			{
+				var dn = GetDescriptorName(variant.Type.ValueType);
 				v["field_has_descriptor"] = true;
-				v["field_value_descriptor_name"] = GetDescriptorName(variant.Type.ValueType);
+				v["field_value_descriptor_name"] = dn;
+				v["field_value_generic_descriptor_name"] = GenericName(dn, variant.Type.ValueType.CSharpName, genericTypes);
 			}
 			else
 			{
 				v["field_has_descriptor"] = false;
 				v["field_value_descriptor_name"] = "";
+				v["field_value_generic_descriptor_name"] = "";
 			}
 		}
 		else
@@ -492,6 +580,7 @@ public static class TemplateHelpers
 			v["field_value_type"] = "";
 			v["field_has_descriptor"] = false;
 			v["field_value_descriptor_name"] = "";
+			v["field_value_generic_descriptor_name"] = "";
 		}
 	}
 
