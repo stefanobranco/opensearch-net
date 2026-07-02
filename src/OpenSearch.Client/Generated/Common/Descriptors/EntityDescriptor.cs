@@ -10,6 +10,7 @@ public sealed class EntityDescriptor
 	internal Entity _value = new();
 
 	public EntityDescriptor Key(List<string>? value) { _value.Key = value; return this; }
+	public EntityDescriptor Key(string value) { _value.Key = [value]; return this; }
 	/// <summary>The contribution value.</summary>
 		public EntityDescriptor ContributionValue(double? value) { _value.ContributionValue = value; return this; }
 	/// <summary>The base value.</summary>

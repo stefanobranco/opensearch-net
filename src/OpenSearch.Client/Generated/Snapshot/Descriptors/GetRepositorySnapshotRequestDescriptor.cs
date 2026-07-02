@@ -11,6 +11,7 @@ public sealed class GetRepositorySnapshotRequestDescriptor
 
 	/// <summary>A comma-separated list of repository names.</summary>
 		public GetRepositorySnapshotRequestDescriptor Repository(List<string>? value) { _value.Repository = value; return this; }
+	public GetRepositorySnapshotRequestDescriptor Repository(string value) { _value.Repository = [value]; return this; }
 	/// <summary>The amount of time to wait for a response from the cluster manager node. For more information about supported time units, see [Common parameters](https://opensearch.org/docs/latest/api-reference/common-parameters/#time-units).</summary>
 		public GetRepositorySnapshotRequestDescriptor ClusterManagerTimeout(string? value) { _value.ClusterManagerTimeout = value; return this; }
 	/// <summary>Whether to get information from the local node.</summary>

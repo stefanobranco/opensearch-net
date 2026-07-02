@@ -15,6 +15,7 @@ public sealed class UpdateByQueryRethrottleNodeDescriptor
 	public UpdateByQueryRethrottleNodeDescriptor Ip(string? value) { _value.Ip = value; return this; }
 	public UpdateByQueryRethrottleNodeDescriptor Name(string? value) { _value.Name = value; return this; }
 	public UpdateByQueryRethrottleNodeDescriptor Roles(List<string>? value) { _value.Roles = value; return this; }
+	public UpdateByQueryRethrottleNodeDescriptor Roles(string value) { _value.Roles = [value]; return this; }
 	public UpdateByQueryRethrottleNodeDescriptor TransportAddress(string? value) { _value.TransportAddress = value; return this; }
 	public UpdateByQueryRethrottleNodeDescriptor Tasks(Dictionary<string, TaskInfo>? value) { _value.Tasks = value; return this; }
 

@@ -18,6 +18,7 @@ public sealed class MultiMatchQueryDescriptor
 		public MultiMatchQueryDescriptor AutoGenerateSynonymsPhraseQuery(bool? value) { _value.AutoGenerateSynonymsPhraseQuery = value; return this; }
 	public MultiMatchQueryDescriptor CutoffFrequency(float? value) { _value.CutoffFrequency = value; return this; }
 	public MultiMatchQueryDescriptor Fields(List<string>? value) { _value.Fields = value; return this; }
+	public MultiMatchQueryDescriptor Fields(string value) { _value.Fields = [value]; return this; }
 	public MultiMatchQueryDescriptor Fuzziness(string? value) { _value.Fuzziness = value; return this; }
 	public MultiMatchQueryDescriptor FuzzyRewrite(string? value) { _value.FuzzyRewrite = value; return this; }
 	/// <summary>If `true`, edits for fuzzy matching include transpositions of two adjacent characters (for example, `ab` to `ba`). Can be applied to the term subqueries constructed for all terms but the final term.</summary>

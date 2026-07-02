@@ -18,8 +18,10 @@ public sealed class PutIndexTemplateIndexRequestDescriptor
 	/// <summary>If `true`, this request cannot replace or update existing index templates.</summary>
 		public PutIndexTemplateIndexRequestDescriptor Create(bool? value) { _value.Create = value; return this; }
 	public PutIndexTemplateIndexRequestDescriptor IndexPatterns(List<string>? value) { _value.IndexPatterns = value; return this; }
+	public PutIndexTemplateIndexRequestDescriptor IndexPatterns(string value) { _value.IndexPatterns = [value]; return this; }
 	/// <summary>An ordered list of component template names. Component templates are merged in the order specified, meaning that the last component template specified has the highest precedence.</summary>
 		public PutIndexTemplateIndexRequestDescriptor ComposedOf(List<string>? value) { _value.ComposedOf = value; return this; }
+	public PutIndexTemplateIndexRequestDescriptor ComposedOf(string value) { _value.ComposedOf = [value]; return this; }
 	public PutIndexTemplateIndexRequestDescriptor Template(IndexTemplateMapping? value) { _value.Template = value; return this; }
 	public PutIndexTemplateIndexRequestDescriptor Template(Action<IndexTemplateMappingDescriptor> configure)
 	{

@@ -27,6 +27,7 @@ public sealed class QueryStringQueryDescriptor
 	public QueryStringQueryDescriptor Escape(bool? value) { _value.Escape = value; return this; }
 	/// <summary>Array of fields to search. Supports wildcards (`*`).</summary>
 		public QueryStringQueryDescriptor Fields(List<string>? value) { _value.Fields = value; return this; }
+	public QueryStringQueryDescriptor Fields(string value) { _value.Fields = [value]; return this; }
 	public QueryStringQueryDescriptor Fuzziness(string? value) { _value.Fuzziness = value; return this; }
 	/// <summary>Maximum number of terms to which the query expands for fuzzy matching.</summary>
 		public QueryStringQueryDescriptor FuzzyMaxExpansions(int? value) { _value.FuzzyMaxExpansions = value; return this; }

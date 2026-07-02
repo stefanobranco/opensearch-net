@@ -11,20 +11,24 @@ public sealed class TasksCatRequestDescriptor
 
 	/// <summary>The task action names used to limit the response.</summary>
 		public TasksCatRequestDescriptor Actions(List<string>? value) { _value.Actions = value; return this; }
+	public TasksCatRequestDescriptor Actions(string value) { _value.Actions = [value]; return this; }
 	/// <summary>If `true`, the response includes detailed information about shard recoveries.</summary>
 		public TasksCatRequestDescriptor Detailed(bool? value) { _value.Detailed = value; return this; }
 	/// <summary>A short version of the `Accept` header, such as `json` or `yaml`.</summary>
 		public TasksCatRequestDescriptor Format(string? value) { _value.Format = value; return this; }
 	/// <summary>A comma-separated list of column names to display.</summary>
 		public TasksCatRequestDescriptor H(List<string>? value) { _value.H = value; return this; }
+	public TasksCatRequestDescriptor H(string value) { _value.H = [value]; return this; }
 	/// <summary>Returns help information.</summary>
 		public TasksCatRequestDescriptor Help(bool? value) { _value.Help = value; return this; }
 	/// <summary>A comma-separated list of node IDs or names used to limit the returned information. Use `_local` to return information from the node to which you're connecting, specify a specific node from which to get information, or keep the parameter empty to get information from all nodes.</summary>
 		public TasksCatRequestDescriptor Nodes(List<string>? value) { _value.Nodes = value; return this; }
+	public TasksCatRequestDescriptor Nodes(string value) { _value.Nodes = [value]; return this; }
 	/// <summary>The parent task identifier, which is used to limit the response.</summary>
 		public TasksCatRequestDescriptor ParentTaskId(string? value) { _value.ParentTaskId = value; return this; }
 	/// <summary>A comma-separated list of column names or column aliases to sort by.</summary>
 		public TasksCatRequestDescriptor S(List<string>? value) { _value.S = value; return this; }
+	public TasksCatRequestDescriptor S(string value) { _value.S = [value]; return this; }
 	/// <summary>Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units](https://opensearch.org/docs/latest/api-reference/units/).</summary>
 		public TasksCatRequestDescriptor Time(string? value) { _value.Time = value; return this; }
 	/// <summary>Enables verbose mode, which displays column headers.</summary>

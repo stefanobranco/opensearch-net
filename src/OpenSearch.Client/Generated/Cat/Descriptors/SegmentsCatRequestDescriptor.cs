@@ -11,6 +11,7 @@ public sealed class SegmentsCatRequestDescriptor
 
 	/// <summary>A comma-separated list of data streams, indexes, and aliases used to limit the request. Supports wildcards (`*`). To target all data streams and indexes, omit this parameter or use `*` or `_all`.</summary>
 		public SegmentsCatRequestDescriptor Index(List<string>? value) { _value.Index = value; return this; }
+	public SegmentsCatRequestDescriptor Index(string value) { _value.Index = [value]; return this; }
 	/// <summary>The units used to display byte values.</summary>
 		public SegmentsCatRequestDescriptor Bytes(string? value) { _value.Bytes = value; return this; }
 	/// <summary>The amount of time allowed to establish a connection to the cluster manager node.</summary>
@@ -19,10 +20,12 @@ public sealed class SegmentsCatRequestDescriptor
 		public SegmentsCatRequestDescriptor Format(string? value) { _value.Format = value; return this; }
 	/// <summary>A comma-separated list of column names to display.</summary>
 		public SegmentsCatRequestDescriptor H(List<string>? value) { _value.H = value; return this; }
+	public SegmentsCatRequestDescriptor H(string value) { _value.H = [value]; return this; }
 	/// <summary>Returns help information.</summary>
 		public SegmentsCatRequestDescriptor Help(bool? value) { _value.Help = value; return this; }
 	/// <summary>A comma-separated list of column names or column aliases to sort by.</summary>
 		public SegmentsCatRequestDescriptor S(List<string>? value) { _value.S = value; return this; }
+	public SegmentsCatRequestDescriptor S(string value) { _value.S = [value]; return this; }
 	/// <summary>Enables verbose mode, which displays column headers.</summary>
 		public SegmentsCatRequestDescriptor V(bool? value) { _value.V = value; return this; }
 

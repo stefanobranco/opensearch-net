@@ -13,6 +13,7 @@ public sealed class PutAliasIndexRequestDescriptor
 		public PutAliasIndexRequestDescriptor Name(string? value) { _value.Name = value; return this; }
 	/// <summary>A comma-separated list of data streams or indexes to add. Supports wildcards (`*`). Wildcard patterns that match both data streams and indexes return an error.</summary>
 		public PutAliasIndexRequestDescriptor Index(List<string>? value) { _value.Index = value; return this; }
+	public PutAliasIndexRequestDescriptor Index(string value) { _value.Index = [value]; return this; }
 	/// <summary>Operation timeout for connection to cluster-manager node.</summary>
 		public PutAliasIndexRequestDescriptor ClusterManagerTimeout(string? value) { _value.ClusterManagerTimeout = value; return this; }
 	/// <summary>Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error.</summary>

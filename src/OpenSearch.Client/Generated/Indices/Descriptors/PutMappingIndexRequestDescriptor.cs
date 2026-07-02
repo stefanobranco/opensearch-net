@@ -11,12 +11,14 @@ public sealed class PutMappingIndexRequestDescriptor
 
 	/// <summary>A comma-separated list of index names the mapping should be added to (supports wildcards); use `_all` or omit to add the mapping on all indexes.</summary>
 		public PutMappingIndexRequestDescriptor Index(List<string>? value) { _value.Index = value; return this; }
+	public PutMappingIndexRequestDescriptor Index(string value) { _value.Index = [value]; return this; }
 	/// <summary>If `false`, the request returns an error if any wildcard expression, index alias, or `_all` value targets only missing or closed indexes. This behavior applies even if the request targets other open indexes.</summary>
 		public PutMappingIndexRequestDescriptor AllowNoIndices(bool? value) { _value.AllowNoIndices = value; return this; }
 	/// <summary>Operation timeout for connection to cluster-manager node.</summary>
 		public PutMappingIndexRequestDescriptor ClusterManagerTimeout(string? value) { _value.ClusterManagerTimeout = value; return this; }
 	/// <summary>Type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values, such as `open,hidden`. Valid values are: `all`, `open`, `closed`, `hidden`, `none`.</summary>
 		public PutMappingIndexRequestDescriptor ExpandWildcards(List<string>? value) { _value.ExpandWildcards = value; return this; }
+	public PutMappingIndexRequestDescriptor ExpandWildcards(string value) { _value.ExpandWildcards = [value]; return this; }
 	/// <summary>If `false`, the request returns an error if it targets a missing or closed index.</summary>
 		public PutMappingIndexRequestDescriptor IgnoreUnavailable(bool? value) { _value.IgnoreUnavailable = value; return this; }
 	/// <summary>Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error.</summary>
@@ -28,6 +30,7 @@ public sealed class PutMappingIndexRequestDescriptor
 	public PutMappingIndexRequestDescriptor Dynamic(string? value) { _value.Dynamic = value; return this; }
 	/// <summary>If date detection is enabled then new string fields are checked against `dynamic_date_formats` and if the value matches then a new date field is added instead of string.</summary>
 		public PutMappingIndexRequestDescriptor DynamicDateFormats(List<string>? value) { _value.DynamicDateFormats = value; return this; }
+	public PutMappingIndexRequestDescriptor DynamicDateFormats(string value) { _value.DynamicDateFormats = [value]; return this; }
 	/// <summary>Specify dynamic templates for the mapping.</summary>
 		public PutMappingIndexRequestDescriptor DynamicTemplates(System.Text.Json.JsonElement? value) { _value.DynamicTemplates = value; return this; }
 	public PutMappingIndexRequestDescriptor FieldNames(FieldNamesField? value) { _value.FieldNames = value; return this; }

@@ -39,6 +39,7 @@ public sealed class UpdateConnectorMlRequestDescriptor
 	}
 	/// <summary>The backend roles.</summary>
 		public UpdateConnectorMlRequestDescriptor BackendRoles(List<string>? value) { _value.BackendRoles = value; return this; }
+	public UpdateConnectorMlRequestDescriptor BackendRoles(string value) { _value.BackendRoles = [value]; return this; }
 	public UpdateConnectorMlRequestDescriptor AccessMode(ModelGroupAccessMode? value) { _value.AccessMode = value; return this; }
 
 	public static implicit operator UpdateConnectorMlRequest(UpdateConnectorMlRequestDescriptor descriptor) => descriptor._value;

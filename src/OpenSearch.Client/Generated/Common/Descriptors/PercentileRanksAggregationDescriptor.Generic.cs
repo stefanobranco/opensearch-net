@@ -20,6 +20,7 @@ public sealed class PercentileRanksAggregationDescriptor<TDocument>
 		public PercentileRanksAggregationDescriptor<TDocument> Keyed(bool? value) { _value.Keyed = value; return this; }
 	/// <summary>An array of values for which to calculate the percentile ranks.</summary>
 		public PercentileRanksAggregationDescriptor<TDocument> Values(List<double>? value) { _value.Values = value; return this; }
+	public PercentileRanksAggregationDescriptor<TDocument> Values(double value) { _value.Values = [value]; return this; }
 	public PercentileRanksAggregationDescriptor<TDocument> Hdr(HdrMethod? value) { _value.Hdr = value; return this; }
 	public PercentileRanksAggregationDescriptor<TDocument> Hdr(Action<HdrMethodDescriptor> configure)
 	{

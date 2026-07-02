@@ -10,6 +10,7 @@ public sealed class DeletePitRequestDescriptor
 	internal DeletePitRequest _value = new();
 
 	public DeletePitRequestDescriptor PitId(List<string>? value) { _value.PitId = value; return this; }
+	public DeletePitRequestDescriptor PitId(string value) { _value.PitId = [value]; return this; }
 
 	public static implicit operator DeletePitRequest(DeletePitRequestDescriptor descriptor) => descriptor._value;
 }

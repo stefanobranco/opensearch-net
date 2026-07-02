@@ -27,8 +27,10 @@ public sealed class GuardrailsDescriptor
 		return this;
 	}
 	public GuardrailsDescriptor StopWords(List<string>? value) { _value.StopWords = value; return this; }
+	public GuardrailsDescriptor StopWords(string value) { _value.StopWords = [value]; return this; }
 	public GuardrailsDescriptor IndexName(string? value) { _value.IndexName = value; return this; }
 	public GuardrailsDescriptor SourceFields(List<string>? value) { _value.SourceFields = value; return this; }
+	public GuardrailsDescriptor SourceFields(string value) { _value.SourceFields = [value]; return this; }
 	/// <summary>The regex used for input/output validation.</summary>
 		public GuardrailsDescriptor Regex(System.Text.Json.JsonElement? value) { _value.Regex = value; return this; }
 	/// <summary>The model ID.</summary>

@@ -16,6 +16,7 @@ public sealed class SearchAsYouTypePropertyDescriptor
 	public SearchAsYouTypePropertyDescriptor Dynamic(string? value) { _value.Dynamic = value; return this; }
 	public SearchAsYouTypePropertyDescriptor Fields(Dictionary<string, Property>? value) { _value.Fields = value; return this; }
 	public SearchAsYouTypePropertyDescriptor CopyTo(List<string>? value) { _value.CopyTo = value; return this; }
+	public SearchAsYouTypePropertyDescriptor CopyTo(string value) { _value.CopyTo = [value]; return this; }
 	public SearchAsYouTypePropertyDescriptor Similarity(string? value) { _value.Similarity = value; return this; }
 	public SearchAsYouTypePropertyDescriptor Store(bool? value) { _value.Store = value; return this; }
 	public SearchAsYouTypePropertyDescriptor Analyzer(string? value) { _value.Analyzer = value; return this; }

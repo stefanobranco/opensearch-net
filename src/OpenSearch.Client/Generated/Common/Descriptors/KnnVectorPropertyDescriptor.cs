@@ -16,6 +16,7 @@ public sealed class KnnVectorPropertyDescriptor
 	public KnnVectorPropertyDescriptor Dynamic(string? value) { _value.Dynamic = value; return this; }
 	public KnnVectorPropertyDescriptor Fields(Dictionary<string, Property>? value) { _value.Fields = value; return this; }
 	public KnnVectorPropertyDescriptor CopyTo(List<string>? value) { _value.CopyTo = value; return this; }
+	public KnnVectorPropertyDescriptor CopyTo(string value) { _value.CopyTo = [value]; return this; }
 	public KnnVectorPropertyDescriptor Similarity(string? value) { _value.Similarity = value; return this; }
 	public KnnVectorPropertyDescriptor Store(bool? value) { _value.Store = value; return this; }
 	public KnnVectorPropertyDescriptor DocValues(bool? value) { _value.DocValues = value; return this; }

@@ -42,6 +42,7 @@ public sealed class CsvProcessorDescriptor
 	/// <summary>Separator used in CSV, has to be single character string.</summary>
 		public CsvProcessorDescriptor Separator(string? value) { _value.Separator = value; return this; }
 	public CsvProcessorDescriptor TargetFields(List<string>? value) { _value.TargetFields = value; return this; }
+	public CsvProcessorDescriptor TargetFields(string value) { _value.TargetFields = [value]; return this; }
 	/// <summary>Trim white spaces in unquoted fields.</summary>
 		public CsvProcessorDescriptor Trim(bool? value) { _value.Trim = value; return this; }
 

@@ -11,6 +11,7 @@ public sealed class WarmupKnnRequestDescriptor
 
 	/// <summary>A comma-separated list of indexes; use `_all` or empty string to perform the operation on all indexes.</summary>
 		public WarmupKnnRequestDescriptor Index(List<string>? value) { _value.Index = value; return this; }
+	public WarmupKnnRequestDescriptor Index(string value) { _value.Index = [value]; return this; }
 
 	public static implicit operator WarmupKnnRequest(WarmupKnnRequestDescriptor descriptor) => descriptor._value;
 }

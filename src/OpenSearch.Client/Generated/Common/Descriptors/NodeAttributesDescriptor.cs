@@ -16,6 +16,7 @@ public sealed class NodeAttributesDescriptor
 	public NodeAttributesDescriptor Name(string? value) { _value.Name = value; return this; }
 	public NodeAttributesDescriptor TransportAddress(string? value) { _value.TransportAddress = value; return this; }
 	public NodeAttributesDescriptor Roles(List<string>? value) { _value.Roles = value; return this; }
+	public NodeAttributesDescriptor Roles(string value) { _value.Roles = [value]; return this; }
 	/// <summary>The roles of the node.</summary>
 		public NodeAttributesDescriptor ExternalId(string? value) { _value.ExternalId = value; return this; }
 

@@ -12,6 +12,7 @@ public sealed class OverlappingDescriptor
 	public OverlappingDescriptor Name(string? value) { _value.Name = value; return this; }
 	/// <summary>The list of index patterns that may overlap with other templates.</summary>
 		public OverlappingDescriptor IndexPatterns(List<string>? value) { _value.IndexPatterns = value; return this; }
+	public OverlappingDescriptor IndexPatterns(string value) { _value.IndexPatterns = [value]; return this; }
 
 	public static implicit operator Overlapping(OverlappingDescriptor descriptor) => descriptor._value;
 }

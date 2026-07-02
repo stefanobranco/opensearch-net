@@ -12,9 +12,12 @@ public sealed class FieldCapabilityDescriptor
 	/// <summary>Whether this field can be aggregated on all indexes.</summary>
 		public FieldCapabilityDescriptor Aggregatable(bool value) { _value.Aggregatable = value; return this; }
 	public FieldCapabilityDescriptor Indices(List<string>? value) { _value.Indices = value; return this; }
+	public FieldCapabilityDescriptor Indices(string value) { _value.Indices = [value]; return this; }
 	public FieldCapabilityDescriptor Meta(Dictionary<string, List<string>>? value) { _value.Meta = value; return this; }
 	public FieldCapabilityDescriptor NonAggregatableIndices(List<string>? value) { _value.NonAggregatableIndices = value; return this; }
+	public FieldCapabilityDescriptor NonAggregatableIndices(string value) { _value.NonAggregatableIndices = [value]; return this; }
 	public FieldCapabilityDescriptor NonSearchableIndices(List<string>? value) { _value.NonSearchableIndices = value; return this; }
+	public FieldCapabilityDescriptor NonSearchableIndices(string value) { _value.NonSearchableIndices = [value]; return this; }
 	/// <summary>Whether this field is indexed for search on all indexes.</summary>
 		public FieldCapabilityDescriptor Searchable(bool value) { _value.Searchable = value; return this; }
 	public FieldCapabilityDescriptor Type(string? value) { _value.Type = value; return this; }

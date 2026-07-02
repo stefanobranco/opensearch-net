@@ -14,6 +14,7 @@ public sealed class CombinedFieldsQueryDescriptor
 	public CombinedFieldsQueryDescriptor Name(string? value) { _value.Name = value; return this; }
 	/// <summary>List of fields to search. Field wildcard patterns are allowed. Only `text` fields are supported, and they must all have the same search `analyzer`.</summary>
 		public CombinedFieldsQueryDescriptor Fields(List<string>? value) { _value.Fields = value; return this; }
+	public CombinedFieldsQueryDescriptor Fields(string value) { _value.Fields = [value]; return this; }
 	/// <summary>Text to search for in the provided `fields`. The `combined_fields` query analyzes the provided text before performing a search.</summary>
 		public CombinedFieldsQueryDescriptor Query(string? value) { _value.Query = value; return this; }
 	/// <summary>If `true`, match phrase queries are automatically created for multi-term synonyms.</summary>

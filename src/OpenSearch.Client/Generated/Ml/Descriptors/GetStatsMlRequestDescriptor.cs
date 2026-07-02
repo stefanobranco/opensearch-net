@@ -10,6 +10,7 @@ public sealed class GetStatsMlRequestDescriptor
 	internal GetStatsMlRequest _value = new();
 
 	public GetStatsMlRequestDescriptor Stat(List<MlStatName>? value) { _value.Stat = value; return this; }
+	public GetStatsMlRequestDescriptor Stat(MlStatName value) { _value.Stat = [value]; return this; }
 	public GetStatsMlRequestDescriptor NodeId(string? value) { _value.NodeId = value; return this; }
 
 	public static implicit operator GetStatsMlRequest(GetStatsMlRequestDescriptor descriptor) => descriptor._value;

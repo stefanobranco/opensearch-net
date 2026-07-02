@@ -11,16 +11,19 @@ public sealed class FielddataCatRequestDescriptor
 
 	/// <summary>A comma-separated list of fields used to limit the amount of returned information. To retrieve all fields, omit this parameter.</summary>
 		public FielddataCatRequestDescriptor Fields(List<string>? value) { _value.Fields = value; return this; }
+	public FielddataCatRequestDescriptor Fields(string value) { _value.Fields = [value]; return this; }
 	/// <summary>The units used to display byte values.</summary>
 		public FielddataCatRequestDescriptor Bytes(string? value) { _value.Bytes = value; return this; }
 	/// <summary>A short version of the `Accept` header, such as `json` or `yaml`.</summary>
 		public FielddataCatRequestDescriptor Format(string? value) { _value.Format = value; return this; }
 	/// <summary>A comma-separated list of column names to display.</summary>
 		public FielddataCatRequestDescriptor H(List<string>? value) { _value.H = value; return this; }
+	public FielddataCatRequestDescriptor H(string value) { _value.H = [value]; return this; }
 	/// <summary>Returns help information.</summary>
 		public FielddataCatRequestDescriptor Help(bool? value) { _value.Help = value; return this; }
 	/// <summary>A comma-separated list of column names or column aliases to sort by.</summary>
 		public FielddataCatRequestDescriptor S(List<string>? value) { _value.S = value; return this; }
+	public FielddataCatRequestDescriptor S(string value) { _value.S = [value]; return this; }
 	/// <summary>Enables verbose mode, which displays column headers.</summary>
 		public FielddataCatRequestDescriptor V(bool? value) { _value.V = value; return this; }
 

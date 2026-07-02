@@ -27,6 +27,7 @@ public sealed class SignificantTextAggregationFieldsDescriptor<TDocument>
 		return this;
 	}
 	public SignificantTextAggregationFieldsDescriptor<TDocument> Exclude(List<string>? value) { _value.Exclude = value; return this; }
+	public SignificantTextAggregationFieldsDescriptor<TDocument> Exclude(string value) { _value.Exclude = [value]; return this; }
 	public SignificantTextAggregationFieldsDescriptor<TDocument> ExecutionHint(TermsAggregationExecutionHint? value) { _value.ExecutionHint = value; return this; }
 	public SignificantTextAggregationFieldsDescriptor<TDocument> Field(string? value) { _value.Field = value; return this; }
 	/// <summary>Selects the field by an expression.</summary>
@@ -71,6 +72,7 @@ public sealed class SignificantTextAggregationFieldsDescriptor<TDocument>
 	public SignificantTextAggregationFieldsDescriptor<TDocument> SourceFields(List<string>? value) { _value.SourceFields = value; return this; }
 	/// <summary>Selects the fields by expressions.</summary>
 	public SignificantTextAggregationFieldsDescriptor<TDocument> SourceFields(params Expression<Func<TDocument, object>>[] fields) { _value.SourceFields = fields.Select(f => OpenSearch.Client.Field.ResolveName<TDocument>(f)).ToList(); return this; }
+	public SignificantTextAggregationFieldsDescriptor<TDocument> SourceFields(string value) { _value.SourceFields = [value]; return this; }
 
 	public static implicit operator SignificantTextAggregationFields(SignificantTextAggregationFieldsDescriptor<TDocument> descriptor) => descriptor._value;
 }

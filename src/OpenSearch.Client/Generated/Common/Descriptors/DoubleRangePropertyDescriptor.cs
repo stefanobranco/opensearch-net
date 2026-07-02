@@ -16,6 +16,7 @@ public sealed class DoubleRangePropertyDescriptor
 	public DoubleRangePropertyDescriptor Dynamic(string? value) { _value.Dynamic = value; return this; }
 	public DoubleRangePropertyDescriptor Fields(Dictionary<string, Property>? value) { _value.Fields = value; return this; }
 	public DoubleRangePropertyDescriptor CopyTo(List<string>? value) { _value.CopyTo = value; return this; }
+	public DoubleRangePropertyDescriptor CopyTo(string value) { _value.CopyTo = [value]; return this; }
 	public DoubleRangePropertyDescriptor Similarity(string? value) { _value.Similarity = value; return this; }
 	public DoubleRangePropertyDescriptor Store(bool? value) { _value.Store = value; return this; }
 	public DoubleRangePropertyDescriptor DocValues(bool? value) { _value.DocValues = value; return this; }

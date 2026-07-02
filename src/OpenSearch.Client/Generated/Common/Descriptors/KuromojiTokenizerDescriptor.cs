@@ -17,6 +17,7 @@ public sealed class KuromojiTokenizerDescriptor
 	public KuromojiTokenizerDescriptor NbestExamples(string? value) { _value.NbestExamples = value; return this; }
 	public KuromojiTokenizerDescriptor UserDictionary(string? value) { _value.UserDictionary = value; return this; }
 	public KuromojiTokenizerDescriptor UserDictionaryRules(List<string>? value) { _value.UserDictionaryRules = value; return this; }
+	public KuromojiTokenizerDescriptor UserDictionaryRules(string value) { _value.UserDictionaryRules = [value]; return this; }
 	public KuromojiTokenizerDescriptor DiscardCompoundToken(bool? value) { _value.DiscardCompoundToken = value; return this; }
 
 	public static implicit operator KuromojiTokenizer(KuromojiTokenizerDescriptor descriptor) => descriptor._value;

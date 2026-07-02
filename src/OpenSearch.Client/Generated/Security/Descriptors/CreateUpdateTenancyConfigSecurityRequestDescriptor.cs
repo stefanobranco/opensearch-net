@@ -13,6 +13,7 @@ public sealed class CreateUpdateTenancyConfigSecurityRequestDescriptor
 	public CreateUpdateTenancyConfigSecurityRequestDescriptor PrivateTenantEnabled(bool? value) { _value.PrivateTenantEnabled = value; return this; }
 	public CreateUpdateTenancyConfigSecurityRequestDescriptor MultitenancyEnabled(bool? value) { _value.MultitenancyEnabled = value; return this; }
 	public CreateUpdateTenancyConfigSecurityRequestDescriptor SignInOptions(List<string>? value) { _value.SignInOptions = value; return this; }
+	public CreateUpdateTenancyConfigSecurityRequestDescriptor SignInOptions(string value) { _value.SignInOptions = [value]; return this; }
 
 	public static implicit operator CreateUpdateTenancyConfigSecurityRequest(CreateUpdateTenancyConfigSecurityRequestDescriptor descriptor) => descriptor._value;
 }

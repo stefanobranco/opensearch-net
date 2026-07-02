@@ -11,6 +11,7 @@ public sealed class HotThreadsNodeRequestDescriptor
 
 	/// <summary>A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes.</summary>
 		public HotThreadsNodeRequestDescriptor NodeId(List<string>? value) { _value.NodeId = value; return this; }
+	public HotThreadsNodeRequestDescriptor NodeId(string value) { _value.NodeId = [value]; return this; }
 	/// <summary>Whether to show threads that are in known-idle places, such as waiting on a socket select or pulling from an empty task queue.</summary>
 		public HotThreadsNodeRequestDescriptor IgnoreIdleThreads(bool? value) { _value.IgnoreIdleThreads = value; return this; }
 	/// <summary>The time interval between thread stack trace samples.</summary>

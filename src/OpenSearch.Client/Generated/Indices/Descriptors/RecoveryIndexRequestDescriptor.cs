@@ -11,6 +11,7 @@ public sealed class RecoveryIndexRequestDescriptor
 
 	/// <summary>A comma-separated list of data streams, indexes, and aliases used to limit the request. Supports wildcards (`*`). To target all data streams and indexes, omit this parameter or use `*` or `_all`.</summary>
 		public RecoveryIndexRequestDescriptor Index(List<string>? value) { _value.Index = value; return this; }
+	public RecoveryIndexRequestDescriptor Index(string value) { _value.Index = [value]; return this; }
 	/// <summary>If `true`, the response only includes ongoing shard recoveries.</summary>
 		public RecoveryIndexRequestDescriptor ActiveOnly(bool? value) { _value.ActiveOnly = value; return this; }
 	/// <summary>If `true`, the response includes detailed information about shard recoveries.</summary>

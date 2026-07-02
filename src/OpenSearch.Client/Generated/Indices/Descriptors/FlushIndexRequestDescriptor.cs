@@ -11,10 +11,12 @@ public sealed class FlushIndexRequestDescriptor
 
 	/// <summary>A comma-separated list of data streams, indexes, and aliases to flush. Supports wildcards (`*`). To flush all data streams and indexes, omit this parameter or use `*` or `_all`.</summary>
 		public FlushIndexRequestDescriptor Index(List<string>? value) { _value.Index = value; return this; }
+	public FlushIndexRequestDescriptor Index(string value) { _value.Index = [value]; return this; }
 	/// <summary>If `false`, the request returns an error if any wildcard expression, index alias, or `_all` value targets only missing or closed indexes. This behavior applies even if the request targets other open indexes.</summary>
 		public FlushIndexRequestDescriptor AllowNoIndices(bool? value) { _value.AllowNoIndices = value; return this; }
 	/// <summary>Type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values, such as `open,hidden`. Valid values are: `all`, `open`, `closed`, `hidden`, `none`.</summary>
 		public FlushIndexRequestDescriptor ExpandWildcards(List<string>? value) { _value.ExpandWildcards = value; return this; }
+	public FlushIndexRequestDescriptor ExpandWildcards(string value) { _value.ExpandWildcards = [value]; return this; }
 	/// <summary>If `true`, the request forces a flush even if there are no changes to commit to the index.</summary>
 		public FlushIndexRequestDescriptor Force(bool? value) { _value.Force = value; return this; }
 	/// <summary>If `false`, the request returns an error if it targets a missing or closed index.</summary>

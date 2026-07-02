@@ -11,8 +11,10 @@ public sealed class IndexSettingsStarTreeFieldDefaultDescriptor
 
 	/// <summary>The list of date intervals to use.</summary>
 		public IndexSettingsStarTreeFieldDefaultDescriptor DateIntervals(List<string>? value) { _value.DateIntervals = value; return this; }
+	public IndexSettingsStarTreeFieldDefaultDescriptor DateIntervals(string value) { _value.DateIntervals = [value]; return this; }
 	/// <summary>The list of metrics to calculate.</summary>
 		public IndexSettingsStarTreeFieldDefaultDescriptor Metrics(List<string>? value) { _value.Metrics = value; return this; }
+	public IndexSettingsStarTreeFieldDefaultDescriptor Metrics(string value) { _value.Metrics = [value]; return this; }
 
 	public static implicit operator IndexSettingsStarTreeFieldDefault(IndexSettingsStarTreeFieldDefaultDescriptor descriptor) => descriptor._value;
 }

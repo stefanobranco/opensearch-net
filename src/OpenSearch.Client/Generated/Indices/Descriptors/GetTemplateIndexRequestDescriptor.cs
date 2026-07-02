@@ -11,6 +11,7 @@ public sealed class GetTemplateIndexRequestDescriptor
 
 	/// <summary>A comma-separated list of index template names used to limit the request. Wildcard (`*`) expressions are supported. To return all index templates, omit this parameter or use a value of `_all` or `*`.</summary>
 		public GetTemplateIndexRequestDescriptor Name(List<string>? value) { _value.Name = value; return this; }
+	public GetTemplateIndexRequestDescriptor Name(string value) { _value.Name = [value]; return this; }
 	/// <summary>Operation timeout for connection to cluster-manager node.</summary>
 		public GetTemplateIndexRequestDescriptor ClusterManagerTimeout(string? value) { _value.ClusterManagerTimeout = value; return this; }
 	/// <summary>If `true`, returns settings in flat format.</summary>

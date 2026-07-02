@@ -11,15 +11,18 @@ public sealed class IndicesCatRequestDescriptor
 
 	/// <summary>A comma-separated list of data streams, indexes, and aliases used to limit the request. Supports wildcards (`*`). To target all data streams and indexes, omit this parameter or use `*` or `_all`.</summary>
 		public IndicesCatRequestDescriptor Index(List<string>? value) { _value.Index = value; return this; }
+	public IndicesCatRequestDescriptor Index(string value) { _value.Index = [value]; return this; }
 	/// <summary>The units used to display byte values.</summary>
 		public IndicesCatRequestDescriptor Bytes(string? value) { _value.Bytes = value; return this; }
 	/// <summary>The amount of time allowed to establish a connection to the cluster manager node.</summary>
 		public IndicesCatRequestDescriptor ClusterManagerTimeout(string? value) { _value.ClusterManagerTimeout = value; return this; }
 	public IndicesCatRequestDescriptor ExpandWildcards(List<string>? value) { _value.ExpandWildcards = value; return this; }
+	public IndicesCatRequestDescriptor ExpandWildcards(string value) { _value.ExpandWildcards = [value]; return this; }
 	/// <summary>A short version of the `Accept` header, such as `json` or `yaml`.</summary>
 		public IndicesCatRequestDescriptor Format(string? value) { _value.Format = value; return this; }
 	/// <summary>A comma-separated list of column names to display.</summary>
 		public IndicesCatRequestDescriptor H(List<string>? value) { _value.H = value; return this; }
+	public IndicesCatRequestDescriptor H(string value) { _value.H = [value]; return this; }
 	/// <summary>Limits indexes based on their health status. Supported values are `green`, `yellow`, and `red`.</summary>
 		public IndicesCatRequestDescriptor Health(string? value) { _value.Health = value; return this; }
 	/// <summary>Returns help information.</summary>
@@ -32,6 +35,7 @@ public sealed class IndicesCatRequestDescriptor
 		public IndicesCatRequestDescriptor Pri(bool? value) { _value.Pri = value; return this; }
 	/// <summary>A comma-separated list of column names or column aliases to sort by.</summary>
 		public IndicesCatRequestDescriptor S(List<string>? value) { _value.S = value; return this; }
+	public IndicesCatRequestDescriptor S(string value) { _value.S = [value]; return this; }
 	/// <summary>Specifies the time units.</summary>
 		public IndicesCatRequestDescriptor Time(string? value) { _value.Time = value; return this; }
 	/// <summary>Enables verbose mode, which displays column headers.</summary>

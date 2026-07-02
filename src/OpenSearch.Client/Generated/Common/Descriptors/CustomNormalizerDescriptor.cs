@@ -11,7 +11,9 @@ public sealed class CustomNormalizerDescriptor
 
 	public CustomNormalizerDescriptor Type(string? value) { _value.Type = value; return this; }
 	public CustomNormalizerDescriptor CharFilter(List<string>? value) { _value.CharFilter = value; return this; }
+	public CustomNormalizerDescriptor CharFilter(string value) { _value.CharFilter = [value]; return this; }
 	public CustomNormalizerDescriptor Filter(List<string>? value) { _value.Filter = value; return this; }
+	public CustomNormalizerDescriptor Filter(string value) { _value.Filter = [value]; return this; }
 
 	public static implicit operator CustomNormalizer(CustomNormalizerDescriptor descriptor) => descriptor._value;
 }

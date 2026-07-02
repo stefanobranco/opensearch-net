@@ -11,10 +11,13 @@ public sealed class SearchRequestDescriptor
 
 	/// <summary>A comma-separated list of data streams, indexes, and aliases to search. Supports wildcards (`*`). To search all data streams and indexes, omit this parameter or use `*` or `_all`.</summary>
 		public SearchRequestDescriptor Index(List<string>? value) { _value.Index = value; return this; }
+	public SearchRequestDescriptor Index(string value) { _value.Index = [value]; return this; }
 	/// <summary>A comma-separated list of source fields to exclude from the response. You can also use this parameter to exclude fields from the subset specified in `_source_includes` query parameter. If the `_source` parameter is `false`, this parameter is ignored.</summary>
 		public SearchRequestDescriptor SourceExcludes(List<string>? value) { _value.SourceExcludes = value; return this; }
+	public SearchRequestDescriptor SourceExcludes(string value) { _value.SourceExcludes = [value]; return this; }
 	/// <summary>A comma-separated list of source fields to include in the response. If this parameter is specified, only these source fields are returned. You can exclude fields from this subset using the `_source_excludes` query parameter. If the `_source` parameter is `false`, this parameter is ignored.</summary>
 		public SearchRequestDescriptor SourceIncludes(List<string>? value) { _value.SourceIncludes = value; return this; }
+	public SearchRequestDescriptor SourceIncludes(string value) { _value.SourceIncludes = [value]; return this; }
 	/// <summary>If `false`, the request returns an error if any wildcard expression, index alias, or `_all` value targets only missing or closed indexes. This behavior applies even if the request targets other open indexes. For example, a request targeting `foo*,bar*` returns an error if an index starts with `foo` but no index starts with `bar`.</summary>
 		public SearchRequestDescriptor AllowNoIndices(bool? value) { _value.AllowNoIndices = value; return this; }
 	/// <summary>If `true`, returns partial results if there are shard request timeouts or shard failures. If `false`, returns an error with no partial results.</summary>
@@ -35,6 +38,7 @@ public sealed class SearchRequestDescriptor
 		public SearchRequestDescriptor Df(string? value) { _value.Df = value; return this; }
 	/// <summary>Type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values, such as `open,hidden`.</summary>
 		public SearchRequestDescriptor ExpandWildcards(List<string>? value) { _value.ExpandWildcards = value; return this; }
+	public SearchRequestDescriptor ExpandWildcards(string value) { _value.ExpandWildcards = [value]; return this; }
 	/// <summary>If `true`, concrete, expanded or aliased indexes will be ignored when frozen.</summary>
 		public SearchRequestDescriptor IgnoreThrottled(bool? value) { _value.IgnoreThrottled = value; return this; }
 	/// <summary>If `false`, the request returns an error if it targets a missing or closed index.</summary>
@@ -57,6 +61,7 @@ public sealed class SearchRequestDescriptor
 		public SearchRequestDescriptor RestTotalHitsAsInt(bool? value) { _value.RestTotalHitsAsInt = value; return this; }
 	/// <summary>A custom value used to route operations to a specific shard.</summary>
 		public SearchRequestDescriptor Routing(List<string>? value) { _value.Routing = value; return this; }
+	public SearchRequestDescriptor Routing(string value) { _value.Routing = [value]; return this; }
 	/// <summary>Period to retain the search context for scrolling. See Scroll search results. By default, this value cannot exceed `1d` (24 hours). You can change this limit using the `search.max_keep_alive` cluster-level setting.</summary>
 		public SearchRequestDescriptor Scroll(string? value) { _value.Scroll = value; return this; }
 	/// <summary>How distributed term frequencies are calculated for relevance scoring.</summary>
@@ -179,6 +184,7 @@ public sealed class SearchRequestDescriptor
 	/// <summary>If `true`, returns sequence number and primary term of the last modification of each hit.</summary>
 		public SearchRequestDescriptor SeqNoPrimaryTerm(bool? value) { _value.SeqNoPrimaryTerm = value; return this; }
 	public SearchRequestDescriptor StoredFields(List<string>? value) { _value.StoredFields = value; return this; }
+	public SearchRequestDescriptor StoredFields(string value) { _value.StoredFields = [value]; return this; }
 	public SearchRequestDescriptor Pit(PointInTimeReference? value) { _value.Pit = value; return this; }
 	public SearchRequestDescriptor Pit(Action<PointInTimeReferenceDescriptor> configure)
 	{
@@ -189,6 +195,7 @@ public sealed class SearchRequestDescriptor
 	}
 	/// <summary>Stats groups to associate with the search. Each group maintains a statistics aggregation for its associated searches. You can retrieve these stats using the indexes stats API.</summary>
 		public SearchRequestDescriptor Stats(List<string>? value) { _value.Stats = value; return this; }
+	public SearchRequestDescriptor Stats(string value) { _value.Stats = [value]; return this; }
 	public SearchRequestDescriptor Derived(Dictionary<string, DerivedField>? value) { _value.Derived = value; return this; }
 
 	public static implicit operator SearchRequest(SearchRequestDescriptor descriptor) => descriptor._value;

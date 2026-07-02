@@ -12,6 +12,7 @@ public sealed class ActionGroupDescriptor
 	public ActionGroupDescriptor Reserved(bool? value) { _value.Reserved = value; return this; }
 	public ActionGroupDescriptor Hidden(bool? value) { _value.Hidden = value; return this; }
 	public ActionGroupDescriptor AllowedActions(List<string>? value) { _value.AllowedActions = value; return this; }
+	public ActionGroupDescriptor AllowedActions(string value) { _value.AllowedActions = [value]; return this; }
 	public ActionGroupDescriptor Type(string? value) { _value.Type = value; return this; }
 	public ActionGroupDescriptor Description(string? value) { _value.Description = value; return this; }
 	public ActionGroupDescriptor Static(bool? value) { _value.Static = value; return this; }

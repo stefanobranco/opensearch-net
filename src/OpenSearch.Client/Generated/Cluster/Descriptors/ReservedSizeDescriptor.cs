@@ -13,6 +13,7 @@ public sealed class ReservedSizeDescriptor
 	public ReservedSizeDescriptor Path(string? value) { _value.Path = value; return this; }
 	public ReservedSizeDescriptor Total(long value) { _value.Total = value; return this; }
 	public ReservedSizeDescriptor Shards(List<string>? value) { _value.Shards = value; return this; }
+	public ReservedSizeDescriptor Shards(string value) { _value.Shards = [value]; return this; }
 
 	public static implicit operator ReservedSize(ReservedSizeDescriptor descriptor) => descriptor._value;
 }

@@ -11,6 +11,7 @@ public sealed class ConfigUpgradePerformSecurityRequestDescriptor
 
 	/// <summary>A list of configurations to upgrade.</summary>
 		public ConfigUpgradePerformSecurityRequestDescriptor Config(List<string>? value) { _value.Config = value; return this; }
+	public ConfigUpgradePerformSecurityRequestDescriptor Config(string value) { _value.Config = [value]; return this; }
 
 	public static implicit operator ConfigUpgradePerformSecurityRequest(ConfigUpgradePerformSecurityRequestDescriptor descriptor) => descriptor._value;
 }

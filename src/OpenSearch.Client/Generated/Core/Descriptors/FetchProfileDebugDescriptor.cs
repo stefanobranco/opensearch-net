@@ -10,6 +10,7 @@ public sealed class FetchProfileDebugDescriptor
 	internal FetchProfileDebug _value = new();
 
 	public FetchProfileDebugDescriptor StoredFields(List<string>? value) { _value.StoredFields = value; return this; }
+	public FetchProfileDebugDescriptor StoredFields(string value) { _value.StoredFields = [value]; return this; }
 	public FetchProfileDebugDescriptor FastPath(int? value) { _value.FastPath = value; return this; }
 
 	public static implicit operator FetchProfileDebug(FetchProfileDebugDescriptor descriptor) => descriptor._value;

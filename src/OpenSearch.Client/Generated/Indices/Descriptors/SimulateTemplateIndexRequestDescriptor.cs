@@ -18,8 +18,10 @@ public sealed class SimulateTemplateIndexRequestDescriptor
 	/// <summary>If `true`, the template passed in the body is only used if no existing templates match the same index patterns. If `false`, the simulation uses the template with the highest priority. Note that the template is not permanently added or updated in either case; it is only used for the simulation.</summary>
 		public SimulateTemplateIndexRequestDescriptor Create(bool? value) { _value.Create = value; return this; }
 	public SimulateTemplateIndexRequestDescriptor IndexPatterns(List<string>? value) { _value.IndexPatterns = value; return this; }
+	public SimulateTemplateIndexRequestDescriptor IndexPatterns(string value) { _value.IndexPatterns = [value]; return this; }
 	/// <summary>An ordered list of component template names. Component templates are merged in the order specified, meaning that the last component template specified has the highest precedence.</summary>
 		public SimulateTemplateIndexRequestDescriptor ComposedOf(List<string>? value) { _value.ComposedOf = value; return this; }
+	public SimulateTemplateIndexRequestDescriptor ComposedOf(string value) { _value.ComposedOf = [value]; return this; }
 	public SimulateTemplateIndexRequestDescriptor Template(IndexTemplateSummary? value) { _value.Template = value; return this; }
 	public SimulateTemplateIndexRequestDescriptor Template(Action<IndexTemplateSummaryDescriptor> configure)
 	{

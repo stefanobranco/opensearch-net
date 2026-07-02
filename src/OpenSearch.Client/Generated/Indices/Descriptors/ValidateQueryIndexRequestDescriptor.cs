@@ -11,6 +11,7 @@ public sealed class ValidateQueryIndexRequestDescriptor
 
 	/// <summary>A comma-separated list of data streams, indexes, and aliases to search. Supports wildcards (`*`). To search all data streams or indexes, omit this parameter or use `*` or `_all`.</summary>
 		public ValidateQueryIndexRequestDescriptor Index(List<string>? value) { _value.Index = value; return this; }
+	public ValidateQueryIndexRequestDescriptor Index(string value) { _value.Index = [value]; return this; }
 	/// <summary>If `true`, the validation is executed on all shards instead of one random shard per index.</summary>
 		public ValidateQueryIndexRequestDescriptor AllShards(bool? value) { _value.AllShards = value; return this; }
 	/// <summary>If `false`, the request returns an error if any wildcard expression, index alias, or `_all` value targets only missing or closed indexes. This behavior applies even if the request targets other open indexes.</summary>
@@ -25,6 +26,7 @@ public sealed class ValidateQueryIndexRequestDescriptor
 		public ValidateQueryIndexRequestDescriptor Df(string? value) { _value.Df = value; return this; }
 	/// <summary>Type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values, such as `open,hidden`. Valid values are: `all`, `open`, `closed`, `hidden`, `none`.</summary>
 		public ValidateQueryIndexRequestDescriptor ExpandWildcards(List<string>? value) { _value.ExpandWildcards = value; return this; }
+	public ValidateQueryIndexRequestDescriptor ExpandWildcards(string value) { _value.ExpandWildcards = [value]; return this; }
 	/// <summary>If `true`, the response returns detailed information if an error has occurred.</summary>
 		public ValidateQueryIndexRequestDescriptor Explain(bool? value) { _value.Explain = value; return this; }
 	/// <summary>If `false`, the request returns an error if it targets a missing or closed index.</summary>

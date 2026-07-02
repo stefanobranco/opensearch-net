@@ -15,12 +15,14 @@ public sealed class ClusterManagerCatRequestDescriptor
 		public ClusterManagerCatRequestDescriptor Format(string? value) { _value.Format = value; return this; }
 	/// <summary>A comma-separated list of column names to display.</summary>
 		public ClusterManagerCatRequestDescriptor H(List<string>? value) { _value.H = value; return this; }
+	public ClusterManagerCatRequestDescriptor H(string value) { _value.H = [value]; return this; }
 	/// <summary>Returns help information.</summary>
 		public ClusterManagerCatRequestDescriptor Help(bool? value) { _value.Help = value; return this; }
 	/// <summary>Returns local information but does not retrieve the state from the cluster manager node.</summary>
 		public ClusterManagerCatRequestDescriptor Local(bool? value) { _value.Local = value; return this; }
 	/// <summary>A comma-separated list of column names or column aliases to sort by.</summary>
 		public ClusterManagerCatRequestDescriptor S(List<string>? value) { _value.S = value; return this; }
+	public ClusterManagerCatRequestDescriptor S(string value) { _value.S = [value]; return this; }
 	/// <summary>Enables verbose mode, which displays column headers.</summary>
 		public ClusterManagerCatRequestDescriptor V(bool? value) { _value.V = value; return this; }
 

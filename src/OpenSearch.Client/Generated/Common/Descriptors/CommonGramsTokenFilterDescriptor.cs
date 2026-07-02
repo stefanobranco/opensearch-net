@@ -12,6 +12,7 @@ public sealed class CommonGramsTokenFilterDescriptor
 	public CommonGramsTokenFilterDescriptor Version(string? value) { _value.Version = value; return this; }
 	public CommonGramsTokenFilterDescriptor Type(string? value) { _value.Type = value; return this; }
 	public CommonGramsTokenFilterDescriptor CommonWords(List<string>? value) { _value.CommonWords = value; return this; }
+	public CommonGramsTokenFilterDescriptor CommonWords(string value) { _value.CommonWords = [value]; return this; }
 	public CommonGramsTokenFilterDescriptor CommonWordsPath(string? value) { _value.CommonWordsPath = value; return this; }
 	public CommonGramsTokenFilterDescriptor IgnoreCase(bool? value) { _value.IgnoreCase = value; return this; }
 	public CommonGramsTokenFilterDescriptor QueryMode(bool? value) { _value.QueryMode = value; return this; }

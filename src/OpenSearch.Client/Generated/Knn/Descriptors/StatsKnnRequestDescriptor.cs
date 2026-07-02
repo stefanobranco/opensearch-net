@@ -11,8 +11,10 @@ public sealed class StatsKnnRequestDescriptor
 
 	/// <summary>A comma-separated list of stats to retrieve; use `_all` or empty string to retrieve all stats.</summary>
 		public StatsKnnRequestDescriptor Stat(List<KnnStatName>? value) { _value.Stat = value; return this; }
+	public StatsKnnRequestDescriptor Stat(KnnStatName value) { _value.Stat = [value]; return this; }
 	/// <summary>A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes.</summary>
 		public StatsKnnRequestDescriptor NodeId(List<string>? value) { _value.NodeId = value; return this; }
+	public StatsKnnRequestDescriptor NodeId(string value) { _value.NodeId = [value]; return this; }
 	/// <summary>Operation timeout.</summary>
 		public StatsKnnRequestDescriptor Timeout(string? value) { _value.Timeout = value; return this; }
 

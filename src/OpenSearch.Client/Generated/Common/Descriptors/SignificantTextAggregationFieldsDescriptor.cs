@@ -26,6 +26,7 @@ public sealed class SignificantTextAggregationFieldsDescriptor
 		return this;
 	}
 	public SignificantTextAggregationFieldsDescriptor Exclude(List<string>? value) { _value.Exclude = value; return this; }
+	public SignificantTextAggregationFieldsDescriptor Exclude(string value) { _value.Exclude = [value]; return this; }
 	public SignificantTextAggregationFieldsDescriptor ExecutionHint(TermsAggregationExecutionHint? value) { _value.ExecutionHint = value; return this; }
 	public SignificantTextAggregationFieldsDescriptor Field(string? value) { _value.Field = value; return this; }
 	/// <summary>Whether to out duplicate text to deal with noisy data.</summary>
@@ -66,6 +67,7 @@ public sealed class SignificantTextAggregationFieldsDescriptor
 	/// <summary>The number of buckets returned out of the overall terms list.</summary>
 		public SignificantTextAggregationFieldsDescriptor Size(int? value) { _value.Size = value; return this; }
 	public SignificantTextAggregationFieldsDescriptor SourceFields(List<string>? value) { _value.SourceFields = value; return this; }
+	public SignificantTextAggregationFieldsDescriptor SourceFields(string value) { _value.SourceFields = [value]; return this; }
 
 	public static implicit operator SignificantTextAggregationFields(SignificantTextAggregationFieldsDescriptor descriptor) => descriptor._value;
 }

@@ -15,6 +15,7 @@ public sealed class ReindexNodeDescriptor
 	public ReindexNodeDescriptor Ip(string? value) { _value.Ip = value; return this; }
 	public ReindexNodeDescriptor Name(string? value) { _value.Name = value; return this; }
 	public ReindexNodeDescriptor Roles(List<string>? value) { _value.Roles = value; return this; }
+	public ReindexNodeDescriptor Roles(string value) { _value.Roles = [value]; return this; }
 	public ReindexNodeDescriptor TransportAddress(string? value) { _value.TransportAddress = value; return this; }
 	public ReindexNodeDescriptor Tasks(Dictionary<string, ReindexTask>? value) { _value.Tasks = value; return this; }
 

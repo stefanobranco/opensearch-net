@@ -27,6 +27,7 @@ public sealed class SignificantTermsAggregationFieldsDescriptor<TDocument>
 		return this;
 	}
 	public SignificantTermsAggregationFieldsDescriptor<TDocument> Exclude(List<string>? value) { _value.Exclude = value; return this; }
+	public SignificantTermsAggregationFieldsDescriptor<TDocument> Exclude(string value) { _value.Exclude = [value]; return this; }
 	public SignificantTermsAggregationFieldsDescriptor<TDocument> ExecutionHint(TermsAggregationExecutionHint? value) { _value.ExecutionHint = value; return this; }
 	public SignificantTermsAggregationFieldsDescriptor<TDocument> Field(string? value) { _value.Field = value; return this; }
 	/// <summary>Selects the field by an expression.</summary>

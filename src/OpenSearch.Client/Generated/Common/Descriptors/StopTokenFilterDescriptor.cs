@@ -14,6 +14,7 @@ public sealed class StopTokenFilterDescriptor
 	public StopTokenFilterDescriptor IgnoreCase(bool? value) { _value.IgnoreCase = value; return this; }
 	public StopTokenFilterDescriptor RemoveTrailing(bool? value) { _value.RemoveTrailing = value; return this; }
 	public StopTokenFilterDescriptor Stopwords(List<string>? value) { _value.Stopwords = value; return this; }
+	public StopTokenFilterDescriptor Stopwords(string value) { _value.Stopwords = [value]; return this; }
 	public StopTokenFilterDescriptor StopwordsPath(string? value) { _value.StopwordsPath = value; return this; }
 
 	public static implicit operator StopTokenFilter(StopTokenFilterDescriptor descriptor) => descriptor._value;

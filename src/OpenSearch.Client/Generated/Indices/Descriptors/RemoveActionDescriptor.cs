@@ -12,8 +12,10 @@ public sealed class RemoveActionDescriptor
 	public RemoveActionDescriptor Alias(string? value) { _value.Alias = value; return this; }
 	/// <summary>The list of aliases to remove. Index alias names support date math.</summary>
 		public RemoveActionDescriptor Aliases(List<string>? value) { _value.Aliases = value; return this; }
+	public RemoveActionDescriptor Aliases(string value) { _value.Aliases = [value]; return this; }
 	public RemoveActionDescriptor Index(string? value) { _value.Index = value; return this; }
 	public RemoveActionDescriptor Indices(List<string>? value) { _value.Indices = value; return this; }
+	public RemoveActionDescriptor Indices(string value) { _value.Indices = [value]; return this; }
 	/// <summary>Whether the alias must exist to perform the action.</summary>
 		public RemoveActionDescriptor MustExist(bool? value) { _value.MustExist = value; return this; }
 

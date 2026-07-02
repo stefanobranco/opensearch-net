@@ -11,18 +11,25 @@ public sealed class StatsNodeRequestDescriptor
 
 	/// <summary>Limit the information returned to the specified metrics.</summary>
 		public StatsNodeRequestDescriptor Metric(List<Metric>? value) { _value.Metric = value; return this; }
+	public StatsNodeRequestDescriptor Metric(Metric value) { _value.Metric = [value]; return this; }
 	/// <summary>Limit the information returned for indexes metric to the specified index metrics. It can be used only if indexes (or all) metric is specified.</summary>
 		public StatsNodeRequestDescriptor IndexMetric(List<IndexMetric>? value) { _value.IndexMetric = value; return this; }
+	public StatsNodeRequestDescriptor IndexMetric(IndexMetric value) { _value.IndexMetric = [value]; return this; }
 	/// <summary>A comma-separated list of node IDs or names used to limit returned information.</summary>
 		public StatsNodeRequestDescriptor NodeId(List<string>? value) { _value.NodeId = value; return this; }
+	public StatsNodeRequestDescriptor NodeId(string value) { _value.NodeId = [value]; return this; }
 	/// <summary>A comma-separated list or wildcard expressions of fields to include in field data and suggest statistics.</summary>
 		public StatsNodeRequestDescriptor CompletionFields(List<string>? value) { _value.CompletionFields = value; return this; }
+	public StatsNodeRequestDescriptor CompletionFields(string value) { _value.CompletionFields = [value]; return this; }
 	/// <summary>A comma-separated list or wildcard expressions of fields to include in field data statistics.</summary>
 		public StatsNodeRequestDescriptor FielddataFields(List<string>? value) { _value.FielddataFields = value; return this; }
+	public StatsNodeRequestDescriptor FielddataFields(string value) { _value.FielddataFields = [value]; return this; }
 	/// <summary>A comma-separated list or wildcard expressions of fields to include in the statistics.</summary>
 		public StatsNodeRequestDescriptor Fields(List<string>? value) { _value.Fields = value; return this; }
+	public StatsNodeRequestDescriptor Fields(string value) { _value.Fields = [value]; return this; }
 	/// <summary>A comma-separated list of search groups to include in the search statistics.</summary>
 		public StatsNodeRequestDescriptor Groups(List<string>? value) { _value.Groups = value; return this; }
+	public StatsNodeRequestDescriptor Groups(string value) { _value.Groups = [value]; return this; }
 	/// <summary>When `true`, reports the aggregated disk usage of each one of the Lucene index files (only applies if segment stats are requested).</summary>
 		public StatsNodeRequestDescriptor IncludeSegmentFileSizes(bool? value) { _value.IncludeSegmentFileSizes = value; return this; }
 	/// <summary>Indicates whether statistics are aggregated at the cluster, index, or shard level.</summary>
@@ -31,6 +38,7 @@ public sealed class StatsNodeRequestDescriptor
 		public StatsNodeRequestDescriptor Timeout(string? value) { _value.Timeout = value; return this; }
 	/// <summary>A comma-separated list of document types for the indexing index metric.</summary>
 		public StatsNodeRequestDescriptor Types(List<string>? value) { _value.Types = value; return this; }
+	public StatsNodeRequestDescriptor Types(string value) { _value.Types = [value]; return this; }
 
 	public static implicit operator StatsNodeRequest(StatsNodeRequestDescriptor descriptor) => descriptor._value;
 }

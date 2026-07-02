@@ -36,6 +36,7 @@ public sealed class UserAgentProcessorDescriptor
 	/// <summary>If `true` and `field` does not exist, the processor quietly exits without modifying the document.</summary>
 		public UserAgentProcessorDescriptor IgnoreMissing(bool? value) { _value.IgnoreMissing = value; return this; }
 	public UserAgentProcessorDescriptor Options(List<UserAgentProperty>? value) { _value.Options = value; return this; }
+	public UserAgentProcessorDescriptor Options(UserAgentProperty value) { _value.Options = [value]; return this; }
 	/// <summary>The name of the file in the `config/ingest-user-agent` directory containing the regular expressions for parsing the user agent string. Both the directory and the file have to be created before starting OpenSearch. If not specified, ingest-user-agent will use the `regexes.yaml` from uap-core it ships with.</summary>
 		public UserAgentProcessorDescriptor RegexFile(string? value) { _value.RegexFile = value; return this; }
 	public UserAgentProcessorDescriptor TargetField(string? value) { _value.TargetField = value; return this; }

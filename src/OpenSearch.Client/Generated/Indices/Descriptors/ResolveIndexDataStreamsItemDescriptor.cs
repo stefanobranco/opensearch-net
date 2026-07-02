@@ -12,6 +12,7 @@ public sealed class ResolveIndexDataStreamsItemDescriptor
 	public ResolveIndexDataStreamsItemDescriptor Name(string? value) { _value.Name = value; return this; }
 	public ResolveIndexDataStreamsItemDescriptor TimestampField(string? value) { _value.TimestampField = value; return this; }
 	public ResolveIndexDataStreamsItemDescriptor BackingIndices(List<string>? value) { _value.BackingIndices = value; return this; }
+	public ResolveIndexDataStreamsItemDescriptor BackingIndices(string value) { _value.BackingIndices = [value]; return this; }
 
 	public static implicit operator ResolveIndexDataStreamsItem(ResolveIndexDataStreamsItemDescriptor descriptor) => descriptor._value;
 }

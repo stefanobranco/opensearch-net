@@ -11,14 +11,17 @@ public sealed class ClearCacheIndexRequestDescriptor
 
 	/// <summary>A comma-separated list of data streams, indexes, and aliases used to limit the request. Supports wildcards (`*`). To target all data streams and indexes, omit this parameter or use `*` or `_all`.</summary>
 		public ClearCacheIndexRequestDescriptor Index(List<string>? value) { _value.Index = value; return this; }
+	public ClearCacheIndexRequestDescriptor Index(string value) { _value.Index = [value]; return this; }
 	/// <summary>If `false`, the request returns an error if any wildcard expression, index alias, or `_all` value targets only missing or closed indexes. This behavior applies even if the request targets other open indexes.</summary>
 		public ClearCacheIndexRequestDescriptor AllowNoIndices(bool? value) { _value.AllowNoIndices = value; return this; }
 	/// <summary>Type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values, such as `open,hidden`. Valid values are: `all`, `open`, `closed`, `hidden`, `none`.</summary>
 		public ClearCacheIndexRequestDescriptor ExpandWildcards(List<string>? value) { _value.ExpandWildcards = value; return this; }
+	public ClearCacheIndexRequestDescriptor ExpandWildcards(string value) { _value.ExpandWildcards = [value]; return this; }
 	/// <summary>If `true`, clears the fields cache. Use the `fields` parameter to clear the cache of specific fields only.</summary>
 		public ClearCacheIndexRequestDescriptor Fielddata(bool? value) { _value.Fielddata = value; return this; }
 	/// <summary>A comma-separated list of field names used to limit the `fielddata` parameter.</summary>
 		public ClearCacheIndexRequestDescriptor Fields(List<string>? value) { _value.Fields = value; return this; }
+	public ClearCacheIndexRequestDescriptor Fields(string value) { _value.Fields = [value]; return this; }
 	/// <summary>If `true`, clears the unused entries from the file cache on nodes with the Search role.</summary>
 		public ClearCacheIndexRequestDescriptor File(bool? value) { _value.File = value; return this; }
 	/// <summary>If `false`, the request returns an error if it targets a missing or closed index.</summary>

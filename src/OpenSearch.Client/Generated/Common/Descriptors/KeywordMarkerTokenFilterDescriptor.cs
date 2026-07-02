@@ -13,6 +13,7 @@ public sealed class KeywordMarkerTokenFilterDescriptor
 	public KeywordMarkerTokenFilterDescriptor Type(string? value) { _value.Type = value; return this; }
 	public KeywordMarkerTokenFilterDescriptor IgnoreCase(bool? value) { _value.IgnoreCase = value; return this; }
 	public KeywordMarkerTokenFilterDescriptor Keywords(List<string>? value) { _value.Keywords = value; return this; }
+	public KeywordMarkerTokenFilterDescriptor Keywords(string value) { _value.Keywords = [value]; return this; }
 	public KeywordMarkerTokenFilterDescriptor KeywordsPath(string? value) { _value.KeywordsPath = value; return this; }
 	public KeywordMarkerTokenFilterDescriptor KeywordsPattern(string? value) { _value.KeywordsPattern = value; return this; }
 

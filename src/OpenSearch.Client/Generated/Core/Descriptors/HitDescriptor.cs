@@ -36,6 +36,7 @@ public sealed class HitDescriptor<TDocument>
 		return this;
 	}
 	public HitDescriptor<TDocument> Ignored(List<string>? value) { _value.Ignored = value; return this; }
+	public HitDescriptor<TDocument> Ignored(string value) { _value.Ignored = [value]; return this; }
 	public HitDescriptor<TDocument> IgnoredFieldValues(Dictionary<string, List<string>>? value) { _value.IgnoredFieldValues = value; return this; }
 	public HitDescriptor<TDocument> Shard(string? value) { _value.Shard = value; return this; }
 	public HitDescriptor<TDocument> Node(string? value) { _value.Node = value; return this; }

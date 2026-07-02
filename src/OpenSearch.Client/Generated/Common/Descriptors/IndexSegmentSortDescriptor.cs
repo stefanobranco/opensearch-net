@@ -10,9 +10,13 @@ public sealed class IndexSegmentSortDescriptor
 	internal IndexSegmentSort _value = new();
 
 	public IndexSegmentSortDescriptor Field(List<string>? value) { _value.Field = value; return this; }
+	public IndexSegmentSortDescriptor Field(string value) { _value.Field = [value]; return this; }
 	public IndexSegmentSortDescriptor Order(List<SegmentSortOrder>? value) { _value.Order = value; return this; }
+	public IndexSegmentSortDescriptor Order(SegmentSortOrder value) { _value.Order = [value]; return this; }
 	public IndexSegmentSortDescriptor Mode(List<SegmentSortMode>? value) { _value.Mode = value; return this; }
+	public IndexSegmentSortDescriptor Mode(SegmentSortMode value) { _value.Mode = [value]; return this; }
 	public IndexSegmentSortDescriptor Missing(List<SegmentSortMissing>? value) { _value.Missing = value; return this; }
+	public IndexSegmentSortDescriptor Missing(SegmentSortMissing value) { _value.Missing = [value]; return this; }
 
 	public static implicit operator IndexSegmentSort(IndexSegmentSortDescriptor descriptor) => descriptor._value;
 }

@@ -11,8 +11,10 @@ public sealed class ResolveIndexIndexRequestDescriptor
 
 	/// <summary>Comma-separated name(s) or index pattern(s) of the indexes, aliases, and data streams to resolve. Resources on remote clusters can be specified using the `&lt;cluster&gt;`:`&lt;name&gt;` syntax.</summary>
 		public ResolveIndexIndexRequestDescriptor Name(List<string>? value) { _value.Name = value; return this; }
+	public ResolveIndexIndexRequestDescriptor Name(string value) { _value.Name = [value]; return this; }
 	/// <summary>Type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values, such as `open,hidden`. Valid values are: `all`, `open`, `closed`, `hidden`, `none`.</summary>
 		public ResolveIndexIndexRequestDescriptor ExpandWildcards(List<string>? value) { _value.ExpandWildcards = value; return this; }
+	public ResolveIndexIndexRequestDescriptor ExpandWildcards(string value) { _value.ExpandWildcards = [value]; return this; }
 
 	public static implicit operator ResolveIndexIndexRequest(ResolveIndexIndexRequestDescriptor descriptor) => descriptor._value;
 }

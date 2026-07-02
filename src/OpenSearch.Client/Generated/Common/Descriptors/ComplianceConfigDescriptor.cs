@@ -13,8 +13,11 @@ public sealed class ComplianceConfigDescriptor
 	public ComplianceConfigDescriptor WriteLogDiffs(bool? value) { _value.WriteLogDiffs = value; return this; }
 	public ComplianceConfigDescriptor ReadWatchedFields(System.Text.Json.JsonElement? value) { _value.ReadWatchedFields = value; return this; }
 	public ComplianceConfigDescriptor ReadIgnoreUsers(List<string>? value) { _value.ReadIgnoreUsers = value; return this; }
+	public ComplianceConfigDescriptor ReadIgnoreUsers(string value) { _value.ReadIgnoreUsers = [value]; return this; }
 	public ComplianceConfigDescriptor WriteWatchedIndices(List<string>? value) { _value.WriteWatchedIndices = value; return this; }
+	public ComplianceConfigDescriptor WriteWatchedIndices(string value) { _value.WriteWatchedIndices = [value]; return this; }
 	public ComplianceConfigDescriptor WriteIgnoreUsers(List<string>? value) { _value.WriteIgnoreUsers = value; return this; }
+	public ComplianceConfigDescriptor WriteIgnoreUsers(string value) { _value.WriteIgnoreUsers = [value]; return this; }
 	public ComplianceConfigDescriptor ReadMetadataOnly(bool? value) { _value.ReadMetadataOnly = value; return this; }
 	public ComplianceConfigDescriptor WriteMetadataOnly(bool? value) { _value.WriteMetadataOnly = value; return this; }
 	public ComplianceConfigDescriptor ExternalConfig(bool? value) { _value.ExternalConfig = value; return this; }

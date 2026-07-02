@@ -28,6 +28,7 @@ public sealed class TrainMlRequestDescriptor
 	}
 	/// <summary>The input index.</summary>
 		public TrainMlRequestDescriptor InputIndex(List<string>? value) { _value.InputIndex = value; return this; }
+	public TrainMlRequestDescriptor InputIndex(string value) { _value.InputIndex = [value]; return this; }
 
 	public static implicit operator TrainMlRequest(TrainMlRequestDescriptor descriptor) => descriptor._value;
 }

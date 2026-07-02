@@ -35,6 +35,7 @@ public sealed class DateProcessorDescriptor
 	public DateProcessorDescriptor Field(string? value) { _value.Field = value; return this; }
 	/// <summary>An array of the expected date formats. Can be a java time pattern or one of the following formats: ISO8601, UNIX, UNIX_MS, or TAI64N.</summary>
 		public DateProcessorDescriptor Formats(List<string>? value) { _value.Formats = value; return this; }
+	public DateProcessorDescriptor Formats(string value) { _value.Formats = [value]; return this; }
 	/// <summary>The locale to use when parsing the date, relevant when parsing month names or week days. Supports template snippets.</summary>
 		public DateProcessorDescriptor Locale(string? value) { _value.Locale = value; return this; }
 	public DateProcessorDescriptor TargetField(string? value) { _value.TargetField = value; return this; }

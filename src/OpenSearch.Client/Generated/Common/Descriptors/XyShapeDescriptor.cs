@@ -11,6 +11,7 @@ public sealed class XyShapeDescriptor
 
 	public XyShapeDescriptor Type(string? value) { _value.Type = value; return this; }
 	public XyShapeDescriptor Coordinates(List<object>? value) { _value.Coordinates = value; return this; }
+	public XyShapeDescriptor Coordinates(object value) { _value.Coordinates = [value]; return this; }
 
 	public static implicit operator XyShape(XyShapeDescriptor descriptor) => descriptor._value;
 }

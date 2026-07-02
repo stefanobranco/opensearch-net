@@ -11,6 +11,7 @@ public sealed class DeleteDataStreamIndexRequestDescriptor
 
 	/// <summary>A comma-separated list of data streams to delete. Wildcard (`*`) expressions are supported.</summary>
 		public DeleteDataStreamIndexRequestDescriptor Name(List<string>? value) { _value.Name = value; return this; }
+	public DeleteDataStreamIndexRequestDescriptor Name(string value) { _value.Name = [value]; return this; }
 
 	public static implicit operator DeleteDataStreamIndexRequest(DeleteDataStreamIndexRequestDescriptor descriptor) => descriptor._value;
 }

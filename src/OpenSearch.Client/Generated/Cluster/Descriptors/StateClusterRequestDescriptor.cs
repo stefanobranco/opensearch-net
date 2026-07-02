@@ -11,12 +11,15 @@ public sealed class StateClusterRequestDescriptor
 
 	/// <summary>Limits the information returned to only the [specified metric groups](https://opensearch.org/docs/latest/api-reference/cluster-api/cluster-stats/#metric-groups).</summary>
 		public StateClusterRequestDescriptor Metric(List<Metric>? value) { _value.Metric = value; return this; }
+	public StateClusterRequestDescriptor Metric(Metric value) { _value.Metric = [value]; return this; }
 	public StateClusterRequestDescriptor Index(List<string>? value) { _value.Index = value; return this; }
+	public StateClusterRequestDescriptor Index(string value) { _value.Index = [value]; return this; }
 	/// <summary>Whether to ignore a wildcard index expression that resolves into no concrete indexes. This includes the `_all` string or when no indexes have been specified.</summary>
 		public StateClusterRequestDescriptor AllowNoIndices(bool? value) { _value.AllowNoIndices = value; return this; }
 	/// <summary>The amount of time to wait for a response from the cluster manager node. For more information about supported time units, see [Common parameters](https://opensearch.org/docs/latest/api-reference/common-parameters/#time-units).</summary>
 		public StateClusterRequestDescriptor ClusterManagerTimeout(string? value) { _value.ClusterManagerTimeout = value; return this; }
 	public StateClusterRequestDescriptor ExpandWildcards(List<string>? value) { _value.ExpandWildcards = value; return this; }
+	public StateClusterRequestDescriptor ExpandWildcards(string value) { _value.ExpandWildcards = [value]; return this; }
 	/// <summary>Whether to return settings in the flat form, which can improve readability, especially for heavily nested settings. For example, the flat form of `"cluster": { "max_shards_per_node": 500 }` is `"cluster.max_shards_per_node": "500"`.</summary>
 		public StateClusterRequestDescriptor FlatSettings(bool? value) { _value.FlatSettings = value; return this; }
 	/// <summary>Whether the specified concrete indexes should be ignored when unavailable (missing or closed).</summary>

@@ -17,6 +17,7 @@ public sealed class RegisterModelGroupMlRequestDescriptor
 		public RegisterModelGroupMlRequestDescriptor AccessMode(ModelGroupAccessMode? value) { _value.AccessMode = value; return this; }
 	/// <summary>The backend roles.</summary>
 		public RegisterModelGroupMlRequestDescriptor BackendRoles(List<string>? value) { _value.BackendRoles = value; return this; }
+	public RegisterModelGroupMlRequestDescriptor BackendRoles(string value) { _value.BackendRoles = [value]; return this; }
 	/// <summary>The add all backend roles.</summary>
 		public RegisterModelGroupMlRequestDescriptor AddAllBackendRoles(bool? value) { _value.AddAllBackendRoles = value; return this; }
 

@@ -12,6 +12,7 @@ public sealed class CharGroupTokenizerDescriptor
 	public CharGroupTokenizerDescriptor Version(string? value) { _value.Version = value; return this; }
 	public CharGroupTokenizerDescriptor Type(string? value) { _value.Type = value; return this; }
 	public CharGroupTokenizerDescriptor TokenizeOnChars(List<string>? value) { _value.TokenizeOnChars = value; return this; }
+	public CharGroupTokenizerDescriptor TokenizeOnChars(string value) { _value.TokenizeOnChars = [value]; return this; }
 	public CharGroupTokenizerDescriptor MaxTokenLength(int? value) { _value.MaxTokenLength = value; return this; }
 
 	public static implicit operator CharGroupTokenizer(CharGroupTokenizerDescriptor descriptor) => descriptor._value;

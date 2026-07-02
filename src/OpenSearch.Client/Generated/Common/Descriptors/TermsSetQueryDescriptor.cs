@@ -15,6 +15,7 @@ public sealed class TermsSetQueryDescriptor
 	public TermsSetQueryDescriptor MinimumShouldMatchField(string? value) { _value.MinimumShouldMatchField = value; return this; }
 	public TermsSetQueryDescriptor MinimumShouldMatchScript(Script? value) { _value.MinimumShouldMatchScript = value; return this; }
 	public TermsSetQueryDescriptor Terms(List<string>? value) { _value.Terms = value; return this; }
+	public TermsSetQueryDescriptor Terms(string value) { _value.Terms = [value]; return this; }
 
 	public static implicit operator TermsSetQuery(TermsSetQueryDescriptor descriptor) => descriptor._value;
 }

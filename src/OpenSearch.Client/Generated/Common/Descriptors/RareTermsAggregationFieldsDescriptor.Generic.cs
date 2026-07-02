@@ -11,6 +11,7 @@ public sealed class RareTermsAggregationFieldsDescriptor<TDocument>
 	internal RareTermsAggregationFields _value = new();
 
 	public RareTermsAggregationFieldsDescriptor<TDocument> Exclude(List<string>? value) { _value.Exclude = value; return this; }
+	public RareTermsAggregationFieldsDescriptor<TDocument> Exclude(string value) { _value.Exclude = [value]; return this; }
 	public RareTermsAggregationFieldsDescriptor<TDocument> Field(string? value) { _value.Field = value; return this; }
 	/// <summary>Selects the field by an expression.</summary>
 	public RareTermsAggregationFieldsDescriptor<TDocument> Field(Expression<Func<TDocument, object>> field) { _value.Field = OpenSearch.Client.Field.ResolveName<TDocument>(field); return this; }

@@ -13,10 +13,12 @@ public sealed class HealthCatRequestDescriptor
 		public HealthCatRequestDescriptor Format(string? value) { _value.Format = value; return this; }
 	/// <summary>A comma-separated list of column names to display.</summary>
 		public HealthCatRequestDescriptor H(List<string>? value) { _value.H = value; return this; }
+	public HealthCatRequestDescriptor H(string value) { _value.H = [value]; return this; }
 	/// <summary>Returns help information.</summary>
 		public HealthCatRequestDescriptor Help(bool? value) { _value.Help = value; return this; }
 	/// <summary>A comma-separated list of column names or column aliases to sort by.</summary>
 		public HealthCatRequestDescriptor S(List<string>? value) { _value.S = value; return this; }
+	public HealthCatRequestDescriptor S(string value) { _value.S = [value]; return this; }
 	/// <summary>The unit used to display time values.</summary>
 		public HealthCatRequestDescriptor Time(string? value) { _value.Time = value; return this; }
 	/// <summary>When `true`, returns `HH:MM:SS` and Unix epoch timestamps.</summary>

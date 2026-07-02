@@ -16,6 +16,7 @@ public sealed class FloatRangePropertyDescriptor
 	public FloatRangePropertyDescriptor Dynamic(string? value) { _value.Dynamic = value; return this; }
 	public FloatRangePropertyDescriptor Fields(Dictionary<string, Property>? value) { _value.Fields = value; return this; }
 	public FloatRangePropertyDescriptor CopyTo(List<string>? value) { _value.CopyTo = value; return this; }
+	public FloatRangePropertyDescriptor CopyTo(string value) { _value.CopyTo = [value]; return this; }
 	public FloatRangePropertyDescriptor Similarity(string? value) { _value.Similarity = value; return this; }
 	public FloatRangePropertyDescriptor Store(bool? value) { _value.Store = value; return this; }
 	public FloatRangePropertyDescriptor DocValues(bool? value) { _value.DocValues = value; return this; }

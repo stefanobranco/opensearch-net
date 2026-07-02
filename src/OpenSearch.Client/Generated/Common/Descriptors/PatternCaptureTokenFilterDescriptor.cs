@@ -12,6 +12,7 @@ public sealed class PatternCaptureTokenFilterDescriptor
 	public PatternCaptureTokenFilterDescriptor Version(string? value) { _value.Version = value; return this; }
 	public PatternCaptureTokenFilterDescriptor Type(string? value) { _value.Type = value; return this; }
 	public PatternCaptureTokenFilterDescriptor Patterns(List<string>? value) { _value.Patterns = value; return this; }
+	public PatternCaptureTokenFilterDescriptor Patterns(string value) { _value.Patterns = [value]; return this; }
 	public PatternCaptureTokenFilterDescriptor PreserveOriginal(string? value) { _value.PreserveOriginal = value; return this; }
 
 	public static implicit operator PatternCaptureTokenFilter(PatternCaptureTokenFilterDescriptor descriptor) => descriptor._value;

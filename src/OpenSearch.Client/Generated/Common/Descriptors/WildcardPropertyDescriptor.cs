@@ -16,6 +16,7 @@ public sealed class WildcardPropertyDescriptor
 	public WildcardPropertyDescriptor Dynamic(string? value) { _value.Dynamic = value; return this; }
 	public WildcardPropertyDescriptor Fields(Dictionary<string, Property>? value) { _value.Fields = value; return this; }
 	public WildcardPropertyDescriptor CopyTo(List<string>? value) { _value.CopyTo = value; return this; }
+	public WildcardPropertyDescriptor CopyTo(string value) { _value.CopyTo = [value]; return this; }
 	public WildcardPropertyDescriptor Similarity(string? value) { _value.Similarity = value; return this; }
 	public WildcardPropertyDescriptor Store(bool? value) { _value.Store = value; return this; }
 	public WildcardPropertyDescriptor DocValues(bool? value) { _value.DocValues = value; return this; }

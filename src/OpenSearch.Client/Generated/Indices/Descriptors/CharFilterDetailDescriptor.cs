@@ -11,6 +11,7 @@ public sealed class CharFilterDetailDescriptor
 
 	/// <summary>The text after character filtering.</summary>
 		public CharFilterDetailDescriptor FilteredText(List<string>? value) { _value.FilteredText = value; return this; }
+	public CharFilterDetailDescriptor FilteredText(string value) { _value.FilteredText = [value]; return this; }
 	/// <summary>The name of the character filter.</summary>
 		public CharFilterDetailDescriptor Name(string? value) { _value.Name = value; return this; }
 

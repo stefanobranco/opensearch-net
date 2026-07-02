@@ -16,6 +16,7 @@ public sealed class ClusterRemoteSniffInfoDescriptor
 	public ClusterRemoteSniffInfoDescriptor InitialConnectTimeout(string? value) { _value.InitialConnectTimeout = value; return this; }
 	public ClusterRemoteSniffInfoDescriptor SkipUnavailable(bool value) { _value.SkipUnavailable = value; return this; }
 	public ClusterRemoteSniffInfoDescriptor Seeds(List<string>? value) { _value.Seeds = value; return this; }
+	public ClusterRemoteSniffInfoDescriptor Seeds(string value) { _value.Seeds = [value]; return this; }
 
 	public static implicit operator ClusterRemoteSniffInfo(ClusterRemoteSniffInfoDescriptor descriptor) => descriptor._value;
 }

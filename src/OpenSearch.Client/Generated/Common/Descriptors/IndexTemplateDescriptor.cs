@@ -10,8 +10,10 @@ public sealed class IndexTemplateDescriptor
 	internal IndexTemplate _value = new();
 
 	public IndexTemplateDescriptor IndexPatterns(List<string>? value) { _value.IndexPatterns = value; return this; }
+	public IndexTemplateDescriptor IndexPatterns(string value) { _value.IndexPatterns = [value]; return this; }
 	/// <summary>An ordered list of component template names. Component templates are merged in the order specified, meaning that the last component template specified has the highest precedence.</summary>
 		public IndexTemplateDescriptor ComposedOf(List<string>? value) { _value.ComposedOf = value; return this; }
+	public IndexTemplateDescriptor ComposedOf(string value) { _value.ComposedOf = [value]; return this; }
 	public IndexTemplateDescriptor Template(IndexTemplateSummary? value) { _value.Template = value; return this; }
 	public IndexTemplateDescriptor Template(Action<IndexTemplateSummaryDescriptor> configure)
 	{

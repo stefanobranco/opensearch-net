@@ -12,6 +12,7 @@ public sealed class UpdateDistinguishedNameSecurityRequestDescriptor
 	/// <summary>The name of the cluster containing the `nodesDn` value to create or update.</summary>
 		public UpdateDistinguishedNameSecurityRequestDescriptor ClusterName(string? value) { _value.ClusterName = value; return this; }
 	public UpdateDistinguishedNameSecurityRequestDescriptor NodesDn(List<string>? value) { _value.NodesDn = value; return this; }
+	public UpdateDistinguishedNameSecurityRequestDescriptor NodesDn(string value) { _value.NodesDn = [value]; return this; }
 
 	public static implicit operator UpdateDistinguishedNameSecurityRequest(UpdateDistinguishedNameSecurityRequestDescriptor descriptor) => descriptor._value;
 }

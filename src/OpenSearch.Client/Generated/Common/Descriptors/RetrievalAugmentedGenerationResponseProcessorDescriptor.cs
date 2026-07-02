@@ -13,6 +13,7 @@ public sealed class RetrievalAugmentedGenerationResponseProcessorDescriptor
 	public RetrievalAugmentedGenerationResponseProcessorDescriptor Description(string? value) { _value.Description = value; return this; }
 	public RetrievalAugmentedGenerationResponseProcessorDescriptor ModelId(string? value) { _value.ModelId = value; return this; }
 	public RetrievalAugmentedGenerationResponseProcessorDescriptor ContextFieldList(List<string>? value) { _value.ContextFieldList = value; return this; }
+	public RetrievalAugmentedGenerationResponseProcessorDescriptor ContextFieldList(string value) { _value.ContextFieldList = [value]; return this; }
 	public RetrievalAugmentedGenerationResponseProcessorDescriptor SystemPrompt(string? value) { _value.SystemPrompt = value; return this; }
 	public RetrievalAugmentedGenerationResponseProcessorDescriptor UserInstructions(string? value) { _value.UserInstructions = value; return this; }
 

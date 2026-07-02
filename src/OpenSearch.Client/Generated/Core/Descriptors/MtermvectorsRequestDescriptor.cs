@@ -14,6 +14,7 @@ public sealed class MtermvectorsRequestDescriptor
 	/// <summary>If `true`, the response includes the document count, sum of document frequencies, and sum of total term frequencies.</summary>
 		public MtermvectorsRequestDescriptor FieldStatistics(bool? value) { _value.FieldStatistics = value; return this; }
 	public MtermvectorsRequestDescriptor Fields(List<string>? value) { _value.Fields = value; return this; }
+	public MtermvectorsRequestDescriptor Fields(string value) { _value.Fields = [value]; return this; }
 	/// <summary>If `true`, the response includes term offsets.</summary>
 		public MtermvectorsRequestDescriptor Offsets(bool? value) { _value.Offsets = value; return this; }
 	/// <summary>If `true`, the response includes term payloads.</summary>
@@ -26,6 +27,7 @@ public sealed class MtermvectorsRequestDescriptor
 		public MtermvectorsRequestDescriptor Realtime(bool? value) { _value.Realtime = value; return this; }
 	/// <summary>A custom value used to route operations to a specific shard.</summary>
 		public MtermvectorsRequestDescriptor Routing(List<string>? value) { _value.Routing = value; return this; }
+	public MtermvectorsRequestDescriptor Routing(string value) { _value.Routing = [value]; return this; }
 	/// <summary>If `true`, the response includes term frequency and document frequency.</summary>
 		public MtermvectorsRequestDescriptor TermStatistics(bool? value) { _value.TermStatistics = value; return this; }
 	/// <summary>If `true`, returns the document version as part of a hit.</summary>
@@ -49,6 +51,7 @@ public sealed class MtermvectorsRequestDescriptor
 	}
 	/// <summary>Simplified syntax to specify documents by their ID if they're in the same index.</summary>
 		public MtermvectorsRequestDescriptor Ids(List<string>? value) { _value.Ids = value; return this; }
+	public MtermvectorsRequestDescriptor Ids(string value) { _value.Ids = [value]; return this; }
 
 	public static implicit operator MtermvectorsRequest(MtermvectorsRequestDescriptor descriptor) => descriptor._value;
 }

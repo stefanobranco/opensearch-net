@@ -12,6 +12,7 @@ public sealed class MultiplexerTokenFilterDescriptor
 	public MultiplexerTokenFilterDescriptor Version(string? value) { _value.Version = value; return this; }
 	public MultiplexerTokenFilterDescriptor Type(string? value) { _value.Type = value; return this; }
 	public MultiplexerTokenFilterDescriptor Filters(List<string>? value) { _value.Filters = value; return this; }
+	public MultiplexerTokenFilterDescriptor Filters(string value) { _value.Filters = [value]; return this; }
 	public MultiplexerTokenFilterDescriptor PreserveOriginal(string? value) { _value.PreserveOriginal = value; return this; }
 
 	public static implicit operator MultiplexerTokenFilter(MultiplexerTokenFilterDescriptor descriptor) => descriptor._value;

@@ -12,6 +12,7 @@ public sealed class MappingCharFilterDescriptor
 	public MappingCharFilterDescriptor Version(string? value) { _value.Version = value; return this; }
 	public MappingCharFilterDescriptor Type(string? value) { _value.Type = value; return this; }
 	public MappingCharFilterDescriptor Mappings(List<string>? value) { _value.Mappings = value; return this; }
+	public MappingCharFilterDescriptor Mappings(string value) { _value.Mappings = [value]; return this; }
 	public MappingCharFilterDescriptor MappingsPath(string? value) { _value.MappingsPath = value; return this; }
 
 	public static implicit operator MappingCharFilter(MappingCharFilterDescriptor descriptor) => descriptor._value;

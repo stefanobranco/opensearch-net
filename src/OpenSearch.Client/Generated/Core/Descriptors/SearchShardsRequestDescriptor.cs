@@ -11,10 +11,12 @@ public sealed class SearchShardsRequestDescriptor
 
 	/// <summary>Returns the indexes and shards that a search request would be executed against.</summary>
 		public SearchShardsRequestDescriptor Index(List<string>? value) { _value.Index = value; return this; }
+	public SearchShardsRequestDescriptor Index(string value) { _value.Index = [value]; return this; }
 	/// <summary>If `false`, the request returns an error if any wildcard expression, index alias, or `_all` value targets only missing or closed indexes. This behavior applies even if the request targets other open indexes. For example, a request targeting `foo*,bar*` returns an error if an index starts with `foo` but no index starts with `bar`.</summary>
 		public SearchShardsRequestDescriptor AllowNoIndices(bool? value) { _value.AllowNoIndices = value; return this; }
 	/// <summary>Type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values, such as `open,hidden`. Valid values are: `all`, `open`, `closed`, `hidden`, `none`.</summary>
 		public SearchShardsRequestDescriptor ExpandWildcards(List<string>? value) { _value.ExpandWildcards = value; return this; }
+	public SearchShardsRequestDescriptor ExpandWildcards(string value) { _value.ExpandWildcards = [value]; return this; }
 	/// <summary>If `false`, the request returns an error if it targets a missing or closed index.</summary>
 		public SearchShardsRequestDescriptor IgnoreUnavailable(bool? value) { _value.IgnoreUnavailable = value; return this; }
 	/// <summary>If `true`, the request retrieves information from the local node only.</summary>
@@ -23,6 +25,7 @@ public sealed class SearchShardsRequestDescriptor
 		public SearchShardsRequestDescriptor Preference(string? value) { _value.Preference = value; return this; }
 	/// <summary>A custom value used to route operations to a specific shard.</summary>
 		public SearchShardsRequestDescriptor Routing(List<string>? value) { _value.Routing = value; return this; }
+	public SearchShardsRequestDescriptor Routing(string value) { _value.Routing = [value]; return this; }
 	public SearchShardsRequestDescriptor Slice(SlicedScroll? value) { _value.Slice = value; return this; }
 	public SearchShardsRequestDescriptor Slice(Action<SlicedScrollDescriptor> configure)
 	{

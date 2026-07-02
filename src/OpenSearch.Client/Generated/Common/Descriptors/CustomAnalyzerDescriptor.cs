@@ -11,7 +11,9 @@ public sealed class CustomAnalyzerDescriptor
 
 	public CustomAnalyzerDescriptor Type(string? value) { _value.Type = value; return this; }
 	public CustomAnalyzerDescriptor CharFilter(List<string>? value) { _value.CharFilter = value; return this; }
+	public CustomAnalyzerDescriptor CharFilter(string value) { _value.CharFilter = [value]; return this; }
 	public CustomAnalyzerDescriptor Filter(List<string>? value) { _value.Filter = value; return this; }
+	public CustomAnalyzerDescriptor Filter(string value) { _value.Filter = [value]; return this; }
 	public CustomAnalyzerDescriptor PositionIncrementGap(int? value) { _value.PositionIncrementGap = value; return this; }
 	public CustomAnalyzerDescriptor PositionOffsetGap(int? value) { _value.PositionOffsetGap = value; return this; }
 	public CustomAnalyzerDescriptor Tokenizer(string? value) { _value.Tokenizer = value; return this; }

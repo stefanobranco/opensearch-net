@@ -10,6 +10,7 @@ public sealed class DistinguishedNamesDescriptor
 	internal DistinguishedNames _value = new();
 
 	public DistinguishedNamesDescriptor NodesDn(List<string>? value) { _value.NodesDn = value; return this; }
+	public DistinguishedNamesDescriptor NodesDn(string value) { _value.NodesDn = [value]; return this; }
 
 	public static implicit operator DistinguishedNames(DistinguishedNamesDescriptor descriptor) => descriptor._value;
 }

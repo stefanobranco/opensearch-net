@@ -15,12 +15,14 @@ public sealed class RepositoriesCatRequestDescriptor
 		public RepositoriesCatRequestDescriptor Format(string? value) { _value.Format = value; return this; }
 	/// <summary>A comma-separated list of column names to display.</summary>
 		public RepositoriesCatRequestDescriptor H(List<string>? value) { _value.H = value; return this; }
+	public RepositoriesCatRequestDescriptor H(string value) { _value.H = [value]; return this; }
 	/// <summary>Returns help information.</summary>
 		public RepositoriesCatRequestDescriptor Help(bool? value) { _value.Help = value; return this; }
 	/// <summary>Returns local information but does not retrieve the state from the cluster manager node.</summary>
 		public RepositoriesCatRequestDescriptor Local(bool? value) { _value.Local = value; return this; }
 	/// <summary>A comma-separated list of column names or column aliases to sort by.</summary>
 		public RepositoriesCatRequestDescriptor S(List<string>? value) { _value.S = value; return this; }
+	public RepositoriesCatRequestDescriptor S(string value) { _value.S = [value]; return this; }
 	/// <summary>Enables verbose mode, which displays column headers.</summary>
 		public RepositoriesCatRequestDescriptor V(bool? value) { _value.V = value; return this; }
 

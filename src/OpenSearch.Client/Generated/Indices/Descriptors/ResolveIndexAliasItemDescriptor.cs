@@ -11,6 +11,7 @@ public sealed class ResolveIndexAliasItemDescriptor
 
 	public ResolveIndexAliasItemDescriptor Name(string? value) { _value.Name = value; return this; }
 	public ResolveIndexAliasItemDescriptor Indices(List<string>? value) { _value.Indices = value; return this; }
+	public ResolveIndexAliasItemDescriptor Indices(string value) { _value.Indices = [value]; return this; }
 
 	public static implicit operator ResolveIndexAliasItem(ResolveIndexAliasItemDescriptor descriptor) => descriptor._value;
 }

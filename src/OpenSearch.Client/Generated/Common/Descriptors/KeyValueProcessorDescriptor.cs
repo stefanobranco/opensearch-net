@@ -34,6 +34,7 @@ public sealed class KeyValueProcessorDescriptor
 		public KeyValueProcessorDescriptor Tag(string? value) { _value.Tag = value; return this; }
 	/// <summary>List of keys to exclude from document.</summary>
 		public KeyValueProcessorDescriptor ExcludeKeys(List<string>? value) { _value.ExcludeKeys = value; return this; }
+	public KeyValueProcessorDescriptor ExcludeKeys(string value) { _value.ExcludeKeys = [value]; return this; }
 	public KeyValueProcessorDescriptor Field(string? value) { _value.Field = value; return this; }
 	/// <summary>Regex pattern to use for splitting key-value pairs.</summary>
 		public KeyValueProcessorDescriptor FieldSplit(string? value) { _value.FieldSplit = value; return this; }
@@ -41,6 +42,7 @@ public sealed class KeyValueProcessorDescriptor
 		public KeyValueProcessorDescriptor IgnoreMissing(bool? value) { _value.IgnoreMissing = value; return this; }
 	/// <summary>List of keys to filter and insert into document. Defaults to including all keys.</summary>
 		public KeyValueProcessorDescriptor IncludeKeys(List<string>? value) { _value.IncludeKeys = value; return this; }
+	public KeyValueProcessorDescriptor IncludeKeys(string value) { _value.IncludeKeys = [value]; return this; }
 	/// <summary>Prefix to be added to extracted keys.</summary>
 		public KeyValueProcessorDescriptor Prefix(string? value) { _value.Prefix = value; return this; }
 	/// <summary>If `true`. strip brackets `()`, `&lt;&gt;`, `[]` as well as quotes `'` and `"` from extracted values.</summary>

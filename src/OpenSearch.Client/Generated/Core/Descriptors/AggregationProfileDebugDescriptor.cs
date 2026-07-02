@@ -38,6 +38,7 @@ public sealed class AggregationProfileDebugDescriptor
 	public AggregationProfileDebugDescriptor NumericCollectorsUsed(int? value) { _value.NumericCollectorsUsed = value; return this; }
 	public AggregationProfileDebugDescriptor EmptyCollectorsUsed(int? value) { _value.EmptyCollectorsUsed = value; return this; }
 	public AggregationProfileDebugDescriptor DeferredAggregators(List<string>? value) { _value.DeferredAggregators = value; return this; }
+	public AggregationProfileDebugDescriptor DeferredAggregators(string value) { _value.DeferredAggregators = [value]; return this; }
 	public AggregationProfileDebugDescriptor MapReducer(string? value) { _value.MapReducer = value; return this; }
 
 	public static implicit operator AggregationProfileDebug(AggregationProfileDebugDescriptor descriptor) => descriptor._value;

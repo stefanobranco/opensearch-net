@@ -40,6 +40,7 @@ public sealed class AttachmentProcessorDescriptor
 	public AttachmentProcessorDescriptor IndexedCharsField(string? value) { _value.IndexedCharsField = value; return this; }
 	/// <summary>Array of properties to select to be stored. Can be `content`, `title`, `name`, `author`, `keywords`, `date`, `content_type`, `content_length`, `language`.</summary>
 		public AttachmentProcessorDescriptor Properties(List<string>? value) { _value.Properties = value; return this; }
+	public AttachmentProcessorDescriptor Properties(string value) { _value.Properties = [value]; return this; }
 	public AttachmentProcessorDescriptor TargetField(string? value) { _value.TargetField = value; return this; }
 	/// <summary>Field containing the name of the resource to decode. If specified, the processor passes this resource name to the underlying Tika library to enable Resource Name Based Detection.</summary>
 		public AttachmentProcessorDescriptor ResourceName(string? value) { _value.ResourceName = value; return this; }

@@ -14,6 +14,7 @@ public sealed class PredictModelMlRequestDescriptor
 		public PredictModelMlRequestDescriptor QueryText(string? value) { _value.QueryText = value; return this; }
 	/// <summary>The text documents.</summary>
 		public PredictModelMlRequestDescriptor TextDocs(List<string>? value) { _value.TextDocs = value; return this; }
+	public PredictModelMlRequestDescriptor TextDocs(string value) { _value.TextDocs = [value]; return this; }
 
 	public static implicit operator PredictModelMlRequest(PredictModelMlRequestDescriptor descriptor) => descriptor._value;
 }

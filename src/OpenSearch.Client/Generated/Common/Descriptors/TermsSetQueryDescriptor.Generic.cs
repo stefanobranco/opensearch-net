@@ -18,6 +18,7 @@ public sealed class TermsSetQueryDescriptor<TDocument>
 	public TermsSetQueryDescriptor<TDocument> MinimumShouldMatchField(Expression<Func<TDocument, object>> field) { _value.MinimumShouldMatchField = OpenSearch.Client.Field.ResolveName<TDocument>(field); return this; }
 	public TermsSetQueryDescriptor<TDocument> MinimumShouldMatchScript(Script? value) { _value.MinimumShouldMatchScript = value; return this; }
 	public TermsSetQueryDescriptor<TDocument> Terms(List<string>? value) { _value.Terms = value; return this; }
+	public TermsSetQueryDescriptor<TDocument> Terms(string value) { _value.Terms = [value]; return this; }
 
 	public static implicit operator TermsSetQuery(TermsSetQueryDescriptor<TDocument> descriptor) => descriptor._value;
 }

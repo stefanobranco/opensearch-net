@@ -13,6 +13,7 @@ public sealed class RoleDescriptor
 	public RoleDescriptor Hidden(bool? value) { _value.Hidden = value; return this; }
 	public RoleDescriptor Description(string? value) { _value.Description = value; return this; }
 	public RoleDescriptor ClusterPermissions(List<string>? value) { _value.ClusterPermissions = value; return this; }
+	public RoleDescriptor ClusterPermissions(string value) { _value.ClusterPermissions = [value]; return this; }
 	public RoleDescriptor IndexPermissions(List<IndexPermission>? value) { _value.IndexPermissions = value; return this; }
 	public RoleDescriptor IndexPermissions(params Action<IndexPermissionDescriptor>[] configure)
 	{

@@ -42,6 +42,7 @@ public sealed class InnerHitsDescriptor<TDocument>
 	public InnerHitsDescriptor<TDocument> StoredFields(List<string>? value) { _value.StoredFields = value; return this; }
 	/// <summary>Selects the fields by expressions.</summary>
 	public InnerHitsDescriptor<TDocument> StoredFields(params Expression<Func<TDocument, object>>[] fields) { _value.StoredFields = fields.Select(f => OpenSearch.Client.Field.ResolveName<TDocument>(f)).ToList(); return this; }
+	public InnerHitsDescriptor<TDocument> StoredFields(string value) { _value.StoredFields = [value]; return this; }
 	public InnerHitsDescriptor<TDocument> TrackScores(bool? value) { _value.TrackScores = value; return this; }
 	public InnerHitsDescriptor<TDocument> Version(bool? value) { _value.Version = value; return this; }
 

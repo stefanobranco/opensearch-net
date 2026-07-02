@@ -13,6 +13,7 @@ public sealed class KnnQueryDescriptor
 		public KnnQueryDescriptor Boost(float? value) { _value.Boost = value; return this; }
 	public KnnQueryDescriptor Name(string? value) { _value.Name = value; return this; }
 	public KnnQueryDescriptor Vector(List<float>? value) { _value.Vector = value; return this; }
+	public KnnQueryDescriptor Vector(float value) { _value.Vector = [value]; return this; }
 	/// <summary>The total number of nearest neighbors to return as top hits.</summary>
 		public KnnQueryDescriptor K(int? value) { _value.K = value; return this; }
 	/// <summary>The minimum similarity score required in order for a neighbor to be considered a hit.</summary>

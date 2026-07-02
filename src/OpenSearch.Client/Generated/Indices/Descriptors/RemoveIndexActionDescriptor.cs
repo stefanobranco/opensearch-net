@@ -11,6 +11,7 @@ public sealed class RemoveIndexActionDescriptor
 
 	public RemoveIndexActionDescriptor Index(string? value) { _value.Index = value; return this; }
 	public RemoveIndexActionDescriptor Indices(List<string>? value) { _value.Indices = value; return this; }
+	public RemoveIndexActionDescriptor Indices(string value) { _value.Indices = [value]; return this; }
 	/// <summary>Whether the alias must exist to perform the action.</summary>
 		public RemoveIndexActionDescriptor MustExist(bool? value) { _value.MustExist = value; return this; }
 

@@ -16,6 +16,7 @@ public sealed class IntegerNumberPropertyDescriptor
 	public IntegerNumberPropertyDescriptor Dynamic(string? value) { _value.Dynamic = value; return this; }
 	public IntegerNumberPropertyDescriptor Fields(Dictionary<string, Property>? value) { _value.Fields = value; return this; }
 	public IntegerNumberPropertyDescriptor CopyTo(List<string>? value) { _value.CopyTo = value; return this; }
+	public IntegerNumberPropertyDescriptor CopyTo(string value) { _value.CopyTo = [value]; return this; }
 	public IntegerNumberPropertyDescriptor Similarity(string? value) { _value.Similarity = value; return this; }
 	public IntegerNumberPropertyDescriptor Store(bool? value) { _value.Store = value; return this; }
 	public IntegerNumberPropertyDescriptor DocValues(bool? value) { _value.DocValues = value; return this; }

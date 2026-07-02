@@ -12,6 +12,7 @@ public sealed class TermsAggregationFieldsDescriptor<TDocument>
 
 	public TermsAggregationFieldsDescriptor<TDocument> CollectMode(TermsAggregationCollectMode? value) { _value.CollectMode = value; return this; }
 	public TermsAggregationFieldsDescriptor<TDocument> Exclude(List<string>? value) { _value.Exclude = value; return this; }
+	public TermsAggregationFieldsDescriptor<TDocument> Exclude(string value) { _value.Exclude = [value]; return this; }
 	public TermsAggregationFieldsDescriptor<TDocument> ExecutionHint(TermsAggregationExecutionHint? value) { _value.ExecutionHint = value; return this; }
 	public TermsAggregationFieldsDescriptor<TDocument> Include(TermsInclude? value) { _value.Include = value; return this; }
 	/// <summary>Only return values that are found in more than `min_doc_count` hits.</summary>

@@ -15,13 +15,16 @@ public sealed class PitSegmentsCatRequestDescriptor
 		public PitSegmentsCatRequestDescriptor Format(string? value) { _value.Format = value; return this; }
 	/// <summary>A comma-separated list of column names to display.</summary>
 		public PitSegmentsCatRequestDescriptor H(List<string>? value) { _value.H = value; return this; }
+	public PitSegmentsCatRequestDescriptor H(string value) { _value.H = [value]; return this; }
 	/// <summary>Returns help information.</summary>
 		public PitSegmentsCatRequestDescriptor Help(bool? value) { _value.Help = value; return this; }
 	/// <summary>A comma-separated list of column names or column aliases to sort by.</summary>
 		public PitSegmentsCatRequestDescriptor S(List<string>? value) { _value.S = value; return this; }
+	public PitSegmentsCatRequestDescriptor S(string value) { _value.S = [value]; return this; }
 	/// <summary>Enables verbose mode, which displays column headers.</summary>
 		public PitSegmentsCatRequestDescriptor V(bool? value) { _value.V = value; return this; }
 	public PitSegmentsCatRequestDescriptor PitId(List<string>? value) { _value.PitId = value; return this; }
+	public PitSegmentsCatRequestDescriptor PitId(string value) { _value.PitId = [value]; return this; }
 
 	public static implicit operator PitSegmentsCatRequest(PitSegmentsCatRequestDescriptor descriptor) => descriptor._value;
 }

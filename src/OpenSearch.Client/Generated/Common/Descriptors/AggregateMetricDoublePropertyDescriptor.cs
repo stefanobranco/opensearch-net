@@ -18,6 +18,7 @@ public sealed class AggregateMetricDoublePropertyDescriptor
 	public AggregateMetricDoublePropertyDescriptor Type(string? value) { _value.Type = value; return this; }
 	public AggregateMetricDoublePropertyDescriptor DefaultMetric(string? value) { _value.DefaultMetric = value; return this; }
 	public AggregateMetricDoublePropertyDescriptor Metrics(List<string>? value) { _value.Metrics = value; return this; }
+	public AggregateMetricDoublePropertyDescriptor Metrics(string value) { _value.Metrics = [value]; return this; }
 
 	public static implicit operator AggregateMetricDoubleProperty(AggregateMetricDoublePropertyDescriptor descriptor) => descriptor._value;
 }

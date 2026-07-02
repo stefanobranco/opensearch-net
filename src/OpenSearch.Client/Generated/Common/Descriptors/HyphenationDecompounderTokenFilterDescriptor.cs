@@ -16,6 +16,7 @@ public sealed class HyphenationDecompounderTokenFilterDescriptor
 	public HyphenationDecompounderTokenFilterDescriptor MinWordSize(int? value) { _value.MinWordSize = value; return this; }
 	public HyphenationDecompounderTokenFilterDescriptor OnlyLongestMatch(bool? value) { _value.OnlyLongestMatch = value; return this; }
 	public HyphenationDecompounderTokenFilterDescriptor WordList(List<string>? value) { _value.WordList = value; return this; }
+	public HyphenationDecompounderTokenFilterDescriptor WordList(string value) { _value.WordList = [value]; return this; }
 	public HyphenationDecompounderTokenFilterDescriptor WordListPath(string? value) { _value.WordListPath = value; return this; }
 	public HyphenationDecompounderTokenFilterDescriptor Type(string? value) { _value.Type = value; return this; }
 

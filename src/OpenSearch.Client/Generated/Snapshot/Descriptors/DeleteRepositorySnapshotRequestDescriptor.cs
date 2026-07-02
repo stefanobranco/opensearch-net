@@ -11,6 +11,7 @@ public sealed class DeleteRepositorySnapshotRequestDescriptor
 
 	/// <summary>The name of the snapshot repository to unregister. Wildcard (`*`) patterns are supported.</summary>
 		public DeleteRepositorySnapshotRequestDescriptor Repository(List<string>? value) { _value.Repository = value; return this; }
+	public DeleteRepositorySnapshotRequestDescriptor Repository(string value) { _value.Repository = [value]; return this; }
 	/// <summary>The amount of time to wait for a response from the cluster manager node. For more information about supported time units, see [Common parameters](https://opensearch.org/docs/latest/api-reference/common-parameters/#time-units).</summary>
 		public DeleteRepositorySnapshotRequestDescriptor ClusterManagerTimeout(string? value) { _value.ClusterManagerTimeout = value; return this; }
 	/// <summary>The amount of time to wait for a response.</summary>

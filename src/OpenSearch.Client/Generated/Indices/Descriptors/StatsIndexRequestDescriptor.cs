@@ -11,20 +11,27 @@ public sealed class StatsIndexRequestDescriptor
 
 	/// <summary>Limit the information returned the specific metrics.</summary>
 		public StatsIndexRequestDescriptor Metric(List<Metric>? value) { _value.Metric = value; return this; }
+	public StatsIndexRequestDescriptor Metric(Metric value) { _value.Metric = [value]; return this; }
 	/// <summary>A comma-separated list of index names; use `_all` or empty string to perform the operation on all indexes</summary>
 		public StatsIndexRequestDescriptor Index(List<string>? value) { _value.Index = value; return this; }
+	public StatsIndexRequestDescriptor Index(string value) { _value.Index = [value]; return this; }
 	/// <summary>A comma-separated list or wildcard expressions of fields to include in field data and suggest statistics.</summary>
 		public StatsIndexRequestDescriptor CompletionFields(List<string>? value) { _value.CompletionFields = value; return this; }
+	public StatsIndexRequestDescriptor CompletionFields(string value) { _value.CompletionFields = [value]; return this; }
 	/// <summary>Type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values, such as `open,hidden`.</summary>
 		public StatsIndexRequestDescriptor ExpandWildcards(List<string>? value) { _value.ExpandWildcards = value; return this; }
+	public StatsIndexRequestDescriptor ExpandWildcards(string value) { _value.ExpandWildcards = [value]; return this; }
 	/// <summary>A comma-separated list or wildcard expressions of fields to include in field data statistics.</summary>
 		public StatsIndexRequestDescriptor FielddataFields(List<string>? value) { _value.FielddataFields = value; return this; }
+	public StatsIndexRequestDescriptor FielddataFields(string value) { _value.FielddataFields = [value]; return this; }
 	/// <summary>A comma-separated list or wildcard expressions of fields to include in the statistics.</summary>
 		public StatsIndexRequestDescriptor Fields(List<string>? value) { _value.Fields = value; return this; }
+	public StatsIndexRequestDescriptor Fields(string value) { _value.Fields = [value]; return this; }
 	/// <summary>If `true`, statistics are not collected from closed indexes.</summary>
 		public StatsIndexRequestDescriptor ForbidClosedIndices(bool? value) { _value.ForbidClosedIndices = value; return this; }
 	/// <summary>A comma-separated list of search groups to include in the search statistics.</summary>
 		public StatsIndexRequestDescriptor Groups(List<string>? value) { _value.Groups = value; return this; }
+	public StatsIndexRequestDescriptor Groups(string value) { _value.Groups = [value]; return this; }
 	/// <summary>If `true`, the call reports the aggregated disk usage of each one of the Lucene index files (only applies if segment stats are requested).</summary>
 		public StatsIndexRequestDescriptor IncludeSegmentFileSizes(bool? value) { _value.IncludeSegmentFileSizes = value; return this; }
 	/// <summary>If `true`, the response includes information from segments that are not loaded into memory.</summary>

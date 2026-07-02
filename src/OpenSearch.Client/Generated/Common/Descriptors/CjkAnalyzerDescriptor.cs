@@ -11,6 +11,7 @@ public sealed class CjkAnalyzerDescriptor
 
 	public CjkAnalyzerDescriptor Type(string? value) { _value.Type = value; return this; }
 	public CjkAnalyzerDescriptor Stopwords(List<string>? value) { _value.Stopwords = value; return this; }
+	public CjkAnalyzerDescriptor Stopwords(string value) { _value.Stopwords = [value]; return this; }
 	public CjkAnalyzerDescriptor StopwordsPath(string? value) { _value.StopwordsPath = value; return this; }
 
 	public static implicit operator CjkAnalyzer(CjkAnalyzerDescriptor descriptor) => descriptor._value;

@@ -11,7 +11,9 @@ public sealed class UndeployModelMlRequestDescriptor
 
 	public UndeployModelMlRequestDescriptor ModelId(string? value) { _value.ModelId = value; return this; }
 	public UndeployModelMlRequestDescriptor NodeIds(List<string>? value) { _value.NodeIds = value; return this; }
+	public UndeployModelMlRequestDescriptor NodeIds(string value) { _value.NodeIds = [value]; return this; }
 	public UndeployModelMlRequestDescriptor ModelIds(List<string>? value) { _value.ModelIds = value; return this; }
+	public UndeployModelMlRequestDescriptor ModelIds(string value) { _value.ModelIds = [value]; return this; }
 
 	public static implicit operator UndeployModelMlRequest(UndeployModelMlRequestDescriptor descriptor) => descriptor._value;
 }

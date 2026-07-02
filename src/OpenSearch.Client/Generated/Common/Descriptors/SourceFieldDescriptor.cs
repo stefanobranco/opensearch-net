@@ -13,7 +13,9 @@ public sealed class SourceFieldDescriptor
 	public SourceFieldDescriptor CompressThreshold(string? value) { _value.CompressThreshold = value; return this; }
 	public SourceFieldDescriptor Enabled(bool? value) { _value.Enabled = value; return this; }
 	public SourceFieldDescriptor Excludes(List<string>? value) { _value.Excludes = value; return this; }
+	public SourceFieldDescriptor Excludes(string value) { _value.Excludes = [value]; return this; }
 	public SourceFieldDescriptor Includes(List<string>? value) { _value.Includes = value; return this; }
+	public SourceFieldDescriptor Includes(string value) { _value.Includes = [value]; return this; }
 
 	public static implicit operator SourceField(SourceFieldDescriptor descriptor) => descriptor._value;
 }

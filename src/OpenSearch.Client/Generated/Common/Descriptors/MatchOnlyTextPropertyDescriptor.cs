@@ -15,6 +15,7 @@ public sealed class MatchOnlyTextPropertyDescriptor
 	/// <summary>Metadata about the field.</summary>
 		public MatchOnlyTextPropertyDescriptor Meta(Dictionary<string, string>? value) { _value.Meta = value; return this; }
 	public MatchOnlyTextPropertyDescriptor CopyTo(List<string>? value) { _value.CopyTo = value; return this; }
+	public MatchOnlyTextPropertyDescriptor CopyTo(string value) { _value.CopyTo = [value]; return this; }
 
 	public static implicit operator MatchOnlyTextProperty(MatchOnlyTextPropertyDescriptor descriptor) => descriptor._value;
 }

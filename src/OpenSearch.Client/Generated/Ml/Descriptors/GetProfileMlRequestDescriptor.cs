@@ -10,8 +10,11 @@ public sealed class GetProfileMlRequestDescriptor
 	internal GetProfileMlRequest _value = new();
 
 	public GetProfileMlRequestDescriptor NodeIds(List<string>? value) { _value.NodeIds = value; return this; }
+	public GetProfileMlRequestDescriptor NodeIds(string value) { _value.NodeIds = [value]; return this; }
 	public GetProfileMlRequestDescriptor ModelIds(List<string>? value) { _value.ModelIds = value; return this; }
+	public GetProfileMlRequestDescriptor ModelIds(string value) { _value.ModelIds = [value]; return this; }
 	public GetProfileMlRequestDescriptor TaskIds(List<string>? value) { _value.TaskIds = value; return this; }
+	public GetProfileMlRequestDescriptor TaskIds(string value) { _value.TaskIds = [value]; return this; }
 	/// <summary>Whether to return all tasks.</summary>
 		public GetProfileMlRequestDescriptor ReturnAllTasks(bool? value) { _value.ReturnAllTasks = value; return this; }
 	/// <summary>Whether to return all models.</summary>

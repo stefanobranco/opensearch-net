@@ -44,12 +44,15 @@ public sealed class HighlightFieldDescriptor
 		public HighlightFieldDescriptor PhraseLimit(int? value) { _value.PhraseLimit = value; return this; }
 	/// <summary>When used in conjunction with `pre_tags`, defines the HTML tags to use for the highlighted text. By default, highlighted text is wrapped in `&lt;em&gt;` and `&lt;/em&gt;` tags.</summary>
 		public HighlightFieldDescriptor PostTags(List<string>? value) { _value.PostTags = value; return this; }
+	public HighlightFieldDescriptor PostTags(string value) { _value.PostTags = [value]; return this; }
 	/// <summary>When used in conjunction with `post_tags`, defines the HTML tags to use for the highlighted text. By default, highlighted text is wrapped in `&lt;em&gt;` and `&lt;/em&gt;` tags.</summary>
 		public HighlightFieldDescriptor PreTags(List<string>? value) { _value.PreTags = value; return this; }
+	public HighlightFieldDescriptor PreTags(string value) { _value.PreTags = [value]; return this; }
 	/// <summary>By default, only fields that contains a query match are highlighted. Set to `false` to highlight all fields.</summary>
 		public HighlightFieldDescriptor RequireFieldMatch(bool? value) { _value.RequireFieldMatch = value; return this; }
 	public HighlightFieldDescriptor TagsSchema(HighlighterTagsSchema? value) { _value.TagsSchema = value; return this; }
 	public HighlightFieldDescriptor MatchedFields(List<string>? value) { _value.MatchedFields = value; return this; }
+	public HighlightFieldDescriptor MatchedFields(string value) { _value.MatchedFields = [value]; return this; }
 
 	public static implicit operator HighlightField(HighlightFieldDescriptor descriptor) => descriptor._value;
 }

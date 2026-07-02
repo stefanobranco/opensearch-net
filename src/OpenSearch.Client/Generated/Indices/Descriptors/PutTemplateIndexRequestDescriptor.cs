@@ -19,6 +19,7 @@ public sealed class PutTemplateIndexRequestDescriptor
 		public PutTemplateIndexRequestDescriptor Aliases(Dictionary<string, Alias>? value) { _value.Aliases = value; return this; }
 	/// <summary>Array of wildcard expressions used to match the names of indexes during creation.</summary>
 		public PutTemplateIndexRequestDescriptor IndexPatterns(List<string>? value) { _value.IndexPatterns = value; return this; }
+	public PutTemplateIndexRequestDescriptor IndexPatterns(string value) { _value.IndexPatterns = [value]; return this; }
 	public PutTemplateIndexRequestDescriptor Mappings(TypeMapping? value) { _value.Mappings = value; return this; }
 	public PutTemplateIndexRequestDescriptor Mappings(Action<TypeMappingDescriptor> configure)
 	{

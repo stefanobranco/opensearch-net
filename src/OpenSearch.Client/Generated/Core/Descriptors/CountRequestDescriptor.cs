@@ -11,6 +11,7 @@ public sealed class CountRequestDescriptor
 
 	/// <summary>A comma-separated list of data streams, indexes, and aliases to search. Supports wildcards (`*`). To search all data streams and indexes, omit this parameter or use `*` or `_all`.</summary>
 		public CountRequestDescriptor Index(List<string>? value) { _value.Index = value; return this; }
+	public CountRequestDescriptor Index(string value) { _value.Index = [value]; return this; }
 	/// <summary>If `false`, the request returns an error if any wildcard expression, index alias, or `_all` value targets only missing or closed indexes. This behavior applies even if the request targets other open indexes.</summary>
 		public CountRequestDescriptor AllowNoIndices(bool? value) { _value.AllowNoIndices = value; return this; }
 	/// <summary>If `true`, wildcard and prefix queries are analyzed. This parameter can only be used when the `q` query string parameter is specified.</summary>
@@ -22,6 +23,7 @@ public sealed class CountRequestDescriptor
 	/// <summary>Field to use as default where no field prefix is given in the query string. This parameter can only be used when the `q` query string parameter is specified.</summary>
 		public CountRequestDescriptor Df(string? value) { _value.Df = value; return this; }
 	public CountRequestDescriptor ExpandWildcards(List<string>? value) { _value.ExpandWildcards = value; return this; }
+	public CountRequestDescriptor ExpandWildcards(string value) { _value.ExpandWildcards = [value]; return this; }
 	/// <summary>If `true`, concrete, expanded or aliased indexes are ignored when frozen.</summary>
 		public CountRequestDescriptor IgnoreThrottled(bool? value) { _value.IgnoreThrottled = value; return this; }
 	/// <summary>If `false`, the request returns an error if it targets a missing or closed index.</summary>
@@ -36,6 +38,7 @@ public sealed class CountRequestDescriptor
 		public CountRequestDescriptor Q(string? value) { _value.Q = value; return this; }
 	/// <summary>A custom value used to route operations to a specific shard.</summary>
 		public CountRequestDescriptor Routing(List<string>? value) { _value.Routing = value; return this; }
+	public CountRequestDescriptor Routing(string value) { _value.Routing = [value]; return this; }
 	/// <summary>Maximum number of documents to collect for each shard. If a query reaches this limit, OpenSearch terminates the query early. OpenSearch collects documents before sorting.</summary>
 		public CountRequestDescriptor TerminateAfter(int? value) { _value.TerminateAfter = value; return this; }
 	public CountRequestDescriptor Query(QueryContainer? value) { _value.Query = value; return this; }

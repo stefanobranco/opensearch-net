@@ -16,6 +16,7 @@ public sealed class BooleanPropertyDescriptor
 	public BooleanPropertyDescriptor Dynamic(string? value) { _value.Dynamic = value; return this; }
 	public BooleanPropertyDescriptor Fields(Dictionary<string, Property>? value) { _value.Fields = value; return this; }
 	public BooleanPropertyDescriptor CopyTo(List<string>? value) { _value.CopyTo = value; return this; }
+	public BooleanPropertyDescriptor CopyTo(string value) { _value.CopyTo = [value]; return this; }
 	public BooleanPropertyDescriptor Similarity(string? value) { _value.Similarity = value; return this; }
 	public BooleanPropertyDescriptor Store(bool? value) { _value.Store = value; return this; }
 	public BooleanPropertyDescriptor DocValues(bool? value) { _value.DocValues = value; return this; }

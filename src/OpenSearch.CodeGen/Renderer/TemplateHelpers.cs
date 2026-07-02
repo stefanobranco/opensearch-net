@@ -552,6 +552,13 @@ public static class TemplateHelpers
 			f["is_field_path"] = IsFieldPath(field.Type);
 			f["is_field_path_list"] = field.Type.Kind == TypeRefKind.List
 				&& field.Type.ItemType is not null && IsFieldPath(field.Type.ItemType);
+			// Scalar-item lists get a params convenience overload (Index("logs"), Text("hello world")).
+			f["scalar_item_type"] = field.Type.Kind == TypeRefKind.List
+				&& field.Type.ItemType is { } item
+				&& (item.Kind == TypeRefKind.Primitive || item.IsEnum)
+				&& item.Name != "JsonElement"
+					? item.CSharpName
+					: "";
 
 			if (HasDescriptor(field.Type, allObjects, allUnions))
 				f["descriptor_name"] = GenericName(GetDescriptorName(field.Type), field.Type.CSharpName, genericTypes);

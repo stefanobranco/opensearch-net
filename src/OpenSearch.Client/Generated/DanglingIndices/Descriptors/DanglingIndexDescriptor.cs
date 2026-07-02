@@ -14,6 +14,7 @@ public sealed class DanglingIndexDescriptor
 	public DanglingIndexDescriptor CreationDate(string? value) { _value.CreationDate = value; return this; }
 	public DanglingIndexDescriptor CreationDateMillis(long value) { _value.CreationDateMillis = value; return this; }
 	public DanglingIndexDescriptor NodeIds(List<string>? value) { _value.NodeIds = value; return this; }
+	public DanglingIndexDescriptor NodeIds(string value) { _value.NodeIds = [value]; return this; }
 
 	public static implicit operator DanglingIndex(DanglingIndexDescriptor descriptor) => descriptor._value;
 }

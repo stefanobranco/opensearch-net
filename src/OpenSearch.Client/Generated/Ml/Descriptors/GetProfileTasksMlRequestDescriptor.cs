@@ -11,8 +11,11 @@ public sealed class GetProfileTasksMlRequestDescriptor
 
 	public GetProfileTasksMlRequestDescriptor TaskId(string? value) { _value.TaskId = value; return this; }
 	public GetProfileTasksMlRequestDescriptor NodeIds(List<string>? value) { _value.NodeIds = value; return this; }
+	public GetProfileTasksMlRequestDescriptor NodeIds(string value) { _value.NodeIds = [value]; return this; }
 	public GetProfileTasksMlRequestDescriptor ModelIds(List<string>? value) { _value.ModelIds = value; return this; }
+	public GetProfileTasksMlRequestDescriptor ModelIds(string value) { _value.ModelIds = [value]; return this; }
 	public GetProfileTasksMlRequestDescriptor TaskIds(List<string>? value) { _value.TaskIds = value; return this; }
+	public GetProfileTasksMlRequestDescriptor TaskIds(string value) { _value.TaskIds = [value]; return this; }
 	/// <summary>Whether to return all tasks.</summary>
 		public GetProfileTasksMlRequestDescriptor ReturnAllTasks(bool? value) { _value.ReturnAllTasks = value; return this; }
 	/// <summary>Whether to return all models.</summary>

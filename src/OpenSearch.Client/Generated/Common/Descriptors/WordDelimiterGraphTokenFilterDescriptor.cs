@@ -20,11 +20,13 @@ public sealed class WordDelimiterGraphTokenFilterDescriptor
 	public WordDelimiterGraphTokenFilterDescriptor IgnoreKeywords(bool? value) { _value.IgnoreKeywords = value; return this; }
 	public WordDelimiterGraphTokenFilterDescriptor PreserveOriginal(string? value) { _value.PreserveOriginal = value; return this; }
 	public WordDelimiterGraphTokenFilterDescriptor ProtectedWords(List<string>? value) { _value.ProtectedWords = value; return this; }
+	public WordDelimiterGraphTokenFilterDescriptor ProtectedWords(string value) { _value.ProtectedWords = [value]; return this; }
 	public WordDelimiterGraphTokenFilterDescriptor ProtectedWordsPath(string? value) { _value.ProtectedWordsPath = value; return this; }
 	public WordDelimiterGraphTokenFilterDescriptor SplitOnCaseChange(bool? value) { _value.SplitOnCaseChange = value; return this; }
 	public WordDelimiterGraphTokenFilterDescriptor SplitOnNumerics(bool? value) { _value.SplitOnNumerics = value; return this; }
 	public WordDelimiterGraphTokenFilterDescriptor StemEnglishPossessive(bool? value) { _value.StemEnglishPossessive = value; return this; }
 	public WordDelimiterGraphTokenFilterDescriptor TypeTable(List<string>? value) { _value.TypeTable = value; return this; }
+	public WordDelimiterGraphTokenFilterDescriptor TypeTable(string value) { _value.TypeTable = [value]; return this; }
 	public WordDelimiterGraphTokenFilterDescriptor TypeTablePath(string? value) { _value.TypeTablePath = value; return this; }
 
 	public static implicit operator WordDelimiterGraphTokenFilter(WordDelimiterGraphTokenFilterDescriptor descriptor) => descriptor._value;

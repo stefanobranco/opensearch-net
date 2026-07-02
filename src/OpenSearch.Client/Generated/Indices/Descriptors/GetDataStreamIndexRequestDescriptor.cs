@@ -11,6 +11,7 @@ public sealed class GetDataStreamIndexRequestDescriptor
 
 	/// <summary>A comma-separated list of data stream names used to limit the request. Wildcard (`*`) expressions are supported. If omitted, all data streams are returned.</summary>
 		public GetDataStreamIndexRequestDescriptor Name(List<string>? value) { _value.Name = value; return this; }
+	public GetDataStreamIndexRequestDescriptor Name(string value) { _value.Name = [value]; return this; }
 
 	public static implicit operator GetDataStreamIndexRequest(GetDataStreamIndexRequestDescriptor descriptor) => descriptor._value;
 }
