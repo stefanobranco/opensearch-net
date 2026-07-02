@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 namespace OpenSearch.Client;
 
 
-public sealed class Index
+public sealed class MemoryIndex
 {
 	/// <summary>The number of shards.</summary>
 		public string? NumberOfShards { get; set; }

@@ -11,10 +11,10 @@ public sealed class ConnectorActionDescriptor
 
 	public ConnectorActionDescriptor ActionType(string? value) { _value.ActionType = value; return this; }
 	public ConnectorActionDescriptor Method(string? value) { _value.Method = value; return this; }
-	public ConnectorActionDescriptor Headers(Headers? value) { _value.Headers = value; return this; }
-	public ConnectorActionDescriptor Headers(Action<HeadersDescriptor> configure)
+	public ConnectorActionDescriptor Headers(ConnectorHeaders? value) { _value.Headers = value; return this; }
+	public ConnectorActionDescriptor Headers(Action<ConnectorHeadersDescriptor> configure)
 	{
-		var descriptor = new HeadersDescriptor();
+		var descriptor = new ConnectorHeadersDescriptor();
 		configure(descriptor);
 		_value.Headers = descriptor;
 		return this;

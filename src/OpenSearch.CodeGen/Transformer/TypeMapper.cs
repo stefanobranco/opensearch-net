@@ -97,6 +97,8 @@ public sealed class TypeMapper
 		["ml._common:Result"] = "MlResult",
 		["ml._common:Status"] = "MlTaskStatus",
 		["ltr._common:StoreStats"] = "LtrStoreStats",
+		["ml._common:Index"] = "MemoryIndex", // shard config for ml memory indices; bare Index would collide with System.Index
+		["ml._common:Headers"] = "ConnectorHeaders",
 	};
 
 	/// <summary>

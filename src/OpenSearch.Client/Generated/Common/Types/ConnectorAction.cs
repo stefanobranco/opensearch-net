@@ -10,7 +10,7 @@ public sealed class ConnectorAction
 {
 	public string? ActionType { get; set; }
 	public string? Method { get; set; }
-	public Headers? Headers { get; set; }
+	public ConnectorHeaders? Headers { get; set; }
 	public string? Url { get; set; }
 	public string? RequestBody { get; set; }
 	public string? PreProcessFunction { get; set; }

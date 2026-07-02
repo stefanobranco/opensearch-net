@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 namespace OpenSearch.Client;
 
 
-public sealed class Headers
+public sealed class ConnectorHeaders
 {
 	public string? ContentType { get; set; }
 }

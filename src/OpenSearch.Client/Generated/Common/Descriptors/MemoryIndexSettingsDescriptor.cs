@@ -9,10 +9,10 @@ public sealed class MemoryIndexSettingsDescriptor
 {
 	internal MemoryIndexSettings _value = new();
 
-	public MemoryIndexSettingsDescriptor Index(Index? value) { _value.Index = value; return this; }
-	public MemoryIndexSettingsDescriptor Index(Action<IndexDescriptor> configure)
+	public MemoryIndexSettingsDescriptor Index(MemoryIndex? value) { _value.Index = value; return this; }
+	public MemoryIndexSettingsDescriptor Index(Action<MemoryIndexDescriptor> configure)
 	{
-		var descriptor = new IndexDescriptor();
+		var descriptor = new MemoryIndexDescriptor();
 		configure(descriptor);
 		_value.Index = descriptor;
 		return this;

@@ -8,5 +8,5 @@ namespace OpenSearch.Client;
 
 public sealed class MemoryIndexSettings
 {
-	public Index? Index { get; set; }
+	public MemoryIndex? Index { get; set; }
 }
