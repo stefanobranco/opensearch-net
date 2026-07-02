@@ -1,6 +1,6 @@
 # SB.OpenSearch.Net.Auth.AwsSigV4
 
-> **Experimental, AI-written rebuild. Not an official [opensearch-net](https://github.com/opensearch-project/opensearch-net) package. Not for production use.**
+> **AI-written rebuild. Not an official [opensearch-net](https://github.com/opensearch-project/opensearch-net) package. Use at your own risk.**
 
 AWS SigV4 request signing for the `SB.OpenSearch.Net` transport — authenticate against Amazon OpenSearch Service (or OpenSearch Serverless) using standard AWS credentials.
 

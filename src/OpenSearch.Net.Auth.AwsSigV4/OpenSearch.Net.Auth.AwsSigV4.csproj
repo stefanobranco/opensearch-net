@@ -2,8 +2,8 @@
   <PropertyGroup>
     <IsPackable>true</IsPackable>
     <PackageId>SB.OpenSearch.Net.Auth.AwsSigV4</PackageId>
-    <Description>AWS SigV4 authentication handler for the OpenSearch .NET client transport. Experimental AI-written rebuild — not an official opensearch-net package. Not for production use.</Description>
-    <PackageTags>opensearch;aws;sigv4;authentication;experimental</PackageTags>
+    <Description>AWS SigV4 authentication handler for the OpenSearch .NET client transport. AI-written rebuild — not an official opensearch-net package. Use at your own risk.</Description>
+    <PackageTags>opensearch;aws;sigv4;authentication</PackageTags>
     <PackageReadmeFile>PACKAGE.md</PackageReadmeFile>
   </PropertyGroup>
 

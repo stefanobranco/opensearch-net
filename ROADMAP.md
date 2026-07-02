@@ -47,10 +47,11 @@ well-engineered **on its own terms**, with no push for upstream adoption.
 
 ## Phase B — Functional completeness (core gaps)
 
-- [~] **B1. `snapshot` namespace** — generated + wired (11 ops, `SnapshotInfo`/rich Create/Restore
-      bodies). Serialization fixtures + integration tests still pending.
-- [~] **B2. `tasks` namespace** — generated + wired (Cancel/Get/List, `TaskInfo`). Serialization
-      fixtures + integration tests still pending.
+- [x] **B1. `snapshot` namespace** — generated + wired (11 ops, `SnapshotInfo`/rich Create/Restore
+      bodies). Covered since: `SnapshotResponseSerializationTests` fixtures + repo-lifecycle
+      integration tests in CI (see C1/C2).
+- [x] **B2. `tasks` namespace** — generated + wired (Cancel/Get/List, `TaskInfo`). Covered since:
+      `TasksResponseSerializationTests` fixtures + integration tests in CI (see C1/C2).
 - [x] **B3. Reviewed remaining namespaces.** Wired every namespace opensearch-java ships that we
       were missing — `snapshot`, `tasks`, `search_pipeline`, `search_relevance`, `ubi` — reaching
       **19/19 java parity**. The other 17 spec namespaces are shipped by neither client (see
@@ -130,7 +131,8 @@ well-engineered **on its own terms**, with no push for upstream adoption.
       Verified beyond CI: packed all three as beta.5 and ran a **consumer smoke test** — a fresh console
       app restoring from the local feed, compiling the README Quick Start verbatim, asserting wire format
       and the custom-SourceSerializer path. `SourceSerializerTests` pins the dual-serializer contract.
-- [~] **C7. RC-readiness track (decided 2026-07-02).** The bar for calling a version RC, worked in order:
+- [x] **C7. RC-readiness track (decided 2026-07-02, completed 2026-07-02 → 3.4.0-rc.1).** The bar
+      for calling a version RC, worked in order:
   1. [x] **Aggregation result accessors to builder parity.** You could fluently build percentiles /
      filters / geo_bounds / date_histogram / range / *_bucket pipeline aggregations but not read their
      results without raw JsonElement digging. Added typed accessors (`Percentiles`/`PercentileRanks`/

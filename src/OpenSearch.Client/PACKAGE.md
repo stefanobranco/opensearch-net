@@ -1,6 +1,6 @@
 # SB.OpenSearch.Client
 
-> **Experimental, AI-written rebuild. Not the official [OpenSearch.Client](https://www.nuget.org/packages/OpenSearch.Client) package. Not for production use.**
+> **AI-written rebuild. Not the official [OpenSearch.Client](https://www.nuget.org/packages/OpenSearch.Client) package. Use at your own risk.**
 
 Strongly-typed .NET client for [OpenSearch](https://opensearch.org/), generated from the [OpenSearch API specification](https://github.com/opensearch-project/opensearch-api-specification).
 

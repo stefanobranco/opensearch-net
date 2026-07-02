@@ -1,6 +1,6 @@
 # SB.OpenSearch.Net
 
-> **Experimental, AI-written rebuild. Not the official [OpenSearch.Net](https://www.nuget.org/packages/OpenSearch.Net) package. Not for production use.**
+> **AI-written rebuild. Not the official [OpenSearch.Net](https://www.nuget.org/packages/OpenSearch.Net) package. Use at your own risk.**
 
 Low-level transport library for [OpenSearch](https://opensearch.org/), providing HTTP transport, node management, retry logic, and serialization infrastructure.
 

@@ -14,7 +14,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <CurrentVersion>3.4.0-beta.7</CurrentVersion>
+    <CurrentVersion>3.4.0-rc.1</CurrentVersion>
     <Version>$(CurrentVersion)</Version>
     <InformationalVersion>$(CurrentVersion)</InformationalVersion>
     <!-- Assembly/file versions track the release's numeric part (e.g. "3.4.0-beta.4" -> "3.4.0"),
@@ -27,7 +27,7 @@
     <Authors>Stefano Branco</Authors>
     <Copyright>Stefano Branco</Copyright>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageReleaseNotes>Experimental AI-written rebuild. Not for production use.</PackageReleaseNotes>
+    <PackageReleaseNotes>AI-written rebuild — not the official opensearch-net packages. Use at your own risk.</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/stefanobranco/opensearch-net</PackageProjectUrl>
     <RepositoryUrl>https://github.com/stefanobranco/opensearch-net</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>

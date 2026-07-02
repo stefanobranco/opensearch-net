@@ -3,8 +3,8 @@
     <IsPackable>true</IsPackable>
     <PackageId>SB.OpenSearch.Net</PackageId>
     <RootNamespace>OpenSearch.Net</RootNamespace>
-    <Description>Low-level transport for OpenSearch .NET clients. Experimental AI-written rebuild — not the official opensearch-net package. Not for production use.</Description>
-    <PackageTags>opensearch;search;client;transport;experimental</PackageTags>
+    <Description>Low-level transport for OpenSearch .NET clients. AI-written rebuild — not the official opensearch-net package. Use at your own risk.</Description>
+    <PackageTags>opensearch;search;client;transport</PackageTags>
     <PackageReadmeFile>PACKAGE.md</PackageReadmeFile>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>CS1591</NoWarn>

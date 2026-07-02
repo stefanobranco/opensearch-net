@@ -1,11 +1,11 @@
-# OpenSearch .NET Client (Experimental)
+# OpenSearch .NET Client (Unofficial)
 
 [![CI](https://github.com/stefanobranco/opensearch-net/actions/workflows/ci.yml/badge.svg)](https://github.com/stefanobranco/opensearch-net/actions/workflows/ci.yml)
 [![SB.OpenSearch.Client](https://img.shields.io/nuget/vpre/SB.OpenSearch.Client.svg?label=SB.OpenSearch.Client)](https://www.nuget.org/packages/SB.OpenSearch.Client)
 
-> **This is an experimental, work-in-progress, AI-written ground-up rebuild of the OpenSearch .NET client.**
-> It is **not** the official [opensearch-project/opensearch-net](https://github.com/opensearch-project/opensearch-net) client,
-> it is **not** affiliated with or endorsed by that project, and it is **not** for production use.
+> **This is an AI-written ground-up rebuild of the OpenSearch .NET client.**
+> It is **not** the official [opensearch-project/opensearch-net](https://github.com/opensearch-project/opensearch-net) client
+> and is **not** affiliated with or endorsed by that project. Use at your own risk.
 
 ## What is this?
 
@@ -17,13 +17,14 @@ A modern .NET client for [OpenSearch](https://opensearch.org/), built from scrat
 
 It is a spec-driven, System.Text.Json-based client. The goal is a clean, well-engineered client **on its own
 terms** — an independent package published as `SB.OpenSearch.Client` / `SB.OpenSearch.Net`. There is no plan to
-contribute it upstream; the honest "experimental / not the official package" framing is deliberate.
+contribute it upstream; the honest "unofficial package" framing is deliberate.
 
 ## Status
 
-**Beta** — integration-tested in CI against OpenSearch **3.0.0, 3.4.0, and 3.7.0** on every commit
-(see [`build-test.yml`](.github/workflows/build-test.yml)). Core functionality works, but the API surface is
-incomplete and breaking changes are expected.
+**Release candidate** — integration-tested in CI against OpenSearch **3.0.0, 3.4.0, and 3.7.0** on every
+commit (see [`build-test.yml`](.github/workflows/build-test.yml)), benchmarked at parity with the official
+client on time and 25–55% lower on allocations (see [`benchmarks/`](benchmarks/README.md)). The API surface
+below is stable; further breaking changes are not planned before 3.4.0 final.
 
 What works:
 - Transport with retry logic, dead-node tracking, handler rotation for DNS refresh
