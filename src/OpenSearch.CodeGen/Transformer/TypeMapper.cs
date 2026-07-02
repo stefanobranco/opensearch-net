@@ -99,6 +99,20 @@ public sealed class TypeMapper
 		["ltr._common:StoreStats"] = "LtrStoreStats",
 		["ml._common:Index"] = "MemoryIndex", // shard config for ml memory indices; bare Index would collide with System.Index
 		["ml._common:Headers"] = "ConnectorHeaders",
+		// Surfaced by recovering the per-node dictionaries (`nodes`) in stats/info responses;
+		// the origin that existed before keeps the bare name.
+		["cluster.stats:IndexingPressure"] = "ClusterIndexingPressure", // indices._common keeps IndexingPressure (index-settings backpressure config)
+		["nodes.stats:IndexingPressure"] = "NodeIndexingPressure",
+		["nodes.stats:Ingest"] = "NodeIngestStats", // ingest.simulate keeps Ingest (simulate result envelope)
+		["knn._common:NodeStats"] = "KnnNodeStats",
+		["ltr._common:NodeStats"] = "LtrNodeStats",
+		["ml._common:NodeStats"] = "MlNodeStats",
+		["ltr._common:NodeStatsDetails"] = "LtrNodeStatsDetails", // ml._common keeps NodeStatsDetails (pre-existing ML stats shape)
+		["nodes.stats:RemoteStoreStats"] = "NodeRemoteStoreStats", // _common keeps RemoteStoreStats (remote segment store stats)
+		["ltr._common:CacheStats"] = "LtrCacheStats",
+		["nodes.stats:CacheStats"] = "NodeCacheStats",
+		["cluster.stats:IndexingPressureMemory"] = "ClusterIndexingPressureMemory", // indices._common keeps IndexingPressureMemory
+		["nodes.stats:IndexingPressureMemory"] = "NodeIndexingPressureMemory",
 	};
 
 	/// <summary>
@@ -1067,22 +1081,32 @@ public sealed class TypeMapper
 			// Dotted properties (e.g. cat records' "docs.count", "store.size") become PascalCase fields
 			// with a [JsonPropertyName] carrying the dotted wire name.
 			var pascalName = NamingConventions.ToPascalCase(name);
-			// Skip duplicate property names (can happen with allOf merging)
 			if (!existingNames.Add(pascalName))
 			{
-				// allOf specialization: a later member may bind a property that an earlier
-				// (generic-base) member declared as an open generic parameter to a concrete
-				// type — e.g. ExtendedBounds<T>.max: T specialized to max: FieldDateMath by
-				// ExtendedBoundsFieldDateMath. The concrete override wins over the open param,
-				// so the specialization is non-generic instead of inheriting a spurious <T>.
-				var existingIdx = fields.FindIndex(f => f.Name == pascalName);
-				if (existingIdx >= 0 && fields[existingIdx].Type.IsGenericParameter)
+				var existingIdx = fields.FindIndex(f => string.Equals(f.Name, pascalName, StringComparison.OrdinalIgnoreCase));
+				if (existingIdx >= 0 && fields[existingIdx].WireName != name)
 				{
-					var specialized = Map(propSchema);
-					if (!specialized.IsGenericParameter)
-						fields[existingIdx] = CloneFieldWithType(fields[existingIdx], specialized);
+					// Distinct wire names colliding on one PascalCase name (e.g. `_nodes` beside
+					// `nodes`) — renamed via the collision table, never silently dropped.
+					var owner = _mappingContext.Count > 0 ? string.Join(".", _mappingContext.Reverse()) : "<unknown object>";
+					pascalName = NamingConventions.ResolveFieldCollision(fields, name, pascalName, owner);
+					existingNames.Add(pascalName);
 				}
-				continue;
+				else
+				{
+					// allOf specialization: a later member may bind a property that an earlier
+					// (generic-base) member declared as an open generic parameter to a concrete
+					// type — e.g. ExtendedBounds<T>.max: T specialized to max: FieldDateMath by
+					// ExtendedBoundsFieldDateMath. The concrete override wins over the open param,
+					// so the specialization is non-generic instead of inheriting a spurious <T>.
+					if (existingIdx >= 0 && fields[existingIdx].Type.IsGenericParameter)
+					{
+						var specialized = Map(propSchema);
+						if (!specialized.IsGenericParameter)
+							fields[existingIdx] = CloneFieldWithType(fields[existingIdx], specialized);
+					}
+					continue;
+				}
 			}
 
 			_mappingContext.Push(name);
@@ -1139,26 +1163,26 @@ public sealed class TypeMapper
 		// all $ref properties (with maybe 1-2 deprecated inline exceptions).
 		// Config objects like IndexSettings have many inline string/primitive properties.
 		var refCount = 0;
-		var inlineStringOrPrimitiveCount = 0;
+		var scalarCount = 0;
 		foreach (var (_, propSchema) in schema.Properties)
 		{
-			if (propSchema.Ref is not null)
-			{
+			// A scalar-typed property — inline or via a $ref alias chain (ByteCount → long,
+			// HumanReadableByteCount → string) — is a config/stats field, not a union variant:
+			// real variants are object-shaped. Without following the chain, all-ref stats
+			// objects like JvmMemoryStats were misclassified as unions.
+			var resolved = propSchema;
+			while (resolved.Ref is not null)
+				resolved = resolved.Resolved();
+
+			if (resolved.Type is "string" or "boolean" or "integer" or "number" || resolved.EnumValues.Count > 0)
+				scalarCount++;
+			else if (propSchema.Ref is not null)
 				refCount++;
-			}
-			else
-			{
-				// Inline properties that are simple types (string, boolean, integer, etc.)
-				// strongly indicate a config object, not a union.
-				var resolved = propSchema.Resolved();
-				if (resolved.Type is "string" or "boolean" or "integer" or "number")
-					inlineStringOrPrimitiveCount++;
-			}
 		}
 
-		// Reject if there are any inline primitive/string properties — config objects
-		// always have at least some. True unions only have inline $ref or inline objects.
-		if (inlineStringOrPrimitiveCount > 0)
+		// Reject if there are any scalar properties — config objects always have at least
+		// some. True unions only have object-shaped $ref or inline object variants.
+		if (scalarCount > 0)
 			return false;
 
 		// Require at least 90% $ref properties

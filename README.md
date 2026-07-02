@@ -42,12 +42,11 @@ What works:
 - AWS SigV4 authentication
 
 What's incomplete or missing:
-- A handful of polymorphic response shapes are still read as raw `JsonElement` (e.g. `cluster.state`,
-  streaming ML predict/execute)
-- `nodes.info` / `nodes.stats` expose the `_nodes` summary but not per-node details
-- No Newtonsoft.Json bridge yet
+- A handful of freeform response bodies are exposed as raw JSON rather than typed (`cluster.state`
+  via `ExtensionData`, streaming ML predict/execute)
+- No Newtonsoft.Json bridge package — but `SourceSerializer` accepts any `IOpenSearchSerializer`,
+  so a Newtonsoft adapter for your document types is a ~30-line class
 - Integration tests cover 11 namespaces against a real cluster; the rest are covered by serialization fixtures only
-- `Node` is defined in both `OpenSearch.Net` (transport) and `OpenSearch.Client` (cluster info); qualify it if you import both namespaces
 
 ## Quick Start
 

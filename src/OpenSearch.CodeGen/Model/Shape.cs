@@ -188,6 +188,16 @@ public sealed class ResponseShape : Shape
 	/// a <c>Value</c> property) rather than JSON-deserialized.</summary>
 	public bool IsPlainTextResponse { get; init; }
 
+	/// <summary>Whether the spec declares the body freeform (<c>schema: {}</c> — e.g. cluster.state,
+	/// whose shape depends on the requested metrics). The body is captured via
+	/// <c>[JsonExtensionData]</c> instead of being discarded.</summary>
+	public bool IsFreeform { get; init; }
+
+	/// <summary>Whether the response body <em>is</em> the user document (get_source). The response
+	/// is generic and carries the document in a <c>TDocument Body</c> property deserialized through
+	/// the source serializer.</summary>
+	public bool IsDocumentResponse { get; init; }
+
 	/// <summary>Generic type parameter names (e.g., ["TDocument"]) if any field references a generic parameter.</summary>
 	public IReadOnlyList<string> TypeParameters { get; init; } = [];
 

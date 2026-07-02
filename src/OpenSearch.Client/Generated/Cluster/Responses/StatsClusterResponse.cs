@@ -14,13 +14,15 @@ public partial class StatsClusterResponse : OpenSearch.Net.OpenSearchResponse
 {
 	/// <summary>Contains statistics about the number of nodes selected by the request's node filters.</summary>
 		[JsonPropertyName("_nodes")]
-	public NodeStatistics? Nodes { get; set; }
+	public NodeStatistics? NodeStatistics { get; set; }
 	/// <summary>The name of the cluster.</summary>
 		public string? ClusterName { get; set; }
 	/// <summary>The unique identifier of the cluster.</summary>
 		public string? ClusterUuid { get; set; }
 	/// <summary>Displays statistics about indexes in the cluster.</summary>
 		public ClusterIndices? Indices { get; set; }
+	/// <summary>Displays statistics about nodes selected by the request's node filters.</summary>
+		public ClusterNodes? Nodes { get; set; }
 	/// <summary>The health status of the cluster, based on the state of its primary and replica shards.</summary>
 		public string? Status { get; set; }
 	/// <summary>The Unix timestamp, in milliseconds, indicating when any cluster statistics were last refreshed.</summary>

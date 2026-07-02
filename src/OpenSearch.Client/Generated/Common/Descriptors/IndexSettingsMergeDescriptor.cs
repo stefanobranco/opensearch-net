@@ -7,30 +7,32 @@ namespace OpenSearch.Client;
 
 public sealed class IndexSettingsMergeDescriptor
 {
-	internal IndexSettingsMerge? _value;
+	internal IndexSettingsMerge _value = new();
 
-	/// <summary>Creates a LogByteSizePolicy variant.</summary>
-	public IndexSettingsMergeDescriptor LogByteSizePolicy(IndexSettingsMergeLogByteSizePolicy value) { _value = IndexSettingsMerge.LogByteSizePolicy(value); return this; }
-	/// <summary>Creates a LogByteSizePolicy variant.</summary>
+	public IndexSettingsMergeDescriptor LogByteSizePolicy(IndexSettingsMergeLogByteSizePolicy? value) { _value.LogByteSizePolicy = value; return this; }
 	public IndexSettingsMergeDescriptor LogByteSizePolicy(Action<IndexSettingsMergeLogByteSizePolicyDescriptor> configure)
 	{
 		var descriptor = new IndexSettingsMergeLogByteSizePolicyDescriptor();
 		configure(descriptor);
-		_value = IndexSettingsMerge.LogByteSizePolicy(((IndexSettingsMergeLogByteSizePolicy)descriptor)!);
+		_value.LogByteSizePolicy = descriptor;
 		return this;
 	}
-	/// <summary>Creates a Policy variant.</summary>
-	public IndexSettingsMergeDescriptor Policy(IndexSettingsMergePolicy value) { _value = IndexSettingsMerge.Policy(value); return this; }
-	/// <summary>Creates a Scheduler variant.</summary>
-	public IndexSettingsMergeDescriptor Scheduler(IndexSettingsMergeScheduler value) { _value = IndexSettingsMerge.Scheduler(value); return this; }
-	/// <summary>Creates a Scheduler variant.</summary>
+	public IndexSettingsMergeDescriptor Policy(IndexSettingsMergePolicy? value) { _value.Policy = value; return this; }
+	public IndexSettingsMergeDescriptor PolicyDeletesPctAllowed(string? value) { _value.PolicyDeletesPctAllowed = value; return this; }
+	public IndexSettingsMergeDescriptor PolicyExpungeDeletesAllowed(string? value) { _value.PolicyExpungeDeletesAllowed = value; return this; }
+	public IndexSettingsMergeDescriptor PolicyFloorSegment(string? value) { _value.PolicyFloorSegment = value; return this; }
+	public IndexSettingsMergeDescriptor PolicyMaxMergeAtOnce(string? value) { _value.PolicyMaxMergeAtOnce = value; return this; }
+	public IndexSettingsMergeDescriptor PolicyMaxMergedSegment(string? value) { _value.PolicyMaxMergedSegment = value; return this; }
+	public IndexSettingsMergeDescriptor PolicyReclaimDeletesWeight(string? value) { _value.PolicyReclaimDeletesWeight = value; return this; }
+	public IndexSettingsMergeDescriptor PolicySegmentsPerTier(string? value) { _value.PolicySegmentsPerTier = value; return this; }
+	public IndexSettingsMergeDescriptor Scheduler(IndexSettingsMergeScheduler? value) { _value.Scheduler = value; return this; }
 	public IndexSettingsMergeDescriptor Scheduler(Action<IndexSettingsMergeSchedulerDescriptor> configure)
 	{
 		var descriptor = new IndexSettingsMergeSchedulerDescriptor();
 		configure(descriptor);
-		_value = IndexSettingsMerge.Scheduler(((IndexSettingsMergeScheduler)descriptor)!);
+		_value.Scheduler = descriptor;
 		return this;
 	}
 
-	public static implicit operator IndexSettingsMerge?(IndexSettingsMergeDescriptor descriptor) => descriptor._value;
+	public static implicit operator IndexSettingsMerge(IndexSettingsMergeDescriptor descriptor) => descriptor._value;
 }

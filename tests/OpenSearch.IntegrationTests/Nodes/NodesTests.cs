@@ -7,21 +7,33 @@ namespace OpenSearch.IntegrationTests.Nodes;
 public class NodesTests : IntegrationTestBase
 {
 	[SkipIfNoCluster]
-	public void InfoReturnsClusterNameAndNodeSummary()
+	public void InfoReturnsPerNodeDetails()
 	{
 		var response = Client.Nodes.Info(new InfoNodeRequest());
 
 		response.ClusterName.Should().NotBeNullOrEmpty();
-		response.Nodes!.Total.Should().BeGreaterThanOrEqualTo(1);
+		response.NodeStatistics!.Total.Should().BeGreaterThanOrEqualTo(1);
+		response.Nodes.Should().NotBeNullOrEmpty();
+
+		var node = response.Nodes!.Values.First();
+		node.Name.Should().NotBeNullOrEmpty();
+		node.Version.Should().NotBeNullOrEmpty();
+		node.Roles.Should().NotBeNullOrEmpty();
+		node.Os!.AvailableProcessors.Should().BeGreaterThan(0);
 	}
 
 	[SkipIfNoCluster]
-	public void StatsReturnsNodeSummary()
+	public void StatsReturnsPerNodeDetails()
 	{
 		var response = Client.Nodes.Stats(new StatsNodeRequest());
 
 		response.ClusterName.Should().NotBeNullOrEmpty();
-		response.Nodes!.Total.Should().BeGreaterThanOrEqualTo(1);
+		response.NodeStatistics!.Total.Should().BeGreaterThanOrEqualTo(1);
+		response.Nodes.Should().NotBeNullOrEmpty();
+
+		var node = response.Nodes!.Values.First();
+		node.Indices!.Docs!.Count.Should().BeGreaterThanOrEqualTo(0);
+		node.Jvm!.Mem!.HeapUsedInBytes.Should().BeGreaterThan(0);
 	}
 
 	[SkipIfNoCluster]

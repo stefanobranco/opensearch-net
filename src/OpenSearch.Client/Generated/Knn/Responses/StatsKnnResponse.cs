@@ -14,8 +14,9 @@ public partial class StatsKnnResponse : OpenSearch.Net.OpenSearchResponse
 {
 	/// <summary>Contains statistics about the number of nodes selected by the request's node filters.</summary>
 		[JsonPropertyName("_nodes")]
-	public NodeStatistics? Nodes { get; set; }
+	public NodeStatistics? NodeStatistics { get; set; }
 	public string? ClusterName { get; set; }
 	public bool? CircuitBreakerTriggered { get; set; }
 	public string? ModelIndexStatus { get; set; }
+	public Dictionary<string, KnnNodeStats>? Nodes { get; set; }
 }

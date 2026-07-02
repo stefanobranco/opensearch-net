@@ -13,9 +13,11 @@ namespace OpenSearch.Client;
 public partial class CacheStatsLtrResponse : OpenSearch.Net.OpenSearchResponse
 {
 	[JsonPropertyName("_nodes")]
-	public NodeStatistics? Nodes { get; set; }
+	public NodeStatistics? NodeStatistics { get; set; }
 	public string? ClusterName { get; set; }
 	public CacheAllStats? All { get; set; }
 	/// <summary>Cache statistics by store.</summary>
 		public System.Text.Json.JsonElement? Stores { get; set; }
+	/// <summary>Cache statistics per node.</summary>
+		public Dictionary<string, NodeDetails>? Nodes { get; set; }
 }

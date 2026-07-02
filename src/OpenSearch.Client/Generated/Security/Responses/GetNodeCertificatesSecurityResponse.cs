@@ -14,7 +14,8 @@ public partial class GetNodeCertificatesSecurityResponse : OpenSearch.Net.OpenSe
 {
 	/// <summary>Contains statistics about the number of nodes selected by the request's node filters.</summary>
 		[JsonPropertyName("_nodes")]
-	public NodeStatistics? Nodes { get; set; }
+	public NodeStatistics? NodeStatistics { get; set; }
 	/// <summary>Name of this cluster.</summary>
 		public string? ClusterName { get; set; }
+	public Dictionary<string, CertificatesPerNode>? Nodes { get; set; }
 }

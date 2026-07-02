@@ -219,6 +219,31 @@ well-engineered **on its own terms**, with no push for upstream adoption.
         operations write action metadata directly. Bulk went 1,412 → 1,086 μs (legacy: 1,038)
         and 1,996 → 954 KB.
 
+## Phase E — RC soak (3.4.0-rc.1 → final)
+
+- [x] **E1. Response completeness (from the README "incomplete" list, 2026-07-02).** Auditing the
+      list found most items stale or worse than documented; fixed at the root:
+      - **PascalCase field collisions silently dropped properties.** `_nodes` and `nodes` both
+        become `Nodes`; first-wins dedupe kept the summary and dropped the per-node dictionary in
+        **13 responses** (nodes.info/stats/usage, cluster.stats, knn/ltr/search_relevance stats,
+        security certificates, reload_secure_settings) — and `PercolateQuery.name` lost to
+        `QueryBase._name`. Now: a collision-scoped rename table (`_nodes`→`NodeStatistics`,
+        `_name`→`QueryName`) applied in all three field collectors, and generation **fails** on
+        any unlisted collision. ~212 recovered types (NodeInfo/Stats trees).
+      - **Union-vs-object misclassification**: the property-keyed-union heuristic didn't resolve
+        $ref chains, so all-scalar-alias stats objects (`JvmMemoryStats`, `IndexSettingsMerge`)
+        generated as unusable tagged unions. Refs now resolve; scalar-typed properties disqualify.
+      - **Freeform responses discarded their bodies**: spec `schema: {}` produced empty classes
+        (`cluster.state` returned *nothing*). Freeform responses now capture the body via
+        `[JsonExtensionData]` — and `get_source`, whose body *is* the document, became a typed
+        generic `GetSourceResponse<TDocument>` deserialized through the source serializer.
+      - Conflation renames for the newly reachable trees (NodeStats ×3, CacheStats,
+        IndexingPressure/Memory, Ingest, RemoteStoreStats, NodeStatsDetails); fixtures for every
+        recovered shape; integration tests for per-node details, cluster.state, get_source.
+- [ ] **E2. Security-enabled CI job** — integration coverage for the security namespace + the
+      basic-auth/TLS transport paths (currently zero integration coverage; the CI container runs
+      with the security plugin disabled).
+
 ## Phase D — Package identity (decided 2026-07-02: keep `SB.*`)
 
 - [x] **D1. Keep the `SB.` prefix.** The `OpenSearch.*` package-ID prefix is **reserved on

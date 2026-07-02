@@ -30,6 +30,16 @@ public sealed class SpecTransformer
 	private static readonly string[] s_typeParameterOrder = ["TDocument", "TPartialDocument"];
 
 	/// <summary>
+	/// Operations whose response body <em>is</em> the user document (the spec declares it freeform).
+	/// The response becomes generic with a <c>TDocument Body</c> deserialized through the source
+	/// serializer, instead of an empty class that discards the payload.
+	/// </summary>
+	private static readonly HashSet<string> s_documentBodyResponses = new(StringComparer.Ordinal)
+	{
+		"get_source",
+	};
+
+	/// <summary>
 	/// Transforms all operations in the given namespace into shapes.
 	/// </summary>
 	public TransformResult Transform(string targetNamespace) => Transform(targetNamespace, null);
@@ -106,7 +116,7 @@ public sealed class SpecTransformer
 				while (resolved.Ref is not null)
 					resolved = resolved.Resolved();
 
-				CollectBodyFields(resolved, bodyFields, typeMapper);
+				CollectBodyFields(resolved, bodyFields, typeMapper, requestName);
 
 				// A body that did not flatten into named fields is a single raw payload.
 				if (bodyFields.Count == 0)
@@ -226,6 +236,8 @@ public sealed class SpecTransformer
 						ListItemType = oldResp.ListItemType,
 						IsHeadResponse = oldResp.IsHeadResponse,
 						IsPlainTextResponse = oldResp.IsPlainTextResponse,
+						IsFreeform = oldResp.IsFreeform,
+						IsDocumentResponse = oldResp.IsDocumentResponse,
 						TypeParameters = responseTypeParams
 					}
 				};
@@ -288,6 +300,27 @@ public sealed class SpecTransformer
 		while (resolved.Ref is not null)
 			resolved = resolved.Resolved();
 
+		// A freeform response (spec `schema: {}`, no type/properties/members at all) captures the
+		// whole body via extension data instead of silently discarding it — unless the body is a
+		// user document (get_source), which becomes a typed generic Body.
+		if (resolved.Type is null && resolved.Properties.Count == 0 && !resolved.HasAdditionalProperties
+			&& resolved.AllOf.Count == 0 && resolved.OneOf.Count == 0 && resolved.AnyOf.Count == 0
+			&& resolved.Items is null)
+		{
+			var isDocument = s_documentBodyResponses.Contains(group.OperationGroupName);
+			return new ResponseShape
+			{
+				ClassName = responseName,
+				Namespace = nsName,
+				Description = resolved.Description ?? group.CanonicalOperation.Description,
+				Fields = [],
+				IsHeadResponse = false,
+				IsFreeform = !isDocument,
+				IsDocumentResponse = isDocument,
+				TypeParameters = isDocument ? ["TDocument"] : []
+			};
+		}
+
 		// Check if it's a dictionary response (object with additionalProperties, no named properties)
 		if (resolved.HasAdditionalProperties && resolved.Properties.Count == 0)
 		{
@@ -341,7 +374,7 @@ public sealed class SpecTransformer
 			{
 				var mergedFields = new List<Field>();
 				foreach (var member in memberSchemas)
-					CollectResponseFieldsWithAllOf(member, mergedFields, typeMapper, forceOptional: true);
+					CollectResponseFieldsWithAllOf(member, mergedFields, typeMapper, responseName, forceOptional: true);
 
 				NamingConventions.FixFieldNameClash(mergedFields, responseName);
 				return new ResponseShape
@@ -368,12 +401,12 @@ public sealed class SpecTransformer
 				var memberResolved = allOfMember.Resolved();
 				foreach (var r in memberResolved.Required)
 					required.Add(r);
-				CollectResponseFields(memberResolved, fields, required, typeMapper);
+				CollectResponseFields(memberResolved, fields, required, typeMapper, responseName);
 			}
 		}
 		else
 		{
-			CollectResponseFields(resolved, fields, required, typeMapper);
+			CollectResponseFields(resolved, fields, required, typeMapper, responseName);
 		}
 
 		NamingConventions.FixFieldNameClash(fields, responseName);
@@ -392,7 +425,7 @@ public sealed class SpecTransformer
 		};
 	}
 
-	private void CollectBodyFields(OpenApiSchema schema, List<Field> fields, TypeMapper typeMapper, HashSet<string>? parentRequired = null, bool forceOptional = false)
+	private void CollectBodyFields(OpenApiSchema schema, List<Field> fields, TypeMapper typeMapper, string owner, HashSet<string>? parentRequired = null, bool forceOptional = false)
 	{
 		var required = new HashSet<string>(schema.Required);
 		if (parentRequired is not null)
@@ -407,7 +440,7 @@ public sealed class SpecTransformer
 			foreach (var allOfMember in schema.AllOf)
 			{
 				var resolved = allOfMember.Resolved();
-				CollectBodyFields(resolved, fields, typeMapper, required);
+				CollectBodyFields(resolved, fields, typeMapper, owner, required);
 			}
 			return;
 		}
@@ -424,7 +457,7 @@ public sealed class SpecTransformer
 			if (members.All(m => m.Type is "object" && m.Properties.Count > 0))
 			{
 				foreach (var member in members)
-					CollectBodyFields(member, fields, typeMapper, forceOptional: true);
+					CollectBodyFields(member, fields, typeMapper, owner, forceOptional: true);
 				return;
 			}
 		}
@@ -437,7 +470,15 @@ public sealed class SpecTransformer
 				continue;
 			var pascalName = NamingConventions.ToPascalCase(name);
 			if (!existingNames.Add(pascalName))
-				continue;
+			{
+				var existingIdx = fields.FindIndex(f => string.Equals(f.Name, pascalName, StringComparison.OrdinalIgnoreCase));
+				// Same wire name = a true allOf-merge duplicate; a different wire name is a
+				// PascalCase collision that must be renamed, never silently dropped.
+				if (existingIdx < 0 || fields[existingIdx].WireName == name)
+					continue;
+				pascalName = NamingConventions.ResolveFieldCollision(fields, name, pascalName, owner);
+				existingNames.Add(pascalName);
+			}
 			var fieldType = typeMapper.MapField(name, propSchema);
 			fields.Add(new Field
 			{
@@ -451,7 +492,7 @@ public sealed class SpecTransformer
 		}
 	}
 
-	private static void CollectResponseFields(OpenApiSchema schema, List<Field> fields, HashSet<string> required, TypeMapper typeMapper, bool forceOptional = false)
+	private static void CollectResponseFields(OpenApiSchema schema, List<Field> fields, HashSet<string> required, TypeMapper typeMapper, string owner, bool forceOptional = false)
 	{
 		var existingNames = new HashSet<string>(fields.Select(f => f.Name), StringComparer.OrdinalIgnoreCase);
 
@@ -460,9 +501,16 @@ public sealed class SpecTransformer
 			if (name.Contains('.'))
 				continue;
 			var pascalName = NamingConventions.ToPascalCase(name);
-			// Skip duplicates from allOf merging
 			if (!existingNames.Add(pascalName))
-				continue;
+			{
+				var existingIdx = fields.FindIndex(f => string.Equals(f.Name, pascalName, StringComparison.OrdinalIgnoreCase));
+				// Same wire name = a true allOf-merge duplicate; a different wire name is a
+				// PascalCase collision that must be renamed, never silently dropped.
+				if (existingIdx < 0 || fields[existingIdx].WireName == name)
+					continue;
+				pascalName = NamingConventions.ResolveFieldCollision(fields, name, pascalName, owner);
+				existingNames.Add(pascalName);
+			}
 			fields.Add(new Field
 			{
 				Name = pascalName,
@@ -477,15 +525,15 @@ public sealed class SpecTransformer
 
 	/// <summary>Collects response fields from a schema, flattening nested allOf. Used when merging the
 	/// members of a oneOf/anyOf response into a superset.</summary>
-	private static void CollectResponseFieldsWithAllOf(OpenApiSchema schema, List<Field> fields, TypeMapper typeMapper, bool forceOptional)
+	private static void CollectResponseFieldsWithAllOf(OpenApiSchema schema, List<Field> fields, TypeMapper typeMapper, string owner, bool forceOptional)
 	{
 		if (schema.AllOf.Count > 0)
 		{
 			foreach (var member in schema.AllOf)
-				CollectResponseFieldsWithAllOf(member.Resolved(), fields, typeMapper, forceOptional);
+				CollectResponseFieldsWithAllOf(member.Resolved(), fields, typeMapper, owner, forceOptional);
 			return;
 		}
-		CollectResponseFields(schema, fields, new HashSet<string>(schema.Required), typeMapper, forceOptional);
+		CollectResponseFields(schema, fields, new HashSet<string>(schema.Required), typeMapper, owner, forceOptional);
 	}
 
 	private static string MapHttpMethod(string method) => method.ToLowerInvariant() switch
