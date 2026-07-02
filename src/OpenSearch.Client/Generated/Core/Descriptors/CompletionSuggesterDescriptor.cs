@@ -12,7 +12,7 @@ public sealed class CompletionSuggesterDescriptor
 	public CompletionSuggesterDescriptor Analyzer(string? value) { _value.Analyzer = value; return this; }
 	public CompletionSuggesterDescriptor Field(string? value) { _value.Field = value; return this; }
 	public CompletionSuggesterDescriptor Size(int? value) { _value.Size = value; return this; }
-	public CompletionSuggesterDescriptor Contexts(Dictionary<string, List<System.Text.Json.JsonElement>>? value) { _value.Contexts = value; return this; }
+	public CompletionSuggesterDescriptor Contexts(Dictionary<string, List<CompletionContext>>? value) { _value.Contexts = value; return this; }
 	public CompletionSuggesterDescriptor Fuzzy(SuggestFuzziness? value) { _value.Fuzzy = value; return this; }
 	public CompletionSuggesterDescriptor Fuzzy(Action<SuggestFuzzinessDescriptor> configure)
 	{

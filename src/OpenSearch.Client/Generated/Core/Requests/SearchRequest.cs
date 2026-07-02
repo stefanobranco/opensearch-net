@@ -134,7 +134,8 @@ public sealed class SearchRequest
 		public bool? VerbosePipeline { get; set; }
 	public QueryContainer? Query { get; set; }
 	/// <summary>Can be used to improve precision by reordering just the top (for example 100 - 500) documents returned by the `query` and `post_filter` phases.</summary>
-		public List<Rescore>? Rescore { get; set; }
+		[JsonConverter(typeof(SingleOrManyConverterFactory))]
+	public List<Rescore>? Rescore { get; set; }
 	/// <summary>Retrieve a script evaluation (based on different fields) for each hit.</summary>
 		public Dictionary<string, ScriptField>? ScriptFields { get; set; }
 	public List<FieldValue>? SearchAfter { get; set; }
@@ -159,6 +160,7 @@ public sealed class SearchRequest
 		public bool? Version { get; set; }
 	/// <summary>If `true`, returns sequence number and primary term of the last modification of each hit.</summary>
 		public bool? SeqNoPrimaryTerm { get; set; }
+	[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	public List<string>? StoredFields { get; set; }
 	public PointInTimeReference? Pit { get; set; }
 	/// <summary>Stats groups to associate with the search. Each group maintains a statistics aggregation for its associated searches. You can retrieve these stats using the indexes stats API.</summary>

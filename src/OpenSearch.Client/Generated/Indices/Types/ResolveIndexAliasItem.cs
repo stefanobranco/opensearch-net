@@ -13,5 +13,6 @@ namespace OpenSearch.Client;
 public sealed class ResolveIndexAliasItem
 {
 	public string? Name { get; set; }
+	[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	public List<string>? Indices { get; set; }
 }

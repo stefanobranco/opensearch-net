@@ -21,6 +21,7 @@ public sealed class SimulateIndexTemplateIndexRequest
 	public string? ClusterManagerTimeout { get; set; }
 	/// <summary>This setting overrides the value of the `action.auto_create_index` cluster setting. If set to `true` in a template, then indexes can be automatically created using that template even if auto-creation of indexes is disabled using `actions.auto_create_index`. If set to `false`, then indexes or data streams matching the template must always be explicitly created, and may never be automatically created.</summary>
 		public bool? AllowAutoCreate { get; set; }
+	[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	public List<string>? IndexPatterns { get; set; }
 	/// <summary>An ordered list of component template names. Component templates are merged in the order specified, meaning that the last component template specified has the highest precedence.</summary>
 		public List<string>? ComposedOf { get; set; }

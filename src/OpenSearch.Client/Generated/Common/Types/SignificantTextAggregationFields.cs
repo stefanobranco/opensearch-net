@@ -29,5 +29,6 @@ public sealed class SignificantTextAggregationFields
 		public int? ShardSize { get; set; }
 	/// <summary>The number of buckets returned out of the overall terms list.</summary>
 		public int? Size { get; set; }
+	[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	public List<string>? SourceFields { get; set; }
 }

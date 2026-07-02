@@ -13,5 +13,6 @@ public sealed class MatchOnlyTextProperty
 		public Dictionary<string, Property>? Fields { get; set; }
 	/// <summary>Metadata about the field.</summary>
 		public Dictionary<string, string>? Meta { get; set; }
+	[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	public List<string>? CopyTo { get; set; }
 }

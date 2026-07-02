@@ -14,9 +14,11 @@ public sealed class AddAction
 {
 	public string? Alias { get; set; }
 	/// <summary>The list of aliases to add. Index alias names support date math.</summary>
-		public List<string>? Aliases { get; set; }
+		[JsonConverter(typeof(SingleOrManyConverterFactory))]
+	public List<string>? Aliases { get; set; }
 	public QueryContainer? Filter { get; set; }
 	public string? Index { get; set; }
+	[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	public List<string>? Indices { get; set; }
 	public string? IndexRouting { get; set; }
 	/// <summary>Whether the alias is hidden.</summary>

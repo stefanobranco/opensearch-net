@@ -12,8 +12,12 @@ namespace OpenSearch.Client;
 
 public sealed class IndexSegmentSort
 {
+	[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	public List<string>? Field { get; set; }
+	[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	public List<SegmentSortOrder>? Order { get; set; }
+	[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	public List<SegmentSortMode>? Mode { get; set; }
+	[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	public List<SegmentSortMissing>? Missing { get; set; }
 }

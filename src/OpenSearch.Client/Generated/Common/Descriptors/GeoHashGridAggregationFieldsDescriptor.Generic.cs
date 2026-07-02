@@ -14,7 +14,7 @@ public sealed class GeoHashGridAggregationFieldsDescriptor<TDocument>
 	public GeoHashGridAggregationFieldsDescriptor<TDocument> Field(string? value) { _value.Field = value; return this; }
 	/// <summary>Selects the field by an expression.</summary>
 	public GeoHashGridAggregationFieldsDescriptor<TDocument> Field(Expression<Func<TDocument, object>> field) { _value.Field = OpenSearch.Client.Field.ResolveName<TDocument>(field); return this; }
-	public GeoHashGridAggregationFieldsDescriptor<TDocument> Precision(string? value) { _value.Precision = value; return this; }
+	public GeoHashGridAggregationFieldsDescriptor<TDocument> Precision(GeoHashPrecision? value) { _value.Precision = value; return this; }
 	/// <summary>Allows for more accurate counting of the top cells returned in the final result the aggregation. Defaults to returning `max(10,(size x number-of-shards))` buckets from each shard.</summary>
 		public GeoHashGridAggregationFieldsDescriptor<TDocument> ShardSize(int? value) { _value.ShardSize = value; return this; }
 	/// <summary>The maximum number of geohash buckets to return.</summary>

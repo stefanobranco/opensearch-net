@@ -11,7 +11,7 @@ public sealed class GeoHashGridAggregationFieldsDescriptor
 
 	public GeoHashGridAggregationFieldsDescriptor Bounds(GeoBounds? value) { _value.Bounds = value; return this; }
 	public GeoHashGridAggregationFieldsDescriptor Field(string? value) { _value.Field = value; return this; }
-	public GeoHashGridAggregationFieldsDescriptor Precision(string? value) { _value.Precision = value; return this; }
+	public GeoHashGridAggregationFieldsDescriptor Precision(GeoHashPrecision? value) { _value.Precision = value; return this; }
 	/// <summary>Allows for more accurate counting of the top cells returned in the final result the aggregation. Defaults to returning `max(10,(size x number-of-shards))` buckets from each shard.</summary>
 		public GeoHashGridAggregationFieldsDescriptor ShardSize(int? value) { _value.ShardSize = value; return this; }
 	/// <summary>The maximum number of geohash buckets to return.</summary>

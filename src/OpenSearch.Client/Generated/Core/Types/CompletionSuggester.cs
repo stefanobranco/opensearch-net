@@ -11,7 +11,7 @@ public sealed class CompletionSuggester
 	public string? Analyzer { get; set; }
 	public string? Field { get; set; }
 	public int? Size { get; set; }
-	public Dictionary<string, List<System.Text.Json.JsonElement>>? Contexts { get; set; }
+	public Dictionary<string, List<CompletionContext>>? Contexts { get; set; }
 	public SuggestFuzziness? Fuzzy { get; set; }
 	public string? Regex { get; set; }
 	public bool? SkipDuplicates { get; set; }

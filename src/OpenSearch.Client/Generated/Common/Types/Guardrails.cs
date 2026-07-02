@@ -13,6 +13,7 @@ public sealed class Guardrails
 	public GuardrailsInputOutput? OutputGuardrail { get; set; }
 	public List<string>? StopWords { get; set; }
 	public string? IndexName { get; set; }
+	[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	public List<string>? SourceFields { get; set; }
 	/// <summary>The regex used for input/output validation.</summary>
 		public System.Text.Json.JsonElement? Regex { get; set; }

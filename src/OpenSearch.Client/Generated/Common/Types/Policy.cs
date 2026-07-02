@@ -27,5 +27,6 @@ public sealed class Policy
 	/// <summary>The list of states for the index to transition between.</summary>
 		public List<States>? States { get; set; }
 	/// <summary>The ISM template configuration.</summary>
-		public System.Text.Json.JsonElement? IsmTemplate { get; set; }
+		[JsonConverter(typeof(SingleOrManyConverterFactory))]
+	public List<IsmTemplate>? IsmTemplate { get; set; }
 }

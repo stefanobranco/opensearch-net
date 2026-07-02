@@ -28,6 +28,7 @@ public sealed class FieldCapsRequest
 	/// <summary>If `true`, unmapped fields are included in the response.</summary>
 	[JsonIgnore]
 	public bool? IncludeUnmapped { get; set; }
+	[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	public List<string>? Fields { get; set; }
 	public QueryContainer? IndexFilter { get; set; }
 }

@@ -10,9 +10,12 @@ public sealed class FieldCapability
 {
 	/// <summary>Whether this field can be aggregated on all indexes.</summary>
 		public bool Aggregatable { get; set; }
+	[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	public List<string>? Indices { get; set; }
 	public Dictionary<string, List<string>>? Meta { get; set; }
+	[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	public List<string>? NonAggregatableIndices { get; set; }
+	[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	public List<string>? NonSearchableIndices { get; set; }
 	/// <summary>Whether this field is indexed for search on all indexes.</summary>
 		public bool Searchable { get; set; }

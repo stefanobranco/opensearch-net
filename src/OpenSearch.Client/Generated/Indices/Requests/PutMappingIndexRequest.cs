@@ -40,7 +40,8 @@ public sealed class PutMappingIndexRequest
 	/// <summary>If date detection is enabled then new string fields are checked against `dynamic_date_formats` and if the value matches then a new date field is added instead of string.</summary>
 		public List<string>? DynamicDateFormats { get; set; }
 	/// <summary>Specify dynamic templates for the mapping.</summary>
-		public System.Text.Json.JsonElement? DynamicTemplates { get; set; }
+		[JsonConverter(typeof(SingleOrManyConverterFactory))]
+	public List<Dictionary<string, DynamicTemplate>>? DynamicTemplates { get; set; }
 	[JsonPropertyName("_field_names")]
 	public FieldNamesField? FieldNames { get; set; }
 	[JsonPropertyName("_meta")]

@@ -45,7 +45,20 @@ public sealed class PolicyDescriptor
 		return this;
 	}
 	/// <summary>The ISM template configuration.</summary>
-		public PolicyDescriptor IsmTemplate(System.Text.Json.JsonElement? value) { _value.IsmTemplate = value; return this; }
+		public PolicyDescriptor IsmTemplate(List<IsmTemplate>? value) { _value.IsmTemplate = value; return this; }
+	/// <summary>The ISM template configuration.</summary>
+		public PolicyDescriptor IsmTemplate(params Action<IsmTemplateDescriptor>[] configure)
+	{
+		var list = new List<IsmTemplate>();
+		foreach (var action in configure)
+		{
+			var descriptor = new IsmTemplateDescriptor();
+			action(descriptor);
+			list.Add(descriptor);
+		}
+		_value.IsmTemplate = list;
+		return this;
+	}
 
 	public static implicit operator Policy(PolicyDescriptor descriptor) => descriptor._value;
 }

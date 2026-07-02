@@ -13,6 +13,7 @@ namespace OpenSearch.Client;
 public sealed class RemoveIndexAction
 {
 	public string? Index { get; set; }
+	[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	public List<string>? Indices { get; set; }
 	/// <summary>Whether the alias must exist to perform the action.</summary>
 		public bool? MustExist { get; set; }

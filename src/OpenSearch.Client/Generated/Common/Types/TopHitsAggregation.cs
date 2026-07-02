@@ -11,6 +11,7 @@ public sealed class TopHitsAggregation
 	public FieldValue? Missing { get; set; }
 	public string? Field { get; set; }
 	public Script? Script { get; set; }
+	[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	public List<string>? DocvalueFields { get; set; }
 	/// <summary>If `true`, returns detailed information about score computation as part of a hit.</summary>
 		public bool? Explain { get; set; }
@@ -24,6 +25,7 @@ public sealed class TopHitsAggregation
 	public List<SortOptions>? Sort { get; set; }
 	[JsonPropertyName("_source")]
 	public SourceConfig? Source { get; set; }
+	[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	public List<string>? StoredFields { get; set; }
 	/// <summary>If `true`, calculates and returns document scores, even if the scores are not used for sorting.</summary>
 		public bool? TrackScores { get; set; }

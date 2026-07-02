@@ -10,7 +10,7 @@ public sealed class ClusterInfoDescriptor
 	internal ClusterInfo _value = new();
 
 	public ClusterInfoDescriptor Nodes(Dictionary<string, NodeDiskUsage>? value) { _value.Nodes = value; return this; }
-	public ClusterInfoDescriptor ShardSizes(Dictionary<string, System.Text.Json.JsonElement>? value) { _value.ShardSizes = value; return this; }
+	public ClusterInfoDescriptor ShardSizes(Dictionary<string, ByteSize>? value) { _value.ShardSizes = value; return this; }
 	public ClusterInfoDescriptor ShardDataSetSizes(Dictionary<string, string>? value) { _value.ShardDataSetSizes = value; return this; }
 	public ClusterInfoDescriptor ShardPaths(Dictionary<string, string>? value) { _value.ShardPaths = value; return this; }
 	public ClusterInfoDescriptor ReservedSizes(List<ReservedSize>? value) { _value.ReservedSizes = value; return this; }

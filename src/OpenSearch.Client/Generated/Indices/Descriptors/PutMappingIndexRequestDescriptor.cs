@@ -32,7 +32,7 @@ public sealed class PutMappingIndexRequestDescriptor
 		public PutMappingIndexRequestDescriptor DynamicDateFormats(List<string>? value) { _value.DynamicDateFormats = value; return this; }
 	public PutMappingIndexRequestDescriptor DynamicDateFormats(string value) { _value.DynamicDateFormats = [value]; return this; }
 	/// <summary>Specify dynamic templates for the mapping.</summary>
-		public PutMappingIndexRequestDescriptor DynamicTemplates(System.Text.Json.JsonElement? value) { _value.DynamicTemplates = value; return this; }
+		public PutMappingIndexRequestDescriptor DynamicTemplates(List<Dictionary<string, DynamicTemplate>>? value) { _value.DynamicTemplates = value; return this; }
 	public PutMappingIndexRequestDescriptor FieldNames(FieldNamesField? value) { _value.FieldNames = value; return this; }
 	public PutMappingIndexRequestDescriptor FieldNames(Action<FieldNamesFieldDescriptor> configure)
 	{

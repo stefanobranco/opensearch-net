@@ -13,14 +13,18 @@ public sealed class BoolQuery
 	[JsonPropertyName("_name")]
 	public string? Name { get; set; }
 	/// <summary>The clause (query) must appear in matching documents. However, unlike `must`, the score of the query will be ignored.</summary>
-		public List<QueryContainer>? Filter { get; set; }
+		[JsonConverter(typeof(SingleOrManyConverterFactory))]
+	public List<QueryContainer>? Filter { get; set; }
 	public string? MinimumShouldMatch { get; set; }
 	/// <summary>The clause (query) must appear in matching documents and will contribute to the score.</summary>
-		public List<QueryContainer>? Must { get; set; }
+		[JsonConverter(typeof(SingleOrManyConverterFactory))]
+	public List<QueryContainer>? Must { get; set; }
 	/// <summary>The clause (query) must not appear in the matching documents. Because scoring is ignored, a score of `0` is returned for all documents.</summary>
-		public List<QueryContainer>? MustNot { get; set; }
+		[JsonConverter(typeof(SingleOrManyConverterFactory))]
+	public List<QueryContainer>? MustNot { get; set; }
 	/// <summary>The clause (query) should appear in the matching document.</summary>
-		public List<QueryContainer>? Should { get; set; }
+		[JsonConverter(typeof(SingleOrManyConverterFactory))]
+	public List<QueryContainer>? Should { get; set; }
 	/// <summary>Ensures correct behavior when a query contains only `must_not` clauses. By default set to true, OpenSearch adds a match-all clause to ensure results are returned from Lucene, with the `must_not` conditions applied as filters. If set to false, the query may return no results, as Lucene typically requires at least one positive condition.</summary>
 		public bool? AdjustPureNegative { get; set; }
 }

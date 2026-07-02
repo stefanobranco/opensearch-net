@@ -22,7 +22,7 @@ public sealed class Hit<TDocument>
 	public Dictionary<string, List<string>>? Highlight { get; set; }
 	public Dictionary<string, InnerHitsResult<TDocument>>? InnerHits { get; set; }
 	/// <summary>The names of queries that matched the document. When `include_named_queries_score` is false (default), returns an array of query names. When true, returns an object mapping query names to their scores.</summary>
-		public System.Text.Json.JsonElement? MatchedQueries { get; set; }
+		public MatchedQueries? MatchedQueries { get; set; }
 	[JsonPropertyName("_nested")]
 	public NestedIdentity? Nested { get; set; }
 	[JsonPropertyName("_ignored")]

@@ -35,6 +35,7 @@ public sealed class RestoreSnapshotRequest
 		public bool? IncludeGlobalState { get; set; }
 	/// <summary>A comma-delimited list of settings to add or change in all restored indexes. Use this parameter to override index settings during snapshot restoration. For data streams, these index settings are applied to the restored backing indexes.</summary>
 		public IndexSettings? IndexSettings { get; set; }
+	[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	public List<string>? Indices { get; set; }
 	/// <summary>How the restore operation will behave if indexes in the snapshot do not have all primary shards available. When `false`, the entire restore operation fails if any indexes in the snapshot do not have all primary shards available. When `true`, allows the restoration of a partial snapshot of indexes with unavailable shards. Only shards that were successfully included in the snapshot are restored. All missing shards are recreated as empty. By default, the entire restore operation fails if one or more indexes included in the snapshot do not have all primary shards available. To change this behavior, set `partial` to `true`.</summary>
 		public bool? Partial { get; set; }

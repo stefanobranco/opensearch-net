@@ -42,6 +42,7 @@ public sealed class MgetRequest
 	public List<string>? StoredFields { get; set; }
 	/// <summary>The documents you want to retrieve. Required if no index is specified in the request URI.</summary>
 		public List<MgetOperation>? Docs { get; set; }
+	[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	public List<string>? Ids { get; set; }
 }
 

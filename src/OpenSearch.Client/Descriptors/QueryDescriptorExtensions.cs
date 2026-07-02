@@ -107,16 +107,14 @@ public static class QueryDescriptorExtensions
 	// ── CompletionSuggesterDescriptor ──
 
 	/// <summary>
-	/// Sets completion suggestion contexts with string values, avoiding manual JsonElement construction.
-	/// Usage: <c>.Contexts("language", "en")</c>
+	/// Sets completion suggestion contexts with string values.
+	/// Usage: <c>.Context("language", "en")</c>
 	/// </summary>
 	public static CompletionSuggesterDescriptor Context(this CompletionSuggesterDescriptor d,
 		string name, params string[] values)
 	{
 		d._value.Contexts ??= new();
-		d._value.Contexts[name] = values
-			.Select(v => JsonSerializer.SerializeToElement(new { context = v }))
-			.ToList();
+		d._value.Contexts[name] = values.Select(v => (CompletionContext)v).ToList();
 		return d;
 	}
 }

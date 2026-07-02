@@ -13,7 +13,7 @@ public sealed class SemanticProperty
 	public string? ModelId { get; set; }
 	public string? SearchModelId { get; set; }
 	public string? SemanticInfoFieldName { get; set; }
-	public System.Text.Json.JsonElement? Chunking { get; set; }
+	public SemanticChunking? Chunking { get; set; }
 	public string? SemanticFieldSearchAnalyzer { get; set; }
 	public SemanticDenseEmbeddingConfig? DenseEmbeddingConfig { get; set; }
 	public SemanticSparseEncodingConfig? SparseEncodingConfig { get; set; }

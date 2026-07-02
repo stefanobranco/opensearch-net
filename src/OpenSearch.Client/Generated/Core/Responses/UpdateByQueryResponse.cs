@@ -37,7 +37,7 @@ public partial class UpdateByQueryResponse : OpenSearch.Net.OpenSearchResponse
 		public long? ThrottledUntilMillis { get; set; }
 	/// <summary>The amount time before the throttling will end.</summary>
 		public string? ThrottledUntil { get; set; }
-	public List<System.Text.Json.JsonElement>? Slices { get; set; }
+	public List<BulkByScrollTaskStatusOrException>? Slices { get; set; }
 	/// <summary>The time taken by the operation in milliseconds.</summary>
 		public long? Took { get; set; }
 	/// <summary>Whether the operation timed out.</summary>

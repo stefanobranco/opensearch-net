@@ -8,6 +8,7 @@ namespace OpenSearch.Client;
 
 public sealed class ReindexSource
 {
+	[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	public List<string>? Index { get; set; }
 	public QueryContainer? Query { get; set; }
 	public RemoteSource? Remote { get; set; }
@@ -16,5 +17,6 @@ public sealed class ReindexSource
 	public SlicedScroll? Slice { get; set; }
 	public List<SortOptions>? Sort { get; set; }
 	[JsonPropertyName("_source")]
+	[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	public List<string>? Source { get; set; }
 }
