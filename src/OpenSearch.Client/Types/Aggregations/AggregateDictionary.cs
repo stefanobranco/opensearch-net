@@ -131,6 +131,85 @@ public sealed class AggregateDictionary
 		};
 	}
 
+	// ── Percentile accessors ──
+
+	// percentiles, percentile_ranks, and percentiles_bucket all share the same wire shape
+	// (a keyed map or, with keyed=false, a {key, value} array).
+	public PercentilesResult? Percentiles(string name) =>
+		TryGet(name, out var a) ? PercentilesResult.Parse(a.Values) : null;
+
+	public PercentilesResult? PercentileRanks(string name) => Percentiles(name);
+
+	public PercentilesResult? PercentilesBucket(string name) => Percentiles(name);
+
+	// ── Pipeline bucket-metric accessors ──
+
+	public BucketMetricValueResult? MaxBucket(string name) => BucketMetricValue(name);
+
+	public BucketMetricValueResult? MinBucket(string name) => BucketMetricValue(name);
+
+	private BucketMetricValueResult? BucketMetricValue(string name)
+	{
+		if (!TryGet(name, out var a)) return null;
+		return new BucketMetricValueResult(a.Value, a.ValueAsString, a.Keys ?? []);
+	}
+
+	// avg_bucket / sum_bucket return a plain { value }, stats_bucket / extended_stats_bucket
+	// the same shapes as their non-pipeline counterparts.
+	public double? AvgBucket(string name) => Average(name);
+	public double? SumBucket(string name) => Sum(name);
+	public StatsResult? StatsBucket(string name) => Stats(name);
+	public ExtendedStatsResult? ExtendedStatsBucket(string name) => ExtendedStats(name);
+
+	// ── Filters accessor ──
+
+	/// <summary>
+	/// Returns a <c>filters</c> aggregation result: named filters produce a keyed bucket map,
+	/// anonymous filters an ordered bucket list.
+	/// </summary>
+	public FiltersResult? Filters(string name)
+	{
+		if (!TryGet(name, out var a)) return null;
+		if (a.Buckets is not { } bucketsEl || bucketsEl.ValueKind is JsonValueKind.Undefined or JsonValueKind.Null)
+			return null;
+
+		if (bucketsEl.ValueKind == JsonValueKind.Object)
+		{
+			var named = new Dictionary<string, FilterBucket>(StringComparer.Ordinal);
+			foreach (var prop in bucketsEl.EnumerateObject())
+				named[prop.Name] = ParseFilterBucket(prop.Value);
+			return new FiltersResult(named, null);
+		}
+
+		if (bucketsEl.ValueKind == JsonValueKind.Array)
+		{
+			var anonymous = new List<FilterBucket>();
+			foreach (var bucketEl in bucketsEl.EnumerateArray())
+				anonymous.Add(ParseFilterBucket(bucketEl));
+			return new FiltersResult(null, anonymous);
+		}
+
+		return null;
+	}
+
+	private static FilterBucket ParseFilterBucket(JsonElement bucketEl) =>
+		new()
+		{
+			DocCount = bucketEl.TryGetProperty("doc_count", out var dc) ? dc.GetInt64() : 0,
+			Aggregations = ParseSubAggregations(bucketEl),
+		};
+
+	// ── GeoBounds accessor ──
+
+	/// <summary>Returns a <c>geo_bounds</c> aggregation result, or <c>null</c> when there was no data.</summary>
+	public GeoBounds? GeoBounds(string name)
+	{
+		if (!TryGet(name, out var a)) return null;
+		if (a.Bounds is not { } boundsEl || boundsEl.ValueKind != JsonValueKind.Object)
+			return null;
+		return boundsEl.Deserialize<GeoBounds>(BucketOptions);
+	}
+
 	// ── TopHits accessor ──
 
 	/// <summary>

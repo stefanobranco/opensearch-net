@@ -130,6 +130,22 @@ well-engineered **on its own terms**, with no push for upstream adoption.
       Verified beyond CI: packed all three as beta.5 and ran a **consumer smoke test** — a fresh console
       app restoring from the local feed, compiling the README Quick Start verbatim, asserting wire format
       and the custom-SourceSerializer path. `SourceSerializerTests` pins the dual-serializer contract.
+- [~] **C7. RC-readiness track (decided 2026-07-02).** The bar for calling a version RC, worked in order:
+  1. [x] **Aggregation result accessors to builder parity.** You could fluently build percentiles /
+     filters / geo_bounds / date_histogram / range / *_bucket pipeline aggregations but not read their
+     results without raw JsonElement digging. Added typed accessors (`Percentiles`/`PercentileRanks`/
+     `PercentilesBucket` with keyed+array wire forms, `Filters` named+anonymous, `GeoBounds`,
+     `MaxBucket`/`MinBucket` with winning keys, `AvgBucket`/`SumBucket`/`StatsBucket`/
+     `ExtendedStatsBucket`). Along the way: the `filters` aggregation *request* was unusable —
+     `BucketsQueryContainer` generated as an empty tagged union (one of the 19 census empties); now a
+     hand-written keyed-or-array union of `QueryContainer`, so named filters are constructible
+     (`Filters = new Dictionary<string, QueryContainer> {...}`). Fixtures for every accessor + 5
+     CI-verified integration tests (incl. geo_point mapping and a max_bucket pipeline).
+  2. [ ] Async integration mirror + scroll/PIT tests.
+  3. [ ] Typed `UpdateRequest` doc/upsert (breaking — before RC).
+  4. [ ] Phase D package-identity decision (rename after RC would be the worst break).
+  5. [ ] Validator-debt burn-down (19 empty / 15 stub / 9 fallback / 6 punts → fix or justify; ratchet).
+  6. [ ] Benchmark baseline (C3).
 - [ ] **C3.** A first performance/scale pass.
 
 ## Phase D — Package identity (open decision, not yet actioned)
