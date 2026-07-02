@@ -17,6 +17,7 @@ public {{ if is_response }}partial{{ else }}sealed{{ end }} class {{ class_name 
 	{{ end }}{{ if field.needs_json_property_name }}[JsonPropertyName("{{ field.wire_name }}")]
 	{{ end }}{{ if field.is_source_document }}[JsonConverter(typeof(SourceConverterFactory))]
 	{{ end }}{{ if field.is_single_or_many }}[JsonConverter(typeof(SingleOrManyConverterFactory))]
+	{{ end }}{{ if field.is_string_or_number }}[JsonConverter(typeof(StringOrNumberConverter))]
 	{{ end }}public {{ field.type }} {{ field.name }} { get; set; }
 {{~ end ~}}
 {{~ if is_plain_text_response ~}}

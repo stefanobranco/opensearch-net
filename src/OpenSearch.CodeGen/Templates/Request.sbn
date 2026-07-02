@@ -28,6 +28,7 @@ public sealed class {{ class_name }}{{ request_type_suffix }}
 	{{ end }}{{ if field.needs_json_property_name }}[JsonPropertyName("{{ field.wire_name }}")]
 	{{ end }}{{ if field.is_source_document }}[JsonConverter(typeof(SourceConverterFactory))]
 	{{ end }}{{ if field.is_single_or_many }}[JsonConverter(typeof(SingleOrManyConverterFactory))]
+	{{ end }}{{ if field.is_string_or_number }}[JsonConverter(typeof(StringOrNumberConverter))]
 	{{ end }}public {{ field.type }} {{ field.name }} { get; set; }
 {{~ end ~}}
 {{~ if is_raw_body ~}}
@@ -93,6 +94,12 @@ public sealed class {{ endpoint_name }}{{ endpoint_type_suffix }} : IEndpoint<{{
 {{~ else if is_document_response ~}}
 	public {{ response_name }}{{ response_type_suffix }} DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		new() { Body = SourceResponseReader.Read<TDocument>(body, serializer) };
+{{~ else if is_collection_response ~}}
+	// A dictionary/list response cannot represent an error envelope (e.g. the security plugin's
+	// 404 {"status":"NOT_FOUND"} on GET, which the transport treats as a valid not-found) — a
+	// non-2xx body deserializes as empty instead of throwing.
+	public {{ response_name }}{{ response_type_suffix }} DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
+		statusCode is >= 200 and < 300 ? serializer.Deserialize<{{ response_name }}{{ response_type_suffix }}>(body)! : new();
 {{~ else ~}}
 	public {{ response_name }}{{ response_type_suffix }} DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<{{ response_name }}{{ response_type_suffix }}>(body)!;

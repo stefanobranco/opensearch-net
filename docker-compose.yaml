@@ -4,6 +4,7 @@ services:
     environment:
       - discovery.type=single-node
       - DISABLE_SECURITY_PLUGIN=true
+      - path.repo=/tmp/snapshots
     ports:
       - "9200:9200"
     healthcheck:
@@ -12,3 +13,20 @@ services:
       timeout: 3s
       retries: 30
       start_period: 10s
+
+  # Security-enabled cluster (HTTPS, basic auth, self-signed demo certs) for the security
+  # integration tests. Opt-in: docker compose --profile secured up -d
+  opensearch-secured:
+    image: opensearchproject/opensearch:3.0.0
+    profiles: ["secured"]
+    environment:
+      - discovery.type=single-node
+      - OPENSEARCH_INITIAL_ADMIN_PASSWORD=IntegTest#2026
+    ports:
+      - "9201:9200"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sfk -u 'admin:IntegTest#2026' https://localhost:9200/_cluster/health || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 40
+      start_period: 20s

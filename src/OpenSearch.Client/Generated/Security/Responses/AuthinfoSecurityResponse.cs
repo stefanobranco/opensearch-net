@@ -31,7 +31,8 @@ public partial class AuthinfoSecurityResponse : OpenSearch.Net.OpenSearchRespons
 	/// <summary>The user's principal.</summary>
 		public string? Principal { get; set; }
 	/// <summary>The number of peer certificates related to the user.</summary>
-		public float? PeerCertificates { get; set; }
+		[JsonConverter(typeof(StringOrNumberConverter))]
+	public string? PeerCertificates { get; set; }
 	/// <summary>The logout URL.</summary>
 		public string? SsoLogoutUrl { get; set; }
 	/// <summary>The size of user contained in memory.</summary>

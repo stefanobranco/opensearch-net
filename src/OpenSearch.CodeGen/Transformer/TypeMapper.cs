@@ -417,6 +417,14 @@ public sealed class TypeMapper
 			return TypeRef.String(); // For inline enums in MVP, just use string
 		}
 
+		// A multi-type scalar declaration (`type: [number, string]` — the security plugin's
+		// status/version fields, which send words like "CREATED") maps to a lenient string:
+		// Type alone would keep only the first entry and misread the string form.
+		var typeList = schema.TypeList;
+		if (typeList.Count > 1 && typeList.Contains("string")
+			&& typeList.All(t => t is "string" or "number" or "integer" or "boolean"))
+			return TypeRef.LenientString().WithNullable(nullable);
+
 		if (type is "string")
 			return TypeRef.String().WithNullable(nullable);
 		if (type is "boolean")

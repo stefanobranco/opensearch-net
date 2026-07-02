@@ -12,7 +12,8 @@ namespace OpenSearch.Client;
 
 public partial class PatchAuditConfigurationSecurityResponse : OpenSearch.Net.OpenSearchResponse
 {
-	public float? Status { get; set; }
+	[JsonConverter(typeof(StringOrNumberConverter))]
+	public string? Status { get; set; }
 	/// <summary>The message returned as part of an `OK` response.</summary>
 		public string? Message { get; set; }
 }

@@ -240,9 +240,21 @@ well-engineered **on its own terms**, with no push for upstream adoption.
       - Conflation renames for the newly reachable trees (NodeStats ×3, CacheStats,
         IndexingPressure/Memory, Ingest, RemoteStoreStats, NodeStatsDetails); fixtures for every
         recovered shape; integration tests for per-node details, cluster.state, get_source.
-- [ ] **E2. Security-enabled CI job** — integration coverage for the security namespace + the
-      basic-auth/TLS transport paths (currently zero integration coverage; the CI container runs
-      with the security plugin disabled).
+- [x] **E2. Security-enabled CI job (2026-07-02).** A second integration matrix (3.0/3.4/3.7)
+      runs OpenSearch with the security plugin active (HTTPS, self-signed demo certs, admin
+      password); a `docker compose --profile secured` service mirrors it locally. Tests cover the
+      security users/roles/mappings lifecycle, auth-failure (401) behavior, and a document
+      round-trip over TLS — the first integration coverage of the basic-auth +
+      `SkipCertificateValidation` transport paths. First contact with the real plugin surfaced
+      two client defects, fixed at the generator root:
+      - **Multi-type scalars dropped all but the first type**: `type: [number, string]` (the
+        security plugin's `status`/version fields, which send words like "CREATED") generated as
+        `float?` and threw on every create/delete call. Now mapped to `string` +
+        `StringOrNumberConverter` (numeric wire forms read as their literal text).
+      - **Dictionary GET responses threw on 404 error envelopes**: GET-404 is a valid not-found
+        to the transport, but the security plugin's `{"status":"NOT_FOUND"}` body cannot
+        deserialize as `Dictionary<string, User>`. Dictionary/list endpoints now return empty on
+        non-2xx instead of throwing.
 
 ## Phase D — Package identity (decided 2026-07-02: keep `SB.*`)
 

@@ -62,6 +62,9 @@ public sealed class AllPitSegmentsCatEndpoint : IEndpoint<AllPitSegmentsCatReque
 
 	public RequestBody? GetBody(AllPitSegmentsCatRequest r) => null;
 
+	// A dictionary/list response cannot represent an error envelope (e.g. the security plugin's
+	// 404 {"status":"NOT_FOUND"} on GET, which the transport treats as a valid not-found) — a
+	// non-2xx body deserializes as empty instead of throwing.
 	public AllPitSegmentsCatResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		serializer.Deserialize<AllPitSegmentsCatResponse>(body)!;
+		statusCode is >= 200 and < 300 ? serializer.Deserialize<AllPitSegmentsCatResponse>(body)! : new();
 }

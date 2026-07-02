@@ -37,6 +37,9 @@ public sealed class UnloadModelMlEndpoint : IEndpoint<UnloadModelMlRequest, Unlo
 
 	public RequestBody? GetBody(UnloadModelMlRequest r) => RequestBody.Json(r);
 
+	// A dictionary/list response cannot represent an error envelope (e.g. the security plugin's
+	// 404 {"status":"NOT_FOUND"} on GET, which the transport treats as a valid not-found) — a
+	// non-2xx body deserializes as empty instead of throwing.
 	public UnloadModelMlResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		serializer.Deserialize<UnloadModelMlResponse>(body)!;
+		statusCode is >= 200 and < 300 ? serializer.Deserialize<UnloadModelMlResponse>(body)! : new();
 }

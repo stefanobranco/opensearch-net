@@ -122,6 +122,28 @@ public sealed class OpenApiSchema
 	}
 
 	/// <summary>
+	/// All non-null entries of a JSON-Schema multi-type declaration (<c>type: [number, string]</c>).
+	/// Single-type schemas return a one-element list; <see cref="Type"/> alone would silently
+	/// drop the additional types.
+	/// </summary>
+	public IReadOnlyList<string> TypeList
+	{
+		get
+		{
+			if (!TryGetNode("type", out var typeNode))
+				return [];
+			if (typeNode is YamlScalarNode scalar)
+				return scalar.Value is null ? [] : [scalar.Value];
+			if (typeNode is YamlSequenceNode seq)
+				return seq.Children.OfType<YamlScalarNode>()
+					.Where(s => s.Value is not null && s.Value != "null")
+					.Select(s => s.Value!)
+					.ToList();
+			return [];
+		}
+	}
+
+	/// <summary>
 	/// Whether this type is nullable (type array contains "null").
 	/// </summary>
 	public bool IsNullable
