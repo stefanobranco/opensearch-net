@@ -63,6 +63,35 @@ gaps (numbers above are post-fix):
    the request stream (reset per line) and `BulkOperation`s write their action metadata directly.
    Bulk: 1,412 → 1,086 μs, allocations 1,996 → 954 KB.
 
+## Custom source serializer cost (2026-07-02)
+
+`SourceSerializerBenchmarks` quantifies what plugging a custom document serializer into
+`SourceSerializer(...)` costs on the document-heavy paths. Three configurations: the default
+(documents on the built-in STJ serializer — no boundary at all, the factory hands the document
+type its own converter), a second `SystemTextJsonSerializer` as source serializer (isolates the
+buffering boundary any custom serializer pays: each document is re-buffered at the
+client/document seam), and a Newtonsoft.Json adapter (boundary + the Newtonsoft engine;
+`NewtonsoftSourceSerializer.cs` doubles as the reference adapter implementation).
+
+| Scenario | Default (STJ) | Custom STJ source | Newtonsoft source |
+|---|---:|---:|---:|
+| Search, 100 hits | **69.4 μs** / 88 KB | 165.3 μs / 217 KB (2.4×) | 232.0 μs / 743 KB (3.3×) |
+| Bulk index, 1000 docs | **1.06 ms** / 954 KB | 1.69 ms / 1.5 MB (1.6×) | 2.06 ms / 3.9 MB (1.9×) |
+
+Takeaways:
+
+- The default path pays **zero** boundary cost — routing only engages when a distinct source
+  serializer is configured.
+- Roughly **60% of the custom-serializer penalty is the boundary itself** (compare the custom-STJ
+  column): each document is parsed to a buffer and re-read so the foreign serializer can own it.
+  That cost is inherent to handing documents to an arbitrary `IOpenSearchSerializer`.
+- Newtonsoft adds its own engine cost on top — most visibly in allocations (8× the default on
+  search, 4× the custom-STJ path) and Gen2 pressure on bulk.
+- Practical guidance: bring Newtonsoft only if your document types genuinely depend on its
+  attributes/converters; ~1–2 μs per document is real but small against network round-trips.
+  Prefer configuring a second `SystemTextJsonSerializer` with custom options when STJ can
+  express your document conventions.
+
 ## Measurement notes
 
 - Both document types produce identical wire field names (single-word properties), so the shared
