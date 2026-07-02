@@ -210,10 +210,11 @@ public class AggregationTests : IntegrationTestBase
 		var response = Client.Core.Search<ProductDoc>(request);
 		response.IsValid.Should().BeTrue(response.DebugInformation);
 
+		// Histogram buckets by 50: [0,50)=9.99+14.99+24.92=49.90, [50,100)=50, [100,150)=100.
 		var best = response.Aggs().MaxBucket("best_range");
 		best.Should().NotBeNull();
-		best!.Value.Should().Be(150.0, "electronics bucket sums 100 + 50");
-		best.Keys.Should().NotBeEmpty();
+		best!.Value.Should().Be(100.0, "the [100,150) bucket has the largest sum");
+		best.Keys.Should().ContainSingle().Which.Should().StartWith("100");
 	}
 
 	[SkipIfNoCluster]
