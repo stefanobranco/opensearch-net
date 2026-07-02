@@ -200,8 +200,22 @@ well-engineered **on its own terms**, with no push for upstream adoption.
      - **Justified, documented in-place**: `DecayPlacement`, `SegmentReplicationStats`, `Suggest`
        (punts); `RankFeatureFunctionLinear` (spec-empty marker); `ActionTimeout`,
        `GeoJSONData.properties`/`coordinates` (spec-shapeless by definition).
-  6. [ ] Benchmark baseline (C3).
-- [ ] **C3.** A first performance/scale pass.
+  6. [x] Benchmark baseline (C3) — see below.
+- [x] **C3. Performance baseline — parity with the official client, at 25–55% lower allocations.**
+      `benchmarks/` holds twin BenchmarkDotNet projects (this client vs official
+      `OpenSearch.Client` 1.8.0) running identical scenarios over byte-identical canned payloads
+      through each client's full pipeline; `-- smoke` validates the harness end-to-end. Baseline
+      (M4 Max, .NET 8): every scenario within ±6% of legacy, several faster, allocations 25–55%
+      lower everywhere (bulk: half the allocations and no LOH churn). Full tables + method in
+      `benchmarks/README.md`. The first run surfaced two hot-path design flaws, fixed at the root:
+      - **Read-path source-converter wrapper**: `SourceConverterFactory` re-entered the serializer
+        per document (~0.3 μs/hit); it now resolves routing once per options instance and returns
+        the document type's own converter when no custom source serializer is configured.
+        Response deserialization went 115.8 → 71.1 μs (legacy: 70.3).
+      - **Dictionary-built bulk NDJSON**: action lines were nested dictionaries with one serializer
+        entry per line; `NdjsonWriter` now drives a single `Utf8JsonWriter` per request and
+        operations write action metadata directly. Bulk went 1,412 → 1,086 μs (legacy: 1,038)
+        and 1,996 → 954 KB.
 
 ## Phase D — Package identity (decided 2026-07-02: keep `SB.*`)
 

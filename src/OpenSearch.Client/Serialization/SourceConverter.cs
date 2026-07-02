@@ -21,7 +21,7 @@ public sealed class SourceConverter<T> : JsonConverter<T>
 		// Read the raw JSON for this value into a buffer, then hand it to the source serializer.
 		// This converter can be registered type-level (options.Converters), so it must NEVER
 		// deserialize T in place with the ambient options — that re-selects this converter and
-		// recurses. Generated document properties use SourcePropertyConverter instead.
+		// recurses.
 		using var doc = JsonDocument.ParseValue(ref reader);
 		using var stream = new MemoryStream();
 		using (var writer = new Utf8JsonWriter(stream))

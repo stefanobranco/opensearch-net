@@ -90,3 +90,4 @@ project.lock.json
 
 _site
 _exported_templates
+BenchmarkDotNet.Artifacts/
