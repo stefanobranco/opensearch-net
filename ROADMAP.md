@@ -178,18 +178,19 @@ well-engineered **on its own terms**, with no push for upstream adoption.
        likewise. All 18 conflations are now disambiguated via a qualified (file+name) rename table,
        and the validator **fails generation** on any unrenamed same-name collision so a spec update
        can't reintroduce one silently.
-  4. [ ] Phase D package-identity decision (rename after RC would be the worst break).
-  5. [ ] Validator-debt burn-down (19 empty / 15 stub / 9 fallback / 6 punts → fix or justify; ratchet).
+  4. [x] Phase D package-identity decision — **keep `SB.*`** (see Phase D below).
+  5. [ ] Validator-debt burn-down (19 empty / 26 stub / 9 fallback / 5 punts → fix or justify; ratchet).
   6. [ ] Benchmark baseline (C3).
 - [ ] **C3.** A first performance/scale pass.
 
-## Phase D — Package identity (open decision, not yet actioned)
+## Phase D — Package identity (decided 2026-07-02: keep `SB.*`)
 
-- [ ] **D1.** Decide whether to drop the `SB.` prefix for a cleaner neutral name.
-      Constraint: `OpenSearch.Client` / `OpenSearch.Net` are owned by opensearch-project and are
-      **unavailable** — this means a *different* neutral prefix, not the official IDs.
-- [ ] **D2.** If renaming: migration path — publish under the new ID, mark the old `SB.*` packages
-      deprecated, dual-publish for a transition window so existing consumers don't break.
+- [x] **D1. Keep the `SB.` prefix.** The `OpenSearch.*` package-ID prefix is **reserved on
+      nuget.org** by opensearch-project (their packages carry the verified badge), so any
+      `OpenSearch.<x>` ID from another account is rejected at push — a "cleaner neutral name"
+      would mean an unrelated prefix (e.g. `Osc.*`), which buys nothing over `SB.*` and costs
+      existing consumers a deprecation + dual-publish migration.
+- [x] **D2. Moot** — no rename, no migration path needed.
 
 ---
 
