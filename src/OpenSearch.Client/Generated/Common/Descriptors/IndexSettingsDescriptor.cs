@@ -19,6 +19,7 @@ public sealed class IndexSettingsDescriptor
 	}
 	public IndexSettingsDescriptor Mode(string? value) { _value.Mode = value; return this; }
 	public IndexSettingsDescriptor RoutingPath(List<string>? value) { _value.RoutingPath = value; return this; }
+	public IndexSettingsDescriptor RoutingPath(string value) { _value.RoutingPath = [value]; return this; }
 	public IndexSettingsDescriptor SoftDeletes(SoftDeletes? value) { _value.SoftDeletes = value; return this; }
 	public IndexSettingsDescriptor SoftDeletes(Action<SoftDeletesDescriptor> configure)
 	{

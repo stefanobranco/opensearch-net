@@ -11,18 +11,21 @@ public sealed class ThreadPoolCatRequestDescriptor
 
 	/// <summary>A comma-separated list of thread pool names used to limit the request. Accepts wildcard expressions.</summary>
 		public ThreadPoolCatRequestDescriptor ThreadPoolPatterns(List<string>? value) { _value.ThreadPoolPatterns = value; return this; }
+	public ThreadPoolCatRequestDescriptor ThreadPoolPatterns(string value) { _value.ThreadPoolPatterns = [value]; return this; }
 	/// <summary>A timeout for connection to the cluster manager node.</summary>
 		public ThreadPoolCatRequestDescriptor ClusterManagerTimeout(string? value) { _value.ClusterManagerTimeout = value; return this; }
 	/// <summary>A short version of the `Accept` header, such as `json` or `yaml`.</summary>
 		public ThreadPoolCatRequestDescriptor Format(string? value) { _value.Format = value; return this; }
 	/// <summary>A comma-separated list of column names to display.</summary>
 		public ThreadPoolCatRequestDescriptor H(List<string>? value) { _value.H = value; return this; }
+	public ThreadPoolCatRequestDescriptor H(string value) { _value.H = [value]; return this; }
 	/// <summary>Returns help information.</summary>
 		public ThreadPoolCatRequestDescriptor Help(bool? value) { _value.Help = value; return this; }
 	/// <summary>Returns local information but does not retrieve the state from the cluster manager node.</summary>
 		public ThreadPoolCatRequestDescriptor Local(bool? value) { _value.Local = value; return this; }
 	/// <summary>A comma-separated list of column names or column aliases to sort by.</summary>
 		public ThreadPoolCatRequestDescriptor S(List<string>? value) { _value.S = value; return this; }
+	public ThreadPoolCatRequestDescriptor S(string value) { _value.S = [value]; return this; }
 	/// <summary>The multiplier in which to display values.</summary>
 		public ThreadPoolCatRequestDescriptor Size(int? value) { _value.Size = value; return this; }
 	/// <summary>Enables verbose mode, which displays column headers.</summary>

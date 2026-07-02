@@ -17,12 +17,14 @@ public sealed class TemplatesCatRequestDescriptor
 		public TemplatesCatRequestDescriptor Format(string? value) { _value.Format = value; return this; }
 	/// <summary>A comma-separated list of column names to display.</summary>
 		public TemplatesCatRequestDescriptor H(List<string>? value) { _value.H = value; return this; }
+	public TemplatesCatRequestDescriptor H(string value) { _value.H = [value]; return this; }
 	/// <summary>Returns help information.</summary>
 		public TemplatesCatRequestDescriptor Help(bool? value) { _value.Help = value; return this; }
 	/// <summary>Returns local information but does not retrieve the state from the cluster manager node.</summary>
 		public TemplatesCatRequestDescriptor Local(bool? value) { _value.Local = value; return this; }
 	/// <summary>A comma-separated list of column names or column aliases to sort by.</summary>
 		public TemplatesCatRequestDescriptor S(List<string>? value) { _value.S = value; return this; }
+	public TemplatesCatRequestDescriptor S(string value) { _value.S = [value]; return this; }
 	/// <summary>Enables verbose mode, which displays column headers.</summary>
 		public TemplatesCatRequestDescriptor V(bool? value) { _value.V = value; return this; }
 

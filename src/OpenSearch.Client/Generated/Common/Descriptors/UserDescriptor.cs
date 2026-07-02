@@ -14,9 +14,11 @@ public sealed class UserDescriptor
 	public UserDescriptor Reserved(bool? value) { _value.Reserved = value; return this; }
 	public UserDescriptor Hidden(bool? value) { _value.Hidden = value; return this; }
 	public UserDescriptor BackendRoles(List<string>? value) { _value.BackendRoles = value; return this; }
+	public UserDescriptor BackendRoles(string value) { _value.BackendRoles = [value]; return this; }
 	public UserDescriptor Attributes(Dictionary<string, string>? value) { _value.Attributes = value; return this; }
 	public UserDescriptor Description(string? value) { _value.Description = value; return this; }
 	public UserDescriptor OpendistroSecurityRoles(List<string>? value) { _value.OpendistroSecurityRoles = value; return this; }
+	public UserDescriptor OpendistroSecurityRoles(string value) { _value.OpendistroSecurityRoles = [value]; return this; }
 	public UserDescriptor Static(bool? value) { _value.Static = value; return this; }
 
 	public static implicit operator User(UserDescriptor descriptor) => descriptor._value;

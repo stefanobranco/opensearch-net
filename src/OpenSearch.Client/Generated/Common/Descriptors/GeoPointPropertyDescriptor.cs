@@ -16,6 +16,7 @@ public sealed class GeoPointPropertyDescriptor
 	public GeoPointPropertyDescriptor Dynamic(string? value) { _value.Dynamic = value; return this; }
 	public GeoPointPropertyDescriptor Fields(Dictionary<string, Property>? value) { _value.Fields = value; return this; }
 	public GeoPointPropertyDescriptor CopyTo(List<string>? value) { _value.CopyTo = value; return this; }
+	public GeoPointPropertyDescriptor CopyTo(string value) { _value.CopyTo = [value]; return this; }
 	public GeoPointPropertyDescriptor Similarity(string? value) { _value.Similarity = value; return this; }
 	public GeoPointPropertyDescriptor Store(bool? value) { _value.Store = value; return this; }
 	public GeoPointPropertyDescriptor DocValues(bool? value) { _value.DocValues = value; return this; }

@@ -12,6 +12,7 @@ public sealed class AddActionDescriptor
 	public AddActionDescriptor Alias(string? value) { _value.Alias = value; return this; }
 	/// <summary>The list of aliases to add. Index alias names support date math.</summary>
 		public AddActionDescriptor Aliases(List<string>? value) { _value.Aliases = value; return this; }
+	public AddActionDescriptor Aliases(string value) { _value.Aliases = [value]; return this; }
 	public AddActionDescriptor Filter(QueryContainer? value) { _value.Filter = value; return this; }
 	public AddActionDescriptor Filter(Action<QueryContainerDescriptor> configure)
 	{
@@ -22,6 +23,7 @@ public sealed class AddActionDescriptor
 	}
 	public AddActionDescriptor Index(string? value) { _value.Index = value; return this; }
 	public AddActionDescriptor Indices(List<string>? value) { _value.Indices = value; return this; }
+	public AddActionDescriptor Indices(string value) { _value.Indices = [value]; return this; }
 	public AddActionDescriptor IndexRouting(string? value) { _value.IndexRouting = value; return this; }
 	/// <summary>Whether the alias is hidden.</summary>
 		public AddActionDescriptor IsHidden(bool? value) { _value.IsHidden = value; return this; }

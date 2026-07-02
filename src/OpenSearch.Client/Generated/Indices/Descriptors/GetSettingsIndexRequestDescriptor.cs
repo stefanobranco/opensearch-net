@@ -11,14 +11,17 @@ public sealed class GetSettingsIndexRequestDescriptor
 
 	/// <summary>A comma-separated list or wildcard expression of settings to retrieve.</summary>
 		public GetSettingsIndexRequestDescriptor Name(List<string>? value) { _value.Name = value; return this; }
+	public GetSettingsIndexRequestDescriptor Name(string value) { _value.Name = [value]; return this; }
 	/// <summary>A comma-separated list of data streams, indexes, and aliases used to limit the request. Supports wildcards (`*`). To target all data streams and indexes, omit this parameter or use `*` or `_all`.</summary>
 		public GetSettingsIndexRequestDescriptor Index(List<string>? value) { _value.Index = value; return this; }
+	public GetSettingsIndexRequestDescriptor Index(string value) { _value.Index = [value]; return this; }
 	/// <summary>If `false`, the request returns an error if any wildcard expression, index alias, or `_all` value targets only missing or closed indexes. This behavior applies even if the request targets other open indexes. For example, a request targeting `foo*,bar*` returns an error if an index starts with foo but no index starts with `bar`.</summary>
 		public GetSettingsIndexRequestDescriptor AllowNoIndices(bool? value) { _value.AllowNoIndices = value; return this; }
 	/// <summary>Operation timeout for connection to cluster-manager node.</summary>
 		public GetSettingsIndexRequestDescriptor ClusterManagerTimeout(string? value) { _value.ClusterManagerTimeout = value; return this; }
 	/// <summary>Type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values, such as `open,hidden`.</summary>
 		public GetSettingsIndexRequestDescriptor ExpandWildcards(List<string>? value) { _value.ExpandWildcards = value; return this; }
+	public GetSettingsIndexRequestDescriptor ExpandWildcards(string value) { _value.ExpandWildcards = [value]; return this; }
 	/// <summary>If `true`, returns settings in flat format.</summary>
 		public GetSettingsIndexRequestDescriptor FlatSettings(bool? value) { _value.FlatSettings = value; return this; }
 	/// <summary>If `false`, the request returns an error if it targets a missing or closed index.</summary>

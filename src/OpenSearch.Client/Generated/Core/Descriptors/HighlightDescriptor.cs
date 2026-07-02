@@ -44,8 +44,10 @@ public sealed class HighlightDescriptor
 		public HighlightDescriptor PhraseLimit(int? value) { _value.PhraseLimit = value; return this; }
 	/// <summary>When used in conjunction with `pre_tags`, defines the HTML tags to use for the highlighted text. By default, highlighted text is wrapped in `&lt;em&gt;` and `&lt;/em&gt;` tags.</summary>
 		public HighlightDescriptor PostTags(List<string>? value) { _value.PostTags = value; return this; }
+	public HighlightDescriptor PostTags(string value) { _value.PostTags = [value]; return this; }
 	/// <summary>When used in conjunction with `post_tags`, defines the HTML tags to use for the highlighted text. By default, highlighted text is wrapped in `&lt;em&gt;` and `&lt;/em&gt;` tags.</summary>
 		public HighlightDescriptor PreTags(List<string>? value) { _value.PreTags = value; return this; }
+	public HighlightDescriptor PreTags(string value) { _value.PreTags = [value]; return this; }
 	/// <summary>By default, only fields that contains a query match are highlighted. Set to `false` to highlight all fields.</summary>
 		public HighlightDescriptor RequireFieldMatch(bool? value) { _value.RequireFieldMatch = value; return this; }
 	public HighlightDescriptor TagsSchema(HighlighterTagsSchema? value) { _value.TagsSchema = value; return this; }

@@ -13,6 +13,7 @@ public sealed class TopHitsAggregationDescriptor
 	public TopHitsAggregationDescriptor Field(string? value) { _value.Field = value; return this; }
 	public TopHitsAggregationDescriptor Script(Script? value) { _value.Script = value; return this; }
 	public TopHitsAggregationDescriptor DocvalueFields(List<string>? value) { _value.DocvalueFields = value; return this; }
+	public TopHitsAggregationDescriptor DocvalueFields(string value) { _value.DocvalueFields = [value]; return this; }
 	/// <summary>If `true`, returns detailed information about score computation as part of a hit.</summary>
 		public TopHitsAggregationDescriptor Explain(bool? value) { _value.Explain = value; return this; }
 	/// <summary>Starting document offset.</summary>
@@ -32,6 +33,7 @@ public sealed class TopHitsAggregationDescriptor
 	public TopHitsAggregationDescriptor Sort(List<SortOptions>? value) { _value.Sort = value; return this; }
 	public TopHitsAggregationDescriptor Source(SourceConfig? value) { _value.Source = value; return this; }
 	public TopHitsAggregationDescriptor StoredFields(List<string>? value) { _value.StoredFields = value; return this; }
+	public TopHitsAggregationDescriptor StoredFields(string value) { _value.StoredFields = [value]; return this; }
 	/// <summary>If `true`, calculates and returns document scores, even if the scores are not used for sorting.</summary>
 		public TopHitsAggregationDescriptor TrackScores(bool? value) { _value.TrackScores = value; return this; }
 	/// <summary>If `true`, returns document version as part of a hit.</summary>

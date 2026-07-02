@@ -11,6 +11,7 @@ public sealed class SegmentReplicationCatRequestDescriptor
 
 	/// <summary>A comma-separated list of data streams, indexes, and aliases used to limit the request. Supports wildcards (`*`). To target all data streams and indexes, omit this parameter or use `*` or `_all`.</summary>
 		public SegmentReplicationCatRequestDescriptor Index(List<string>? value) { _value.Index = value; return this; }
+	public SegmentReplicationCatRequestDescriptor Index(string value) { _value.Index = [value]; return this; }
 	/// <summary>When `true`, the response only includes ongoing segment replication events.</summary>
 		public SegmentReplicationCatRequestDescriptor ActiveOnly(bool? value) { _value.ActiveOnly = value; return this; }
 	/// <summary>Whether to ignore the index if a wildcard index expression resolves to no concrete indexes. This includes the `_all` string or when no indexes have been specified.</summary>
@@ -22,10 +23,12 @@ public sealed class SegmentReplicationCatRequestDescriptor
 	/// <summary>When `true`, the response includes additional metrics for each stage of a segment replication event.</summary>
 		public SegmentReplicationCatRequestDescriptor Detailed(bool? value) { _value.Detailed = value; return this; }
 	public SegmentReplicationCatRequestDescriptor ExpandWildcards(List<string>? value) { _value.ExpandWildcards = value; return this; }
+	public SegmentReplicationCatRequestDescriptor ExpandWildcards(string value) { _value.ExpandWildcards = [value]; return this; }
 	/// <summary>A short version of the `Accept` header, such as `json` or `yaml`.</summary>
 		public SegmentReplicationCatRequestDescriptor Format(string? value) { _value.Format = value; return this; }
 	/// <summary>A comma-separated list of column names to display.</summary>
 		public SegmentReplicationCatRequestDescriptor H(List<string>? value) { _value.H = value; return this; }
+	public SegmentReplicationCatRequestDescriptor H(string value) { _value.H = [value]; return this; }
 	/// <summary>Returns help information.</summary>
 		public SegmentReplicationCatRequestDescriptor Help(bool? value) { _value.Help = value; return this; }
 	/// <summary>Whether specified concrete, expanded, or aliased indexes should be ignored when throttled.</summary>
@@ -34,8 +37,10 @@ public sealed class SegmentReplicationCatRequestDescriptor
 		public SegmentReplicationCatRequestDescriptor IgnoreUnavailable(bool? value) { _value.IgnoreUnavailable = value; return this; }
 	/// <summary>A comma-separated list of column names or column aliases to sort by.</summary>
 		public SegmentReplicationCatRequestDescriptor S(List<string>? value) { _value.S = value; return this; }
+	public SegmentReplicationCatRequestDescriptor S(string value) { _value.S = [value]; return this; }
 	/// <summary>A comma-separated list of shards to display.</summary>
 		public SegmentReplicationCatRequestDescriptor Shards(List<string>? value) { _value.Shards = value; return this; }
+	public SegmentReplicationCatRequestDescriptor Shards(string value) { _value.Shards = [value]; return this; }
 	/// <summary>Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units](https://opensearch.org/docs/latest/api-reference/units/).</summary>
 		public SegmentReplicationCatRequestDescriptor Time(string? value) { _value.Time = value; return this; }
 	/// <summary>The operation timeout.</summary>

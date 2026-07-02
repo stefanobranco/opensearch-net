@@ -18,7 +18,7 @@ public sealed class UpdateByQueryRequest
 	public List<string>? Index { get; set; }
 	/// <summary>Set to `true` or `false` to return the `_source` field or not, or a list of fields to return.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? Source { get; set; }
+	public SourceConfigParam? Source { get; set; }
 	/// <summary>List of fields to exclude from the returned `_source` field.</summary>
 	[JsonIgnore]
 	public List<string>? SourceExcludes { get; set; }

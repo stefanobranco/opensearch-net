@@ -11,6 +11,7 @@ public sealed class ReloadSecureSettingsNodeRequestDescriptor
 
 	/// <summary>The names of particular nodes in the cluster to target.</summary>
 		public ReloadSecureSettingsNodeRequestDescriptor NodeId(List<string>? value) { _value.NodeId = value; return this; }
+	public ReloadSecureSettingsNodeRequestDescriptor NodeId(string value) { _value.NodeId = [value]; return this; }
 	/// <summary>The amount of time to wait for a response. If no response is received before the timeout expires, the request fails and returns an error.</summary>
 		public ReloadSecureSettingsNodeRequestDescriptor Timeout(string? value) { _value.Timeout = value; return this; }
 	public ReloadSecureSettingsNodeRequestDescriptor SecureSettingsPassword(string? value) { _value.SecureSettingsPassword = value; return this; }

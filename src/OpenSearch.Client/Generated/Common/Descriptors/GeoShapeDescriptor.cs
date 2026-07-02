@@ -11,6 +11,7 @@ public sealed class GeoShapeDescriptor
 
 	public GeoShapeDescriptor Type(string? value) { _value.Type = value; return this; }
 	public GeoShapeDescriptor Coordinates(List<object>? value) { _value.Coordinates = value; return this; }
+	public GeoShapeDescriptor Coordinates(object value) { _value.Coordinates = [value]; return this; }
 
 	public static implicit operator GeoShape(GeoShapeDescriptor descriptor) => descriptor._value;
 }

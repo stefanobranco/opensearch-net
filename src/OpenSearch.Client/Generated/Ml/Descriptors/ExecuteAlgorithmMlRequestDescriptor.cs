@@ -14,10 +14,12 @@ public sealed class ExecuteAlgorithmMlRequestDescriptor
 		public ExecuteAlgorithmMlRequestDescriptor Operation(LocalSampleCalculatorOperation? value) { _value.Operation = value; return this; }
 	/// <summary>The input data.</summary>
 		public ExecuteAlgorithmMlRequestDescriptor InputData(List<float>? value) { _value.InputData = value; return this; }
+	public ExecuteAlgorithmMlRequestDescriptor InputData(float value) { _value.InputData = [value]; return this; }
 	/// <summary>The index name.</summary>
 		public ExecuteAlgorithmMlRequestDescriptor IndexName(string? value) { _value.IndexName = value; return this; }
 	/// <summary>The attribute field names</summary>
 		public ExecuteAlgorithmMlRequestDescriptor AttributeFieldNames(List<string>? value) { _value.AttributeFieldNames = value; return this; }
+	public ExecuteAlgorithmMlRequestDescriptor AttributeFieldNames(string value) { _value.AttributeFieldNames = [value]; return this; }
 	public ExecuteAlgorithmMlRequestDescriptor Aggregations(List<Aggregation>? value) { _value.Aggregations = value; return this; }
 	public ExecuteAlgorithmMlRequestDescriptor Aggregations(params Action<AggregationDescriptor>[] configure)
 	{

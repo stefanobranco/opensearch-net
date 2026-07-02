@@ -11,12 +11,14 @@ public sealed class SearchTemplateRequestDescriptor
 
 	/// <summary>A comma-separated list of data streams, indexes, and aliases to search. Supports wildcards (*).</summary>
 		public SearchTemplateRequestDescriptor Index(List<string>? value) { _value.Index = value; return this; }
+	public SearchTemplateRequestDescriptor Index(string value) { _value.Index = [value]; return this; }
 	/// <summary>If `false`, the request returns an error if any wildcard expression, index alias, or `_all` value targets only missing or closed indexes. This behavior applies even if the request targets other open indexes. For example, a request targeting `foo*,bar*` returns an error if an index starts with `foo` but no index starts with `bar`.</summary>
 		public SearchTemplateRequestDescriptor AllowNoIndices(bool? value) { _value.AllowNoIndices = value; return this; }
 	/// <summary>If `true`, network round-trips are minimized for cross-cluster search requests.</summary>
 		public SearchTemplateRequestDescriptor CcsMinimizeRoundtrips(bool? value) { _value.CcsMinimizeRoundtrips = value; return this; }
 	/// <summary>Type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values, such as `open,hidden`. Valid values are: `all`, `open`, `closed`, `hidden`, `none`.</summary>
 		public SearchTemplateRequestDescriptor ExpandWildcards(List<string>? value) { _value.ExpandWildcards = value; return this; }
+	public SearchTemplateRequestDescriptor ExpandWildcards(string value) { _value.ExpandWildcards = [value]; return this; }
 	/// <summary>If `true`, specified concrete, expanded, or aliased indexes are not included in the response when throttled.</summary>
 		public SearchTemplateRequestDescriptor IgnoreThrottled(bool? value) { _value.IgnoreThrottled = value; return this; }
 	/// <summary>If `false`, the request returns an error if it targets a missing or closed index.</summary>
@@ -29,6 +31,7 @@ public sealed class SearchTemplateRequestDescriptor
 		public SearchTemplateRequestDescriptor RestTotalHitsAsInt(bool? value) { _value.RestTotalHitsAsInt = value; return this; }
 	/// <summary>A custom value used to route operations to a specific shard.</summary>
 		public SearchTemplateRequestDescriptor Routing(List<string>? value) { _value.Routing = value; return this; }
+	public SearchTemplateRequestDescriptor Routing(string value) { _value.Routing = [value]; return this; }
 	/// <summary>Specifies how long a consistent view of the index should be maintained for scrolled search.</summary>
 		public SearchTemplateRequestDescriptor Scroll(string? value) { _value.Scroll = value; return this; }
 	/// <summary>Customizable sequence of processing stages applied to search queries.</summary>

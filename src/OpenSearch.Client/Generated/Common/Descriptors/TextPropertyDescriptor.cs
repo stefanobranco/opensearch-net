@@ -16,6 +16,7 @@ public sealed class TextPropertyDescriptor
 	public TextPropertyDescriptor Dynamic(string? value) { _value.Dynamic = value; return this; }
 	public TextPropertyDescriptor Fields(Dictionary<string, Property>? value) { _value.Fields = value; return this; }
 	public TextPropertyDescriptor CopyTo(List<string>? value) { _value.CopyTo = value; return this; }
+	public TextPropertyDescriptor CopyTo(string value) { _value.CopyTo = [value]; return this; }
 	public TextPropertyDescriptor Similarity(string? value) { _value.Similarity = value; return this; }
 	public TextPropertyDescriptor Store(bool? value) { _value.Store = value; return this; }
 	public TextPropertyDescriptor Analyzer(string? value) { _value.Analyzer = value; return this; }

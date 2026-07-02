@@ -12,6 +12,7 @@ public sealed class DeleteMemoryContainerMlRequestDescriptor
 	public DeleteMemoryContainerMlRequestDescriptor MemoryContainerId(string? value) { _value.MemoryContainerId = value; return this; }
 	public DeleteMemoryContainerMlRequestDescriptor DeleteAllMemories(bool? value) { _value.DeleteAllMemories = value; return this; }
 	public DeleteMemoryContainerMlRequestDescriptor DeleteMemories(List<MemoryType>? value) { _value.DeleteMemories = value; return this; }
+	public DeleteMemoryContainerMlRequestDescriptor DeleteMemories(MemoryType value) { _value.DeleteMemories = [value]; return this; }
 
 	public static implicit operator DeleteMemoryContainerMlRequest(DeleteMemoryContainerMlRequestDescriptor descriptor) => descriptor._value;
 }

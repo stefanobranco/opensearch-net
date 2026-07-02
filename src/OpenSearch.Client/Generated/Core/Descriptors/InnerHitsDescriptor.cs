@@ -39,6 +39,7 @@ public sealed class InnerHitsDescriptor
 	public InnerHitsDescriptor Sort(List<SortOptions>? value) { _value.Sort = value; return this; }
 	public InnerHitsDescriptor Source(SourceConfig? value) { _value.Source = value; return this; }
 	public InnerHitsDescriptor StoredFields(List<string>? value) { _value.StoredFields = value; return this; }
+	public InnerHitsDescriptor StoredFields(string value) { _value.StoredFields = [value]; return this; }
 	public InnerHitsDescriptor TrackScores(bool? value) { _value.TrackScores = value; return this; }
 	public InnerHitsDescriptor Version(bool? value) { _value.Version = value; return this; }
 

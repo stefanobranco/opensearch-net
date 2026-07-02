@@ -10,6 +10,7 @@ public sealed class ShardsCatRequestDescriptor
 	internal ShardsCatRequest _value = new();
 
 	public ShardsCatRequestDescriptor Index(List<string>? value) { _value.Index = value; return this; }
+	public ShardsCatRequestDescriptor Index(string value) { _value.Index = [value]; return this; }
 	/// <summary>The units used to display byte values.</summary>
 		public ShardsCatRequestDescriptor Bytes(string? value) { _value.Bytes = value; return this; }
 	/// <summary>The amount of time allowed to establish a connection to the cluster manager node.</summary>
@@ -18,12 +19,14 @@ public sealed class ShardsCatRequestDescriptor
 		public ShardsCatRequestDescriptor Format(string? value) { _value.Format = value; return this; }
 	/// <summary>A comma-separated list of column names to display.</summary>
 		public ShardsCatRequestDescriptor H(List<string>? value) { _value.H = value; return this; }
+	public ShardsCatRequestDescriptor H(string value) { _value.H = [value]; return this; }
 	/// <summary>Returns help information.</summary>
 		public ShardsCatRequestDescriptor Help(bool? value) { _value.Help = value; return this; }
 	/// <summary>Returns local information but does not retrieve the state from the cluster manager node.</summary>
 		public ShardsCatRequestDescriptor Local(bool? value) { _value.Local = value; return this; }
 	/// <summary>A comma-separated list of column names or column aliases to sort by.</summary>
 		public ShardsCatRequestDescriptor S(List<string>? value) { _value.S = value; return this; }
+	public ShardsCatRequestDescriptor S(string value) { _value.S = [value]; return this; }
 	public ShardsCatRequestDescriptor Time(string? value) { _value.Time = value; return this; }
 	/// <summary>Enables verbose mode, which displays column headers.</summary>
 		public ShardsCatRequestDescriptor V(bool? value) { _value.V = value; return this; }

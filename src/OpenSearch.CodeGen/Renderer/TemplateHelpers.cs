@@ -202,7 +202,7 @@ public static class TemplateHelpers
 	/// </summary>
 	private static string ComputeQueryValueExpr(Field field)
 	{
-		if (field.Type.Name == "string")
+		if (field.Type.Name is "string" or "Field")
 			return $"r.{field.Name}!";
 
 		if (field.Type.Name == "bool")
@@ -350,16 +350,17 @@ public static class TemplateHelpers
 	}
 
 	/// <summary>
-	/// The set of query/span types that need a generic (<c>&lt;TDocument&gt;</c>) descriptor so
-	/// <see cref="Field"/> expressions thread all the way through nested clauses. Seeded with the
-	/// <c>QueryContainer</c> and <c>SpanQuery</c> unions, then the fixpoint of every type reachable
-	/// from their variants that (transitively) nests one of those unions.
+	/// The set of query/span/aggregation types that need a generic (<c>&lt;TDocument&gt;</c>)
+	/// descriptor so <see cref="Field"/> expressions thread all the way through nested clauses.
+	/// Seeded with the <c>QueryContainer</c>, <c>SpanQuery</c>, and <c>AggregationContainer</c>
+	/// unions, then the fixpoint of every type reachable from their variants that (transitively)
+	/// nests one of those unions or selects a document field (a field-path property).
 	/// </summary>
 	public static HashSet<string> ComputeGenericQueryTypes(
 		IReadOnlyDictionary<string, ObjectShape> allObjects,
 		IReadOnlyDictionary<string, TaggedUnionShape> allUnions)
 	{
-		var roots = new[] { "QueryContainer", "SpanQuery" }.Where(allUnions.ContainsKey).ToList();
+		var roots = new[] { "QueryContainer", "SpanQuery", "AggregationContainer" }.Where(allUnions.ContainsKey).ToList();
 
 		// 1. Everything reachable downward from those unions' variants — the query object graph.
 		var reachable = new HashSet<string>(StringComparer.Ordinal);
@@ -379,7 +380,9 @@ public static class TemplateHelpers
 						stack.Push(t);
 		}
 
-		// 2. Within the graph, a type is generic if it (transitively) nests a query/span union.
+		// 2. Within the graph, a type is generic if it (transitively) nests a query/span/aggregation
+		// union, or if it selects a document field itself (a field-path property gets an
+		// expression overload, which needs TDocument in scope).
 		var generic = new HashSet<string>(roots, StringComparer.Ordinal);
 		bool changed = true;
 		while (changed)
@@ -389,12 +392,15 @@ public static class TemplateHelpers
 			{
 				if (generic.Contains(name) || !allObjects.TryGetValue(name, out var o))
 					continue;
-				if (o.Fields.Any(f => TypeNames(f.Type).Any(generic.Contains)))
+				if (o.Fields.Any(f => TypeNames(f.Type).Any(generic.Contains) || IsFieldPath(f.Type)))
 					changed |= generic.Add(name);
 			}
 		}
 		return generic;
 	}
+
+	/// <summary>Whether the type is the spec's <c>Field</c> path (see <see cref="TypeRef.FieldPath"/>).</summary>
+	private static bool IsFieldPath(TypeRef type) => type.Name == "Field";
 
 	/// <summary>The type names referenced by a <see cref="TypeRef"/> (itself plus element/key/value types).</summary>
 	private static IEnumerable<string> TypeNames(TypeRef type)
@@ -523,6 +529,7 @@ public static class TemplateHelpers
 		obj["descriptor_name"] = className + "Descriptor";
 		obj["fields"] = BuildDescriptorFieldArray(fields, allObjects, allUnions, genericTypes);
 		obj["type_parameters"] = typeParameters;
+		obj["has_tdocument"] = typeParameters is not null && typeParameters.Any(p => p is string s && s == "TDocument");
 		// By default the value type carries the same type parameters as the descriptor (e.g. Hit<TDocument>);
 		// BuildGenericObjectDescriptorContext overrides this where the value type is non-generic.
 		obj["value_type"] = className + (typeParameters is { Count: > 0 } ? "<" + string.Join(", ", typeParameters) + ">" : "");
@@ -542,6 +549,16 @@ public static class TemplateHelpers
 			f["description"] = SanitizeDescription(field.Description);
 			f["poco_type"] = ComputePropertyType(field);
 			f["descriptor_kind"] = ComputeDescriptorKind(field, allObjects, allUnions);
+			f["is_field_path"] = IsFieldPath(field.Type);
+			f["is_field_path_list"] = field.Type.Kind == TypeRefKind.List
+				&& field.Type.ItemType is not null && IsFieldPath(field.Type.ItemType);
+			// Scalar-item lists get a params convenience overload (Index("logs"), Text("hello world")).
+			f["scalar_item_type"] = field.Type.Kind == TypeRefKind.List
+				&& field.Type.ItemType is { } item
+				&& (item.Kind == TypeRefKind.Primitive || item.IsEnum)
+				&& item.Name != "JsonElement"
+					? item.CSharpName
+					: "";
 
 			if (HasDescriptor(field.Type, allObjects, allUnions))
 				f["descriptor_name"] = GenericName(GetDescriptorName(field.Type), field.Type.CSharpName, genericTypes);

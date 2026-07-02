@@ -13,6 +13,7 @@ public sealed class PhoneticTokenFilterDescriptor
 	public PhoneticTokenFilterDescriptor Type(string? value) { _value.Type = value; return this; }
 	public PhoneticTokenFilterDescriptor Encoder(PhoneticEncoder? value) { _value.Encoder = value; return this; }
 	public PhoneticTokenFilterDescriptor Languageset(List<PhoneticLanguage>? value) { _value.Languageset = value; return this; }
+	public PhoneticTokenFilterDescriptor Languageset(PhoneticLanguage value) { _value.Languageset = [value]; return this; }
 	public PhoneticTokenFilterDescriptor MaxCodeLen(int? value) { _value.MaxCodeLen = value; return this; }
 	public PhoneticTokenFilterDescriptor NameType(PhoneticNameType? value) { _value.NameType = value; return this; }
 	public PhoneticTokenFilterDescriptor Replace(bool? value) { _value.Replace = value; return this; }

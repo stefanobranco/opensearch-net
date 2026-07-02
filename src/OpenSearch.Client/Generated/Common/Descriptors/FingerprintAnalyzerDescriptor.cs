@@ -15,6 +15,7 @@ public sealed class FingerprintAnalyzerDescriptor
 	public FingerprintAnalyzerDescriptor PreserveOriginal(bool value) { _value.PreserveOriginal = value; return this; }
 	public FingerprintAnalyzerDescriptor Separator(string? value) { _value.Separator = value; return this; }
 	public FingerprintAnalyzerDescriptor Stopwords(List<string>? value) { _value.Stopwords = value; return this; }
+	public FingerprintAnalyzerDescriptor Stopwords(string value) { _value.Stopwords = [value]; return this; }
 	public FingerprintAnalyzerDescriptor StopwordsPath(string? value) { _value.StopwordsPath = value; return this; }
 
 	public static implicit operator FingerprintAnalyzer(FingerprintAnalyzerDescriptor descriptor) => descriptor._value;

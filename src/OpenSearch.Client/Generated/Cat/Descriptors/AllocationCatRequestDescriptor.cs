@@ -11,6 +11,7 @@ public sealed class AllocationCatRequestDescriptor
 
 	/// <summary>A comma-separated list of node IDs or names used to limit the returned information.</summary>
 		public AllocationCatRequestDescriptor NodeId(List<string>? value) { _value.NodeId = value; return this; }
+	public AllocationCatRequestDescriptor NodeId(string value) { _value.NodeId = [value]; return this; }
 	/// <summary>The units used to display byte values.</summary>
 		public AllocationCatRequestDescriptor Bytes(string? value) { _value.Bytes = value; return this; }
 	/// <summary>A timeout for connection to the cluster manager node.</summary>
@@ -19,12 +20,14 @@ public sealed class AllocationCatRequestDescriptor
 		public AllocationCatRequestDescriptor Format(string? value) { _value.Format = value; return this; }
 	/// <summary>A comma-separated list of column names to display.</summary>
 		public AllocationCatRequestDescriptor H(List<string>? value) { _value.H = value; return this; }
+	public AllocationCatRequestDescriptor H(string value) { _value.H = [value]; return this; }
 	/// <summary>Returns help information.</summary>
 		public AllocationCatRequestDescriptor Help(bool? value) { _value.Help = value; return this; }
 	/// <summary>Returns local information but does not retrieve the state from cluster-manager node.</summary>
 		public AllocationCatRequestDescriptor Local(bool? value) { _value.Local = value; return this; }
 	/// <summary>A comma-separated list of column names or column aliases to sort by.</summary>
 		public AllocationCatRequestDescriptor S(List<string>? value) { _value.S = value; return this; }
+	public AllocationCatRequestDescriptor S(string value) { _value.S = [value]; return this; }
 	/// <summary>Enables verbose mode, which displays column headers.</summary>
 		public AllocationCatRequestDescriptor V(bool? value) { _value.V = value; return this; }
 

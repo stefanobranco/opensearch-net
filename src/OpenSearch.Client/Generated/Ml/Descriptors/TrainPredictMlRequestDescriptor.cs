@@ -28,6 +28,7 @@ public sealed class TrainPredictMlRequestDescriptor
 	}
 	/// <summary>The input index.</summary>
 		public TrainPredictMlRequestDescriptor InputIndex(List<string>? value) { _value.InputIndex = value; return this; }
+	public TrainPredictMlRequestDescriptor InputIndex(string value) { _value.InputIndex = [value]; return this; }
 	public TrainPredictMlRequestDescriptor InputData(PredictionResult? value) { _value.InputData = value; return this; }
 	public TrainPredictMlRequestDescriptor InputData(Action<PredictionResultDescriptor> configure)
 	{

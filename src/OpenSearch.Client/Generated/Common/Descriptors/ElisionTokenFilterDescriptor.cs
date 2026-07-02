@@ -12,6 +12,7 @@ public sealed class ElisionTokenFilterDescriptor
 	public ElisionTokenFilterDescriptor Version(string? value) { _value.Version = value; return this; }
 	public ElisionTokenFilterDescriptor Type(string? value) { _value.Type = value; return this; }
 	public ElisionTokenFilterDescriptor Articles(List<string>? value) { _value.Articles = value; return this; }
+	public ElisionTokenFilterDescriptor Articles(string value) { _value.Articles = [value]; return this; }
 	public ElisionTokenFilterDescriptor ArticlesPath(string? value) { _value.ArticlesPath = value; return this; }
 	public ElisionTokenFilterDescriptor ArticlesCase(string? value) { _value.ArticlesCase = value; return this; }
 

@@ -20,6 +20,7 @@ public sealed class TypeMappingDescriptor
 	public TypeMappingDescriptor DateDetection(bool? value) { _value.DateDetection = value; return this; }
 	public TypeMappingDescriptor Dynamic(string? value) { _value.Dynamic = value; return this; }
 	public TypeMappingDescriptor DynamicDateFormats(List<string>? value) { _value.DynamicDateFormats = value; return this; }
+	public TypeMappingDescriptor DynamicDateFormats(string value) { _value.DynamicDateFormats = [value]; return this; }
 	public TypeMappingDescriptor DynamicTemplates(List<Dictionary<string, DynamicTemplate>>? value) { _value.DynamicTemplates = value; return this; }
 	public TypeMappingDescriptor FieldNames(FieldNamesField? value) { _value.FieldNames = value; return this; }
 	public TypeMappingDescriptor FieldNames(Action<FieldNamesFieldDescriptor> configure)

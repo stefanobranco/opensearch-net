@@ -10,10 +10,14 @@ public sealed class IndexPermissionDescriptor
 	internal IndexPermission _value = new();
 
 	public IndexPermissionDescriptor IndexPatterns(List<string>? value) { _value.IndexPatterns = value; return this; }
+	public IndexPermissionDescriptor IndexPatterns(string value) { _value.IndexPatterns = [value]; return this; }
 	public IndexPermissionDescriptor Dls(string? value) { _value.Dls = value; return this; }
 	public IndexPermissionDescriptor Fls(List<string>? value) { _value.Fls = value; return this; }
+	public IndexPermissionDescriptor Fls(string value) { _value.Fls = [value]; return this; }
 	public IndexPermissionDescriptor MaskedFields(List<string>? value) { _value.MaskedFields = value; return this; }
+	public IndexPermissionDescriptor MaskedFields(string value) { _value.MaskedFields = [value]; return this; }
 	public IndexPermissionDescriptor AllowedActions(List<string>? value) { _value.AllowedActions = value; return this; }
+	public IndexPermissionDescriptor AllowedActions(string value) { _value.AllowedActions = [value]; return this; }
 
 	public static implicit operator IndexPermission(IndexPermissionDescriptor descriptor) => descriptor._value;
 }

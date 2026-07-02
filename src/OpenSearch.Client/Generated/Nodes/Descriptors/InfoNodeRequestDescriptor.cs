@@ -13,8 +13,10 @@ public sealed class InfoNodeRequestDescriptor
 		public InfoNodeRequestDescriptor NodeIdOrMetric(string? value) { _value.NodeIdOrMetric = value; return this; }
 	/// <summary>Limits the information returned to the specific metrics. Supports a comma-separated list, such as `http,ingest`.</summary>
 		public InfoNodeRequestDescriptor Metric(List<string>? value) { _value.Metric = value; return this; }
+	public InfoNodeRequestDescriptor Metric(string value) { _value.Metric = [value]; return this; }
 	/// <summary>A comma-separated list of node IDs or names used to limit returned information.</summary>
 		public InfoNodeRequestDescriptor NodeId(List<string>? value) { _value.NodeId = value; return this; }
+	public InfoNodeRequestDescriptor NodeId(string value) { _value.NodeId = [value]; return this; }
 	/// <summary>When `true`, returns settings in flat format.</summary>
 		public InfoNodeRequestDescriptor FlatSettings(bool? value) { _value.FlatSettings = value; return this; }
 	/// <summary>The amount of time to wait for a response. If no response is received before the timeout expires, the request fails and returns an error.</summary>

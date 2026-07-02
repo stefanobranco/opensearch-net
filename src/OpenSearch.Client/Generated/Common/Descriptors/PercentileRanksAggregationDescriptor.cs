@@ -17,6 +17,7 @@ public sealed class PercentileRanksAggregationDescriptor
 		public PercentileRanksAggregationDescriptor Keyed(bool? value) { _value.Keyed = value; return this; }
 	/// <summary>An array of values for which to calculate the percentile ranks.</summary>
 		public PercentileRanksAggregationDescriptor Values(List<double>? value) { _value.Values = value; return this; }
+	public PercentileRanksAggregationDescriptor Values(double value) { _value.Values = [value]; return this; }
 	public PercentileRanksAggregationDescriptor Hdr(HdrMethod? value) { _value.Hdr = value; return this; }
 	public PercentileRanksAggregationDescriptor Hdr(Action<HdrMethodDescriptor> configure)
 	{

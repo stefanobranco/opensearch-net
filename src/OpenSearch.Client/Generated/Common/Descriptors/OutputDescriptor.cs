@@ -13,7 +13,9 @@ public sealed class OutputDescriptor
 		public OutputDescriptor Name(string? value) { _value.Name = value; return this; }
 	public OutputDescriptor DataType(MlResultDataType? value) { _value.DataType = value; return this; }
 	public OutputDescriptor Shape(List<long>? value) { _value.Shape = value; return this; }
+	public OutputDescriptor Shape(long value) { _value.Shape = [value]; return this; }
 	public OutputDescriptor Data(List<double>? value) { _value.Data = value; return this; }
+	public OutputDescriptor Data(double value) { _value.Data = [value]; return this; }
 	public OutputDescriptor ByteBuffer(ByteBuffer? value) { _value.ByteBuffer = value; return this; }
 	public OutputDescriptor ByteBuffer(Action<ByteBufferDescriptor> configure)
 	{

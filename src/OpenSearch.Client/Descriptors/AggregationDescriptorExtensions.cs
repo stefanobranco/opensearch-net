@@ -27,4 +27,25 @@ public static class AggregationDescriptorExtensions
 	public static TermsAggregationFieldsDescriptor OrderBy(this TermsAggregationFieldsDescriptor d,
 		string subAggName, SortOrder order = SortOrder.Asc)
 	{ d._value.Order = AggregateOrder.By(subAggName, order); return d; }
+
+	/// <summary>Order by document count descending (default).</summary>
+	public static TermsAggregationFieldsDescriptor<TDocument> CountDescending<TDocument>(this TermsAggregationFieldsDescriptor<TDocument> d)
+	{ d._value.Order = AggregateOrder.CountDescending; return d; }
+
+	/// <summary>Order by document count ascending.</summary>
+	public static TermsAggregationFieldsDescriptor<TDocument> CountAscending<TDocument>(this TermsAggregationFieldsDescriptor<TDocument> d)
+	{ d._value.Order = AggregateOrder.CountAscending; return d; }
+
+	/// <summary>Order by bucket key ascending.</summary>
+	public static TermsAggregationFieldsDescriptor<TDocument> KeyAscending<TDocument>(this TermsAggregationFieldsDescriptor<TDocument> d)
+	{ d._value.Order = AggregateOrder.KeyAscending; return d; }
+
+	/// <summary>Order by bucket key descending.</summary>
+	public static TermsAggregationFieldsDescriptor<TDocument> KeyDescending<TDocument>(this TermsAggregationFieldsDescriptor<TDocument> d)
+	{ d._value.Order = AggregateOrder.KeyDescending; return d; }
+
+	/// <summary>Order by a sub-aggregation metric.</summary>
+	public static TermsAggregationFieldsDescriptor<TDocument> OrderBy<TDocument>(this TermsAggregationFieldsDescriptor<TDocument> d,
+		string subAggName, SortOrder order = SortOrder.Asc)
+	{ d._value.Order = AggregateOrder.By(subAggName, order); return d; }
 }

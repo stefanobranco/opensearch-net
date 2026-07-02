@@ -15,9 +15,11 @@ public sealed class PutJudgmentsSearchRelevanceRequestDescriptor
 	public PutJudgmentsSearchRelevanceRequestDescriptor ModelId(string? value) { _value.ModelId = value; return this; }
 	public PutJudgmentsSearchRelevanceRequestDescriptor QuerySetId(string? value) { _value.QuerySetId = value; return this; }
 	public PutJudgmentsSearchRelevanceRequestDescriptor SearchConfigurationList(List<string>? value) { _value.SearchConfigurationList = value; return this; }
+	public PutJudgmentsSearchRelevanceRequestDescriptor SearchConfigurationList(string value) { _value.SearchConfigurationList = [value]; return this; }
 	public PutJudgmentsSearchRelevanceRequestDescriptor Size(int? value) { _value.Size = value; return this; }
 	public PutJudgmentsSearchRelevanceRequestDescriptor IgnoreFailure(bool? value) { _value.IgnoreFailure = value; return this; }
 	public PutJudgmentsSearchRelevanceRequestDescriptor ContextFields(List<string>? value) { _value.ContextFields = value; return this; }
+	public PutJudgmentsSearchRelevanceRequestDescriptor ContextFields(string value) { _value.ContextFields = [value]; return this; }
 	public PutJudgmentsSearchRelevanceRequestDescriptor ClickModel(string? value) { _value.ClickModel = value; return this; }
 	public PutJudgmentsSearchRelevanceRequestDescriptor MaxRank(int? value) { _value.MaxRank = value; return this; }
 	public PutJudgmentsSearchRelevanceRequestDescriptor JudgmentRatings(List<System.Text.Json.JsonElement>? value) { _value.JudgmentRatings = value; return this; }

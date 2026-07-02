@@ -13,7 +13,9 @@ public sealed class LanguageAnalyzerDescriptor
 	public LanguageAnalyzerDescriptor Version(string? value) { _value.Version = value; return this; }
 	public LanguageAnalyzerDescriptor Language(Language? value) { _value.Language = value; return this; }
 	public LanguageAnalyzerDescriptor StemExclusion(List<string>? value) { _value.StemExclusion = value; return this; }
+	public LanguageAnalyzerDescriptor StemExclusion(string value) { _value.StemExclusion = [value]; return this; }
 	public LanguageAnalyzerDescriptor Stopwords(List<string>? value) { _value.Stopwords = value; return this; }
+	public LanguageAnalyzerDescriptor Stopwords(string value) { _value.Stopwords = [value]; return this; }
 	public LanguageAnalyzerDescriptor StopwordsPath(string? value) { _value.StopwordsPath = value; return this; }
 
 	public static implicit operator LanguageAnalyzer(LanguageAnalyzerDescriptor descriptor) => descriptor._value;

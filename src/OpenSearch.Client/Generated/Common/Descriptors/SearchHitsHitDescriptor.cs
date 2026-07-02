@@ -28,6 +28,7 @@ public sealed class SearchHitsHitDescriptor
 	public SearchHitsHitDescriptor ModelId(string? value) { _value.ModelId = value; return this; }
 	/// <summary>The sort values.</summary>
 		public SearchHitsHitDescriptor Sort(List<float>? value) { _value.Sort = value; return this; }
+	public SearchHitsHitDescriptor Sort(float value) { _value.Sort = [value]; return this; }
 
 	public static implicit operator SearchHitsHit(SearchHitsHitDescriptor descriptor) => descriptor._value;
 }

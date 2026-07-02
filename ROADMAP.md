@@ -141,8 +141,30 @@ well-engineered **on its own terms**, with no push for upstream adoption.
      hand-written keyed-or-array union of `QueryContainer`, so named filters are constructible
      (`Filters = new Dictionary<string, QueryContainer> {...}`). Fixtures for every accessor + 5
      CI-verified integration tests (incl. geo_point mapping and a max_bucket pipeline).
-  2. [ ] Async integration mirror + scroll/PIT tests.
-  3. [ ] Typed `UpdateRequest` doc/upsert (breaking — before RC).
+  2. [x] **Async integration mirror + scroll/PIT tests.** The async overloads (distinct transport,
+     NDJSON-streaming, and deserialization code paths) had zero integration coverage, and no test
+     exercised stateful pagination. Added CI-verified flows: full document lifecycle through
+     `*Async` overloads (create/bulk/search/get/index/delete/count), msearch + scroll async, scroll
+     cursor to exhaustion with `ClearScroll`, `search_after` pagination via `Hit.Sort`, and the PIT
+     lifecycle (`CreatePit` → search with `Pit` reference, no index on the request → `DeleteAllPits`).
+  2b. [x] **Consumer-feedback ergonomics (Swisslex migration scorecard, 2026-07-01).** Three
+     non-breaking fixes, each at the generator root:
+     - `SourceConfigParam` (the `_source` query parameter on 15 requests, incl. `MgetRequest.Source`)
+       was a raw `JsonElement` — and serialized field lists as raw JSON brackets in the query string.
+       Now a hand-written bool-or-fields union (`Source = false` / `Source = new[] {"title"}`).
+     - Expression-based field selection existed only for queries (the `<TDocument>` descriptor
+       fixpoint was seeded with `QueryContainer`/`SpanQuery` only) — `DateHistogram`/`Histogram`
+       and every other aggregation were string-only. The spec's `Field` schema is now tagged as a
+       field path, the fixpoint is seeded with `AggregationContainer` and marks field-selecting
+       types generic, and generic descriptors emit `Field(x => x.Prop)` overloads — 83 generic
+       descriptors, plus a hand-written `AggregationsDictDescriptor<TDocument>` wired into
+       `SearchRequestDescriptor<TDocument>.Aggregations` (filter aggregations get typed queries too).
+     - Scalar-list descriptor setters generate single-value overloads (`Analyze(...).Text("hello")`,
+       `Index("logs")`); the hand-written `AnalyzeRequestExtensions` wrapper is deleted.
+     Remaining scorecard items are breaking and queued with item 3: root-namespace collision renames
+     (`Entity`, `Filter`, ...) batched with the typed-`UpdateRequest` break.
+  3. [ ] Typed `UpdateRequest` doc/upsert (breaking — before RC), batched with root-namespace
+     collision renames (`Entity` et al.) so consumers take one break, not two.
   4. [ ] Phase D package-identity decision (rename after RC would be the worst break).
   5. [ ] Validator-debt burn-down (19 empty / 15 stub / 9 fallback / 6 punts → fix or justify; ratchet).
   6. [ ] Benchmark baseline (C3).

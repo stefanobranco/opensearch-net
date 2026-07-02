@@ -30,6 +30,7 @@ public sealed class IndexSettingsStoreDescriptor
 	}
 	/// <summary>The list of files to preload into memory.</summary>
 		public IndexSettingsStoreDescriptor Preload(List<string>? value) { _value.Preload = value; return this; }
+	public IndexSettingsStoreDescriptor Preload(string value) { _value.Preload = [value]; return this; }
 	public IndexSettingsStoreDescriptor StatsRefreshInterval(string? value) { _value.StatsRefreshInterval = value; return this; }
 
 	public static implicit operator IndexSettingsStore(IndexSettingsStoreDescriptor descriptor) => descriptor._value;

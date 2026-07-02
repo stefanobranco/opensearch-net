@@ -11,10 +11,13 @@ public sealed class SearchModelsKnnRequestDescriptor
 
 	/// <summary>Set to `true` or `false` to return the `_source` field or not, or a list of fields to return.</summary>
 		public SearchModelsKnnRequestDescriptor Source(List<string>? value) { _value.Source = value; return this; }
+	public SearchModelsKnnRequestDescriptor Source(string value) { _value.Source = [value]; return this; }
 	/// <summary>List of fields to exclude from the returned `_source` field.</summary>
 		public SearchModelsKnnRequestDescriptor SourceExcludes(List<string>? value) { _value.SourceExcludes = value; return this; }
+	public SearchModelsKnnRequestDescriptor SourceExcludes(string value) { _value.SourceExcludes = [value]; return this; }
 	/// <summary>List of fields to extract and return from the `_source` field.</summary>
 		public SearchModelsKnnRequestDescriptor SourceIncludes(List<string>? value) { _value.SourceIncludes = value; return this; }
+	public SearchModelsKnnRequestDescriptor SourceIncludes(string value) { _value.SourceIncludes = [value]; return this; }
 	/// <summary>Whether to ignore if a wildcard indexes expression resolves into no concrete indexes. (This includes `_all` string or when no indexes have been specified).</summary>
 		public SearchModelsKnnRequestDescriptor AllowNoIndices(bool? value) { _value.AllowNoIndices = value; return this; }
 	/// <summary>Indicate if an error should be returned if there is a partial search failure or timeout.</summary>
@@ -33,8 +36,10 @@ public sealed class SearchModelsKnnRequestDescriptor
 		public SearchModelsKnnRequestDescriptor Df(string? value) { _value.Df = value; return this; }
 	/// <summary>A comma-separated list of fields to return as the docvalue representation of a field for each hit.</summary>
 		public SearchModelsKnnRequestDescriptor DocvalueFields(List<string>? value) { _value.DocvalueFields = value; return this; }
+	public SearchModelsKnnRequestDescriptor DocvalueFields(string value) { _value.DocvalueFields = [value]; return this; }
 	/// <summary>Whether to expand wildcard expression to concrete indexes that are open, closed or both.</summary>
 		public SearchModelsKnnRequestDescriptor ExpandWildcards(List<string>? value) { _value.ExpandWildcards = value; return this; }
+	public SearchModelsKnnRequestDescriptor ExpandWildcards(string value) { _value.ExpandWildcards = [value]; return this; }
 	/// <summary>Specify whether to return detailed information about score computation as part of a hit.</summary>
 		public SearchModelsKnnRequestDescriptor Explain(bool? value) { _value.Explain = value; return this; }
 	/// <summary>Starting offset.</summary>
@@ -59,6 +64,7 @@ public sealed class SearchModelsKnnRequestDescriptor
 		public SearchModelsKnnRequestDescriptor RestTotalHitsAsInt(bool? value) { _value.RestTotalHitsAsInt = value; return this; }
 	/// <summary>A comma-separated list of specific routing values.</summary>
 		public SearchModelsKnnRequestDescriptor Routing(List<string>? value) { _value.Routing = value; return this; }
+	public SearchModelsKnnRequestDescriptor Routing(string value) { _value.Routing = [value]; return this; }
 	/// <summary>Specify how long a consistent view of the index should be maintained for scrolled search.</summary>
 		public SearchModelsKnnRequestDescriptor Scroll(string? value) { _value.Scroll = value; return this; }
 	/// <summary>Search operation type.</summary>
@@ -69,10 +75,13 @@ public sealed class SearchModelsKnnRequestDescriptor
 		public SearchModelsKnnRequestDescriptor Size(int? value) { _value.Size = value; return this; }
 	/// <summary>A comma-separated list of &lt;field&gt;:&lt;direction&gt; pairs.</summary>
 		public SearchModelsKnnRequestDescriptor Sort(List<string>? value) { _value.Sort = value; return this; }
+	public SearchModelsKnnRequestDescriptor Sort(string value) { _value.Sort = [value]; return this; }
 	/// <summary>Specific 'tag' of the request for logging and statistical purposes.</summary>
 		public SearchModelsKnnRequestDescriptor Stats(List<string>? value) { _value.Stats = value; return this; }
+	public SearchModelsKnnRequestDescriptor Stats(string value) { _value.Stats = [value]; return this; }
 	/// <summary>A comma-separated list of stored fields to return.</summary>
 		public SearchModelsKnnRequestDescriptor StoredFields(List<string>? value) { _value.StoredFields = value; return this; }
+	public SearchModelsKnnRequestDescriptor StoredFields(string value) { _value.StoredFields = [value]; return this; }
 	/// <summary>Specify which field to use for suggestions.</summary>
 		public SearchModelsKnnRequestDescriptor SuggestField(string? value) { _value.SuggestField = value; return this; }
 	/// <summary>Specify suggest mode.</summary>

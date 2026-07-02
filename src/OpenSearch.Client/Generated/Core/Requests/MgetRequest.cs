@@ -18,7 +18,7 @@ public sealed class MgetRequest
 	public string? Index { get; set; }
 	/// <summary>Set to `true` or `false` to return the `_source` field or not, or a list of fields to return.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? Source { get; set; }
+	public SourceConfigParam? Source { get; set; }
 	/// <summary>A comma-separated list of source fields to exclude from the response. You can also use this parameter to exclude fields from the subset specified in `_source_includes` query parameter.</summary>
 	[JsonIgnore]
 	public List<string>? SourceExcludes { get; set; }

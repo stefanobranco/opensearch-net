@@ -12,6 +12,7 @@ public sealed class NoriPartOfSpeechTokenFilterDescriptor
 	public NoriPartOfSpeechTokenFilterDescriptor Version(string? value) { _value.Version = value; return this; }
 	public NoriPartOfSpeechTokenFilterDescriptor Type(string? value) { _value.Type = value; return this; }
 	public NoriPartOfSpeechTokenFilterDescriptor Stoptags(List<string>? value) { _value.Stoptags = value; return this; }
+	public NoriPartOfSpeechTokenFilterDescriptor Stoptags(string value) { _value.Stoptags = [value]; return this; }
 
 	public static implicit operator NoriPartOfSpeechTokenFilter(NoriPartOfSpeechTokenFilterDescriptor descriptor) => descriptor._value;
 }

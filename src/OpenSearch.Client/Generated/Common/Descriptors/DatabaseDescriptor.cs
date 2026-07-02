@@ -14,6 +14,7 @@ public sealed class DatabaseDescriptor
 	public DatabaseDescriptor UpdatedAtInEpochMillis(long? value) { _value.UpdatedAtInEpochMillis = value; return this; }
 	public DatabaseDescriptor ValidForInDays(int? value) { _value.ValidForInDays = value; return this; }
 	public DatabaseDescriptor Fields(List<string>? value) { _value.Fields = value; return this; }
+	public DatabaseDescriptor Fields(string value) { _value.Fields = [value]; return this; }
 
 	public static implicit operator Database(DatabaseDescriptor descriptor) => descriptor._value;
 }

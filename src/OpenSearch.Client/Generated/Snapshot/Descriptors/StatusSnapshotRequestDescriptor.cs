@@ -13,6 +13,7 @@ public sealed class StatusSnapshotRequestDescriptor
 		public StatusSnapshotRequestDescriptor Repository(string? value) { _value.Repository = value; return this; }
 	/// <summary>A comma-separated list of snapshot names.</summary>
 		public StatusSnapshotRequestDescriptor Snapshot(List<string>? value) { _value.Snapshot = value; return this; }
+	public StatusSnapshotRequestDescriptor Snapshot(string value) { _value.Snapshot = [value]; return this; }
 	/// <summary>The amount of time to wait for a response from the cluster manager node. For more information about supported time units, see [Common parameters](https://opensearch.org/docs/latest/api-reference/common-parameters/#time-units).</summary>
 		public StatusSnapshotRequestDescriptor ClusterManagerTimeout(string? value) { _value.ClusterManagerTimeout = value; return this; }
 	/// <summary>Whether to ignore any unavailable snapshots, When `false`, a `SnapshotMissingException` is thrown.</summary>

@@ -11,7 +11,9 @@ public sealed class UnloadModelMlRequestDescriptor
 
 	public UnloadModelMlRequestDescriptor ModelId(string? value) { _value.ModelId = value; return this; }
 	public UnloadModelMlRequestDescriptor NodeIds(List<string>? value) { _value.NodeIds = value; return this; }
+	public UnloadModelMlRequestDescriptor NodeIds(string value) { _value.NodeIds = [value]; return this; }
 	public UnloadModelMlRequestDescriptor ModelIds(List<string>? value) { _value.ModelIds = value; return this; }
+	public UnloadModelMlRequestDescriptor ModelIds(string value) { _value.ModelIds = [value]; return this; }
 
 	public static implicit operator UnloadModelMlRequest(UnloadModelMlRequestDescriptor descriptor) => descriptor._value;
 }

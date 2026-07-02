@@ -11,8 +11,10 @@ public sealed class StatsLtrRequestDescriptor
 
 	/// <summary>A comma-separated list of stats to retrieve; use `_all` or empty string to retrieve all stats.</summary>
 		public StatsLtrRequestDescriptor Stat(List<LtrStatName>? value) { _value.Stat = value; return this; }
+	public StatsLtrRequestDescriptor Stat(LtrStatName value) { _value.Stat = [value]; return this; }
 	/// <summary>A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes.</summary>
 		public StatsLtrRequestDescriptor NodeId(List<string>? value) { _value.NodeId = value; return this; }
+	public StatsLtrRequestDescriptor NodeId(string value) { _value.NodeId = [value]; return this; }
 	/// <summary>The time in milliseconds to wait for a response.</summary>
 		public StatsLtrRequestDescriptor Timeout(string? value) { _value.Timeout = value; return this; }
 

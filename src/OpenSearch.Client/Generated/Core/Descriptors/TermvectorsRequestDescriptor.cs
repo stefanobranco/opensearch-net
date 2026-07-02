@@ -16,6 +16,7 @@ public sealed class TermvectorsRequestDescriptor
 	/// <summary>If `true`, the response includes the document count, sum of document frequencies, and sum of total term frequencies.</summary>
 		public TermvectorsRequestDescriptor FieldStatistics(bool? value) { _value.FieldStatistics = value; return this; }
 	public TermvectorsRequestDescriptor Fields(List<string>? value) { _value.Fields = value; return this; }
+	public TermvectorsRequestDescriptor Fields(string value) { _value.Fields = [value]; return this; }
 	/// <summary>If `true`, the response includes term offsets.</summary>
 		public TermvectorsRequestDescriptor Offsets(bool? value) { _value.Offsets = value; return this; }
 	/// <summary>If `true`, the response includes term payloads.</summary>
@@ -28,6 +29,7 @@ public sealed class TermvectorsRequestDescriptor
 		public TermvectorsRequestDescriptor Realtime(bool? value) { _value.Realtime = value; return this; }
 	/// <summary>A custom value used to route operations to a specific shard.</summary>
 		public TermvectorsRequestDescriptor Routing(List<string>? value) { _value.Routing = value; return this; }
+	public TermvectorsRequestDescriptor Routing(string value) { _value.Routing = [value]; return this; }
 	/// <summary>If `true`, the response includes term frequency and document frequency.</summary>
 		public TermvectorsRequestDescriptor TermStatistics(bool? value) { _value.TermStatistics = value; return this; }
 	/// <summary>If `true`, returns the document version as part of a hit.</summary>

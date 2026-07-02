@@ -15,6 +15,7 @@ public sealed class EdgeNGramTokenizerDescriptor
 	public EdgeNGramTokenizerDescriptor MaxGram(int value) { _value.MaxGram = value; return this; }
 	public EdgeNGramTokenizerDescriptor MinGram(int value) { _value.MinGram = value; return this; }
 	public EdgeNGramTokenizerDescriptor TokenChars(List<TokenChar>? value) { _value.TokenChars = value; return this; }
+	public EdgeNGramTokenizerDescriptor TokenChars(TokenChar value) { _value.TokenChars = [value]; return this; }
 
 	public static implicit operator EdgeNGramTokenizer(EdgeNGramTokenizerDescriptor descriptor) => descriptor._value;
 }

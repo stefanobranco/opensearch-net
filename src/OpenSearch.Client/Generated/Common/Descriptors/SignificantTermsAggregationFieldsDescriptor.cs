@@ -26,6 +26,7 @@ public sealed class SignificantTermsAggregationFieldsDescriptor
 		return this;
 	}
 	public SignificantTermsAggregationFieldsDescriptor Exclude(List<string>? value) { _value.Exclude = value; return this; }
+	public SignificantTermsAggregationFieldsDescriptor Exclude(string value) { _value.Exclude = [value]; return this; }
 	public SignificantTermsAggregationFieldsDescriptor ExecutionHint(TermsAggregationExecutionHint? value) { _value.ExecutionHint = value; return this; }
 	public SignificantTermsAggregationFieldsDescriptor Field(string? value) { _value.Field = value; return this; }
 	public SignificantTermsAggregationFieldsDescriptor Gnd(GoogleNormalizedDistanceHeuristic? value) { _value.Gnd = value; return this; }

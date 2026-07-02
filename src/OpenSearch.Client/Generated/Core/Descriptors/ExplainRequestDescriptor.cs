@@ -14,11 +14,13 @@ public sealed class ExplainRequestDescriptor
 	/// <summary>Index names used to limit the request. Only a single index name can be provided to this parameter.</summary>
 		public ExplainRequestDescriptor Index(string? value) { _value.Index = value; return this; }
 	/// <summary>Set to `true` or `false` to return the `_source` field or not, or a list of fields to return.</summary>
-		public ExplainRequestDescriptor Source(System.Text.Json.JsonElement? value) { _value.Source = value; return this; }
+		public ExplainRequestDescriptor Source(SourceConfigParam? value) { _value.Source = value; return this; }
 	/// <summary>A comma-separated list of source fields to exclude from the response.</summary>
 		public ExplainRequestDescriptor SourceExcludes(List<string>? value) { _value.SourceExcludes = value; return this; }
+	public ExplainRequestDescriptor SourceExcludes(string value) { _value.SourceExcludes = [value]; return this; }
 	/// <summary>A comma-separated list of source fields to include in the response.</summary>
 		public ExplainRequestDescriptor SourceIncludes(List<string>? value) { _value.SourceIncludes = value; return this; }
+	public ExplainRequestDescriptor SourceIncludes(string value) { _value.SourceIncludes = [value]; return this; }
 	/// <summary>If `true`, wildcard and prefix queries are analyzed.</summary>
 		public ExplainRequestDescriptor AnalyzeWildcard(bool? value) { _value.AnalyzeWildcard = value; return this; }
 	/// <summary>Analyzer to use for the query string. This parameter can only be used when the `q` query string parameter is specified.</summary>
@@ -35,8 +37,10 @@ public sealed class ExplainRequestDescriptor
 		public ExplainRequestDescriptor Q(string? value) { _value.Q = value; return this; }
 	/// <summary>A custom value used to route operations to a specific shard.</summary>
 		public ExplainRequestDescriptor Routing(List<string>? value) { _value.Routing = value; return this; }
+	public ExplainRequestDescriptor Routing(string value) { _value.Routing = [value]; return this; }
 	/// <summary>A comma-separated list of stored fields to return in the response.</summary>
 		public ExplainRequestDescriptor StoredFields(List<string>? value) { _value.StoredFields = value; return this; }
+	public ExplainRequestDescriptor StoredFields(string value) { _value.StoredFields = [value]; return this; }
 	public ExplainRequestDescriptor Query(QueryContainer? value) { _value.Query = value; return this; }
 	public ExplainRequestDescriptor Query(Action<QueryContainerDescriptor> configure)
 	{

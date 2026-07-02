@@ -18,11 +18,13 @@ public sealed class WordDelimiterTokenFilterDescriptor
 	public WordDelimiterTokenFilterDescriptor GenerateWordParts(bool? value) { _value.GenerateWordParts = value; return this; }
 	public WordDelimiterTokenFilterDescriptor PreserveOriginal(string? value) { _value.PreserveOriginal = value; return this; }
 	public WordDelimiterTokenFilterDescriptor ProtectedWords(List<string>? value) { _value.ProtectedWords = value; return this; }
+	public WordDelimiterTokenFilterDescriptor ProtectedWords(string value) { _value.ProtectedWords = [value]; return this; }
 	public WordDelimiterTokenFilterDescriptor ProtectedWordsPath(string? value) { _value.ProtectedWordsPath = value; return this; }
 	public WordDelimiterTokenFilterDescriptor SplitOnCaseChange(bool? value) { _value.SplitOnCaseChange = value; return this; }
 	public WordDelimiterTokenFilterDescriptor SplitOnNumerics(bool? value) { _value.SplitOnNumerics = value; return this; }
 	public WordDelimiterTokenFilterDescriptor StemEnglishPossessive(bool? value) { _value.StemEnglishPossessive = value; return this; }
 	public WordDelimiterTokenFilterDescriptor TypeTable(List<string>? value) { _value.TypeTable = value; return this; }
+	public WordDelimiterTokenFilterDescriptor TypeTable(string value) { _value.TypeTable = [value]; return this; }
 	public WordDelimiterTokenFilterDescriptor TypeTablePath(string? value) { _value.TypeTablePath = value; return this; }
 
 	public static implicit operator WordDelimiterTokenFilter(WordDelimiterTokenFilterDescriptor descriptor) => descriptor._value;

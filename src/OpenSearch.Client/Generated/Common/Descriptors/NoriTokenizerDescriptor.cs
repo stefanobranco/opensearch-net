@@ -15,6 +15,7 @@ public sealed class NoriTokenizerDescriptor
 	public NoriTokenizerDescriptor DiscardPunctuation(bool? value) { _value.DiscardPunctuation = value; return this; }
 	public NoriTokenizerDescriptor UserDictionary(string? value) { _value.UserDictionary = value; return this; }
 	public NoriTokenizerDescriptor UserDictionaryRules(List<string>? value) { _value.UserDictionaryRules = value; return this; }
+	public NoriTokenizerDescriptor UserDictionaryRules(string value) { _value.UserDictionaryRules = [value]; return this; }
 
 	public static implicit operator NoriTokenizer(NoriTokenizerDescriptor descriptor) => descriptor._value;
 }

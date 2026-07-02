@@ -11,6 +11,7 @@ public sealed class IndexSettingsStoreHybridNioDescriptor
 
 	/// <summary>The file extensions to use NIO for.</summary>
 		public IndexSettingsStoreHybridNioDescriptor Extensions(List<string>? value) { _value.Extensions = value; return this; }
+	public IndexSettingsStoreHybridNioDescriptor Extensions(string value) { _value.Extensions = [value]; return this; }
 
 	public static implicit operator IndexSettingsStoreHybridNio(IndexSettingsStoreHybridNioDescriptor descriptor) => descriptor._value;
 }

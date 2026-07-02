@@ -11,10 +11,12 @@ public sealed class UpgradeIndexRequestDescriptor
 
 	/// <summary>A comma-separated list of indexes; use `_all` or empty string to perform the operation on all indexes.</summary>
 		public UpgradeIndexRequestDescriptor Index(List<string>? value) { _value.Index = value; return this; }
+	public UpgradeIndexRequestDescriptor Index(string value) { _value.Index = [value]; return this; }
 	/// <summary>Whether to ignore if a wildcard indexes expression resolves into no concrete indexes. (This includes `_all` string or when no indexes have been specified).</summary>
 		public UpgradeIndexRequestDescriptor AllowNoIndices(bool? value) { _value.AllowNoIndices = value; return this; }
 	/// <summary>Whether to expand wildcard expression to concrete indexes that are open, closed or both.</summary>
 		public UpgradeIndexRequestDescriptor ExpandWildcards(List<string>? value) { _value.ExpandWildcards = value; return this; }
+	public UpgradeIndexRequestDescriptor ExpandWildcards(string value) { _value.ExpandWildcards = [value]; return this; }
 	/// <summary>Whether specified concrete indexes should be ignored when unavailable (missing or closed).</summary>
 		public UpgradeIndexRequestDescriptor IgnoreUnavailable(bool? value) { _value.IgnoreUnavailable = value; return this; }
 	/// <summary>If `true`, only ancient (an older Lucene major release) segments will be upgraded.</summary>

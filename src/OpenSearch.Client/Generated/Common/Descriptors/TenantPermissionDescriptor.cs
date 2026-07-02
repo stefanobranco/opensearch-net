@@ -10,7 +10,9 @@ public sealed class TenantPermissionDescriptor
 	internal TenantPermission _value = new();
 
 	public TenantPermissionDescriptor TenantPatterns(List<string>? value) { _value.TenantPatterns = value; return this; }
+	public TenantPermissionDescriptor TenantPatterns(string value) { _value.TenantPatterns = [value]; return this; }
 	public TenantPermissionDescriptor AllowedActions(List<string>? value) { _value.AllowedActions = value; return this; }
+	public TenantPermissionDescriptor AllowedActions(string value) { _value.AllowedActions = [value]; return this; }
 
 	public static implicit operator TenantPermission(TenantPermissionDescriptor descriptor) => descriptor._value;
 }

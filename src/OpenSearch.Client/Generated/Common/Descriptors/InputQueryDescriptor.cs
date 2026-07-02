@@ -11,6 +11,7 @@ public sealed class InputQueryDescriptor
 
 	/// <summary>The source fields</summary>
 		public InputQueryDescriptor Source(List<string>? value) { _value.Source = value; return this; }
+	public InputQueryDescriptor Source(string value) { _value.Source = [value]; return this; }
 	/// <summary>The size of the query.</summary>
 		public InputQueryDescriptor Size(long? value) { _value.Size = value; return this; }
 	public InputQueryDescriptor Query(QueryContainer? value) { _value.Query = value; return this; }

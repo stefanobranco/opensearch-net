@@ -13,6 +13,7 @@ public sealed class GetSnapshotRequestDescriptor
 		public GetSnapshotRequestDescriptor Repository(string? value) { _value.Repository = value; return this; }
 	/// <summary>A comma-separated list of snapshot names to retrieve. Also accepts wildcard expressions. (`*`). - To get information about all snapshots in a registered repository, use a wildcard (`*`) or `_all`. - To get information about any snapshots that are currently running, use `_current`.</summary>
 		public GetSnapshotRequestDescriptor Snapshot(List<string>? value) { _value.Snapshot = value; return this; }
+	public GetSnapshotRequestDescriptor Snapshot(string value) { _value.Snapshot = [value]; return this; }
 	/// <summary>The amount of time to wait for a response from the cluster manager node. For more information about supported time units, see [Common parameters](https://opensearch.org/docs/latest/api-reference/common-parameters/#time-units).</summary>
 		public GetSnapshotRequestDescriptor ClusterManagerTimeout(string? value) { _value.ClusterManagerTimeout = value; return this; }
 	/// <summary>When `false`, the request returns an error for any snapshots that are unavailable.</summary>

@@ -11,6 +11,7 @@ public sealed class RecoveryCatRequestDescriptor
 
 	/// <summary>A comma-separated list of data streams, indexes, and aliases used to limit the request. Supports wildcards (`*`). To target all data streams and indexes, omit this parameter or use `*` or `_all`.</summary>
 		public RecoveryCatRequestDescriptor Index(List<string>? value) { _value.Index = value; return this; }
+	public RecoveryCatRequestDescriptor Index(string value) { _value.Index = [value]; return this; }
 	/// <summary>If `true`, the response only includes ongoing shard recoveries.</summary>
 		public RecoveryCatRequestDescriptor ActiveOnly(bool? value) { _value.ActiveOnly = value; return this; }
 	/// <summary>The units used to display byte values.</summary>
@@ -21,10 +22,12 @@ public sealed class RecoveryCatRequestDescriptor
 		public RecoveryCatRequestDescriptor Format(string? value) { _value.Format = value; return this; }
 	/// <summary>A comma-separated list of column names to display.</summary>
 		public RecoveryCatRequestDescriptor H(List<string>? value) { _value.H = value; return this; }
+	public RecoveryCatRequestDescriptor H(string value) { _value.H = [value]; return this; }
 	/// <summary>Returns help information.</summary>
 		public RecoveryCatRequestDescriptor Help(bool? value) { _value.Help = value; return this; }
 	/// <summary>A comma-separated list of column names or column aliases to sort by.</summary>
 		public RecoveryCatRequestDescriptor S(List<string>? value) { _value.S = value; return this; }
+	public RecoveryCatRequestDescriptor S(string value) { _value.S = [value]; return this; }
 	/// <summary>Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units](https://opensearch.org/docs/latest/api-reference/units/).</summary>
 		public RecoveryCatRequestDescriptor Time(string? value) { _value.Time = value; return this; }
 	/// <summary>Enables verbose mode, which displays column headers.</summary>

@@ -12,6 +12,7 @@ public sealed class KeepWordsTokenFilterDescriptor
 	public KeepWordsTokenFilterDescriptor Version(string? value) { _value.Version = value; return this; }
 	public KeepWordsTokenFilterDescriptor Type(string? value) { _value.Type = value; return this; }
 	public KeepWordsTokenFilterDescriptor KeepWords(List<string>? value) { _value.KeepWords = value; return this; }
+	public KeepWordsTokenFilterDescriptor KeepWords(string value) { _value.KeepWords = [value]; return this; }
 	public KeepWordsTokenFilterDescriptor KeepWordsCase(bool? value) { _value.KeepWordsCase = value; return this; }
 	public KeepWordsTokenFilterDescriptor KeepWordsPath(string? value) { _value.KeepWordsPath = value; return this; }
 

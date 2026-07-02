@@ -10,6 +10,7 @@ public sealed class SourceDescriptor
 	internal Source _value = new();
 
 	public SourceDescriptor Index(List<string>? value) { _value.Index = value; return this; }
+	public SourceDescriptor Index(string value) { _value.Index = [value]; return this; }
 	public SourceDescriptor Query(QueryContainer? value) { _value.Query = value; return this; }
 	public SourceDescriptor Query(Action<QueryContainerDescriptor> configure)
 	{
@@ -38,6 +39,7 @@ public sealed class SourceDescriptor
 	}
 	public SourceDescriptor Sort(List<SortOptions>? value) { _value.Sort = value; return this; }
 	public SourceDescriptor SourceValue(List<string>? value) { _value.SourceValue = value; return this; }
+	public SourceDescriptor SourceValue(string value) { _value.SourceValue = [value]; return this; }
 
 	public static implicit operator Source(SourceDescriptor descriptor) => descriptor._value;
 }

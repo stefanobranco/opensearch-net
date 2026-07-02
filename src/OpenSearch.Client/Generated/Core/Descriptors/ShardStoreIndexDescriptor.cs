@@ -10,6 +10,7 @@ public sealed class ShardStoreIndexDescriptor
 	internal ShardStoreIndex _value = new();
 
 	public ShardStoreIndexDescriptor Aliases(List<string>? value) { _value.Aliases = value; return this; }
+	public ShardStoreIndexDescriptor Aliases(string value) { _value.Aliases = [value]; return this; }
 	public ShardStoreIndexDescriptor Filter(QueryContainer? value) { _value.Filter = value; return this; }
 	public ShardStoreIndexDescriptor Filter(Action<QueryContainerDescriptor> configure)
 	{

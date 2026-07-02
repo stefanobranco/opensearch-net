@@ -10,11 +10,13 @@ public sealed class HealthClusterRequestDescriptor
 	internal HealthClusterRequest _value = new();
 
 	public HealthClusterRequestDescriptor Index(List<string>? value) { _value.Index = value; return this; }
+	public HealthClusterRequestDescriptor Index(string value) { _value.Index = [value]; return this; }
 	/// <summary>The name of the awareness attribute for which to return the cluster health status (for example, `zone`). Applicable only if `level` is set to `awareness_attributes`.</summary>
 		public HealthClusterRequestDescriptor AwarenessAttribute(string? value) { _value.AwarenessAttribute = value; return this; }
 	/// <summary>The amount of time to wait for a response from the cluster manager node. For more information about supported time units, see [Common parameters](https://opensearch.org/docs/latest/api-reference/common-parameters/#time-units).</summary>
 		public HealthClusterRequestDescriptor ClusterManagerTimeout(string? value) { _value.ClusterManagerTimeout = value; return this; }
 	public HealthClusterRequestDescriptor ExpandWildcards(List<string>? value) { _value.ExpandWildcards = value; return this; }
+	public HealthClusterRequestDescriptor ExpandWildcards(string value) { _value.ExpandWildcards = [value]; return this; }
 	public HealthClusterRequestDescriptor Level(Level? value) { _value.Level = value; return this; }
 	/// <summary>Whether to return information from the local node only instead of from the cluster manager node.</summary>
 		public HealthClusterRequestDescriptor Local(bool? value) { _value.Local = value; return this; }

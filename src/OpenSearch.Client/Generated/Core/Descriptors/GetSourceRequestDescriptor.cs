@@ -14,11 +14,13 @@ public sealed class GetSourceRequestDescriptor
 	/// <summary>The name of the index containing the document.</summary>
 		public GetSourceRequestDescriptor Index(string? value) { _value.Index = value; return this; }
 	/// <summary>Set to `true` or `false` to return the `_source` field or not, or a list of fields to return.</summary>
-		public GetSourceRequestDescriptor Source(System.Text.Json.JsonElement? value) { _value.Source = value; return this; }
+		public GetSourceRequestDescriptor Source(SourceConfigParam? value) { _value.Source = value; return this; }
 	/// <summary>A comma-separated list of source fields to exclude in the response.</summary>
 		public GetSourceRequestDescriptor SourceExcludes(List<string>? value) { _value.SourceExcludes = value; return this; }
+	public GetSourceRequestDescriptor SourceExcludes(string value) { _value.SourceExcludes = [value]; return this; }
 	/// <summary>A comma-separated list of source fields to include in the response.</summary>
 		public GetSourceRequestDescriptor SourceIncludes(List<string>? value) { _value.SourceIncludes = value; return this; }
+	public GetSourceRequestDescriptor SourceIncludes(string value) { _value.SourceIncludes = [value]; return this; }
 	/// <summary>Specifies the node or shard the operation should be performed on. Random by default.</summary>
 		public GetSourceRequestDescriptor Preference(string? value) { _value.Preference = value; return this; }
 	/// <summary>Boolean) If `true`, the request is real time as opposed to near real time.</summary>
@@ -27,6 +29,7 @@ public sealed class GetSourceRequestDescriptor
 		public GetSourceRequestDescriptor Refresh(string? value) { _value.Refresh = value; return this; }
 	/// <summary>Target the specified primary shard.</summary>
 		public GetSourceRequestDescriptor Routing(List<string>? value) { _value.Routing = value; return this; }
+	public GetSourceRequestDescriptor Routing(string value) { _value.Routing = [value]; return this; }
 	/// <summary>Explicit version number for concurrency control. The specified version must match the current version of the document for the request to succeed.</summary>
 		public GetSourceRequestDescriptor Version(long? value) { _value.Version = value; return this; }
 	/// <summary>The specific version type. One of `internal`, `external`, `external_gte`.</summary>

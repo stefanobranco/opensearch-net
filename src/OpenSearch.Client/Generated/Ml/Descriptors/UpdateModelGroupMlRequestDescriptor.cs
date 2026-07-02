@@ -20,8 +20,10 @@ public sealed class UpdateModelGroupMlRequestDescriptor
 		public UpdateModelGroupMlRequestDescriptor ModelAccessName(string? value) { _value.ModelAccessName = value; return this; }
 	/// <summary>The backend roles.</summary>
 		public UpdateModelGroupMlRequestDescriptor BackendRoles(List<string>? value) { _value.BackendRoles = value; return this; }
+	public UpdateModelGroupMlRequestDescriptor BackendRoles(string value) { _value.BackendRoles = [value]; return this; }
 	/// <summary>The backend roles to add.</summary>
 		public UpdateModelGroupMlRequestDescriptor AddBackendRoles(List<string>? value) { _value.AddBackendRoles = value; return this; }
+	public UpdateModelGroupMlRequestDescriptor AddBackendRoles(string value) { _value.AddBackendRoles = [value]; return this; }
 
 	public static implicit operator UpdateModelGroupMlRequest(UpdateModelGroupMlRequestDescriptor descriptor) => descriptor._value;
 }

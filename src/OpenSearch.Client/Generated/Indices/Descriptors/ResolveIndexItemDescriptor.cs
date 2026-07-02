@@ -12,8 +12,10 @@ public sealed class ResolveIndexItemDescriptor
 	public ResolveIndexItemDescriptor Name(string? value) { _value.Name = value; return this; }
 	/// <summary>The list of aliases associated with the index.</summary>
 		public ResolveIndexItemDescriptor Aliases(List<string>? value) { _value.Aliases = value; return this; }
+	public ResolveIndexItemDescriptor Aliases(string value) { _value.Aliases = [value]; return this; }
 	/// <summary>The list of index attributes.</summary>
 		public ResolveIndexItemDescriptor Attributes(List<string>? value) { _value.Attributes = value; return this; }
+	public ResolveIndexItemDescriptor Attributes(string value) { _value.Attributes = [value]; return this; }
 	public ResolveIndexItemDescriptor DataStream(string? value) { _value.DataStream = value; return this; }
 
 	public static implicit operator ResolveIndexItem(ResolveIndexItemDescriptor descriptor) => descriptor._value;

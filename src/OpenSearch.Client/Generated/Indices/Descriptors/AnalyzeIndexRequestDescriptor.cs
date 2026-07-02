@@ -15,6 +15,7 @@ public sealed class AnalyzeIndexRequestDescriptor
 		public AnalyzeIndexRequestDescriptor Analyzer(string? value) { _value.Analyzer = value; return this; }
 	/// <summary>Array of token attributes used to filter the output of the `explain` parameter.</summary>
 		public AnalyzeIndexRequestDescriptor Attributes(List<string>? value) { _value.Attributes = value; return this; }
+	public AnalyzeIndexRequestDescriptor Attributes(string value) { _value.Attributes = [value]; return this; }
 	/// <summary>Array of character filters used to preprocess characters before the tokenizer.</summary>
 		public AnalyzeIndexRequestDescriptor CharFilter(List<CharFilter>? value) { _value.CharFilter = value; return this; }
 	/// <summary>If `true`, the response includes token attributes and additional details.</summary>
@@ -25,6 +26,7 @@ public sealed class AnalyzeIndexRequestDescriptor
 	/// <summary>Normalizer to use to convert text into a single token.</summary>
 		public AnalyzeIndexRequestDescriptor Normalizer(string? value) { _value.Normalizer = value; return this; }
 	public AnalyzeIndexRequestDescriptor Text(List<string>? value) { _value.Text = value; return this; }
+	public AnalyzeIndexRequestDescriptor Text(string value) { _value.Text = [value]; return this; }
 	public AnalyzeIndexRequestDescriptor Tokenizer(Tokenizer? value) { _value.Tokenizer = value; return this; }
 
 	public static implicit operator AnalyzeIndexRequest(AnalyzeIndexRequestDescriptor descriptor) => descriptor._value;

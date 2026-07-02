@@ -11,15 +11,18 @@ public sealed class FieldCapsRequestDescriptor
 
 	/// <summary>A comma-separated list of data streams, indexes, and aliases used to limit the request. Supports wildcards (*). To target all data streams and indexes, omit this parameter or use * or `_all`.</summary>
 		public FieldCapsRequestDescriptor Index(List<string>? value) { _value.Index = value; return this; }
+	public FieldCapsRequestDescriptor Index(string value) { _value.Index = [value]; return this; }
 	/// <summary>If `false`, the request returns an error if any wildcard expression, index alias, or `_all` value targets only missing or closed indexes. This behavior applies even if the request targets other open indexes. For example, a request targeting `foo*,bar*` returns an error if an index starts with foo but no index starts with bar.</summary>
 		public FieldCapsRequestDescriptor AllowNoIndices(bool? value) { _value.AllowNoIndices = value; return this; }
 	/// <summary>The type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values, such as `open,hidden`.</summary>
 		public FieldCapsRequestDescriptor ExpandWildcards(List<string>? value) { _value.ExpandWildcards = value; return this; }
+	public FieldCapsRequestDescriptor ExpandWildcards(string value) { _value.ExpandWildcards = [value]; return this; }
 	/// <summary>If `true`, missing or closed indexes are not included in the response.</summary>
 		public FieldCapsRequestDescriptor IgnoreUnavailable(bool? value) { _value.IgnoreUnavailable = value; return this; }
 	/// <summary>If `true`, unmapped fields are included in the response.</summary>
 		public FieldCapsRequestDescriptor IncludeUnmapped(bool? value) { _value.IncludeUnmapped = value; return this; }
 	public FieldCapsRequestDescriptor Fields(List<string>? value) { _value.Fields = value; return this; }
+	public FieldCapsRequestDescriptor Fields(string value) { _value.Fields = [value]; return this; }
 	public FieldCapsRequestDescriptor IndexFilter(QueryContainer? value) { _value.IndexFilter = value; return this; }
 	public FieldCapsRequestDescriptor IndexFilter(Action<QueryContainerDescriptor> configure)
 	{

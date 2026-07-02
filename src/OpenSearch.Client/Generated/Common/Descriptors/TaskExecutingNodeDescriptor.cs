@@ -15,6 +15,7 @@ public sealed class TaskExecutingNodeDescriptor
 	public TaskExecutingNodeDescriptor Ip(string? value) { _value.Ip = value; return this; }
 	public TaskExecutingNodeDescriptor Name(string? value) { _value.Name = value; return this; }
 	public TaskExecutingNodeDescriptor Roles(List<string>? value) { _value.Roles = value; return this; }
+	public TaskExecutingNodeDescriptor Roles(string value) { _value.Roles = [value]; return this; }
 	public TaskExecutingNodeDescriptor TransportAddress(string? value) { _value.TransportAddress = value; return this; }
 	public TaskExecutingNodeDescriptor Tasks(Dictionary<string, TaskInfo>? value) { _value.Tasks = value; return this; }
 

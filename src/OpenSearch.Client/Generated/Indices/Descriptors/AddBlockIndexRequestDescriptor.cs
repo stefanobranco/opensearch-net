@@ -13,12 +13,14 @@ public sealed class AddBlockIndexRequestDescriptor
 		public AddBlockIndexRequestDescriptor Block(string? value) { _value.Block = value; return this; }
 	/// <summary>A comma separated list of indexes to add a block to.</summary>
 		public AddBlockIndexRequestDescriptor Index(List<string>? value) { _value.Index = value; return this; }
+	public AddBlockIndexRequestDescriptor Index(string value) { _value.Index = [value]; return this; }
 	/// <summary>Whether to ignore if a wildcard indexes expression resolves into no concrete indexes. (This includes `_all` string or when no indexes have been specified).</summary>
 		public AddBlockIndexRequestDescriptor AllowNoIndices(bool? value) { _value.AllowNoIndices = value; return this; }
 	/// <summary>Operation timeout for connection to cluster-manager node.</summary>
 		public AddBlockIndexRequestDescriptor ClusterManagerTimeout(string? value) { _value.ClusterManagerTimeout = value; return this; }
 	/// <summary>Whether to expand wildcard expression to concrete indexes that are open, closed or both.</summary>
 		public AddBlockIndexRequestDescriptor ExpandWildcards(List<string>? value) { _value.ExpandWildcards = value; return this; }
+	public AddBlockIndexRequestDescriptor ExpandWildcards(string value) { _value.ExpandWildcards = [value]; return this; }
 	/// <summary>Whether specified concrete indexes should be ignored when unavailable (missing or closed).</summary>
 		public AddBlockIndexRequestDescriptor IgnoreUnavailable(bool? value) { _value.IgnoreUnavailable = value; return this; }
 	/// <summary>Explicit operation timeout</summary>

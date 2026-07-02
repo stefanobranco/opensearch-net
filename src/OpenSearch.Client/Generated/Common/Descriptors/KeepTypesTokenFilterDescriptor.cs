@@ -13,6 +13,7 @@ public sealed class KeepTypesTokenFilterDescriptor
 	public KeepTypesTokenFilterDescriptor Type(string? value) { _value.Type = value; return this; }
 	public KeepTypesTokenFilterDescriptor Mode(KeepTypesMode? value) { _value.Mode = value; return this; }
 	public KeepTypesTokenFilterDescriptor Types(List<string>? value) { _value.Types = value; return this; }
+	public KeepTypesTokenFilterDescriptor Types(string value) { _value.Types = [value]; return this; }
 
 	public static implicit operator KeepTypesTokenFilter(KeepTypesTokenFilterDescriptor descriptor) => descriptor._value;
 }

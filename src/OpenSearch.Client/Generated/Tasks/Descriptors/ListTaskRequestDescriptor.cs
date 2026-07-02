@@ -11,12 +11,14 @@ public sealed class ListTaskRequestDescriptor
 
 	/// <summary>A comma-separated list of actions that should be returned. Keep empty to return all.</summary>
 		public ListTaskRequestDescriptor Actions(List<string>? value) { _value.Actions = value; return this; }
+	public ListTaskRequestDescriptor Actions(string value) { _value.Actions = [value]; return this; }
 	/// <summary>When `true`, the response includes detailed information about shard recoveries.</summary>
 		public ListTaskRequestDescriptor Detailed(bool? value) { _value.Detailed = value; return this; }
 	/// <summary>Groups tasks by parent/child relationships or nodes.</summary>
 		public ListTaskRequestDescriptor GroupBy(GroupBy? value) { _value.GroupBy = value; return this; }
 	/// <summary>A comma-separated list of node IDs or names used to limit the returned information. Use `_local` to return information from the node you're connecting to, specify the node name to get information from a specific node, or keep the parameter empty to get information from all nodes.</summary>
 		public ListTaskRequestDescriptor Nodes(List<string>? value) { _value.Nodes = value; return this; }
+	public ListTaskRequestDescriptor Nodes(string value) { _value.Nodes = [value]; return this; }
 	/// <summary>Returns tasks with a specified parent task ID (`node_id:task_number`). Keep empty or set to -1 to return all.</summary>
 		public ListTaskRequestDescriptor ParentTaskId(string? value) { _value.ParentTaskId = value; return this; }
 	/// <summary>The amount of time to wait for a response.</summary>

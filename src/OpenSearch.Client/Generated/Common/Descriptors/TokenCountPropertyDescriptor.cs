@@ -16,6 +16,7 @@ public sealed class TokenCountPropertyDescriptor
 	public TokenCountPropertyDescriptor Dynamic(string? value) { _value.Dynamic = value; return this; }
 	public TokenCountPropertyDescriptor Fields(Dictionary<string, Property>? value) { _value.Fields = value; return this; }
 	public TokenCountPropertyDescriptor CopyTo(List<string>? value) { _value.CopyTo = value; return this; }
+	public TokenCountPropertyDescriptor CopyTo(string value) { _value.CopyTo = [value]; return this; }
 	public TokenCountPropertyDescriptor Similarity(string? value) { _value.Similarity = value; return this; }
 	public TokenCountPropertyDescriptor Store(bool? value) { _value.Store = value; return this; }
 	public TokenCountPropertyDescriptor DocValues(bool? value) { _value.DocValues = value; return this; }

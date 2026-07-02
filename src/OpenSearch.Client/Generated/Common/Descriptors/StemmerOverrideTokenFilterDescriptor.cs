@@ -12,6 +12,7 @@ public sealed class StemmerOverrideTokenFilterDescriptor
 	public StemmerOverrideTokenFilterDescriptor Version(string? value) { _value.Version = value; return this; }
 	public StemmerOverrideTokenFilterDescriptor Type(string? value) { _value.Type = value; return this; }
 	public StemmerOverrideTokenFilterDescriptor Rules(List<string>? value) { _value.Rules = value; return this; }
+	public StemmerOverrideTokenFilterDescriptor Rules(string value) { _value.Rules = [value]; return this; }
 	public StemmerOverrideTokenFilterDescriptor RulesPath(string? value) { _value.RulesPath = value; return this; }
 
 	public static implicit operator StemmerOverrideTokenFilter(StemmerOverrideTokenFilterDescriptor descriptor) => descriptor._value;

@@ -19,6 +19,7 @@ public sealed class RestoreSnapshotRequestDescriptor
 		public RestoreSnapshotRequestDescriptor WaitForCompletion(bool? value) { _value.WaitForCompletion = value; return this; }
 	/// <summary>A comma-delimited list of index settings to ignore when restoring indexes from a snapshot.</summary>
 		public RestoreSnapshotRequestDescriptor IgnoreIndexSettings(List<string>? value) { _value.IgnoreIndexSettings = value; return this; }
+	public RestoreSnapshotRequestDescriptor IgnoreIndexSettings(string value) { _value.IgnoreIndexSettings = [value]; return this; }
 	/// <summary>How to handle data streams or indexes that are missing or closed. When `false`, the request returns an error for any data stream or index that is missing or closed. When `true`, the request ignores data streams and indexes in indexes that are missing or closed.</summary>
 		public RestoreSnapshotRequestDescriptor IgnoreUnavailable(bool? value) { _value.IgnoreUnavailable = value; return this; }
 	/// <summary>How to handle index aliases from the original snapshot. When `true`, index aliases from the original snapshot are restored. When `false`, aliases along with associated indexes are not restored.</summary>
@@ -36,6 +37,7 @@ public sealed class RestoreSnapshotRequestDescriptor
 		return this;
 	}
 	public RestoreSnapshotRequestDescriptor Indices(List<string>? value) { _value.Indices = value; return this; }
+	public RestoreSnapshotRequestDescriptor Indices(string value) { _value.Indices = [value]; return this; }
 	/// <summary>How the restore operation will behave if indexes in the snapshot do not have all primary shards available. When `false`, the entire restore operation fails if any indexes in the snapshot do not have all primary shards available. When `true`, allows the restoration of a partial snapshot of indexes with unavailable shards. Only shards that were successfully included in the snapshot are restored. All missing shards are recreated as empty. By default, the entire restore operation fails if one or more indexes included in the snapshot do not have all primary shards available. To change this behavior, set `partial` to `true`.</summary>
 		public RestoreSnapshotRequestDescriptor Partial(bool? value) { _value.Partial = value; return this; }
 	/// <summary>The pattern to apply to the restored data streams and indexes. Data streams and indexes matching the rename pattern will be renamed according to the `rename_replacement` setting. The rename pattern is applied as defined by the regular expression that supports referencing the original text. The request fails if two or more data streams or indexes are renamed into the same name. If you rename a restored data stream, its backing indexes are also renamed. For example, if you rename the logs data stream to `recovered-logs`, the backing index `.ds-logs-1` is renamed to `.ds-recovered-logs-1`. If you rename a restored stream, ensure an index template matches the new stream name. If there are no matching index template names, the stream cannot roll over and new backing indexes are not created.</summary>

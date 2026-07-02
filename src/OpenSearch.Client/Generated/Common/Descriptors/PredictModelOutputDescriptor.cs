@@ -13,7 +13,9 @@ public sealed class PredictModelOutputDescriptor
 		public PredictModelOutputDescriptor Name(string? value) { _value.Name = value; return this; }
 	public PredictModelOutputDescriptor DataType(MlResultDataType? value) { _value.DataType = value; return this; }
 	public PredictModelOutputDescriptor Shape(List<long>? value) { _value.Shape = value; return this; }
+	public PredictModelOutputDescriptor Shape(long value) { _value.Shape = [value]; return this; }
 	public PredictModelOutputDescriptor Data(List<double>? value) { _value.Data = value; return this; }
+	public PredictModelOutputDescriptor Data(double value) { _value.Data = [value]; return this; }
 	public PredictModelOutputDescriptor ByteBuffer(ByteBuffer? value) { _value.ByteBuffer = value; return this; }
 	public PredictModelOutputDescriptor ByteBuffer(Action<ByteBufferDescriptor> configure)
 	{

@@ -83,9 +83,9 @@ public sealed partial class QueryContainerDescriptor<TDocument>
 	/// <summary>Creates a DisMax variant.</summary>
 	public QueryContainerDescriptor<TDocument> DisMax(DisMaxQuery value) { _value = QueryContainer.DisMax(value); return this; }
 	/// <summary>Creates a DistanceFeature variant.</summary>
-	public QueryContainerDescriptor<TDocument> DistanceFeature(Action<DistanceFeatureQueryDescriptor> configure)
+	public QueryContainerDescriptor<TDocument> DistanceFeature(Action<DistanceFeatureQueryDescriptor<TDocument>> configure)
 	{
-		var descriptor = new DistanceFeatureQueryDescriptor();
+		var descriptor = new DistanceFeatureQueryDescriptor<TDocument>();
 		configure(descriptor);
 		_value = QueryContainer.DistanceFeature(((DistanceFeatureQuery)descriptor)!);
 		return this;
@@ -93,9 +93,9 @@ public sealed partial class QueryContainerDescriptor<TDocument>
 	/// <summary>Creates a DistanceFeature variant.</summary>
 	public QueryContainerDescriptor<TDocument> DistanceFeature(DistanceFeatureQuery value) { _value = QueryContainer.DistanceFeature(value); return this; }
 	/// <summary>Creates a Exists variant.</summary>
-	public QueryContainerDescriptor<TDocument> Exists(Action<ExistsQueryDescriptor> configure)
+	public QueryContainerDescriptor<TDocument> Exists(Action<ExistsQueryDescriptor<TDocument>> configure)
 	{
-		var descriptor = new ExistsQueryDescriptor();
+		var descriptor = new ExistsQueryDescriptor<TDocument>();
 		configure(descriptor);
 		_value = QueryContainer.Exists(((ExistsQuery)descriptor)!);
 		return this;
@@ -221,17 +221,17 @@ public sealed partial class QueryContainerDescriptor<TDocument>
 	/// <summary>Creates a Intervals variant for a single field selected by an expression.</summary>
 	public QueryContainerDescriptor<TDocument> Intervals(Expression<Func<TDocument, object>> field, IntervalsQuery value) { _value = QueryContainer.Intervals(Field.ResolveName<TDocument>(field), value); return this; }
 	/// <summary>Creates a Intervals variant for a single field using a descriptor.</summary>
-	public QueryContainerDescriptor<TDocument> Intervals(string field, Action<IntervalsQueryDescriptor> configure)
+	public QueryContainerDescriptor<TDocument> Intervals(string field, Action<IntervalsQueryDescriptor<TDocument>> configure)
 	{
-		var descriptor = new IntervalsQueryDescriptor();
+		var descriptor = new IntervalsQueryDescriptor<TDocument>();
 		configure(descriptor);
 		_value = QueryContainer.Intervals(field, ((IntervalsQuery)descriptor)!);
 		return this;
 	}
 	/// <summary>Creates a Intervals variant for a single field selected by an expression, using a descriptor.</summary>
-	public QueryContainerDescriptor<TDocument> Intervals(Expression<Func<TDocument, object>> field, Action<IntervalsQueryDescriptor> configure)
+	public QueryContainerDescriptor<TDocument> Intervals(Expression<Func<TDocument, object>> field, Action<IntervalsQueryDescriptor<TDocument>> configure)
 	{
-		var descriptor = new IntervalsQueryDescriptor();
+		var descriptor = new IntervalsQueryDescriptor<TDocument>();
 		configure(descriptor);
 		_value = QueryContainer.Intervals(Field.ResolveName<TDocument>(field), ((IntervalsQuery)descriptor)!);
 		return this;
@@ -429,9 +429,9 @@ public sealed partial class QueryContainerDescriptor<TDocument>
 	/// <summary>Creates a ParentId variant.</summary>
 	public QueryContainerDescriptor<TDocument> ParentId(ParentIdQuery value) { _value = QueryContainer.ParentId(value); return this; }
 	/// <summary>Creates a Percolate variant.</summary>
-	public QueryContainerDescriptor<TDocument> Percolate(Action<PercolateQueryDescriptor> configure)
+	public QueryContainerDescriptor<TDocument> Percolate(Action<PercolateQueryDescriptor<TDocument>> configure)
 	{
-		var descriptor = new PercolateQueryDescriptor();
+		var descriptor = new PercolateQueryDescriptor<TDocument>();
 		configure(descriptor);
 		_value = QueryContainer.Percolate(((PercolateQuery)descriptor)!);
 		return this;
@@ -461,9 +461,9 @@ public sealed partial class QueryContainerDescriptor<TDocument>
 		return this;
 	}
 	/// <summary>Creates a QueryString variant.</summary>
-	public QueryContainerDescriptor<TDocument> QueryString(Action<QueryStringQueryDescriptor> configure)
+	public QueryContainerDescriptor<TDocument> QueryString(Action<QueryStringQueryDescriptor<TDocument>> configure)
 	{
-		var descriptor = new QueryStringQueryDescriptor();
+		var descriptor = new QueryStringQueryDescriptor<TDocument>();
 		configure(descriptor);
 		_value = QueryContainer.QueryString(((QueryStringQuery)descriptor)!);
 		return this;
@@ -477,9 +477,9 @@ public sealed partial class QueryContainerDescriptor<TDocument>
 	/// <summary>Creates a Range variant for a single field selected by an expression.</summary>
 	public QueryContainerDescriptor<TDocument> Range(Expression<Func<TDocument, object>> field, RangeQuery value) { _value = QueryContainer.Range(Field.ResolveName<TDocument>(field), value); return this; }
 	/// <summary>Creates a RankFeature variant.</summary>
-	public QueryContainerDescriptor<TDocument> RankFeature(Action<RankFeatureQueryDescriptor> configure)
+	public QueryContainerDescriptor<TDocument> RankFeature(Action<RankFeatureQueryDescriptor<TDocument>> configure)
 	{
-		var descriptor = new RankFeatureQueryDescriptor();
+		var descriptor = new RankFeatureQueryDescriptor<TDocument>();
 		configure(descriptor);
 		_value = QueryContainer.RankFeature(((RankFeatureQuery)descriptor)!);
 		return this;
@@ -685,17 +685,17 @@ public sealed partial class QueryContainerDescriptor<TDocument>
 	/// <summary>Creates a TermsSet variant for a single field selected by an expression.</summary>
 	public QueryContainerDescriptor<TDocument> TermsSet(Expression<Func<TDocument, object>> field, TermsSetQuery value) { _value = QueryContainer.TermsSet(Field.ResolveName<TDocument>(field), value); return this; }
 	/// <summary>Creates a TermsSet variant for a single field using a descriptor.</summary>
-	public QueryContainerDescriptor<TDocument> TermsSet(string field, Action<TermsSetQueryDescriptor> configure)
+	public QueryContainerDescriptor<TDocument> TermsSet(string field, Action<TermsSetQueryDescriptor<TDocument>> configure)
 	{
-		var descriptor = new TermsSetQueryDescriptor();
+		var descriptor = new TermsSetQueryDescriptor<TDocument>();
 		configure(descriptor);
 		_value = QueryContainer.TermsSet(field, ((TermsSetQuery)descriptor)!);
 		return this;
 	}
 	/// <summary>Creates a TermsSet variant for a single field selected by an expression, using a descriptor.</summary>
-	public QueryContainerDescriptor<TDocument> TermsSet(Expression<Func<TDocument, object>> field, Action<TermsSetQueryDescriptor> configure)
+	public QueryContainerDescriptor<TDocument> TermsSet(Expression<Func<TDocument, object>> field, Action<TermsSetQueryDescriptor<TDocument>> configure)
 	{
-		var descriptor = new TermsSetQueryDescriptor();
+		var descriptor = new TermsSetQueryDescriptor<TDocument>();
 		configure(descriptor);
 		_value = QueryContainer.TermsSet(Field.ResolveName<TDocument>(field), ((TermsSetQuery)descriptor)!);
 		return this;

@@ -10,6 +10,7 @@ public sealed class RerankContextDescriptor
 	internal RerankContext _value = new();
 
 	public RerankContextDescriptor DocumentFields(List<string>? value) { _value.DocumentFields = value; return this; }
+	public RerankContextDescriptor DocumentFields(string value) { _value.DocumentFields = [value]; return this; }
 
 	public static implicit operator RerankContext(RerankContextDescriptor descriptor) => descriptor._value;
 }

@@ -12,6 +12,7 @@ public sealed class LikeDocumentDescriptor
 	/// <summary>A document not present in the index.</summary>
 		public LikeDocumentDescriptor Doc(System.Text.Json.JsonElement? value) { _value.Doc = value; return this; }
 	public LikeDocumentDescriptor Fields(List<string>? value) { _value.Fields = value; return this; }
+	public LikeDocumentDescriptor Fields(string value) { _value.Fields = [value]; return this; }
 	public LikeDocumentDescriptor Id(string? value) { _value.Id = value; return this; }
 	public LikeDocumentDescriptor Index(string? value) { _value.Index = value; return this; }
 	public LikeDocumentDescriptor Type(string? value) { _value.Type = value; return this; }

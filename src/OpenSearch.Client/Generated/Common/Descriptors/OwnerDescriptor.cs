@@ -12,10 +12,13 @@ public sealed class OwnerDescriptor
 	public OwnerDescriptor Name(string? value) { _value.Name = value; return this; }
 	/// <summary>The backend roles.</summary>
 		public OwnerDescriptor BackendRoles(List<string>? value) { _value.BackendRoles = value; return this; }
+	public OwnerDescriptor BackendRoles(string value) { _value.BackendRoles = [value]; return this; }
 	/// <summary>The roles.</summary>
 		public OwnerDescriptor Roles(List<string>? value) { _value.Roles = value; return this; }
+	public OwnerDescriptor Roles(string value) { _value.Roles = [value]; return this; }
 	/// <summary>The custom attribute names.</summary>
 		public OwnerDescriptor CustomAttributeNames(List<string>? value) { _value.CustomAttributeNames = value; return this; }
+	public OwnerDescriptor CustomAttributeNames(string value) { _value.CustomAttributeNames = [value]; return this; }
 	/// <summary>The user requested tenant.</summary>
 		public OwnerDescriptor UserRequestedTenant(string? value) { _value.UserRequestedTenant = value; return this; }
 	/// <summary>The user requested tenant access.</summary>

@@ -34,6 +34,7 @@ public sealed class DateIndexNameProcessorDescriptor
 		public DateIndexNameProcessorDescriptor Tag(string? value) { _value.Tag = value; return this; }
 	/// <summary>An array of the expected date formats for parsing dates/timestamps in the document being preprocessed. Can be a java time pattern or one of the following formats: `ISO8601`, `UNIX`, `UNIX_MS`, or `TAI64N`.</summary>
 		public DateIndexNameProcessorDescriptor DateFormats(List<string>? value) { _value.DateFormats = value; return this; }
+	public DateIndexNameProcessorDescriptor DateFormats(string value) { _value.DateFormats = [value]; return this; }
 	/// <summary>How to round the date when formatting the date into the index name. Valid values are: `y` (year), `M` (month), `w` (week), `d` (day), `h` (hour), `m` (minute) and `s` (second). Supports template snippets.</summary>
 		public DateIndexNameProcessorDescriptor DateRounding(string? value) { _value.DateRounding = value; return this; }
 	public DateIndexNameProcessorDescriptor Field(string? value) { _value.Field = value; return this; }

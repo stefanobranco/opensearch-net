@@ -10,17 +10,21 @@ public sealed class AliasesCatRequestDescriptor
 	internal AliasesCatRequest _value = new();
 
 	public AliasesCatRequestDescriptor Name(List<string>? value) { _value.Name = value; return this; }
+	public AliasesCatRequestDescriptor Name(string value) { _value.Name = [value]; return this; }
 	public AliasesCatRequestDescriptor ExpandWildcards(List<string>? value) { _value.ExpandWildcards = value; return this; }
+	public AliasesCatRequestDescriptor ExpandWildcards(string value) { _value.ExpandWildcards = [value]; return this; }
 	/// <summary>A short version of the `Accept` header, such as `json` or `yaml`.</summary>
 		public AliasesCatRequestDescriptor Format(string? value) { _value.Format = value; return this; }
 	/// <summary>A comma-separated list of column names to display.</summary>
 		public AliasesCatRequestDescriptor H(List<string>? value) { _value.H = value; return this; }
+	public AliasesCatRequestDescriptor H(string value) { _value.H = [value]; return this; }
 	/// <summary>Returns help information.</summary>
 		public AliasesCatRequestDescriptor Help(bool? value) { _value.Help = value; return this; }
 	/// <summary>Whether to return information from the local node only instead of from the cluster manager node.</summary>
 		public AliasesCatRequestDescriptor Local(bool? value) { _value.Local = value; return this; }
 	/// <summary>A comma-separated list of column names or column aliases to sort by.</summary>
 		public AliasesCatRequestDescriptor S(List<string>? value) { _value.S = value; return this; }
+	public AliasesCatRequestDescriptor S(string value) { _value.S = [value]; return this; }
 	/// <summary>Enables verbose mode, which displays column headers.</summary>
 		public AliasesCatRequestDescriptor V(bool? value) { _value.V = value; return this; }
 

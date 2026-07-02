@@ -11,6 +11,7 @@ public sealed class DataStreamsStatsIndexRequestDescriptor
 
 	/// <summary>A comma-separated list of data streams used to limit the request. Wildcard expressions (`*`) are supported. To target all data streams in a cluster, omit this parameter or use `*`.</summary>
 		public DataStreamsStatsIndexRequestDescriptor Name(List<string>? value) { _value.Name = value; return this; }
+	public DataStreamsStatsIndexRequestDescriptor Name(string value) { _value.Name = [value]; return this; }
 
 	public static implicit operator DataStreamsStatsIndexRequest(DataStreamsStatsIndexRequestDescriptor descriptor) => descriptor._value;
 }

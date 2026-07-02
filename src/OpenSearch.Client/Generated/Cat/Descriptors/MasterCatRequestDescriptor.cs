@@ -15,12 +15,14 @@ public sealed class MasterCatRequestDescriptor
 		public MasterCatRequestDescriptor Format(string? value) { _value.Format = value; return this; }
 	/// <summary>A comma-separated list of column names to display.</summary>
 		public MasterCatRequestDescriptor H(List<string>? value) { _value.H = value; return this; }
+	public MasterCatRequestDescriptor H(string value) { _value.H = [value]; return this; }
 	/// <summary>Returns help information.</summary>
 		public MasterCatRequestDescriptor Help(bool? value) { _value.Help = value; return this; }
 	/// <summary>Returns local information but does not retrieve the state from the cluster manager node.</summary>
 		public MasterCatRequestDescriptor Local(bool? value) { _value.Local = value; return this; }
 	/// <summary>A comma-separated list of column names or column aliases to sort by.</summary>
 		public MasterCatRequestDescriptor S(List<string>? value) { _value.S = value; return this; }
+	public MasterCatRequestDescriptor S(string value) { _value.S = [value]; return this; }
 	/// <summary>Enables verbose mode, which displays column headers.</summary>
 		public MasterCatRequestDescriptor V(bool? value) { _value.V = value; return this; }
 

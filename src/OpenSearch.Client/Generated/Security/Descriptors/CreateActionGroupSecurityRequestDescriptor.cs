@@ -14,6 +14,7 @@ public sealed class CreateActionGroupSecurityRequestDescriptor
 	public CreateActionGroupSecurityRequestDescriptor Reserved(bool? value) { _value.Reserved = value; return this; }
 	public CreateActionGroupSecurityRequestDescriptor Hidden(bool? value) { _value.Hidden = value; return this; }
 	public CreateActionGroupSecurityRequestDescriptor AllowedActions(List<string>? value) { _value.AllowedActions = value; return this; }
+	public CreateActionGroupSecurityRequestDescriptor AllowedActions(string value) { _value.AllowedActions = [value]; return this; }
 	public CreateActionGroupSecurityRequestDescriptor Type(string? value) { _value.Type = value; return this; }
 	public CreateActionGroupSecurityRequestDescriptor Description(string? value) { _value.Description = value; return this; }
 	public CreateActionGroupSecurityRequestDescriptor Static(bool? value) { _value.Static = value; return this; }

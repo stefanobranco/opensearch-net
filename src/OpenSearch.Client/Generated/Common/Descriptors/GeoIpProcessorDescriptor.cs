@@ -41,6 +41,7 @@ public sealed class GeoIpProcessorDescriptor
 		public GeoIpProcessorDescriptor IgnoreMissing(bool? value) { _value.IgnoreMissing = value; return this; }
 	/// <summary>Controls what properties are added to the `target_field` based on the geoip lookup.</summary>
 		public GeoIpProcessorDescriptor Properties(List<string>? value) { _value.Properties = value; return this; }
+	public GeoIpProcessorDescriptor Properties(string value) { _value.Properties = [value]; return this; }
 	public GeoIpProcessorDescriptor TargetField(string? value) { _value.TargetField = value; return this; }
 
 	public static implicit operator GeoIpProcessor(GeoIpProcessorDescriptor descriptor) => descriptor._value;

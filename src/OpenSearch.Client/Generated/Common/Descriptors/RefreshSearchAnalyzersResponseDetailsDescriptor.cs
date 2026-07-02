@@ -13,6 +13,7 @@ public sealed class RefreshSearchAnalyzersResponseDetailsDescriptor
 		public RefreshSearchAnalyzersResponseDetailsDescriptor Index(string? value) { _value.Index = value; return this; }
 	/// <summary>The list of refreshed analyzers.</summary>
 		public RefreshSearchAnalyzersResponseDetailsDescriptor RefreshedAnalyzers(List<string>? value) { _value.RefreshedAnalyzers = value; return this; }
+	public RefreshSearchAnalyzersResponseDetailsDescriptor RefreshedAnalyzers(string value) { _value.RefreshedAnalyzers = [value]; return this; }
 
 	public static implicit operator RefreshSearchAnalyzersResponseDetails(RefreshSearchAnalyzersResponseDetailsDescriptor descriptor) => descriptor._value;
 }

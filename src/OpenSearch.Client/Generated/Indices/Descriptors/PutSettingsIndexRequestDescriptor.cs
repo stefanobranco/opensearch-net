@@ -11,12 +11,14 @@ public sealed class PutSettingsIndexRequestDescriptor
 
 	/// <summary>A comma-separated list of data streams, indexes, and aliases used to limit the request. Supports wildcards (`*`). To target all data streams and indexes, omit this parameter or use `*` or `_all`.</summary>
 		public PutSettingsIndexRequestDescriptor Index(List<string>? value) { _value.Index = value; return this; }
+	public PutSettingsIndexRequestDescriptor Index(string value) { _value.Index = [value]; return this; }
 	/// <summary>If `false`, the request returns an error if any wildcard expression, index alias, or `_all` value targets only missing or closed indexes. This behavior applies even if the request targets other open indexes. For example, a request targeting `foo*,bar*` returns an error if an index starts with `foo` but no index starts with `bar`.</summary>
 		public PutSettingsIndexRequestDescriptor AllowNoIndices(bool? value) { _value.AllowNoIndices = value; return this; }
 	/// <summary>Operation timeout for connection to cluster-manager node.</summary>
 		public PutSettingsIndexRequestDescriptor ClusterManagerTimeout(string? value) { _value.ClusterManagerTimeout = value; return this; }
 	/// <summary>Type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values, such as `open,hidden`.</summary>
 		public PutSettingsIndexRequestDescriptor ExpandWildcards(List<string>? value) { _value.ExpandWildcards = value; return this; }
+	public PutSettingsIndexRequestDescriptor ExpandWildcards(string value) { _value.ExpandWildcards = [value]; return this; }
 	/// <summary>If `true`, returns settings in flat format.</summary>
 		public PutSettingsIndexRequestDescriptor FlatSettings(bool? value) { _value.FlatSettings = value; return this; }
 	/// <summary>Whether specified concrete indexes should be ignored when unavailable (missing or closed).</summary>
@@ -27,6 +29,7 @@ public sealed class PutSettingsIndexRequestDescriptor
 		public PutSettingsIndexRequestDescriptor Timeout(string? value) { _value.Timeout = value; return this; }
 	public PutSettingsIndexRequestDescriptor Mode(string? value) { _value.Mode = value; return this; }
 	public PutSettingsIndexRequestDescriptor RoutingPath(List<string>? value) { _value.RoutingPath = value; return this; }
+	public PutSettingsIndexRequestDescriptor RoutingPath(string value) { _value.RoutingPath = [value]; return this; }
 	public PutSettingsIndexRequestDescriptor SoftDeletes(SoftDeletes? value) { _value.SoftDeletes = value; return this; }
 	public PutSettingsIndexRequestDescriptor SoftDeletes(Action<SoftDeletesDescriptor> configure)
 	{

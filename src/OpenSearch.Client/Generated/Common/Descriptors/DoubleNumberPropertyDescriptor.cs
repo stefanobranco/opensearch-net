@@ -16,6 +16,7 @@ public sealed class DoubleNumberPropertyDescriptor
 	public DoubleNumberPropertyDescriptor Dynamic(string? value) { _value.Dynamic = value; return this; }
 	public DoubleNumberPropertyDescriptor Fields(Dictionary<string, Property>? value) { _value.Fields = value; return this; }
 	public DoubleNumberPropertyDescriptor CopyTo(List<string>? value) { _value.CopyTo = value; return this; }
+	public DoubleNumberPropertyDescriptor CopyTo(string value) { _value.CopyTo = [value]; return this; }
 	public DoubleNumberPropertyDescriptor Similarity(string? value) { _value.Similarity = value; return this; }
 	public DoubleNumberPropertyDescriptor Store(bool? value) { _value.Store = value; return this; }
 	public DoubleNumberPropertyDescriptor DocValues(bool? value) { _value.DocValues = value; return this; }

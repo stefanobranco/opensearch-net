@@ -15,10 +15,12 @@ public sealed class AllPitSegmentsCatRequestDescriptor
 		public AllPitSegmentsCatRequestDescriptor Format(string? value) { _value.Format = value; return this; }
 	/// <summary>A comma-separated list of column names to display.</summary>
 		public AllPitSegmentsCatRequestDescriptor H(List<string>? value) { _value.H = value; return this; }
+	public AllPitSegmentsCatRequestDescriptor H(string value) { _value.H = [value]; return this; }
 	/// <summary>Returns help information.</summary>
 		public AllPitSegmentsCatRequestDescriptor Help(bool? value) { _value.Help = value; return this; }
 	/// <summary>A comma-separated list of column names or column aliases to sort by.</summary>
 		public AllPitSegmentsCatRequestDescriptor S(List<string>? value) { _value.S = value; return this; }
+	public AllPitSegmentsCatRequestDescriptor S(string value) { _value.S = [value]; return this; }
 	/// <summary>Enables verbose mode, which displays column headers.</summary>
 		public AllPitSegmentsCatRequestDescriptor V(bool? value) { _value.V = value; return this; }
 

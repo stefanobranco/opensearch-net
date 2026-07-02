@@ -12,6 +12,7 @@ public sealed class KuromojiPartOfSpeechTokenFilterDescriptor
 	public KuromojiPartOfSpeechTokenFilterDescriptor Version(string? value) { _value.Version = value; return this; }
 	public KuromojiPartOfSpeechTokenFilterDescriptor Type(string? value) { _value.Type = value; return this; }
 	public KuromojiPartOfSpeechTokenFilterDescriptor Stoptags(List<string>? value) { _value.Stoptags = value; return this; }
+	public KuromojiPartOfSpeechTokenFilterDescriptor Stoptags(string value) { _value.Stoptags = [value]; return this; }
 
 	public static implicit operator KuromojiPartOfSpeechTokenFilter(KuromojiPartOfSpeechTokenFilterDescriptor descriptor) => descriptor._value;
 }

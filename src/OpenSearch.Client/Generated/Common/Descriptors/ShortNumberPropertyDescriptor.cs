@@ -16,6 +16,7 @@ public sealed class ShortNumberPropertyDescriptor
 	public ShortNumberPropertyDescriptor Dynamic(string? value) { _value.Dynamic = value; return this; }
 	public ShortNumberPropertyDescriptor Fields(Dictionary<string, Property>? value) { _value.Fields = value; return this; }
 	public ShortNumberPropertyDescriptor CopyTo(List<string>? value) { _value.CopyTo = value; return this; }
+	public ShortNumberPropertyDescriptor CopyTo(string value) { _value.CopyTo = [value]; return this; }
 	public ShortNumberPropertyDescriptor Similarity(string? value) { _value.Similarity = value; return this; }
 	public ShortNumberPropertyDescriptor Store(bool? value) { _value.Store = value; return this; }
 	public ShortNumberPropertyDescriptor DocValues(bool? value) { _value.DocValues = value; return this; }

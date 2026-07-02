@@ -10,6 +10,7 @@ public sealed class MatrixStatsAggregationDescriptor
 	internal MatrixStatsAggregation _value = new();
 
 	public MatrixStatsAggregationDescriptor Fields(List<string>? value) { _value.Fields = value; return this; }
+	public MatrixStatsAggregationDescriptor Fields(string value) { _value.Fields = [value]; return this; }
 	/// <summary>The value to apply to documents that do not have a value. By default, documents without a value are ignored.</summary>
 		public MatrixStatsAggregationDescriptor Missing(Dictionary<string, double>? value) { _value.Missing = value; return this; }
 	public MatrixStatsAggregationDescriptor Mode(string? value) { _value.Mode = value; return this; }

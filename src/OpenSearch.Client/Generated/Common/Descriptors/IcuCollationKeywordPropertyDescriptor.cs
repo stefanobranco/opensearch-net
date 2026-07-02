@@ -16,6 +16,7 @@ public sealed class IcuCollationKeywordPropertyDescriptor
 	public IcuCollationKeywordPropertyDescriptor Dynamic(string? value) { _value.Dynamic = value; return this; }
 	public IcuCollationKeywordPropertyDescriptor Fields(Dictionary<string, Property>? value) { _value.Fields = value; return this; }
 	public IcuCollationKeywordPropertyDescriptor CopyTo(List<string>? value) { _value.CopyTo = value; return this; }
+	public IcuCollationKeywordPropertyDescriptor CopyTo(string value) { _value.CopyTo = [value]; return this; }
 	public IcuCollationKeywordPropertyDescriptor Similarity(string? value) { _value.Similarity = value; return this; }
 	public IcuCollationKeywordPropertyDescriptor Store(bool? value) { _value.Store = value; return this; }
 	public IcuCollationKeywordPropertyDescriptor DocValues(bool? value) { _value.DocValues = value; return this; }

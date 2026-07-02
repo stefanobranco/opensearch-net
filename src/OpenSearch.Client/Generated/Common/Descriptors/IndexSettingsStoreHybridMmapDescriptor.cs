@@ -11,6 +11,7 @@ public sealed class IndexSettingsStoreHybridMmapDescriptor
 
 	/// <summary>The file extensions to use memory-mapping for.</summary>
 		public IndexSettingsStoreHybridMmapDescriptor Extensions(List<string>? value) { _value.Extensions = value; return this; }
+	public IndexSettingsStoreHybridMmapDescriptor Extensions(string value) { _value.Extensions = [value]; return this; }
 
 	public static implicit operator IndexSettingsStoreHybridMmap(IndexSettingsStoreHybridMmapDescriptor descriptor) => descriptor._value;
 }

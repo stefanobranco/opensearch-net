@@ -16,6 +16,7 @@ public sealed class DictionaryDecompounderTokenFilterDescriptor
 	public DictionaryDecompounderTokenFilterDescriptor MinWordSize(int? value) { _value.MinWordSize = value; return this; }
 	public DictionaryDecompounderTokenFilterDescriptor OnlyLongestMatch(bool? value) { _value.OnlyLongestMatch = value; return this; }
 	public DictionaryDecompounderTokenFilterDescriptor WordList(List<string>? value) { _value.WordList = value; return this; }
+	public DictionaryDecompounderTokenFilterDescriptor WordList(string value) { _value.WordList = [value]; return this; }
 	public DictionaryDecompounderTokenFilterDescriptor WordListPath(string? value) { _value.WordListPath = value; return this; }
 	public DictionaryDecompounderTokenFilterDescriptor Type(string? value) { _value.Type = value; return this; }
 

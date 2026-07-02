@@ -35,6 +35,7 @@ public sealed class SetSecurityUserProcessorDescriptor
 	public SetSecurityUserProcessorDescriptor Field(string? value) { _value.Field = value; return this; }
 	/// <summary>Controls what user related properties are added to the field.</summary>
 		public SetSecurityUserProcessorDescriptor Properties(List<string>? value) { _value.Properties = value; return this; }
+	public SetSecurityUserProcessorDescriptor Properties(string value) { _value.Properties = [value]; return this; }
 
 	public static implicit operator SetSecurityUserProcessor(SetSecurityUserProcessorDescriptor descriptor) => descriptor._value;
 }

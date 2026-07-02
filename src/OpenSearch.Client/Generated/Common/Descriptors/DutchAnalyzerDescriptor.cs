@@ -11,6 +11,7 @@ public sealed class DutchAnalyzerDescriptor
 
 	public DutchAnalyzerDescriptor Type(string? value) { _value.Type = value; return this; }
 	public DutchAnalyzerDescriptor Stopwords(List<string>? value) { _value.Stopwords = value; return this; }
+	public DutchAnalyzerDescriptor Stopwords(string value) { _value.Stopwords = [value]; return this; }
 
 	public static implicit operator DutchAnalyzer(DutchAnalyzerDescriptor descriptor) => descriptor._value;
 }

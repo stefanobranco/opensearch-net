@@ -11,6 +11,7 @@ public sealed class SnapshotRestoreDescriptor
 
 	/// <summary>The list of indexes that were restored.</summary>
 		public SnapshotRestoreDescriptor Indices(List<string>? value) { _value.Indices = value; return this; }
+	public SnapshotRestoreDescriptor Indices(string value) { _value.Indices = [value]; return this; }
 	/// <summary>The name of the snapshot that was restored.</summary>
 		public SnapshotRestoreDescriptor Snapshot(string? value) { _value.Snapshot = value; return this; }
 	/// <summary>Any statistics about the restored shards.</summary>

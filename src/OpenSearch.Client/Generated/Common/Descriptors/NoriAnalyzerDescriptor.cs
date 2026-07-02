@@ -13,6 +13,7 @@ public sealed class NoriAnalyzerDescriptor
 	public NoriAnalyzerDescriptor Version(string? value) { _value.Version = value; return this; }
 	public NoriAnalyzerDescriptor DecompoundMode(NoriDecompoundMode? value) { _value.DecompoundMode = value; return this; }
 	public NoriAnalyzerDescriptor Stoptags(List<string>? value) { _value.Stoptags = value; return this; }
+	public NoriAnalyzerDescriptor Stoptags(string value) { _value.Stoptags = [value]; return this; }
 	public NoriAnalyzerDescriptor UserDictionary(string? value) { _value.UserDictionary = value; return this; }
 
 	public static implicit operator NoriAnalyzer(NoriAnalyzerDescriptor descriptor) => descriptor._value;

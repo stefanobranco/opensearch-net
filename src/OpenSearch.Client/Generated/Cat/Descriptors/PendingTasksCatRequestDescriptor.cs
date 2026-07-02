@@ -15,12 +15,14 @@ public sealed class PendingTasksCatRequestDescriptor
 		public PendingTasksCatRequestDescriptor Format(string? value) { _value.Format = value; return this; }
 	/// <summary>A comma-separated list of column names to display.</summary>
 		public PendingTasksCatRequestDescriptor H(List<string>? value) { _value.H = value; return this; }
+	public PendingTasksCatRequestDescriptor H(string value) { _value.H = [value]; return this; }
 	/// <summary>Returns help information.</summary>
 		public PendingTasksCatRequestDescriptor Help(bool? value) { _value.Help = value; return this; }
 	/// <summary>Returns local information but does not retrieve the state from the cluster manager node.</summary>
 		public PendingTasksCatRequestDescriptor Local(bool? value) { _value.Local = value; return this; }
 	/// <summary>A comma-separated list of column names or column aliases to sort by.</summary>
 		public PendingTasksCatRequestDescriptor S(List<string>? value) { _value.S = value; return this; }
+	public PendingTasksCatRequestDescriptor S(string value) { _value.S = [value]; return this; }
 	/// <summary>Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units](https://opensearch.org/docs/latest/api-reference/units/).</summary>
 		public PendingTasksCatRequestDescriptor Time(string? value) { _value.Time = value; return this; }
 	/// <summary>Enables verbose mode, which displays column headers.</summary>

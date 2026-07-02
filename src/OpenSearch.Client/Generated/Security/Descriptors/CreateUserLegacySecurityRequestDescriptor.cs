@@ -16,9 +16,11 @@ public sealed class CreateUserLegacySecurityRequestDescriptor
 	public CreateUserLegacySecurityRequestDescriptor Reserved(bool? value) { _value.Reserved = value; return this; }
 	public CreateUserLegacySecurityRequestDescriptor Hidden(bool? value) { _value.Hidden = value; return this; }
 	public CreateUserLegacySecurityRequestDescriptor BackendRoles(List<string>? value) { _value.BackendRoles = value; return this; }
+	public CreateUserLegacySecurityRequestDescriptor BackendRoles(string value) { _value.BackendRoles = [value]; return this; }
 	public CreateUserLegacySecurityRequestDescriptor Attributes(Dictionary<string, string>? value) { _value.Attributes = value; return this; }
 	public CreateUserLegacySecurityRequestDescriptor Description(string? value) { _value.Description = value; return this; }
 	public CreateUserLegacySecurityRequestDescriptor OpendistroSecurityRoles(List<string>? value) { _value.OpendistroSecurityRoles = value; return this; }
+	public CreateUserLegacySecurityRequestDescriptor OpendistroSecurityRoles(string value) { _value.OpendistroSecurityRoles = [value]; return this; }
 	public CreateUserLegacySecurityRequestDescriptor Static(bool? value) { _value.Static = value; return this; }
 
 	public static implicit operator CreateUserLegacySecurityRequest(CreateUserLegacySecurityRequestDescriptor descriptor) => descriptor._value;

@@ -39,6 +39,7 @@ public sealed class GrokProcessorDescriptor
 		public GrokProcessorDescriptor PatternDefinitions(Dictionary<string, string>? value) { _value.PatternDefinitions = value; return this; }
 	/// <summary>An ordered list of grok expression to match and extract named captures with. Returns on the first expression in the list that matches.</summary>
 		public GrokProcessorDescriptor Patterns(List<string>? value) { _value.Patterns = value; return this; }
+	public GrokProcessorDescriptor Patterns(string value) { _value.Patterns = [value]; return this; }
 	/// <summary>When `true`, `_ingest._grok_match_index` will be inserted into your matched document's metadata with the index into the pattern found in `patterns` that matched.</summary>
 		public GrokProcessorDescriptor TraceMatch(bool? value) { _value.TraceMatch = value; return this; }
 

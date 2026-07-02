@@ -16,9 +16,11 @@ public sealed class CreateUserSecurityRequestDescriptor
 	public CreateUserSecurityRequestDescriptor Reserved(bool? value) { _value.Reserved = value; return this; }
 	public CreateUserSecurityRequestDescriptor Hidden(bool? value) { _value.Hidden = value; return this; }
 	public CreateUserSecurityRequestDescriptor BackendRoles(List<string>? value) { _value.BackendRoles = value; return this; }
+	public CreateUserSecurityRequestDescriptor BackendRoles(string value) { _value.BackendRoles = [value]; return this; }
 	public CreateUserSecurityRequestDescriptor Attributes(Dictionary<string, string>? value) { _value.Attributes = value; return this; }
 	public CreateUserSecurityRequestDescriptor Description(string? value) { _value.Description = value; return this; }
 	public CreateUserSecurityRequestDescriptor OpendistroSecurityRoles(List<string>? value) { _value.OpendistroSecurityRoles = value; return this; }
+	public CreateUserSecurityRequestDescriptor OpendistroSecurityRoles(string value) { _value.OpendistroSecurityRoles = [value]; return this; }
 	public CreateUserSecurityRequestDescriptor Static(bool? value) { _value.Static = value; return this; }
 
 	public static implicit operator CreateUserSecurityRequest(CreateUserSecurityRequestDescriptor descriptor) => descriptor._value;

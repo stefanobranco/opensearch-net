@@ -10,11 +10,17 @@ public sealed class AuditLogsConfigDescriptor
 	internal AuditLogsConfig _value = new();
 
 	public AuditLogsConfigDescriptor IgnoreUsers(List<string>? value) { _value.IgnoreUsers = value; return this; }
+	public AuditLogsConfigDescriptor IgnoreUsers(string value) { _value.IgnoreUsers = [value]; return this; }
 	public AuditLogsConfigDescriptor IgnoreRequests(List<string>? value) { _value.IgnoreRequests = value; return this; }
+	public AuditLogsConfigDescriptor IgnoreRequests(string value) { _value.IgnoreRequests = [value]; return this; }
 	public AuditLogsConfigDescriptor IgnoreHeaders(List<string>? value) { _value.IgnoreHeaders = value; return this; }
+	public AuditLogsConfigDescriptor IgnoreHeaders(string value) { _value.IgnoreHeaders = [value]; return this; }
 	public AuditLogsConfigDescriptor IgnoreUrlParams(List<string>? value) { _value.IgnoreUrlParams = value; return this; }
+	public AuditLogsConfigDescriptor IgnoreUrlParams(string value) { _value.IgnoreUrlParams = [value]; return this; }
 	public AuditLogsConfigDescriptor DisabledRestCategories(List<string>? value) { _value.DisabledRestCategories = value; return this; }
+	public AuditLogsConfigDescriptor DisabledRestCategories(string value) { _value.DisabledRestCategories = [value]; return this; }
 	public AuditLogsConfigDescriptor DisabledTransportCategories(List<string>? value) { _value.DisabledTransportCategories = value; return this; }
+	public AuditLogsConfigDescriptor DisabledTransportCategories(string value) { _value.DisabledTransportCategories = [value]; return this; }
 	public AuditLogsConfigDescriptor LogRequestBody(bool? value) { _value.LogRequestBody = value; return this; }
 	public AuditLogsConfigDescriptor ResolveIndices(bool? value) { _value.ResolveIndices = value; return this; }
 	public AuditLogsConfigDescriptor ResolveBulkRequests(bool? value) { _value.ResolveBulkRequests = value; return this; }

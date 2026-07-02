@@ -11,6 +11,7 @@ public sealed class TemplateMappingDescriptor
 
 	public TemplateMappingDescriptor Aliases(Dictionary<string, Alias>? value) { _value.Aliases = value; return this; }
 	public TemplateMappingDescriptor IndexPatterns(List<string>? value) { _value.IndexPatterns = value; return this; }
+	public TemplateMappingDescriptor IndexPatterns(string value) { _value.IndexPatterns = [value]; return this; }
 	public TemplateMappingDescriptor Mappings(TypeMapping? value) { _value.Mappings = value; return this; }
 	public TemplateMappingDescriptor Mappings(Action<TypeMappingDescriptor> configure)
 	{

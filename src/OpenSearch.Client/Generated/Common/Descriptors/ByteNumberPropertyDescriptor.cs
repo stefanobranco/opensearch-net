@@ -16,6 +16,7 @@ public sealed class ByteNumberPropertyDescriptor
 	public ByteNumberPropertyDescriptor Dynamic(string? value) { _value.Dynamic = value; return this; }
 	public ByteNumberPropertyDescriptor Fields(Dictionary<string, Property>? value) { _value.Fields = value; return this; }
 	public ByteNumberPropertyDescriptor CopyTo(List<string>? value) { _value.CopyTo = value; return this; }
+	public ByteNumberPropertyDescriptor CopyTo(string value) { _value.CopyTo = [value]; return this; }
 	public ByteNumberPropertyDescriptor Similarity(string? value) { _value.Similarity = value; return this; }
 	public ByteNumberPropertyDescriptor Store(bool? value) { _value.Store = value; return this; }
 	public ByteNumberPropertyDescriptor DocValues(bool? value) { _value.DocValues = value; return this; }

@@ -13,6 +13,7 @@ public sealed class IdsQueryDescriptor
 		public IdsQueryDescriptor Boost(float? value) { _value.Boost = value; return this; }
 	public IdsQueryDescriptor Name(string? value) { _value.Name = value; return this; }
 	public IdsQueryDescriptor Values(List<string>? value) { _value.Values = value; return this; }
+	public IdsQueryDescriptor Values(string value) { _value.Values = [value]; return this; }
 
 	public static implicit operator IdsQuery(IdsQueryDescriptor descriptor) => descriptor._value;
 }

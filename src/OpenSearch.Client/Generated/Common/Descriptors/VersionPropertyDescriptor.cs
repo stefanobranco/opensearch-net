@@ -16,6 +16,7 @@ public sealed class VersionPropertyDescriptor
 	public VersionPropertyDescriptor Dynamic(string? value) { _value.Dynamic = value; return this; }
 	public VersionPropertyDescriptor Fields(Dictionary<string, Property>? value) { _value.Fields = value; return this; }
 	public VersionPropertyDescriptor CopyTo(List<string>? value) { _value.CopyTo = value; return this; }
+	public VersionPropertyDescriptor CopyTo(string value) { _value.CopyTo = [value]; return this; }
 	public VersionPropertyDescriptor Similarity(string? value) { _value.Similarity = value; return this; }
 	public VersionPropertyDescriptor Store(bool? value) { _value.Store = value; return this; }
 	public VersionPropertyDescriptor DocValues(bool? value) { _value.DocValues = value; return this; }

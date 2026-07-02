@@ -15,8 +15,10 @@ public sealed class UpdateRequestDescriptor
 		public UpdateRequestDescriptor Index(string? value) { _value.Index = value; return this; }
 	/// <summary>Specify the source fields you want to exclude.</summary>
 		public UpdateRequestDescriptor SourceExcludes(List<string>? value) { _value.SourceExcludes = value; return this; }
+	public UpdateRequestDescriptor SourceExcludes(string value) { _value.SourceExcludes = [value]; return this; }
 	/// <summary>Specify the source fields you want to retrieve.</summary>
 		public UpdateRequestDescriptor SourceIncludes(List<string>? value) { _value.SourceIncludes = value; return this; }
+	public UpdateRequestDescriptor SourceIncludes(string value) { _value.SourceIncludes = [value]; return this; }
 	/// <summary>Only perform the operation if the document has this primary term.</summary>
 		public UpdateRequestDescriptor IfPrimaryTerm(long? value) { _value.IfPrimaryTerm = value; return this; }
 	/// <summary>Only perform the operation if the document has this sequence number.</summary>
@@ -31,6 +33,7 @@ public sealed class UpdateRequestDescriptor
 		public UpdateRequestDescriptor RetryOnConflict(int? value) { _value.RetryOnConflict = value; return this; }
 	/// <summary>A custom value used to route operations to a specific shard.</summary>
 		public UpdateRequestDescriptor Routing(List<string>? value) { _value.Routing = value; return this; }
+	public UpdateRequestDescriptor Routing(string value) { _value.Routing = [value]; return this; }
 	/// <summary>Period to wait for dynamic mapping updates and active shards. This guarantees OpenSearch waits for at least the timeout before failing. The actual wait time could be longer, particularly when multiple waits occur.</summary>
 		public UpdateRequestDescriptor Timeout(string? value) { _value.Timeout = value; return this; }
 	/// <summary>The number of shard copies that must be active before proceeding with the operations. Set to 'all' or any positive integer up to the total number of shards in the index (number_of_replicas+1). Defaults to 1 meaning the primary shard.</summary>

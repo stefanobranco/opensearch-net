@@ -15,6 +15,7 @@ public sealed class CreateRoleSecurityRequestDescriptor
 	public CreateRoleSecurityRequestDescriptor Hidden(bool? value) { _value.Hidden = value; return this; }
 	public CreateRoleSecurityRequestDescriptor Description(string? value) { _value.Description = value; return this; }
 	public CreateRoleSecurityRequestDescriptor ClusterPermissions(List<string>? value) { _value.ClusterPermissions = value; return this; }
+	public CreateRoleSecurityRequestDescriptor ClusterPermissions(string value) { _value.ClusterPermissions = [value]; return this; }
 	public CreateRoleSecurityRequestDescriptor IndexPermissions(List<IndexPermission>? value) { _value.IndexPermissions = value; return this; }
 	public CreateRoleSecurityRequestDescriptor IndexPermissions(params Action<IndexPermissionDescriptor>[] configure)
 	{

@@ -14,11 +14,13 @@ public sealed class ExistsSourceRequestDescriptor
 	/// <summary>A comma-separated list of data streams, indexes, and aliases. Supports wildcards (`*`).</summary>
 		public ExistsSourceRequestDescriptor Index(string? value) { _value.Index = value; return this; }
 	/// <summary>`true` or `false` to return the `_source` field or not, or a list of fields to return.</summary>
-		public ExistsSourceRequestDescriptor Source(System.Text.Json.JsonElement? value) { _value.Source = value; return this; }
+		public ExistsSourceRequestDescriptor Source(SourceConfigParam? value) { _value.Source = value; return this; }
 	/// <summary>A comma-separated list of source fields to exclude in the response.</summary>
 		public ExistsSourceRequestDescriptor SourceExcludes(List<string>? value) { _value.SourceExcludes = value; return this; }
+	public ExistsSourceRequestDescriptor SourceExcludes(string value) { _value.SourceExcludes = [value]; return this; }
 	/// <summary>A comma-separated list of source fields to include in the response.</summary>
 		public ExistsSourceRequestDescriptor SourceIncludes(List<string>? value) { _value.SourceIncludes = value; return this; }
+	public ExistsSourceRequestDescriptor SourceIncludes(string value) { _value.SourceIncludes = [value]; return this; }
 	/// <summary>Specifies the node or shard the operation should be performed on. Random by default.</summary>
 		public ExistsSourceRequestDescriptor Preference(string? value) { _value.Preference = value; return this; }
 	/// <summary>If `true`, the request is real time as opposed to near real time.</summary>
@@ -27,6 +29,7 @@ public sealed class ExistsSourceRequestDescriptor
 		public ExistsSourceRequestDescriptor Refresh(string? value) { _value.Refresh = value; return this; }
 	/// <summary>Target the specified primary shard.</summary>
 		public ExistsSourceRequestDescriptor Routing(List<string>? value) { _value.Routing = value; return this; }
+	public ExistsSourceRequestDescriptor Routing(string value) { _value.Routing = [value]; return this; }
 	/// <summary>Explicit version number for concurrency control. The specified version must match the current version of the document for the request to succeed.</summary>
 		public ExistsSourceRequestDescriptor Version(long? value) { _value.Version = value; return this; }
 	/// <summary>The specific version type: `external`, `external_gte`.</summary>

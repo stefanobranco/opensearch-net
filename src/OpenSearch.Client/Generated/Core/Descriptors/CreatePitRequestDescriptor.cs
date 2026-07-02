@@ -11,16 +11,19 @@ public sealed class CreatePitRequestDescriptor
 
 	/// <summary>A comma-separated list of indexes; use `_all` or empty string to perform the operation on all indexes.</summary>
 		public CreatePitRequestDescriptor Index(List<string>? value) { _value.Index = value; return this; }
+	public CreatePitRequestDescriptor Index(string value) { _value.Index = [value]; return this; }
 	/// <summary>Allow if point in time can be created with partial failures.</summary>
 		public CreatePitRequestDescriptor AllowPartialPitCreation(bool? value) { _value.AllowPartialPitCreation = value; return this; }
 	/// <summary>Whether to expand wildcard expression to concrete indexes that are open, closed or both.</summary>
 		public CreatePitRequestDescriptor ExpandWildcards(List<string>? value) { _value.ExpandWildcards = value; return this; }
+	public CreatePitRequestDescriptor ExpandWildcards(string value) { _value.ExpandWildcards = [value]; return this; }
 	/// <summary>Specify the keep alive for point in time.</summary>
 		public CreatePitRequestDescriptor KeepAlive(string? value) { _value.KeepAlive = value; return this; }
 	/// <summary>Specify the node or shard the operation should be performed on.</summary>
 		public CreatePitRequestDescriptor Preference(string? value) { _value.Preference = value; return this; }
 	/// <summary>A comma-separated list of specific routing values.</summary>
 		public CreatePitRequestDescriptor Routing(List<string>? value) { _value.Routing = value; return this; }
+	public CreatePitRequestDescriptor Routing(string value) { _value.Routing = [value]; return this; }
 
 	public static implicit operator CreatePitRequest(CreatePitRequestDescriptor descriptor) => descriptor._value;
 }

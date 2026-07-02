@@ -14,11 +14,13 @@ public sealed class GetRequestDescriptor
 	/// <summary>The name of the index containing the document.</summary>
 		public GetRequestDescriptor Index(string? value) { _value.Index = value; return this; }
 	/// <summary>Set to `true` or `false` to return the `_source` field or not, or a list of fields to return.</summary>
-		public GetRequestDescriptor Source(System.Text.Json.JsonElement? value) { _value.Source = value; return this; }
+		public GetRequestDescriptor Source(SourceConfigParam? value) { _value.Source = value; return this; }
 	/// <summary>A comma-separated list of source fields to exclude in the response.</summary>
 		public GetRequestDescriptor SourceExcludes(List<string>? value) { _value.SourceExcludes = value; return this; }
+	public GetRequestDescriptor SourceExcludes(string value) { _value.SourceExcludes = [value]; return this; }
 	/// <summary>A comma-separated list of source fields to include in the response.</summary>
 		public GetRequestDescriptor SourceIncludes(List<string>? value) { _value.SourceIncludes = value; return this; }
+	public GetRequestDescriptor SourceIncludes(string value) { _value.SourceIncludes = [value]; return this; }
 	/// <summary>Specifies the node or shard the operation should be performed on. Random by default.</summary>
 		public GetRequestDescriptor Preference(string? value) { _value.Preference = value; return this; }
 	/// <summary>If `true`, the request is real time as opposed to near real time.</summary>
@@ -27,8 +29,10 @@ public sealed class GetRequestDescriptor
 		public GetRequestDescriptor Refresh(string? value) { _value.Refresh = value; return this; }
 	/// <summary>Target the specified primary shard.</summary>
 		public GetRequestDescriptor Routing(List<string>? value) { _value.Routing = value; return this; }
+	public GetRequestDescriptor Routing(string value) { _value.Routing = [value]; return this; }
 	/// <summary>List of stored fields to return as part of a hit. If no fields are specified, no stored fields are included in the response. If this field is specified, the `_source` parameter defaults to false.</summary>
 		public GetRequestDescriptor StoredFields(List<string>? value) { _value.StoredFields = value; return this; }
+	public GetRequestDescriptor StoredFields(string value) { _value.StoredFields = [value]; return this; }
 	/// <summary>Explicit version number for concurrency control. The specified version must match the current version of the document for the request to succeed.</summary>
 		public GetRequestDescriptor Version(long? value) { _value.Version = value; return this; }
 	/// <summary>The specific version type: `internal`, `external`, `external_gte`.</summary>

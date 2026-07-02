@@ -11,6 +11,7 @@ public sealed class ExistsTemplateIndexRequestDescriptor
 
 	/// <summary>The comma separated names of the index templates</summary>
 		public ExistsTemplateIndexRequestDescriptor Name(List<string>? value) { _value.Name = value; return this; }
+	public ExistsTemplateIndexRequestDescriptor Name(string value) { _value.Name = [value]; return this; }
 	/// <summary>Operation timeout for connection to cluster-manager node.</summary>
 		public ExistsTemplateIndexRequestDescriptor ClusterManagerTimeout(string? value) { _value.ClusterManagerTimeout = value; return this; }
 	/// <summary>Return settings in flat format.</summary>

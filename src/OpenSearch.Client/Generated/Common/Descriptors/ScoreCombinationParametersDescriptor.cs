@@ -10,6 +10,7 @@ public sealed class ScoreCombinationParametersDescriptor
 	internal ScoreCombinationParameters _value = new();
 
 	public ScoreCombinationParametersDescriptor Weights(List<float>? value) { _value.Weights = value; return this; }
+	public ScoreCombinationParametersDescriptor Weights(float value) { _value.Weights = [value]; return this; }
 
 	public static implicit operator ScoreCombinationParameters(ScoreCombinationParametersDescriptor descriptor) => descriptor._value;
 }

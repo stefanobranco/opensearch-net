@@ -11,7 +11,9 @@ public sealed class PutExperimentsSearchRelevanceRequestDescriptor
 
 	public PutExperimentsSearchRelevanceRequestDescriptor QuerySetId(string? value) { _value.QuerySetId = value; return this; }
 	public PutExperimentsSearchRelevanceRequestDescriptor SearchConfigurationList(List<string>? value) { _value.SearchConfigurationList = value; return this; }
+	public PutExperimentsSearchRelevanceRequestDescriptor SearchConfigurationList(string value) { _value.SearchConfigurationList = [value]; return this; }
 	public PutExperimentsSearchRelevanceRequestDescriptor JudgmentList(List<string>? value) { _value.JudgmentList = value; return this; }
+	public PutExperimentsSearchRelevanceRequestDescriptor JudgmentList(string value) { _value.JudgmentList = [value]; return this; }
 	public PutExperimentsSearchRelevanceRequestDescriptor Size(int? value) { _value.Size = value; return this; }
 	public PutExperimentsSearchRelevanceRequestDescriptor Type(string? value) { _value.Type = value; return this; }
 

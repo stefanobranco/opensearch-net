@@ -12,6 +12,7 @@ public sealed class StrategyDescriptor
 	public StrategyDescriptor Type(StrategyType? value) { _value.Type = value; return this; }
 	/// <summary>The namespace.</summary>
 		public StrategyDescriptor Namespace(List<string>? value) { _value.Namespace = value; return this; }
+	public StrategyDescriptor Namespace(string value) { _value.Namespace = [value]; return this; }
 	public StrategyDescriptor Configuration(StrategyConfiguration? value) { _value.Configuration = value; return this; }
 	public StrategyDescriptor Configuration(Action<StrategyConfigurationDescriptor> configure)
 	{

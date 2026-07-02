@@ -11,12 +11,15 @@ public sealed class DeleteByQueryRequestDescriptor
 
 	/// <summary>A comma-separated list of data streams, indexes, and aliases to search. Supports wildcards (`*`). To search all data streams or indexes, omit this parameter or use `*` or `_all`.</summary>
 		public DeleteByQueryRequestDescriptor Index(List<string>? value) { _value.Index = value; return this; }
+	public DeleteByQueryRequestDescriptor Index(string value) { _value.Index = [value]; return this; }
 	/// <summary>Set to `true` or `false` to return the `_source` field or not, or a list of fields to return.</summary>
-		public DeleteByQueryRequestDescriptor Source(System.Text.Json.JsonElement? value) { _value.Source = value; return this; }
+		public DeleteByQueryRequestDescriptor Source(SourceConfigParam? value) { _value.Source = value; return this; }
 	/// <summary>List of fields to exclude from the returned `_source` field.</summary>
 		public DeleteByQueryRequestDescriptor SourceExcludes(List<string>? value) { _value.SourceExcludes = value; return this; }
+	public DeleteByQueryRequestDescriptor SourceExcludes(string value) { _value.SourceExcludes = [value]; return this; }
 	/// <summary>List of fields to extract and return from the `_source` field.</summary>
 		public DeleteByQueryRequestDescriptor SourceIncludes(List<string>? value) { _value.SourceIncludes = value; return this; }
+	public DeleteByQueryRequestDescriptor SourceIncludes(string value) { _value.SourceIncludes = [value]; return this; }
 	/// <summary>If `false`, the request returns an error if any wildcard expression, index alias, or `_all` value targets only missing or closed indexes. This behavior applies even if the request targets other open indexes. For example, a request targeting `foo*,bar*` returns an error if an index starts with `foo` but no index starts with `bar`.</summary>
 		public DeleteByQueryRequestDescriptor AllowNoIndices(bool? value) { _value.AllowNoIndices = value; return this; }
 	/// <summary>If `true`, wildcard and prefix queries are analyzed.</summary>
@@ -31,6 +34,7 @@ public sealed class DeleteByQueryRequestDescriptor
 		public DeleteByQueryRequestDescriptor Df(string? value) { _value.Df = value; return this; }
 	/// <summary>Type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values, such as `open,hidden`. Valid values are: `all`, `open`, `closed`, `hidden`, `none`.</summary>
 		public DeleteByQueryRequestDescriptor ExpandWildcards(List<string>? value) { _value.ExpandWildcards = value; return this; }
+	public DeleteByQueryRequestDescriptor ExpandWildcards(string value) { _value.ExpandWildcards = [value]; return this; }
 	/// <summary>Starting offset.</summary>
 		public DeleteByQueryRequestDescriptor From(int? value) { _value.From = value; return this; }
 	/// <summary>If `false`, the request returns an error if it targets a missing or closed index.</summary>
@@ -49,6 +53,7 @@ public sealed class DeleteByQueryRequestDescriptor
 		public DeleteByQueryRequestDescriptor RequestsPerSecond(float? value) { _value.RequestsPerSecond = value; return this; }
 	/// <summary>A custom value used to route operations to a specific shard.</summary>
 		public DeleteByQueryRequestDescriptor Routing(List<string>? value) { _value.Routing = value; return this; }
+	public DeleteByQueryRequestDescriptor Routing(string value) { _value.Routing = [value]; return this; }
 	/// <summary>Period to retain the search context for scrolling.</summary>
 		public DeleteByQueryRequestDescriptor Scroll(string? value) { _value.Scroll = value; return this; }
 	/// <summary>Size of the scroll request that powers the operation.</summary>
@@ -63,8 +68,10 @@ public sealed class DeleteByQueryRequestDescriptor
 		public DeleteByQueryRequestDescriptor Slices(string? value) { _value.Slices = value; return this; }
 	/// <summary>A comma-separated list of &lt;field&gt;:&lt;direction&gt; pairs.</summary>
 		public DeleteByQueryRequestDescriptor Sort(List<string>? value) { _value.Sort = value; return this; }
+	public DeleteByQueryRequestDescriptor Sort(string value) { _value.Sort = [value]; return this; }
 	/// <summary>Specific `tag` of the request for logging and statistical purposes.</summary>
 		public DeleteByQueryRequestDescriptor Stats(List<string>? value) { _value.Stats = value; return this; }
+	public DeleteByQueryRequestDescriptor Stats(string value) { _value.Stats = [value]; return this; }
 	/// <summary>Maximum number of documents to collect for each shard. If a query reaches this limit, OpenSearch terminates the query early. OpenSearch collects documents before sorting. Use with caution. OpenSearch applies this parameter to each shard handling the request. When possible, let OpenSearch perform early termination automatically. Avoid specifying this parameter for requests that target data streams with backing indexes across multiple data tiers.</summary>
 		public DeleteByQueryRequestDescriptor TerminateAfter(int? value) { _value.TerminateAfter = value; return this; }
 	/// <summary>Period each deletion request waits for active shards.</summary>

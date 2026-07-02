@@ -15,6 +15,7 @@ public sealed class PercentilesBucketAggregationDescriptor
 	public PercentilesBucketAggregationDescriptor GapPolicy(GapPolicy? value) { _value.GapPolicy = value; return this; }
 	/// <summary>The list of percentiles to calculate.</summary>
 		public PercentilesBucketAggregationDescriptor Percents(List<double>? value) { _value.Percents = value; return this; }
+	public PercentilesBucketAggregationDescriptor Percents(double value) { _value.Percents = [value]; return this; }
 
 	public static implicit operator PercentilesBucketAggregation(PercentilesBucketAggregationDescriptor descriptor) => descriptor._value;
 }

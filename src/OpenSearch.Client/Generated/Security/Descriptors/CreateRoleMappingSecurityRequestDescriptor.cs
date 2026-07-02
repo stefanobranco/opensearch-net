@@ -12,11 +12,15 @@ public sealed class CreateRoleMappingSecurityRequestDescriptor
 	/// <summary>The name of the role for which to create a role mapping.</summary>
 		public CreateRoleMappingSecurityRequestDescriptor Role(string? value) { _value.Role = value; return this; }
 	public CreateRoleMappingSecurityRequestDescriptor Hosts(List<string>? value) { _value.Hosts = value; return this; }
+	public CreateRoleMappingSecurityRequestDescriptor Hosts(string value) { _value.Hosts = [value]; return this; }
 	public CreateRoleMappingSecurityRequestDescriptor Users(List<string>? value) { _value.Users = value; return this; }
+	public CreateRoleMappingSecurityRequestDescriptor Users(string value) { _value.Users = [value]; return this; }
 	public CreateRoleMappingSecurityRequestDescriptor Reserved(bool? value) { _value.Reserved = value; return this; }
 	public CreateRoleMappingSecurityRequestDescriptor Hidden(bool? value) { _value.Hidden = value; return this; }
 	public CreateRoleMappingSecurityRequestDescriptor BackendRoles(List<string>? value) { _value.BackendRoles = value; return this; }
+	public CreateRoleMappingSecurityRequestDescriptor BackendRoles(string value) { _value.BackendRoles = [value]; return this; }
 	public CreateRoleMappingSecurityRequestDescriptor AndBackendRoles(List<string>? value) { _value.AndBackendRoles = value; return this; }
+	public CreateRoleMappingSecurityRequestDescriptor AndBackendRoles(string value) { _value.AndBackendRoles = [value]; return this; }
 	public CreateRoleMappingSecurityRequestDescriptor Description(string? value) { _value.Description = value; return this; }
 
 	public static implicit operator CreateRoleMappingSecurityRequest(CreateRoleMappingSecurityRequestDescriptor descriptor) => descriptor._value;

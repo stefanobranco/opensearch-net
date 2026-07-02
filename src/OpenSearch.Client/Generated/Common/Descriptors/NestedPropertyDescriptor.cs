@@ -16,6 +16,7 @@ public sealed class NestedPropertyDescriptor
 	public NestedPropertyDescriptor Dynamic(string? value) { _value.Dynamic = value; return this; }
 	public NestedPropertyDescriptor Fields(Dictionary<string, Property>? value) { _value.Fields = value; return this; }
 	public NestedPropertyDescriptor CopyTo(List<string>? value) { _value.CopyTo = value; return this; }
+	public NestedPropertyDescriptor CopyTo(string value) { _value.CopyTo = [value]; return this; }
 	public NestedPropertyDescriptor Similarity(string? value) { _value.Similarity = value; return this; }
 	public NestedPropertyDescriptor Store(bool? value) { _value.Store = value; return this; }
 	public NestedPropertyDescriptor Enabled(bool? value) { _value.Enabled = value; return this; }

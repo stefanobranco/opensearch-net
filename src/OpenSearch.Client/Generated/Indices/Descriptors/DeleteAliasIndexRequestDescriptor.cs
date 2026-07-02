@@ -11,8 +11,10 @@ public sealed class DeleteAliasIndexRequestDescriptor
 
 	/// <summary>A comma-separated list of data streams or indexes used to limit the request. Supports wildcards (`*`).</summary>
 		public DeleteAliasIndexRequestDescriptor Index(List<string>? value) { _value.Index = value; return this; }
+	public DeleteAliasIndexRequestDescriptor Index(string value) { _value.Index = [value]; return this; }
 	/// <summary>A comma-separated list of aliases to remove. Supports wildcards (`*`). To remove all aliases, use `*` or `_all`.</summary>
 		public DeleteAliasIndexRequestDescriptor Name(List<string>? value) { _value.Name = value; return this; }
+	public DeleteAliasIndexRequestDescriptor Name(string value) { _value.Name = [value]; return this; }
 	/// <summary>Operation timeout for connection to cluster-manager node.</summary>
 		public DeleteAliasIndexRequestDescriptor ClusterManagerTimeout(string? value) { _value.ClusterManagerTimeout = value; return this; }
 	/// <summary>Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error.</summary>

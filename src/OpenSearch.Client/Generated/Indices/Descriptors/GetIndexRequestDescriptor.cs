@@ -11,12 +11,14 @@ public sealed class GetIndexRequestDescriptor
 
 	/// <summary>A comma-separated list of data streams, indexes, and index aliases used to limit the request. Wildcard expressions (*) are supported.</summary>
 		public GetIndexRequestDescriptor Index(List<string>? value) { _value.Index = value; return this; }
+	public GetIndexRequestDescriptor Index(string value) { _value.Index = [value]; return this; }
 	/// <summary>If `false`, the request returns an error if any wildcard expression, index alias, or `_all` value targets only missing or closed indexes. This behavior applies even if the request targets other open indexes. For example, a request targeting foo*,bar* returns an error if an index starts with foo but no index starts with bar.</summary>
 		public GetIndexRequestDescriptor AllowNoIndices(bool? value) { _value.AllowNoIndices = value; return this; }
 	/// <summary>Operation timeout for connection to cluster-manager node.</summary>
 		public GetIndexRequestDescriptor ClusterManagerTimeout(string? value) { _value.ClusterManagerTimeout = value; return this; }
 	/// <summary>Type of index that wildcard expressions can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values, such as `open,hidden`.</summary>
 		public GetIndexRequestDescriptor ExpandWildcards(List<string>? value) { _value.ExpandWildcards = value; return this; }
+	public GetIndexRequestDescriptor ExpandWildcards(string value) { _value.ExpandWildcards = [value]; return this; }
 	/// <summary>If `true`, returns settings in flat format.</summary>
 		public GetIndexRequestDescriptor FlatSettings(bool? value) { _value.FlatSettings = value; return this; }
 	/// <summary>If `false`, requests that target a missing index return an error.</summary>

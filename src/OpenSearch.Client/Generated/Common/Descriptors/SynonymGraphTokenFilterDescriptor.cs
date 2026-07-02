@@ -15,6 +15,7 @@ public sealed class SynonymGraphTokenFilterDescriptor
 	public SynonymGraphTokenFilterDescriptor Format(SynonymFormat? value) { _value.Format = value; return this; }
 	public SynonymGraphTokenFilterDescriptor Lenient(bool? value) { _value.Lenient = value; return this; }
 	public SynonymGraphTokenFilterDescriptor Synonyms(List<string>? value) { _value.Synonyms = value; return this; }
+	public SynonymGraphTokenFilterDescriptor Synonyms(string value) { _value.Synonyms = [value]; return this; }
 	public SynonymGraphTokenFilterDescriptor SynonymsPath(string? value) { _value.SynonymsPath = value; return this; }
 	public SynonymGraphTokenFilterDescriptor Tokenizer(string? value) { _value.Tokenizer = value; return this; }
 	public SynonymGraphTokenFilterDescriptor Updateable(bool? value) { _value.Updateable = value; return this; }

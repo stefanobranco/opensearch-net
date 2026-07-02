@@ -17,6 +17,7 @@ public sealed class RerouteClusterRequestDescriptor
 		public RerouteClusterRequestDescriptor Explain(bool? value) { _value.Explain = value; return this; }
 	/// <summary>Limits the information returned to the specified metrics.</summary>
 		public RerouteClusterRequestDescriptor Metric(List<string>? value) { _value.Metric = value; return this; }
+	public RerouteClusterRequestDescriptor Metric(string value) { _value.Metric = [value]; return this; }
 	/// <summary>When `true`, retries shard allocation if it was blocked because of too many subsequent failures.</summary>
 		public RerouteClusterRequestDescriptor RetryFailed(bool? value) { _value.RetryFailed = value; return this; }
 	public RerouteClusterRequestDescriptor Timeout(string? value) { _value.Timeout = value; return this; }

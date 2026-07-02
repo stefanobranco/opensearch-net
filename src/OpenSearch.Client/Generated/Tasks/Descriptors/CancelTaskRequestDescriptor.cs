@@ -13,8 +13,10 @@ public sealed class CancelTaskRequestDescriptor
 		public CancelTaskRequestDescriptor TaskId(string? value) { _value.TaskId = value; return this; }
 	/// <summary>A comma-separated list of actions that should be returned. Keep empty to return all.</summary>
 		public CancelTaskRequestDescriptor Actions(List<string>? value) { _value.Actions = value; return this; }
+	public CancelTaskRequestDescriptor Actions(string value) { _value.Actions = [value]; return this; }
 	/// <summary>A comma-separated list of node IDs or names used to limit the returned information. Use `_local` to return information from the node you're connecting to, specify the node name to get information from a specific node, or keep the parameter empty to get information from all nodes.</summary>
 		public CancelTaskRequestDescriptor Nodes(List<string>? value) { _value.Nodes = value; return this; }
+	public CancelTaskRequestDescriptor Nodes(string value) { _value.Nodes = [value]; return this; }
 	/// <summary>Returns tasks with a specified parent task ID (`node_id:task_number`). Keep empty or set to -1 to return all.</summary>
 		public CancelTaskRequestDescriptor ParentTaskId(string? value) { _value.ParentTaskId = value; return this; }
 	/// <summary>Waits for the matching task to complete. When `true`, the request is blocked until the task has completed.</summary>

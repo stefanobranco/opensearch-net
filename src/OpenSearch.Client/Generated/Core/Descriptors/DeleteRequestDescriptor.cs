@@ -21,6 +21,7 @@ public sealed class DeleteRequestDescriptor
 		public DeleteRequestDescriptor Refresh(string? value) { _value.Refresh = value; return this; }
 	/// <summary>A custom value used to route operations to a specific shard.</summary>
 		public DeleteRequestDescriptor Routing(List<string>? value) { _value.Routing = value; return this; }
+	public DeleteRequestDescriptor Routing(string value) { _value.Routing = [value]; return this; }
 	/// <summary>Period to wait for active shards.</summary>
 		public DeleteRequestDescriptor Timeout(string? value) { _value.Timeout = value; return this; }
 	/// <summary>Explicit version number for concurrency control. The specified version must match the current version of the document for the request to succeed.</summary>

@@ -11,6 +11,7 @@ public sealed class ClearScrollRequestDescriptor
 
 	/// <summary>A comma-separated list of scroll IDs to clear. To clear all scroll IDs, use `_all`.</summary>
 		public ClearScrollRequestDescriptor ScrollId(List<string>? value) { _value.ScrollId = value; return this; }
+	public ClearScrollRequestDescriptor ScrollId(string value) { _value.ScrollId = [value]; return this; }
 
 	public static implicit operator ClearScrollRequest(ClearScrollRequestDescriptor descriptor) => descriptor._value;
 }

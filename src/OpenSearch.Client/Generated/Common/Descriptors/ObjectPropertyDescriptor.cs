@@ -16,6 +16,7 @@ public sealed class ObjectPropertyDescriptor
 	public ObjectPropertyDescriptor Dynamic(string? value) { _value.Dynamic = value; return this; }
 	public ObjectPropertyDescriptor Fields(Dictionary<string, Property>? value) { _value.Fields = value; return this; }
 	public ObjectPropertyDescriptor CopyTo(List<string>? value) { _value.CopyTo = value; return this; }
+	public ObjectPropertyDescriptor CopyTo(string value) { _value.CopyTo = [value]; return this; }
 	public ObjectPropertyDescriptor Similarity(string? value) { _value.Similarity = value; return this; }
 	public ObjectPropertyDescriptor Store(bool? value) { _value.Store = value; return this; }
 	public ObjectPropertyDescriptor Enabled(bool? value) { _value.Enabled = value; return this; }

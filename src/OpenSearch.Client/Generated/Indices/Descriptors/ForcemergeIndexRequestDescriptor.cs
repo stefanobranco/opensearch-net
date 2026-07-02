@@ -11,10 +11,12 @@ public sealed class ForcemergeIndexRequestDescriptor
 
 	/// <summary>A comma-separated list of index names; use `_all` or empty string to perform the operation on all indexes</summary>
 		public ForcemergeIndexRequestDescriptor Index(List<string>? value) { _value.Index = value; return this; }
+	public ForcemergeIndexRequestDescriptor Index(string value) { _value.Index = [value]; return this; }
 	/// <summary>Whether to ignore if a wildcard indexes expression resolves into no concrete indexes. (This includes `_all` string or when no indexes have been specified)</summary>
 		public ForcemergeIndexRequestDescriptor AllowNoIndices(bool? value) { _value.AllowNoIndices = value; return this; }
 	/// <summary>Whether to expand wildcard expression to concrete indexes that are open, closed or both.</summary>
 		public ForcemergeIndexRequestDescriptor ExpandWildcards(List<string>? value) { _value.ExpandWildcards = value; return this; }
+	public ForcemergeIndexRequestDescriptor ExpandWildcards(string value) { _value.ExpandWildcards = [value]; return this; }
 	/// <summary>Specify whether the index should be flushed after performing the operation.</summary>
 		public ForcemergeIndexRequestDescriptor Flush(bool? value) { _value.Flush = value; return this; }
 	/// <summary>Whether specified concrete indexes should be ignored when unavailable (missing or closed)</summary>

@@ -11,6 +11,7 @@ public sealed class SnapshotInfoDescriptor
 
 	/// <summary>The list of data streams included in the snapshot.</summary>
 		public SnapshotInfoDescriptor DataStreams(List<string>? value) { _value.DataStreams = value; return this; }
+	public SnapshotInfoDescriptor DataStreams(string value) { _value.DataStreams = [value]; return this; }
 	/// <summary>The total time taken to complete the snapshot.</summary>
 		public SnapshotInfoDescriptor Duration(string? value) { _value.Duration = value; return this; }
 	/// <summary>The total time taken to complete the snapshot in milliseconds.</summary>
@@ -38,6 +39,7 @@ public sealed class SnapshotInfoDescriptor
 		public SnapshotInfoDescriptor IncludeGlobalState(bool? value) { _value.IncludeGlobalState = value; return this; }
 	/// <summary>The list of indexes included in the snapshot.</summary>
 		public SnapshotInfoDescriptor Indices(List<string>? value) { _value.Indices = value; return this; }
+	public SnapshotInfoDescriptor Indices(string value) { _value.Indices = [value]; return this; }
 	/// <summary>The custom metadata attached to the snapshot.</summary>
 		public SnapshotInfoDescriptor Metadata(Dictionary<string, object>? value) { _value.Metadata = value; return this; }
 	/// <summary>The timestamp when the snapshot was pinned.</summary>

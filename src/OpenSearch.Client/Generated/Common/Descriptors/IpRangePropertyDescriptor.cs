@@ -16,6 +16,7 @@ public sealed class IpRangePropertyDescriptor
 	public IpRangePropertyDescriptor Dynamic(string? value) { _value.Dynamic = value; return this; }
 	public IpRangePropertyDescriptor Fields(Dictionary<string, Property>? value) { _value.Fields = value; return this; }
 	public IpRangePropertyDescriptor CopyTo(List<string>? value) { _value.CopyTo = value; return this; }
+	public IpRangePropertyDescriptor CopyTo(string value) { _value.CopyTo = [value]; return this; }
 	public IpRangePropertyDescriptor Similarity(string? value) { _value.Similarity = value; return this; }
 	public IpRangePropertyDescriptor Store(bool? value) { _value.Store = value; return this; }
 	public IpRangePropertyDescriptor DocValues(bool? value) { _value.DocValues = value; return this; }

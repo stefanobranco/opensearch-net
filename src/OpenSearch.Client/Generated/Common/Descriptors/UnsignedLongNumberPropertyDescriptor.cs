@@ -16,6 +16,7 @@ public sealed class UnsignedLongNumberPropertyDescriptor
 	public UnsignedLongNumberPropertyDescriptor Dynamic(string? value) { _value.Dynamic = value; return this; }
 	public UnsignedLongNumberPropertyDescriptor Fields(Dictionary<string, Property>? value) { _value.Fields = value; return this; }
 	public UnsignedLongNumberPropertyDescriptor CopyTo(List<string>? value) { _value.CopyTo = value; return this; }
+	public UnsignedLongNumberPropertyDescriptor CopyTo(string value) { _value.CopyTo = [value]; return this; }
 	public UnsignedLongNumberPropertyDescriptor Similarity(string? value) { _value.Similarity = value; return this; }
 	public UnsignedLongNumberPropertyDescriptor Store(bool? value) { _value.Store = value; return this; }
 	public UnsignedLongNumberPropertyDescriptor DocValues(bool? value) { _value.DocValues = value; return this; }

@@ -15,6 +15,7 @@ public sealed class NGramTokenizerDescriptor
 	public NGramTokenizerDescriptor MaxGram(int value) { _value.MaxGram = value; return this; }
 	public NGramTokenizerDescriptor MinGram(int value) { _value.MinGram = value; return this; }
 	public NGramTokenizerDescriptor TokenChars(List<TokenChar>? value) { _value.TokenChars = value; return this; }
+	public NGramTokenizerDescriptor TokenChars(TokenChar value) { _value.TokenChars = [value]; return this; }
 
 	public static implicit operator NGramTokenizer(NGramTokenizerDescriptor descriptor) => descriptor._value;
 }

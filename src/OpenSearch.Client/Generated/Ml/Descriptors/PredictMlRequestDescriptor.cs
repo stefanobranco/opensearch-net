@@ -21,12 +21,15 @@ public sealed class PredictMlRequestDescriptor
 	}
 	/// <summary>The input index.</summary>
 		public PredictMlRequestDescriptor InputIndex(List<string>? value) { _value.InputIndex = value; return this; }
+	public PredictMlRequestDescriptor InputIndex(string value) { _value.InputIndex = [value]; return this; }
 	/// <summary>The text documents.</summary>
 		public PredictMlRequestDescriptor TextDocs(List<string>? value) { _value.TextDocs = value; return this; }
+	public PredictMlRequestDescriptor TextDocs(string value) { _value.TextDocs = [value]; return this; }
 	/// <summary>Whether to return bytes in model output.</summary>
 		public PredictMlRequestDescriptor ReturnNumber(bool? value) { _value.ReturnNumber = value; return this; }
 	/// <summary>The target response.</summary>
 		public PredictMlRequestDescriptor TargetResponse(List<string>? value) { _value.TargetResponse = value; return this; }
+	public PredictMlRequestDescriptor TargetResponse(string value) { _value.TargetResponse = [value]; return this; }
 
 	public static implicit operator PredictMlRequest(PredictMlRequestDescriptor descriptor) => descriptor._value;
 }
