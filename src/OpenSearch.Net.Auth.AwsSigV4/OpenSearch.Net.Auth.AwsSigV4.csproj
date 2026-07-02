@@ -1,9 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <IsPackable>true</IsPackable>
-    <Description>AWS SigV4 authentication handler for OpenSearch .NET client</Description>
-    <PackageTags>opensearch;aws;sigv4;authentication</PackageTags>
+    <PackageId>SB.OpenSearch.Net.Auth.AwsSigV4</PackageId>
+    <Description>AWS SigV4 authentication handler for the OpenSearch .NET client transport. Experimental AI-written rebuild — not an official opensearch-net package. Not for production use.</Description>
+    <PackageTags>opensearch;aws;sigv4;authentication;experimental</PackageTags>
+    <PackageReadmeFile>PACKAGE.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="PACKAGE.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\OpenSearch.Net\OpenSearch.Net.csproj" />

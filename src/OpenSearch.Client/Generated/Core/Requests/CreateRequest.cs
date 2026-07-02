@@ -71,7 +71,7 @@ public sealed class CreateEndpoint : IEndpoint<CreateRequest, CreateResponse>
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-	public RequestBody? GetBody(CreateRequest r) => r.Body is not null ? RequestBody.Json(r.Body) : null;
+	public RequestBody? GetBody(CreateRequest r) => r.Body is not null ? RequestBody.Json(SourceDocument.Wrap(r.Body)) : null;
 
 	public CreateResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<CreateResponse>(body)!;

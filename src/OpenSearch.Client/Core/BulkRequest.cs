@@ -79,7 +79,7 @@ public sealed class BulkIndexOperation<TDocument> : BulkOperation
 		return new Dictionary<string, object> { ["index"] = meta };
 	}
 
-	internal override object? GetBody() => Document;
+	internal override object? GetBody() => Document is null ? null : SourceDocument.Wrap(Document);
 }
 
 /// <summary>
@@ -112,7 +112,7 @@ public sealed class BulkCreateOperation<TDocument> : BulkOperation
 		return new Dictionary<string, object> { ["create"] = meta };
 	}
 
-	internal override object? GetBody() => Document;
+	internal override object? GetBody() => Document is null ? null : SourceDocument.Wrap(Document);
 }
 
 /// <summary>
@@ -151,7 +151,7 @@ public sealed class BulkUpdateOperation<TDocument> : BulkOperation
 	internal override object? GetBody()
 	{
 		var body = new Dictionary<string, object?>();
-		if (Doc is not null) body["doc"] = Doc;
+		if (Doc is not null) body["doc"] = SourceDocument.Wrap(Doc);
 		if (DocAsUpsert is not null) body["doc_as_upsert"] = DocAsUpsert;
 		return body;
 	}

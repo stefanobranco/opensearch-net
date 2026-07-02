@@ -23,6 +23,7 @@ public sealed class GetResult<TDocument>
 	[JsonPropertyName("_seq_no")]
 	public long? SeqNo { get; set; }
 	[JsonPropertyName("_source")]
+	[JsonConverter(typeof(SourceConverterFactory))]
 	public TDocument? Source { get; set; }
 	[JsonPropertyName("_version")]
 	public long? Version { get; set; }

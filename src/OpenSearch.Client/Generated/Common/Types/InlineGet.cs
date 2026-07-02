@@ -25,5 +25,6 @@ public sealed class InlineGet<TDocument>
 	public string? Routing { get; set; }
 	/// <summary>The source of the document.</summary>
 		[JsonPropertyName("_source")]
+	[JsonConverter(typeof(SourceConverterFactory))]
 	public TDocument? Source { get; set; }
 }

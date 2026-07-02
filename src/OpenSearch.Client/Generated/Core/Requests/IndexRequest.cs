@@ -94,7 +94,7 @@ public sealed class IndexEndpoint : IEndpoint<IndexRequest, IndexResponse>
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-	public RequestBody? GetBody(IndexRequest r) => r.Body is not null ? RequestBody.Json(r.Body) : null;
+	public RequestBody? GetBody(IndexRequest r) => r.Body is not null ? RequestBody.Json(SourceDocument.Wrap(r.Body)) : null;
 
 	public IndexResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<IndexResponse>(body)!;
