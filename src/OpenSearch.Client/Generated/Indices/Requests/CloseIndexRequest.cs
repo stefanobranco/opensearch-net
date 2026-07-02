@@ -35,6 +35,7 @@ public sealed class CloseIndexRequest
 	[JsonIgnore]
 	public string? WaitForActiveShards { get; set; }
 }
+
 public sealed class CloseIndexEndpoint : IEndpoint<CloseIndexRequest, CloseIndexResponse>
 {
 	public static readonly CloseIndexEndpoint Instance = new();

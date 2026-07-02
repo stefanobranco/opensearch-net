@@ -17,6 +17,7 @@ public sealed class RemovePolicyIsmRequest
 	[JsonIgnore]
 	public string? Index { get; set; }
 }
+
 public sealed class RemovePolicyIsmEndpoint : IEndpoint<RemovePolicyIsmRequest, RemovePolicyIsmResponse>
 {
 	public static readonly RemovePolicyIsmEndpoint Instance = new();

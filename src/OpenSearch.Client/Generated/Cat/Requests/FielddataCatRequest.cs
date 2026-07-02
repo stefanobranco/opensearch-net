@@ -35,6 +35,7 @@ public sealed class FielddataCatRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
+
 public sealed class FielddataCatEndpoint : IEndpoint<FielddataCatRequest, FielddataCatResponse>
 {
 	public static readonly FielddataCatEndpoint Instance = new();

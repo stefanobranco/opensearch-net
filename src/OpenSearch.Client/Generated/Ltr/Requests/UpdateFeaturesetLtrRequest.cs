@@ -26,6 +26,7 @@ public sealed class UpdateFeaturesetLtrRequest
 	[JsonIgnore]
 	public object? Body { get; set; }
 }
+
 public sealed class UpdateFeaturesetLtrEndpoint : IEndpoint<UpdateFeaturesetLtrRequest, UpdateFeaturesetLtrResponse>
 {
 	public static readonly UpdateFeaturesetLtrEndpoint Instance = new();

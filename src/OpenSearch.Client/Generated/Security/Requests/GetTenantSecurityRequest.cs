@@ -17,6 +17,7 @@ public sealed class GetTenantSecurityRequest
 	[JsonIgnore]
 	public string? Tenant { get; set; }
 }
+
 public sealed class GetTenantSecurityEndpoint : IEndpoint<GetTenantSecurityRequest, GetTenantSecurityResponse>
 {
 	public static readonly GetTenantSecurityEndpoint Instance = new();

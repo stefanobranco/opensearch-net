@@ -18,6 +18,7 @@ public sealed class UpdateDistinguishedNameSecurityRequest
 	public string? ClusterName { get; set; }
 	public List<string>? NodesDn { get; set; }
 }
+
 public sealed class UpdateDistinguishedNameSecurityEndpoint : IEndpoint<UpdateDistinguishedNameSecurityRequest, UpdateDistinguishedNameSecurityResponse>
 {
 	public static readonly UpdateDistinguishedNameSecurityEndpoint Instance = new();

@@ -17,6 +17,7 @@ public sealed class GetJudgmentsSearchRelevanceRequest
 	[JsonIgnore]
 	public string? JudgmentId { get; set; }
 }
+
 public sealed class GetJudgmentsSearchRelevanceEndpoint<TDocument> : IEndpoint<GetJudgmentsSearchRelevanceRequest, GetJudgmentsSearchRelevanceResponse<TDocument>>
 {
 	public static readonly GetJudgmentsSearchRelevanceEndpoint<TDocument> Instance = new();

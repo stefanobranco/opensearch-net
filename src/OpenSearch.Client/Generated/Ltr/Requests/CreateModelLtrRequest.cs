@@ -26,6 +26,7 @@ public sealed class CreateModelLtrRequest
 	[JsonIgnore]
 	public object? Body { get; set; }
 }
+
 public sealed class CreateModelLtrEndpoint : IEndpoint<CreateModelLtrRequest, CreateModelLtrResponse>
 {
 	public static readonly CreateModelLtrEndpoint Instance = new();

@@ -17,6 +17,7 @@ public sealed class CreateAllowlistSecurityRequest
 	/// <summary>An object with APIs as key and array of HTTP methods as values.</summary>
 		public Dictionary<string, List<string>>? Requests { get; set; }
 }
+
 public sealed class CreateAllowlistSecurityEndpoint : IEndpoint<CreateAllowlistSecurityRequest, CreateAllowlistSecurityResponse>
 {
 	public static readonly CreateAllowlistSecurityEndpoint Instance = new();

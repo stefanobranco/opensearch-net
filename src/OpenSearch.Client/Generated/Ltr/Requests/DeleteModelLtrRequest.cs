@@ -20,6 +20,7 @@ public sealed class DeleteModelLtrRequest
 	[JsonIgnore]
 	public string? Store { get; set; }
 }
+
 public sealed class DeleteModelLtrEndpoint : IEndpoint<DeleteModelLtrRequest, DeleteModelLtrResponse>
 {
 	public static readonly DeleteModelLtrEndpoint Instance = new();

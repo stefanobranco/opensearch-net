@@ -14,6 +14,7 @@ namespace OpenSearch.Client;
 public sealed class GetScriptLanguagesRequest
 {
 }
+
 public sealed class GetScriptLanguagesEndpoint : IEndpoint<GetScriptLanguagesRequest, GetScriptLanguagesResponse>
 {
 	public static readonly GetScriptLanguagesEndpoint Instance = new();

@@ -17,6 +17,7 @@ public sealed class DeleteRoleMappingSecurityRequest
 	[JsonIgnore]
 	public string? Role { get; set; }
 }
+
 public sealed class DeleteRoleMappingSecurityEndpoint : IEndpoint<DeleteRoleMappingSecurityRequest, DeleteRoleMappingSecurityResponse>
 {
 	public static readonly DeleteRoleMappingSecurityEndpoint Instance = new();

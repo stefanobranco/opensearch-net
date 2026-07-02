@@ -58,6 +58,7 @@ public sealed class TermvectorsRequest
 	/// <summary>Overrides the default per-field analyzer.</summary>
 		public Dictionary<string, string>? PerFieldAnalyzer { get; set; }
 }
+
 public sealed class TermvectorsEndpoint : IEndpoint<TermvectorsRequest, TermvectorsResponse>
 {
 	public static readonly TermvectorsEndpoint Instance = new();

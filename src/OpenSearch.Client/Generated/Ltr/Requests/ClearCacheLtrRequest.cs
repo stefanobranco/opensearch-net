@@ -17,6 +17,7 @@ public sealed class ClearCacheLtrRequest
 	[JsonIgnore]
 	public string? Store { get; set; }
 }
+
 public sealed class ClearCacheLtrEndpoint : IEndpoint<ClearCacheLtrRequest, ClearCacheLtrResponse>
 {
 	public static readonly ClearCacheLtrEndpoint Instance = new();

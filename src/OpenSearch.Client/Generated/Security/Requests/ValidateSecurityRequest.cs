@@ -17,6 +17,7 @@ public sealed class ValidateSecurityRequest
 	[JsonIgnore]
 	public bool? AcceptInvalid { get; set; }
 }
+
 public sealed class ValidateSecurityEndpoint : IEndpoint<ValidateSecurityRequest, ValidateSecurityResponse>
 {
 	public static readonly ValidateSecurityEndpoint Instance = new();

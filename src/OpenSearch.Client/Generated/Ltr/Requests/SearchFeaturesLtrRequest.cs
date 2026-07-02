@@ -26,6 +26,7 @@ public sealed class SearchFeaturesLtrRequest
 	[JsonIgnore]
 	public int? Size { get; set; }
 }
+
 public sealed class SearchFeaturesLtrEndpoint : IEndpoint<SearchFeaturesLtrRequest, SearchFeaturesLtrResponse>
 {
 	public static readonly SearchFeaturesLtrEndpoint Instance = new();

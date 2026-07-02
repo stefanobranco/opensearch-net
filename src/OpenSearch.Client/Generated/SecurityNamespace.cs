@@ -39,7 +39,6 @@ public sealed partial class SecurityNamespace
 		return AuthinfoAsync((AuthinfoSecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns the authorization token for the current user.</summary>
 	public AuthtokenSecurityResponse Authtoken(AuthtokenSecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, AuthtokenSecurityEndpoint.Instance, options);
@@ -63,7 +62,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return AuthtokenAsync((AuthtokenSecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Changes the password for the current user.</summary>
 	public ChangePasswordSecurityResponse ChangePassword(ChangePasswordSecurityRequest request, TransportOptions? options = null) =>
@@ -89,7 +87,6 @@ public sealed partial class SecurityNamespace
 		return ChangePasswordAsync((ChangePasswordSecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Checks whether or not an upgrade can be performed and which security resources can be updated.</summary>
 	public ConfigUpgradeCheckSecurityResponse ConfigUpgradeCheck(ConfigUpgradeCheckSecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, ConfigUpgradeCheckSecurityEndpoint.Instance, options);
@@ -113,7 +110,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return ConfigUpgradeCheckAsync((ConfigUpgradeCheckSecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Assists the cluster operator with upgrading missing default values and stale default definitions.</summary>
 	public ConfigUpgradePerformSecurityResponse ConfigUpgradePerform(ConfigUpgradePerformSecurityRequest request, TransportOptions? options = null) =>
@@ -139,7 +135,6 @@ public sealed partial class SecurityNamespace
 		return ConfigUpgradePerformAsync((ConfigUpgradePerformSecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Creates or replaces the specified action group.</summary>
 	public CreateActionGroupSecurityResponse CreateActionGroup(CreateActionGroupSecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, CreateActionGroupSecurityEndpoint.Instance, options);
@@ -163,7 +158,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return CreateActionGroupAsync((CreateActionGroupSecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Creates or replaces APIs permitted for users on the allow list. Requires a super admin certificate or REST API permissions.</summary>
 	public CreateAllowlistSecurityResponse CreateAllowlist(CreateAllowlistSecurityRequest request, TransportOptions? options = null) =>
@@ -189,7 +183,6 @@ public sealed partial class SecurityNamespace
 		return CreateAllowlistAsync((CreateAllowlistSecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Creates or replaces the specified role.</summary>
 	public CreateRoleSecurityResponse CreateRole(CreateRoleSecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, CreateRoleSecurityEndpoint.Instance, options);
@@ -213,7 +206,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return CreateRoleAsync((CreateRoleSecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Creates or replaces the specified role mapping.</summary>
 	public CreateRoleMappingSecurityResponse CreateRoleMapping(CreateRoleMappingSecurityRequest request, TransportOptions? options = null) =>
@@ -239,7 +231,6 @@ public sealed partial class SecurityNamespace
 		return CreateRoleMappingAsync((CreateRoleMappingSecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Creates or replaces the specified tenant.</summary>
 	public CreateTenantSecurityResponse CreateTenant(CreateTenantSecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, CreateTenantSecurityEndpoint.Instance, options);
@@ -263,7 +254,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return CreateTenantAsync((CreateTenantSecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Creates or replaces the multi-tenancy configuration. Requires super admin or REST API permissions.</summary>
 	public CreateUpdateTenancyConfigSecurityResponse CreateUpdateTenancyConfig(CreateUpdateTenancyConfigSecurityRequest request, TransportOptions? options = null) =>
@@ -289,7 +279,6 @@ public sealed partial class SecurityNamespace
 		return CreateUpdateTenancyConfigAsync((CreateUpdateTenancyConfigSecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Creates or replaces the specified user.</summary>
 	public CreateUserSecurityResponse CreateUser(CreateUserSecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, CreateUserSecurityEndpoint.Instance, options);
@@ -313,7 +302,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return CreateUserAsync((CreateUserSecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Creates or replaces the specified user. Legacy API.</summary>
 	public CreateUserLegacySecurityResponse CreateUserLegacy(CreateUserLegacySecurityRequest request, TransportOptions? options = null) =>
@@ -339,7 +327,6 @@ public sealed partial class SecurityNamespace
 		return CreateUserLegacyAsync((CreateUserLegacySecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Deletes the specified action group.</summary>
 	public DeleteActionGroupSecurityResponse DeleteActionGroup(DeleteActionGroupSecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, DeleteActionGroupSecurityEndpoint.Instance, options);
@@ -363,7 +350,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return DeleteActionGroupAsync((DeleteActionGroupSecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Deletes all distinguished names in the specified cluster or node allowlist. Requires super admin or REST API permissions.</summary>
 	public DeleteDistinguishedNameSecurityResponse DeleteDistinguishedName(DeleteDistinguishedNameSecurityRequest request, TransportOptions? options = null) =>
@@ -389,7 +375,6 @@ public sealed partial class SecurityNamespace
 		return DeleteDistinguishedNameAsync((DeleteDistinguishedNameSecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Deletes the specified role.</summary>
 	public DeleteRoleSecurityResponse DeleteRole(DeleteRoleSecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, DeleteRoleSecurityEndpoint.Instance, options);
@@ -413,7 +398,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return DeleteRoleAsync((DeleteRoleSecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Deletes the specified role mapping.</summary>
 	public DeleteRoleMappingSecurityResponse DeleteRoleMapping(DeleteRoleMappingSecurityRequest request, TransportOptions? options = null) =>
@@ -439,7 +423,6 @@ public sealed partial class SecurityNamespace
 		return DeleteRoleMappingAsync((DeleteRoleMappingSecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Deletes the specified tenant.</summary>
 	public DeleteTenantSecurityResponse DeleteTenant(DeleteTenantSecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, DeleteTenantSecurityEndpoint.Instance, options);
@@ -463,7 +446,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return DeleteTenantAsync((DeleteTenantSecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Deletes the specified internal user.</summary>
 	public DeleteUserSecurityResponse DeleteUser(DeleteUserSecurityRequest request, TransportOptions? options = null) =>
@@ -489,7 +471,6 @@ public sealed partial class SecurityNamespace
 		return DeleteUserAsync((DeleteUserSecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Delete the specified user. Legacy API.</summary>
 	public DeleteUserLegacySecurityResponse DeleteUserLegacy(DeleteUserLegacySecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, DeleteUserLegacySecurityEndpoint.Instance, options);
@@ -513,7 +494,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return DeleteUserLegacyAsync((DeleteUserLegacySecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Flushes the Security plugin's user, authentication, and authorization cache.</summary>
 	public FlushCacheSecurityResponse FlushCache(FlushCacheSecurityRequest request, TransportOptions? options = null) =>
@@ -539,7 +519,6 @@ public sealed partial class SecurityNamespace
 		return FlushCacheAsync((FlushCacheSecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Generates a `On-Behalf-Of` token for the current user.</summary>
 	public GenerateOboTokenSecurityResponse GenerateOboToken(GenerateOboTokenSecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GenerateOboTokenSecurityEndpoint.Instance, options);
@@ -563,7 +542,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return GenerateOboTokenAsync((GenerateOboTokenSecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Generates an authorization token for the specified user.</summary>
 	public GenerateUserTokenSecurityResponse GenerateUserToken(GenerateUserTokenSecurityRequest request, TransportOptions? options = null) =>
@@ -589,7 +567,6 @@ public sealed partial class SecurityNamespace
 		return GenerateUserTokenAsync((GenerateUserTokenSecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Generates authorization token for the given user. Legacy API. Not Implemented.</summary>
 	public GenerateUserTokenLegacySecurityResponse GenerateUserTokenLegacy(GenerateUserTokenLegacySecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GenerateUserTokenLegacySecurityEndpoint.Instance, options);
@@ -613,7 +590,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return GenerateUserTokenLegacyAsync((GenerateUserTokenLegacySecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Returns account information for the current user.</summary>
 	public GetAccountDetailsSecurityResponse GetAccountDetails(GetAccountDetailsSecurityRequest request, TransportOptions? options = null) =>
@@ -639,7 +615,6 @@ public sealed partial class SecurityNamespace
 		return GetAccountDetailsAsync((GetAccountDetailsSecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Retrieves one action group.</summary>
 	public GetActionGroupSecurityResponse GetActionGroup(GetActionGroupSecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetActionGroupSecurityEndpoint.Instance, options);
@@ -663,7 +638,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return GetActionGroupAsync((GetActionGroupSecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Retrieves all action groups.</summary>
 	public GetActionGroupsSecurityResponse GetActionGroups(GetActionGroupsSecurityRequest request, TransportOptions? options = null) =>
@@ -689,7 +663,6 @@ public sealed partial class SecurityNamespace
 		return GetActionGroupsAsync((GetActionGroupsSecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Retrieves the cluster security certificates.</summary>
 	public GetAllCertificatesSecurityResponse GetAllCertificates(GetAllCertificatesSecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetAllCertificatesSecurityEndpoint.Instance, options);
@@ -713,7 +686,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return GetAllCertificatesAsync((GetAllCertificatesSecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Retrieves the current list of allowed APIs accessible to a normal user.</summary>
 	public GetAllowlistSecurityResponse GetAllowlist(GetAllowlistSecurityRequest request, TransportOptions? options = null) =>
@@ -739,7 +711,6 @@ public sealed partial class SecurityNamespace
 		return GetAllowlistAsync((GetAllowlistSecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Retrieves the audit configuration.</summary>
 	public GetAuditConfigurationSecurityResponse GetAuditConfiguration(GetAuditConfigurationSecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetAuditConfigurationSecurityEndpoint.Instance, options);
@@ -763,7 +734,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return GetAuditConfigurationAsync((GetAuditConfigurationSecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Retrieves the cluster security certificates.</summary>
 	public GetCertificatesSecurityResponse GetCertificates(GetCertificatesSecurityRequest request, TransportOptions? options = null) =>
@@ -789,7 +759,6 @@ public sealed partial class SecurityNamespace
 		return GetCertificatesAsync((GetCertificatesSecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns the current Security plugin configuration in a JSON format.</summary>
 	public GetConfigurationSecurityResponse GetConfiguration(GetConfigurationSecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetConfigurationSecurityEndpoint.Instance, options);
@@ -813,7 +782,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return GetConfigurationAsync((GetConfigurationSecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Retrieves the current values for dynamic security settings for OpenSearch Dashboards.</summary>
 	public GetDashboardsInfoSecurityResponse GetDashboardsInfo(GetDashboardsInfoSecurityRequest request, TransportOptions? options = null) =>
@@ -839,7 +807,6 @@ public sealed partial class SecurityNamespace
 		return GetDashboardsInfoAsync((GetDashboardsInfoSecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Retrieves all node distinguished names. Requires super admin or REST API permissions.</summary>
 	public GetDistinguishedNameSecurityResponse GetDistinguishedName(GetDistinguishedNameSecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetDistinguishedNameSecurityEndpoint.Instance, options);
@@ -863,7 +830,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return GetDistinguishedNameAsync((GetDistinguishedNameSecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Retrieves all node distinguished names. Requires super admin or REST API permissions.</summary>
 	public GetDistinguishedNamesSecurityResponse GetDistinguishedNames(GetDistinguishedNamesSecurityRequest request, TransportOptions? options = null) =>
@@ -889,7 +855,6 @@ public sealed partial class SecurityNamespace
 		return GetDistinguishedNamesAsync((GetDistinguishedNamesSecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Retrieves the specified node's security certificates.</summary>
 	public GetNodeCertificatesSecurityResponse GetNodeCertificates(GetNodeCertificatesSecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetNodeCertificatesSecurityEndpoint.Instance, options);
@@ -913,7 +878,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return GetNodeCertificatesAsync((GetNodeCertificatesSecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Retrieves the evaluated REST API permissions for the currently logged in user.</summary>
 	public GetPermissionsInfoSecurityResponse GetPermissionsInfo(GetPermissionsInfoSecurityRequest request, TransportOptions? options = null) =>
@@ -939,7 +903,6 @@ public sealed partial class SecurityNamespace
 		return GetPermissionsInfoAsync((GetPermissionsInfoSecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Retrieves one role.</summary>
 	public GetRoleSecurityResponse GetRole(GetRoleSecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetRoleSecurityEndpoint.Instance, options);
@@ -963,7 +926,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return GetRoleAsync((GetRoleSecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Retrieves the specified role mapping.</summary>
 	public GetRoleMappingSecurityResponse GetRoleMapping(GetRoleMappingSecurityRequest request, TransportOptions? options = null) =>
@@ -989,7 +951,6 @@ public sealed partial class SecurityNamespace
 		return GetRoleMappingAsync((GetRoleMappingSecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Retrieves all role mappings.</summary>
 	public GetRoleMappingsSecurityResponse GetRoleMappings(GetRoleMappingsSecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetRoleMappingsSecurityEndpoint.Instance, options);
@@ -1013,7 +974,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return GetRoleMappingsAsync((GetRoleMappingsSecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Retrieves all roles.</summary>
 	public GetRolesSecurityResponse GetRoles(GetRolesSecurityRequest request, TransportOptions? options = null) =>
@@ -1039,7 +999,6 @@ public sealed partial class SecurityNamespace
 		return GetRolesAsync((GetRolesSecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Retrieves information about the SSL configuration.</summary>
 	public GetSslinfoSecurityResponse GetSslinfo(GetSslinfoSecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetSslinfoSecurityEndpoint.Instance, options);
@@ -1063,7 +1022,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return GetSslinfoAsync((GetSslinfoSecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Retrieves the multi-tenancy configuration. Requires super admin or REST API permissions.</summary>
 	public GetTenancyConfigSecurityResponse GetTenancyConfig(GetTenancyConfigSecurityRequest request, TransportOptions? options = null) =>
@@ -1089,7 +1047,6 @@ public sealed partial class SecurityNamespace
 		return GetTenancyConfigAsync((GetTenancyConfigSecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Retrieves the specified tenant.</summary>
 	public GetTenantSecurityResponse GetTenant(GetTenantSecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetTenantSecurityEndpoint.Instance, options);
@@ -1113,7 +1070,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return GetTenantAsync((GetTenantSecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Retrieves all tenants.</summary>
 	public GetTenantsSecurityResponse GetTenants(GetTenantsSecurityRequest request, TransportOptions? options = null) =>
@@ -1139,7 +1095,6 @@ public sealed partial class SecurityNamespace
 		return GetTenantsAsync((GetTenantsSecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Retrieve information about the specified internal user.</summary>
 	public GetUserSecurityResponse GetUser(GetUserSecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetUserSecurityEndpoint.Instance, options);
@@ -1163,7 +1118,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return GetUserAsync((GetUserSecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Retrieve one user. Legacy API.</summary>
 	public GetUserLegacySecurityResponse GetUserLegacy(GetUserLegacySecurityRequest request, TransportOptions? options = null) =>
@@ -1189,7 +1143,6 @@ public sealed partial class SecurityNamespace
 		return GetUserLegacyAsync((GetUserLegacySecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Retrieve all internal users.</summary>
 	public GetUsersSecurityResponse GetUsers(GetUsersSecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetUsersSecurityEndpoint.Instance, options);
@@ -1213,7 +1166,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return GetUsersAsync((GetUsersSecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Retrieve all internal users. Legacy API.</summary>
 	public GetUsersLegacySecurityResponse GetUsersLegacy(GetUsersLegacySecurityRequest request, TransportOptions? options = null) =>
@@ -1239,7 +1191,6 @@ public sealed partial class SecurityNamespace
 		return GetUsersLegacyAsync((GetUsersLegacySecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Checks to see if the Security plugin is running.</summary>
 	public HealthSecurityResponse Health(HealthSecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, HealthSecurityEndpoint.Instance, options);
@@ -1263,7 +1214,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return HealthAsync((HealthSecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Migrates the security configuration from v6 to v7.</summary>
 	public MigrateSecurityResponse Migrate(MigrateSecurityRequest request, TransportOptions? options = null) =>
@@ -1289,7 +1239,6 @@ public sealed partial class SecurityNamespace
 		return MigrateAsync((MigrateSecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Updates the individual attributes of an action group.</summary>
 	public PatchActionGroupSecurityResponse PatchActionGroup(PatchActionGroupSecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, PatchActionGroupSecurityEndpoint.Instance, options);
@@ -1313,7 +1262,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return PatchActionGroupAsync((PatchActionGroupSecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Creates, updates, or deletes multiple action groups in a single request.</summary>
 	public PatchActionGroupsSecurityResponse PatchActionGroups(PatchActionGroupsSecurityRequest request, TransportOptions? options = null) =>
@@ -1339,7 +1287,6 @@ public sealed partial class SecurityNamespace
 		return PatchActionGroupsAsync((PatchActionGroupsSecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Updates the current list of APIs accessible for users on the allow list.</summary>
 	public PatchAllowlistSecurityResponse PatchAllowlist(PatchAllowlistSecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, PatchAllowlistSecurityEndpoint.Instance, options);
@@ -1363,7 +1310,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return PatchAllowlistAsync((PatchAllowlistSecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Updates the specified fields in the audit configuration.</summary>
 	public PatchAuditConfigurationSecurityResponse PatchAuditConfiguration(PatchAuditConfigurationSecurityRequest request, TransportOptions? options = null) =>
@@ -1389,7 +1335,6 @@ public sealed partial class SecurityNamespace
 		return PatchAuditConfigurationAsync((PatchAuditConfigurationSecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Updates the existing security configuration using the REST API. Requires super admin or REST API permissions.</summary>
 	public PatchConfigurationSecurityResponse PatchConfiguration(PatchConfigurationSecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, PatchConfigurationSecurityEndpoint.Instance, options);
@@ -1413,7 +1358,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return PatchConfigurationAsync((PatchConfigurationSecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Updates the distinguished cluster name for the specified cluster. Requires super admin or REST API permissions.</summary>
 	public PatchDistinguishedNameSecurityResponse PatchDistinguishedName(PatchDistinguishedNameSecurityRequest request, TransportOptions? options = null) =>
@@ -1439,7 +1383,6 @@ public sealed partial class SecurityNamespace
 		return PatchDistinguishedNameAsync((PatchDistinguishedNameSecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Bulk updates specified node distinguished names. Requires super admin or REST API permissions.</summary>
 	public PatchDistinguishedNamesSecurityResponse PatchDistinguishedNames(PatchDistinguishedNamesSecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, PatchDistinguishedNamesSecurityEndpoint.Instance, options);
@@ -1463,7 +1406,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return PatchDistinguishedNamesAsync((PatchDistinguishedNamesSecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Updates the individual attributes of a role.</summary>
 	public PatchRoleSecurityResponse PatchRole(PatchRoleSecurityRequest request, TransportOptions? options = null) =>
@@ -1489,7 +1431,6 @@ public sealed partial class SecurityNamespace
 		return PatchRoleAsync((PatchRoleSecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Updates the individual attributes of a role mapping.</summary>
 	public PatchRoleMappingSecurityResponse PatchRoleMapping(PatchRoleMappingSecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, PatchRoleMappingSecurityEndpoint.Instance, options);
@@ -1513,7 +1454,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return PatchRoleMappingAsync((PatchRoleMappingSecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Creates or updates multiple role mappings in a single request.</summary>
 	public PatchRoleMappingsSecurityResponse PatchRoleMappings(PatchRoleMappingsSecurityRequest request, TransportOptions? options = null) =>
@@ -1539,7 +1479,6 @@ public sealed partial class SecurityNamespace
 		return PatchRoleMappingsAsync((PatchRoleMappingsSecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Creates, updates, or deletes multiple roles in a single call.</summary>
 	public PatchRolesSecurityResponse PatchRoles(PatchRolesSecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, PatchRolesSecurityEndpoint.Instance, options);
@@ -1563,7 +1502,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return PatchRolesAsync((PatchRolesSecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Adds, deletes, or modifies a single tenant.</summary>
 	public PatchTenantSecurityResponse PatchTenant(PatchTenantSecurityRequest request, TransportOptions? options = null) =>
@@ -1589,7 +1527,6 @@ public sealed partial class SecurityNamespace
 		return PatchTenantAsync((PatchTenantSecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Adds, deletes, or modifies multiple tenants in a single request.</summary>
 	public PatchTenantsSecurityResponse PatchTenants(PatchTenantsSecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, PatchTenantsSecurityEndpoint.Instance, options);
@@ -1613,7 +1550,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return PatchTenantsAsync((PatchTenantsSecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Updates individual attributes for an internal user.</summary>
 	public PatchUserSecurityResponse PatchUser(PatchUserSecurityRequest request, TransportOptions? options = null) =>
@@ -1639,7 +1575,6 @@ public sealed partial class SecurityNamespace
 		return PatchUserAsync((PatchUserSecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Creates, updates, or deletes multiple internal users in a single request.</summary>
 	public PatchUsersSecurityResponse PatchUsers(PatchUsersSecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, PatchUsersSecurityEndpoint.Instance, options);
@@ -1663,7 +1598,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return PatchUsersAsync((PatchUsersSecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Retrieves the current values for dynamic security settings for OpenSearch Dashboards.</summary>
 	public PostDashboardsInfoSecurityResponse PostDashboardsInfo(PostDashboardsInfoSecurityRequest request, TransportOptions? options = null) =>
@@ -1689,7 +1623,6 @@ public sealed partial class SecurityNamespace
 		return PostDashboardsInfoAsync((PostDashboardsInfoSecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Reloads the HTTP communication certificates.</summary>
 	public ReloadHttpCertificatesSecurityResponse ReloadHttpCertificates(ReloadHttpCertificatesSecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, ReloadHttpCertificatesSecurityEndpoint.Instance, options);
@@ -1713,7 +1646,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return ReloadHttpCertificatesAsync((ReloadHttpCertificatesSecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Reloads the transport communication certificates.</summary>
 	public ReloadTransportCertificatesSecurityResponse ReloadTransportCertificates(ReloadTransportCertificatesSecurityRequest request, TransportOptions? options = null) =>
@@ -1739,7 +1671,6 @@ public sealed partial class SecurityNamespace
 		return ReloadTransportCertificatesAsync((ReloadTransportCertificatesSecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Retrieves the names of current tenants. Requires super admin or `kibanaserver` permissions.</summary>
 	public TenantInfoSecurityResponse TenantInfo(TenantInfoSecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, TenantInfoSecurityEndpoint.Instance, options);
@@ -1763,7 +1694,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return TenantInfoAsync((TenantInfoSecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Updates the audit configuration.</summary>
 	public UpdateAuditConfigurationSecurityResponse UpdateAuditConfiguration(UpdateAuditConfigurationSecurityRequest request, TransportOptions? options = null) =>
@@ -1789,7 +1719,6 @@ public sealed partial class SecurityNamespace
 		return UpdateAuditConfigurationAsync((UpdateAuditConfigurationSecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Updates the settings for an existing security configuration. Requires super admin or REST API permissions.</summary>
 	public UpdateConfigurationSecurityResponse UpdateConfiguration(UpdateConfigurationSecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, UpdateConfigurationSecurityEndpoint.Instance, options);
@@ -1813,7 +1742,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return UpdateConfigurationAsync((UpdateConfigurationSecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Adds or updates the specified distinguished names in the cluster or node allowlist. Requires super admin or REST API permissions.</summary>
 	public UpdateDistinguishedNameSecurityResponse UpdateDistinguishedName(UpdateDistinguishedNameSecurityRequest request, TransportOptions? options = null) =>
@@ -1839,7 +1767,6 @@ public sealed partial class SecurityNamespace
 		return UpdateDistinguishedNameAsync((UpdateDistinguishedNameSecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Checks whether the v6 security configuration is valid and ready to be migrated to v7.</summary>
 	public ValidateSecurityResponse Validate(ValidateSecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, ValidateSecurityEndpoint.Instance, options);
@@ -1863,7 +1790,6 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return ValidateAsync((ValidateSecurityRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Gets the identity information for the user currently logged in.</summary>
 	public WhoAmISecurityResponse WhoAmI(WhoAmISecurityRequest request, TransportOptions? options = null) =>
@@ -1889,7 +1815,6 @@ public sealed partial class SecurityNamespace
 		return WhoAmIAsync((WhoAmISecurityRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Gets the identity information for the user currently logged in. To use this operation, you must have access to this endpoint when authorization at REST layer is enabled.</summary>
 	public WhoAmIProtectedSecurityResponse WhoAmIProtected(WhoAmIProtectedSecurityRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, WhoAmIProtectedSecurityEndpoint.Instance, options);
@@ -1913,5 +1838,4 @@ public sealed partial class SecurityNamespace
 		configure(descriptor);
 		return WhoAmIProtectedAsync((WhoAmIProtectedSecurityRequest)descriptor, options, ct);
 	}
-
 }

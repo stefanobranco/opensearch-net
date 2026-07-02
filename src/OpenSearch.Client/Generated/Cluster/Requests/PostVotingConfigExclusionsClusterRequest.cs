@@ -23,6 +23,7 @@ public sealed class PostVotingConfigExclusionsClusterRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 }
+
 public sealed class PostVotingConfigExclusionsClusterEndpoint : IEndpoint<PostVotingConfigExclusionsClusterRequest, PostVotingConfigExclusionsClusterResponse>
 {
 	public static readonly PostVotingConfigExclusionsClusterEndpoint Instance = new();

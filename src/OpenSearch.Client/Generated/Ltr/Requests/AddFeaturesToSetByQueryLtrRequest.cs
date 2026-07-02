@@ -32,6 +32,7 @@ public sealed class AddFeaturesToSetByQueryLtrRequest
 	[JsonIgnore]
 	public int? Version { get; set; }
 }
+
 public sealed class AddFeaturesToSetByQueryLtrEndpoint : IEndpoint<AddFeaturesToSetByQueryLtrRequest, AddFeaturesToSetByQueryLtrResponse>
 {
 	public static readonly AddFeaturesToSetByQueryLtrEndpoint Instance = new();

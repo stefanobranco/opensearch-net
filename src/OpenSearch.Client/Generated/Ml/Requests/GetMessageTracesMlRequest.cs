@@ -23,6 +23,7 @@ public sealed class GetMessageTracesMlRequest
 	[JsonIgnore]
 	public int? NextToken { get; set; }
 }
+
 public sealed class GetMessageTracesMlEndpoint : IEndpoint<GetMessageTracesMlRequest, GetMessageTracesMlResponse>
 {
 	public static readonly GetMessageTracesMlEndpoint Instance = new();

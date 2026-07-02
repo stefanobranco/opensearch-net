@@ -23,6 +23,7 @@ public sealed class CleanupRepositorySnapshotRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 }
+
 public sealed class CleanupRepositorySnapshotEndpoint : IEndpoint<CleanupRepositorySnapshotRequest, CleanupRepositorySnapshotResponse>
 {
 	public static readonly CleanupRepositorySnapshotEndpoint Instance = new();

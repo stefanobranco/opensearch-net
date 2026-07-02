@@ -96,6 +96,7 @@ public sealed class PutSettingsIndexRequest
 	public string? Knn { get; set; }
 	public IngestionSource? IngestionSource { get; set; }
 }
+
 public sealed class PutSettingsIndexEndpoint : IEndpoint<PutSettingsIndexRequest, PutSettingsIndexResponse>
 {
 	public static readonly PutSettingsIndexEndpoint Instance = new();

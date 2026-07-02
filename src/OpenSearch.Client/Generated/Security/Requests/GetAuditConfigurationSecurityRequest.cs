@@ -14,6 +14,7 @@ namespace OpenSearch.Client;
 public sealed class GetAuditConfigurationSecurityRequest
 {
 }
+
 public sealed class GetAuditConfigurationSecurityEndpoint : IEndpoint<GetAuditConfigurationSecurityRequest, GetAuditConfigurationSecurityResponse>
 {
 	public static readonly GetAuditConfigurationSecurityEndpoint Instance = new();

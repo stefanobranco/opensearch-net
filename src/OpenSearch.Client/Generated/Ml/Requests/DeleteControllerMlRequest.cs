@@ -17,6 +17,7 @@ public sealed class DeleteControllerMlRequest
 	[JsonIgnore]
 	public string? ModelId { get; set; }
 }
+
 public sealed class DeleteControllerMlEndpoint : IEndpoint<DeleteControllerMlRequest, DeleteControllerMlResponse>
 {
 	public static readonly DeleteControllerMlEndpoint Instance = new();

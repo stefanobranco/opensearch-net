@@ -23,6 +23,7 @@ public sealed class DeleteAgenticMemoryMlRequest
 	[JsonIgnore]
 	public MemoryType? Type { get; set; }
 }
+
 public sealed class DeleteAgenticMemoryMlEndpoint : IEndpoint<DeleteAgenticMemoryMlRequest, DeleteAgenticMemoryMlResponse>
 {
 	public static readonly DeleteAgenticMemoryMlEndpoint Instance = new();

@@ -35,6 +35,7 @@ public sealed class PutAliasIndexRequest
 	/// <summary>If `true`, the alias will be hidden`.</summary>
 		public bool? IsHidden { get; set; }
 }
+
 public sealed class PutAliasIndexEndpoint : IEndpoint<PutAliasIndexRequest, PutAliasIndexResponse>
 {
 	public static readonly PutAliasIndexEndpoint Instance = new();

@@ -20,6 +20,7 @@ public sealed class GetStatsMlRequest
 	[JsonIgnore]
 	public string? NodeId { get; set; }
 }
+
 public sealed class GetStatsMlEndpoint : IEndpoint<GetStatsMlRequest, GetStatsMlResponse>
 {
 	public static readonly GetStatsMlEndpoint Instance = new();

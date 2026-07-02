@@ -14,6 +14,7 @@ namespace OpenSearch.Client;
 public sealed class GetRoleMappingsSecurityRequest
 {
 }
+
 public sealed class GetRoleMappingsSecurityEndpoint : IEndpoint<GetRoleMappingsSecurityRequest, GetRoleMappingsSecurityResponse>
 {
 	public static readonly GetRoleMappingsSecurityEndpoint Instance = new();

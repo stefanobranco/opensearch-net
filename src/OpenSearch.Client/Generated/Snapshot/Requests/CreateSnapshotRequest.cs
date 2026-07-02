@@ -36,6 +36,7 @@ public sealed class CreateSnapshotRequest
 	/// <summary>When `true`, enables the restoration of a partial snapshot from indexes with unavailable shards. Only shards that were successfully included in the snapshot will be restored. All missing shards will be recreated as empty. When `false`, the entire restore operation will fail if one or more indexes included in the snapshot do not have all primary shards available.</summary>
 		public bool? Partial { get; set; }
 }
+
 public sealed class CreateSnapshotEndpoint : IEndpoint<CreateSnapshotRequest, CreateSnapshotResponse>
 {
 	public static readonly CreateSnapshotEndpoint Instance = new();

@@ -54,6 +54,7 @@ public sealed class MtermvectorsRequest
 	/// <summary>Simplified syntax to specify documents by their ID if they're in the same index.</summary>
 		public List<string>? Ids { get; set; }
 }
+
 public sealed class MtermvectorsEndpoint : IEndpoint<MtermvectorsRequest, MtermvectorsResponse>
 {
 	public static readonly MtermvectorsEndpoint Instance = new();

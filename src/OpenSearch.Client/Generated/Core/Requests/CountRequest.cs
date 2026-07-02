@@ -60,6 +60,7 @@ public sealed class CountRequest
 	public int? TerminateAfter { get; set; }
 	public QueryContainer? Query { get; set; }
 }
+
 public sealed class CountEndpoint : IEndpoint<CountRequest, CountResponse>
 {
 	public static readonly CountEndpoint Instance = new();

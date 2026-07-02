@@ -22,6 +22,7 @@ public sealed class CreateConnectorMlRequest
 	public ClientConfig? ClientConfig { get; set; }
 	public List<IndexAction>? Actions { get; set; }
 }
+
 public sealed class CreateConnectorMlEndpoint : IEndpoint<CreateConnectorMlRequest, CreateConnectorMlResponse>
 {
 	public static readonly CreateConnectorMlEndpoint Instance = new();

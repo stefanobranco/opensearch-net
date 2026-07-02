@@ -26,6 +26,7 @@ public sealed class GetSettingsClusterRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 }
+
 public sealed class GetSettingsClusterEndpoint : IEndpoint<GetSettingsClusterRequest, GetSettingsClusterResponse>
 {
 	public static readonly GetSettingsClusterEndpoint Instance = new();

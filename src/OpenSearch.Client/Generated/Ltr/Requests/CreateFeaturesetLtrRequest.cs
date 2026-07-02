@@ -26,6 +26,7 @@ public sealed class CreateFeaturesetLtrRequest
 	[JsonIgnore]
 	public object? Body { get; set; }
 }
+
 public sealed class CreateFeaturesetLtrEndpoint : IEndpoint<CreateFeaturesetLtrRequest, CreateFeaturesetLtrResponse>
 {
 	public static readonly CreateFeaturesetLtrEndpoint Instance = new();

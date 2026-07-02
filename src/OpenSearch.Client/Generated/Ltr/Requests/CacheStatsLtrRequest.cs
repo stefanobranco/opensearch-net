@@ -14,6 +14,7 @@ namespace OpenSearch.Client;
 public sealed class CacheStatsLtrRequest
 {
 }
+
 public sealed class CacheStatsLtrEndpoint : IEndpoint<CacheStatsLtrRequest, CacheStatsLtrResponse>
 {
 	public static readonly CacheStatsLtrEndpoint Instance = new();

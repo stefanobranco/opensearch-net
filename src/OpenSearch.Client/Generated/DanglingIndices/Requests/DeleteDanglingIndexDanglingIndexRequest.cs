@@ -26,6 +26,7 @@ public sealed class DeleteDanglingIndexDanglingIndexRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 }
+
 public sealed class DeleteDanglingIndexDanglingIndexEndpoint : IEndpoint<DeleteDanglingIndexDanglingIndexRequest, DeleteDanglingIndexDanglingIndexResponse>
 {
 	public static readonly DeleteDanglingIndexDanglingIndexEndpoint Instance = new();

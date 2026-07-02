@@ -18,6 +18,7 @@ public sealed class ExecuteToolMlRequest
 	public ToolName? ToolName { get; set; }
 	public Dictionary<string, object>? Parameters { get; set; }
 }
+
 public sealed class ExecuteToolMlEndpoint : IEndpoint<ExecuteToolMlRequest, ExecuteToolMlResponse>
 {
 	public static readonly ExecuteToolMlEndpoint Instance = new();

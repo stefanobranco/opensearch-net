@@ -165,6 +165,7 @@ public sealed class SearchRequest
 		public List<string>? Stats { get; set; }
 	public Dictionary<string, DerivedField>? Derived { get; set; }
 }
+
 public sealed class SearchEndpoint<TDocument> : IEndpoint<SearchRequest, SearchResponse<TDocument>>
 {
 	public static readonly SearchEndpoint<TDocument> Instance = new();

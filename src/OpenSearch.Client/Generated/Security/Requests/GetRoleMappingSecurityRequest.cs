@@ -17,6 +17,7 @@ public sealed class GetRoleMappingSecurityRequest
 	[JsonIgnore]
 	public string? Role { get; set; }
 }
+
 public sealed class GetRoleMappingSecurityEndpoint : IEndpoint<GetRoleMappingSecurityRequest, GetRoleMappingSecurityResponse>
 {
 	public static readonly GetRoleMappingSecurityEndpoint Instance = new();

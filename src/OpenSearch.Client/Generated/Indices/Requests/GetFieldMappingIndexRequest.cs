@@ -35,6 +35,7 @@ public sealed class GetFieldMappingIndexRequest
 	[JsonIgnore]
 	public bool? Local { get; set; }
 }
+
 public sealed class GetFieldMappingIndexEndpoint : IEndpoint<GetFieldMappingIndexRequest, GetFieldMappingIndexResponse>
 {
 	public static readonly GetFieldMappingIndexEndpoint Instance = new();

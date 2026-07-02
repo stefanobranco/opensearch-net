@@ -26,6 +26,7 @@ public sealed class GetComponentTemplateClusterRequest
 	[JsonIgnore]
 	public bool? Local { get; set; }
 }
+
 public sealed class GetComponentTemplateClusterEndpoint : IEndpoint<GetComponentTemplateClusterRequest, GetComponentTemplateClusterResponse>
 {
 	public static readonly GetComponentTemplateClusterEndpoint Instance = new();

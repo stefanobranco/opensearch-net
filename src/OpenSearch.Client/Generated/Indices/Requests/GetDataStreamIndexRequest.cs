@@ -17,6 +17,7 @@ public sealed class GetDataStreamIndexRequest
 	[JsonIgnore]
 	public List<string>? Name { get; set; }
 }
+
 public sealed class GetDataStreamIndexEndpoint : IEndpoint<GetDataStreamIndexRequest, GetDataStreamIndexResponse>
 {
 	public static readonly GetDataStreamIndexEndpoint Instance = new();

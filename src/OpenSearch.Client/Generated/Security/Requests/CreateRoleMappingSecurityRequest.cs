@@ -24,6 +24,7 @@ public sealed class CreateRoleMappingSecurityRequest
 	public List<string>? AndBackendRoles { get; set; }
 	public string? Description { get; set; }
 }
+
 public sealed class CreateRoleMappingSecurityEndpoint : IEndpoint<CreateRoleMappingSecurityRequest, CreateRoleMappingSecurityResponse>
 {
 	public static readonly CreateRoleMappingSecurityEndpoint Instance = new();

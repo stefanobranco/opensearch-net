@@ -28,6 +28,7 @@ public sealed class UpdateConnectorMlRequest
 		public List<string>? BackendRoles { get; set; }
 	public ModelGroupAccessMode? AccessMode { get; set; }
 }
+
 public sealed class UpdateConnectorMlEndpoint : IEndpoint<UpdateConnectorMlRequest, UpdateConnectorMlResponse>
 {
 	public static readonly UpdateConnectorMlEndpoint Instance = new();

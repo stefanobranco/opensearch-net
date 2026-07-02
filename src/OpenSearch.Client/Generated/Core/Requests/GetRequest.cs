@@ -50,6 +50,7 @@ public sealed class GetRequest
 	[JsonIgnore]
 	public string? VersionType { get; set; }
 }
+
 public sealed class GetEndpoint<TDocument> : IEndpoint<GetRequest, GetResponse<TDocument>>
 {
 	public static readonly GetEndpoint<TDocument> Instance = new();

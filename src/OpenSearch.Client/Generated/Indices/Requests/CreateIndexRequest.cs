@@ -30,6 +30,7 @@ public sealed class CreateIndexRequest
 	public TypeMapping? Mappings { get; set; }
 	public IndexSettings? Settings { get; set; }
 }
+
 public sealed class CreateIndexEndpoint : IEndpoint<CreateIndexRequest, CreateIndexResponse>
 {
 	public static readonly CreateIndexEndpoint Instance = new();

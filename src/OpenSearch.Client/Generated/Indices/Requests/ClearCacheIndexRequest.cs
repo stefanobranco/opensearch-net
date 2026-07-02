@@ -41,6 +41,7 @@ public sealed class ClearCacheIndexRequest
 	[JsonIgnore]
 	public bool? Request { get; set; }
 }
+
 public sealed class ClearCacheIndexEndpoint : IEndpoint<ClearCacheIndexRequest, ClearCacheIndexResponse>
 {
 	public static readonly ClearCacheIndexEndpoint Instance = new();

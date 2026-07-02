@@ -23,6 +23,7 @@ public sealed class DeleteRepositorySnapshotRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 }
+
 public sealed class DeleteRepositorySnapshotEndpoint : IEndpoint<DeleteRepositorySnapshotRequest, DeleteRepositorySnapshotResponse>
 {
 	public static readonly DeleteRepositorySnapshotEndpoint Instance = new();

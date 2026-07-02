@@ -23,6 +23,7 @@ public sealed class StatsKnnRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 }
+
 public sealed class StatsKnnEndpoint : IEndpoint<StatsKnnRequest, StatsKnnResponse>
 {
 	public static readonly StatsKnnEndpoint Instance = new();

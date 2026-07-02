@@ -30,6 +30,7 @@ public sealed class RegisterModelMlRequest
 	/// <summary>The connector ID.</summary>
 		public string? ConnectorId { get; set; }
 }
+
 public sealed class RegisterModelMlEndpoint : IEndpoint<RegisterModelMlRequest, RegisterModelMlResponse>
 {
 	public static readonly RegisterModelMlEndpoint Instance = new();

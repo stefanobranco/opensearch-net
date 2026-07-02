@@ -35,6 +35,7 @@ public sealed class PluginsCatRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
+
 public sealed class PluginsCatEndpoint : IEndpoint<PluginsCatRequest, PluginsCatResponse>
 {
 	public static readonly PluginsCatEndpoint Instance = new();

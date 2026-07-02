@@ -38,6 +38,7 @@ public sealed class SimulateTemplateIndexRequest
 		public bool? AllowAutoCreate { get; set; }
 	public IndexTemplateDataStreamConfiguration? DataStream { get; set; }
 }
+
 public sealed class SimulateTemplateIndexEndpoint : IEndpoint<SimulateTemplateIndexRequest, SimulateTemplateIndexResponse>
 {
 	public static readonly SimulateTemplateIndexEndpoint Instance = new();

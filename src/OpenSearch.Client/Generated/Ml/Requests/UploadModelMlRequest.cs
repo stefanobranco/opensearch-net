@@ -21,6 +21,7 @@ public sealed class UploadModelMlRequest
 		public string? Description { get; set; }
 	public string? ModelGroupId { get; set; }
 }
+
 public sealed class UploadModelMlEndpoint : IEndpoint<UploadModelMlRequest, UploadModelMlResponse>
 {
 	public static readonly UploadModelMlEndpoint Instance = new();

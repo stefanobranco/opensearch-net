@@ -14,6 +14,7 @@ namespace OpenSearch.Client;
 public sealed class InitializeUbiRequest
 {
 }
+
 public sealed class InitializeUbiEndpoint : IEndpoint<InitializeUbiRequest, InitializeUbiResponse>
 {
 	public static readonly InitializeUbiEndpoint Instance = new();

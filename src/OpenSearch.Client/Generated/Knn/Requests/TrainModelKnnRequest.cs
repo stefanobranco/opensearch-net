@@ -31,6 +31,7 @@ public sealed class TrainModelKnnRequest
 	[JsonPropertyName("spaceType")]
 	public string? SpaceType { get; set; }
 }
+
 public sealed class TrainModelKnnEndpoint : IEndpoint<TrainModelKnnRequest, TrainModelKnnResponse>
 {
 	public static readonly TrainModelKnnEndpoint Instance = new();

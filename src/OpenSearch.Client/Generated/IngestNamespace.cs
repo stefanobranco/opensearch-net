@@ -39,7 +39,6 @@ public sealed partial class IngestNamespace
 		return DeletePipelineAsync((DeletePipelineIngestRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns an ingest pipeline.</summary>
 	public GetPipelineIngestResponse GetPipeline(GetPipelineIngestRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetPipelineIngestEndpoint.Instance, options);
@@ -63,7 +62,6 @@ public sealed partial class IngestNamespace
 		configure(descriptor);
 		return GetPipelineAsync((GetPipelineIngestRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Returns a list of built-in grok patterns.</summary>
 	public ProcessorGrokIngestResponse ProcessorGrok(ProcessorGrokIngestRequest request, TransportOptions? options = null) =>
@@ -89,7 +87,6 @@ public sealed partial class IngestNamespace
 		return ProcessorGrokAsync((ProcessorGrokIngestRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Creates or updates an ingest pipeline.</summary>
 	public PutPipelineIngestResponse PutPipeline(PutPipelineIngestRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, PutPipelineIngestEndpoint.Instance, options);
@@ -114,7 +111,6 @@ public sealed partial class IngestNamespace
 		return PutPipelineAsync((PutPipelineIngestRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Simulates an ingest pipeline with example documents.</summary>
 	public SimulateIngestResponse Simulate(SimulateIngestRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, SimulateIngestEndpoint.Instance, options);
@@ -138,5 +134,4 @@ public sealed partial class IngestNamespace
 		configure(descriptor);
 		return SimulateAsync((SimulateIngestRequest)descriptor, options, ct);
 	}
-
 }

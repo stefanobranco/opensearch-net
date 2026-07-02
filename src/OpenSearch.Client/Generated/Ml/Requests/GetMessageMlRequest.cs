@@ -17,6 +17,7 @@ public sealed class GetMessageMlRequest
 	[JsonIgnore]
 	public string? MessageId { get; set; }
 }
+
 public sealed class GetMessageMlEndpoint : IEndpoint<GetMessageMlRequest, GetMessageMlResponse>
 {
 	public static readonly GetMessageMlEndpoint Instance = new();

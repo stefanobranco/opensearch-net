@@ -14,6 +14,7 @@ namespace OpenSearch.Client;
 public sealed class GetAccountDetailsSecurityRequest
 {
 }
+
 public sealed class GetAccountDetailsSecurityEndpoint : IEndpoint<GetAccountDetailsSecurityRequest, GetAccountDetailsSecurityResponse>
 {
 	public static readonly GetAccountDetailsSecurityEndpoint Instance = new();

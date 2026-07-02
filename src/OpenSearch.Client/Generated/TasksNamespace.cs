@@ -39,7 +39,6 @@ public sealed partial class TasksNamespace
 		return CancelAsync((CancelTaskRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns information about a task.</summary>
 	public GetTaskResponse Get(GetTaskRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetTaskEndpoint.Instance, options);
@@ -64,7 +63,6 @@ public sealed partial class TasksNamespace
 		return GetAsync((GetTaskRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns a list of tasks.</summary>
 	public ListTaskResponse List(ListTaskRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, ListTaskEndpoint.Instance, options);
@@ -88,5 +86,4 @@ public sealed partial class TasksNamespace
 		configure(descriptor);
 		return ListAsync((ListTaskRequest)descriptor, options, ct);
 	}
-
 }

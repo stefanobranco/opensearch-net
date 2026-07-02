@@ -21,6 +21,7 @@ public sealed class ScrollRequest
 	public bool? RestTotalHitsAsInt { get; set; }
 	public string? Scroll { get; set; }
 }
+
 public sealed class ScrollEndpoint<TDocument> : IEndpoint<ScrollRequest, ScrollResponse<TDocument>>
 {
 	public static readonly ScrollEndpoint<TDocument> Instance = new();

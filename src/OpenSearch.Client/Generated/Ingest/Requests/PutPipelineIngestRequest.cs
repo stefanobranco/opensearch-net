@@ -32,6 +32,7 @@ public sealed class PutPipelineIngestRequest
 		public List<ProcessorContainer>? Processors { get; set; }
 	public long? Version { get; set; }
 }
+
 public sealed class PutPipelineIngestEndpoint : IEndpoint<PutPipelineIngestRequest, PutPipelineIngestResponse>
 {
 	public static readonly PutPipelineIngestEndpoint Instance = new();

@@ -14,6 +14,7 @@ namespace OpenSearch.Client;
 public sealed class MigrateSecurityRequest
 {
 }
+
 public sealed class MigrateSecurityEndpoint : IEndpoint<MigrateSecurityRequest, MigrateSecurityResponse>
 {
 	public static readonly MigrateSecurityEndpoint Instance = new();

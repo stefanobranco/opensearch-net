@@ -35,6 +35,7 @@ public sealed class ClusterManagerCatRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
+
 public sealed class ClusterManagerCatEndpoint : IEndpoint<ClusterManagerCatRequest, ClusterManagerCatResponse>
 {
 	public static readonly ClusterManagerCatEndpoint Instance = new();

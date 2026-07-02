@@ -23,6 +23,7 @@ public sealed class ExistsComponentTemplateClusterRequest
 	[JsonIgnore]
 	public bool? Local { get; set; }
 }
+
 public sealed class ExistsComponentTemplateClusterEndpoint : IEndpoint<ExistsComponentTemplateClusterRequest, ExistsComponentTemplateClusterResponse>
 {
 	public static readonly ExistsComponentTemplateClusterEndpoint Instance = new();

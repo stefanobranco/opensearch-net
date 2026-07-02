@@ -20,6 +20,7 @@ public sealed class GetAllMemoriesMlRequest
 	[JsonIgnore]
 	public int? NextToken { get; set; }
 }
+
 public sealed class GetAllMemoriesMlEndpoint : IEndpoint<GetAllMemoriesMlRequest, GetAllMemoriesMlResponse>
 {
 	public static readonly GetAllMemoriesMlEndpoint Instance = new();

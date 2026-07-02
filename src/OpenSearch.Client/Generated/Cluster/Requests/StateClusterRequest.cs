@@ -44,6 +44,7 @@ public sealed class StateClusterRequest
 	[JsonIgnore]
 	public string? WaitForTimeout { get; set; }
 }
+
 public sealed class StateClusterEndpoint : IEndpoint<StateClusterRequest, StateClusterResponse>
 {
 	public static readonly StateClusterEndpoint Instance = new();

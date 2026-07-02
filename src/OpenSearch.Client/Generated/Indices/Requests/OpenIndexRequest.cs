@@ -41,6 +41,7 @@ public sealed class OpenIndexRequest
 	[JsonIgnore]
 	public bool? WaitForCompletion { get; set; }
 }
+
 public sealed class OpenIndexEndpoint : IEndpoint<OpenIndexRequest, OpenIndexResponse>
 {
 	public static readonly OpenIndexEndpoint Instance = new();

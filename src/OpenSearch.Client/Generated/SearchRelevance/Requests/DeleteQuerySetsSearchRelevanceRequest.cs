@@ -17,6 +17,7 @@ public sealed class DeleteQuerySetsSearchRelevanceRequest
 	[JsonIgnore]
 	public string? QuerySetId { get; set; }
 }
+
 public sealed class DeleteQuerySetsSearchRelevanceEndpoint : IEndpoint<DeleteQuerySetsSearchRelevanceRequest, DeleteQuerySetsSearchRelevanceResponse>
 {
 	public static readonly DeleteQuerySetsSearchRelevanceEndpoint Instance = new();

@@ -32,6 +32,7 @@ public sealed class AddFeaturesToSetLtrRequest
 	[JsonIgnore]
 	public object? Body { get; set; }
 }
+
 public sealed class AddFeaturesToSetLtrEndpoint : IEndpoint<AddFeaturesToSetLtrRequest, AddFeaturesToSetLtrResponse>
 {
 	public static readonly AddFeaturesToSetLtrEndpoint Instance = new();

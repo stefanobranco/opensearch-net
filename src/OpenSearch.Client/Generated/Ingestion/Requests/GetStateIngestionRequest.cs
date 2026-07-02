@@ -26,6 +26,7 @@ public sealed class GetStateIngestionRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 }
+
 public sealed class GetStateIngestionEndpoint : IEndpoint<GetStateIngestionRequest, GetStateIngestionResponse>
 {
 	public static readonly GetStateIngestionEndpoint Instance = new();

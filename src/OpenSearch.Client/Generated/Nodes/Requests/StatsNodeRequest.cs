@@ -47,6 +47,7 @@ public sealed class StatsNodeRequest
 	[JsonIgnore]
 	public List<string>? Types { get; set; }
 }
+
 public sealed class StatsNodeEndpoint : IEndpoint<StatsNodeRequest, StatsNodeResponse>
 {
 	public static readonly StatsNodeEndpoint Instance = new();

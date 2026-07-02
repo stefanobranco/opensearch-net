@@ -17,6 +17,7 @@ public sealed class DeleteIp2geoDatasourceGeospatialRequest
 	[JsonIgnore]
 	public string? Name { get; set; }
 }
+
 public sealed class DeleteIp2geoDatasourceGeospatialEndpoint : IEndpoint<DeleteIp2geoDatasourceGeospatialRequest, DeleteIp2geoDatasourceGeospatialResponse>
 {
 	public static readonly DeleteIp2geoDatasourceGeospatialEndpoint Instance = new();

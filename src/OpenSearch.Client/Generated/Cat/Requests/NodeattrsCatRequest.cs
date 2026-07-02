@@ -35,6 +35,7 @@ public sealed class NodeattrsCatRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
+
 public sealed class NodeattrsCatEndpoint : IEndpoint<NodeattrsCatRequest, NodeattrsCatResponse>
 {
 	public static readonly NodeattrsCatEndpoint Instance = new();

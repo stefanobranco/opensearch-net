@@ -39,7 +39,6 @@ public sealed partial class SnapshotNamespace
 		return CleanupRepositoryAsync((CleanupRepositorySnapshotRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Creates a clone of all or part of a snapshot in the same repository as the original snapshot.</summary>
 	public CloneSnapshotResponse Clone(CloneSnapshotRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, CloneSnapshotEndpoint.Instance, options);
@@ -63,7 +62,6 @@ public sealed partial class SnapshotNamespace
 		configure(descriptor);
 		return CloneAsync((CloneSnapshotRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Creates a snapshot within an existing repository.</summary>
 	public CreateSnapshotResponse Create(CreateSnapshotRequest request, TransportOptions? options = null) =>
@@ -89,7 +87,6 @@ public sealed partial class SnapshotNamespace
 		return CreateAsync((CreateSnapshotRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Creates a snapshot repository.</summary>
 	public CreateRepositorySnapshotResponse CreateRepository(CreateRepositorySnapshotRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, CreateRepositorySnapshotEndpoint.Instance, options);
@@ -113,7 +110,6 @@ public sealed partial class SnapshotNamespace
 		configure(descriptor);
 		return CreateRepositoryAsync((CreateRepositorySnapshotRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Deletes a snapshot.</summary>
 	public DeleteSnapshotResponse Delete(DeleteSnapshotRequest request, TransportOptions? options = null) =>
@@ -139,7 +135,6 @@ public sealed partial class SnapshotNamespace
 		return DeleteAsync((DeleteSnapshotRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Deletes a snapshot repository.</summary>
 	public DeleteRepositorySnapshotResponse DeleteRepository(DeleteRepositorySnapshotRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, DeleteRepositorySnapshotEndpoint.Instance, options);
@@ -163,7 +158,6 @@ public sealed partial class SnapshotNamespace
 		configure(descriptor);
 		return DeleteRepositoryAsync((DeleteRepositorySnapshotRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Returns information about a snapshot.</summary>
 	public GetSnapshotResponse Get(GetSnapshotRequest request, TransportOptions? options = null) =>
@@ -189,7 +183,6 @@ public sealed partial class SnapshotNamespace
 		return GetAsync((GetSnapshotRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns information about a snapshot repository.</summary>
 	public GetRepositorySnapshotResponse GetRepository(GetRepositorySnapshotRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetRepositorySnapshotEndpoint.Instance, options);
@@ -213,7 +206,6 @@ public sealed partial class SnapshotNamespace
 		configure(descriptor);
 		return GetRepositoryAsync((GetRepositorySnapshotRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Restores a snapshot.</summary>
 	public RestoreSnapshotResponse Restore(RestoreSnapshotRequest request, TransportOptions? options = null) =>
@@ -239,7 +231,6 @@ public sealed partial class SnapshotNamespace
 		return RestoreAsync((RestoreSnapshotRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns information about the status of a snapshot.</summary>
 	public StatusSnapshotResponse Status(StatusSnapshotRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, StatusSnapshotEndpoint.Instance, options);
@@ -264,7 +255,6 @@ public sealed partial class SnapshotNamespace
 		return StatusAsync((StatusSnapshotRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Verifies a repository.</summary>
 	public VerifyRepositorySnapshotResponse VerifyRepository(VerifyRepositorySnapshotRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, VerifyRepositorySnapshotEndpoint.Instance, options);
@@ -288,5 +278,4 @@ public sealed partial class SnapshotNamespace
 		configure(descriptor);
 		return VerifyRepositoryAsync((VerifyRepositorySnapshotRequest)descriptor, options, ct);
 	}
-
 }

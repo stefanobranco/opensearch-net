@@ -17,6 +17,7 @@ public sealed class GetIp2geoDatasourceGeospatialRequest
 	[JsonIgnore]
 	public List<string>? Name { get; set; }
 }
+
 public sealed class GetIp2geoDatasourceGeospatialEndpoint : IEndpoint<GetIp2geoDatasourceGeospatialRequest, GetIp2geoDatasourceGeospatialResponse>
 {
 	public static readonly GetIp2geoDatasourceGeospatialEndpoint Instance = new();

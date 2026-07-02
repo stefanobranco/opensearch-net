@@ -35,6 +35,7 @@ public sealed class AddBlockIndexRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 }
+
 public sealed class AddBlockIndexEndpoint : IEndpoint<AddBlockIndexRequest, AddBlockIndexResponse>
 {
 	public static readonly AddBlockIndexEndpoint Instance = new();

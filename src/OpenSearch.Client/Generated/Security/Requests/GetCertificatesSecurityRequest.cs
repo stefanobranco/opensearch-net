@@ -14,6 +14,7 @@ namespace OpenSearch.Client;
 public sealed class GetCertificatesSecurityRequest
 {
 }
+
 public sealed class GetCertificatesSecurityEndpoint : IEndpoint<GetCertificatesSecurityRequest, GetCertificatesSecurityResponse>
 {
 	public static readonly GetCertificatesSecurityEndpoint Instance = new();

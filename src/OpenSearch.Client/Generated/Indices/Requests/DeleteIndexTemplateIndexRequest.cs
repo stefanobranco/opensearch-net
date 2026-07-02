@@ -23,6 +23,7 @@ public sealed class DeleteIndexTemplateIndexRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 }
+
 public sealed class DeleteIndexTemplateIndexEndpoint : IEndpoint<DeleteIndexTemplateIndexRequest, DeleteIndexTemplateIndexResponse>
 {
 	public static readonly DeleteIndexTemplateIndexEndpoint Instance = new();

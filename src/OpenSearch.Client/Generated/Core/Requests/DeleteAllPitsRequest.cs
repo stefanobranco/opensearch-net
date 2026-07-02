@@ -14,6 +14,7 @@ namespace OpenSearch.Client;
 public sealed class DeleteAllPitsRequest
 {
 }
+
 public sealed class DeleteAllPitsEndpoint : IEndpoint<DeleteAllPitsRequest, DeleteAllPitsResponse>
 {
 	public static readonly DeleteAllPitsEndpoint Instance = new();

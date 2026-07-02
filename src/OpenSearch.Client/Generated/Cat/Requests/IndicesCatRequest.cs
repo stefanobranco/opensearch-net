@@ -56,6 +56,7 @@ public sealed class IndicesCatRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
+
 public sealed class IndicesCatEndpoint : IEndpoint<IndicesCatRequest, IndicesCatResponse>
 {
 	public static readonly IndicesCatEndpoint Instance = new();

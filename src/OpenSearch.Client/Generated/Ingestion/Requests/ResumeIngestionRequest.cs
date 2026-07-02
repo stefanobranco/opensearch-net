@@ -25,6 +25,7 @@ public sealed class ResumeIngestionRequest
 	/// <summary>Reset settings to be applied before resuming ingestion on a shard. This is optional.</summary>
 		public List<ResetSettings>? ResetSettings { get; set; }
 }
+
 public sealed class ResumeIngestionEndpoint : IEndpoint<ResumeIngestionRequest, ResumeIngestionResponse>
 {
 	public static readonly ResumeIngestionEndpoint Instance = new();

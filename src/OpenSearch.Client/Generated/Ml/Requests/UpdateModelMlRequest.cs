@@ -32,6 +32,7 @@ public sealed class UpdateModelMlRequest
 	/// <summary>The model interface.</summary>
 		public System.Text.Json.JsonElement? Interface { get; set; }
 }
+
 public sealed class UpdateModelMlEndpoint : IEndpoint<UpdateModelMlRequest, UpdateModelMlResponse>
 {
 	public static readonly UpdateModelMlEndpoint Instance = new();

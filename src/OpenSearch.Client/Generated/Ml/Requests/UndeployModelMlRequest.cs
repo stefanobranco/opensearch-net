@@ -19,6 +19,7 @@ public sealed class UndeployModelMlRequest
 	public List<string>? NodeIds { get; set; }
 	public List<string>? ModelIds { get; set; }
 }
+
 public sealed class UndeployModelMlEndpoint : IEndpoint<UndeployModelMlRequest, UndeployModelMlResponse>
 {
 	public static readonly UndeployModelMlEndpoint Instance = new();

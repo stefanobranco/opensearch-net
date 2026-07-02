@@ -19,6 +19,7 @@ public sealed class PostQuerySetsSearchRelevanceRequest
 	[JsonPropertyName("querySetSize")]
 	public int? QuerySetSize { get; set; }
 }
+
 public sealed class PostQuerySetsSearchRelevanceEndpoint : IEndpoint<PostQuerySetsSearchRelevanceRequest, PostQuerySetsSearchRelevanceResponse>
 {
 	public static readonly PostQuerySetsSearchRelevanceEndpoint Instance = new();

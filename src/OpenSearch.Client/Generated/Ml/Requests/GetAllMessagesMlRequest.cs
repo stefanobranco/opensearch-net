@@ -23,6 +23,7 @@ public sealed class GetAllMessagesMlRequest
 	[JsonIgnore]
 	public int? NextToken { get; set; }
 }
+
 public sealed class GetAllMessagesMlEndpoint : IEndpoint<GetAllMessagesMlRequest, GetAllMessagesMlResponse>
 {
 	public static readonly GetAllMessagesMlEndpoint Instance = new();

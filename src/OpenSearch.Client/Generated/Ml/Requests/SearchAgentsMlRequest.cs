@@ -19,6 +19,7 @@ public sealed class SearchAgentsMlRequest
 	/// <summary>The sort order.</summary>
 		public List<SortOptions>? Sort { get; set; }
 }
+
 public sealed class SearchAgentsMlEndpoint : IEndpoint<SearchAgentsMlRequest, SearchAgentsMlResponse>
 {
 	public static readonly SearchAgentsMlEndpoint Instance = new();

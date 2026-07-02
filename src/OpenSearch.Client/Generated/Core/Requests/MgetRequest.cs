@@ -44,6 +44,7 @@ public sealed class MgetRequest
 		public List<Operation>? Docs { get; set; }
 	public List<string>? Ids { get; set; }
 }
+
 public sealed class MgetEndpoint : IEndpoint<MgetRequest, MgetResponse>
 {
 	public static readonly MgetEndpoint Instance = new();

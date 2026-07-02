@@ -47,6 +47,7 @@ public sealed class StatsIndexRequest
 	[JsonIgnore]
 	public Level? Level { get; set; }
 }
+
 public sealed class StatsIndexEndpoint : IEndpoint<StatsIndexRequest, StatsIndexResponse>
 {
 	public static readonly StatsIndexEndpoint Instance = new();

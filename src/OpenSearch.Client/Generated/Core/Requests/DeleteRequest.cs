@@ -44,6 +44,7 @@ public sealed class DeleteRequest
 	[JsonIgnore]
 	public string? WaitForActiveShards { get; set; }
 }
+
 public sealed class DeleteEndpoint : IEndpoint<DeleteRequest, DeleteResponse>
 {
 	public static readonly DeleteEndpoint Instance = new();

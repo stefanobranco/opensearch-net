@@ -29,6 +29,7 @@ public sealed class StatsClusterRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 }
+
 public sealed class StatsClusterEndpoint : IEndpoint<StatsClusterRequest, StatsClusterResponse>
 {
 	public static readonly StatsClusterEndpoint Instance = new();

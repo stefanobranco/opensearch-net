@@ -14,6 +14,7 @@ namespace OpenSearch.Client;
 public sealed class GetActionGroupsSecurityRequest
 {
 }
+
 public sealed class GetActionGroupsSecurityEndpoint : IEndpoint<GetActionGroupsSecurityRequest, GetActionGroupsSecurityResponse>
 {
 	public static readonly GetActionGroupsSecurityEndpoint Instance = new();

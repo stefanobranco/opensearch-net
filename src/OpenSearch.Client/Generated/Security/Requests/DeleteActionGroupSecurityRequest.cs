@@ -17,6 +17,7 @@ public sealed class DeleteActionGroupSecurityRequest
 	[JsonIgnore]
 	public string? ActionGroup { get; set; }
 }
+
 public sealed class DeleteActionGroupSecurityEndpoint : IEndpoint<DeleteActionGroupSecurityRequest, DeleteActionGroupSecurityResponse>
 {
 	public static readonly DeleteActionGroupSecurityEndpoint Instance = new();

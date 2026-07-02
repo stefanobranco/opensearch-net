@@ -20,6 +20,7 @@ public sealed class ReindexRethrottleRequest
 	[JsonIgnore]
 	public float? RequestsPerSecond { get; set; }
 }
+
 public sealed class ReindexRethrottleEndpoint : IEndpoint<ReindexRethrottleRequest, ReindexRethrottleResponse>
 {
 	public static readonly ReindexRethrottleEndpoint Instance = new();

@@ -23,6 +23,7 @@ public sealed class DeleteSnapshotRequest
 	[JsonIgnore]
 	public string? ClusterManagerTimeout { get; set; }
 }
+
 public sealed class DeleteSnapshotEndpoint : IEndpoint<DeleteSnapshotRequest, DeleteSnapshotResponse>
 {
 	public static readonly DeleteSnapshotEndpoint Instance = new();

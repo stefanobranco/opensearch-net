@@ -14,6 +14,7 @@ namespace OpenSearch.Client;
 public sealed class GetTenancyConfigSecurityRequest
 {
 }
+
 public sealed class GetTenancyConfigSecurityEndpoint : IEndpoint<GetTenancyConfigSecurityRequest, GetTenancyConfigSecurityResponse>
 {
 	public static readonly GetTenancyConfigSecurityEndpoint Instance = new();

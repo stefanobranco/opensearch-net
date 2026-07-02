@@ -14,6 +14,7 @@ namespace OpenSearch.Client;
 public sealed class PostDashboardsInfoSecurityRequest
 {
 }
+
 public sealed class PostDashboardsInfoSecurityEndpoint : IEndpoint<PostDashboardsInfoSecurityRequest, PostDashboardsInfoSecurityResponse>
 {
 	public static readonly PostDashboardsInfoSecurityEndpoint Instance = new();

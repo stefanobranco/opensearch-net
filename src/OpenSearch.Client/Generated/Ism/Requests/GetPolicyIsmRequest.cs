@@ -17,6 +17,7 @@ public sealed class GetPolicyIsmRequest
 	[JsonIgnore]
 	public string? PolicyId { get; set; }
 }
+
 public sealed class GetPolicyIsmEndpoint : IEndpoint<GetPolicyIsmRequest, GetPolicyIsmResponse>
 {
 	public static readonly GetPolicyIsmEndpoint Instance = new();

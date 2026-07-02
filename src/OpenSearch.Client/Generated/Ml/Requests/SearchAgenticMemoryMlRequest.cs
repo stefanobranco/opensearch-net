@@ -24,6 +24,7 @@ public sealed class SearchAgenticMemoryMlRequest
 		public long? Size { get; set; }
 	public List<SortOptions>? Sort { get; set; }
 }
+
 public sealed class SearchAgenticMemoryMlEndpoint : IEndpoint<SearchAgenticMemoryMlRequest, SearchAgenticMemoryMlResponse>
 {
 	public static readonly SearchAgenticMemoryMlEndpoint Instance = new();

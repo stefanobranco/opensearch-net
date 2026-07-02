@@ -17,6 +17,7 @@ public sealed class DeleteAgentMlRequest
 	[JsonIgnore]
 	public string? AgentId { get; set; }
 }
+
 public sealed class DeleteAgentMlEndpoint : IEndpoint<DeleteAgentMlRequest, DeleteAgentMlResponse>
 {
 	public static readonly DeleteAgentMlEndpoint Instance = new();

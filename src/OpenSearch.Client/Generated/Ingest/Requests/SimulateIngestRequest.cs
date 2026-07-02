@@ -23,6 +23,7 @@ public sealed class SimulateIngestRequest
 		public List<Document>? Docs { get; set; }
 	public Pipeline? Pipeline { get; set; }
 }
+
 public sealed class SimulateIngestEndpoint : IEndpoint<SimulateIngestRequest, SimulateIngestResponse>
 {
 	public static readonly SimulateIngestEndpoint Instance = new();

@@ -22,6 +22,7 @@ public sealed class TrainPredictMlRequest
 		public List<string>? InputIndex { get; set; }
 	public PredictionResult? InputData { get; set; }
 }
+
 public sealed class TrainPredictMlEndpoint : IEndpoint<TrainPredictMlRequest, TrainPredictMlResponse>
 {
 	public static readonly TrainPredictMlEndpoint Instance = new();

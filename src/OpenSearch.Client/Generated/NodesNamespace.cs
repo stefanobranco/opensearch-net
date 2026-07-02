@@ -39,7 +39,6 @@ public sealed partial class NodesNamespace
 		return HotThreadsAsync((HotThreadsNodeRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns information about nodes in the cluster.</summary>
 	public InfoNodeResponse Info(InfoNodeRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, InfoNodeEndpoint.Instance, options);
@@ -63,7 +62,6 @@ public sealed partial class NodesNamespace
 		configure(descriptor);
 		return InfoAsync((InfoNodeRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Reloads secure settings.</summary>
 	public ReloadSecureSettingsNodeResponse ReloadSecureSettings(ReloadSecureSettingsNodeRequest request, TransportOptions? options = null) =>
@@ -89,7 +87,6 @@ public sealed partial class NodesNamespace
 		return ReloadSecureSettingsAsync((ReloadSecureSettingsNodeRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns statistical information about nodes in the cluster.</summary>
 	public StatsNodeResponse Stats(StatsNodeRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, StatsNodeEndpoint.Instance, options);
@@ -114,7 +111,6 @@ public sealed partial class NodesNamespace
 		return StatsAsync((StatsNodeRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns low-level information about REST actions usage on nodes.</summary>
 	public UsageNodeResponse Usage(UsageNodeRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, UsageNodeEndpoint.Instance, options);
@@ -138,5 +134,4 @@ public sealed partial class NodesNamespace
 		configure(descriptor);
 		return UsageAsync((UsageNodeRequest)descriptor, options, ct);
 	}
-
 }

@@ -23,6 +23,7 @@ public sealed class StatsLtrRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 }
+
 public sealed class StatsLtrEndpoint : IEndpoint<StatsLtrRequest, StatsLtrResponse>
 {
 	public static readonly StatsLtrEndpoint Instance = new();

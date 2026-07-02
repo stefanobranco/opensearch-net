@@ -39,7 +39,6 @@ public sealed partial class IsmNamespace
 		return AddPolicyAsync((AddPolicyIsmRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Updates the managed index policy to a new policy.</summary>
 	public ChangePolicyIsmResponse ChangePolicy(ChangePolicyIsmRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, ChangePolicyIsmEndpoint.Instance, options);
@@ -63,7 +62,6 @@ public sealed partial class IsmNamespace
 		configure(descriptor);
 		return ChangePolicyAsync((ChangePolicyIsmRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Deletes a policy.</summary>
 	public DeletePolicyIsmResponse DeletePolicy(DeletePolicyIsmRequest request, TransportOptions? options = null) =>
@@ -89,7 +87,6 @@ public sealed partial class IsmNamespace
 		return DeletePolicyAsync((DeletePolicyIsmRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Checks for the existence of a policy.</summary>
 	public ExistsPolicyIsmResponse ExistsPolicy(ExistsPolicyIsmRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, ExistsPolicyIsmEndpoint.Instance, options);
@@ -113,7 +110,6 @@ public sealed partial class IsmNamespace
 		configure(descriptor);
 		return ExistsPolicyAsync((ExistsPolicyIsmRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Retrieves the currently applied policy on the specified indexes.</summary>
 	public ExplainPolicyIsmResponse ExplainPolicy(ExplainPolicyIsmRequest request, TransportOptions? options = null) =>
@@ -139,7 +135,6 @@ public sealed partial class IsmNamespace
 		return ExplainPolicyAsync((ExplainPolicyIsmRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Retrieves the policies.</summary>
 	public GetPoliciesIsmResponse GetPolicies(GetPoliciesIsmRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetPoliciesIsmEndpoint.Instance, options);
@@ -163,7 +158,6 @@ public sealed partial class IsmNamespace
 		configure(descriptor);
 		return GetPoliciesAsync((GetPoliciesIsmRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Retrieves a specific policy.</summary>
 	public GetPolicyIsmResponse GetPolicy(GetPolicyIsmRequest request, TransportOptions? options = null) =>
@@ -189,7 +183,6 @@ public sealed partial class IsmNamespace
 		return GetPolicyAsync((GetPolicyIsmRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Creates or updates policies.</summary>
 	public PutPoliciesIsmResponse PutPolicies(PutPoliciesIsmRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, PutPoliciesIsmEndpoint.Instance, options);
@@ -213,7 +206,6 @@ public sealed partial class IsmNamespace
 		configure(descriptor);
 		return PutPoliciesAsync((PutPoliciesIsmRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Creates or updates a policy.</summary>
 	public PutPolicyIsmResponse PutPolicy(PutPolicyIsmRequest request, TransportOptions? options = null) =>
@@ -239,7 +231,6 @@ public sealed partial class IsmNamespace
 		return PutPolicyAsync((PutPolicyIsmRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Refreshes search analyzers in real time.</summary>
 	public RefreshSearchAnalyzersIsmResponse RefreshSearchAnalyzers(RefreshSearchAnalyzersIsmRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, RefreshSearchAnalyzersIsmEndpoint.Instance, options);
@@ -263,7 +254,6 @@ public sealed partial class IsmNamespace
 		configure(descriptor);
 		return RefreshSearchAnalyzersAsync((RefreshSearchAnalyzersIsmRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Removes a policy from an index.</summary>
 	public RemovePolicyIsmResponse RemovePolicy(RemovePolicyIsmRequest request, TransportOptions? options = null) =>
@@ -289,7 +279,6 @@ public sealed partial class IsmNamespace
 		return RemovePolicyAsync((RemovePolicyIsmRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Retries the failed action for an index.</summary>
 	public RetryIndexIsmResponse RetryIndex(RetryIndexIsmRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, RetryIndexIsmEndpoint.Instance, options);
@@ -313,5 +302,4 @@ public sealed partial class IsmNamespace
 		configure(descriptor);
 		return RetryIndexAsync((RetryIndexIsmRequest)descriptor, options, ct);
 	}
-
 }

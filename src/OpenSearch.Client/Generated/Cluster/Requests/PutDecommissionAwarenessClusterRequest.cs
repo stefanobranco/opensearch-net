@@ -20,6 +20,7 @@ public sealed class PutDecommissionAwarenessClusterRequest
 	[JsonIgnore]
 	public string? AwarenessAttributeValue { get; set; }
 }
+
 public sealed class PutDecommissionAwarenessClusterEndpoint : IEndpoint<PutDecommissionAwarenessClusterRequest, PutDecommissionAwarenessClusterResponse>
 {
 	public static readonly PutDecommissionAwarenessClusterEndpoint Instance = new();

@@ -14,6 +14,7 @@ namespace OpenSearch.Client;
 public sealed class HelpCatRequest
 {
 }
+
 public sealed class HelpCatEndpoint : IEndpoint<HelpCatRequest, HelpCatResponse>
 {
 	public static readonly HelpCatEndpoint Instance = new();

@@ -36,6 +36,7 @@ public sealed class SearchShardsRequest
 	public List<string>? Routing { get; set; }
 	public SlicedScroll? Slice { get; set; }
 }
+
 public sealed class SearchShardsEndpoint : IEndpoint<SearchShardsRequest, SearchShardsResponse>
 {
 	public static readonly SearchShardsEndpoint Instance = new();

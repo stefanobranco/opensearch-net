@@ -17,6 +17,7 @@ public sealed class GetScheduledExperimentsSearchRelevanceRequest
 	[JsonIgnore]
 	public string? ExperimentId { get; set; }
 }
+
 public sealed class GetScheduledExperimentsSearchRelevanceEndpoint<TDocument> : IEndpoint<GetScheduledExperimentsSearchRelevanceRequest, GetScheduledExperimentsSearchRelevanceResponse<TDocument>>
 {
 	public static readonly GetScheduledExperimentsSearchRelevanceEndpoint<TDocument> Instance = new();

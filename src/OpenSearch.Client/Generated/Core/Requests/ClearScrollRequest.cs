@@ -17,6 +17,7 @@ public sealed class ClearScrollRequest
 	[JsonIgnore]
 	public List<string>? ScrollId { get; set; }
 }
+
 public sealed class ClearScrollEndpoint : IEndpoint<ClearScrollRequest, ClearScrollResponse>
 {
 	public static readonly ClearScrollEndpoint Instance = new();

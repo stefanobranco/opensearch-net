@@ -20,6 +20,7 @@ public sealed class CreateDataStreamIndexRequest
 	[JsonIgnore]
 	public object? Body { get; set; }
 }
+
 public sealed class CreateDataStreamIndexEndpoint : IEndpoint<CreateDataStreamIndexRequest, CreateDataStreamIndexResponse>
 {
 	public static readonly CreateDataStreamIndexEndpoint Instance = new();

@@ -33,6 +33,7 @@ public sealed class PutTemplateIndexRequest
 		public Dictionary<string, object>? Settings { get; set; }
 	public long? Version { get; set; }
 }
+
 public sealed class PutTemplateIndexEndpoint : IEndpoint<PutTemplateIndexRequest, PutTemplateIndexResponse>
 {
 	public static readonly PutTemplateIndexEndpoint Instance = new();

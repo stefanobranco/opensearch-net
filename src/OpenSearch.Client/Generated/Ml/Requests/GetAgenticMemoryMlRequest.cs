@@ -23,6 +23,7 @@ public sealed class GetAgenticMemoryMlRequest
 	[JsonIgnore]
 	public MemoryType? Type { get; set; }
 }
+
 public sealed class GetAgenticMemoryMlEndpoint : IEndpoint<GetAgenticMemoryMlRequest, GetAgenticMemoryMlResponse>
 {
 	public static readonly GetAgenticMemoryMlEndpoint Instance = new();

@@ -18,6 +18,7 @@ public sealed class UpdateMemoryMlRequest
 	public string? MemoryId { get; set; }
 	public string? Name { get; set; }
 }
+
 public sealed class UpdateMemoryMlEndpoint : IEndpoint<UpdateMemoryMlRequest, UpdateMemoryMlResponse>
 {
 	public static readonly UpdateMemoryMlEndpoint Instance = new();

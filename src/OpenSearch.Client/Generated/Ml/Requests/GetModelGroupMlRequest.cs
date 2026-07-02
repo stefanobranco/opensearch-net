@@ -17,6 +17,7 @@ public sealed class GetModelGroupMlRequest
 	[JsonIgnore]
 	public string? ModelGroupId { get; set; }
 }
+
 public sealed class GetModelGroupMlEndpoint : IEndpoint<GetModelGroupMlRequest, GetModelGroupMlResponse>
 {
 	public static readonly GetModelGroupMlEndpoint Instance = new();

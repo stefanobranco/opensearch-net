@@ -53,6 +53,7 @@ public sealed class HealthClusterRequest
 	[JsonIgnore]
 	public string? WaitForStatus { get; set; }
 }
+
 public sealed class HealthClusterEndpoint : IEndpoint<HealthClusterRequest, HealthClusterResponse>
 {
 	public static readonly HealthClusterEndpoint Instance = new();

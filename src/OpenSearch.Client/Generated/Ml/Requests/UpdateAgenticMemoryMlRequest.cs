@@ -34,6 +34,7 @@ public sealed class UpdateAgenticMemoryMlRequest
 		public string? Summary { get; set; }
 	public Dictionary<string, object>? Tags { get; set; }
 }
+
 public sealed class UpdateAgenticMemoryMlEndpoint : IEndpoint<UpdateAgenticMemoryMlRequest, UpdateAgenticMemoryMlResponse>
 {
 	public static readonly UpdateAgenticMemoryMlEndpoint Instance = new();

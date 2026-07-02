@@ -17,6 +17,7 @@ public sealed class GetExperimentsSearchRelevanceRequest
 	[JsonIgnore]
 	public string? ExperimentId { get; set; }
 }
+
 public sealed class GetExperimentsSearchRelevanceEndpoint<TDocument> : IEndpoint<GetExperimentsSearchRelevanceRequest, GetExperimentsSearchRelevanceResponse<TDocument>>
 {
 	public static readonly GetExperimentsSearchRelevanceEndpoint<TDocument> Instance = new();

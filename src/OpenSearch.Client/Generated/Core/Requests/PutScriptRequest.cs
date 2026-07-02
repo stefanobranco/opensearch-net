@@ -27,6 +27,7 @@ public sealed class PutScriptRequest
 	public string? Timeout { get; set; }
 	public StoredScript? Script { get; set; }
 }
+
 public sealed class PutScriptEndpoint : IEndpoint<PutScriptRequest, PutScriptResponse>
 {
 	public static readonly PutScriptEndpoint Instance = new();

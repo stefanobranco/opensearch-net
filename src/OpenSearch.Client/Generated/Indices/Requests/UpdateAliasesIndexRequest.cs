@@ -22,6 +22,7 @@ public sealed class UpdateAliasesIndexRequest
 	/// <summary>Actions to perform.</summary>
 		public List<IndexAction>? Actions { get; set; }
 }
+
 public sealed class UpdateAliasesIndexEndpoint : IEndpoint<UpdateAliasesIndexRequest, UpdateAliasesIndexResponse>
 {
 	public static readonly UpdateAliasesIndexEndpoint Instance = new();

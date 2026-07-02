@@ -14,6 +14,7 @@ namespace OpenSearch.Client;
 public sealed class ReloadHttpCertificatesSecurityRequest
 {
 }
+
 public sealed class ReloadHttpCertificatesSecurityEndpoint : IEndpoint<ReloadHttpCertificatesSecurityRequest, ReloadHttpCertificatesSecurityResponse>
 {
 	public static readonly ReloadHttpCertificatesSecurityEndpoint Instance = new();

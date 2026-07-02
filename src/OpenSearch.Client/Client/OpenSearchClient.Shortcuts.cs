@@ -113,11 +113,19 @@ public sealed partial class OpenSearchClient
 
 	// ── Update ──
 
-	public UpdateResponse<TDocument> Update<TDocument>(UpdateRequest request, TransportOptions? options = null)
-		=> Core.Update<TDocument>(request, options);
+	public UpdateResponse<TDocument> Update<TDocument, TPartialDocument>(UpdateRequest<TDocument, TPartialDocument> request, TransportOptions? options = null)
+		=> Core.Update(request, options);
 
-	public Task<UpdateResponse<TDocument>> UpdateAsync<TDocument>(UpdateRequest request, TransportOptions? options = null, CancellationToken ct = default)
-		=> Core.UpdateAsync<TDocument>(request, options, ct);
+	public Task<UpdateResponse<TDocument>> UpdateAsync<TDocument, TPartialDocument>(UpdateRequest<TDocument, TPartialDocument> request, TransportOptions? options = null, CancellationToken ct = default)
+		=> Core.UpdateAsync(request, options, ct);
+
+	/// <summary>Update where the partial document is the document type itself.</summary>
+	public UpdateResponse<TDocument> Update<TDocument>(UpdateRequest<TDocument, TDocument> request, TransportOptions? options = null)
+		=> Core.Update(request, options);
+
+	/// <summary>Update where the partial document is the document type itself.</summary>
+	public Task<UpdateResponse<TDocument>> UpdateAsync<TDocument>(UpdateRequest<TDocument, TDocument> request, TransportOptions? options = null, CancellationToken ct = default)
+		=> Core.UpdateAsync(request, options, ct);
 
 	// ── UpdateByQuery ──
 

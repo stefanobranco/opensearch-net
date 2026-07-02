@@ -23,6 +23,7 @@ public sealed class UsageNodeRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 }
+
 public sealed class UsageNodeEndpoint : IEndpoint<UsageNodeRequest, UsageNodeResponse>
 {
 	public static readonly UsageNodeEndpoint Instance = new();

@@ -38,6 +38,7 @@ public sealed class AliasesCatRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
+
 public sealed class AliasesCatEndpoint : IEndpoint<AliasesCatRequest, AliasesCatResponse>
 {
 	public static readonly AliasesCatEndpoint Instance = new();

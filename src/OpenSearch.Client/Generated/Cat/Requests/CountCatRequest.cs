@@ -32,6 +32,7 @@ public sealed class CountCatRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
+
 public sealed class CountCatEndpoint : IEndpoint<CountCatRequest, CountCatResponse>
 {
 	public static readonly CountCatEndpoint Instance = new();

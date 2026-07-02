@@ -32,6 +32,7 @@ public sealed class UpgradeIndexRequest
 	[JsonIgnore]
 	public bool? WaitForCompletion { get; set; }
 }
+
 public sealed class UpgradeIndexEndpoint : IEndpoint<UpgradeIndexRequest, UpgradeIndexResponse>
 {
 	public static readonly UpgradeIndexEndpoint Instance = new();

@@ -28,6 +28,7 @@ public sealed class PutSearchPipelineRequest
 	public List<ResponseProcessor>? ResponseProcessors { get; set; }
 	public List<PhaseResultsProcessor>? PhaseResultsProcessors { get; set; }
 }
+
 public sealed class PutSearchPipelineEndpoint : IEndpoint<PutSearchPipelineRequest, PutSearchPipelineResponse>
 {
 	public static readonly PutSearchPipelineEndpoint Instance = new();

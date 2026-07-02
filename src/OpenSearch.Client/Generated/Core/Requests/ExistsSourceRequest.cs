@@ -47,6 +47,7 @@ public sealed class ExistsSourceRequest
 	[JsonIgnore]
 	public string? VersionType { get; set; }
 }
+
 public sealed class ExistsSourceEndpoint : IEndpoint<ExistsSourceRequest, ExistsSourceResponse>
 {
 	public static readonly ExistsSourceEndpoint Instance = new();

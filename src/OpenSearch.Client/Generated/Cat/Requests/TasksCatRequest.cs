@@ -44,6 +44,7 @@ public sealed class TasksCatRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
+
 public sealed class TasksCatEndpoint : IEndpoint<TasksCatRequest, TasksCatResponse>
 {
 	public static readonly TasksCatEndpoint Instance = new();

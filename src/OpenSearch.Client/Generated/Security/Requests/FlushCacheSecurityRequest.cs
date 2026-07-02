@@ -14,6 +14,7 @@ namespace OpenSearch.Client;
 public sealed class FlushCacheSecurityRequest
 {
 }
+
 public sealed class FlushCacheSecurityEndpoint : IEndpoint<FlushCacheSecurityRequest, FlushCacheSecurityResponse>
 {
 	public static readonly FlushCacheSecurityEndpoint Instance = new();

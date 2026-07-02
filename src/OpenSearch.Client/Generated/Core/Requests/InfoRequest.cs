@@ -14,6 +14,7 @@ namespace OpenSearch.Client;
 public sealed class InfoRequest
 {
 }
+
 public sealed class InfoEndpoint : IEndpoint<InfoRequest, InfoResponse>
 {
 	public static readonly InfoEndpoint Instance = new();

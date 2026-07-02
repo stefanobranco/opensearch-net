@@ -35,6 +35,7 @@ public sealed class GetNodeStatsSearchRelevanceRequest
 	[JsonIgnore]
 	public string? IncludeMetadata { get; set; }
 }
+
 public sealed class GetNodeStatsSearchRelevanceEndpoint : IEndpoint<GetNodeStatsSearchRelevanceRequest, GetNodeStatsSearchRelevanceResponse>
 {
 	public static readonly GetNodeStatsSearchRelevanceEndpoint Instance = new();

@@ -44,6 +44,7 @@ public sealed class CreateRequest
 	[JsonIgnore]
 	public object? Body { get; set; }
 }
+
 public sealed class CreateEndpoint : IEndpoint<CreateRequest, CreateResponse>
 {
 	public static readonly CreateEndpoint Instance = new();

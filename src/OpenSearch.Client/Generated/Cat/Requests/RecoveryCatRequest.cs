@@ -44,6 +44,7 @@ public sealed class RecoveryCatRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
+
 public sealed class RecoveryCatEndpoint : IEndpoint<RecoveryCatRequest, RecoveryCatResponse>
 {
 	public static readonly RecoveryCatEndpoint Instance = new();

@@ -28,6 +28,7 @@ public sealed class CreateRepositorySnapshotRequest
 	public string? Type { get; set; }
 	public RepositorySettings? Settings { get; set; }
 }
+
 public sealed class CreateRepositorySnapshotEndpoint : IEndpoint<CreateRepositorySnapshotRequest, CreateRepositorySnapshotResponse>
 {
 	public static readonly CreateRepositorySnapshotEndpoint Instance = new();

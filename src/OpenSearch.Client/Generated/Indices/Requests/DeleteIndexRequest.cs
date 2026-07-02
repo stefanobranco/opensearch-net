@@ -32,6 +32,7 @@ public sealed class DeleteIndexRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 }
+
 public sealed class DeleteIndexEndpoint : IEndpoint<DeleteIndexRequest, DeleteIndexResponse>
 {
 	public static readonly DeleteIndexEndpoint Instance = new();

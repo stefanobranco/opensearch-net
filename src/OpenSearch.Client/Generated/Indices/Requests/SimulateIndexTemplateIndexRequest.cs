@@ -32,6 +32,7 @@ public sealed class SimulateIndexTemplateIndexRequest
 	[JsonPropertyName("_meta")]
 	public Dictionary<string, object>? Meta { get; set; }
 }
+
 public sealed class SimulateIndexTemplateIndexEndpoint : IEndpoint<SimulateIndexTemplateIndexRequest, SimulateIndexTemplateIndexResponse>
 {
 	public static readonly SimulateIndexTemplateIndexEndpoint Instance = new();

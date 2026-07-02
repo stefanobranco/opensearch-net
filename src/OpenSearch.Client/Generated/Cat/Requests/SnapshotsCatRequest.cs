@@ -41,6 +41,7 @@ public sealed class SnapshotsCatRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
+
 public sealed class SnapshotsCatEndpoint : IEndpoint<SnapshotsCatRequest, SnapshotsCatResponse>
 {
 	public static readonly SnapshotsCatEndpoint Instance = new();

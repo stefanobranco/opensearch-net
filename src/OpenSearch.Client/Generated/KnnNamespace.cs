@@ -39,7 +39,6 @@ public sealed partial class KnnNamespace
 		return DeleteModelAsync((DeleteModelKnnRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Used to retrieve information about models present in the cluster.</summary>
 	public GetModelKnnResponse GetModel(GetModelKnnRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetModelKnnEndpoint.Instance, options);
@@ -63,7 +62,6 @@ public sealed partial class KnnNamespace
 		configure(descriptor);
 		return GetModelAsync((GetModelKnnRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Use an OpenSearch query to search for models in the index.</summary>
 	public SearchModelsKnnResponse SearchModels(SearchModelsKnnRequest request, TransportOptions? options = null) =>
@@ -89,7 +87,6 @@ public sealed partial class KnnNamespace
 		return SearchModelsAsync((SearchModelsKnnRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Provides information about the current status of the k-NN plugin.</summary>
 	public StatsKnnResponse Stats(StatsKnnRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, StatsKnnEndpoint.Instance, options);
@@ -113,7 +110,6 @@ public sealed partial class KnnNamespace
 		configure(descriptor);
 		return StatsAsync((StatsKnnRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Create and train a model that can be used for initializing k-NN native library indexes during indexing.</summary>
 	public TrainModelKnnResponse TrainModel(TrainModelKnnRequest request, TransportOptions? options = null) =>
@@ -139,7 +135,6 @@ public sealed partial class KnnNamespace
 		return TrainModelAsync((TrainModelKnnRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Preloads native library files into memory, reducing initial search latency for specified indexes.</summary>
 	public WarmupKnnResponse Warmup(WarmupKnnRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, WarmupKnnEndpoint.Instance, options);
@@ -163,5 +158,4 @@ public sealed partial class KnnNamespace
 		configure(descriptor);
 		return WarmupAsync((WarmupKnnRequest)descriptor, options, ct);
 	}
-
 }

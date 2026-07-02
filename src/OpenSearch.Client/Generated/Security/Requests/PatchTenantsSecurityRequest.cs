@@ -17,6 +17,7 @@ public sealed class PatchTenantsSecurityRequest
 	[JsonIgnore]
 	public List<PatchOperation>? Body { get; set; }
 }
+
 public sealed class PatchTenantsSecurityEndpoint : IEndpoint<PatchTenantsSecurityRequest, PatchTenantsSecurityResponse>
 {
 	public static readonly PatchTenantsSecurityEndpoint Instance = new();

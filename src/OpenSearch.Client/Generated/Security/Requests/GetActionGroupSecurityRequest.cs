@@ -17,6 +17,7 @@ public sealed class GetActionGroupSecurityRequest
 	[JsonIgnore]
 	public string? ActionGroup { get; set; }
 }
+
 public sealed class GetActionGroupSecurityEndpoint : IEndpoint<GetActionGroupSecurityRequest, GetActionGroupSecurityResponse>
 {
 	public static readonly GetActionGroupSecurityEndpoint Instance = new();

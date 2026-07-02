@@ -17,6 +17,7 @@ public sealed class CreateMemoryContainerMlRequest
 	public string? Description { get; set; }
 	public MemoryContainerConfiguration? Configuration { get; set; }
 }
+
 public sealed class CreateMemoryContainerMlEndpoint : IEndpoint<CreateMemoryContainerMlRequest, CreateMemoryContainerMlResponse>
 {
 	public static readonly CreateMemoryContainerMlEndpoint Instance = new();

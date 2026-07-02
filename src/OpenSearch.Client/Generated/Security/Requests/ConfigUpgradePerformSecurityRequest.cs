@@ -16,6 +16,7 @@ public sealed class ConfigUpgradePerformSecurityRequest
 	/// <summary>A list of configurations to upgrade.</summary>
 		public List<string>? Config { get; set; }
 }
+
 public sealed class ConfigUpgradePerformSecurityEndpoint : IEndpoint<ConfigUpgradePerformSecurityRequest, ConfigUpgradePerformSecurityResponse>
 {
 	public static readonly ConfigUpgradePerformSecurityEndpoint Instance = new();

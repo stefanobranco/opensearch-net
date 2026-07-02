@@ -18,6 +18,7 @@ public sealed class PredictModelStreamMlRequest
 	public string? ModelId { get; set; }
 	public Dictionary<string, object>? Parameters { get; set; }
 }
+
 public sealed class PredictModelStreamMlEndpoint : IEndpoint<PredictModelStreamMlRequest, PredictModelStreamMlResponse>
 {
 	public static readonly PredictModelStreamMlEndpoint Instance = new();

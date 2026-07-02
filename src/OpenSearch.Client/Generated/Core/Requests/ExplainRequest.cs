@@ -57,6 +57,7 @@ public sealed class ExplainRequest
 	public List<string>? StoredFields { get; set; }
 	public QueryContainer? Query { get; set; }
 }
+
 public sealed class ExplainEndpoint<TDocument> : IEndpoint<ExplainRequest, ExplainResponse<TDocument>>
 {
 	public static readonly ExplainEndpoint<TDocument> Instance = new();

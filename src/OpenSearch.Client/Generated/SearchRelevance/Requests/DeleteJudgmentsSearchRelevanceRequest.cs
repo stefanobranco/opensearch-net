@@ -17,6 +17,7 @@ public sealed class DeleteJudgmentsSearchRelevanceRequest
 	[JsonIgnore]
 	public string? JudgmentId { get; set; }
 }
+
 public sealed class DeleteJudgmentsSearchRelevanceEndpoint : IEndpoint<DeleteJudgmentsSearchRelevanceRequest, DeleteJudgmentsSearchRelevanceResponse>
 {
 	public static readonly DeleteJudgmentsSearchRelevanceEndpoint Instance = new();

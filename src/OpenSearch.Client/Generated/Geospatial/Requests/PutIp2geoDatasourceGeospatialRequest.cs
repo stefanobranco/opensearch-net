@@ -21,6 +21,7 @@ public sealed class PutIp2geoDatasourceGeospatialRequest
 	/// <summary>Update interval in days.</summary>
 		public int? UpdateIntervalInDays { get; set; }
 }
+
 public sealed class PutIp2geoDatasourceGeospatialEndpoint : IEndpoint<PutIp2geoDatasourceGeospatialRequest, PutIp2geoDatasourceGeospatialResponse>
 {
 	public static readonly PutIp2geoDatasourceGeospatialEndpoint Instance = new();

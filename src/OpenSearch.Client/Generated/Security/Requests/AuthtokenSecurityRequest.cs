@@ -14,6 +14,7 @@ namespace OpenSearch.Client;
 public sealed class AuthtokenSecurityRequest
 {
 }
+
 public sealed class AuthtokenSecurityEndpoint : IEndpoint<AuthtokenSecurityRequest, AuthtokenSecurityResponse>
 {
 	public static readonly AuthtokenSecurityEndpoint Instance = new();

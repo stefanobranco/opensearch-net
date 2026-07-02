@@ -21,6 +21,7 @@ public sealed class GeojsonUploadPutGeospatialRequest
 	/// <summary>Array of GeoJSON features.</summary>
 		public List<GeoJSONData>? Data { get; set; }
 }
+
 public sealed class GeojsonUploadPutGeospatialEndpoint : IEndpoint<GeojsonUploadPutGeospatialRequest, GeojsonUploadPutGeospatialResponse>
 {
 	public static readonly GeojsonUploadPutGeospatialEndpoint Instance = new();

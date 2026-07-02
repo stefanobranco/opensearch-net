@@ -29,6 +29,7 @@ public sealed class GetSnapshotRequest
 	[JsonIgnore]
 	public bool? Verbose { get; set; }
 }
+
 public sealed class GetSnapshotEndpoint : IEndpoint<GetSnapshotRequest, GetSnapshotResponse>
 {
 	public static readonly GetSnapshotEndpoint Instance = new();

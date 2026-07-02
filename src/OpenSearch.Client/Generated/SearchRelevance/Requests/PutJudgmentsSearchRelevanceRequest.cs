@@ -34,6 +34,7 @@ public sealed class PutJudgmentsSearchRelevanceRequest
 	[JsonPropertyName("judgmentRatings")]
 	public List<System.Text.Json.JsonElement>? JudgmentRatings { get; set; }
 }
+
 public sealed class PutJudgmentsSearchRelevanceEndpoint : IEndpoint<PutJudgmentsSearchRelevanceRequest, PutJudgmentsSearchRelevanceResponse>
 {
 	public static readonly PutJudgmentsSearchRelevanceEndpoint Instance = new();

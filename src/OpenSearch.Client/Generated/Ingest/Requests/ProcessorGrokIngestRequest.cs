@@ -17,6 +17,7 @@ public sealed class ProcessorGrokIngestRequest
 	[JsonIgnore]
 	public bool? S { get; set; }
 }
+
 public sealed class ProcessorGrokIngestEndpoint : IEndpoint<ProcessorGrokIngestRequest, ProcessorGrokIngestResponse>
 {
 	public static readonly ProcessorGrokIngestEndpoint Instance = new();

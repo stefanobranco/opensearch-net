@@ -19,6 +19,7 @@ public sealed class AddPolicyIsmRequest
 	/// <summary>The ID of the policy to add.</summary>
 		public string? PolicyId { get; set; }
 }
+
 public sealed class AddPolicyIsmEndpoint : IEndpoint<AddPolicyIsmRequest, AddPolicyIsmResponse>
 {
 	public static readonly AddPolicyIsmEndpoint Instance = new();

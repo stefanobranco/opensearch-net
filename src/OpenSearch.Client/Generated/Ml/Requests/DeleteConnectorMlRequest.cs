@@ -17,6 +17,7 @@ public sealed class DeleteConnectorMlRequest
 	[JsonIgnore]
 	public string? ConnectorId { get; set; }
 }
+
 public sealed class DeleteConnectorMlEndpoint : IEndpoint<DeleteConnectorMlRequest, DeleteConnectorMlResponse>
 {
 	public static readonly DeleteConnectorMlEndpoint Instance = new();

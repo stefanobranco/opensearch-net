@@ -24,6 +24,7 @@ public sealed class GetProfileModelsMlRequest
 	/// <summary>Whether to return all models.</summary>
 		public bool? ReturnAllModels { get; set; }
 }
+
 public sealed class GetProfileModelsMlEndpoint : IEndpoint<GetProfileModelsMlRequest, GetProfileModelsMlResponse>
 {
 	public static readonly GetProfileModelsMlEndpoint Instance = new();

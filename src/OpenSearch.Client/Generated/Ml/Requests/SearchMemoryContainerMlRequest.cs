@@ -18,6 +18,7 @@ public sealed class SearchMemoryContainerMlRequest
 		public long? Size { get; set; }
 	public List<SortOptions>? Sort { get; set; }
 }
+
 public sealed class SearchMemoryContainerMlEndpoint : IEndpoint<SearchMemoryContainerMlRequest, SearchMemoryContainerMlResponse>
 {
 	public static readonly SearchMemoryContainerMlEndpoint Instance = new();

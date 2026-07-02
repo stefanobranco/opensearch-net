@@ -14,6 +14,7 @@ namespace OpenSearch.Client;
 public sealed class GetPoliciesIsmRequest
 {
 }
+
 public sealed class GetPoliciesIsmEndpoint : IEndpoint<GetPoliciesIsmRequest, GetPoliciesIsmResponse>
 {
 	public static readonly GetPoliciesIsmEndpoint Instance = new();

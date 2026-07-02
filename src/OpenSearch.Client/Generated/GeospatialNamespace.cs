@@ -39,7 +39,6 @@ public sealed partial class GeospatialNamespace
 		return DeleteIp2geoDatasourceAsync((DeleteIp2geoDatasourceGeospatialRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Use an OpenSearch query to upload `GeoJSON`, operation will fail if index exists. - When type is `geo_point`, only Point geometry is allowed - When type is `geo_shape`, all geometry types are allowed (Point, MultiPoint, LineString, MultiLineString, Polygon, MultiPolygon, GeometryCollection, Envelope).</summary>
 	public GeojsonUploadPostGeospatialResponse GeojsonUploadPost(GeojsonUploadPostGeospatialRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GeojsonUploadPostGeospatialEndpoint.Instance, options);
@@ -63,7 +62,6 @@ public sealed partial class GeospatialNamespace
 		configure(descriptor);
 		return GeojsonUploadPostAsync((GeojsonUploadPostGeospatialRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Use an OpenSearch query to upload `GeoJSON` regardless if index exists. - When type is `geo_point`, only Point geometry is allowed - When type is `geo_shape`, all geometry types are allowed (Point, MultiPoint, LineString, MultiLineString, Polygon, MultiPolygon, GeometryCollection, Envelope).</summary>
 	public GeojsonUploadPutGeospatialResponse GeojsonUploadPut(GeojsonUploadPutGeospatialRequest request, TransportOptions? options = null) =>
@@ -89,7 +87,6 @@ public sealed partial class GeospatialNamespace
 		return GeojsonUploadPutAsync((GeojsonUploadPutGeospatialRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Get one or more IP2Geo data sources, defaulting to returning all if no names specified.</summary>
 	public GetIp2geoDatasourceGeospatialResponse GetIp2geoDatasource(GetIp2geoDatasourceGeospatialRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetIp2geoDatasourceGeospatialEndpoint.Instance, options);
@@ -113,7 +110,6 @@ public sealed partial class GeospatialNamespace
 		configure(descriptor);
 		return GetIp2geoDatasourceAsync((GetIp2geoDatasourceGeospatialRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Retrieves statistics for all geospatial uploads.</summary>
 	public GetUploadStatsGeospatialResponse GetUploadStats(GetUploadStatsGeospatialRequest request, TransportOptions? options = null) =>
@@ -139,7 +135,6 @@ public sealed partial class GeospatialNamespace
 		return GetUploadStatsAsync((GetUploadStatsGeospatialRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Create a specific IP2Geo data source. Default values:  - `endpoint`: `"https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json"`  - `update_interval_in_days`: 3.</summary>
 	public PutIp2geoDatasourceGeospatialResponse PutIp2geoDatasource(PutIp2geoDatasourceGeospatialRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, PutIp2geoDatasourceGeospatialEndpoint.Instance, options);
@@ -164,7 +159,6 @@ public sealed partial class GeospatialNamespace
 		return PutIp2geoDatasourceAsync((PutIp2geoDatasourceGeospatialRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Update a specific IP2Geo data source.</summary>
 	public PutIp2geoDatasourceSettingsGeospatialResponse PutIp2geoDatasourceSettings(PutIp2geoDatasourceSettingsGeospatialRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, PutIp2geoDatasourceSettingsGeospatialEndpoint.Instance, options);
@@ -188,5 +182,4 @@ public sealed partial class GeospatialNamespace
 		configure(descriptor);
 		return PutIp2geoDatasourceSettingsAsync((PutIp2geoDatasourceSettingsGeospatialRequest)descriptor, options, ct);
 	}
-
 }

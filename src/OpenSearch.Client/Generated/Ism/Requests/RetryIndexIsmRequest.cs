@@ -19,6 +19,7 @@ public sealed class RetryIndexIsmRequest
 	/// <summary>The state to retry.</summary>
 		public string? State { get; set; }
 }
+
 public sealed class RetryIndexIsmEndpoint : IEndpoint<RetryIndexIsmRequest, RetryIndexIsmResponse>
 {
 	public static readonly RetryIndexIsmEndpoint Instance = new();

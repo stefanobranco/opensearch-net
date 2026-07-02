@@ -26,6 +26,7 @@ public sealed class GetUpgradeIndexRequest
 	[JsonIgnore]
 	public bool? IgnoreUnavailable { get; set; }
 }
+
 public sealed class GetUpgradeIndexEndpoint : IEndpoint<GetUpgradeIndexRequest, GetUpgradeIndexResponse>
 {
 	public static readonly GetUpgradeIndexEndpoint Instance = new();

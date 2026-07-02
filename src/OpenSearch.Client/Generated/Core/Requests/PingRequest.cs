@@ -14,6 +14,7 @@ namespace OpenSearch.Client;
 public sealed class PingRequest
 {
 }
+
 public sealed class PingEndpoint : IEndpoint<PingRequest, PingResponse>
 {
 	public static readonly PingEndpoint Instance = new();

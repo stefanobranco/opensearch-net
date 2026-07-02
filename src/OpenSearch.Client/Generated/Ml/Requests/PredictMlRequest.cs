@@ -29,6 +29,7 @@ public sealed class PredictMlRequest
 	/// <summary>The target response.</summary>
 		public List<string>? TargetResponse { get; set; }
 }
+
 public sealed class PredictMlEndpoint : IEndpoint<PredictMlRequest, PredictMlResponse>
 {
 	public static readonly PredictMlEndpoint Instance = new();

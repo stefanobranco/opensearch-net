@@ -20,6 +20,7 @@ public sealed class ResolveIndexIndexRequest
 	[JsonIgnore]
 	public List<string>? ExpandWildcards { get; set; }
 }
+
 public sealed class ResolveIndexIndexEndpoint : IEndpoint<ResolveIndexIndexRequest, ResolveIndexIndexResponse>
 {
 	public static readonly ResolveIndexIndexEndpoint Instance = new();

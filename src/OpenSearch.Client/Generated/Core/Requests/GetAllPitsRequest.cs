@@ -14,6 +14,7 @@ namespace OpenSearch.Client;
 public sealed class GetAllPitsRequest
 {
 }
+
 public sealed class GetAllPitsEndpoint : IEndpoint<GetAllPitsRequest, GetAllPitsResponse>
 {
 	public static readonly GetAllPitsEndpoint Instance = new();

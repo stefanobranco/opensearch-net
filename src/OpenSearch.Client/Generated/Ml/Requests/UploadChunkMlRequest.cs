@@ -22,6 +22,7 @@ public sealed class UploadChunkMlRequest
 	/// <summary>The model chunk.</summary>
 		public string? Chunk { get; set; }
 }
+
 public sealed class UploadChunkMlEndpoint : IEndpoint<UploadChunkMlRequest, UploadChunkMlResponse>
 {
 	public static readonly UploadChunkMlEndpoint Instance = new();

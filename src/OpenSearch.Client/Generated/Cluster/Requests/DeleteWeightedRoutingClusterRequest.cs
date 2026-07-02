@@ -16,6 +16,7 @@ public sealed class DeleteWeightedRoutingClusterRequest
 	[JsonPropertyName("_version")]
 	public long? Version { get; set; }
 }
+
 public sealed class DeleteWeightedRoutingClusterEndpoint : IEndpoint<DeleteWeightedRoutingClusterRequest, DeleteWeightedRoutingClusterResponse>
 {
 	public static readonly DeleteWeightedRoutingClusterEndpoint Instance = new();

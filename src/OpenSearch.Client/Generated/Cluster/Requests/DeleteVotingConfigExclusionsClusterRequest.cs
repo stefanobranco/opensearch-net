@@ -17,6 +17,7 @@ public sealed class DeleteVotingConfigExclusionsClusterRequest
 	[JsonIgnore]
 	public bool? WaitForRemoval { get; set; }
 }
+
 public sealed class DeleteVotingConfigExclusionsClusterEndpoint : IEndpoint<DeleteVotingConfigExclusionsClusterRequest, DeleteVotingConfigExclusionsClusterResponse>
 {
 	public static readonly DeleteVotingConfigExclusionsClusterEndpoint Instance = new();

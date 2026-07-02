@@ -29,6 +29,7 @@ public sealed class UpdateModelGroupMlRequest
 	/// <summary>The backend roles to add.</summary>
 		public List<string>? AddBackendRoles { get; set; }
 }
+
 public sealed class UpdateModelGroupMlEndpoint : IEndpoint<UpdateModelGroupMlRequest, UpdateModelGroupMlResponse>
 {
 	public static readonly UpdateModelGroupMlEndpoint Instance = new();

@@ -42,6 +42,7 @@ public sealed class SplitIndexRequest
 	/// <summary>Configuration options for the target index.</summary>
 		public Dictionary<string, object>? Settings { get; set; }
 }
+
 public sealed class SplitIndexEndpoint : IEndpoint<SplitIndexRequest, SplitIndexResponse>
 {
 	public static readonly SplitIndexEndpoint Instance = new();

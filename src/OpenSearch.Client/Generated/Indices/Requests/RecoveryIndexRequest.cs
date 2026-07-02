@@ -23,6 +23,7 @@ public sealed class RecoveryIndexRequest
 	[JsonIgnore]
 	public bool? Detailed { get; set; }
 }
+
 public sealed class RecoveryIndexEndpoint : IEndpoint<RecoveryIndexRequest, RecoveryIndexResponse>
 {
 	public static readonly RecoveryIndexEndpoint Instance = new();
