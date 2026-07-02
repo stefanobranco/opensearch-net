@@ -10,11 +10,11 @@ public sealed class StatsNodeRequestDescriptor
 	internal StatsNodeRequest _value = new();
 
 	/// <summary>Limit the information returned to the specified metrics.</summary>
-		public StatsNodeRequestDescriptor Metric(List<Metric>? value) { _value.Metric = value; return this; }
-	public StatsNodeRequestDescriptor Metric(Metric value) { _value.Metric = [value]; return this; }
+		public StatsNodeRequestDescriptor Metric(List<NodesStatsMetric>? value) { _value.Metric = value; return this; }
+	public StatsNodeRequestDescriptor Metric(NodesStatsMetric value) { _value.Metric = [value]; return this; }
 	/// <summary>Limit the information returned for indexes metric to the specified index metrics. It can be used only if indexes (or all) metric is specified.</summary>
-		public StatsNodeRequestDescriptor IndexMetric(List<IndexMetric>? value) { _value.IndexMetric = value; return this; }
-	public StatsNodeRequestDescriptor IndexMetric(IndexMetric value) { _value.IndexMetric = [value]; return this; }
+		public StatsNodeRequestDescriptor IndexMetric(List<NodesStatsIndexMetric>? value) { _value.IndexMetric = value; return this; }
+	public StatsNodeRequestDescriptor IndexMetric(NodesStatsIndexMetric value) { _value.IndexMetric = [value]; return this; }
 	/// <summary>A comma-separated list of node IDs or names used to limit returned information.</summary>
 		public StatsNodeRequestDescriptor NodeId(List<string>? value) { _value.NodeId = value; return this; }
 	public StatsNodeRequestDescriptor NodeId(string value) { _value.NodeId = [value]; return this; }

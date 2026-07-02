@@ -50,7 +50,7 @@ public sealed class MtermvectorsRequest
 	[JsonIgnore]
 	public string? VersionType { get; set; }
 	/// <summary>Array of existing or artificial documents.</summary>
-		public List<Operation>? Docs { get; set; }
+		public List<MtermvectorsOperation>? Docs { get; set; }
 	/// <summary>Simplified syntax to specify documents by their ID if they're in the same index.</summary>
 		public List<string>? Ids { get; set; }
 }

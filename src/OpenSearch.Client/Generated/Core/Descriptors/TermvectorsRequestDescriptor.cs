@@ -38,10 +38,10 @@ public sealed class TermvectorsRequestDescriptor
 		public TermvectorsRequestDescriptor VersionType(string? value) { _value.VersionType = value; return this; }
 	/// <summary>An artificial document (a document not present in the index) for which you want to retrieve term vectors.</summary>
 		public TermvectorsRequestDescriptor Doc(System.Text.Json.JsonElement? value) { _value.Doc = value; return this; }
-	public TermvectorsRequestDescriptor Filter(Filter? value) { _value.Filter = value; return this; }
-	public TermvectorsRequestDescriptor Filter(Action<FilterDescriptor> configure)
+	public TermvectorsRequestDescriptor Filter(TermVectorsFilter? value) { _value.Filter = value; return this; }
+	public TermvectorsRequestDescriptor Filter(Action<TermVectorsFilterDescriptor> configure)
 	{
-		var descriptor = new FilterDescriptor();
+		var descriptor = new TermVectorsFilterDescriptor();
 		configure(descriptor);
 		_value.Filter = descriptor;
 		return this;

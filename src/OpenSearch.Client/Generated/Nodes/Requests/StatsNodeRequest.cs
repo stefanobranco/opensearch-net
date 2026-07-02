@@ -15,10 +15,10 @@ public sealed class StatsNodeRequest
 {
 	/// <summary>Limit the information returned to the specified metrics.</summary>
 	[JsonIgnore]
-	public List<Metric>? Metric { get; set; }
+	public List<NodesStatsMetric>? Metric { get; set; }
 	/// <summary>Limit the information returned for indexes metric to the specified index metrics. It can be used only if indexes (or all) metric is specified.</summary>
 	[JsonIgnore]
-	public List<IndexMetric>? IndexMetric { get; set; }
+	public List<NodesStatsIndexMetric>? IndexMetric { get; set; }
 	/// <summary>A comma-separated list of node IDs or names used to limit returned information.</summary>
 	[JsonIgnore]
 	public List<string>? NodeId { get; set; }

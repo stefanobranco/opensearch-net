@@ -20,7 +20,7 @@ public sealed class SimulateIngestRequest
 	[JsonIgnore]
 	public bool? Verbose { get; set; }
 	/// <summary>A list of sample documents to test in the pipeline.</summary>
-		public List<Document>? Docs { get; set; }
+		public List<IngestDocument>? Docs { get; set; }
 	public Pipeline? Pipeline { get; set; }
 }
 

@@ -12,6 +12,6 @@ namespace OpenSearch.Client;
 
 public partial class TrainPredictMlResponse : OpenSearch.Net.OpenSearchResponse
 {
-	public Status? Status { get; set; }
+	public MlTaskStatus? Status { get; set; }
 	public PredictionResult? PredictionResult { get; set; }
 }

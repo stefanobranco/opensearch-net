@@ -43,7 +43,7 @@ public sealed class ReindexRequest
 		public int? MaxDocs { get; set; }
 	public Script? Script { get; set; }
 	public int? Size { get; set; }
-	public Source? Source { get; set; }
+	public ReindexSource? Source { get; set; }
 }
 
 public sealed class ReindexEndpoint : IEndpoint<ReindexRequest, ReindexResponse>

@@ -15,13 +15,13 @@ public sealed class BucketsDescriptor
 		public BucketsDescriptor EndTime(long? value) { _value.EndTime = value; return this; }
 	/// <summary>The overall aggregate value.</summary>
 		public BucketsDescriptor OverallAggregateValue(double? value) { _value.OverallAggregateValue = value; return this; }
-	public BucketsDescriptor Entities(List<Entity>? value) { _value.Entities = value; return this; }
-	public BucketsDescriptor Entities(params Action<EntityDescriptor>[] configure)
+	public BucketsDescriptor Entities(List<AnomalyEntity>? value) { _value.Entities = value; return this; }
+	public BucketsDescriptor Entities(params Action<AnomalyEntityDescriptor>[] configure)
 	{
-		var list = new List<Entity>();
+		var list = new List<AnomalyEntity>();
 		foreach (var action in configure)
 		{
-			var descriptor = new EntityDescriptor();
+			var descriptor = new AnomalyEntityDescriptor();
 			action(descriptor);
 			list.Add(descriptor);
 		}

@@ -30,13 +30,13 @@ public sealed class CreateConnectorMlRequestDescriptor
 		_value.ClientConfig = descriptor;
 		return this;
 	}
-	public CreateConnectorMlRequestDescriptor Actions(List<IndexAction>? value) { _value.Actions = value; return this; }
-	public CreateConnectorMlRequestDescriptor Actions(params Action<IndexActionDescriptor>[] configure)
+	public CreateConnectorMlRequestDescriptor Actions(List<ConnectorAction>? value) { _value.Actions = value; return this; }
+	public CreateConnectorMlRequestDescriptor Actions(params Action<ConnectorActionDescriptor>[] configure)
 	{
-		var list = new List<IndexAction>();
+		var list = new List<ConnectorAction>();
 		foreach (var action in configure)
 		{
-			var descriptor = new IndexActionDescriptor();
+			var descriptor = new ConnectorActionDescriptor();
 			action(descriptor);
 			list.Add(descriptor);
 		}

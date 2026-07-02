@@ -18,10 +18,10 @@ public sealed class StatsClusterRequest
 	public List<string>? NodeId { get; set; }
 	/// <summary>Limit the information returned to the specified metrics.</summary>
 	[JsonIgnore]
-	public List<Metric>? Metric { get; set; }
+	public List<ClusterStatsMetric>? Metric { get; set; }
 	/// <summary>A comma-separated list of [index metric groups](https://opensearch.org/docs/latest/api-reference/cluster-api/cluster-stats/#index-metric-groups), for example, `docs,store`.</summary>
 	[JsonIgnore]
-	public List<IndexMetric>? IndexMetric { get; set; }
+	public List<ClusterStatsIndexMetric>? IndexMetric { get; set; }
 	/// <summary>Whether to return settings in the flat form, which can improve readability, especially for heavily nested settings. For example, the flat form of `"cluster": { "max_shards_per_node": 500 }` is `"cluster.max_shards_per_node": "500"`.</summary>
 	[JsonIgnore]
 	public bool? FlatSettings { get; set; }

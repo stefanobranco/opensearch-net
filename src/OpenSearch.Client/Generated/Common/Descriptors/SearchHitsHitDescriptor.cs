@@ -17,10 +17,10 @@ public sealed class SearchHitsHitDescriptor
 	public SearchHitsHitDescriptor Id(string? value) { _value.Id = value; return this; }
 	/// <summary>The score.</summary>
 		public SearchHitsHitDescriptor Score(float? value) { _value.Score = value; return this; }
-	public SearchHitsHitDescriptor Source(Source? value) { _value.Source = value; return this; }
-	public SearchHitsHitDescriptor Source(Action<SourceDescriptor> configure)
+	public SearchHitsHitDescriptor Source(MlSource? value) { _value.Source = value; return this; }
+	public SearchHitsHitDescriptor Source(Action<MlSourceDescriptor> configure)
 	{
-		var descriptor = new SourceDescriptor();
+		var descriptor = new MlSourceDescriptor();
 		configure(descriptor);
 		_value.Source = descriptor;
 		return this;

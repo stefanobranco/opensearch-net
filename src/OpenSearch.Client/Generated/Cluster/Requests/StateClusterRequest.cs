@@ -15,7 +15,7 @@ public sealed class StateClusterRequest
 {
 	/// <summary>Limits the information returned to only the [specified metric groups](https://opensearch.org/docs/latest/api-reference/cluster-api/cluster-stats/#metric-groups).</summary>
 	[JsonIgnore]
-	public List<Metric>? Metric { get; set; }
+	public List<ClusterStateMetric>? Metric { get; set; }
 	/// <summary></summary>
 	[JsonIgnore]
 	public List<string>? Index { get; set; }

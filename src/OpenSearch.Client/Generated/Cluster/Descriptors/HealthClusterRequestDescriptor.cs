@@ -17,7 +17,7 @@ public sealed class HealthClusterRequestDescriptor
 		public HealthClusterRequestDescriptor ClusterManagerTimeout(string? value) { _value.ClusterManagerTimeout = value; return this; }
 	public HealthClusterRequestDescriptor ExpandWildcards(List<string>? value) { _value.ExpandWildcards = value; return this; }
 	public HealthClusterRequestDescriptor ExpandWildcards(string value) { _value.ExpandWildcards = [value]; return this; }
-	public HealthClusterRequestDescriptor Level(Level? value) { _value.Level = value; return this; }
+	public HealthClusterRequestDescriptor Level(ClusterHealthLevel? value) { _value.Level = value; return this; }
 	/// <summary>Whether to return information from the local node only instead of from the cluster manager node.</summary>
 		public HealthClusterRequestDescriptor Local(bool? value) { _value.Local = value; return this; }
 	/// <summary>The amount of time to wait for a response from the cluster manager node. For more information about supported time units, see [Common parameters](https://opensearch.org/docs/latest/api-reference/common-parameters/#time-units).</summary>

@@ -192,6 +192,18 @@ public static class CodegenValidator
 					Console.WriteLine($"  {name}");
 			}
 
+			// Check 4c: Same-name schema conflation. Types are deduplicated by schema name, so two
+			// spec files defining the same name would silently share one C# type (first mapped wins —
+			// ml's model Source once deserialized as reindex's Source). Every collision must be
+			// disambiguated through the qualified rename table.
+			if (typeMapper.ConflatedNames.Count > 0)
+			{
+				Console.WriteLine($"\n[FAIL] {typeMapper.ConflatedNames.Count} schema names are defined by multiple spec files and conflated into one type — add qualified renames:");
+				foreach (var (name, origins) in typeMapper.ConflatedNames)
+					Console.WriteLine($"  {name}: {string.Join(", ", origins)}");
+				hasCriticalFailure = true;
+			}
+
 			// Check 5: Typed raw bodies — requests whose body is an array/union/scalar payload
 		// (not flattened into named fields). A JsonElement payload means the body could not be
 		// typed (e.g. a union without a discriminator) and is sent as raw JSON.

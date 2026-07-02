@@ -12,16 +12,16 @@ public sealed class StatesDescriptor
 	/// <summary>The name of the state.</summary>
 		public StatesDescriptor Name(string? value) { _value.Name = value; return this; }
 	/// <summary>The list of actions to perform.</summary>
-		public StatesDescriptor Actions(List<IndexAction>? value) { _value.Actions = value; return this; }
+		public StatesDescriptor Actions(List<IsmAction>? value) { _value.Actions = value; return this; }
 	/// <summary>The list of actions to perform.</summary>
-		public StatesDescriptor Actions(params Action<IndexActionDescriptor>[] configure)
+		public StatesDescriptor Actions(params Action<IsmActionDescriptor>[] configure)
 	{
-		var list = new List<IndexAction>();
+		var list = new List<IsmAction>();
 		foreach (var action in configure)
 		{
-			var descriptor = new IndexActionDescriptor();
+			var descriptor = new IsmActionDescriptor();
 			action(descriptor);
-			list.Add(descriptor);
+			list.Add(((IsmAction)descriptor)!);
 		}
 		_value.Actions = list;
 		return this;

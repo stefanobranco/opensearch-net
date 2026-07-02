@@ -14,14 +14,14 @@ public sealed class SimulateIngestRequestDescriptor
 	/// <summary>When `true`, the response includes output data for each processor in the pipeline</summary>
 		public SimulateIngestRequestDescriptor Verbose(bool? value) { _value.Verbose = value; return this; }
 	/// <summary>A list of sample documents to test in the pipeline.</summary>
-		public SimulateIngestRequestDescriptor Docs(List<Document>? value) { _value.Docs = value; return this; }
+		public SimulateIngestRequestDescriptor Docs(List<IngestDocument>? value) { _value.Docs = value; return this; }
 	/// <summary>A list of sample documents to test in the pipeline.</summary>
-		public SimulateIngestRequestDescriptor Docs(params Action<DocumentDescriptor>[] configure)
+		public SimulateIngestRequestDescriptor Docs(params Action<IngestDocumentDescriptor>[] configure)
 	{
-		var list = new List<Document>();
+		var list = new List<IngestDocument>();
 		foreach (var action in configure)
 		{
-			var descriptor = new DocumentDescriptor();
+			var descriptor = new IngestDocumentDescriptor();
 			action(descriptor);
 			list.Add(descriptor);
 		}

@@ -31,7 +31,7 @@ public class ReindexTests : IntegrationTestBase
 		// Reindex from source to destination
 		Client.Core.Reindex(new ReindexRequest
 		{
-			Source = new Source { Index = [sourceIndex] },
+			Source = new ReindexSource { Index = [sourceIndex] },
 			Dest = new Destination { Index = destIndex },
 			Refresh = "true"
 		});

@@ -12,5 +12,5 @@ namespace OpenSearch.Client;
 
 public partial class GetProfileTasksMlResponse : OpenSearch.Net.OpenSearchResponse
 {
-	public Dictionary<string, Node>? Nodes { get; set; }
+	public Dictionary<string, MlNode>? Nodes { get; set; }
 }

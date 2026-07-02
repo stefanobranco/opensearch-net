@@ -23,7 +23,7 @@ public sealed class UpdateConnectorMlRequest
 	public ConnectorProtocol? Protocol { get; set; }
 	public Dictionary<string, object>? Parameters { get; set; }
 	public Credential? Credential { get; set; }
-	public List<IndexAction>? Actions { get; set; }
+	public List<ConnectorAction>? Actions { get; set; }
 	/// <summary>The backend roles.</summary>
 		public List<string>? BackendRoles { get; set; }
 	public ModelGroupAccessMode? AccessMode { get; set; }

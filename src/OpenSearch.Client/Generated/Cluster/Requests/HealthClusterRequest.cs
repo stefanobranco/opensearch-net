@@ -27,7 +27,7 @@ public sealed class HealthClusterRequest
 	public List<string>? ExpandWildcards { get; set; }
 	/// <summary></summary>
 	[JsonIgnore]
-	public Level? Level { get; set; }
+	public ClusterHealthLevel? Level { get; set; }
 	/// <summary>Whether to return information from the local node only instead of from the cluster manager node.</summary>
 	[JsonIgnore]
 	public bool? Local { get; set; }

@@ -35,14 +35,14 @@ public sealed class MtermvectorsRequestDescriptor
 	/// <summary>The specific version type.</summary>
 		public MtermvectorsRequestDescriptor VersionType(string? value) { _value.VersionType = value; return this; }
 	/// <summary>Array of existing or artificial documents.</summary>
-		public MtermvectorsRequestDescriptor Docs(List<Operation>? value) { _value.Docs = value; return this; }
+		public MtermvectorsRequestDescriptor Docs(List<MtermvectorsOperation>? value) { _value.Docs = value; return this; }
 	/// <summary>Array of existing or artificial documents.</summary>
-		public MtermvectorsRequestDescriptor Docs(params Action<OperationDescriptor>[] configure)
+		public MtermvectorsRequestDescriptor Docs(params Action<MtermvectorsOperationDescriptor>[] configure)
 	{
-		var list = new List<Operation>();
+		var list = new List<MtermvectorsOperation>();
 		foreach (var action in configure)
 		{
-			var descriptor = new OperationDescriptor();
+			var descriptor = new MtermvectorsOperationDescriptor();
 			action(descriptor);
 			list.Add(descriptor);
 		}

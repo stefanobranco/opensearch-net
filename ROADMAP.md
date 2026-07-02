@@ -163,8 +163,21 @@ well-engineered **on its own terms**, with no push for upstream adoption.
        `Index("logs")`); the hand-written `AnalyzeRequestExtensions` wrapper is deleted.
      Remaining scorecard items are breaking and queued with item 3: root-namespace collision renames
      (`Entity`, `Filter`, ...) batched with the typed-`UpdateRequest` break.
-  3. [ ] Typed `UpdateRequest` doc/upsert (breaking — before RC), batched with root-namespace
-     collision renames (`Entity` et al.) so consumers take one break, not two.
+  3. [x] **Breaking batch (typed update + collision renames)** — one break, not two.
+     - **Typed `UpdateRequest<TDocument, TPartialDocument>`** (Java-blueprint shape): doc/upsert were
+       raw `JsonElement`; now typed generic fields routed through the source serializer. Generator
+       support is general (request-side type parameters; endpoints/client methods/descriptors span
+       request+response parameters), not update-specific.
+     - **Qualified schema renames.** The consumer-reported root-namespace collisions (`Entity`,
+       `Filter`, `Operation`, `Source`, `Document`, `Node`) are renamed with domain prefixes
+       (`AnomalyEntity`, `TermVectorsFilter`, `MgetOperation`/`MtermvectorsOperation`,
+       `ReindexSource`/`MlSource`, `IngestDocument`, `MlNode`). Investigating them surfaced a real
+       correctness bug: types dedupe by bare schema name, so same-named schemas from different spec
+       files silently conflated into one C# type, first mapped wins — ml's model `Source` deserialized
+       as reindex's `Source` (all fields lost), `IndexSettings`/`Status`/`Result`/`Metric` and more
+       likewise. All 18 conflations are now disambiguated via a qualified (file+name) rename table,
+       and the validator **fails generation** on any unrenamed same-name collision so a spec update
+       can't reintroduce one silently.
   4. [ ] Phase D package-identity decision (rename after RC would be the worst break).
   5. [ ] Validator-debt burn-down (19 empty / 15 stub / 9 fallback / 6 punts → fix or justify; ratchet).
   6. [ ] Benchmark baseline (C3).

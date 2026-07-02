@@ -24,13 +24,13 @@ public sealed class UpdateConnectorMlRequestDescriptor
 		_value.Credential = descriptor;
 		return this;
 	}
-	public UpdateConnectorMlRequestDescriptor Actions(List<IndexAction>? value) { _value.Actions = value; return this; }
-	public UpdateConnectorMlRequestDescriptor Actions(params Action<IndexActionDescriptor>[] configure)
+	public UpdateConnectorMlRequestDescriptor Actions(List<ConnectorAction>? value) { _value.Actions = value; return this; }
+	public UpdateConnectorMlRequestDescriptor Actions(params Action<ConnectorActionDescriptor>[] configure)
 	{
-		var list = new List<IndexAction>();
+		var list = new List<ConnectorAction>();
 		foreach (var action in configure)
 		{
-			var descriptor = new IndexActionDescriptor();
+			var descriptor = new ConnectorActionDescriptor();
 			action(descriptor);
 			list.Add(descriptor);
 		}
