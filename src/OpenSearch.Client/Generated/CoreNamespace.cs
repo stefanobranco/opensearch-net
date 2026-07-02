@@ -472,27 +472,27 @@ public sealed partial class CoreNamespace
 	}
 
 	/// <summary>Returns the source of a document.</summary>
-	public GetSourceResponse GetSource(GetSourceRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, GetSourceEndpoint.Instance, options);
+	public GetSourceResponse<TDocument> GetSource<TDocument>(GetSourceRequest request, TransportOptions? options = null) =>
+		_client.DoRequest(request, GetSourceEndpoint<TDocument>.Instance, options);
 
 	/// <summary>Returns the source of a document.</summary>
-	public Task<GetSourceResponse> GetSourceAsync(GetSourceRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, GetSourceEndpoint.Instance, options, ct);
+	public Task<GetSourceResponse<TDocument>> GetSourceAsync<TDocument>(GetSourceRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, GetSourceEndpoint<TDocument>.Instance, options, ct);
 
 	/// <summary>Returns the source of a document.</summary>
-	public GetSourceResponse GetSource(Action<GetSourceRequestDescriptor> configure, TransportOptions? options = null)
+	public GetSourceResponse<TDocument> GetSource<TDocument>(Action<GetSourceRequestDescriptor> configure, TransportOptions? options = null)
 	{
 		var descriptor = new GetSourceRequestDescriptor();
 		configure(descriptor);
-		return GetSource((GetSourceRequest)descriptor, options);
+		return GetSource<TDocument>((GetSourceRequest)descriptor, options);
 	}
 
 	/// <summary>Returns the source of a document.</summary>
-	public Task<GetSourceResponse> GetSourceAsync(Action<GetSourceRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	public Task<GetSourceResponse<TDocument>> GetSourceAsync<TDocument>(Action<GetSourceRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
 	{
 		var descriptor = new GetSourceRequestDescriptor();
 		configure(descriptor);
-		return GetSourceAsync((GetSourceRequest)descriptor, options, ct);
+		return GetSourceAsync<TDocument>((GetSourceRequest)descriptor, options, ct);
 	}
 
 	/// <summary>Creates or updates a document in an index.</summary>

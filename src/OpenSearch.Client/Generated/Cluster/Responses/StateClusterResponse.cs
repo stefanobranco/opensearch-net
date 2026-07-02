@@ -12,4 +12,6 @@ namespace OpenSearch.Client;
 
 public partial class StateClusterResponse : OpenSearch.Net.OpenSearchResponse
 {
+	[JsonExtensionData]
+	public Dictionary<string, System.Text.Json.JsonElement>? ExtensionData { get; set; }
 }

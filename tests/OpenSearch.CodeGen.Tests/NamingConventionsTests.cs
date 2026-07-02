@@ -156,4 +156,49 @@ public class NamingConventionsTests
     [Fact]
     public void SanitizeIdentifier_ValidIdentifier() =>
         NamingConventions.SanitizeIdentifier("validName").Should().Be("validName");
+
+    private static Field MakeField(string name, string wireName) => new()
+    {
+        Name = name,
+        WireName = wireName,
+        Type = TypeRef.String(),
+        Required = false,
+    };
+
+    [Fact]
+    public void ResolveFieldCollision_RenamesExistingFieldInPlace()
+    {
+        // `_nodes` was collected first (from an allOf base) and holds the Pascal name `Nodes`;
+        // the incoming per-node `nodes` dict must win it, with `_nodes` renamed via the table.
+        var fields = new List<Field> { MakeField("Nodes", "_nodes") };
+
+        var name = NamingConventions.ResolveFieldCollision(fields, "nodes", "Nodes", "InfoNodeResponse");
+
+        name.Should().Be("Nodes");
+        fields[0].Name.Should().Be("NodeStatistics");
+        fields[0].WireName.Should().Be("_nodes");
+    }
+
+    [Fact]
+    public void ResolveFieldCollision_RenamesIncomingField()
+    {
+        // `name` was collected first; the incoming `_name` takes the table rename.
+        var fields = new List<Field> { MakeField("Name", "name") };
+
+        var name = NamingConventions.ResolveFieldCollision(fields, "_name", "Name", "PercolateQuery");
+
+        name.Should().Be("QueryName");
+        fields[0].Name.Should().Be("Name");
+    }
+
+    [Fact]
+    public void ResolveFieldCollision_FailsOnUnlistedCollision()
+    {
+        var fields = new List<Field> { MakeField("Value", "_value") };
+
+        var act = () => NamingConventions.ResolveFieldCollision(fields, "value", "Value", "SomeResponse");
+
+        act.Should().Throw<InvalidOperationException>()
+            .WithMessage("*SomeResponse*_value*value*s_collisionFieldRenames*");
+    }
 }

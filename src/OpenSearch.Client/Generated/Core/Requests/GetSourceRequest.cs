@@ -48,9 +48,9 @@ public sealed class GetSourceRequest
 	public string? VersionType { get; set; }
 }
 
-public sealed class GetSourceEndpoint : IEndpoint<GetSourceRequest, GetSourceResponse>
+public sealed class GetSourceEndpoint<TDocument> : IEndpoint<GetSourceRequest, GetSourceResponse<TDocument>>
 {
-	public static readonly GetSourceEndpoint Instance = new();
+	public static readonly GetSourceEndpoint<TDocument> Instance = new();
 
 	public OpenSearch.Net.HttpMethod Method(GetSourceRequest r) => OpenSearch.Net.HttpMethod.Get;
 
@@ -81,6 +81,6 @@ public sealed class GetSourceEndpoint : IEndpoint<GetSourceRequest, GetSourceRes
 
 	public RequestBody? GetBody(GetSourceRequest r) => null;
 
-	public GetSourceResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		serializer.Deserialize<GetSourceResponse>(body)!;
+	public GetSourceResponse<TDocument> DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
+		new() { Body = SourceResponseReader.Read<TDocument>(body, serializer) };
 }

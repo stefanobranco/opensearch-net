@@ -14,8 +14,9 @@ public partial class GetNodeStatsSearchRelevanceResponse : OpenSearch.Net.OpenSe
 {
 	/// <summary>Contains statistics about the number of nodes selected by the request's node filters.</summary>
 		[JsonPropertyName("_nodes")]
-	public NodeStatistics? Nodes { get; set; }
+	public NodeStatistics? NodeStatistics { get; set; }
 	public string? ClusterName { get; set; }
 	public System.Text.Json.JsonElement? Info { get; set; }
 	public System.Text.Json.JsonElement? AllNodes { get; set; }
+	public System.Text.Json.JsonElement? Nodes { get; set; }
 }

@@ -10,6 +10,9 @@ namespace OpenSearch.Client;
 /// Returns the source of a document.
 /// </summary>
 
-public partial class GetSourceResponse : OpenSearch.Net.OpenSearchResponse
+public partial class GetSourceResponse<TDocument> : OpenSearch.Net.OpenSearchResponse
 {
+	/// <summary>The document, deserialized through the configured source serializer.</summary>
+	[JsonIgnore]
+	public TDocument? Body { get; set; }
 }

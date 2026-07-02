@@ -11,7 +11,7 @@ public sealed class PercolateQuery
 	/// <summary>Floating point number used to decrease or increase the relevance scores of the query. Boost values are relative to the default value of 1.0. A boost value between 0 and 1.0 decreases the relevance score. A value greater than 1.0 increases the relevance score.</summary>
 		public float? Boost { get; set; }
 	[JsonPropertyName("_name")]
-	public string? Name { get; set; }
+	public string? QueryName { get; set; }
 	/// <summary>The source of the document being percolated.</summary>
 		public System.Text.Json.JsonElement? Document { get; set; }
 	/// <summary>An array of sources of the documents being percolated.</summary>
@@ -19,6 +19,8 @@ public sealed class PercolateQuery
 	public string? Field { get; set; }
 	public string? Id { get; set; }
 	public string? Index { get; set; }
+	/// <summary>The suffix used for the `_percolator_document_slot` field when multiple `percolate` queries are specified.</summary>
+		public string? Name { get; set; }
 	/// <summary>Preference used to fetch document to percolate.</summary>
 		public string? Preference { get; set; }
 	public string? Routing { get; set; }

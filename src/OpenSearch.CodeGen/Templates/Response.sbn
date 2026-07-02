@@ -24,6 +24,11 @@ public {{ if is_response }}partial{{ else }}sealed{{ end }} class {{ class_name 
 	[JsonIgnore]
 	public string? Value { get; set; }
 {{~ end ~}}
+{{~ if is_document_response ~}}
+	/// <summary>The document, deserialized through the configured source serializer.</summary>
+	[JsonIgnore]
+	public TDocument? Body { get; set; }
+{{~ end ~}}
 {{~ if has_additional_properties ~}}
 	[JsonExtensionData]
 	public Dictionary<string, System.Text.Json.JsonElement>? ExtensionData { get; set; }

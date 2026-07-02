@@ -90,6 +90,9 @@ public sealed class {{ endpoint_name }}{{ endpoint_type_suffix }} : IEndpoint<{{
 {{~ else if is_plain_text_response ~}}
 	public {{ response_name }}{{ response_type_suffix }} DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		new() { Value = new StreamReader(body).ReadToEnd() };
+{{~ else if is_document_response ~}}
+	public {{ response_name }}{{ response_type_suffix }} DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
+		new() { Body = SourceResponseReader.Read<TDocument>(body, serializer) };
 {{~ else ~}}
 	public {{ response_name }}{{ response_type_suffix }} DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<{{ response_name }}{{ response_type_suffix }}>(body)!;

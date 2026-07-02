@@ -24,6 +24,7 @@ public static class TemplateHelpers
 		obj["is_document_body"] = request.IsDocumentBody;
 		obj["is_head"] = request.IsHead;
 		obj["is_plain_text_response"] = request.Response.IsPlainTextResponse;
+		obj["is_document_response"] = request.Response.IsDocumentResponse;
 
 		// Index-style operations: POST when no Id, PUT when Id is present
 		var hasPathWithId = request.HttpPaths.Any(p => p.ParameterNames.Contains("id"));
@@ -72,8 +73,9 @@ public static class TemplateHelpers
 		obj["type_parameters"] = response.IsGeneric
 			? new ScriptArray(response.TypeParameters.Cast<object>())
 			: null;
-		obj["has_additional_properties"] = false;
+		obj["has_additional_properties"] = response.IsFreeform;
 		obj["is_plain_text_response"] = response.IsPlainTextResponse;
+		obj["is_document_response"] = response.IsDocumentResponse;
 		obj["is_response"] = true;
 		return obj;
 	}
@@ -128,6 +130,7 @@ public static class TemplateHelpers
 			: null;
 		obj["has_additional_properties"] = objectShape.AdditionalPropertiesType is not null;
 		obj["is_plain_text_response"] = false;
+		obj["is_document_response"] = false;
 		obj["is_response"] = false;
 		return obj;
 	}

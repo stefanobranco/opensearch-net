@@ -11,7 +11,7 @@ public sealed class PercolateQueryDescriptor
 
 	/// <summary>Floating point number used to decrease or increase the relevance scores of the query. Boost values are relative to the default value of 1.0. A boost value between 0 and 1.0 decreases the relevance score. A value greater than 1.0 increases the relevance score.</summary>
 		public PercolateQueryDescriptor Boost(float? value) { _value.Boost = value; return this; }
-	public PercolateQueryDescriptor Name(string? value) { _value.Name = value; return this; }
+	public PercolateQueryDescriptor QueryName(string? value) { _value.QueryName = value; return this; }
 	/// <summary>The source of the document being percolated.</summary>
 		public PercolateQueryDescriptor Document(System.Text.Json.JsonElement? value) { _value.Document = value; return this; }
 	/// <summary>An array of sources of the documents being percolated.</summary>
@@ -19,6 +19,8 @@ public sealed class PercolateQueryDescriptor
 	public PercolateQueryDescriptor Field(string? value) { _value.Field = value; return this; }
 	public PercolateQueryDescriptor Id(string? value) { _value.Id = value; return this; }
 	public PercolateQueryDescriptor Index(string? value) { _value.Index = value; return this; }
+	/// <summary>The suffix used for the `_percolator_document_slot` field when multiple `percolate` queries are specified.</summary>
+		public PercolateQueryDescriptor Name(string? value) { _value.Name = value; return this; }
 	/// <summary>Preference used to fetch document to percolate.</summary>
 		public PercolateQueryDescriptor Preference(string? value) { _value.Preference = value; return this; }
 	public PercolateQueryDescriptor Routing(string? value) { _value.Routing = value; return this; }

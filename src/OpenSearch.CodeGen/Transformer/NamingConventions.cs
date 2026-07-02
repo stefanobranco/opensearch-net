@@ -178,6 +178,53 @@ public static partial class NamingConventions
 		string.IsNullOrEmpty(pascal) ? pascal : JsonNamingPolicy.SnakeCaseLower.ConvertName(pascal);
 
 	/// <summary>
+	/// C# names for wire properties whose PascalCase form collides with a sibling property's in the
+	/// same object (e.g. <c>_nodes</c> beside <c>nodes</c> — both become <c>Nodes</c>). Applied only
+	/// when the collision actually occurs, so the same wire name keeps its mechanical PascalCase form
+	/// everywhere else. Silent first-wins dedupe used to drop the losing property entirely (13
+	/// stats/info responses lost their per-node dictionaries to <c>_nodes</c>).
+	/// </summary>
+	private static readonly Dictionary<string, string> s_collisionFieldRenames = new()
+	{
+		["_nodes"] = "NodeStatistics",
+		["_name"] = "QueryName",
+	};
+
+	/// <summary>
+	/// Resolves a PascalCase collision between two distinct wire properties of one object.
+	/// Returns the C# name for the incoming property; may rename the already-collected field in
+	/// place when the rename table targets its wire name. Fails generation on an unlisted collision
+	/// so a spec update can't silently drop a property again.
+	/// </summary>
+	public static string ResolveFieldCollision(List<Field> fields, string incomingWireName, string pascalName, string owner)
+	{
+		var existingIdx = fields.FindIndex(f => string.Equals(f.Name, pascalName, StringComparison.OrdinalIgnoreCase));
+		if (existingIdx >= 0 && s_collisionFieldRenames.TryGetValue(fields[existingIdx].WireName, out var renamedExisting))
+		{
+			fields[existingIdx] = CloneFieldWithName(fields[existingIdx], renamedExisting);
+			return pascalName;
+		}
+
+		if (s_collisionFieldRenames.TryGetValue(incomingWireName, out var renamedIncoming))
+			return renamedIncoming;
+
+		var existingWire = existingIdx >= 0 ? fields[existingIdx].WireName : "<unknown>";
+		throw new InvalidOperationException(
+			$"Property name collision in {owner}: '{existingWire}' and '{incomingWireName}' both map to '{pascalName}'. " +
+			"Add an entry to NamingConventions.s_collisionFieldRenames for one of them.");
+	}
+
+	private static Field CloneFieldWithName(Field field, string name) => new()
+	{
+		Name = name,
+		WireName = field.WireName,
+		Type = field.Type,
+		Required = field.Required,
+		Description = field.Description,
+		Deprecated = field.Deprecated
+	};
+
+	/// <summary>
 	/// Renames any field whose PascalCase name clashes with the enclosing class name (CS0542).
 	/// </summary>
 	public static void FixFieldNameClash(List<Field> fields, string className)

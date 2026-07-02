@@ -14,6 +14,7 @@ public partial class ReloadSecureSettingsNodeResponse : OpenSearch.Net.OpenSearc
 {
 	/// <summary>Contains statistics about the number of nodes selected by the request's node filters.</summary>
 		[JsonPropertyName("_nodes")]
-	public NodeStatistics? Nodes { get; set; }
+	public NodeStatistics? NodeStatistics { get; set; }
 	public string? ClusterName { get; set; }
+	public Dictionary<string, System.Text.Json.JsonElement>? Nodes { get; set; }
 }
