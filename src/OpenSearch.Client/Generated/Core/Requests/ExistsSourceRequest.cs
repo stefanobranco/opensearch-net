@@ -21,7 +21,7 @@ public sealed class ExistsSourceRequest
 	public string? Index { get; set; }
 	/// <summary>`true` or `false` to return the `_source` field or not, or a list of fields to return.</summary>
 	[JsonIgnore]
-	public System.Text.Json.JsonElement? Source { get; set; }
+	public SourceConfigParam? Source { get; set; }
 	/// <summary>A comma-separated list of source fields to exclude in the response.</summary>
 	[JsonIgnore]
 	public List<string>? SourceExcludes { get; set; }

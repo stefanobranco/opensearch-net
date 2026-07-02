@@ -14,7 +14,7 @@ public sealed class ExistsSourceRequestDescriptor
 	/// <summary>A comma-separated list of data streams, indexes, and aliases. Supports wildcards (`*`).</summary>
 		public ExistsSourceRequestDescriptor Index(string? value) { _value.Index = value; return this; }
 	/// <summary>`true` or `false` to return the `_source` field or not, or a list of fields to return.</summary>
-		public ExistsSourceRequestDescriptor Source(System.Text.Json.JsonElement? value) { _value.Source = value; return this; }
+		public ExistsSourceRequestDescriptor Source(SourceConfigParam? value) { _value.Source = value; return this; }
 	/// <summary>A comma-separated list of source fields to exclude in the response.</summary>
 		public ExistsSourceRequestDescriptor SourceExcludes(List<string>? value) { _value.SourceExcludes = value; return this; }
 	/// <summary>A comma-separated list of source fields to include in the response.</summary>

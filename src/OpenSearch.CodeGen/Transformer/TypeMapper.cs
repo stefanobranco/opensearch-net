@@ -85,7 +85,7 @@ public sealed class TypeMapper
 		["SourceFilter"] = TypeRef.JsonElement(), // oneOf[Fields, object] — handled by SourceConfig
 		["BucketsPath"] = TypeRef.Named("BucketsPath", "BucketsPath"), // oneOf[string, array, object] → hand-written union with converter (Types/BucketsPath.cs)
 		["BucketsQueryContainer"] = TypeRef.Named("BucketsQueryContainer", "BucketsQueryContainer"), // Buckets<QueryContainer>: keyed-map-or-array → hand-written union (Types/BucketsQueryContainer.cs); the generator emitted an unusable empty tagged union
-		["SourceConfigParam"] = TypeRef.JsonElement(), // oneOf[boolean, Fields] — query parameter form of _source
+		["SourceConfigParam"] = TypeRef.Named("SourceConfigParam", "SourceConfigParam"), // oneOf[boolean, Fields] → hand-written bool-or-fields union with query-string ToString (Types/SourceConfigParam.cs)
 		["Suggest"] = TypeRef.JsonElement(), // oneOf[allOf, PhraseSuggest, TermSuggest] — handled by SuggesterDescriptor
 		["TaskInfos"] = TypeRef.Named("TaskInfos", "TaskInfos"), // oneOf[array<TaskInfo>, map<TaskGroup>] → hand-written union (Types/TaskInfos.cs)
 		["TrackHits"] = TypeRef.Named("TrackHits", "TrackHits"), // oneOf[boolean, integer] → hand-written struct with implicit conversions (Types/TrackHits.cs)

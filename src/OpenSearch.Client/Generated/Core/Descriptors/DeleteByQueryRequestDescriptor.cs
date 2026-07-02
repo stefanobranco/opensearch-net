@@ -12,7 +12,7 @@ public sealed class DeleteByQueryRequestDescriptor
 	/// <summary>A comma-separated list of data streams, indexes, and aliases to search. Supports wildcards (`*`). To search all data streams or indexes, omit this parameter or use `*` or `_all`.</summary>
 		public DeleteByQueryRequestDescriptor Index(List<string>? value) { _value.Index = value; return this; }
 	/// <summary>Set to `true` or `false` to return the `_source` field or not, or a list of fields to return.</summary>
-		public DeleteByQueryRequestDescriptor Source(System.Text.Json.JsonElement? value) { _value.Source = value; return this; }
+		public DeleteByQueryRequestDescriptor Source(SourceConfigParam? value) { _value.Source = value; return this; }
 	/// <summary>List of fields to exclude from the returned `_source` field.</summary>
 		public DeleteByQueryRequestDescriptor SourceExcludes(List<string>? value) { _value.SourceExcludes = value; return this; }
 	/// <summary>List of fields to extract and return from the `_source` field.</summary>

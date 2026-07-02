@@ -14,7 +14,7 @@ public sealed class GetRequestDescriptor
 	/// <summary>The name of the index containing the document.</summary>
 		public GetRequestDescriptor Index(string? value) { _value.Index = value; return this; }
 	/// <summary>Set to `true` or `false` to return the `_source` field or not, or a list of fields to return.</summary>
-		public GetRequestDescriptor Source(System.Text.Json.JsonElement? value) { _value.Source = value; return this; }
+		public GetRequestDescriptor Source(SourceConfigParam? value) { _value.Source = value; return this; }
 	/// <summary>A comma-separated list of source fields to exclude in the response.</summary>
 		public GetRequestDescriptor SourceExcludes(List<string>? value) { _value.SourceExcludes = value; return this; }
 	/// <summary>A comma-separated list of source fields to include in the response.</summary>

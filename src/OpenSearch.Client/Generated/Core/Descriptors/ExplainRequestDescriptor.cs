@@ -14,7 +14,7 @@ public sealed class ExplainRequestDescriptor
 	/// <summary>Index names used to limit the request. Only a single index name can be provided to this parameter.</summary>
 		public ExplainRequestDescriptor Index(string? value) { _value.Index = value; return this; }
 	/// <summary>Set to `true` or `false` to return the `_source` field or not, or a list of fields to return.</summary>
-		public ExplainRequestDescriptor Source(System.Text.Json.JsonElement? value) { _value.Source = value; return this; }
+		public ExplainRequestDescriptor Source(SourceConfigParam? value) { _value.Source = value; return this; }
 	/// <summary>A comma-separated list of source fields to exclude from the response.</summary>
 		public ExplainRequestDescriptor SourceExcludes(List<string>? value) { _value.SourceExcludes = value; return this; }
 	/// <summary>A comma-separated list of source fields to include in the response.</summary>
