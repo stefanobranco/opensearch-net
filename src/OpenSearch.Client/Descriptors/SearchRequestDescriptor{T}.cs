@@ -42,9 +42,9 @@ public sealed class SearchRequestDescriptor<TDocument>
 	}
 
 	public SearchRequestDescriptor<TDocument> Aggregations(
-		Action<AggregationsDictDescriptor> configure)
+		Action<AggregationsDictDescriptor<TDocument>> configure)
 	{
-		var desc = new AggregationsDictDescriptor();
+		var desc = new AggregationsDictDescriptor<TDocument>();
 		configure(desc);
 		_value.Aggregations = desc;
 		return this;

@@ -64,6 +64,7 @@ public sealed class TypeMapper
 	/// </summary>
 	private static readonly Dictionary<string, TypeRef> s_typeOverrides = new(StringComparer.OrdinalIgnoreCase)
 	{
+		["Field"] = TypeRef.FieldPath(), // string alias tagged as a field path so descriptors emit expression overloads
 		["SortCombinations"] = TypeRef.Named("SortOptions", "SortOptions"),
 		["SortOptions"] = TypeRef.Named("SortOptions", "SortOptions"),
 		["Sort"] = TypeRef.ListOf(TypeRef.Named("SortOptions", "SortOptions")),

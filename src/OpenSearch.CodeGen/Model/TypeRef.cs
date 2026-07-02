@@ -29,6 +29,13 @@ public sealed class TypeRef
 	public static TypeRef Double() => new() { Kind = TypeRefKind.Primitive, Name = "double", CSharpName = "double" };
 	public static TypeRef Object() => new() { Kind = TypeRefKind.Primitive, Name = "object", CSharpName = "object" };
 	public static TypeRef JsonElement() => new() { Kind = TypeRefKind.Primitive, Name = "JsonElement", CSharpName = "System.Text.Json.JsonElement" };
+
+	/// <summary>
+	/// The spec's <c>Field</c> schema: a string on the wire, but semantically a document field path.
+	/// The distinct <see cref="Name"/> lets descriptor generation emit expression-based overloads
+	/// (<c>Field(x =&gt; x.Prop)</c>) for properties that select fields.
+	/// </summary>
+	public static TypeRef FieldPath() => new() { Kind = TypeRefKind.Primitive, Name = "Field", CSharpName = "string" };
 	public static TypeRef Void() => new() { Kind = TypeRefKind.Void, Name = "void", CSharpName = "void" };
 
 	public static TypeRef ListOf(TypeRef itemType) => new()
