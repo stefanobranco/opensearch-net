@@ -15,7 +15,8 @@ public partial class GetSslinfoSecurityResponse : OpenSearch.Net.OpenSearchRespo
 	/// <summary>The user's principal.</summary>
 		public string? Principal { get; set; }
 	/// <summary>The number of certificates.</summary>
-		public float PeerCertificates { get; set; }
+		[JsonConverter(typeof(StringOrNumberConverter))]
+	public string? PeerCertificates { get; set; }
 	/// <summary>A list of domain names from peer certificates.</summary>
 		public List<string>? PeerCertificatesList { get; set; }
 	/// <summary>A list of domain names from local certificates.</summary>
@@ -27,7 +28,8 @@ public partial class GetSslinfoSecurityResponse : OpenSearch.Net.OpenSearchRespo
 	/// <summary>Whether OpenSSL is available.</summary>
 		public bool? SslOpensslAvailable { get; set; }
 	/// <summary>Version of OpenSSL.</summary>
-		public float? SslOpensslVersion { get; set; }
+		[JsonConverter(typeof(StringOrNumberConverter))]
+	public string? SslOpensslVersion { get; set; }
 	/// <summary>The full version string for the OpenSSL version.</summary>
 		public string? SslOpensslVersionString { get; set; }
 	/// <summary>The reason OpenSSL is unavailable.</summary>

@@ -47,7 +47,8 @@ What's incomplete or missing:
 - No Newtonsoft.Json bridge package — but `SourceSerializer` accepts any `IOpenSearchSerializer`,
   so a Newtonsoft adapter for your document types is a ~30-line class (reference implementation
   and its measured cost: [`benchmarks/`](benchmarks/README.md#custom-source-serializer-cost-2026-07-02))
-- Integration tests cover 11 namespaces against a real cluster; the rest are covered by serialization fixtures only
+- Integration tests cover 12 namespaces against real clusters — including the security namespace and the
+  basic-auth + TLS transport paths against a security-enabled cluster; the rest are covered by serialization fixtures only
 
 ## Quick Start
 

@@ -36,6 +36,13 @@ public sealed class TypeRef
 	/// (<c>Field(x =&gt; x.Prop)</c>) for properties that select fields.
 	/// </summary>
 	public static TypeRef FieldPath() => new() { Kind = TypeRefKind.Primitive, Name = "Field", CSharpName = "string" };
+
+	/// <summary>
+	/// A multi-type scalar (<c>type: [number, string]</c>) mapped to <c>string</c>. The distinct
+	/// <see cref="Name"/> makes generated fields carry <c>StringOrNumberConverter</c> so a numeric
+	/// wire form reads as its literal text.
+	/// </summary>
+	public static TypeRef LenientString() => new() { Kind = TypeRefKind.Primitive, Name = "StringOrNumber", CSharpName = "string" };
 	public static TypeRef Void() => new() { Kind = TypeRefKind.Void, Name = "void", CSharpName = "void" };
 
 	/// <summary>

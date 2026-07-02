@@ -25,6 +25,7 @@ public static class TemplateHelpers
 		obj["is_head"] = request.IsHead;
 		obj["is_plain_text_response"] = request.Response.IsPlainTextResponse;
 		obj["is_document_response"] = request.Response.IsDocumentResponse;
+		obj["is_collection_response"] = request.Response.IsDictionary || request.Response.IsList;
 
 		// Index-style operations: POST when no Id, PUT when Id is present
 		var hasPathWithId = request.HttpPaths.Any(p => p.ParameterNames.Contains("id"));
@@ -193,6 +194,8 @@ public static class TemplateHelpers
 			f["is_source_document"] = field.Type.IsGenericParameter;
 			// Single-or-array wire forms mapped to List<T> need the tolerant read converter.
 			f["is_single_or_many"] = field.Type.IsSingleOrMany;
+			// Multi-type scalars (type: [number, string]) read numeric wire forms as text.
+			f["is_string_or_number"] = field.Type.Name == "StringOrNumber";
 			arr.Add(f);
 		}
 		return arr;

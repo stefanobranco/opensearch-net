@@ -76,6 +76,9 @@ public sealed class GetSettingsIndexEndpoint : IEndpoint<GetSettingsIndexRequest
 
 	public RequestBody? GetBody(GetSettingsIndexRequest r) => null;
 
+	// A dictionary/list response cannot represent an error envelope (e.g. the security plugin's
+	// 404 {"status":"NOT_FOUND"} on GET, which the transport treats as a valid not-found) — a
+	// non-2xx body deserializes as empty instead of throwing.
 	public GetSettingsIndexResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		serializer.Deserialize<GetSettingsIndexResponse>(body)!;
+		statusCode is >= 200 and < 300 ? serializer.Deserialize<GetSettingsIndexResponse>(body)! : new();
 }

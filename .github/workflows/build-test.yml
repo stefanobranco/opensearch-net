@@ -70,3 +70,40 @@ jobs:
         run: >-
           dotnet test tests/OpenSearch.IntegrationTests/OpenSearch.IntegrationTests.csproj
           -c Release
+
+  integration-secured:
+    name: Integration secured (OpenSearch ${{ matrix.opensearch }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        opensearch: ['3.0.0', '3.4.0', '3.7.0']
+    services:
+      # Security plugin active: the image installs the demo configuration (self-signed certs,
+      # HTTPS, internal users) when OPENSEARCH_INITIAL_ADMIN_PASSWORD is set. Tests carrying
+      # [SkipIfNoSecuredCluster] run here; the plain-cluster tests self-skip (nothing on :9200).
+      opensearch:
+        image: opensearchproject/opensearch:${{ matrix.opensearch }}
+        env:
+          discovery.type: single-node
+          OPENSEARCH_INITIAL_ADMIN_PASSWORD: IntegTest#2026
+          OPENSEARCH_JAVA_OPTS: -Xms512m -Xmx512m
+        ports:
+          - 9201:9200
+        options: >-
+          --health-cmd "curl -sfk -u 'admin:IntegTest#2026' https://localhost:9200/_cluster/health || exit 1"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 40
+          --health-start-period 30s
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+
+      - name: Secured integration tests
+        env:
+          OPENSEARCH_SECURED_URL: https://localhost:9201
+          OPENSEARCH_ADMIN_PASSWORD: IntegTest#2026
+        run: >-
+          dotnet test tests/OpenSearch.IntegrationTests/OpenSearch.IntegrationTests.csproj
+          -c Release

@@ -73,6 +73,9 @@ public sealed class AliasesCatEndpoint : IEndpoint<AliasesCatRequest, AliasesCat
 
 	public RequestBody? GetBody(AliasesCatRequest r) => null;
 
+	// A dictionary/list response cannot represent an error envelope (e.g. the security plugin's
+	// 404 {"status":"NOT_FOUND"} on GET, which the transport treats as a valid not-found) — a
+	// non-2xx body deserializes as empty instead of throwing.
 	public AliasesCatResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		serializer.Deserialize<AliasesCatResponse>(body)!;
+		statusCode is >= 200 and < 300 ? serializer.Deserialize<AliasesCatResponse>(body)! : new();
 }

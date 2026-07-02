@@ -67,6 +67,9 @@ public sealed class MasterCatEndpoint : IEndpoint<MasterCatRequest, MasterCatRes
 
 	public RequestBody? GetBody(MasterCatRequest r) => null;
 
+	// A dictionary/list response cannot represent an error envelope (e.g. the security plugin's
+	// 404 {"status":"NOT_FOUND"} on GET, which the transport treats as a valid not-found) — a
+	// non-2xx body deserializes as empty instead of throwing.
 	public MasterCatResponse DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
-		serializer.Deserialize<MasterCatResponse>(body)!;
+		statusCode is >= 200 and < 300 ? serializer.Deserialize<MasterCatResponse>(body)! : new();
 }
