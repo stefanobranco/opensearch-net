@@ -17,6 +17,7 @@ public sealed class ExistsPolicyIsmRequest
 	[JsonIgnore]
 	public string? PolicyId { get; set; }
 }
+
 public sealed class ExistsPolicyIsmEndpoint : IEndpoint<ExistsPolicyIsmRequest, ExistsPolicyIsmResponse>
 {
 	public static readonly ExistsPolicyIsmEndpoint Instance = new();

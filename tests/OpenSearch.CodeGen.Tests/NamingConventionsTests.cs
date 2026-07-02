@@ -31,8 +31,8 @@ public class NamingConventionsTests
         NamingConventions.SchemaNameToClassName("ShardStatistics").Should().Be("ShardStatistics");
 
     [Fact]
-    public void SchemaNameToClassName_RenamesAction() =>
-        NamingConventions.SchemaNameToClassName("Action").Should().Be("IndexAction");
+    public void SchemaNameToClassName_RenamesTask() =>
+        NamingConventions.SchemaNameToClassName("Task").Should().Be("OpenSearchTask");
 
     [Theory]
     [InlineData("open", "Open")]

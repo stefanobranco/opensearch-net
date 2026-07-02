@@ -135,6 +135,14 @@ public sealed class RequestShape : Shape
 	/// through the configured source serializer rather than the request/response serializer.</summary>
 	public bool IsDocumentBody { get; init; }
 
+	/// <summary>Type parameters carried by the request class itself (e.g. <c>TDocument, TPartialDocument</c>
+	/// for update's typed doc/upsert body fields). Distinct from the response's parameters; the endpoint
+	/// spans both.</summary>
+	public IReadOnlyList<string> TypeParameters { get; init; } = [];
+
+	/// <summary>Whether the request class is generic.</summary>
+	public bool IsGeneric => TypeParameters.Count > 0;
+
 	/// <summary>Whether this operation has a request body.</summary>
 	public bool HasBody => BodyFields.Count > 0 || IsRawBody;
 

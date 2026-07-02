@@ -39,7 +39,6 @@ public sealed partial class CatNamespace
 		return AliasesAsync((AliasesCatRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Lists all active CAT point-in-time segments.</summary>
 	public AllPitSegmentsCatResponse AllPitSegments(AllPitSegmentsCatRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, AllPitSegmentsCatEndpoint.Instance, options);
@@ -63,7 +62,6 @@ public sealed partial class CatNamespace
 		configure(descriptor);
 		return AllPitSegmentsAsync((AllPitSegmentsCatRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Provides a snapshot of how many shards are allocated to each data node and how much disk space they are using.</summary>
 	public AllocationCatResponse Allocation(AllocationCatRequest request, TransportOptions? options = null) =>
@@ -89,7 +87,6 @@ public sealed partial class CatNamespace
 		return AllocationAsync((AllocationCatRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns information about the cluster-manager node.</summary>
 	public ClusterManagerCatResponse ClusterManager(ClusterManagerCatRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, ClusterManagerCatEndpoint.Instance, options);
@@ -113,7 +110,6 @@ public sealed partial class CatNamespace
 		configure(descriptor);
 		return ClusterManagerAsync((ClusterManagerCatRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Provides quick access to the document count of the entire cluster or of an individual index.</summary>
 	public CountCatResponse Count(CountCatRequest request, TransportOptions? options = null) =>
@@ -139,7 +135,6 @@ public sealed partial class CatNamespace
 		return CountAsync((CountCatRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Shows how much heap memory is currently being used by field data on every data node in the cluster.</summary>
 	public FielddataCatResponse Fielddata(FielddataCatRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, FielddataCatEndpoint.Instance, options);
@@ -163,7 +158,6 @@ public sealed partial class CatNamespace
 		configure(descriptor);
 		return FielddataAsync((FielddataCatRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Returns a concise representation of the cluster health.</summary>
 	public HealthCatResponse Health(HealthCatRequest request, TransportOptions? options = null) =>
@@ -189,7 +183,6 @@ public sealed partial class CatNamespace
 		return HealthAsync((HealthCatRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns help for the Cat APIs.</summary>
 	public HelpCatResponse Help(HelpCatRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, HelpCatEndpoint.Instance, options);
@@ -213,7 +206,6 @@ public sealed partial class CatNamespace
 		configure(descriptor);
 		return HelpAsync((HelpCatRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Lists information related to indexes, that is, how much disk space they are using, how many shards they have, their health status, and so on.</summary>
 	public IndicesCatResponse Indices(IndicesCatRequest request, TransportOptions? options = null) =>
@@ -239,7 +231,6 @@ public sealed partial class CatNamespace
 		return IndicesAsync((IndicesCatRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns information about the cluster-manager node.</summary>
 	public MasterCatResponse Master(MasterCatRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, MasterCatEndpoint.Instance, options);
@@ -263,7 +254,6 @@ public sealed partial class CatNamespace
 		configure(descriptor);
 		return MasterAsync((MasterCatRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Returns information about custom node attributes.</summary>
 	public NodeattrsCatResponse Nodeattrs(NodeattrsCatRequest request, TransportOptions? options = null) =>
@@ -289,7 +279,6 @@ public sealed partial class CatNamespace
 		return NodeattrsAsync((NodeattrsCatRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns basic statistics about the performance of cluster nodes.</summary>
 	public NodesCatResponse Nodes(NodesCatRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, NodesCatEndpoint.Instance, options);
@@ -313,7 +302,6 @@ public sealed partial class CatNamespace
 		configure(descriptor);
 		return NodesAsync((NodesCatRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Returns a concise representation of the cluster's pending tasks.</summary>
 	public PendingTasksCatResponse PendingTasks(PendingTasksCatRequest request, TransportOptions? options = null) =>
@@ -339,7 +327,6 @@ public sealed partial class CatNamespace
 		return PendingTasksAsync((PendingTasksCatRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Lists one or several CAT point-in-time segments.</summary>
 	public PitSegmentsCatResponse PitSegments(PitSegmentsCatRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, PitSegmentsCatEndpoint.Instance, options);
@@ -363,7 +350,6 @@ public sealed partial class CatNamespace
 		configure(descriptor);
 		return PitSegmentsAsync((PitSegmentsCatRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Returns information about the names, components, and versions of the installed plugins.</summary>
 	public PluginsCatResponse Plugins(PluginsCatRequest request, TransportOptions? options = null) =>
@@ -389,7 +375,6 @@ public sealed partial class CatNamespace
 		return PluginsAsync((PluginsCatRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns all completed and ongoing index and shard recoveries.</summary>
 	public RecoveryCatResponse Recovery(RecoveryCatRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, RecoveryCatEndpoint.Instance, options);
@@ -413,7 +398,6 @@ public sealed partial class CatNamespace
 		configure(descriptor);
 		return RecoveryAsync((RecoveryCatRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Returns information about all snapshot repositories for a cluster.</summary>
 	public RepositoriesCatResponse Repositories(RepositoriesCatRequest request, TransportOptions? options = null) =>
@@ -439,7 +423,6 @@ public sealed partial class CatNamespace
 		return RepositoriesAsync((RepositoriesCatRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns information about active and last-completed segment replication events on each replica shard, including related shard-level metrics. These metrics provide information about how far behind the primary shard the replicas are lagging.</summary>
 	public SegmentReplicationCatResponse SegmentReplication(SegmentReplicationCatRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, SegmentReplicationCatEndpoint.Instance, options);
@@ -463,7 +446,6 @@ public sealed partial class CatNamespace
 		configure(descriptor);
 		return SegmentReplicationAsync((SegmentReplicationCatRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Provides low-level information about the segments in the shards of an index.</summary>
 	public SegmentsCatResponse Segments(SegmentsCatRequest request, TransportOptions? options = null) =>
@@ -489,7 +471,6 @@ public sealed partial class CatNamespace
 		return SegmentsAsync((SegmentsCatRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Lists the states of all primary and replica shards and how they are distributed.</summary>
 	public ShardsCatResponse Shards(ShardsCatRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, ShardsCatEndpoint.Instance, options);
@@ -513,7 +494,6 @@ public sealed partial class CatNamespace
 		configure(descriptor);
 		return ShardsAsync((ShardsCatRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Lists all of the snapshots stored in a specific repository.</summary>
 	public SnapshotsCatResponse Snapshots(SnapshotsCatRequest request, TransportOptions? options = null) =>
@@ -539,7 +519,6 @@ public sealed partial class CatNamespace
 		return SnapshotsAsync((SnapshotsCatRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Lists the progress of all tasks currently running on the cluster.</summary>
 	public TasksCatResponse Tasks(TasksCatRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, TasksCatEndpoint.Instance, options);
@@ -563,7 +542,6 @@ public sealed partial class CatNamespace
 		configure(descriptor);
 		return TasksAsync((TasksCatRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Lists the names, patterns, order numbers, and version numbers of index templates.</summary>
 	public TemplatesCatResponse Templates(TemplatesCatRequest request, TransportOptions? options = null) =>
@@ -589,7 +567,6 @@ public sealed partial class CatNamespace
 		return TemplatesAsync((TemplatesCatRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns cluster-wide thread pool statistics per node. By default the active, queued, and rejected statistics are returned for all thread pools.</summary>
 	public ThreadPoolCatResponse ThreadPool(ThreadPoolCatRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, ThreadPoolCatEndpoint.Instance, options);
@@ -613,5 +590,4 @@ public sealed partial class CatNamespace
 		configure(descriptor);
 		return ThreadPoolAsync((ThreadPoolCatRequest)descriptor, options, ct);
 	}
-
 }

@@ -20,6 +20,7 @@ public sealed class AuthinfoSecurityRequest
 	[JsonIgnore]
 	public bool? Verbose { get; set; }
 }
+
 public sealed class AuthinfoSecurityEndpoint : IEndpoint<AuthinfoSecurityRequest, AuthinfoSecurityResponse>
 {
 	public static readonly AuthinfoSecurityEndpoint Instance = new();

@@ -14,6 +14,7 @@ namespace OpenSearch.Client;
 public sealed class ListStoresLtrRequest
 {
 }
+
 public sealed class ListStoresLtrEndpoint : IEndpoint<ListStoresLtrRequest, ListStoresLtrResponse>
 {
 	public static readonly ListStoresLtrEndpoint Instance = new();

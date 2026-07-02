@@ -59,6 +59,49 @@ public sealed class TypeMapper
 	};
 
 	/// <summary>
+	/// Renames keyed by the defining spec file plus schema name (<c>file-base:Name</c>).
+	/// Two reasons a schema lands here:
+	/// - Same-name conflation: schema names are deduplicated by bare name, so two files defining
+	///   the same name would silently share one C# type, first mapped wins (<c>Source</c> is a
+	///   reindex source in <c>_core.reindex</c> but model metadata in <c>ml._common</c>). The
+	///   validator fails generation on any unrenamed same-name collision.
+	/// - Domain collisions: generic names (<c>Entity</c>, <c>Filter</c>, ...) collide with
+	///   consumers' own domain types in the single root namespace.
+	/// </summary>
+	private static readonly Dictionary<string, string> s_qualifiedRenames = new(StringComparer.Ordinal)
+	{
+		["_core.reindex:Source"] = "ReindexSource",
+		["ml._common:Source"] = "MlSource",
+		["_core.mget:Operation"] = "MgetOperation",
+		["_core.mtermvectors:Operation"] = "MtermvectorsOperation",
+		["_core.termvectors:Filter"] = "TermVectorsFilter",
+		["ingest.simulate:Document"] = "IngestDocument",
+		["ml._common:Entity"] = "AnomalyEntity",
+		["ml._common:Node"] = "MlNode",
+		["indices.update_aliases:Action"] = "AliasAction",
+		["ism._common:Action"] = "IsmAction",
+		["ml._common:Action"] = "ConnectorAction",
+		["_core.get_script_context:Context"] = "ScriptContext",
+		["cluster.stats:IndexMetric"] = "ClusterStatsIndexMetric",
+		["nodes.stats:IndexMetric"] = "NodesStatsIndexMetric",
+		["ml._common:IndexSettings"] = "MlIndexSettings",
+		["cluster.health:Level"] = "ClusterHealthLevel",
+		["ml._common:Metadata"] = "MlMetadata",
+		["cluster.reroute:Metric"] = "ClusterRerouteMetric",
+		["cluster.state:Metric"] = "ClusterStateMetric",
+		["cluster.stats:Metric"] = "ClusterStatsMetric",
+		["indices.stats:Metric"] = "IndicesStatsMetric",
+		["nodes.info:Metric"] = "NodesInfoMetric",
+		["nodes.stats:Metric"] = "NodesStatsMetric",
+		["nodes.usage:Metric"] = "NodesUsageMetric",
+		["ml._common:Result"] = "MlResult",
+		["ml._common:Status"] = "MlTaskStatus",
+		["ltr._common:StoreStats"] = "LtrStoreStats",
+		["ml._common:Index"] = "MemoryIndex", // shard config for ml memory indices; bare Index would collide with System.Index
+		["ml._common:Headers"] = "ConnectorHeaders",
+	};
+
+	/// <summary>
 	/// Schema names that map to hand-written C# types. When Map() encounters one of these,
 	/// it returns the override TypeRef instead of processing the schema.
 	/// </summary>
@@ -134,6 +177,7 @@ public sealed class TypeMapper
 		StringComparer.OrdinalIgnoreCase);
 
 	private readonly Dictionary<string, TypeRef> _namedTypes = new(StringComparer.Ordinal);
+	private readonly Dictionary<string, SortedSet<string>> _nameOrigins = new(StringComparer.Ordinal);
 	private readonly Dictionary<string, EnumShape> _discoveredEnums = new(StringComparer.Ordinal);
 	private readonly Dictionary<string, ObjectShape> _discoveredObjects = new(StringComparer.Ordinal);
 	private readonly Dictionary<string, TaggedUnionShape> _discoveredTaggedUnions = new(StringComparer.Ordinal);
@@ -210,8 +254,22 @@ public sealed class TypeMapper
 
 	private TypeRef MapResolved(OpenApiSchema resolved, string refString)
 	{
-		// Extract the schema name from the ref
+		// Extract the schema name from the ref, applying qualified renames (see s_qualifiedRenames)
+		// so same-named schemas from different files stay distinct types.
 		var schemaName = ExtractSchemaName(refString);
+		var definingFile = ExtractDefiningFile(refString);
+		if (definingFile is not null)
+		{
+			if (s_qualifiedRenames.TryGetValue($"{definingFile}:{schemaName}", out var renamed))
+				schemaName = renamed;
+			// Generic type parameters (TDocument) are markers, not types — exempt from tracking.
+			if (!resolved.IsGenericTypeParameter)
+			{
+				if (!_nameOrigins.TryGetValue(schemaName, out var origins))
+					_nameOrigins[schemaName] = origins = new SortedSet<string>(StringComparer.Ordinal);
+				origins.Add(definingFile);
+			}
+		}
 
 		// Check for hand-written type overrides before any other processing.
 		// Still walk the schema to discover referenced sub-types (e.g., ScoreSort from SortOptions).
@@ -1085,6 +1143,28 @@ public sealed class TypeMapper
 		var lastSlash = refString.LastIndexOf('/');
 		return lastSlash >= 0 ? refString[(lastSlash + 1)..] : refString;
 	}
+
+	/// <summary>
+	/// The base name of the spec file that defines the referenced schema
+	/// ("path/to/ml._common.yaml#/components/schemas/Source" → "ml._common"), or null for
+	/// an unqualified local ref.
+	/// </summary>
+	private static string? ExtractDefiningFile(string refString)
+	{
+		var hashIndex = refString.IndexOf('#');
+		return hashIndex > 0 ? Path.GetFileNameWithoutExtension(refString[..hashIndex]) : null;
+	}
+
+	/// <summary>
+	/// Schema names defined by more than one spec file and not disambiguated through
+	/// <see cref="s_qualifiedRenames"/> — silent type conflations the validator must reject.
+	/// Values are the defining spec files.
+	/// </summary>
+	public IReadOnlyDictionary<string, IReadOnlyCollection<string>> ConflatedNames =>
+		_nameOrigins
+			.Where(kv => kv.Value.Count > 1)
+			.OrderBy(kv => kv.Key, StringComparer.Ordinal)
+			.ToDictionary(kv => kv.Key, kv => (IReadOnlyCollection<string>)kv.Value);
 
 	private TypeRef GetOrCreateTaggedUnion(string schemaName, OpenApiSchema schema, string? namespaceOverride)
 	{

@@ -37,10 +37,10 @@ public sealed class ReindexRequestDescriptor
 		public ReindexRequestDescriptor MaxDocs(int? value) { _value.MaxDocs = value; return this; }
 	public ReindexRequestDescriptor Script(Script? value) { _value.Script = value; return this; }
 	public ReindexRequestDescriptor Size(int? value) { _value.Size = value; return this; }
-	public ReindexRequestDescriptor Source(Source? value) { _value.Source = value; return this; }
-	public ReindexRequestDescriptor Source(Action<SourceDescriptor> configure)
+	public ReindexRequestDescriptor Source(ReindexSource? value) { _value.Source = value; return this; }
+	public ReindexRequestDescriptor Source(Action<ReindexSourceDescriptor> configure)
 	{
-		var descriptor = new SourceDescriptor();
+		var descriptor = new ReindexSourceDescriptor();
 		configure(descriptor);
 		_value.Source = descriptor;
 		return this;

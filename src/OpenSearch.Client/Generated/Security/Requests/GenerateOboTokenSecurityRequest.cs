@@ -20,6 +20,7 @@ public sealed class GenerateOboTokenSecurityRequest
 	/// <summary>A duration in seconds.</summary>
 		public string? Duration { get; set; }
 }
+
 public sealed class GenerateOboTokenSecurityEndpoint : IEndpoint<GenerateOboTokenSecurityRequest, GenerateOboTokenSecurityResponse>
 {
 	public static readonly GenerateOboTokenSecurityEndpoint Instance = new();

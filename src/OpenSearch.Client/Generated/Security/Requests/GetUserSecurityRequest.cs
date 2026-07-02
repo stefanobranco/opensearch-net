@@ -17,6 +17,7 @@ public sealed class GetUserSecurityRequest
 	[JsonIgnore]
 	public string? Username { get; set; }
 }
+
 public sealed class GetUserSecurityEndpoint : IEndpoint<GetUserSecurityRequest, GetUserSecurityResponse>
 {
 	public static readonly GetUserSecurityEndpoint Instance = new();

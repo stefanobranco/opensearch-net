@@ -17,6 +17,7 @@ public sealed class GetTaskMlRequest
 	[JsonIgnore]
 	public string? TaskId { get; set; }
 }
+
 public sealed class GetTaskMlEndpoint : IEndpoint<GetTaskMlRequest, GetTaskMlResponse>
 {
 	public static readonly GetTaskMlEndpoint Instance = new();

@@ -23,6 +23,7 @@ public sealed class ChangePolicyIsmRequest
 	/// <summary>The states to include in the policy change.</summary>
 		public List<IncludeState>? Include { get; set; }
 }
+
 public sealed class ChangePolicyIsmEndpoint : IEndpoint<ChangePolicyIsmRequest, ChangePolicyIsmResponse>
 {
 	public static readonly ChangePolicyIsmEndpoint Instance = new();

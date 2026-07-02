@@ -23,7 +23,7 @@ public sealed class SearchHitsHit
 		[JsonPropertyName("_score")]
 	public float? Score { get; set; }
 	[JsonPropertyName("_source")]
-	public Source? Source { get; set; }
+	public MlSource? Source { get; set; }
 	public string? ModelId { get; set; }
 	/// <summary>The sort values.</summary>
 		public List<float>? Sort { get; set; }

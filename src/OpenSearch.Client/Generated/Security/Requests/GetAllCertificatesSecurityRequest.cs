@@ -20,6 +20,7 @@ public sealed class GetAllCertificatesSecurityRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 }
+
 public sealed class GetAllCertificatesSecurityEndpoint : IEndpoint<GetAllCertificatesSecurityRequest, GetAllCertificatesSecurityResponse>
 {
 	public static readonly GetAllCertificatesSecurityEndpoint Instance = new();

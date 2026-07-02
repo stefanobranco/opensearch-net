@@ -18,6 +18,7 @@ public sealed class ScriptsPainlessExecuteRequest
 	public PainlessContextSetup? ContextSetup { get; set; }
 	public InlineScript? Script { get; set; }
 }
+
 public sealed class ScriptsPainlessExecuteEndpoint<TResult> : IEndpoint<ScriptsPainlessExecuteRequest, ScriptsPainlessExecuteResponse<TResult>>
 {
 	public static readonly ScriptsPainlessExecuteEndpoint<TResult> Instance = new();

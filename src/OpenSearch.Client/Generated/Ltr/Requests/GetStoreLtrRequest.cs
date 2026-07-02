@@ -17,6 +17,7 @@ public sealed class GetStoreLtrRequest
 	[JsonIgnore]
 	public string? Store { get; set; }
 }
+
 public sealed class GetStoreLtrEndpoint : IEndpoint<GetStoreLtrRequest, GetStoreLtrResponse>
 {
 	public static readonly GetStoreLtrEndpoint Instance = new();

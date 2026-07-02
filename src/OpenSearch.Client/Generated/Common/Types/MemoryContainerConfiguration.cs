@@ -26,7 +26,7 @@ public sealed class MemoryContainerConfiguration
 		public bool? DisableSession { get; set; }
 	/// <summary>The maximum number of similar memories retrieved during consolidation.</summary>
 		public long? MaxInferSize { get; set; }
-	public IndexSettings? IndexSettings { get; set; }
+	public MlIndexSettings? IndexSettings { get; set; }
 	public List<Strategy>? Strategies { get; set; }
 	public Dictionary<string, object>? Parameters { get; set; }
 }

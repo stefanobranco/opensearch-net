@@ -20,6 +20,7 @@ public sealed class UpdateMemoryContainerMlRequest
 	public string? Description { get; set; }
 	public MemoryContainerConfiguration? Configuration { get; set; }
 }
+
 public sealed class UpdateMemoryContainerMlEndpoint : IEndpoint<UpdateMemoryContainerMlRequest, UpdateMemoryContainerMlResponse>
 {
 	public static readonly UpdateMemoryContainerMlEndpoint Instance = new();

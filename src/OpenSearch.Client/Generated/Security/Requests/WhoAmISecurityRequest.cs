@@ -14,6 +14,7 @@ namespace OpenSearch.Client;
 public sealed class WhoAmISecurityRequest
 {
 }
+
 public sealed class WhoAmISecurityEndpoint : IEndpoint<WhoAmISecurityRequest, WhoAmISecurityResponse>
 {
 	public static readonly WhoAmISecurityEndpoint Instance = new();

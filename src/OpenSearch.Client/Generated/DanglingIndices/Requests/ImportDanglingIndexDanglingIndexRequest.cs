@@ -26,6 +26,7 @@ public sealed class ImportDanglingIndexDanglingIndexRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 }
+
 public sealed class ImportDanglingIndexDanglingIndexEndpoint : IEndpoint<ImportDanglingIndexDanglingIndexRequest, ImportDanglingIndexDanglingIndexResponse>
 {
 	public static readonly ImportDanglingIndexDanglingIndexEndpoint Instance = new();

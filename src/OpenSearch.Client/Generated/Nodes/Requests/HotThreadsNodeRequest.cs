@@ -35,6 +35,7 @@ public sealed class HotThreadsNodeRequest
 	[JsonIgnore]
 	public string? Type { get; set; }
 }
+
 public sealed class HotThreadsNodeEndpoint : IEndpoint<HotThreadsNodeRequest, HotThreadsNodeResponse>
 {
 	public static readonly HotThreadsNodeEndpoint Instance = new();

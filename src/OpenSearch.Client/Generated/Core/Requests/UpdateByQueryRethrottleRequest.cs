@@ -20,6 +20,7 @@ public sealed class UpdateByQueryRethrottleRequest
 	[JsonIgnore]
 	public float? RequestsPerSecond { get; set; }
 }
+
 public sealed class UpdateByQueryRethrottleEndpoint : IEndpoint<UpdateByQueryRethrottleRequest, UpdateByQueryRethrottleResponse>
 {
 	public static readonly UpdateByQueryRethrottleEndpoint Instance = new();

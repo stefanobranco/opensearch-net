@@ -50,6 +50,7 @@ public sealed class ExistsRequest
 	[JsonIgnore]
 	public string? VersionType { get; set; }
 }
+
 public sealed class ExistsEndpoint : IEndpoint<ExistsRequest, ExistsResponse>
 {
 	public static readonly ExistsEndpoint Instance = new();

@@ -20,6 +20,7 @@ public sealed class DeleteFeatureLtrRequest
 	[JsonIgnore]
 	public string? Store { get; set; }
 }
+
 public sealed class DeleteFeatureLtrEndpoint : IEndpoint<DeleteFeatureLtrRequest, DeleteFeatureLtrResponse>
 {
 	public static readonly DeleteFeatureLtrEndpoint Instance = new();

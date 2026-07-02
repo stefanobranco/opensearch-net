@@ -24,6 +24,7 @@ public sealed class PutPoliciesIsmRequest
 	public string? PolicyID { get; set; }
 	public Policy? Policy { get; set; }
 }
+
 public sealed class PutPoliciesIsmEndpoint : IEndpoint<PutPoliciesIsmRequest, PutPoliciesIsmResponse>
 {
 	public static readonly PutPoliciesIsmEndpoint Instance = new();

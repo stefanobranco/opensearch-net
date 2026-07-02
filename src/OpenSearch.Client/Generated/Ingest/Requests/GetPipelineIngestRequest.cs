@@ -20,6 +20,7 @@ public sealed class GetPipelineIngestRequest
 	[JsonIgnore]
 	public string? ClusterManagerTimeout { get; set; }
 }
+
 public sealed class GetPipelineIngestEndpoint : IEndpoint<GetPipelineIngestRequest, GetPipelineIngestResponse>
 {
 	public static readonly GetPipelineIngestEndpoint Instance = new();

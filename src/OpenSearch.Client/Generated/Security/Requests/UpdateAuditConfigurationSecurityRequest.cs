@@ -17,6 +17,7 @@ public sealed class UpdateAuditConfigurationSecurityRequest
 	public bool? Enabled { get; set; }
 	public AuditLogsConfig? Audit { get; set; }
 }
+
 public sealed class UpdateAuditConfigurationSecurityEndpoint : IEndpoint<UpdateAuditConfigurationSecurityRequest, UpdateAuditConfigurationSecurityResponse>
 {
 	public static readonly UpdateAuditConfigurationSecurityEndpoint Instance = new();

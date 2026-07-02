@@ -17,6 +17,7 @@ public sealed class GetAgentMlRequest
 	[JsonIgnore]
 	public string? AgentId { get; set; }
 }
+
 public sealed class GetAgentMlEndpoint : IEndpoint<GetAgentMlRequest, GetAgentMlResponse>
 {
 	public static readonly GetAgentMlEndpoint Instance = new();

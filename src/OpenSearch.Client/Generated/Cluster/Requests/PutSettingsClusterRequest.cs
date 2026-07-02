@@ -25,6 +25,7 @@ public sealed class PutSettingsClusterRequest
 	public Dictionary<string, object>? Persistent { get; set; }
 	public Dictionary<string, object>? Transient { get; set; }
 }
+
 public sealed class PutSettingsClusterEndpoint : IEndpoint<PutSettingsClusterRequest, PutSettingsClusterResponse>
 {
 	public static readonly PutSettingsClusterEndpoint Instance = new();

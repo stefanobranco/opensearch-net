@@ -20,6 +20,7 @@ public sealed class PutWeightedRoutingClusterRequest
 	public long? Version { get; set; }
 	public Dictionary<string, string>? Weights { get; set; }
 }
+
 public sealed class PutWeightedRoutingClusterEndpoint : IEndpoint<PutWeightedRoutingClusterRequest, PutWeightedRoutingClusterResponse>
 {
 	public static readonly PutWeightedRoutingClusterEndpoint Instance = new();

@@ -23,6 +23,7 @@ public sealed class GetNodeCertificatesSecurityRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 }
+
 public sealed class GetNodeCertificatesSecurityEndpoint : IEndpoint<GetNodeCertificatesSecurityRequest, GetNodeCertificatesSecurityResponse>
 {
 	public static readonly GetNodeCertificatesSecurityEndpoint Instance = new();

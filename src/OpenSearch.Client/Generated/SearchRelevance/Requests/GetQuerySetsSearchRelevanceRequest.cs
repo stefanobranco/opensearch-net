@@ -17,6 +17,7 @@ public sealed class GetQuerySetsSearchRelevanceRequest
 	[JsonIgnore]
 	public string? QuerySetId { get; set; }
 }
+
 public sealed class GetQuerySetsSearchRelevanceEndpoint<TDocument> : IEndpoint<GetQuerySetsSearchRelevanceRequest, GetQuerySetsSearchRelevanceResponse<TDocument>>
 {
 	public static readonly GetQuerySetsSearchRelevanceEndpoint<TDocument> Instance = new();

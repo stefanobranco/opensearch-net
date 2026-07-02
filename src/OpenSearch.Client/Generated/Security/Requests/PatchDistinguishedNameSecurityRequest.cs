@@ -20,6 +20,7 @@ public sealed class PatchDistinguishedNameSecurityRequest
 	[JsonIgnore]
 	public List<PatchOperation>? Body { get; set; }
 }
+
 public sealed class PatchDistinguishedNameSecurityEndpoint : IEndpoint<PatchDistinguishedNameSecurityRequest, PatchDistinguishedNameSecurityResponse>
 {
 	public static readonly PatchDistinguishedNameSecurityEndpoint Instance = new();

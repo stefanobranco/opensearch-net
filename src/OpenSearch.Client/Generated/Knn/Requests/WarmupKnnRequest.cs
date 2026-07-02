@@ -17,6 +17,7 @@ public sealed class WarmupKnnRequest
 	[JsonIgnore]
 	public List<string>? Index { get; set; }
 }
+
 public sealed class WarmupKnnEndpoint : IEndpoint<WarmupKnnRequest, WarmupKnnResponse>
 {
 	public static readonly WarmupKnnEndpoint Instance = new();

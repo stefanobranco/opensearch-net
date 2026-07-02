@@ -15,7 +15,7 @@ public sealed class UsageNodeRequest
 {
 	/// <summary>Limits the information returned to the specific metrics. A comma-separated list of the following options: `_all`, `rest_actions`.</summary>
 	[JsonIgnore]
-	public List<Metric>? Metric { get; set; }
+	public List<NodesUsageMetric>? Metric { get; set; }
 	/// <summary>A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes</summary>
 	[JsonIgnore]
 	public List<string>? NodeId { get; set; }
@@ -23,6 +23,7 @@ public sealed class UsageNodeRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 }
+
 public sealed class UsageNodeEndpoint : IEndpoint<UsageNodeRequest, UsageNodeResponse>
 {
 	public static readonly UsageNodeEndpoint Instance = new();

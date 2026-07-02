@@ -10,8 +10,8 @@ public sealed class StatsIndexRequestDescriptor
 	internal StatsIndexRequest _value = new();
 
 	/// <summary>Limit the information returned the specific metrics.</summary>
-		public StatsIndexRequestDescriptor Metric(List<Metric>? value) { _value.Metric = value; return this; }
-	public StatsIndexRequestDescriptor Metric(Metric value) { _value.Metric = [value]; return this; }
+		public StatsIndexRequestDescriptor Metric(List<IndicesStatsMetric>? value) { _value.Metric = value; return this; }
+	public StatsIndexRequestDescriptor Metric(IndicesStatsMetric value) { _value.Metric = [value]; return this; }
 	/// <summary>A comma-separated list of index names; use `_all` or empty string to perform the operation on all indexes</summary>
 		public StatsIndexRequestDescriptor Index(List<string>? value) { _value.Index = value; return this; }
 	public StatsIndexRequestDescriptor Index(string value) { _value.Index = [value]; return this; }

@@ -38,6 +38,7 @@ public sealed class TemplatesCatRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
+
 public sealed class TemplatesCatEndpoint : IEndpoint<TemplatesCatRequest, TemplatesCatResponse>
 {
 	public static readonly TemplatesCatEndpoint Instance = new();

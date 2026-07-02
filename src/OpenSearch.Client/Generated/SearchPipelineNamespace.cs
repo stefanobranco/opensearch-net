@@ -39,7 +39,6 @@ public sealed partial class SearchPipelineNamespace
 		return DeleteAsync((DeleteSearchPipelineRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Retrieves information about a specified search pipeline.</summary>
 	public GetSearchPipelineResponse Get(GetSearchPipelineRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetSearchPipelineEndpoint.Instance, options);
@@ -64,7 +63,6 @@ public sealed partial class SearchPipelineNamespace
 		return GetAsync((GetSearchPipelineRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Creates or replaces the specified search pipeline.</summary>
 	public PutSearchPipelineResponse Put(PutSearchPipelineRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, PutSearchPipelineEndpoint.Instance, options);
@@ -88,5 +86,4 @@ public sealed partial class SearchPipelineNamespace
 		configure(descriptor);
 		return PutAsync((PutSearchPipelineRequest)descriptor, options, ct);
 	}
-
 }

@@ -36,6 +36,7 @@ public sealed class PutIndexTemplateIndexRequest
 	[JsonPropertyName("_meta")]
 	public Dictionary<string, object>? Meta { get; set; }
 }
+
 public sealed class PutIndexTemplateIndexEndpoint : IEndpoint<PutIndexTemplateIndexRequest, PutIndexTemplateIndexResponse>
 {
 	public static readonly PutIndexTemplateIndexEndpoint Instance = new();

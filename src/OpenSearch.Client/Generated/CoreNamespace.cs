@@ -39,7 +39,6 @@ public sealed partial class CoreNamespace
 		return ClearScrollAsync((ClearScrollRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns number of documents matching a query.</summary>
 	public CountResponse Count(CountRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, CountEndpoint.Instance, options);
@@ -63,7 +62,6 @@ public sealed partial class CoreNamespace
 		configure(descriptor);
 		return CountAsync((CountRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Creates a new document in the index. Returns a 409 response when a document with a same ID already exists in the index.</summary>
 	public CreateResponse Create(CreateRequest request, TransportOptions? options = null) =>
@@ -89,7 +87,6 @@ public sealed partial class CoreNamespace
 		return CreateAsync((CreateRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Creates point in time context.</summary>
 	public CreatePitResponse CreatePit(CreatePitRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, CreatePitEndpoint.Instance, options);
@@ -113,7 +110,6 @@ public sealed partial class CoreNamespace
 		configure(descriptor);
 		return CreatePitAsync((CreatePitRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Removes a document from the index.</summary>
 	public DeleteResponse Delete(DeleteRequest request, TransportOptions? options = null) =>
@@ -139,7 +135,6 @@ public sealed partial class CoreNamespace
 		return DeleteAsync((DeleteRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Deletes all active point in time searches.</summary>
 	public DeleteAllPitsResponse DeleteAllPits(DeleteAllPitsRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, DeleteAllPitsEndpoint.Instance, options);
@@ -163,7 +158,6 @@ public sealed partial class CoreNamespace
 		configure(descriptor);
 		return DeleteAllPitsAsync((DeleteAllPitsRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Deletes documents matching the provided query.</summary>
 	public DeleteByQueryResponse DeleteByQuery(DeleteByQueryRequest request, TransportOptions? options = null) =>
@@ -189,7 +183,6 @@ public sealed partial class CoreNamespace
 		return DeleteByQueryAsync((DeleteByQueryRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Changes the number of requests per second for a particular Delete By Query operation.</summary>
 	public DeleteByQueryRethrottleResponse DeleteByQueryRethrottle(DeleteByQueryRethrottleRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, DeleteByQueryRethrottleEndpoint.Instance, options);
@@ -213,7 +206,6 @@ public sealed partial class CoreNamespace
 		configure(descriptor);
 		return DeleteByQueryRethrottleAsync((DeleteByQueryRethrottleRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Deletes one or more point in time searches based on the IDs passed.</summary>
 	public DeletePitResponse DeletePit(DeletePitRequest request, TransportOptions? options = null) =>
@@ -239,7 +231,6 @@ public sealed partial class CoreNamespace
 		return DeletePitAsync((DeletePitRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Deletes a script.</summary>
 	public DeleteScriptResponse DeleteScript(DeleteScriptRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, DeleteScriptEndpoint.Instance, options);
@@ -263,7 +254,6 @@ public sealed partial class CoreNamespace
 		configure(descriptor);
 		return DeleteScriptAsync((DeleteScriptRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Returns information about whether a document exists in an index.</summary>
 	public ExistsResponse Exists(ExistsRequest request, TransportOptions? options = null) =>
@@ -289,7 +279,6 @@ public sealed partial class CoreNamespace
 		return ExistsAsync((ExistsRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns information about whether a document source exists in an index.</summary>
 	public ExistsSourceResponse ExistsSource(ExistsSourceRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, ExistsSourceEndpoint.Instance, options);
@@ -313,7 +302,6 @@ public sealed partial class CoreNamespace
 		configure(descriptor);
 		return ExistsSourceAsync((ExistsSourceRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Returns information about why a specific document matches (or doesn't match) a query.</summary>
 	public ExplainResponse<TDocument> Explain<TDocument>(ExplainRequest request, TransportOptions? options = null) =>
@@ -339,7 +327,6 @@ public sealed partial class CoreNamespace
 		return ExplainAsync<TDocument>((ExplainRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns the information about the capabilities of fields among multiple indexes.</summary>
 	public FieldCapsResponse FieldCaps(FieldCapsRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, FieldCapsEndpoint.Instance, options);
@@ -363,7 +350,6 @@ public sealed partial class CoreNamespace
 		configure(descriptor);
 		return FieldCapsAsync((FieldCapsRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Returns a document.</summary>
 	public GetResponse<TDocument> Get<TDocument>(GetRequest request, TransportOptions? options = null) =>
@@ -389,7 +375,6 @@ public sealed partial class CoreNamespace
 		return GetAsync<TDocument>((GetRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Lists all active point in time searches.</summary>
 	public GetAllPitsResponse GetAllPits(GetAllPitsRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetAllPitsEndpoint.Instance, options);
@@ -413,7 +398,6 @@ public sealed partial class CoreNamespace
 		configure(descriptor);
 		return GetAllPitsAsync((GetAllPitsRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Returns a script.</summary>
 	public GetScriptResponse GetScript(GetScriptRequest request, TransportOptions? options = null) =>
@@ -439,7 +423,6 @@ public sealed partial class CoreNamespace
 		return GetScriptAsync((GetScriptRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns all script contexts.</summary>
 	public GetScriptContextResponse GetScriptContext(GetScriptContextRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetScriptContextEndpoint.Instance, options);
@@ -463,7 +446,6 @@ public sealed partial class CoreNamespace
 		configure(descriptor);
 		return GetScriptContextAsync((GetScriptContextRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Returns available script types, languages and contexts.</summary>
 	public GetScriptLanguagesResponse GetScriptLanguages(GetScriptLanguagesRequest request, TransportOptions? options = null) =>
@@ -489,7 +471,6 @@ public sealed partial class CoreNamespace
 		return GetScriptLanguagesAsync((GetScriptLanguagesRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns the source of a document.</summary>
 	public GetSourceResponse GetSource(GetSourceRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetSourceEndpoint.Instance, options);
@@ -513,7 +494,6 @@ public sealed partial class CoreNamespace
 		configure(descriptor);
 		return GetSourceAsync((GetSourceRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Creates or updates a document in an index.</summary>
 	public IndexResponse Index(IndexRequest request, TransportOptions? options = null) =>
@@ -539,7 +519,6 @@ public sealed partial class CoreNamespace
 		return IndexAsync((IndexRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns basic information about the cluster.</summary>
 	public InfoResponse Info(InfoRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, InfoEndpoint.Instance, options);
@@ -563,7 +542,6 @@ public sealed partial class CoreNamespace
 		configure(descriptor);
 		return InfoAsync((InfoRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Allows to get multiple documents in one request.</summary>
 	public MgetResponse Mget(MgetRequest request, TransportOptions? options = null) =>
@@ -589,7 +567,6 @@ public sealed partial class CoreNamespace
 		return MgetAsync((MgetRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns multiple termvectors in one request.</summary>
 	public MtermvectorsResponse Mtermvectors(MtermvectorsRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, MtermvectorsEndpoint.Instance, options);
@@ -613,7 +590,6 @@ public sealed partial class CoreNamespace
 		configure(descriptor);
 		return MtermvectorsAsync((MtermvectorsRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Returns whether the cluster is running.</summary>
 	public PingResponse Ping(PingRequest request, TransportOptions? options = null) =>
@@ -639,7 +615,6 @@ public sealed partial class CoreNamespace
 		return PingAsync((PingRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Creates or updates a script.</summary>
 	public PutScriptResponse PutScript(PutScriptRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, PutScriptEndpoint.Instance, options);
@@ -663,7 +638,6 @@ public sealed partial class CoreNamespace
 		configure(descriptor);
 		return PutScriptAsync((PutScriptRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Allows to evaluate the quality of ranked search results over a set of typical search queries.</summary>
 	public RankEvalResponse RankEval(RankEvalRequest request, TransportOptions? options = null) =>
@@ -689,7 +663,6 @@ public sealed partial class CoreNamespace
 		return RankEvalAsync((RankEvalRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Allows to copy documents from one index to another, optionally filtering the source documents by a query, changing the destination index settings, or fetching the documents from a remote cluster.</summary>
 	public ReindexResponse Reindex(ReindexRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, ReindexEndpoint.Instance, options);
@@ -713,7 +686,6 @@ public sealed partial class CoreNamespace
 		configure(descriptor);
 		return ReindexAsync((ReindexRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Changes the number of requests per second for a particular reindex operation.</summary>
 	public ReindexRethrottleResponse ReindexRethrottle(ReindexRethrottleRequest request, TransportOptions? options = null) =>
@@ -739,7 +711,6 @@ public sealed partial class CoreNamespace
 		return ReindexRethrottleAsync((ReindexRethrottleRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Allows to use the Mustache language to pre-render a search definition.</summary>
 	public RenderSearchTemplateResponse RenderSearchTemplate(RenderSearchTemplateRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, RenderSearchTemplateEndpoint.Instance, options);
@@ -763,7 +734,6 @@ public sealed partial class CoreNamespace
 		configure(descriptor);
 		return RenderSearchTemplateAsync((RenderSearchTemplateRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Allows an arbitrary script to be executed and a result to be returned.</summary>
 	public ScriptsPainlessExecuteResponse<TResult> ScriptsPainlessExecute<TResult>(ScriptsPainlessExecuteRequest request, TransportOptions? options = null) =>
@@ -789,7 +759,6 @@ public sealed partial class CoreNamespace
 		return ScriptsPainlessExecuteAsync<TResult>((ScriptsPainlessExecuteRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Allows to retrieve a large numbers of results from a single search request.</summary>
 	public ScrollResponse<TDocument> Scroll<TDocument>(ScrollRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, ScrollEndpoint<TDocument>.Instance, options);
@@ -813,7 +782,6 @@ public sealed partial class CoreNamespace
 		configure(descriptor);
 		return ScrollAsync<TDocument>((ScrollRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Returns results matching a query.</summary>
 	public SearchResponse<TDocument> Search<TDocument>(SearchRequest request, TransportOptions? options = null) =>
@@ -839,7 +807,6 @@ public sealed partial class CoreNamespace
 		return SearchAsync<TDocument>((SearchRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns information about the indexes and shards that a search request would be executed against.</summary>
 	public SearchShardsResponse SearchShards(SearchShardsRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, SearchShardsEndpoint.Instance, options);
@@ -863,7 +830,6 @@ public sealed partial class CoreNamespace
 		configure(descriptor);
 		return SearchShardsAsync((SearchShardsRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Allows to use the Mustache language to pre-render a search definition.</summary>
 	public SearchTemplateResponse<TDocument> SearchTemplate<TDocument>(SearchTemplateRequest request, TransportOptions? options = null) =>
@@ -889,7 +855,6 @@ public sealed partial class CoreNamespace
 		return SearchTemplateAsync<TDocument>((SearchTemplateRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns information and statistics about terms in the fields of a particular document.</summary>
 	public TermvectorsResponse Termvectors(TermvectorsRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, TermvectorsEndpoint.Instance, options);
@@ -914,31 +879,29 @@ public sealed partial class CoreNamespace
 		return TermvectorsAsync((TermvectorsRequest)descriptor, options, ct);
 	}
 
+	/// <summary>Updates a document with a script or partial document.</summary>
+	public UpdateResponse<TDocument> Update<TDocument, TPartialDocument>(UpdateRequest<TDocument, TPartialDocument> request, TransportOptions? options = null) =>
+		_client.DoRequest(request, UpdateEndpoint<TDocument, TPartialDocument>.Instance, options);
 
 	/// <summary>Updates a document with a script or partial document.</summary>
-	public UpdateResponse<TDocument> Update<TDocument>(UpdateRequest request, TransportOptions? options = null) =>
-		_client.DoRequest(request, UpdateEndpoint<TDocument>.Instance, options);
+	public Task<UpdateResponse<TDocument>> UpdateAsync<TDocument, TPartialDocument>(UpdateRequest<TDocument, TPartialDocument> request, TransportOptions? options = null, CancellationToken ct = default) =>
+		_client.DoRequestAsync(request, UpdateEndpoint<TDocument, TPartialDocument>.Instance, options, ct);
 
 	/// <summary>Updates a document with a script or partial document.</summary>
-	public Task<UpdateResponse<TDocument>> UpdateAsync<TDocument>(UpdateRequest request, TransportOptions? options = null, CancellationToken ct = default) =>
-		_client.DoRequestAsync(request, UpdateEndpoint<TDocument>.Instance, options, ct);
-
-	/// <summary>Updates a document with a script or partial document.</summary>
-	public UpdateResponse<TDocument> Update<TDocument>(Action<UpdateRequestDescriptor> configure, TransportOptions? options = null)
+	public UpdateResponse<TDocument> Update<TDocument, TPartialDocument>(Action<UpdateRequestDescriptor<TDocument, TPartialDocument>> configure, TransportOptions? options = null)
 	{
-		var descriptor = new UpdateRequestDescriptor();
+		var descriptor = new UpdateRequestDescriptor<TDocument, TPartialDocument>();
 		configure(descriptor);
-		return Update<TDocument>((UpdateRequest)descriptor, options);
+		return Update<TDocument, TPartialDocument>((UpdateRequest<TDocument, TPartialDocument>)descriptor, options);
 	}
 
 	/// <summary>Updates a document with a script or partial document.</summary>
-	public Task<UpdateResponse<TDocument>> UpdateAsync<TDocument>(Action<UpdateRequestDescriptor> configure, TransportOptions? options = null, CancellationToken ct = default)
+	public Task<UpdateResponse<TDocument>> UpdateAsync<TDocument, TPartialDocument>(Action<UpdateRequestDescriptor<TDocument, TPartialDocument>> configure, TransportOptions? options = null, CancellationToken ct = default)
 	{
-		var descriptor = new UpdateRequestDescriptor();
+		var descriptor = new UpdateRequestDescriptor<TDocument, TPartialDocument>();
 		configure(descriptor);
-		return UpdateAsync<TDocument>((UpdateRequest)descriptor, options, ct);
+		return UpdateAsync<TDocument, TPartialDocument>((UpdateRequest<TDocument, TPartialDocument>)descriptor, options, ct);
 	}
-
 
 	/// <summary>Performs an update on every document in the index without changing the source, for example to pick up a mapping change.</summary>
 	public UpdateByQueryResponse UpdateByQuery(UpdateByQueryRequest request, TransportOptions? options = null) =>
@@ -964,7 +927,6 @@ public sealed partial class CoreNamespace
 		return UpdateByQueryAsync((UpdateByQueryRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Changes the number of requests per second for a particular Update By Query operation.</summary>
 	public UpdateByQueryRethrottleResponse UpdateByQueryRethrottle(UpdateByQueryRethrottleRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, UpdateByQueryRethrottleEndpoint.Instance, options);
@@ -988,5 +950,4 @@ public sealed partial class CoreNamespace
 		configure(descriptor);
 		return UpdateByQueryRethrottleAsync((UpdateByQueryRethrottleRequest)descriptor, options, ct);
 	}
-
 }

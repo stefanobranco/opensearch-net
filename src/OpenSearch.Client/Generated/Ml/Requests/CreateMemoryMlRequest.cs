@@ -15,6 +15,7 @@ public sealed class CreateMemoryMlRequest
 {
 	public string? Name { get; set; }
 }
+
 public sealed class CreateMemoryMlEndpoint : IEndpoint<CreateMemoryMlRequest, CreateMemoryMlResponse>
 {
 	public static readonly CreateMemoryMlEndpoint Instance = new();

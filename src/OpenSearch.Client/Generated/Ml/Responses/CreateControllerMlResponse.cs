@@ -13,5 +13,5 @@ namespace OpenSearch.Client;
 public partial class CreateControllerMlResponse : OpenSearch.Net.OpenSearchResponse
 {
 	public string? ModelId { get; set; }
-	public Status? Status { get; set; }
+	public MlTaskStatus? Status { get; set; }
 }

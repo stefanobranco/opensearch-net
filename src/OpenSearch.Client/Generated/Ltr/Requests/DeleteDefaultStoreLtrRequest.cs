@@ -14,6 +14,7 @@ namespace OpenSearch.Client;
 public sealed class DeleteDefaultStoreLtrRequest
 {
 }
+
 public sealed class DeleteDefaultStoreLtrEndpoint : IEndpoint<DeleteDefaultStoreLtrRequest, DeleteDefaultStoreLtrResponse>
 {
 	public static readonly DeleteDefaultStoreLtrEndpoint Instance = new();

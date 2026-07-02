@@ -13,6 +13,6 @@ namespace OpenSearch.Client;
 public partial class ExecuteAgentMlResponse : OpenSearch.Net.OpenSearchResponse
 {
 	public List<InferenceResults>? InferenceResults { get; set; }
-	public Status? Status { get; set; }
+	public MlTaskStatus? Status { get; set; }
 	public PredictionResult? PredictionResult { get; set; }
 }

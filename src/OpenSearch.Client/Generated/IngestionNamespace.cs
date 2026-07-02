@@ -39,7 +39,6 @@ public sealed partial class IngestionNamespace
 		return GetStateAsync((GetStateIngestionRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Use this API to pause ingestion for a given index.</summary>
 	public PauseIngestionResponse Pause(PauseIngestionRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, PauseIngestionEndpoint.Instance, options);
@@ -64,7 +63,6 @@ public sealed partial class IngestionNamespace
 		return PauseAsync((PauseIngestionRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Use this API to resume ingestion for the given index.</summary>
 	public ResumeIngestionResponse Resume(ResumeIngestionRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, ResumeIngestionEndpoint.Instance, options);
@@ -88,5 +86,4 @@ public sealed partial class IngestionNamespace
 		configure(descriptor);
 		return ResumeAsync((ResumeIngestionRequest)descriptor, options, ct);
 	}
-
 }

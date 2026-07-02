@@ -14,6 +14,7 @@ namespace OpenSearch.Client;
 public sealed class RemoteInfoClusterRequest
 {
 }
+
 public sealed class RemoteInfoClusterEndpoint : IEndpoint<RemoteInfoClusterRequest, RemoteInfoClusterResponse>
 {
 	public static readonly RemoteInfoClusterEndpoint Instance = new();

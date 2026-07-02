@@ -21,6 +21,7 @@ public sealed class ReloadSecureSettingsNodeRequest
 	public string? Timeout { get; set; }
 	public string? SecureSettingsPassword { get; set; }
 }
+
 public sealed class ReloadSecureSettingsNodeEndpoint : IEndpoint<ReloadSecureSettingsNodeRequest, ReloadSecureSettingsNodeResponse>
 {
 	public static readonly ReloadSecureSettingsNodeEndpoint Instance = new();

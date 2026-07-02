@@ -26,6 +26,7 @@ public sealed class GetIndexTemplateIndexRequest
 	[JsonIgnore]
 	public bool? Local { get; set; }
 }
+
 public sealed class GetIndexTemplateIndexEndpoint : IEndpoint<GetIndexTemplateIndexRequest, GetIndexTemplateIndexResponse>
 {
 	public static readonly GetIndexTemplateIndexEndpoint Instance = new();

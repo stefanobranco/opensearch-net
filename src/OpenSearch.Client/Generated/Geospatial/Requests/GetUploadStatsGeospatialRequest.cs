@@ -14,6 +14,7 @@ namespace OpenSearch.Client;
 public sealed class GetUploadStatsGeospatialRequest
 {
 }
+
 public sealed class GetUploadStatsGeospatialEndpoint : IEndpoint<GetUploadStatsGeospatialRequest, GetUploadStatsGeospatialResponse>
 {
 	public static readonly GetUploadStatsGeospatialEndpoint Instance = new();

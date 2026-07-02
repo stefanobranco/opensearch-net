@@ -56,6 +56,7 @@ public sealed class IndexRequest
 	[JsonIgnore]
 	public object? Body { get; set; }
 }
+
 public sealed class IndexEndpoint : IEndpoint<IndexRequest, IndexResponse>
 {
 	public static readonly IndexEndpoint Instance = new();

@@ -20,6 +20,7 @@ public sealed class GetModelLtrRequest
 	[JsonIgnore]
 	public string? Store { get; set; }
 }
+
 public sealed class GetModelLtrEndpoint : IEndpoint<GetModelLtrRequest, GetModelLtrResponse>
 {
 	public static readonly GetModelLtrEndpoint Instance = new();

@@ -23,6 +23,7 @@ public sealed class GetRepositorySnapshotRequest
 	[JsonIgnore]
 	public bool? Local { get; set; }
 }
+
 public sealed class GetRepositorySnapshotEndpoint : IEndpoint<GetRepositorySnapshotRequest, GetRepositorySnapshotResponse>
 {
 	public static readonly GetRepositorySnapshotEndpoint Instance = new();

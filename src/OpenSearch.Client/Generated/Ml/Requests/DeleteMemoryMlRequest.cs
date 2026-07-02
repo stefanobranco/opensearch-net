@@ -17,6 +17,7 @@ public sealed class DeleteMemoryMlRequest
 	[JsonIgnore]
 	public string? MemoryId { get; set; }
 }
+
 public sealed class DeleteMemoryMlEndpoint : IEndpoint<DeleteMemoryMlRequest, DeleteMemoryMlResponse>
 {
 	public static readonly DeleteMemoryMlEndpoint Instance = new();

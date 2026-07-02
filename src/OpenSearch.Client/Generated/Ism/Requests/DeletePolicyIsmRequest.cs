@@ -17,6 +17,7 @@ public sealed class DeletePolicyIsmRequest
 	[JsonIgnore]
 	public string? PolicyId { get; set; }
 }
+
 public sealed class DeletePolicyIsmEndpoint : IEndpoint<DeletePolicyIsmRequest, DeletePolicyIsmResponse>
 {
 	public static readonly DeletePolicyIsmEndpoint Instance = new();

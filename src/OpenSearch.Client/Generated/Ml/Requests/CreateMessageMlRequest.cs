@@ -26,6 +26,7 @@ public sealed class CreateMessageMlRequest
 		public string? Origin { get; set; }
 	public Dictionary<string, object>? AdditionalInfo { get; set; }
 }
+
 public sealed class CreateMessageMlEndpoint : IEndpoint<CreateMessageMlRequest, CreateMessageMlResponse>
 {
 	public static readonly CreateMessageMlEndpoint Instance = new();

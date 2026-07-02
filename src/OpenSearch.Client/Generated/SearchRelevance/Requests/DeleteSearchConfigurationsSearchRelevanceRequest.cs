@@ -17,6 +17,7 @@ public sealed class DeleteSearchConfigurationsSearchRelevanceRequest
 	[JsonIgnore]
 	public string? SearchConfigurationId { get; set; }
 }
+
 public sealed class DeleteSearchConfigurationsSearchRelevanceEndpoint : IEndpoint<DeleteSearchConfigurationsSearchRelevanceRequest, DeleteSearchConfigurationsSearchRelevanceResponse>
 {
 	public static readonly DeleteSearchConfigurationsSearchRelevanceEndpoint Instance = new();

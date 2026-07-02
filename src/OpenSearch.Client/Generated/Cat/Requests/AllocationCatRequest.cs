@@ -41,6 +41,7 @@ public sealed class AllocationCatRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
+
 public sealed class AllocationCatEndpoint : IEndpoint<AllocationCatRequest, AllocationCatResponse>
 {
 	public static readonly AllocationCatEndpoint Instance = new();

@@ -17,6 +17,7 @@ public sealed class DeleteDistinguishedNameSecurityRequest
 	[JsonIgnore]
 	public string? ClusterName { get; set; }
 }
+
 public sealed class DeleteDistinguishedNameSecurityEndpoint : IEndpoint<DeleteDistinguishedNameSecurityRequest, DeleteDistinguishedNameSecurityResponse>
 {
 	public static readonly DeleteDistinguishedNameSecurityEndpoint Instance = new();

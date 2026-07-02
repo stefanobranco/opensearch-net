@@ -18,7 +18,7 @@ public partial class GetConnectorMlResponse : OpenSearch.Net.OpenSearchResponse
 		public string? Description { get; set; }
 	public ConnectorProtocol? Protocol { get; set; }
 	public Dictionary<string, object>? Parameters { get; set; }
-	public List<IndexAction>? Actions { get; set; }
+	public List<ConnectorAction>? Actions { get; set; }
 	/// <summary>The created time.</summary>
 		public long? CreatedTime { get; set; }
 	/// <summary>The last updated time.</summary>

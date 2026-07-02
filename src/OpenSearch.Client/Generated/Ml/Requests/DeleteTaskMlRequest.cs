@@ -17,6 +17,7 @@ public sealed class DeleteTaskMlRequest
 	[JsonIgnore]
 	public string? TaskId { get; set; }
 }
+
 public sealed class DeleteTaskMlEndpoint : IEndpoint<DeleteTaskMlRequest, DeleteTaskMlResponse>
 {
 	public static readonly DeleteTaskMlEndpoint Instance = new();

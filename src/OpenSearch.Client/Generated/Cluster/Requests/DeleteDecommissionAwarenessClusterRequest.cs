@@ -14,6 +14,7 @@ namespace OpenSearch.Client;
 public sealed class DeleteDecommissionAwarenessClusterRequest
 {
 }
+
 public sealed class DeleteDecommissionAwarenessClusterEndpoint : IEndpoint<DeleteDecommissionAwarenessClusterRequest, DeleteDecommissionAwarenessClusterResponse>
 {
 	public static readonly DeleteDecommissionAwarenessClusterEndpoint Instance = new();

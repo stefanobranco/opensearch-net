@@ -11,7 +11,7 @@ namespace OpenSearch.Client;
 /// Updates a document with a script or partial document.
 /// </summary>
 
-public sealed class UpdateRequest
+public sealed class UpdateRequest<TDocument, TPartialDocument>
 {
 	/// <summary>Document ID</summary>
 	[JsonIgnore]
@@ -55,7 +55,8 @@ public sealed class UpdateRequest
 	/// <summary>Set to `false` to disable setting `result` in the response to `noop` if no change to the document occurred.</summary>
 		public bool? DetectNoop { get; set; }
 	/// <summary>A partial update to an existing document.</summary>
-		public System.Text.Json.JsonElement? Doc { get; set; }
+		[JsonConverter(typeof(SourceConverterFactory))]
+	public TPartialDocument? Doc { get; set; }
 	/// <summary>Set to `true` to use the contents of 'doc' as the value of 'upsert'</summary>
 		public bool? DocAsUpsert { get; set; }
 	public Script? Script { get; set; }
@@ -64,15 +65,17 @@ public sealed class UpdateRequest
 	[JsonPropertyName("_source")]
 	public SourceConfig? Source { get; set; }
 	/// <summary>If the document does not already exist, the contents of 'upsert' are inserted as a new document. If the document exists, the 'script' is executed.</summary>
-		public System.Text.Json.JsonElement? Upsert { get; set; }
+		[JsonConverter(typeof(SourceConverterFactory))]
+	public TDocument? Upsert { get; set; }
 }
-public sealed class UpdateEndpoint<TDocument> : IEndpoint<UpdateRequest, UpdateResponse<TDocument>>
+
+public sealed class UpdateEndpoint<TDocument, TPartialDocument> : IEndpoint<UpdateRequest<TDocument, TPartialDocument>, UpdateResponse<TDocument>>
 {
-	public static readonly UpdateEndpoint<TDocument> Instance = new();
+	public static readonly UpdateEndpoint<TDocument, TPartialDocument> Instance = new();
 
-	public OpenSearch.Net.HttpMethod Method(UpdateRequest r) => OpenSearch.Net.HttpMethod.Post;
+	public OpenSearch.Net.HttpMethod Method(UpdateRequest<TDocument, TPartialDocument> r) => OpenSearch.Net.HttpMethod.Post;
 
-	public string RequestUrl(UpdateRequest r)
+	public string RequestUrl(UpdateRequest<TDocument, TPartialDocument> r)
 	{
 		var path = $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_update/{Uri.EscapeDataString(r.Id!.ToString()!)}";
 		var queryParts = new List<string>();
@@ -101,7 +104,7 @@ public sealed class UpdateEndpoint<TDocument> : IEndpoint<UpdateRequest, UpdateR
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
-	public RequestBody? GetBody(UpdateRequest r) => RequestBody.Json(r);
+	public RequestBody? GetBody(UpdateRequest<TDocument, TPartialDocument> r) => RequestBody.Json(r);
 
 	public UpdateResponse<TDocument> DeserializeResponse(int statusCode, string? contentType, Stream body, IOpenSearchSerializer serializer) =>
 		serializer.Deserialize<UpdateResponse<TDocument>>(body)!;

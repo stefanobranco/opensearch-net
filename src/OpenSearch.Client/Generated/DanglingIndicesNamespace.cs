@@ -39,7 +39,6 @@ public sealed partial class DanglingIndicesNamespace
 		return DeleteDanglingIndexAsync((DeleteDanglingIndexDanglingIndexRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Imports the specified dangling index.</summary>
 	public ImportDanglingIndexDanglingIndexResponse ImportDanglingIndex(ImportDanglingIndexDanglingIndexRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, ImportDanglingIndexDanglingIndexEndpoint.Instance, options);
@@ -64,7 +63,6 @@ public sealed partial class DanglingIndicesNamespace
 		return ImportDanglingIndexAsync((ImportDanglingIndexDanglingIndexRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns all dangling indexes.</summary>
 	public ListDanglingIndicesDanglingIndexResponse ListDanglingIndices(ListDanglingIndicesDanglingIndexRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, ListDanglingIndicesDanglingIndexEndpoint.Instance, options);
@@ -88,5 +86,4 @@ public sealed partial class DanglingIndicesNamespace
 		configure(descriptor);
 		return ListDanglingIndicesAsync((ListDanglingIndicesDanglingIndexRequest)descriptor, options, ct);
 	}
-
 }

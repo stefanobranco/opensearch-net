@@ -24,6 +24,7 @@ public sealed class RegisterModelGroupMlRequest
 	/// <summary>The add all backend roles.</summary>
 		public bool? AddAllBackendRoles { get; set; }
 }
+
 public sealed class RegisterModelGroupMlEndpoint : IEndpoint<RegisterModelGroupMlRequest, RegisterModelGroupMlResponse>
 {
 	public static readonly RegisterModelGroupMlEndpoint Instance = new();

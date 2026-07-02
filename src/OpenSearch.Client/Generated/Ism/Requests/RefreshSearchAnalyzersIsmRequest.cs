@@ -17,6 +17,7 @@ public sealed class RefreshSearchAnalyzersIsmRequest
 	[JsonIgnore]
 	public string? Index { get; set; }
 }
+
 public sealed class RefreshSearchAnalyzersIsmEndpoint : IEndpoint<RefreshSearchAnalyzersIsmRequest, RefreshSearchAnalyzersIsmResponse>
 {
 	public static readonly RefreshSearchAnalyzersIsmEndpoint Instance = new();

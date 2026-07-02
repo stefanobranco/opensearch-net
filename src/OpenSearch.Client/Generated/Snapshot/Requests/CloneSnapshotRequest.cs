@@ -27,6 +27,7 @@ public sealed class CloneSnapshotRequest
 	public string? ClusterManagerTimeout { get; set; }
 	public string? Indices { get; set; }
 }
+
 public sealed class CloneSnapshotEndpoint : IEndpoint<CloneSnapshotRequest, CloneSnapshotResponse>
 {
 	public static readonly CloneSnapshotEndpoint Instance = new();

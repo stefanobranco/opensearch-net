@@ -35,16 +35,32 @@ public static class TemplateHelpers
 		obj["body_fields"] = BuildFieldArray(request.BodyFields);
 		obj["paths"] = BuildPathArray(request.HttpPaths, request.PathParams);
 
-		// Generic endpoint support: if the response is generic, the endpoint must be generic too
-		obj["response_type_parameters"] = request.Response.IsGeneric
-			? new ScriptArray(request.Response.TypeParameters.Cast<object>())
-			: null;
+		// Generic endpoint support: the endpoint carries the union of the request's and the
+		// response's type parameters (either side may be generic independently).
+		var endpointParams = EndpointTypeParameters(request);
+		obj["request_type_suffix"] = TypeSuffix(request.TypeParameters);
+		obj["response_type_suffix"] = TypeSuffix(request.Response.TypeParameters);
+		obj["endpoint_type_suffix"] = TypeSuffix(endpointParams);
 
 		// Cat namespace: inject format=json default so users get structured JSON responses
 		obj["is_cat"] = request.Namespace == "Cat";
 
 		return obj;
 	}
+
+	/// <summary>Renders a type-parameter list as a C# suffix (<c>&lt;TDocument&gt;</c>), or "" when empty.</summary>
+	private static string TypeSuffix(IReadOnlyList<string> typeParameters) =>
+		typeParameters.Count > 0 ? "<" + string.Join(", ", typeParameters) + ">" : "";
+
+	/// <summary>
+	/// The type parameters an endpoint (and its client methods) must declare: the union of the
+	/// request's and the response's, with the response's canonical order (TDocument) first.
+	/// </summary>
+	private static List<string> EndpointTypeParameters(RequestShape request) =>
+		request.Response.TypeParameters
+			.Concat(request.TypeParameters)
+			.Distinct(StringComparer.Ordinal)
+			.ToList();
 
 	public static ScriptObject BuildResponseContext(ResponseShape response)
 	{
@@ -169,8 +185,9 @@ public static class TemplateHelpers
 			f["deprecated"] = field.Deprecated;
 			// Emit [JsonPropertyName] when the wire name won't round-trip through SnakeCaseLower
 			f["needs_json_property_name"] = NamingConventions.NeedsJsonPropertyName(field.WireName, field.Name);
-			// User-document fields (Hit<TDocument>.Source etc.) route through the source serializer.
-			f["is_source_document"] = field.Type.IsGenericParameter && field.Type.Name == "TDocument";
+			// User-document fields (Hit<TDocument>.Source, UpdateRequest doc/upsert, ...) route
+			// through the source serializer — every generic-parameter field carries a user document.
+			f["is_source_document"] = field.Type.IsGenericParameter;
 			arr.Add(f);
 		}
 		return arr;
@@ -473,7 +490,10 @@ public static class TemplateHelpers
 		allFields.AddRange(queryParamsAsOptional);
 		allFields.AddRange(request.BodyFields);
 
-		return BuildDescriptorContext(request.Namespace, request.ClassName, allFields, typeParameters: null,
+		var typeParameters = request.IsGeneric
+			? new ScriptArray(request.TypeParameters.Cast<object>())
+			: null;
+		return BuildDescriptorContext(request.Namespace, request.ClassName, allFields, typeParameters,
 			request.IsRawBody, allObjects, allUnions, rawBodyType: RenderRawBodyType(request.RawBodyType));
 	}
 
@@ -485,17 +505,15 @@ public static class TemplateHelpers
 		var ops = new ScriptArray();
 		foreach (var req in requests)
 		{
+			var endpointParams = EndpointTypeParameters(req);
 			var op = new ScriptObject();
-			op["class_name"] = req.ClassName;
-			op["response_name"] = req.Response.ClassName;
-			op["endpoint_name"] = req.EndpointName;
 			op["method_name"] = NamingConventions.OperationGroupToMethodName(req.OperationGroup);
 			op["description"] = SanitizeDescription(req.Description) ?? req.OperationGroup;
-			op["is_generic"] = req.Response.IsGeneric;
-			op["type_parameters"] = req.Response.IsGeneric
-				? new ScriptArray(req.Response.TypeParameters.Cast<object>())
-				: null;
-			op["descriptor_name"] = req.ClassName + "Descriptor";
+			op["method_generics"] = TypeSuffix(endpointParams);
+			op["request_type"] = req.ClassName + TypeSuffix(req.TypeParameters);
+			op["response_type"] = req.Response.ClassName + TypeSuffix(req.Response.TypeParameters);
+			op["endpoint_ref"] = req.EndpointName + TypeSuffix(endpointParams);
+			op["descriptor_type"] = req.ClassName + "Descriptor" + TypeSuffix(req.TypeParameters);
 			ops.Add(op);
 		}
 		obj["operations"] = ops;

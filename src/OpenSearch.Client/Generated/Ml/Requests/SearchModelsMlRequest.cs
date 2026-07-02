@@ -19,6 +19,7 @@ public sealed class SearchModelsMlRequest
 	/// <summary>The sort order.</summary>
 		public List<SortOptions>? Sort { get; set; }
 }
+
 public sealed class SearchModelsMlEndpoint : IEndpoint<SearchModelsMlRequest, SearchModelsMlResponse>
 {
 	public static readonly SearchModelsMlEndpoint Instance = new();

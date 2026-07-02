@@ -18,6 +18,7 @@ public sealed class CreateUpdateTenancyConfigSecurityRequest
 	public bool? MultitenancyEnabled { get; set; }
 	public List<string>? SignInOptions { get; set; }
 }
+
 public sealed class CreateUpdateTenancyConfigSecurityEndpoint : IEndpoint<CreateUpdateTenancyConfigSecurityRequest, CreateUpdateTenancyConfigSecurityResponse>
 {
 	public static readonly CreateUpdateTenancyConfigSecurityEndpoint Instance = new();

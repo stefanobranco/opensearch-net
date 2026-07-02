@@ -18,6 +18,7 @@ public sealed class CreateTenantSecurityRequest
 	public string? Tenant { get; set; }
 	public string? Description { get; set; }
 }
+
 public sealed class CreateTenantSecurityEndpoint : IEndpoint<CreateTenantSecurityRequest, CreateTenantSecurityResponse>
 {
 	public static readonly CreateTenantSecurityEndpoint Instance = new();

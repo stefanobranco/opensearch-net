@@ -14,6 +14,7 @@ namespace OpenSearch.Client;
 public sealed class GetPermissionsInfoSecurityRequest
 {
 }
+
 public sealed class GetPermissionsInfoSecurityEndpoint : IEndpoint<GetPermissionsInfoSecurityRequest, GetPermissionsInfoSecurityResponse>
 {
 	public static readonly GetPermissionsInfoSecurityEndpoint Instance = new();

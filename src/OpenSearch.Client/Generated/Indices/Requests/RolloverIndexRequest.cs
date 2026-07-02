@@ -38,6 +38,7 @@ public sealed class RolloverIndexRequest
 	/// <summary>Configuration options for the index. Data streams do not support this parameter.</summary>
 		public Dictionary<string, object>? Settings { get; set; }
 }
+
 public sealed class RolloverIndexEndpoint : IEndpoint<RolloverIndexRequest, RolloverIndexResponse>
 {
 	public static readonly RolloverIndexEndpoint Instance = new();

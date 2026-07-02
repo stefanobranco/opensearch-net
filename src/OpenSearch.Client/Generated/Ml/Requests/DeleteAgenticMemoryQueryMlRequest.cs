@@ -21,6 +21,7 @@ public sealed class DeleteAgenticMemoryQueryMlRequest
 	public MemoryType? Type { get; set; }
 	public QueryContainer? Query { get; set; }
 }
+
 public sealed class DeleteAgenticMemoryQueryMlEndpoint : IEndpoint<DeleteAgenticMemoryQueryMlRequest, DeleteAgenticMemoryQueryMlResponse>
 {
 	public static readonly DeleteAgenticMemoryQueryMlEndpoint Instance = new();

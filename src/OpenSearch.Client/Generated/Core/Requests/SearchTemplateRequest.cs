@@ -65,6 +65,7 @@ public sealed class SearchTemplateRequest
 	/// <summary>An inline search template. Supports the same parameters as the search API request body. Also supports Mustache variables. If no id is specified, this parameter is required.</summary>
 		public string? Source { get; set; }
 }
+
 public sealed class SearchTemplateEndpoint<TDocument> : IEndpoint<SearchTemplateRequest, SearchTemplateResponse<TDocument>>
 {
 	public static readonly SearchTemplateEndpoint<TDocument> Instance = new();

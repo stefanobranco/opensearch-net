@@ -17,6 +17,7 @@ public sealed class GetConnectorMlRequest
 	[JsonIgnore]
 	public string? ConnectorId { get; set; }
 }
+
 public sealed class GetConnectorMlEndpoint : IEndpoint<GetConnectorMlRequest, GetConnectorMlResponse>
 {
 	public static readonly GetConnectorMlEndpoint Instance = new();

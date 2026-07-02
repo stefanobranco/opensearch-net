@@ -39,7 +39,6 @@ public sealed partial class SearchRelevanceNamespace
 		return DeleteExperimentsAsync((DeleteExperimentsSearchRelevanceRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Deletes a specified judgment.</summary>
 	public DeleteJudgmentsSearchRelevanceResponse DeleteJudgments(DeleteJudgmentsSearchRelevanceRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, DeleteJudgmentsSearchRelevanceEndpoint.Instance, options);
@@ -63,7 +62,6 @@ public sealed partial class SearchRelevanceNamespace
 		configure(descriptor);
 		return DeleteJudgmentsAsync((DeleteJudgmentsSearchRelevanceRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Deletes a query set.</summary>
 	public DeleteQuerySetsSearchRelevanceResponse DeleteQuerySets(DeleteQuerySetsSearchRelevanceRequest request, TransportOptions? options = null) =>
@@ -89,7 +87,6 @@ public sealed partial class SearchRelevanceNamespace
 		return DeleteQuerySetsAsync((DeleteQuerySetsSearchRelevanceRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Deletes a specified scheduled experiment.</summary>
 	public DeleteScheduledExperimentsSearchRelevanceResponse DeleteScheduledExperiments(DeleteScheduledExperimentsSearchRelevanceRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, DeleteScheduledExperimentsSearchRelevanceEndpoint.Instance, options);
@@ -113,7 +110,6 @@ public sealed partial class SearchRelevanceNamespace
 		configure(descriptor);
 		return DeleteScheduledExperimentsAsync((DeleteScheduledExperimentsSearchRelevanceRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Deletes a specified search configuration.</summary>
 	public DeleteSearchConfigurationsSearchRelevanceResponse DeleteSearchConfigurations(DeleteSearchConfigurationsSearchRelevanceRequest request, TransportOptions? options = null) =>
@@ -139,7 +135,6 @@ public sealed partial class SearchRelevanceNamespace
 		return DeleteSearchConfigurationsAsync((DeleteSearchConfigurationsSearchRelevanceRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Gets experiments.</summary>
 	public GetExperimentsSearchRelevanceResponse<TDocument> GetExperiments<TDocument>(GetExperimentsSearchRelevanceRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetExperimentsSearchRelevanceEndpoint<TDocument>.Instance, options);
@@ -163,7 +158,6 @@ public sealed partial class SearchRelevanceNamespace
 		configure(descriptor);
 		return GetExperimentsAsync<TDocument>((GetExperimentsSearchRelevanceRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Gets judgments.</summary>
 	public GetJudgmentsSearchRelevanceResponse<TDocument> GetJudgments<TDocument>(GetJudgmentsSearchRelevanceRequest request, TransportOptions? options = null) =>
@@ -189,7 +183,6 @@ public sealed partial class SearchRelevanceNamespace
 		return GetJudgmentsAsync<TDocument>((GetJudgmentsSearchRelevanceRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Gets stats by node.</summary>
 	public GetNodeStatsSearchRelevanceResponse GetNodeStats(GetNodeStatsSearchRelevanceRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetNodeStatsSearchRelevanceEndpoint.Instance, options);
@@ -213,7 +206,6 @@ public sealed partial class SearchRelevanceNamespace
 		configure(descriptor);
 		return GetNodeStatsAsync((GetNodeStatsSearchRelevanceRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Lists the current query sets available.</summary>
 	public GetQuerySetsSearchRelevanceResponse<TDocument> GetQuerySets<TDocument>(GetQuerySetsSearchRelevanceRequest request, TransportOptions? options = null) =>
@@ -239,7 +231,6 @@ public sealed partial class SearchRelevanceNamespace
 		return GetQuerySetsAsync<TDocument>((GetQuerySetsSearchRelevanceRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Gets the scheduled experiments.</summary>
 	public GetScheduledExperimentsSearchRelevanceResponse<TDocument> GetScheduledExperiments<TDocument>(GetScheduledExperimentsSearchRelevanceRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetScheduledExperimentsSearchRelevanceEndpoint<TDocument>.Instance, options);
@@ -263,7 +254,6 @@ public sealed partial class SearchRelevanceNamespace
 		configure(descriptor);
 		return GetScheduledExperimentsAsync<TDocument>((GetScheduledExperimentsSearchRelevanceRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Gets the search configurations.</summary>
 	public GetSearchConfigurationsSearchRelevanceResponse<TDocument> GetSearchConfigurations<TDocument>(GetSearchConfigurationsSearchRelevanceRequest request, TransportOptions? options = null) =>
@@ -289,7 +279,6 @@ public sealed partial class SearchRelevanceNamespace
 		return GetSearchConfigurationsAsync<TDocument>((GetSearchConfigurationsSearchRelevanceRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Gets stats.</summary>
 	public GetStatsSearchRelevanceResponse GetStats(GetStatsSearchRelevanceRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetStatsSearchRelevanceEndpoint.Instance, options);
@@ -313,7 +302,6 @@ public sealed partial class SearchRelevanceNamespace
 		configure(descriptor);
 		return GetStatsAsync((GetStatsSearchRelevanceRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Creates a new query set by sampling queries from the user behavior data.</summary>
 	public PostQuerySetsSearchRelevanceResponse PostQuerySets(PostQuerySetsSearchRelevanceRequest request, TransportOptions? options = null) =>
@@ -339,7 +327,6 @@ public sealed partial class SearchRelevanceNamespace
 		return PostQuerySetsAsync((PostQuerySetsSearchRelevanceRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Creates a scheduled experiment.</summary>
 	public PostScheduledExperimentsSearchRelevanceResponse PostScheduledExperiments(PostScheduledExperimentsSearchRelevanceRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, PostScheduledExperimentsSearchRelevanceEndpoint.Instance, options);
@@ -363,7 +350,6 @@ public sealed partial class SearchRelevanceNamespace
 		configure(descriptor);
 		return PostScheduledExperimentsAsync((PostScheduledExperimentsSearchRelevanceRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Creates an experiment.</summary>
 	public PutExperimentsSearchRelevanceResponse PutExperiments(PutExperimentsSearchRelevanceRequest request, TransportOptions? options = null) =>
@@ -389,7 +375,6 @@ public sealed partial class SearchRelevanceNamespace
 		return PutExperimentsAsync((PutExperimentsSearchRelevanceRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Creates a judgment.</summary>
 	public PutJudgmentsSearchRelevanceResponse PutJudgments(PutJudgmentsSearchRelevanceRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, PutJudgmentsSearchRelevanceEndpoint.Instance, options);
@@ -413,7 +398,6 @@ public sealed partial class SearchRelevanceNamespace
 		configure(descriptor);
 		return PutJudgmentsAsync((PutJudgmentsSearchRelevanceRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Creates a new query set by uploading manually.</summary>
 	public PutQuerySetsSearchRelevanceResponse PutQuerySets(PutQuerySetsSearchRelevanceRequest request, TransportOptions? options = null) =>
@@ -439,7 +423,6 @@ public sealed partial class SearchRelevanceNamespace
 		return PutQuerySetsAsync((PutQuerySetsSearchRelevanceRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Creates a search configuration.</summary>
 	public PutSearchConfigurationsSearchRelevanceResponse PutSearchConfigurations(PutSearchConfigurationsSearchRelevanceRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, PutSearchConfigurationsSearchRelevanceEndpoint.Instance, options);
@@ -463,5 +446,4 @@ public sealed partial class SearchRelevanceNamespace
 		configure(descriptor);
 		return PutSearchConfigurationsAsync((PutSearchConfigurationsSearchRelevanceRequest)descriptor, options, ct);
 	}
-
 }

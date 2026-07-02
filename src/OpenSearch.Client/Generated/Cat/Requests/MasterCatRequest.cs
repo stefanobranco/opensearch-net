@@ -35,6 +35,7 @@ public sealed class MasterCatRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
+
 public sealed class MasterCatEndpoint : IEndpoint<MasterCatRequest, MasterCatResponse>
 {
 	public static readonly MasterCatEndpoint Instance = new();

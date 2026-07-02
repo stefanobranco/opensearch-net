@@ -23,6 +23,7 @@ public sealed class VerifyRepositorySnapshotRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 }
+
 public sealed class VerifyRepositorySnapshotEndpoint : IEndpoint<VerifyRepositorySnapshotRequest, VerifyRepositorySnapshotResponse>
 {
 	public static readonly VerifyRepositorySnapshotEndpoint Instance = new();

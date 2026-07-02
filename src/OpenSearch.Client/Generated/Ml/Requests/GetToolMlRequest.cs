@@ -17,6 +17,7 @@ public sealed class GetToolMlRequest
 	[JsonIgnore]
 	public ToolName? ToolName { get; set; }
 }
+
 public sealed class GetToolMlEndpoint : IEndpoint<GetToolMlRequest, GetToolMlResponse>
 {
 	public static readonly GetToolMlEndpoint Instance = new();

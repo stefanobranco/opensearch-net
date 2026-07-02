@@ -19,6 +19,7 @@ public sealed class UnloadModelMlRequest
 	public List<string>? NodeIds { get; set; }
 	public List<string>? ModelIds { get; set; }
 }
+
 public sealed class UnloadModelMlEndpoint : IEndpoint<UnloadModelMlRequest, UnloadModelMlResponse>
 {
 	public static readonly UnloadModelMlEndpoint Instance = new();

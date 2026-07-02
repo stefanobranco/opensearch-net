@@ -39,7 +39,6 @@ public sealed partial class ClusterNamespace
 		return AllocationExplainAsync((AllocationExplainClusterRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Deletes a component template.</summary>
 	public DeleteComponentTemplateClusterResponse DeleteComponentTemplate(DeleteComponentTemplateClusterRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, DeleteComponentTemplateClusterEndpoint.Instance, options);
@@ -63,7 +62,6 @@ public sealed partial class ClusterNamespace
 		configure(descriptor);
 		return DeleteComponentTemplateAsync((DeleteComponentTemplateClusterRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Recommissions a decommissioned zone.</summary>
 	public DeleteDecommissionAwarenessClusterResponse DeleteDecommissionAwareness(DeleteDecommissionAwarenessClusterRequest request, TransportOptions? options = null) =>
@@ -89,7 +87,6 @@ public sealed partial class ClusterNamespace
 		return DeleteDecommissionAwarenessAsync((DeleteDecommissionAwarenessClusterRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Clears any cluster voting configuration exclusions.</summary>
 	public DeleteVotingConfigExclusionsClusterResponse DeleteVotingConfigExclusions(DeleteVotingConfigExclusionsClusterRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, DeleteVotingConfigExclusionsClusterEndpoint.Instance, options);
@@ -113,7 +110,6 @@ public sealed partial class ClusterNamespace
 		configure(descriptor);
 		return DeleteVotingConfigExclusionsAsync((DeleteVotingConfigExclusionsClusterRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Delete weighted shard routing weights.</summary>
 	public DeleteWeightedRoutingClusterResponse DeleteWeightedRouting(DeleteWeightedRoutingClusterRequest request, TransportOptions? options = null) =>
@@ -139,7 +135,6 @@ public sealed partial class ClusterNamespace
 		return DeleteWeightedRoutingAsync((DeleteWeightedRoutingClusterRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns information about whether a particular component template exist.</summary>
 	public ExistsComponentTemplateClusterResponse ExistsComponentTemplate(ExistsComponentTemplateClusterRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, ExistsComponentTemplateClusterEndpoint.Instance, options);
@@ -163,7 +158,6 @@ public sealed partial class ClusterNamespace
 		configure(descriptor);
 		return ExistsComponentTemplateAsync((ExistsComponentTemplateClusterRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Returns one or more component templates.</summary>
 	public GetComponentTemplateClusterResponse GetComponentTemplate(GetComponentTemplateClusterRequest request, TransportOptions? options = null) =>
@@ -189,7 +183,6 @@ public sealed partial class ClusterNamespace
 		return GetComponentTemplateAsync((GetComponentTemplateClusterRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Retrieves the decommission status for all zones.</summary>
 	public GetDecommissionAwarenessClusterResponse GetDecommissionAwareness(GetDecommissionAwarenessClusterRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetDecommissionAwarenessClusterEndpoint.Instance, options);
@@ -213,7 +206,6 @@ public sealed partial class ClusterNamespace
 		configure(descriptor);
 		return GetDecommissionAwarenessAsync((GetDecommissionAwarenessClusterRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Returns cluster settings.</summary>
 	public GetSettingsClusterResponse GetSettings(GetSettingsClusterRequest request, TransportOptions? options = null) =>
@@ -239,7 +231,6 @@ public sealed partial class ClusterNamespace
 		return GetSettingsAsync((GetSettingsClusterRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Fetches weighted shard routing weights.</summary>
 	public GetWeightedRoutingClusterResponse GetWeightedRouting(GetWeightedRoutingClusterRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetWeightedRoutingClusterEndpoint.Instance, options);
@@ -263,7 +254,6 @@ public sealed partial class ClusterNamespace
 		configure(descriptor);
 		return GetWeightedRoutingAsync((GetWeightedRoutingClusterRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Returns basic information about the health of the cluster.</summary>
 	public HealthClusterResponse Health(HealthClusterRequest request, TransportOptions? options = null) =>
@@ -289,7 +279,6 @@ public sealed partial class ClusterNamespace
 		return HealthAsync((HealthClusterRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns a list of pending cluster-level tasks, such as index creation, mapping updates, or new allocations.</summary>
 	public PendingTasksClusterResponse PendingTasks(PendingTasksClusterRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, PendingTasksClusterEndpoint.Instance, options);
@@ -313,7 +302,6 @@ public sealed partial class ClusterNamespace
 		configure(descriptor);
 		return PendingTasksAsync((PendingTasksClusterRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Updates the cluster voting configuration by excluding certain node IDs or names.</summary>
 	public PostVotingConfigExclusionsClusterResponse PostVotingConfigExclusions(PostVotingConfigExclusionsClusterRequest request, TransportOptions? options = null) =>
@@ -339,7 +327,6 @@ public sealed partial class ClusterNamespace
 		return PostVotingConfigExclusionsAsync((PostVotingConfigExclusionsClusterRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Creates or updates a component template.</summary>
 	public PutComponentTemplateClusterResponse PutComponentTemplate(PutComponentTemplateClusterRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, PutComponentTemplateClusterEndpoint.Instance, options);
@@ -363,7 +350,6 @@ public sealed partial class ClusterNamespace
 		configure(descriptor);
 		return PutComponentTemplateAsync((PutComponentTemplateClusterRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Decommissions a cluster zone based on awareness. This can greatly benefit multi-zone deployments, where awareness attributes can aid in applying new upgrades to a cluster in a controlled fashion.</summary>
 	public PutDecommissionAwarenessClusterResponse PutDecommissionAwareness(PutDecommissionAwarenessClusterRequest request, TransportOptions? options = null) =>
@@ -389,7 +375,6 @@ public sealed partial class ClusterNamespace
 		return PutDecommissionAwarenessAsync((PutDecommissionAwarenessClusterRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Updates the cluster settings.</summary>
 	public PutSettingsClusterResponse PutSettings(PutSettingsClusterRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, PutSettingsClusterEndpoint.Instance, options);
@@ -413,7 +398,6 @@ public sealed partial class ClusterNamespace
 		configure(descriptor);
 		return PutSettingsAsync((PutSettingsClusterRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Updates weighted shard routing weights.</summary>
 	public PutWeightedRoutingClusterResponse PutWeightedRouting(PutWeightedRoutingClusterRequest request, TransportOptions? options = null) =>
@@ -439,7 +423,6 @@ public sealed partial class ClusterNamespace
 		return PutWeightedRoutingAsync((PutWeightedRoutingClusterRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns the information about configured remote clusters.</summary>
 	public RemoteInfoClusterResponse RemoteInfo(RemoteInfoClusterRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, RemoteInfoClusterEndpoint.Instance, options);
@@ -463,7 +446,6 @@ public sealed partial class ClusterNamespace
 		configure(descriptor);
 		return RemoteInfoAsync((RemoteInfoClusterRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Allows to manually change the allocation of individual shards in the cluster.</summary>
 	public RerouteClusterResponse Reroute(RerouteClusterRequest request, TransportOptions? options = null) =>
@@ -489,7 +471,6 @@ public sealed partial class ClusterNamespace
 		return RerouteAsync((RerouteClusterRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns comprehensive information about the state of the cluster.</summary>
 	public StateClusterResponse State(StateClusterRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, StateClusterEndpoint.Instance, options);
@@ -514,7 +495,6 @@ public sealed partial class ClusterNamespace
 		return StateAsync((StateClusterRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns a high-level overview of cluster statistics.</summary>
 	public StatsClusterResponse Stats(StatsClusterRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, StatsClusterEndpoint.Instance, options);
@@ -538,5 +518,4 @@ public sealed partial class ClusterNamespace
 		configure(descriptor);
 		return StatsAsync((StatsClusterRequest)descriptor, options, ct);
 	}
-
 }

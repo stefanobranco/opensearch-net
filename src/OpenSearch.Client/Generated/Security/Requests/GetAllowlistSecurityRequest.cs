@@ -14,6 +14,7 @@ namespace OpenSearch.Client;
 public sealed class GetAllowlistSecurityRequest
 {
 }
+
 public sealed class GetAllowlistSecurityEndpoint : IEndpoint<GetAllowlistSecurityRequest, GetAllowlistSecurityResponse>
 {
 	public static readonly GetAllowlistSecurityEndpoint Instance = new();

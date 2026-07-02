@@ -17,6 +17,7 @@ public sealed class ExplainPolicyIsmRequest
 	[JsonIgnore]
 	public string? Index { get; set; }
 }
+
 public sealed class ExplainPolicyIsmEndpoint : IEndpoint<ExplainPolicyIsmRequest, ExplainPolicyIsmResponse>
 {
 	public static readonly ExplainPolicyIsmEndpoint Instance = new();

@@ -23,6 +23,7 @@ public sealed class CreateMemoryContainerSessionMlRequest
 	public Dictionary<string, object>? Metadata { get; set; }
 	public Dictionary<string, object>? Namespace { get; set; }
 }
+
 public sealed class CreateMemoryContainerSessionMlEndpoint : IEndpoint<CreateMemoryContainerSessionMlRequest, CreateMemoryContainerSessionMlResponse>
 {
 	public static readonly CreateMemoryContainerSessionMlEndpoint Instance = new();

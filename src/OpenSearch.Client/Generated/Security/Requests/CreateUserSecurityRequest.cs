@@ -26,6 +26,7 @@ public sealed class CreateUserSecurityRequest
 	public List<string>? OpendistroSecurityRoles { get; set; }
 	public bool? Static { get; set; }
 }
+
 public sealed class CreateUserSecurityEndpoint : IEndpoint<CreateUserSecurityRequest, CreateUserSecurityResponse>
 {
 	public static readonly CreateUserSecurityEndpoint Instance = new();

@@ -31,6 +31,7 @@ public sealed class FieldCapsRequest
 	public List<string>? Fields { get; set; }
 	public QueryContainer? IndexFilter { get; set; }
 }
+
 public sealed class FieldCapsEndpoint : IEndpoint<FieldCapsRequest, FieldCapsResponse>
 {
 	public static readonly FieldCapsEndpoint Instance = new();

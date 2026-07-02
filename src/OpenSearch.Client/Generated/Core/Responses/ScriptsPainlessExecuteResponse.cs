@@ -12,5 +12,6 @@ namespace OpenSearch.Client;
 
 public partial class ScriptsPainlessExecuteResponse<TResult> : OpenSearch.Net.OpenSearchResponse
 {
+	[JsonConverter(typeof(SourceConverterFactory))]
 	public TResult? Result { get; set; }
 }

@@ -23,6 +23,7 @@ public sealed class DeleteScriptRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 }
+
 public sealed class DeleteScriptEndpoint : IEndpoint<DeleteScriptRequest, DeleteScriptResponse>
 {
 	public static readonly DeleteScriptEndpoint Instance = new();

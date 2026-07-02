@@ -17,6 +17,7 @@ public sealed class DeleteModelGroupMlRequest
 	[JsonIgnore]
 	public string? ModelGroupId { get; set; }
 }
+
 public sealed class DeleteModelGroupMlEndpoint : IEndpoint<DeleteModelGroupMlRequest, DeleteModelGroupMlResponse>
 {
 	public static readonly DeleteModelGroupMlEndpoint Instance = new();

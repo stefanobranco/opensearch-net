@@ -117,6 +117,7 @@ public sealed class DeleteByQueryRequest
 	public QueryContainer? Query { get; set; }
 	public SlicedScroll? Slice { get; set; }
 }
+
 public sealed class DeleteByQueryEndpoint : IEndpoint<DeleteByQueryRequest, DeleteByQueryResponse>
 {
 	public static readonly DeleteByQueryEndpoint Instance = new();

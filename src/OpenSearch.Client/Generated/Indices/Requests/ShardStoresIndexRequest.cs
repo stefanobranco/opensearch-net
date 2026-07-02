@@ -29,6 +29,7 @@ public sealed class ShardStoresIndexRequest
 	[JsonIgnore]
 	public List<string>? Status { get; set; }
 }
+
 public sealed class ShardStoresIndexEndpoint : IEndpoint<ShardStoresIndexRequest, ShardStoresIndexResponse>
 {
 	public static readonly ShardStoresIndexEndpoint Instance = new();

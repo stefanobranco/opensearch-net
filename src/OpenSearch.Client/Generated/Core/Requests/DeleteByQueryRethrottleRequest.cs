@@ -20,6 +20,7 @@ public sealed class DeleteByQueryRethrottleRequest
 	[JsonIgnore]
 	public float? RequestsPerSecond { get; set; }
 }
+
 public sealed class DeleteByQueryRethrottleEndpoint : IEndpoint<DeleteByQueryRethrottleRequest, DeleteByQueryRethrottleResponse>
 {
 	public static readonly DeleteByQueryRethrottleEndpoint Instance = new();

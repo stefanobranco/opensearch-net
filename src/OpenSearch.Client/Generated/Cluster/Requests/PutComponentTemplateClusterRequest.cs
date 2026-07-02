@@ -32,6 +32,7 @@ public sealed class PutComponentTemplateClusterRequest
 	[JsonPropertyName("_meta")]
 	public Dictionary<string, object>? Meta { get; set; }
 }
+
 public sealed class PutComponentTemplateClusterEndpoint : IEndpoint<PutComponentTemplateClusterRequest, PutComponentTemplateClusterResponse>
 {
 	public static readonly PutComponentTemplateClusterEndpoint Instance = new();

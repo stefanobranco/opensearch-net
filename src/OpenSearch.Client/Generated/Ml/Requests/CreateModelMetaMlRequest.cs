@@ -29,6 +29,7 @@ public sealed class CreateModelMetaMlRequest
 	/// <summary>The model description.</summary>
 		public string? Description { get; set; }
 }
+
 public sealed class CreateModelMetaMlEndpoint : IEndpoint<CreateModelMetaMlRequest, CreateModelMetaMlResponse>
 {
 	public static readonly CreateModelMetaMlEndpoint Instance = new();

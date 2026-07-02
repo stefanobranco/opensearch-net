@@ -28,6 +28,7 @@ public sealed class AddAgenticMemoryMlRequest
 	/// <summary>Whether to use LLM to extract key information.</summary>
 		public bool? Infer { get; set; }
 }
+
 public sealed class AddAgenticMemoryMlEndpoint : IEndpoint<AddAgenticMemoryMlRequest, AddAgenticMemoryMlResponse>
 {
 	public static readonly AddAgenticMemoryMlEndpoint Instance = new();

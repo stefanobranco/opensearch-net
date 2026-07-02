@@ -18,6 +18,7 @@ public sealed class CreateControllerMlRequest
 	public string? ModelId { get; set; }
 	public Dictionary<string, RateLimiter>? UserRateLimiter { get; set; }
 }
+
 public sealed class CreateControllerMlEndpoint : IEndpoint<CreateControllerMlRequest, CreateControllerMlResponse>
 {
 	public static readonly CreateControllerMlEndpoint Instance = new();

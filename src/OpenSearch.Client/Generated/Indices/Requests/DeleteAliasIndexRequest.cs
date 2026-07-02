@@ -26,6 +26,7 @@ public sealed class DeleteAliasIndexRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 }
+
 public sealed class DeleteAliasIndexEndpoint : IEndpoint<DeleteAliasIndexRequest, DeleteAliasIndexResponse>
 {
 	public static readonly DeleteAliasIndexEndpoint Instance = new();

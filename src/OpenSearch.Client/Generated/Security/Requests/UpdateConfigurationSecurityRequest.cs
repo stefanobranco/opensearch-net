@@ -15,6 +15,7 @@ public sealed class UpdateConfigurationSecurityRequest
 {
 	public DynamicOptions? Dynamic { get; set; }
 }
+
 public sealed class UpdateConfigurationSecurityEndpoint : IEndpoint<UpdateConfigurationSecurityRequest, UpdateConfigurationSecurityResponse>
 {
 	public static readonly UpdateConfigurationSecurityEndpoint Instance = new();

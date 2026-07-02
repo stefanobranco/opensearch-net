@@ -39,6 +39,7 @@ public sealed class CloneIndexRequest
 	/// <summary>Configuration options for the target index.</summary>
 		public Dictionary<string, object>? Settings { get; set; }
 }
+
 public sealed class CloneIndexEndpoint : IEndpoint<CloneIndexRequest, CloneIndexResponse>
 {
 	public static readonly CloneIndexEndpoint Instance = new();

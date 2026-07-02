@@ -26,6 +26,7 @@ public sealed class StatusSnapshotRequest
 	[JsonIgnore]
 	public bool? IgnoreUnavailable { get; set; }
 }
+
 public sealed class StatusSnapshotEndpoint : IEndpoint<StatusSnapshotRequest, StatusSnapshotResponse>
 {
 	public static readonly StatusSnapshotEndpoint Instance = new();

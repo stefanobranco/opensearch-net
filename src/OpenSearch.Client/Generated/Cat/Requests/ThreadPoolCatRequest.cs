@@ -41,6 +41,7 @@ public sealed class ThreadPoolCatRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
+
 public sealed class ThreadPoolCatEndpoint : IEndpoint<ThreadPoolCatRequest, ThreadPoolCatResponse>
 {
 	public static readonly ThreadPoolCatEndpoint Instance = new();

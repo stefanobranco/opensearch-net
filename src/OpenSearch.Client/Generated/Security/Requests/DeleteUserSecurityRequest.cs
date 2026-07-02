@@ -17,6 +17,7 @@ public sealed class DeleteUserSecurityRequest
 	[JsonIgnore]
 	public string? Username { get; set; }
 }
+
 public sealed class DeleteUserSecurityEndpoint : IEndpoint<DeleteUserSecurityRequest, DeleteUserSecurityResponse>
 {
 	public static readonly DeleteUserSecurityEndpoint Instance = new();

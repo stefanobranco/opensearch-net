@@ -20,6 +20,7 @@ public sealed class GetFeaturesetLtrRequest
 	[JsonIgnore]
 	public string? Store { get; set; }
 }
+
 public sealed class GetFeaturesetLtrEndpoint : IEndpoint<GetFeaturesetLtrRequest, GetFeaturesetLtrResponse>
 {
 	public static readonly GetFeaturesetLtrEndpoint Instance = new();

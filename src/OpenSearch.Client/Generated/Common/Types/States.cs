@@ -15,7 +15,7 @@ public sealed class States
 	/// <summary>The name of the state.</summary>
 		public string? Name { get; set; }
 	/// <summary>The list of actions to perform.</summary>
-		public List<IndexAction>? Actions { get; set; }
+		public List<IsmAction>? Actions { get; set; }
 	/// <summary>The list of transitions to enter a new state.</summary>
 		public List<Transition>? Transitions { get; set; }
 }

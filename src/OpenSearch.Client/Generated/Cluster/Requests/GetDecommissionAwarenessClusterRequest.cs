@@ -17,6 +17,7 @@ public sealed class GetDecommissionAwarenessClusterRequest
 	[JsonIgnore]
 	public string? AwarenessAttributeName { get; set; }
 }
+
 public sealed class GetDecommissionAwarenessClusterEndpoint : IEndpoint<GetDecommissionAwarenessClusterRequest, GetDecommissionAwarenessClusterResponse>
 {
 	public static readonly GetDecommissionAwarenessClusterEndpoint Instance = new();

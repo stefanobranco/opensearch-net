@@ -22,6 +22,7 @@ public sealed class RegisterAgentsMlRequest
 	public Memory? Memory { get; set; }
 	public LLM? Llm { get; set; }
 }
+
 public sealed class RegisterAgentsMlEndpoint : IEndpoint<RegisterAgentsMlRequest, RegisterAgentsMlResponse>
 {
 	public static readonly RegisterAgentsMlEndpoint Instance = new();

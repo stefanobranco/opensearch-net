@@ -17,6 +17,7 @@ public sealed class GetModelKnnRequest
 	[JsonIgnore]
 	public string? ModelId { get; set; }
 }
+
 public sealed class GetModelKnnEndpoint : IEndpoint<GetModelKnnRequest, GetModelKnnResponse>
 {
 	public static readonly GetModelKnnEndpoint Instance = new();

@@ -20,8 +20,9 @@ public sealed class CreateConnectorMlRequest
 	public Credential? Credential { get; set; }
 	public Dictionary<string, object>? Parameters { get; set; }
 	public ClientConfig? ClientConfig { get; set; }
-	public List<IndexAction>? Actions { get; set; }
+	public List<ConnectorAction>? Actions { get; set; }
 }
+
 public sealed class CreateConnectorMlEndpoint : IEndpoint<CreateConnectorMlRequest, CreateConnectorMlResponse>
 {
 	public static readonly CreateConnectorMlEndpoint Instance = new();

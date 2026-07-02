@@ -44,6 +44,7 @@ public sealed class ShardsCatRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
+
 public sealed class ShardsCatEndpoint : IEndpoint<ShardsCatRequest, ShardsCatResponse>
 {
 	public static readonly ShardsCatEndpoint Instance = new();

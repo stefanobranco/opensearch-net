@@ -14,14 +14,14 @@ public sealed class UpdateAliasesIndexRequestDescriptor
 	/// <summary>Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error.</summary>
 		public UpdateAliasesIndexRequestDescriptor Timeout(string? value) { _value.Timeout = value; return this; }
 	/// <summary>Actions to perform.</summary>
-		public UpdateAliasesIndexRequestDescriptor Actions(List<IndexAction>? value) { _value.Actions = value; return this; }
+		public UpdateAliasesIndexRequestDescriptor Actions(List<AliasAction>? value) { _value.Actions = value; return this; }
 	/// <summary>Actions to perform.</summary>
-		public UpdateAliasesIndexRequestDescriptor Actions(params Action<IndexActionDescriptor>[] configure)
+		public UpdateAliasesIndexRequestDescriptor Actions(params Action<AliasActionDescriptor>[] configure)
 	{
-		var list = new List<IndexAction>();
+		var list = new List<AliasAction>();
 		foreach (var action in configure)
 		{
-			var descriptor = new IndexActionDescriptor();
+			var descriptor = new AliasActionDescriptor();
 			action(descriptor);
 			list.Add(descriptor);
 		}

@@ -14,6 +14,7 @@ namespace OpenSearch.Client;
 public sealed class ListDanglingIndicesDanglingIndexRequest
 {
 }
+
 public sealed class ListDanglingIndicesDanglingIndexEndpoint : IEndpoint<ListDanglingIndicesDanglingIndexRequest, ListDanglingIndicesDanglingIndexResponse>
 {
 	public static readonly ListDanglingIndicesDanglingIndexEndpoint Instance = new();

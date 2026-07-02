@@ -35,6 +35,7 @@ public sealed class ListTaskRequest
 	[JsonIgnore]
 	public bool? WaitForCompletion { get; set; }
 }
+
 public sealed class ListTaskEndpoint : IEndpoint<ListTaskRequest, ListTaskResponse>
 {
 	public static readonly ListTaskEndpoint Instance = new();

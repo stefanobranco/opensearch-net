@@ -26,6 +26,7 @@ public sealed class RefreshIndexRequest
 	[JsonIgnore]
 	public bool? IgnoreUnavailable { get; set; }
 }
+
 public sealed class RefreshIndexEndpoint : IEndpoint<RefreshIndexRequest, RefreshIndexResponse>
 {
 	public static readonly RefreshIndexEndpoint Instance = new();

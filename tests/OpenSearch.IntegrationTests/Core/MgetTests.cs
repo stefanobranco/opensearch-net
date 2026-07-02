@@ -31,8 +31,8 @@ public class MgetTests : IntegrationTestBase
 			Index = index,
 			Docs =
 			[
-				new Operation { Id = "1" },
-				new Operation { Id = "3" },
+				new MgetOperation { Id = "1" },
+				new MgetOperation { Id = "3" },
 			]
 		});
 
@@ -69,8 +69,8 @@ public class MgetTests : IntegrationTestBase
 			Index = index,
 			Docs =
 			[
-				new Operation { Id = "1" },
-				new Operation { Id = "does-not-exist" },
+				new MgetOperation { Id = "1" },
+				new MgetOperation { Id = "does-not-exist" },
 			]
 		});
 

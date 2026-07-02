@@ -21,6 +21,7 @@ public sealed class PredictModelMlRequest
 	/// <summary>The text documents.</summary>
 		public List<string>? TextDocs { get; set; }
 }
+
 public sealed class PredictModelMlEndpoint : IEndpoint<PredictModelMlRequest, PredictModelMlResponse>
 {
 	public static readonly PredictModelMlEndpoint Instance = new();

@@ -14,6 +14,7 @@ namespace OpenSearch.Client;
 public sealed class GetUsersLegacySecurityRequest
 {
 }
+
 public sealed class GetUsersLegacySecurityEndpoint : IEndpoint<GetUsersLegacySecurityRequest, GetUsersLegacySecurityResponse>
 {
 	public static readonly GetUsersLegacySecurityEndpoint Instance = new();

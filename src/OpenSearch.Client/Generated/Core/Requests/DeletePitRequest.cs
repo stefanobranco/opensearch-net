@@ -15,6 +15,7 @@ public sealed class DeletePitRequest
 {
 	public List<string>? PitId { get; set; }
 }
+
 public sealed class DeletePitEndpoint : IEndpoint<DeletePitRequest, DeletePitResponse>
 {
 	public static readonly DeletePitEndpoint Instance = new();

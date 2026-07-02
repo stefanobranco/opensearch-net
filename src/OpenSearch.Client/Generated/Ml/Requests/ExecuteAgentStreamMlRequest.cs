@@ -18,6 +18,7 @@ public sealed class ExecuteAgentStreamMlRequest
 	public string? AgentId { get; set; }
 	public Dictionary<string, object>? Parameters { get; set; }
 }
+
 public sealed class ExecuteAgentStreamMlEndpoint : IEndpoint<ExecuteAgentStreamMlRequest, ExecuteAgentStreamMlResponse>
 {
 	public static readonly ExecuteAgentStreamMlEndpoint Instance = new();

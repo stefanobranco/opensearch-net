@@ -42,6 +42,7 @@ public sealed class ShrinkIndexRequest
 	/// <summary>Configuration options for the target index.</summary>
 		public Dictionary<string, object>? Settings { get; set; }
 }
+
 public sealed class ShrinkIndexEndpoint : IEndpoint<ShrinkIndexRequest, ShrinkIndexResponse>
 {
 	public static readonly ShrinkIndexEndpoint Instance = new();

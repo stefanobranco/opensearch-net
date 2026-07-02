@@ -32,6 +32,7 @@ public sealed class AnalyzeIndexRequest
 	public List<string>? Text { get; set; }
 	public Tokenizer? Tokenizer { get; set; }
 }
+
 public sealed class AnalyzeIndexEndpoint : IEndpoint<AnalyzeIndexRequest, AnalyzeIndexResponse>
 {
 	public static readonly AnalyzeIndexEndpoint Instance = new();

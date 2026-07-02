@@ -38,6 +38,7 @@ public sealed class PendingTasksCatRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
+
 public sealed class PendingTasksCatEndpoint : IEndpoint<PendingTasksCatRequest, PendingTasksCatResponse>
 {
 	public static readonly PendingTasksCatEndpoint Instance = new();

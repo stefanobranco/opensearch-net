@@ -23,6 +23,7 @@ public sealed class PauseIngestionRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 }
+
 public sealed class PauseIngestionEndpoint : IEndpoint<PauseIngestionRequest, PauseIngestionResponse>
 {
 	public static readonly PauseIngestionEndpoint Instance = new();

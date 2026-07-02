@@ -38,6 +38,7 @@ public sealed class ExecuteAlgorithmMlRequest
 	/// <summary>The metrics input.</summary>
 		public List<List<float>>? Metrics { get; set; }
 }
+
 public sealed class ExecuteAlgorithmMlEndpoint : IEndpoint<ExecuteAlgorithmMlRequest, ExecuteAlgorithmMlResponse>
 {
 	public static readonly ExecuteAlgorithmMlEndpoint Instance = new();

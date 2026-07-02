@@ -41,6 +41,7 @@ public sealed class ForcemergeIndexRequest
 	[JsonIgnore]
 	public bool? WaitForCompletion { get; set; }
 }
+
 public sealed class ForcemergeIndexEndpoint : IEndpoint<ForcemergeIndexRequest, ForcemergeIndexResponse>
 {
 	public static readonly ForcemergeIndexEndpoint Instance = new();

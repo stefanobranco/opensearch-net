@@ -17,6 +17,7 @@ public sealed class DeleteDataStreamIndexRequest
 	[JsonIgnore]
 	public List<string>? Name { get; set; }
 }
+
 public sealed class DeleteDataStreamIndexEndpoint : IEndpoint<DeleteDataStreamIndexRequest, DeleteDataStreamIndexResponse>
 {
 	public static readonly DeleteDataStreamIndexEndpoint Instance = new();

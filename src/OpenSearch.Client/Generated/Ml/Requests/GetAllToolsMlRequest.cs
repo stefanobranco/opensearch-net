@@ -14,6 +14,7 @@ namespace OpenSearch.Client;
 public sealed class GetAllToolsMlRequest
 {
 }
+
 public sealed class GetAllToolsMlEndpoint : IEndpoint<GetAllToolsMlRequest, GetAllToolsMlResponse>
 {
 	public static readonly GetAllToolsMlEndpoint Instance = new();

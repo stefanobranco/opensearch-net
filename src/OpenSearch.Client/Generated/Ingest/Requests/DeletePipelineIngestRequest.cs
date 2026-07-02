@@ -23,6 +23,7 @@ public sealed class DeletePipelineIngestRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 }
+
 public sealed class DeletePipelineIngestEndpoint : IEndpoint<DeletePipelineIngestRequest, DeletePipelineIngestResponse>
 {
 	public static readonly DeletePipelineIngestEndpoint Instance = new();

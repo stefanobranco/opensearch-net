@@ -18,6 +18,7 @@ public sealed class PostScheduledExperimentsSearchRelevanceRequest
 	[JsonPropertyName("cronExpression")]
 	public string? CronExpression { get; set; }
 }
+
 public sealed class PostScheduledExperimentsSearchRelevanceEndpoint : IEndpoint<PostScheduledExperimentsSearchRelevanceRequest, PostScheduledExperimentsSearchRelevanceResponse>
 {
 	public static readonly PostScheduledExperimentsSearchRelevanceEndpoint Instance = new();

@@ -24,6 +24,7 @@ public sealed class CreateRoleSecurityRequest
 	public List<TenantPermission>? TenantPermissions { get; set; }
 	public bool? Static { get; set; }
 }
+
 public sealed class CreateRoleSecurityEndpoint : IEndpoint<CreateRoleSecurityRequest, CreateRoleSecurityResponse>
 {
 	public static readonly CreateRoleSecurityEndpoint Instance = new();

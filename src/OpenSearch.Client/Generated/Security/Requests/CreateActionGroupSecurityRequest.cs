@@ -23,6 +23,7 @@ public sealed class CreateActionGroupSecurityRequest
 	public string? Description { get; set; }
 	public bool? Static { get; set; }
 }
+
 public sealed class CreateActionGroupSecurityEndpoint : IEndpoint<CreateActionGroupSecurityRequest, CreateActionGroupSecurityResponse>
 {
 	public static readonly CreateActionGroupSecurityEndpoint Instance = new();

@@ -38,5 +38,4 @@ public sealed partial class UbiNamespace
 		configure(descriptor);
 		return InitializeAsync((InitializeUbiRequest)descriptor, options, ct);
 	}
-
 }

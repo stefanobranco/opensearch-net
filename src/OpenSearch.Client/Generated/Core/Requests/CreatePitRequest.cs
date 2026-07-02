@@ -32,6 +32,7 @@ public sealed class CreatePitRequest
 	[JsonIgnore]
 	public List<string>? Routing { get; set; }
 }
+
 public sealed class CreatePitEndpoint : IEndpoint<CreatePitRequest, CreatePitResponse>
 {
 	public static readonly CreatePitEndpoint Instance = new();

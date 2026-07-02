@@ -32,6 +32,7 @@ public sealed class FlushIndexRequest
 	[JsonIgnore]
 	public bool? WaitIfOngoing { get; set; }
 }
+
 public sealed class FlushIndexEndpoint : IEndpoint<FlushIndexRequest, FlushIndexResponse>
 {
 	public static readonly FlushIndexEndpoint Instance = new();

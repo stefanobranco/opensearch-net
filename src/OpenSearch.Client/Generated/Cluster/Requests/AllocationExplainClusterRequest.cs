@@ -27,6 +27,7 @@ public sealed class AllocationExplainClusterRequest
 	/// <summary>Specifies the ID of the shard that you would like an explanation for.</summary>
 		public int? Shard { get; set; }
 }
+
 public sealed class AllocationExplainClusterEndpoint : IEndpoint<AllocationExplainClusterRequest, AllocationExplainClusterResponse>
 {
 	public static readonly AllocationExplainClusterEndpoint Instance = new();

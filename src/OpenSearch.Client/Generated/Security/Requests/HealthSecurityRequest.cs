@@ -17,6 +17,7 @@ public sealed class HealthSecurityRequest
 	[JsonIgnore]
 	public string? Mode { get; set; }
 }
+
 public sealed class HealthSecurityEndpoint : IEndpoint<HealthSecurityRequest, HealthSecurityResponse>
 {
 	public static readonly HealthSecurityEndpoint Instance = new();

@@ -23,6 +23,7 @@ public sealed class DeleteComponentTemplateClusterRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 }
+
 public sealed class DeleteComponentTemplateClusterEndpoint : IEndpoint<DeleteComponentTemplateClusterRequest, DeleteComponentTemplateClusterResponse>
 {
 	public static readonly DeleteComponentTemplateClusterEndpoint Instance = new();

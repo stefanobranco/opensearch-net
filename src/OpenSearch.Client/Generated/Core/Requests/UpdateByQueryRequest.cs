@@ -119,6 +119,7 @@ public sealed class UpdateByQueryRequest
 	public SlicedScroll? Slice { get; set; }
 	public string? Conflicts { get; set; }
 }
+
 public sealed class UpdateByQueryEndpoint : IEndpoint<UpdateByQueryRequest, UpdateByQueryResponse>
 {
 	public static readonly UpdateByQueryEndpoint Instance = new();

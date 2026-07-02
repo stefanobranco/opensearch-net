@@ -19,6 +19,7 @@ public sealed class PutSearchConfigurationsSearchRelevanceRequest
 	[JsonPropertyName("searchPipeline")]
 	public string? SearchPipeline { get; set; }
 }
+
 public sealed class PutSearchConfigurationsSearchRelevanceEndpoint : IEndpoint<PutSearchConfigurationsSearchRelevanceRequest, PutSearchConfigurationsSearchRelevanceResponse>
 {
 	public static readonly PutSearchConfigurationsSearchRelevanceEndpoint Instance = new();

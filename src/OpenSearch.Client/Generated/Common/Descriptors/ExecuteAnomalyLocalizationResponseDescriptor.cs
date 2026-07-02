@@ -10,10 +10,10 @@ public sealed class ExecuteAnomalyLocalizationResponseDescriptor
 	internal ExecuteAnomalyLocalizationResponse _value = new();
 
 	public ExecuteAnomalyLocalizationResponseDescriptor Name(string? value) { _value.Name = value; return this; }
-	public ExecuteAnomalyLocalizationResponseDescriptor Result(Result? value) { _value.Result = value; return this; }
-	public ExecuteAnomalyLocalizationResponseDescriptor Result(Action<ResultDescriptor> configure)
+	public ExecuteAnomalyLocalizationResponseDescriptor Result(MlResult? value) { _value.Result = value; return this; }
+	public ExecuteAnomalyLocalizationResponseDescriptor Result(Action<MlResultDescriptor> configure)
 	{
-		var descriptor = new ResultDescriptor();
+		var descriptor = new MlResultDescriptor();
 		configure(descriptor);
 		_value.Result = descriptor;
 		return this;

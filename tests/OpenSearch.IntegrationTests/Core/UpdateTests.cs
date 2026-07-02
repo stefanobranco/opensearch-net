@@ -1,4 +1,3 @@
-using System.Text.Json;
 using FluentAssertions;
 using OpenSearch.Client;
 using OpenSearch.IntegrationTests.Infrastructure;
@@ -29,12 +28,12 @@ public class UpdateTests : IntegrationTestBase
 			]
 		});
 
-		// Update the document with a partial doc
-		var updateResponse = Client.Core.Update<UpdateDoc>(new UpdateRequest
+		// Update the document with a typed partial doc (an anonymous object)
+		var updateResponse = Client.Core.Update(new UpdateRequest<UpdateDoc, object>
 		{
 			Index = index,
 			Id = "1",
-			Doc = JsonSerializer.SerializeToElement(new { value = 42 }),
+			Doc = new { value = 42 },
 			Refresh = "true"
 		});
 
@@ -70,7 +69,7 @@ public class UpdateTests : IntegrationTestBase
 		});
 
 		// Update using a script
-		var updateResponse = Client.Core.Update<UpdateDoc>(new UpdateRequest
+		var updateResponse = Client.Core.Update(new UpdateRequest<UpdateDoc, UpdateDoc>
 		{
 			Index = index,
 			Id = "1",
@@ -97,13 +96,13 @@ public class UpdateTests : IntegrationTestBase
 
 		Client.Indices.Create(new OpenSearch.Client.CreateIndexRequest { Index = index });
 
-		// Upsert: doc doesn't exist, so upsert value is used
-		var updateResponse = Client.Core.Update<UpdateDoc>(new UpdateRequest
+		// Upsert: doc doesn't exist, so the typed upsert document is used
+		var updateResponse = Client.Core.Update(new UpdateRequest<UpdateDoc, object>
 		{
 			Index = index,
 			Id = "new-doc",
-			Doc = JsonSerializer.SerializeToElement(new { name = "Updated", value = 99 }),
-			Upsert = JsonSerializer.SerializeToElement(new { name = "Upserted", value = 1 }),
+			Doc = new { name = "Updated", value = 99 },
+			Upsert = new UpdateDoc { Name = "Upserted", Value = 1 },
 			Refresh = "true"
 		});
 

@@ -32,6 +32,7 @@ public sealed class AllPitSegmentsCatRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
+
 public sealed class AllPitSegmentsCatEndpoint : IEndpoint<AllPitSegmentsCatRequest, AllPitSegmentsCatResponse>
 {
 	public static readonly AllPitSegmentsCatEndpoint Instance = new();

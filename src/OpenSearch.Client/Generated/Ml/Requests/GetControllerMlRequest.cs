@@ -17,6 +17,7 @@ public sealed class GetControllerMlRequest
 	[JsonIgnore]
 	public string? ModelId { get; set; }
 }
+
 public sealed class GetControllerMlEndpoint : IEndpoint<GetControllerMlRequest, GetControllerMlResponse>
 {
 	public static readonly GetControllerMlEndpoint Instance = new();

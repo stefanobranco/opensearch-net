@@ -22,6 +22,7 @@ public sealed class PutExperimentsSearchRelevanceRequest
 	public int? Size { get; set; }
 	public string? Type { get; set; }
 }
+
 public sealed class PutExperimentsSearchRelevanceEndpoint : IEndpoint<PutExperimentsSearchRelevanceRequest, PutExperimentsSearchRelevanceResponse>
 {
 	public static readonly PutExperimentsSearchRelevanceEndpoint Instance = new();

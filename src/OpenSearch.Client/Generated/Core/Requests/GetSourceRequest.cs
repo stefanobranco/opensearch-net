@@ -47,6 +47,7 @@ public sealed class GetSourceRequest
 	[JsonIgnore]
 	public string? VersionType { get; set; }
 }
+
 public sealed class GetSourceEndpoint : IEndpoint<GetSourceRequest, GetSourceResponse>
 {
 	public static readonly GetSourceEndpoint Instance = new();

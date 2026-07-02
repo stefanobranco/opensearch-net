@@ -14,6 +14,7 @@ namespace OpenSearch.Client;
 public sealed class GetScriptContextRequest
 {
 }
+
 public sealed class GetScriptContextEndpoint : IEndpoint<GetScriptContextRequest, GetScriptContextResponse>
 {
 	public static readonly GetScriptContextEndpoint Instance = new();

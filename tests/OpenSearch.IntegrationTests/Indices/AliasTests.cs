@@ -99,7 +99,7 @@ public class AliasTests : IntegrationTestBase
 		{
 			Actions =
 			[
-				new IndexAction { Remove = new RemoveAction { Index = index1, Alias = aliasName } },
+				new AliasAction { Remove = new RemoveAction { Index = index1, Alias = aliasName } },
 			]
 		});
 

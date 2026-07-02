@@ -22,6 +22,7 @@ public sealed class ChunkModelMlRequest
 	/// <summary>The model chunk.</summary>
 		public string? Chunk { get; set; }
 }
+
 public sealed class ChunkModelMlEndpoint : IEndpoint<ChunkModelMlRequest, ChunkModelMlResponse>
 {
 	public static readonly ChunkModelMlEndpoint Instance = new();

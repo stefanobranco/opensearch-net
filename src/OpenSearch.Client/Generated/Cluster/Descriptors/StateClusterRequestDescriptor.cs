@@ -10,8 +10,8 @@ public sealed class StateClusterRequestDescriptor
 	internal StateClusterRequest _value = new();
 
 	/// <summary>Limits the information returned to only the [specified metric groups](https://opensearch.org/docs/latest/api-reference/cluster-api/cluster-stats/#metric-groups).</summary>
-		public StateClusterRequestDescriptor Metric(List<Metric>? value) { _value.Metric = value; return this; }
-	public StateClusterRequestDescriptor Metric(Metric value) { _value.Metric = [value]; return this; }
+		public StateClusterRequestDescriptor Metric(List<ClusterStateMetric>? value) { _value.Metric = value; return this; }
+	public StateClusterRequestDescriptor Metric(ClusterStateMetric value) { _value.Metric = [value]; return this; }
 	public StateClusterRequestDescriptor Index(List<string>? value) { _value.Index = value; return this; }
 	public StateClusterRequestDescriptor Index(string value) { _value.Index = [value]; return this; }
 	/// <summary>Whether to ignore a wildcard index expression that resolves into no concrete indexes. This includes the `_all` string or when no indexes have been specified.</summary>

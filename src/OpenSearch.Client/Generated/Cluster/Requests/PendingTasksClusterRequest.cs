@@ -20,6 +20,7 @@ public sealed class PendingTasksClusterRequest
 	[JsonIgnore]
 	public bool? Local { get; set; }
 }
+
 public sealed class PendingTasksClusterEndpoint : IEndpoint<PendingTasksClusterRequest, PendingTasksClusterResponse>
 {
 	public static readonly PendingTasksClusterEndpoint Instance = new();

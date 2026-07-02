@@ -34,6 +34,7 @@ public sealed class RerouteClusterRequest
 	/// <summary>Defines the reroute commands to perform, either `move`, `cancel`, or `allocate`.</summary>
 		public List<Command>? Commands { get; set; }
 }
+
 public sealed class RerouteClusterEndpoint : IEndpoint<RerouteClusterRequest, RerouteClusterResponse>
 {
 	public static readonly RerouteClusterEndpoint Instance = new();

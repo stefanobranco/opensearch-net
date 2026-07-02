@@ -17,6 +17,7 @@ public sealed class GenerateUserTokenSecurityRequest
 	[JsonIgnore]
 	public string? Username { get; set; }
 }
+
 public sealed class GenerateUserTokenSecurityEndpoint : IEndpoint<GenerateUserTokenSecurityRequest, GenerateUserTokenSecurityResponse>
 {
 	public static readonly GenerateUserTokenSecurityEndpoint Instance = new();

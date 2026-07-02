@@ -29,6 +29,7 @@ public sealed class InfoNodeRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 }
+
 public sealed class InfoNodeEndpoint : IEndpoint<InfoNodeRequest, InfoNodeResponse>
 {
 	public static readonly InfoNodeEndpoint Instance = new();

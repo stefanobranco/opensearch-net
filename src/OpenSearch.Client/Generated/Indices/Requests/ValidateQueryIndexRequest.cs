@@ -54,6 +54,7 @@ public sealed class ValidateQueryIndexRequest
 	public bool? Rewrite { get; set; }
 	public QueryContainer? Query { get; set; }
 }
+
 public sealed class ValidateQueryIndexEndpoint : IEndpoint<ValidateQueryIndexRequest, ValidateQueryIndexResponse>
 {
 	public static readonly ValidateQueryIndexEndpoint Instance = new();

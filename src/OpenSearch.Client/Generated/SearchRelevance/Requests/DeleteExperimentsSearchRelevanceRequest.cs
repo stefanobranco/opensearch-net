@@ -17,6 +17,7 @@ public sealed class DeleteExperimentsSearchRelevanceRequest
 	[JsonIgnore]
 	public string? ExperimentId { get; set; }
 }
+
 public sealed class DeleteExperimentsSearchRelevanceEndpoint : IEndpoint<DeleteExperimentsSearchRelevanceRequest, DeleteExperimentsSearchRelevanceResponse>
 {
 	public static readonly DeleteExperimentsSearchRelevanceEndpoint Instance = new();

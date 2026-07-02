@@ -35,6 +35,7 @@ public sealed class HealthCatRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
+
 public sealed class HealthCatEndpoint : IEndpoint<HealthCatRequest, HealthCatResponse>
 {
 	public static readonly HealthCatEndpoint Instance = new();

@@ -143,6 +143,7 @@ public sealed class SearchModelsKnnRequest
 	[JsonIgnore]
 	public object? Body { get; set; }
 }
+
 public sealed class SearchModelsKnnEndpoint : IEndpoint<SearchModelsKnnRequest, SearchModelsKnnResponse>
 {
 	public static readonly SearchModelsKnnEndpoint Instance = new();

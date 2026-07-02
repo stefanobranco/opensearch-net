@@ -54,6 +54,7 @@ public sealed class PutMappingIndexRequest
 	[JsonPropertyName("_source")]
 	public SourceField? Source { get; set; }
 }
+
 public sealed class PutMappingIndexEndpoint : IEndpoint<PutMappingIndexRequest, PutMappingIndexResponse>
 {
 	public static readonly PutMappingIndexEndpoint Instance = new();

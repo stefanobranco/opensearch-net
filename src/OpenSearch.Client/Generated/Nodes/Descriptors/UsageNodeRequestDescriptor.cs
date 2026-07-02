@@ -10,8 +10,8 @@ public sealed class UsageNodeRequestDescriptor
 	internal UsageNodeRequest _value = new();
 
 	/// <summary>Limits the information returned to the specific metrics. A comma-separated list of the following options: `_all`, `rest_actions`.</summary>
-		public UsageNodeRequestDescriptor Metric(List<Metric>? value) { _value.Metric = value; return this; }
-	public UsageNodeRequestDescriptor Metric(Metric value) { _value.Metric = [value]; return this; }
+		public UsageNodeRequestDescriptor Metric(List<NodesUsageMetric>? value) { _value.Metric = value; return this; }
+	public UsageNodeRequestDescriptor Metric(NodesUsageMetric value) { _value.Metric = [value]; return this; }
 	/// <summary>A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes</summary>
 		public UsageNodeRequestDescriptor NodeId(List<string>? value) { _value.NodeId = value; return this; }
 	public UsageNodeRequestDescriptor NodeId(string value) { _value.NodeId = [value]; return this; }

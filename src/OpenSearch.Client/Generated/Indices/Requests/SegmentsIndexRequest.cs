@@ -29,6 +29,7 @@ public sealed class SegmentsIndexRequest
 	[JsonIgnore]
 	public bool? Verbose { get; set; }
 }
+
 public sealed class SegmentsIndexEndpoint : IEndpoint<SegmentsIndexRequest, SegmentsIndexResponse>
 {
 	public static readonly SegmentsIndexEndpoint Instance = new();

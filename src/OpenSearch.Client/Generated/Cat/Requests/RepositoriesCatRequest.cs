@@ -35,6 +35,7 @@ public sealed class RepositoriesCatRequest
 	[JsonIgnore]
 	public bool? V { get; set; }
 }
+
 public sealed class RepositoriesCatEndpoint : IEndpoint<RepositoriesCatRequest, RepositoriesCatResponse>
 {
 	public static readonly RepositoriesCatEndpoint Instance = new();

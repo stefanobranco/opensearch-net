@@ -32,6 +32,7 @@ public sealed class RankEvalRequest
 		public List<RankEvalRequestItem>? Requests { get; set; }
 	public RankEvalMetric? Metric { get; set; }
 }
+
 public sealed class RankEvalEndpoint : IEndpoint<RankEvalRequest, RankEvalResponse>
 {
 	public static readonly RankEvalEndpoint Instance = new();

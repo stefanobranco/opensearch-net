@@ -21,6 +21,7 @@ public sealed class TrainMlRequest
 	/// <summary>The input index.</summary>
 		public List<string>? InputIndex { get; set; }
 }
+
 public sealed class TrainMlEndpoint : IEndpoint<TrainMlRequest, TrainMlResponse>
 {
 	public static readonly TrainMlEndpoint Instance = new();

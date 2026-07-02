@@ -32,14 +32,14 @@ public sealed class MgetRequestDescriptor
 		public MgetRequestDescriptor StoredFields(List<string>? value) { _value.StoredFields = value; return this; }
 	public MgetRequestDescriptor StoredFields(string value) { _value.StoredFields = [value]; return this; }
 	/// <summary>The documents you want to retrieve. Required if no index is specified in the request URI.</summary>
-		public MgetRequestDescriptor Docs(List<Operation>? value) { _value.Docs = value; return this; }
+		public MgetRequestDescriptor Docs(List<MgetOperation>? value) { _value.Docs = value; return this; }
 	/// <summary>The documents you want to retrieve. Required if no index is specified in the request URI.</summary>
-		public MgetRequestDescriptor Docs(params Action<OperationDescriptor>[] configure)
+		public MgetRequestDescriptor Docs(params Action<MgetOperationDescriptor>[] configure)
 	{
-		var list = new List<Operation>();
+		var list = new List<MgetOperation>();
 		foreach (var action in configure)
 		{
-			var descriptor = new OperationDescriptor();
+			var descriptor = new MgetOperationDescriptor();
 			action(descriptor);
 			list.Add(descriptor);
 		}

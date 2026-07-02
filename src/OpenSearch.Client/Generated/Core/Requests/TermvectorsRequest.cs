@@ -54,10 +54,11 @@ public sealed class TermvectorsRequest
 	public string? VersionType { get; set; }
 	/// <summary>An artificial document (a document not present in the index) for which you want to retrieve term vectors.</summary>
 		public System.Text.Json.JsonElement? Doc { get; set; }
-	public Filter? Filter { get; set; }
+	public TermVectorsFilter? Filter { get; set; }
 	/// <summary>Overrides the default per-field analyzer.</summary>
 		public Dictionary<string, string>? PerFieldAnalyzer { get; set; }
 }
+
 public sealed class TermvectorsEndpoint : IEndpoint<TermvectorsRequest, TermvectorsResponse>
 {
 	public static readonly TermvectorsEndpoint Instance = new();

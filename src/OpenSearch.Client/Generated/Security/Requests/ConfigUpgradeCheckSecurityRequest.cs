@@ -14,6 +14,7 @@ namespace OpenSearch.Client;
 public sealed class ConfigUpgradeCheckSecurityRequest
 {
 }
+
 public sealed class ConfigUpgradeCheckSecurityEndpoint : IEndpoint<ConfigUpgradeCheckSecurityRequest, ConfigUpgradeCheckSecurityResponse>
 {
 	public static readonly ConfigUpgradeCheckSecurityEndpoint Instance = new();

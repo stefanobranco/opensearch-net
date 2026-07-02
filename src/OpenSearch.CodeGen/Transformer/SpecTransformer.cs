@@ -13,6 +13,23 @@ public sealed class SpecTransformer
 	public SpecTransformer(OpenApiSpecification spec) => _spec = spec;
 
 	/// <summary>
+	/// Body fields that carry user documents but that the spec types as bare <c>object</c>, mapped to
+	/// generic type parameters (wire name → parameter). The request class becomes generic and the
+	/// fields serialize through the configured source serializer, mirroring index/create's document body.
+	/// </summary>
+	private static readonly Dictionary<string, Dictionary<string, string>> s_genericBodyFields = new(StringComparer.Ordinal)
+	{
+		["update"] = new(StringComparer.Ordinal)
+		{
+			["doc"] = "TPartialDocument",
+			["upsert"] = "TDocument",
+		},
+	};
+
+	/// <summary>Canonical ordering for request type parameters.</summary>
+	private static readonly string[] s_typeParameterOrder = ["TDocument", "TPartialDocument"];
+
+	/// <summary>
 	/// Transforms all operations in the given namespace into shapes.
 	/// </summary>
 	public TransformResult Transform(string targetNamespace) => Transform(targetNamespace, null);
@@ -121,6 +138,30 @@ public sealed class SpecTransformer
 				bodyFields.RemoveAll(f => pathNames.Contains(f.Name));
 			}
 
+			// Retype document-carrying body fields as generic parameters (see s_genericBodyFields).
+			var requestTypeParams = new List<string>();
+			if (s_genericBodyFields.TryGetValue(group.OperationGroupName, out var genericFields))
+			{
+				for (int i = 0; i < bodyFields.Count; i++)
+				{
+					if (!genericFields.TryGetValue(bodyFields[i].WireName, out var paramName))
+						continue;
+					var f = bodyFields[i];
+					bodyFields[i] = new Field
+					{
+						Name = f.Name,
+						WireName = f.WireName,
+						Type = TypeRef.GenericParam(paramName),
+						Required = f.Required,
+						Description = f.Description,
+						Deprecated = f.Deprecated
+					};
+				}
+				requestTypeParams = s_typeParameterOrder
+					.Where(p => bodyFields.Any(f => f.Type.IsGenericParameter && f.Type.Name == p))
+					.ToList();
+			}
+
 			// Build response shape
 			var responseShape = BuildResponseShape(
 				responseName, nsName, group, typeMapper);
@@ -140,6 +181,7 @@ public sealed class SpecTransformer
 				RawBodyType = rawBodyType,
 				IsDocumentBody = isRawBody && rawBodyType is null
 					&& group.OperationGroupName is "index" or "create",
+				TypeParameters = requestTypeParams,
 				EndpointName = endpointName,
 				Response = responseShape
 			};
@@ -171,6 +213,8 @@ public sealed class SpecTransformer
 					BodyFields = request.BodyFields,
 					IsRawBody = request.IsRawBody,
 					RawBodyType = request.RawBodyType,
+					IsDocumentBody = request.IsDocumentBody,
+					TypeParameters = request.TypeParameters,
 					EndpointName = request.EndpointName,
 					Response = new ResponseShape
 					{

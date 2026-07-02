@@ -20,8 +20,9 @@ public sealed class UpdateAliasesIndexRequest
 	[JsonIgnore]
 	public string? Timeout { get; set; }
 	/// <summary>Actions to perform.</summary>
-		public List<IndexAction>? Actions { get; set; }
+		public List<AliasAction>? Actions { get; set; }
 }
+
 public sealed class UpdateAliasesIndexEndpoint : IEndpoint<UpdateAliasesIndexRequest, UpdateAliasesIndexResponse>
 {
 	public static readonly UpdateAliasesIndexEndpoint Instance = new();

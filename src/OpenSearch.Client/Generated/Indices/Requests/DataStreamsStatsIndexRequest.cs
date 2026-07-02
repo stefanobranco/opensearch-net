@@ -17,6 +17,7 @@ public sealed class DataStreamsStatsIndexRequest
 	[JsonIgnore]
 	public List<string>? Name { get; set; }
 }
+
 public sealed class DataStreamsStatsIndexEndpoint : IEndpoint<DataStreamsStatsIndexRequest, DataStreamsStatsIndexResponse>
 {
 	public static readonly DataStreamsStatsIndexEndpoint Instance = new();

@@ -33,6 +33,7 @@ public sealed class PitSegmentsCatRequest
 	public bool? V { get; set; }
 	public List<string>? PitId { get; set; }
 }
+
 public sealed class PitSegmentsCatEndpoint : IEndpoint<PitSegmentsCatRequest, PitSegmentsCatResponse>
 {
 	public static readonly PitSegmentsCatEndpoint Instance = new();

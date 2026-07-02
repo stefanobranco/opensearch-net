@@ -17,6 +17,7 @@ public sealed class DeleteModelKnnRequest
 	[JsonIgnore]
 	public string? ModelId { get; set; }
 }
+
 public sealed class DeleteModelKnnEndpoint : IEndpoint<DeleteModelKnnRequest, DeleteModelKnnResponse>
 {
 	public static readonly DeleteModelKnnEndpoint Instance = new();

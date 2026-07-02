@@ -17,6 +17,7 @@ public sealed class GetSearchConfigurationsSearchRelevanceRequest
 	[JsonIgnore]
 	public string? SearchConfigurationId { get; set; }
 }
+
 public sealed class GetSearchConfigurationsSearchRelevanceEndpoint<TDocument> : IEndpoint<GetSearchConfigurationsSearchRelevanceRequest, GetSearchConfigurationsSearchRelevanceResponse<TDocument>>
 {
 	public static readonly GetSearchConfigurationsSearchRelevanceEndpoint<TDocument> Instance = new();

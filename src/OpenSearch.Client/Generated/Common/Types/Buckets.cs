@@ -14,5 +14,5 @@ public sealed class Buckets
 		public long? EndTime { get; set; }
 	/// <summary>The overall aggregate value.</summary>
 		public double? OverallAggregateValue { get; set; }
-	public List<Entity>? Entities { get; set; }
+	public List<AnomalyEntity>? Entities { get; set; }
 }

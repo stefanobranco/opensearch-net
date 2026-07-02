@@ -18,6 +18,7 @@ public sealed class ChangePasswordSecurityRequest
 	/// <summary>The new password to set.</summary>
 		public string? Password { get; set; }
 }
+
 public sealed class ChangePasswordSecurityEndpoint : IEndpoint<ChangePasswordSecurityRequest, ChangePasswordSecurityResponse>
 {
 	public static readonly ChangePasswordSecurityEndpoint Instance = new();

@@ -17,6 +17,7 @@ public sealed class GetWeightedRoutingClusterRequest
 	[JsonIgnore]
 	public string? Attribute { get; set; }
 }
+
 public sealed class GetWeightedRoutingClusterEndpoint : IEndpoint<GetWeightedRoutingClusterRequest, GetWeightedRoutingClusterResponse>
 {
 	public static readonly GetWeightedRoutingClusterEndpoint Instance = new();

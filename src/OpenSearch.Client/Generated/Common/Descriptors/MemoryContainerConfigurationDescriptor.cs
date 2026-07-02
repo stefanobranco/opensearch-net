@@ -27,10 +27,10 @@ public sealed class MemoryContainerConfigurationDescriptor
 		public MemoryContainerConfigurationDescriptor DisableSession(bool? value) { _value.DisableSession = value; return this; }
 	/// <summary>The maximum number of similar memories retrieved during consolidation.</summary>
 		public MemoryContainerConfigurationDescriptor MaxInferSize(long? value) { _value.MaxInferSize = value; return this; }
-	public MemoryContainerConfigurationDescriptor IndexSettings(IndexSettings? value) { _value.IndexSettings = value; return this; }
-	public MemoryContainerConfigurationDescriptor IndexSettings(Action<IndexSettingsDescriptor> configure)
+	public MemoryContainerConfigurationDescriptor IndexSettings(MlIndexSettings? value) { _value.IndexSettings = value; return this; }
+	public MemoryContainerConfigurationDescriptor IndexSettings(Action<MlIndexSettingsDescriptor> configure)
 	{
-		var descriptor = new IndexSettingsDescriptor();
+		var descriptor = new MlIndexSettingsDescriptor();
 		configure(descriptor);
 		_value.IndexSettings = descriptor;
 		return this;

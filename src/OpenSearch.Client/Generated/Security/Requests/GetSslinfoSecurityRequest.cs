@@ -17,6 +17,7 @@ public sealed class GetSslinfoSecurityRequest
 	[JsonIgnore]
 	public string? ShowDn { get; set; }
 }
+
 public sealed class GetSslinfoSecurityEndpoint : IEndpoint<GetSslinfoSecurityRequest, GetSslinfoSecurityResponse>
 {
 	public static readonly GetSslinfoSecurityEndpoint Instance = new();

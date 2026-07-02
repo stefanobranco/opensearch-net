@@ -17,6 +17,7 @@ public sealed class GetDistinguishedNamesSecurityRequest
 	[JsonIgnore]
 	public bool? ShowAll { get; set; }
 }
+
 public sealed class GetDistinguishedNamesSecurityEndpoint : IEndpoint<GetDistinguishedNamesSecurityRequest, GetDistinguishedNamesSecurityResponse>
 {
 	public static readonly GetDistinguishedNamesSecurityEndpoint Instance = new();

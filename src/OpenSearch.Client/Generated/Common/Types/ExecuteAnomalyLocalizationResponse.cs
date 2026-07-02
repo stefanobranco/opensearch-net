@@ -9,5 +9,5 @@ namespace OpenSearch.Client;
 public sealed class ExecuteAnomalyLocalizationResponse
 {
 	public string? Name { get; set; }
-	public Result? Result { get; set; }
+	public MlResult? Result { get; set; }
 }

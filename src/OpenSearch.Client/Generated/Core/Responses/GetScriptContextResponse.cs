@@ -12,5 +12,5 @@ namespace OpenSearch.Client;
 
 public partial class GetScriptContextResponse : OpenSearch.Net.OpenSearchResponse
 {
-	public List<Context>? Contexts { get; set; }
+	public List<ScriptContext>? Contexts { get; set; }
 }

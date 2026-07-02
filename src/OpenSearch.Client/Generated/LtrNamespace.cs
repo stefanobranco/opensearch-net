@@ -39,7 +39,6 @@ public sealed partial class LtrNamespace
 		return AddFeaturesToSetAsync((AddFeaturesToSetLtrRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Add features to an existing feature set in the default feature store.</summary>
 	public AddFeaturesToSetByQueryLtrResponse AddFeaturesToSetByQuery(AddFeaturesToSetByQueryLtrRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, AddFeaturesToSetByQueryLtrEndpoint.Instance, options);
@@ -63,7 +62,6 @@ public sealed partial class LtrNamespace
 		configure(descriptor);
 		return AddFeaturesToSetByQueryAsync((AddFeaturesToSetByQueryLtrRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Retrieves cache statistics for all feature stores.</summary>
 	public CacheStatsLtrResponse CacheStats(CacheStatsLtrRequest request, TransportOptions? options = null) =>
@@ -89,7 +87,6 @@ public sealed partial class LtrNamespace
 		return CacheStatsAsync((CacheStatsLtrRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Clears the store caches.</summary>
 	public ClearCacheLtrResponse ClearCache(ClearCacheLtrRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, ClearCacheLtrEndpoint.Instance, options);
@@ -113,7 +110,6 @@ public sealed partial class LtrNamespace
 		configure(descriptor);
 		return ClearCacheAsync((ClearCacheLtrRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Creates the default feature store.</summary>
 	public CreateDefaultStoreLtrResponse CreateDefaultStore(CreateDefaultStoreLtrRequest request, TransportOptions? options = null) =>
@@ -139,7 +135,6 @@ public sealed partial class LtrNamespace
 		return CreateDefaultStoreAsync((CreateDefaultStoreLtrRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Create or update a feature in the default feature store.</summary>
 	public CreateFeatureLtrResponse CreateFeature(CreateFeatureLtrRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, CreateFeatureLtrEndpoint.Instance, options);
@@ -163,7 +158,6 @@ public sealed partial class LtrNamespace
 		configure(descriptor);
 		return CreateFeatureAsync((CreateFeatureLtrRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Create or update a feature set in the default feature store.</summary>
 	public CreateFeaturesetLtrResponse CreateFeatureset(CreateFeaturesetLtrRequest request, TransportOptions? options = null) =>
@@ -189,7 +183,6 @@ public sealed partial class LtrNamespace
 		return CreateFeaturesetAsync((CreateFeaturesetLtrRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Create or update a model in the default feature store.</summary>
 	public CreateModelLtrResponse CreateModel(CreateModelLtrRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, CreateModelLtrEndpoint.Instance, options);
@@ -213,7 +206,6 @@ public sealed partial class LtrNamespace
 		configure(descriptor);
 		return CreateModelAsync((CreateModelLtrRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Create a model from an existing feature set in the default feature store.</summary>
 	public CreateModelFromSetLtrResponse CreateModelFromSet(CreateModelFromSetLtrRequest request, TransportOptions? options = null) =>
@@ -239,7 +231,6 @@ public sealed partial class LtrNamespace
 		return CreateModelFromSetAsync((CreateModelFromSetLtrRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Creates a new feature store with the specified name.</summary>
 	public CreateStoreLtrResponse CreateStore(CreateStoreLtrRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, CreateStoreLtrEndpoint.Instance, options);
@@ -263,7 +254,6 @@ public sealed partial class LtrNamespace
 		configure(descriptor);
 		return CreateStoreAsync((CreateStoreLtrRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Deletes the default feature store.</summary>
 	public DeleteDefaultStoreLtrResponse DeleteDefaultStore(DeleteDefaultStoreLtrRequest request, TransportOptions? options = null) =>
@@ -289,7 +279,6 @@ public sealed partial class LtrNamespace
 		return DeleteDefaultStoreAsync((DeleteDefaultStoreLtrRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Delete a feature from the default feature store.</summary>
 	public DeleteFeatureLtrResponse DeleteFeature(DeleteFeatureLtrRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, DeleteFeatureLtrEndpoint.Instance, options);
@@ -313,7 +302,6 @@ public sealed partial class LtrNamespace
 		configure(descriptor);
 		return DeleteFeatureAsync((DeleteFeatureLtrRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Delete a feature set from the default feature store.</summary>
 	public DeleteFeaturesetLtrResponse DeleteFeatureset(DeleteFeaturesetLtrRequest request, TransportOptions? options = null) =>
@@ -339,7 +327,6 @@ public sealed partial class LtrNamespace
 		return DeleteFeaturesetAsync((DeleteFeaturesetLtrRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Delete a model from the default feature store.</summary>
 	public DeleteModelLtrResponse DeleteModel(DeleteModelLtrRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, DeleteModelLtrEndpoint.Instance, options);
@@ -363,7 +350,6 @@ public sealed partial class LtrNamespace
 		configure(descriptor);
 		return DeleteModelAsync((DeleteModelLtrRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Deletes a feature store with the specified name.</summary>
 	public DeleteStoreLtrResponse DeleteStore(DeleteStoreLtrRequest request, TransportOptions? options = null) =>
@@ -389,7 +375,6 @@ public sealed partial class LtrNamespace
 		return DeleteStoreAsync((DeleteStoreLtrRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Get a feature from the default feature store.</summary>
 	public GetFeatureLtrResponse GetFeature(GetFeatureLtrRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetFeatureLtrEndpoint.Instance, options);
@@ -413,7 +398,6 @@ public sealed partial class LtrNamespace
 		configure(descriptor);
 		return GetFeatureAsync((GetFeatureLtrRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Get a feature set from the default feature store.</summary>
 	public GetFeaturesetLtrResponse GetFeatureset(GetFeaturesetLtrRequest request, TransportOptions? options = null) =>
@@ -439,7 +423,6 @@ public sealed partial class LtrNamespace
 		return GetFeaturesetAsync((GetFeaturesetLtrRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Get a model from the default feature store.</summary>
 	public GetModelLtrResponse GetModel(GetModelLtrRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetModelLtrEndpoint.Instance, options);
@@ -463,7 +446,6 @@ public sealed partial class LtrNamespace
 		configure(descriptor);
 		return GetModelAsync((GetModelLtrRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Checks if a store exists.</summary>
 	public GetStoreLtrResponse GetStore(GetStoreLtrRequest request, TransportOptions? options = null) =>
@@ -489,7 +471,6 @@ public sealed partial class LtrNamespace
 		return GetStoreAsync((GetStoreLtrRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Lists all available feature stores.</summary>
 	public ListStoresLtrResponse ListStores(ListStoresLtrRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, ListStoresLtrEndpoint.Instance, options);
@@ -513,7 +494,6 @@ public sealed partial class LtrNamespace
 		configure(descriptor);
 		return ListStoresAsync((ListStoresLtrRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Search for features in a feature store.</summary>
 	public SearchFeaturesLtrResponse SearchFeatures(SearchFeaturesLtrRequest request, TransportOptions? options = null) =>
@@ -539,7 +519,6 @@ public sealed partial class LtrNamespace
 		return SearchFeaturesAsync((SearchFeaturesLtrRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Search for feature sets in a feature store.</summary>
 	public SearchFeaturesetsLtrResponse SearchFeaturesets(SearchFeaturesetsLtrRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, SearchFeaturesetsLtrEndpoint.Instance, options);
@@ -563,7 +542,6 @@ public sealed partial class LtrNamespace
 		configure(descriptor);
 		return SearchFeaturesetsAsync((SearchFeaturesetsLtrRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Search for models in a feature store.</summary>
 	public SearchModelsLtrResponse SearchModels(SearchModelsLtrRequest request, TransportOptions? options = null) =>
@@ -589,7 +567,6 @@ public sealed partial class LtrNamespace
 		return SearchModelsAsync((SearchModelsLtrRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Provides information about the current status of the LTR plugin.</summary>
 	public StatsLtrResponse Stats(StatsLtrRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, StatsLtrEndpoint.Instance, options);
@@ -613,7 +590,6 @@ public sealed partial class LtrNamespace
 		configure(descriptor);
 		return StatsAsync((StatsLtrRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Update a feature in the default feature store.</summary>
 	public UpdateFeatureLtrResponse UpdateFeature(UpdateFeatureLtrRequest request, TransportOptions? options = null) =>
@@ -639,7 +615,6 @@ public sealed partial class LtrNamespace
 		return UpdateFeatureAsync((UpdateFeatureLtrRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Update a feature set in the default feature store.</summary>
 	public UpdateFeaturesetLtrResponse UpdateFeatureset(UpdateFeaturesetLtrRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, UpdateFeaturesetLtrEndpoint.Instance, options);
@@ -663,5 +638,4 @@ public sealed partial class LtrNamespace
 		configure(descriptor);
 		return UpdateFeaturesetAsync((UpdateFeaturesetLtrRequest)descriptor, options, ct);
 	}
-
 }

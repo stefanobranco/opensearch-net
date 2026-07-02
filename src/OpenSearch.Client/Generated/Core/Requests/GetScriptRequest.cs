@@ -20,6 +20,7 @@ public sealed class GetScriptRequest
 	[JsonIgnore]
 	public string? ClusterManagerTimeout { get; set; }
 }
+
 public sealed class GetScriptEndpoint : IEndpoint<GetScriptRequest, GetScriptResponse>
 {
 	public static readonly GetScriptEndpoint Instance = new();

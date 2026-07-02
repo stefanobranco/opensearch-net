@@ -17,6 +17,7 @@ public sealed class GetMemoryMlRequest
 	[JsonIgnore]
 	public string? MemoryId { get; set; }
 }
+
 public sealed class GetMemoryMlEndpoint : IEndpoint<GetMemoryMlRequest, GetMemoryMlResponse>
 {
 	public static readonly GetMemoryMlEndpoint Instance = new();

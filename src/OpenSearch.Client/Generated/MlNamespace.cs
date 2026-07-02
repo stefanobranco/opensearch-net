@@ -39,7 +39,6 @@ public sealed partial class MlNamespace
 		return AddAgenticMemoryAsync((AddAgenticMemoryMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Uploads model chunk.</summary>
 	public ChunkModelMlResponse ChunkModel(ChunkModelMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, ChunkModelMlEndpoint.Instance, options);
@@ -63,7 +62,6 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return ChunkModelAsync((ChunkModelMlRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Creates a standalone connector.</summary>
 	public CreateConnectorMlResponse CreateConnector(CreateConnectorMlRequest request, TransportOptions? options = null) =>
@@ -89,7 +87,6 @@ public sealed partial class MlNamespace
 		return CreateConnectorAsync((CreateConnectorMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Creates a controller.</summary>
 	public CreateControllerMlResponse CreateController(CreateControllerMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, CreateControllerMlEndpoint.Instance, options);
@@ -113,7 +110,6 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return CreateControllerAsync((CreateControllerMlRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Create a memory.</summary>
 	public CreateMemoryMlResponse CreateMemory(CreateMemoryMlRequest request, TransportOptions? options = null) =>
@@ -139,7 +135,6 @@ public sealed partial class MlNamespace
 		return CreateMemoryAsync((CreateMemoryMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Create a memory container.</summary>
 	public CreateMemoryContainerMlResponse CreateMemoryContainer(CreateMemoryContainerMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, CreateMemoryContainerMlEndpoint.Instance, options);
@@ -163,7 +158,6 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return CreateMemoryContainerAsync((CreateMemoryContainerMlRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Create session in a memory container.</summary>
 	public CreateMemoryContainerSessionMlResponse CreateMemoryContainerSession(CreateMemoryContainerSessionMlRequest request, TransportOptions? options = null) =>
@@ -189,7 +183,6 @@ public sealed partial class MlNamespace
 		return CreateMemoryContainerSessionAsync((CreateMemoryContainerSessionMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Create a message.</summary>
 	public CreateMessageMlResponse CreateMessage(CreateMessageMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, CreateMessageMlEndpoint.Instance, options);
@@ -213,7 +206,6 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return CreateMessageAsync((CreateMessageMlRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Registers model metadata.</summary>
 	public CreateModelMetaMlResponse CreateModelMeta(CreateModelMetaMlRequest request, TransportOptions? options = null) =>
@@ -239,7 +231,6 @@ public sealed partial class MlNamespace
 		return CreateModelMetaAsync((CreateModelMetaMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Delete an agent.</summary>
 	public DeleteAgentMlResponse DeleteAgent(DeleteAgentMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, DeleteAgentMlEndpoint.Instance, options);
@@ -263,7 +254,6 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return DeleteAgentAsync((DeleteAgentMlRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Delete a specific memory by its type and ID.</summary>
 	public DeleteAgenticMemoryMlResponse DeleteAgenticMemory(DeleteAgenticMemoryMlRequest request, TransportOptions? options = null) =>
@@ -289,7 +279,6 @@ public sealed partial class MlNamespace
 		return DeleteAgenticMemoryAsync((DeleteAgenticMemoryMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Delete multiple memories using a query to match specific criteria.</summary>
 	public DeleteAgenticMemoryQueryMlResponse DeleteAgenticMemoryQuery(DeleteAgenticMemoryQueryMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, DeleteAgenticMemoryQueryMlEndpoint.Instance, options);
@@ -313,7 +302,6 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return DeleteAgenticMemoryQueryAsync((DeleteAgenticMemoryQueryMlRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Deletes a standalone connector.</summary>
 	public DeleteConnectorMlResponse DeleteConnector(DeleteConnectorMlRequest request, TransportOptions? options = null) =>
@@ -339,7 +327,6 @@ public sealed partial class MlNamespace
 		return DeleteConnectorAsync((DeleteConnectorMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Deletes a controller.</summary>
 	public DeleteControllerMlResponse DeleteController(DeleteControllerMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, DeleteControllerMlEndpoint.Instance, options);
@@ -363,7 +350,6 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return DeleteControllerAsync((DeleteControllerMlRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Delete a memory.</summary>
 	public DeleteMemoryMlResponse DeleteMemory(DeleteMemoryMlRequest request, TransportOptions? options = null) =>
@@ -389,7 +375,6 @@ public sealed partial class MlNamespace
 		return DeleteMemoryAsync((DeleteMemoryMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Delete a memory container.</summary>
 	public DeleteMemoryContainerMlResponse DeleteMemoryContainer(DeleteMemoryContainerMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, DeleteMemoryContainerMlEndpoint.Instance, options);
@@ -413,7 +398,6 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return DeleteMemoryContainerAsync((DeleteMemoryContainerMlRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Deletes a model.</summary>
 	public DeleteModelMlResponse DeleteModel(DeleteModelMlRequest request, TransportOptions? options = null) =>
@@ -439,7 +423,6 @@ public sealed partial class MlNamespace
 		return DeleteModelAsync((DeleteModelMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Deletes a model group.</summary>
 	public DeleteModelGroupMlResponse DeleteModelGroup(DeleteModelGroupMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, DeleteModelGroupMlEndpoint.Instance, options);
@@ -463,7 +446,6 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return DeleteModelGroupAsync((DeleteModelGroupMlRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Deletes a task.</summary>
 	public DeleteTaskMlResponse DeleteTask(DeleteTaskMlRequest request, TransportOptions? options = null) =>
@@ -489,7 +471,6 @@ public sealed partial class MlNamespace
 		return DeleteTaskAsync((DeleteTaskMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Deploys a model.</summary>
 	public DeployModelMlResponse DeployModel(DeployModelMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, DeployModelMlEndpoint.Instance, options);
@@ -513,7 +494,6 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return DeployModelAsync((DeployModelMlRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Execute an agent.</summary>
 	public ExecuteAgentMlResponse ExecuteAgent(ExecuteAgentMlRequest request, TransportOptions? options = null) =>
@@ -539,7 +519,6 @@ public sealed partial class MlNamespace
 		return ExecuteAgentAsync((ExecuteAgentMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Execute an agent in streaming mode.</summary>
 	public ExecuteAgentStreamMlResponse ExecuteAgentStream(ExecuteAgentStreamMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, ExecuteAgentStreamMlEndpoint.Instance, options);
@@ -563,7 +542,6 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return ExecuteAgentStreamAsync((ExecuteAgentStreamMlRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Execute an algorithm.</summary>
 	public ExecuteAlgorithmMlResponse ExecuteAlgorithm(ExecuteAlgorithmMlRequest request, TransportOptions? options = null) =>
@@ -589,7 +567,6 @@ public sealed partial class MlNamespace
 		return ExecuteAlgorithmAsync((ExecuteAlgorithmMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Execute a tool.</summary>
 	public ExecuteToolMlResponse ExecuteTool(ExecuteToolMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, ExecuteToolMlEndpoint.Instance, options);
@@ -613,7 +590,6 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return ExecuteToolAsync((ExecuteToolMlRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Get an agent.</summary>
 	public GetAgentMlResponse GetAgent(GetAgentMlRequest request, TransportOptions? options = null) =>
@@ -639,7 +615,6 @@ public sealed partial class MlNamespace
 		return GetAgentAsync((GetAgentMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Get a specific memory by its type and ID.</summary>
 	public GetAgenticMemoryMlResponse GetAgenticMemory(GetAgenticMemoryMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetAgenticMemoryMlEndpoint.Instance, options);
@@ -663,7 +638,6 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return GetAgenticMemoryAsync((GetAgenticMemoryMlRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Get all memories.</summary>
 	public GetAllMemoriesMlResponse GetAllMemories(GetAllMemoriesMlRequest request, TransportOptions? options = null) =>
@@ -689,7 +663,6 @@ public sealed partial class MlNamespace
 		return GetAllMemoriesAsync((GetAllMemoriesMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Get all messages in a memory.</summary>
 	public GetAllMessagesMlResponse GetAllMessages(GetAllMessagesMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetAllMessagesMlEndpoint.Instance, options);
@@ -713,7 +686,6 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return GetAllMessagesAsync((GetAllMessagesMlRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Get tools.</summary>
 	public GetAllToolsMlResponse GetAllTools(GetAllToolsMlRequest request, TransportOptions? options = null) =>
@@ -739,7 +711,6 @@ public sealed partial class MlNamespace
 		return GetAllToolsAsync((GetAllToolsMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Retrieves a standalone connector.</summary>
 	public GetConnectorMlResponse GetConnector(GetConnectorMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetConnectorMlEndpoint.Instance, options);
@@ -763,7 +734,6 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return GetConnectorAsync((GetConnectorMlRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Retrieves a controller.</summary>
 	public GetControllerMlResponse GetController(GetControllerMlRequest request, TransportOptions? options = null) =>
@@ -789,7 +759,6 @@ public sealed partial class MlNamespace
 		return GetControllerAsync((GetControllerMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Get a memory.</summary>
 	public GetMemoryMlResponse GetMemory(GetMemoryMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetMemoryMlEndpoint.Instance, options);
@@ -813,7 +782,6 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return GetMemoryAsync((GetMemoryMlRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Get a memory container.</summary>
 	public GetMemoryContainerMlResponse GetMemoryContainer(GetMemoryContainerMlRequest request, TransportOptions? options = null) =>
@@ -839,7 +807,6 @@ public sealed partial class MlNamespace
 		return GetMemoryContainerAsync((GetMemoryContainerMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Get a message.</summary>
 	public GetMessageMlResponse GetMessage(GetMessageMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetMessageMlEndpoint.Instance, options);
@@ -863,7 +830,6 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return GetMessageAsync((GetMessageMlRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Get a message traces.</summary>
 	public GetMessageTracesMlResponse GetMessageTraces(GetMessageTracesMlRequest request, TransportOptions? options = null) =>
@@ -889,7 +855,6 @@ public sealed partial class MlNamespace
 		return GetMessageTracesAsync((GetMessageTracesMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Retrieves a model.</summary>
 	public GetModelMlResponse GetModel(GetModelMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetModelMlEndpoint.Instance, options);
@@ -913,7 +878,6 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return GetModelAsync((GetModelMlRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Retrieves a model group.</summary>
 	public GetModelGroupMlResponse GetModelGroup(GetModelGroupMlRequest request, TransportOptions? options = null) =>
@@ -939,7 +903,6 @@ public sealed partial class MlNamespace
 		return GetModelGroupAsync((GetModelGroupMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Get a profile.</summary>
 	public GetProfileMlResponse GetProfile(GetProfileMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetProfileMlEndpoint.Instance, options);
@@ -963,7 +926,6 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return GetProfileAsync((GetProfileMlRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Get a profile models.</summary>
 	public GetProfileModelsMlResponse GetProfileModels(GetProfileModelsMlRequest request, TransportOptions? options = null) =>
@@ -989,7 +951,6 @@ public sealed partial class MlNamespace
 		return GetProfileModelsAsync((GetProfileModelsMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Get a profile tasks.</summary>
 	public GetProfileTasksMlResponse GetProfileTasks(GetProfileTasksMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetProfileTasksMlEndpoint.Instance, options);
@@ -1013,7 +974,6 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return GetProfileTasksAsync((GetProfileTasksMlRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Get stats.</summary>
 	public GetStatsMlResponse GetStats(GetStatsMlRequest request, TransportOptions? options = null) =>
@@ -1039,7 +999,6 @@ public sealed partial class MlNamespace
 		return GetStatsAsync((GetStatsMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Retrieves a task.</summary>
 	public GetTaskMlResponse GetTask(GetTaskMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetTaskMlEndpoint.Instance, options);
@@ -1063,7 +1022,6 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return GetTaskAsync((GetTaskMlRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Get tools.</summary>
 	public GetToolMlResponse GetTool(GetToolMlRequest request, TransportOptions? options = null) =>
@@ -1089,7 +1047,6 @@ public sealed partial class MlNamespace
 		return GetToolAsync((GetToolMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Deploys a model.</summary>
 	public LoadModelMlResponse LoadModel(LoadModelMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, LoadModelMlEndpoint.Instance, options);
@@ -1113,7 +1070,6 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return LoadModelAsync((LoadModelMlRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Predicts new data with trained model.</summary>
 	public PredictMlResponse Predict(PredictMlRequest request, TransportOptions? options = null) =>
@@ -1139,7 +1095,6 @@ public sealed partial class MlNamespace
 		return PredictAsync((PredictMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Predicts a model.</summary>
 	public PredictModelMlResponse PredictModel(PredictModelMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, PredictModelMlEndpoint.Instance, options);
@@ -1163,7 +1118,6 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return PredictModelAsync((PredictModelMlRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Predicts a model in streaming mode.</summary>
 	public PredictModelStreamMlResponse PredictModelStream(PredictModelStreamMlRequest request, TransportOptions? options = null) =>
@@ -1189,7 +1143,6 @@ public sealed partial class MlNamespace
 		return PredictModelStreamAsync((PredictModelStreamMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Register an agent.</summary>
 	public RegisterAgentsMlResponse RegisterAgents(RegisterAgentsMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, RegisterAgentsMlEndpoint.Instance, options);
@@ -1213,7 +1166,6 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return RegisterAgentsAsync((RegisterAgentsMlRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Registers a model.</summary>
 	public RegisterModelMlResponse RegisterModel(RegisterModelMlRequest request, TransportOptions? options = null) =>
@@ -1239,7 +1191,6 @@ public sealed partial class MlNamespace
 		return RegisterModelAsync((RegisterModelMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Registers a model group.</summary>
 	public RegisterModelGroupMlResponse RegisterModelGroup(RegisterModelGroupMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, RegisterModelGroupMlEndpoint.Instance, options);
@@ -1263,7 +1214,6 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return RegisterModelGroupAsync((RegisterModelGroupMlRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Registers model metadata.</summary>
 	public RegisterModelMetaMlResponse RegisterModelMeta(RegisterModelMetaMlRequest request, TransportOptions? options = null) =>
@@ -1289,7 +1239,6 @@ public sealed partial class MlNamespace
 		return RegisterModelMetaAsync((RegisterModelMetaMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Search for memories of a specific type within a memory container.</summary>
 	public SearchAgenticMemoryMlResponse SearchAgenticMemory(SearchAgenticMemoryMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, SearchAgenticMemoryMlEndpoint.Instance, options);
@@ -1313,7 +1262,6 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return SearchAgenticMemoryAsync((SearchAgenticMemoryMlRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Search agents.</summary>
 	public SearchAgentsMlResponse SearchAgents(SearchAgentsMlRequest request, TransportOptions? options = null) =>
@@ -1339,7 +1287,6 @@ public sealed partial class MlNamespace
 		return SearchAgentsAsync((SearchAgentsMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Searches for standalone connectors.</summary>
 	public SearchConnectorsMlResponse SearchConnectors(SearchConnectorsMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, SearchConnectorsMlEndpoint.Instance, options);
@@ -1363,7 +1310,6 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return SearchConnectorsAsync((SearchConnectorsMlRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Search memory.</summary>
 	public SearchMemoryMlResponse SearchMemory(SearchMemoryMlRequest request, TransportOptions? options = null) =>
@@ -1389,7 +1335,6 @@ public sealed partial class MlNamespace
 		return SearchMemoryAsync((SearchMemoryMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Search memory containers.</summary>
 	public SearchMemoryContainerMlResponse SearchMemoryContainer(SearchMemoryContainerMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, SearchMemoryContainerMlEndpoint.Instance, options);
@@ -1413,7 +1358,6 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return SearchMemoryContainerAsync((SearchMemoryContainerMlRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Search messages.</summary>
 	public SearchMessageMlResponse SearchMessage(SearchMessageMlRequest request, TransportOptions? options = null) =>
@@ -1439,7 +1383,6 @@ public sealed partial class MlNamespace
 		return SearchMessageAsync((SearchMessageMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Searches for model groups.</summary>
 	public SearchModelGroupMlResponse SearchModelGroup(SearchModelGroupMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, SearchModelGroupMlEndpoint.Instance, options);
@@ -1463,7 +1406,6 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return SearchModelGroupAsync((SearchModelGroupMlRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Searches for models.</summary>
 	public SearchModelsMlResponse SearchModels(SearchModelsMlRequest request, TransportOptions? options = null) =>
@@ -1489,7 +1431,6 @@ public sealed partial class MlNamespace
 		return SearchModelsAsync((SearchModelsMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Searches for tasks.</summary>
 	public SearchTasksMlResponse SearchTasks(SearchTasksMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, SearchTasksMlEndpoint.Instance, options);
@@ -1513,7 +1454,6 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return SearchTasksAsync((SearchTasksMlRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Trains a model synchronously.</summary>
 	public TrainMlResponse Train(TrainMlRequest request, TransportOptions? options = null) =>
@@ -1539,7 +1479,6 @@ public sealed partial class MlNamespace
 		return TrainAsync((TrainMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Trains a model and predicts against the same training dataset.</summary>
 	public TrainPredictMlResponse TrainPredict(TrainPredictMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, TrainPredictMlEndpoint.Instance, options);
@@ -1563,7 +1502,6 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return TrainPredictAsync((TrainPredictMlRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Undeploys a model.</summary>
 	public UndeployModelMlResponse UndeployModel(UndeployModelMlRequest request, TransportOptions? options = null) =>
@@ -1589,7 +1527,6 @@ public sealed partial class MlNamespace
 		return UndeployModelAsync((UndeployModelMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Unloads a model.</summary>
 	public UnloadModelMlResponse UnloadModel(UnloadModelMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, UnloadModelMlEndpoint.Instance, options);
@@ -1613,7 +1550,6 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return UnloadModelAsync((UnloadModelMlRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Update a specific memory by its type and ID.</summary>
 	public UpdateAgenticMemoryMlResponse UpdateAgenticMemory(UpdateAgenticMemoryMlRequest request, TransportOptions? options = null) =>
@@ -1639,7 +1575,6 @@ public sealed partial class MlNamespace
 		return UpdateAgenticMemoryAsync((UpdateAgenticMemoryMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Updates a standalone connector.</summary>
 	public UpdateConnectorMlResponse UpdateConnector(UpdateConnectorMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, UpdateConnectorMlEndpoint.Instance, options);
@@ -1663,7 +1598,6 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return UpdateConnectorAsync((UpdateConnectorMlRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Updates a controller.</summary>
 	public UpdateControllerMlResponse UpdateController(UpdateControllerMlRequest request, TransportOptions? options = null) =>
@@ -1689,7 +1623,6 @@ public sealed partial class MlNamespace
 		return UpdateControllerAsync((UpdateControllerMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Update a memory.</summary>
 	public UpdateMemoryMlResponse UpdateMemory(UpdateMemoryMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, UpdateMemoryMlEndpoint.Instance, options);
@@ -1713,7 +1646,6 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return UpdateMemoryAsync((UpdateMemoryMlRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Update a memory container.</summary>
 	public UpdateMemoryContainerMlResponse UpdateMemoryContainer(UpdateMemoryContainerMlRequest request, TransportOptions? options = null) =>
@@ -1739,7 +1671,6 @@ public sealed partial class MlNamespace
 		return UpdateMemoryContainerAsync((UpdateMemoryContainerMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Update a message.</summary>
 	public UpdateMessageMlResponse UpdateMessage(UpdateMessageMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, UpdateMessageMlEndpoint.Instance, options);
@@ -1763,7 +1694,6 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return UpdateMessageAsync((UpdateMessageMlRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Updates a model.</summary>
 	public UpdateModelMlResponse UpdateModel(UpdateModelMlRequest request, TransportOptions? options = null) =>
@@ -1789,7 +1719,6 @@ public sealed partial class MlNamespace
 		return UpdateModelAsync((UpdateModelMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Updates a model group.</summary>
 	public UpdateModelGroupMlResponse UpdateModelGroup(UpdateModelGroupMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, UpdateModelGroupMlEndpoint.Instance, options);
@@ -1813,7 +1742,6 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return UpdateModelGroupAsync((UpdateModelGroupMlRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Uploads model chunk.</summary>
 	public UploadChunkMlResponse UploadChunk(UploadChunkMlRequest request, TransportOptions? options = null) =>
@@ -1839,7 +1767,6 @@ public sealed partial class MlNamespace
 		return UploadChunkAsync((UploadChunkMlRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Registers a model.</summary>
 	public UploadModelMlResponse UploadModel(UploadModelMlRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, UploadModelMlEndpoint.Instance, options);
@@ -1863,5 +1790,4 @@ public sealed partial class MlNamespace
 		configure(descriptor);
 		return UploadModelAsync((UploadModelMlRequest)descriptor, options, ct);
 	}
-
 }

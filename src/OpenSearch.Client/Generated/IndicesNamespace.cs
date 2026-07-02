@@ -39,7 +39,6 @@ public sealed partial class IndicesNamespace
 		return AddBlockAsync((AddBlockIndexRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Performs the analysis process on a text and return the tokens breakdown of the text.</summary>
 	public AnalyzeIndexResponse Analyze(AnalyzeIndexRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, AnalyzeIndexEndpoint.Instance, options);
@@ -63,7 +62,6 @@ public sealed partial class IndicesNamespace
 		configure(descriptor);
 		return AnalyzeAsync((AnalyzeIndexRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Clears all or specific caches for one or more indexes.</summary>
 	public ClearCacheIndexResponse ClearCache(ClearCacheIndexRequest request, TransportOptions? options = null) =>
@@ -89,7 +87,6 @@ public sealed partial class IndicesNamespace
 		return ClearCacheAsync((ClearCacheIndexRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Clones an index.</summary>
 	public CloneIndexResponse Clone(CloneIndexRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, CloneIndexEndpoint.Instance, options);
@@ -113,7 +110,6 @@ public sealed partial class IndicesNamespace
 		configure(descriptor);
 		return CloneAsync((CloneIndexRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Closes an index.</summary>
 	public CloseIndexResponse Close(CloseIndexRequest request, TransportOptions? options = null) =>
@@ -139,7 +135,6 @@ public sealed partial class IndicesNamespace
 		return CloseAsync((CloseIndexRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Creates an index with optional settings and mappings.</summary>
 	public CreateIndexResponse Create(CreateIndexRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, CreateIndexEndpoint.Instance, options);
@@ -163,7 +158,6 @@ public sealed partial class IndicesNamespace
 		configure(descriptor);
 		return CreateAsync((CreateIndexRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Creates or updates a data stream.</summary>
 	public CreateDataStreamIndexResponse CreateDataStream(CreateDataStreamIndexRequest request, TransportOptions? options = null) =>
@@ -189,7 +183,6 @@ public sealed partial class IndicesNamespace
 		return CreateDataStreamAsync((CreateDataStreamIndexRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Provides statistics on operations happening in a data stream.</summary>
 	public DataStreamsStatsIndexResponse DataStreamsStats(DataStreamsStatsIndexRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, DataStreamsStatsIndexEndpoint.Instance, options);
@@ -213,7 +206,6 @@ public sealed partial class IndicesNamespace
 		configure(descriptor);
 		return DataStreamsStatsAsync((DataStreamsStatsIndexRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Deletes an index.</summary>
 	public DeleteIndexResponse Delete(DeleteIndexRequest request, TransportOptions? options = null) =>
@@ -239,7 +231,6 @@ public sealed partial class IndicesNamespace
 		return DeleteAsync((DeleteIndexRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Deletes an alias.</summary>
 	public DeleteAliasIndexResponse DeleteAlias(DeleteAliasIndexRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, DeleteAliasIndexEndpoint.Instance, options);
@@ -263,7 +254,6 @@ public sealed partial class IndicesNamespace
 		configure(descriptor);
 		return DeleteAliasAsync((DeleteAliasIndexRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Deletes a data stream.</summary>
 	public DeleteDataStreamIndexResponse DeleteDataStream(DeleteDataStreamIndexRequest request, TransportOptions? options = null) =>
@@ -289,7 +279,6 @@ public sealed partial class IndicesNamespace
 		return DeleteDataStreamAsync((DeleteDataStreamIndexRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Deletes an index template.</summary>
 	public DeleteIndexTemplateIndexResponse DeleteIndexTemplate(DeleteIndexTemplateIndexRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, DeleteIndexTemplateIndexEndpoint.Instance, options);
@@ -313,7 +302,6 @@ public sealed partial class IndicesNamespace
 		configure(descriptor);
 		return DeleteIndexTemplateAsync((DeleteIndexTemplateIndexRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Deletes an index template.</summary>
 	public DeleteTemplateIndexResponse DeleteTemplate(DeleteTemplateIndexRequest request, TransportOptions? options = null) =>
@@ -339,7 +327,6 @@ public sealed partial class IndicesNamespace
 		return DeleteTemplateAsync((DeleteTemplateIndexRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns information about whether a particular index exists.</summary>
 	public ExistsIndexResponse Exists(ExistsIndexRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, ExistsIndexEndpoint.Instance, options);
@@ -363,7 +350,6 @@ public sealed partial class IndicesNamespace
 		configure(descriptor);
 		return ExistsAsync((ExistsIndexRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Returns information about whether a particular alias exists.</summary>
 	public ExistsAliasIndexResponse ExistsAlias(ExistsAliasIndexRequest request, TransportOptions? options = null) =>
@@ -389,7 +375,6 @@ public sealed partial class IndicesNamespace
 		return ExistsAliasAsync((ExistsAliasIndexRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns information about whether a particular index template exists.</summary>
 	public ExistsIndexTemplateIndexResponse ExistsIndexTemplate(ExistsIndexTemplateIndexRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, ExistsIndexTemplateIndexEndpoint.Instance, options);
@@ -413,7 +398,6 @@ public sealed partial class IndicesNamespace
 		configure(descriptor);
 		return ExistsIndexTemplateAsync((ExistsIndexTemplateIndexRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Returns information about whether a particular index template exists.</summary>
 	public ExistsTemplateIndexResponse ExistsTemplate(ExistsTemplateIndexRequest request, TransportOptions? options = null) =>
@@ -439,7 +423,6 @@ public sealed partial class IndicesNamespace
 		return ExistsTemplateAsync((ExistsTemplateIndexRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Performs the flush operation on one or more indexes.</summary>
 	public FlushIndexResponse Flush(FlushIndexRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, FlushIndexEndpoint.Instance, options);
@@ -463,7 +446,6 @@ public sealed partial class IndicesNamespace
 		configure(descriptor);
 		return FlushAsync((FlushIndexRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Performs the force merge operation on one or more indexes.</summary>
 	public ForcemergeIndexResponse Forcemerge(ForcemergeIndexRequest request, TransportOptions? options = null) =>
@@ -489,7 +471,6 @@ public sealed partial class IndicesNamespace
 		return ForcemergeAsync((ForcemergeIndexRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns information about one or more indexes.</summary>
 	public GetIndexResponse Get(GetIndexRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetIndexEndpoint.Instance, options);
@@ -513,7 +494,6 @@ public sealed partial class IndicesNamespace
 		configure(descriptor);
 		return GetAsync((GetIndexRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Returns an alias.</summary>
 	public GetAliasIndexResponse GetAlias(GetAliasIndexRequest request, TransportOptions? options = null) =>
@@ -539,7 +519,6 @@ public sealed partial class IndicesNamespace
 		return GetAliasAsync((GetAliasIndexRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns data streams.</summary>
 	public GetDataStreamIndexResponse GetDataStream(GetDataStreamIndexRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetDataStreamIndexEndpoint.Instance, options);
@@ -563,7 +542,6 @@ public sealed partial class IndicesNamespace
 		configure(descriptor);
 		return GetDataStreamAsync((GetDataStreamIndexRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Returns mapping for one or more fields.</summary>
 	public GetFieldMappingIndexResponse GetFieldMapping(GetFieldMappingIndexRequest request, TransportOptions? options = null) =>
@@ -589,7 +567,6 @@ public sealed partial class IndicesNamespace
 		return GetFieldMappingAsync((GetFieldMappingIndexRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns an index template.</summary>
 	public GetIndexTemplateIndexResponse GetIndexTemplate(GetIndexTemplateIndexRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetIndexTemplateIndexEndpoint.Instance, options);
@@ -613,7 +590,6 @@ public sealed partial class IndicesNamespace
 		configure(descriptor);
 		return GetIndexTemplateAsync((GetIndexTemplateIndexRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Returns mappings for one or more indexes.</summary>
 	public GetMappingIndexResponse GetMapping(GetMappingIndexRequest request, TransportOptions? options = null) =>
@@ -639,7 +615,6 @@ public sealed partial class IndicesNamespace
 		return GetMappingAsync((GetMappingIndexRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Returns settings for one or more indexes.</summary>
 	public GetSettingsIndexResponse GetSettings(GetSettingsIndexRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetSettingsIndexEndpoint.Instance, options);
@@ -663,7 +638,6 @@ public sealed partial class IndicesNamespace
 		configure(descriptor);
 		return GetSettingsAsync((GetSettingsIndexRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Returns an index template.</summary>
 	public GetTemplateIndexResponse GetTemplate(GetTemplateIndexRequest request, TransportOptions? options = null) =>
@@ -689,7 +663,6 @@ public sealed partial class IndicesNamespace
 		return GetTemplateAsync((GetTemplateIndexRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>The `_upgrade` API is no longer useful and will be removed.</summary>
 	public GetUpgradeIndexResponse GetUpgrade(GetUpgradeIndexRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, GetUpgradeIndexEndpoint.Instance, options);
@@ -713,7 +686,6 @@ public sealed partial class IndicesNamespace
 		configure(descriptor);
 		return GetUpgradeAsync((GetUpgradeIndexRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Opens an index.</summary>
 	public OpenIndexResponse Open(OpenIndexRequest request, TransportOptions? options = null) =>
@@ -739,7 +711,6 @@ public sealed partial class IndicesNamespace
 		return OpenAsync((OpenIndexRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Creates or updates an alias.</summary>
 	public PutAliasIndexResponse PutAlias(PutAliasIndexRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, PutAliasIndexEndpoint.Instance, options);
@@ -763,7 +734,6 @@ public sealed partial class IndicesNamespace
 		configure(descriptor);
 		return PutAliasAsync((PutAliasIndexRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Creates or updates an index template.</summary>
 	public PutIndexTemplateIndexResponse PutIndexTemplate(PutIndexTemplateIndexRequest request, TransportOptions? options = null) =>
@@ -789,7 +759,6 @@ public sealed partial class IndicesNamespace
 		return PutIndexTemplateAsync((PutIndexTemplateIndexRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Updates the index mappings.</summary>
 	public PutMappingIndexResponse PutMapping(PutMappingIndexRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, PutMappingIndexEndpoint.Instance, options);
@@ -813,7 +782,6 @@ public sealed partial class IndicesNamespace
 		configure(descriptor);
 		return PutMappingAsync((PutMappingIndexRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Updates the index settings.</summary>
 	public PutSettingsIndexResponse PutSettings(PutSettingsIndexRequest request, TransportOptions? options = null) =>
@@ -839,7 +807,6 @@ public sealed partial class IndicesNamespace
 		return PutSettingsAsync((PutSettingsIndexRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Creates or updates an index template.</summary>
 	public PutTemplateIndexResponse PutTemplate(PutTemplateIndexRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, PutTemplateIndexEndpoint.Instance, options);
@@ -863,7 +830,6 @@ public sealed partial class IndicesNamespace
 		configure(descriptor);
 		return PutTemplateAsync((PutTemplateIndexRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Returns information about ongoing index shard recoveries.</summary>
 	public RecoveryIndexResponse Recovery(RecoveryIndexRequest request, TransportOptions? options = null) =>
@@ -889,7 +855,6 @@ public sealed partial class IndicesNamespace
 		return RecoveryAsync((RecoveryIndexRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Performs the refresh operation in one or more indexes.</summary>
 	public RefreshIndexResponse Refresh(RefreshIndexRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, RefreshIndexEndpoint.Instance, options);
@@ -913,7 +878,6 @@ public sealed partial class IndicesNamespace
 		configure(descriptor);
 		return RefreshAsync((RefreshIndexRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Returns information about any matching indexes, aliases, and data streams.</summary>
 	public ResolveIndexIndexResponse ResolveIndex(ResolveIndexIndexRequest request, TransportOptions? options = null) =>
@@ -939,7 +903,6 @@ public sealed partial class IndicesNamespace
 		return ResolveIndexAsync((ResolveIndexIndexRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Updates an alias to point to a new index when the existing index is considered to be too large or too old.</summary>
 	public RolloverIndexResponse Rollover(RolloverIndexRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, RolloverIndexEndpoint.Instance, options);
@@ -963,7 +926,6 @@ public sealed partial class IndicesNamespace
 		configure(descriptor);
 		return RolloverAsync((RolloverIndexRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Provides low-level information about segments in a Lucene index.</summary>
 	public SegmentsIndexResponse Segments(SegmentsIndexRequest request, TransportOptions? options = null) =>
@@ -989,7 +951,6 @@ public sealed partial class IndicesNamespace
 		return SegmentsAsync((SegmentsIndexRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Provides store information for shard copies of indexes.</summary>
 	public ShardStoresIndexResponse ShardStores(ShardStoresIndexRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, ShardStoresIndexEndpoint.Instance, options);
@@ -1013,7 +974,6 @@ public sealed partial class IndicesNamespace
 		configure(descriptor);
 		return ShardStoresAsync((ShardStoresIndexRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Allow to shrink an existing index into a new index with fewer primary shards.</summary>
 	public ShrinkIndexResponse Shrink(ShrinkIndexRequest request, TransportOptions? options = null) =>
@@ -1039,7 +999,6 @@ public sealed partial class IndicesNamespace
 		return ShrinkAsync((ShrinkIndexRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Simulate matching the given index name against the index templates in the system.</summary>
 	public SimulateIndexTemplateIndexResponse SimulateIndexTemplate(SimulateIndexTemplateIndexRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, SimulateIndexTemplateIndexEndpoint.Instance, options);
@@ -1063,7 +1022,6 @@ public sealed partial class IndicesNamespace
 		configure(descriptor);
 		return SimulateIndexTemplateAsync((SimulateIndexTemplateIndexRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Simulate resolving the given template name or body.</summary>
 	public SimulateTemplateIndexResponse SimulateTemplate(SimulateTemplateIndexRequest request, TransportOptions? options = null) =>
@@ -1089,7 +1047,6 @@ public sealed partial class IndicesNamespace
 		return SimulateTemplateAsync((SimulateTemplateIndexRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Allows you to split an existing index into a new index with more primary shards.</summary>
 	public SplitIndexResponse Split(SplitIndexRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, SplitIndexEndpoint.Instance, options);
@@ -1113,7 +1070,6 @@ public sealed partial class IndicesNamespace
 		configure(descriptor);
 		return SplitAsync((SplitIndexRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>Provides statistics on operations happening in an index.</summary>
 	public StatsIndexResponse Stats(StatsIndexRequest request, TransportOptions? options = null) =>
@@ -1139,7 +1095,6 @@ public sealed partial class IndicesNamespace
 		return StatsAsync((StatsIndexRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Updates index aliases.</summary>
 	public UpdateAliasesIndexResponse UpdateAliases(UpdateAliasesIndexRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, UpdateAliasesIndexEndpoint.Instance, options);
@@ -1163,7 +1118,6 @@ public sealed partial class IndicesNamespace
 		configure(descriptor);
 		return UpdateAliasesAsync((UpdateAliasesIndexRequest)descriptor, options, ct);
 	}
-
 
 	/// <summary>The `_upgrade` API is no longer useful and will be removed.</summary>
 	public UpgradeIndexResponse Upgrade(UpgradeIndexRequest request, TransportOptions? options = null) =>
@@ -1189,7 +1143,6 @@ public sealed partial class IndicesNamespace
 		return UpgradeAsync((UpgradeIndexRequest)descriptor, options, ct);
 	}
 
-
 	/// <summary>Allows a user to validate a potentially expensive query without executing it.</summary>
 	public ValidateQueryIndexResponse ValidateQuery(ValidateQueryIndexRequest request, TransportOptions? options = null) =>
 		_client.DoRequest(request, ValidateQueryIndexEndpoint.Instance, options);
@@ -1213,5 +1166,4 @@ public sealed partial class IndicesNamespace
 		configure(descriptor);
 		return ValidateQueryAsync((ValidateQueryIndexRequest)descriptor, options, ct);
 	}
-
 }

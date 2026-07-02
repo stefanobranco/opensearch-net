@@ -29,6 +29,7 @@ public sealed class CancelTaskRequest
 	[JsonIgnore]
 	public bool? WaitForCompletion { get; set; }
 }
+
 public sealed class CancelTaskEndpoint : IEndpoint<CancelTaskRequest, CancelTaskResponse>
 {
 	public static readonly CancelTaskEndpoint Instance = new();

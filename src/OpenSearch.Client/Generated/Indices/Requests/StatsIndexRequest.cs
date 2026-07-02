@@ -15,7 +15,7 @@ public sealed class StatsIndexRequest
 {
 	/// <summary>Limit the information returned the specific metrics.</summary>
 	[JsonIgnore]
-	public List<Metric>? Metric { get; set; }
+	public List<IndicesStatsMetric>? Metric { get; set; }
 	/// <summary>A comma-separated list of index names; use `_all` or empty string to perform the operation on all indexes</summary>
 	[JsonIgnore]
 	public List<string>? Index { get; set; }
@@ -47,6 +47,7 @@ public sealed class StatsIndexRequest
 	[JsonIgnore]
 	public Level? Level { get; set; }
 }
+
 public sealed class StatsIndexEndpoint : IEndpoint<StatsIndexRequest, StatsIndexResponse>
 {
 	public static readonly StatsIndexEndpoint Instance = new();

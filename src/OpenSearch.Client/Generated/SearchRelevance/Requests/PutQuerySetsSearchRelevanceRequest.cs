@@ -19,6 +19,7 @@ public sealed class PutQuerySetsSearchRelevanceRequest
 	[JsonPropertyName("querySetQueries")]
 	public List<System.Text.Json.JsonElement>? QuerySetQueries { get; set; }
 }
+
 public sealed class PutQuerySetsSearchRelevanceEndpoint : IEndpoint<PutQuerySetsSearchRelevanceRequest, PutQuerySetsSearchRelevanceResponse>
 {
 	public static readonly PutQuerySetsSearchRelevanceEndpoint Instance = new();
