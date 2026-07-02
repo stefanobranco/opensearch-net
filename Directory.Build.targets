@@ -4,7 +4,6 @@
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)\build\keys\keypair.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="$(IsPackable) == True">
-    <OutDir>bin/$(Configuration)/$(TargetFramework)/</OutDir>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>portable</DebugType>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>

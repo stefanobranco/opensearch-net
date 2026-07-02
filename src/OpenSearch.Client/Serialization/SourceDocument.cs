@@ -17,14 +17,13 @@ internal sealed class SourceDocument
 	internal object Value { get; }
 
 	internal static SourceDocument Wrap(object value) => new(value);
-}
 
-internal sealed class SourceDocumentConverter : JsonConverter<SourceDocument>
-{
-	public override SourceDocument Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) =>
-		throw new NotSupportedException($"{nameof(SourceDocument)} is a write-only wrapper.");
-
-	public override void Write(Utf8JsonWriter writer, SourceDocument value, JsonSerializerOptions options)
+	/// <summary>
+	/// Writes a user document into <paramref name="writer"/> with source-serializer routing.
+	/// The direct entry point for callers that already hold a <see cref="Utf8JsonWriter"/>
+	/// (bulk NDJSON bodies), avoiding the wrapper + converter indirection.
+	/// </summary>
+	internal static void WriteDocument(Utf8JsonWriter writer, object document, JsonSerializerOptions options)
 	{
 		// A custom source serializer can only be configured through client settings, so no settings
 		// context — or a source serializer that IS the request/response serializer — means default
@@ -32,15 +31,24 @@ internal sealed class SourceDocumentConverter : JsonConverter<SourceDocument>
 		var settings = ContextProvider<IOpenSearchClientSettings>.Get(options);
 		if (settings is null || ReferenceEquals(settings.SourceSerializer, settings.RequestResponseSerializer))
 		{
-			JsonSerializer.Serialize(writer, value.Value, value.Value.GetType(), options);
+			JsonSerializer.Serialize(writer, document, document.GetType(), options);
 			return;
 		}
 
 		using var stream = new MemoryStream();
-		settings.SourceSerializer.Serialize(value.Value, stream);
+		settings.SourceSerializer.Serialize(document, stream);
 		stream.Position = 0;
 
 		using var doc = JsonDocument.Parse(stream);
 		doc.WriteTo(writer);
 	}
+}
+
+internal sealed class SourceDocumentConverter : JsonConverter<SourceDocument>
+{
+	public override SourceDocument Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) =>
+		throw new NotSupportedException($"{nameof(SourceDocument)} is a write-only wrapper.");
+
+	public override void Write(Utf8JsonWriter writer, SourceDocument value, JsonSerializerOptions options) =>
+		SourceDocument.WriteDocument(writer, value.Value, options);
 }
