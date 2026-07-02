@@ -63,7 +63,7 @@ public class AsyncPipelineTests : IntegrationTestBase
 		});
 		indexResponse.IsValid.Should().BeTrue(indexResponse.DebugInformation);
 
-		var delete = await Client.Core.DeleteAsync(new DeleteRequest { Index = index, Id = "1" });
+		var delete = await Client.Core.DeleteAsync(new DeleteRequest { Index = index, Id = "1", Refresh = "true" });
 		delete.IsValid.Should().BeTrue(delete.DebugInformation);
 
 		var count = await Client.Core.CountAsync(new CountRequest { Index = [index] });
