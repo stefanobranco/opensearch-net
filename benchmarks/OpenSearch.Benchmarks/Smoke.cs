@@ -36,6 +36,24 @@ public static class Smoke
 		var deserialized = benchmarks.DeserializeSearchResponse();
 		Check("Deserialize hits", deserialized?.Documents().Count == 100, ref failures);
 
+		var sourceBenchmarks = new SourceSerializerBenchmarks();
+		sourceBenchmarks.Setup();
+
+		foreach (var (name, search) in new (string, Func<Task<SearchResponse<Product>>>)[]
+		{
+			("default STJ", sourceBenchmarks.Search100_DefaultStj),
+			("custom STJ source", sourceBenchmarks.Search100_CustomStjSource),
+			("Newtonsoft source", sourceBenchmarks.Search100_NewtonsoftSource),
+		})
+		{
+			var result = await search();
+			Check($"SourceSerializer search ({name})", result.Documents().Count == 100
+				&& result.Documents()[0].Id == "product-0" && result.Documents()[0].Tags.Count == 2, ref failures);
+		}
+
+		var newtonsoftBulk = await sourceBenchmarks.Bulk1000_NewtonsoftSource();
+		Check("SourceSerializer bulk (Newtonsoft source)", newtonsoftBulk.Items?.Count == 1000, ref failures);
+
 		Console.WriteLine(failures == 0 ? "Smoke: all scenarios valid." : $"Smoke: {failures} FAILURE(S).");
 		return failures == 0 ? 0 : 1;
 	}

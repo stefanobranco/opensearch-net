@@ -45,7 +45,8 @@ What's incomplete or missing:
 - A handful of freeform response bodies are exposed as raw JSON rather than typed (`cluster.state`
   via `ExtensionData`, streaming ML predict/execute)
 - No Newtonsoft.Json bridge package — but `SourceSerializer` accepts any `IOpenSearchSerializer`,
-  so a Newtonsoft adapter for your document types is a ~30-line class
+  so a Newtonsoft adapter for your document types is a ~30-line class (reference implementation
+  and its measured cost: [`benchmarks/`](benchmarks/README.md#custom-source-serializer-cost-2026-07-02))
 - Integration tests cover 11 namespaces against a real cluster; the rest are covered by serialization fixtures only
 
 ## Quick Start
