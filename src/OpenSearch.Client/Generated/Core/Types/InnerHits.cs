@@ -24,6 +24,7 @@ public sealed class InnerHits
 	public List<SortOptions>? Sort { get; set; }
 	[JsonPropertyName("_source")]
 	public SourceConfig? Source { get; set; }
+	[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	public List<string>? StoredFields { get; set; }
 	public bool? TrackScores { get; set; }
 	public bool? Version { get; set; }

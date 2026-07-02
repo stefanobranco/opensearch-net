@@ -14,7 +14,7 @@ public sealed class SemanticPropertyDescriptor
 	public SemanticPropertyDescriptor ModelId(string? value) { _value.ModelId = value; return this; }
 	public SemanticPropertyDescriptor SearchModelId(string? value) { _value.SearchModelId = value; return this; }
 	public SemanticPropertyDescriptor SemanticInfoFieldName(string? value) { _value.SemanticInfoFieldName = value; return this; }
-	public SemanticPropertyDescriptor Chunking(System.Text.Json.JsonElement? value) { _value.Chunking = value; return this; }
+	public SemanticPropertyDescriptor Chunking(SemanticChunking? value) { _value.Chunking = value; return this; }
 	public SemanticPropertyDescriptor SemanticFieldSearchAnalyzer(string? value) { _value.SemanticFieldSearchAnalyzer = value; return this; }
 	public SemanticPropertyDescriptor DenseEmbeddingConfig(SemanticDenseEmbeddingConfig? value) { _value.DenseEmbeddingConfig = value; return this; }
 	public SemanticPropertyDescriptor DenseEmbeddingConfig(Action<SemanticDenseEmbeddingConfigDescriptor> configure)

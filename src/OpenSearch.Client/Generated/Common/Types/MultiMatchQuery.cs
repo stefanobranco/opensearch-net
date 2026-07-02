@@ -17,6 +17,7 @@ public sealed class MultiMatchQuery
 	/// <summary>If `true`, match phrase queries are automatically created for multi-term synonyms.</summary>
 		public bool? AutoGenerateSynonymsPhraseQuery { get; set; }
 	public float? CutoffFrequency { get; set; }
+	[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	public List<string>? Fields { get; set; }
 	public string? Fuzziness { get; set; }
 	public string? FuzzyRewrite { get; set; }

@@ -12,5 +12,6 @@ public sealed class IdsQuery
 		public float? Boost { get; set; }
 	[JsonPropertyName("_name")]
 	public string? Name { get; set; }
+	[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	public List<string>? Values { get; set; }
 }

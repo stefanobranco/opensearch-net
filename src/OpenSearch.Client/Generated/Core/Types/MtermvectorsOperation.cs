@@ -14,6 +14,7 @@ public sealed class MtermvectorsOperation
 	public string? Index { get; set; }
 	/// <summary>An artificial document for which you want to retrieve term vectors.</summary>
 		public System.Text.Json.JsonElement? Doc { get; set; }
+	[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	public List<string>? Fields { get; set; }
 	/// <summary>When `true`, the response includes the document count, the sum of the document frequencies, and the sum of the term frequencies.</summary>
 		public bool? FieldStatistics { get; set; }

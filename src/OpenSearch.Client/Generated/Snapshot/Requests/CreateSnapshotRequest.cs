@@ -29,6 +29,7 @@ public sealed class CreateSnapshotRequest
 		public bool? IgnoreUnavailable { get; set; }
 	/// <summary>When `true`, includes the current cluster state in the snapshot. The cluster state includes persistent cluster settings, composable index templates, legacy index templates, ingest pipelines, and ILM policies. The cluster state also includes data stored in system indexes, such as watches and task records (configurable with `feature_states`).</summary>
 		public bool? IncludeGlobalState { get; set; }
+	[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	public List<string>? Indices { get; set; }
 	/// <summary>A list of feature states to include in the snapshot. Each feature state includes one or more system indexes which contain related data. You can view a list of features using the Get Feature API.  If `include_global_state` is `true`, all current feature states are included by default. If `include_global_state` is `false`, no feature states are included by default.</summary>
 		public List<string>? FeatureStates { get; set; }

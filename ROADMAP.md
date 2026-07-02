@@ -179,7 +179,27 @@ well-engineered **on its own terms**, with no push for upstream adoption.
        and the validator **fails generation** on any unrenamed same-name collision so a spec update
        can't reintroduce one silently.
   4. [x] Phase D package-identity decision — **keep `SB.*`** (see Phase D below).
-  5. [ ] Validator-debt burn-down (19 empty / 26 stub / 9 fallback / 5 punts → fix or justify; ratchet).
+  5. [x] **Validator-debt burn-down — census now clean (0 stubs / 0 empties / 0 oneOf fallbacks /
+     3 justified punts).** The old counts were inflated (shared Common shapes censused once per
+     namespace — fixed); the real debt was 2 stubs, 1 empty, and 7 distinct oneOf fallbacks, plus
+     5 documented punts. Fixed at the root:
+     - **Single-or-many wire forms**: spec single-or-array unions now map to `List<T>` with a
+       read converter that accepts both forms — previously reading the single form threw. This
+       hardened `bool` query clauses, `copy_to`, ISM `ism_template`, put_mapping
+       `dynamic_templates`, and every other Pattern-2 site.
+     - **New modeled unions** (all with converters + fixture tests): `MatchedQueries`
+       (names-or-scores), `ByteSize` (bytes-or-"10gb"), `Geometry`/GeoJSON (flat, absorbs
+       `GeoShapes`), `BulkByScrollTaskStatusOrException` (status-or-error sniffing),
+       `SemanticChunking` (bool-or-strategies), `GeoHashPrecision` (length-or-distance) which
+       unblocked a properly modeled `CompletionContext` (bare-or-boosted), and a
+       shorthand-tolerant `SourceFilter` converter (string/array/object). The
+       completion-context `SerializeToElement` wrapper extension is gone.
+     - **Generator mechanisms**: context-keyed overrides for *inline* union schemas
+       (`Owner.property`), fallback census now reports the mapping location, and a
+       `hadNullMember` flag preserves the stringified-number heuristic across null-stripping.
+     - **Justified, documented in-place**: `DecayPlacement`, `SegmentReplicationStats`, `Suggest`
+       (punts); `RankFeatureFunctionLinear` (spec-empty marker); `ActionTimeout`,
+       `GeoJSONData.properties`/`coordinates` (spec-shapeless by definition).
   6. [ ] Benchmark baseline (C3).
 - [ ] **C3.** A first performance/scale pass.
 

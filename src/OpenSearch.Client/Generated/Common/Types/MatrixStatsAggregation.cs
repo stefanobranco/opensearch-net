@@ -8,6 +8,7 @@ namespace OpenSearch.Client;
 
 public sealed class MatrixStatsAggregation
 {
+	[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	public List<string>? Fields { get; set; }
 	/// <summary>The value to apply to documents that do not have a value. By default, documents without a value are ignored.</summary>
 		public Dictionary<string, double>? Missing { get; set; }

@@ -15,6 +15,7 @@ public sealed class MgetOperation
 	public string? Routing { get; set; }
 	[JsonPropertyName("_source")]
 	public SourceConfig? Source { get; set; }
+	[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	public List<string>? StoredFields { get; set; }
 	public long? Version { get; set; }
 	public string? VersionType { get; set; }

@@ -14,5 +14,6 @@ public sealed class ResolveIndexDataStreamsItem
 {
 	public string? Name { get; set; }
 	public string? TimestampField { get; set; }
+	[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	public List<string>? BackingIndices { get; set; }
 }

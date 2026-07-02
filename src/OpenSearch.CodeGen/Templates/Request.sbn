@@ -27,6 +27,7 @@ public sealed class {{ class_name }}{{ request_type_suffix }}
 	{{ if field.description }}/// <summary>{{ field.description }}</summary>
 	{{ end }}{{ if field.needs_json_property_name }}[JsonPropertyName("{{ field.wire_name }}")]
 	{{ end }}{{ if field.is_source_document }}[JsonConverter(typeof(SourceConverterFactory))]
+	{{ end }}{{ if field.is_single_or_many }}[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	{{ end }}public {{ field.type }} {{ field.name }} { get; set; }
 {{~ end ~}}
 {{~ if is_raw_body ~}}

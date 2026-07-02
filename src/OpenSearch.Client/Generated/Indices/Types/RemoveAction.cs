@@ -14,8 +14,10 @@ public sealed class RemoveAction
 {
 	public string? Alias { get; set; }
 	/// <summary>The list of aliases to remove. Index alias names support date math.</summary>
-		public List<string>? Aliases { get; set; }
+		[JsonConverter(typeof(SingleOrManyConverterFactory))]
+	public List<string>? Aliases { get; set; }
 	public string? Index { get; set; }
+	[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	public List<string>? Indices { get; set; }
 	/// <summary>Whether the alias must exist to perform the action.</summary>
 		public bool? MustExist { get; set; }

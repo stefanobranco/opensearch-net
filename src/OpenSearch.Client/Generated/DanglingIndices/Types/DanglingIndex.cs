@@ -12,5 +12,6 @@ public sealed class DanglingIndex
 	public string? IndexUuid { get; set; }
 	public string? CreationDate { get; set; }
 	public long CreationDateMillis { get; set; }
+	[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	public List<string>? NodeIds { get; set; }
 }

@@ -102,6 +102,18 @@ public sealed class TypeMapper
 	};
 
 	/// <summary>
+	/// Overrides for <em>inline</em> (unnamed) schemas, keyed by their mapping location
+	/// (<c>OwnerType.wire_property</c>). Inline unions have no schema name for
+	/// <see cref="s_typeOverrides"/> to match, so the location is the only stable key.
+	/// </summary>
+	private static readonly Dictionary<string, TypeRef> s_contextOverrides = new(StringComparer.Ordinal)
+	{
+		["Hit.matched_queries"] = TypeRef.Named("MatchedQueries", "MatchedQueries"), // oneOf[array<string>, map<string,double>] → hand-written union (Types/MatchedQueries.cs)
+		["ClusterInfo.shard_sizes"] = TypeRef.Named("ByteSize", "ByteSize"), // oneOf[ByteCount, HumanReadableByteCount] → hand-written long-or-string union (Types/ByteSize.cs)
+		["SemanticProperty.chunking"] = TypeRef.Named("SemanticChunking", "SemanticChunking"), // oneOf[boolean, array<SemanticChunkingStrategy>] → hand-written union (Types/SemanticChunking.cs)
+	};
+
+	/// <summary>
 	/// Schema names that map to hand-written C# types. When Map() encounters one of these,
 	/// it returns the override TypeRef instead of processing the schema.
 	/// </summary>
@@ -126,7 +138,7 @@ public sealed class TypeMapper
 		["DecayPlacement"] = TypeRef.JsonElement(), // oneOf[DateDecay, GeoDecay, NumericDecay] — absorbed by DecayFunction; concrete Date/Geo/NumericDecayPlacement types exist
 		["GeoBounds"] = TypeRef.Named("GeoBounds", "GeoBounds"), // oneOf[4 coordinate formats] → hand-written union with property-sniffing converter (Types/GeoBounds.cs)
 		["TermsQueryField"] = TypeRef.Named("TermsQueryField", "TermsQueryField"), // oneOf[array<FieldValue>, TermsLookup] → hand-written union (Types/TermsQueryField.cs)
-		["SourceFilter"] = TypeRef.JsonElement(), // oneOf[Fields, object] — handled by SourceConfig
+		["SourceFilter"] = TypeRef.Named("SourceFilter", "SourceFilter"), // oneOf[Fields, object] → hand-written filter with shorthand-tolerant converter (Types/SourceConfig.cs)
 		["BucketsPath"] = TypeRef.Named("BucketsPath", "BucketsPath"), // oneOf[string, array, object] → hand-written union with converter (Types/BucketsPath.cs)
 		["BucketsQueryContainer"] = TypeRef.Named("BucketsQueryContainer", "BucketsQueryContainer"), // Buckets<QueryContainer>: keyed-map-or-array → hand-written union (Types/BucketsQueryContainer.cs); the generator emitted an unusable empty tagged union
 		["SourceConfigParam"] = TypeRef.Named("SourceConfigParam", "SourceConfigParam"), // oneOf[boolean, Fields] → hand-written bool-or-fields union with query-string ToString (Types/SourceConfigParam.cs)
@@ -137,7 +149,11 @@ public sealed class TypeMapper
 		["Context"] = TypeRef.Named("Context", "Context"), // oneOf[string, GeoLocation] → hand-written string-or-location union (Types/Context.cs)
 		["TermsInclude"] = TypeRef.Named("TermsInclude", "TermsInclude"), // oneOf[string, array, TermsPartition] → hand-written union (Types/TermsInclude.cs)
 		["AggregateOrder"] = TypeRef.Named("AggregateOrder", "AggregateOrder"), // oneOf[object, array] → hand-written ordered field/direction list (Types/AggregateOrder.cs)
-		["CompletionContext"] = TypeRef.JsonElement(), // oneOf[Context, object] — object form nests the unmodeled GeoHashPrecision (int|string) union; left opaque pending that
+		["CompletionContext"] = TypeRef.Named("CompletionContext", "CompletionContext"), // oneOf[Context, object] → hand-written merged form (Types/CompletionContext.cs)
+		["GeoHashPrecision"] = TypeRef.Named("GeoHashPrecision", "GeoHashPrecision"), // oneOf[integer, string] → hand-written length-or-distance struct (Types/GeoHashPrecision.cs)
+		["Geometry"] = TypeRef.Named("Geometry", "Geometry"), // oneOf[GeoShapes, GeometryCollection] → hand-written flat GeoJSON geometry (Types/Geometry.cs)
+		["GeoShapes"] = TypeRef.Named("Geometry", "Geometry"), // oneOf of the concrete shapes — a subset of Geometry, same hand-written type
+		["BulkByScrollTaskStatusOrException"] = TypeRef.Named("BulkByScrollTaskStatusOrException", "BulkByScrollTaskStatusOrException"), // oneOf[status, ErrorCause], no discriminator → hand-written sniffing union (Types/BulkByScrollTaskStatusOrException.cs)
 		["IndexSettingsMergePolicy"] = TypeRef.Named("IndexSettingsMergePolicy", "IndexSettingsMergePolicy"), // oneOf[name enum, tiered config] → hand-written union (Types/IndexSettingsMergePolicy.cs)
 		["CharFilter"] = TypeRef.Named("CharFilter", "CharFilter"), // oneOf[string, CharFilterDefinition] → hand-written string-or-definition wrapper (Types/CharFilter.cs)
 		["TokenFilter"] = TypeRef.Named("TokenFilter", "TokenFilter"), // oneOf[string, TokenFilterDefinition] → hand-written string-or-definition wrapper (Types/TokenFilter.cs)
@@ -178,6 +194,9 @@ public sealed class TypeMapper
 
 	private readonly Dictionary<string, TypeRef> _namedTypes = new(StringComparer.Ordinal);
 	private readonly Dictionary<string, SortedSet<string>> _nameOrigins = new(StringComparer.Ordinal);
+	// Owner-type / property path of the schema currently being mapped, so inline oneOf
+	// fallbacks can be reported with an actionable location instead of "inline".
+	private readonly Stack<string> _mappingContext = new();
 	private readonly Dictionary<string, EnumShape> _discoveredEnums = new(StringComparer.Ordinal);
 	private readonly Dictionary<string, ObjectShape> _discoveredObjects = new(StringComparer.Ordinal);
 	private readonly Dictionary<string, TaggedUnionShape> _discoveredTaggedUnions = new(StringComparer.Ordinal);
@@ -425,28 +444,35 @@ public sealed class TypeMapper
 	/// When called from MapResolved, schemaName and ns are available for creating named types.
 	/// When called from MapDirect (inline oneOf), they are null.
 	/// </summary>
-	private TypeRef MapOneOf(IReadOnlyList<OpenApiSchema> schemas, string? schemaName = null, string? ns = null, string? discriminatorProperty = null)
+	private TypeRef MapOneOf(IReadOnlyList<OpenApiSchema> schemas, string? schemaName = null, string? ns = null, string? discriminatorProperty = null, bool hadNullMember = false)
 	{
-		// Pattern 1: Nullable wrapper — 2 members, one is type: 'null'
-		if (schemas.Count == 2)
+		// Overrides for inline unions, matched by mapping location (see s_contextOverrides).
+		if (schemaName is null && _mappingContext.Count > 0)
 		{
-			var nullIndex = -1;
-			for (int i = 0; i < 2; i++)
+			var location = string.Join(".", _mappingContext.Reverse().TakeLast(2));
+			if (s_contextOverrides.TryGetValue(location, out var contextOverride))
 			{
-				if (schemas[i].Type == "null")
-				{
-					nullIndex = i;
-					break;
-				}
-			}
-			if (nullIndex >= 0)
-			{
-				var nonNull = schemas[1 - nullIndex];
-				return Map(nonNull).WithNullable(true);
+				// Still walk the members so types the hand-written override references
+				// (e.g. SemanticChunkingStrategy) are discovered and generated.
+				foreach (var member in schemas)
+					DiscoverReferencedTypes(member.Ref is not null ? member.Resolved() : member);
+				return contextOverride;
 			}
 		}
 
-		// Pattern 2: Single-or-array — $ref + array with same items.$ref
+		// Pattern 1: type: 'null' members only affect nullability — strip them, map the rest.
+		// The null-member fact still travels along (hadNullMember): Pattern 3 uses it to tell a
+		// nullable stringified number from a number-or-keyword union.
+		if (schemas.Any(s => s.Type == "null"))
+		{
+			var nonNull = schemas.Where(s => s.Type is not "null").ToList();
+			if (nonNull.Count == 1)
+				return Map(nonNull[0]).WithNullable(true);
+			return MapOneOf(nonNull, schemaName, ns, discriminatorProperty, hadNullMember: true).WithNullable(true);
+		}
+
+		// Pattern 2: Single-or-array — a member plus an array of that same member. Maps to the list
+		// form, with a read-side converter that also accepts the single form off the wire.
 		if (schemas.Count == 2)
 		{
 			OpenApiSchema? singleSchema = null;
@@ -458,16 +484,11 @@ public sealed class TypeMapper
 				else
 					singleSchema = schemas[i];
 			}
-			if (singleSchema is not null && arraySchema?.Items is not null)
+			if (singleSchema is not null && arraySchema?.Items is not null
+				&& IsSameSchema(singleSchema, arraySchema.Items))
 			{
-				var singleRef = singleSchema.Ref;
-				var arrayItemRef = arraySchema.Items.Ref;
-				if (singleRef is not null && arrayItemRef is not null
-					&& string.Equals(singleRef, arrayItemRef, StringComparison.Ordinal))
-				{
-					var itemType = Map(singleSchema);
-					return TypeRef.ListOf(itemType);
-				}
+				var itemType = Map(singleSchema);
+				return TypeRef.ListOf(itemType, singleOrMany: true);
 			}
 		}
 
@@ -514,7 +535,8 @@ public sealed class TypeMapper
 				// number; the production serializer reads the string form via NumberHandling.AllowReadingFromString.
 				// The explicit null member distinguishes this from a number-or-keyword union (e.g. oneOf[integer,
 				// "auto"]), which has no null member and must stay string. (e.g. AggregationRange.from/to)
-				if (hasNull && !hasBoolean && (hasNumber || hasInteger))
+				// Null members are stripped by Pattern 1 before this point — hadNullMember carries the fact.
+				if ((hasNull || hadNullMember) && !hasBoolean && (hasNumber || hasInteger))
 				{
 					if (hasNumber)
 						return numberFormat == "double" ? TypeRef.Double() : TypeRef.Float();
@@ -633,7 +655,8 @@ public sealed class TypeMapper
 			return GetOrCreateWrapperObjectUnion(schemaName, schemas, ns);
 
 		// Pattern 6: Fallback → JsonElement + record warning
-		var context = schemaName ?? "inline";
+		var context = schemaName
+			?? (_mappingContext.Count > 0 ? string.Join(".", _mappingContext.Reverse()) : "inline");
 		var memberDescs = string.Join(", ", schemas.Select(s =>
 			s.Ref is not null ? $"$ref:{ExtractSchemaName(s.Ref)}" :
 			s.Type is not null ? $"type:{s.Type}" :
@@ -946,22 +969,30 @@ public sealed class TypeMapper
 		var required = new HashSet<string>(schema.Required);
 		TypeRef? additionalPropsType = null;
 
-		// Handle allOf by flattening
-		if (schema.AllOf.Count > 0)
+		_mappingContext.Push(schemaName);
+		try
 		{
-			foreach (var allOfMember in schema.AllOf)
+			// Handle allOf by flattening
+			if (schema.AllOf.Count > 0)
 			{
-				var resolved = allOfMember.Resolved();
-				CollectFields(resolved, fields, required);
+				foreach (var allOfMember in schema.AllOf)
+				{
+					var resolved = allOfMember.Resolved();
+					CollectFields(resolved, fields, required);
 
-				// Capture additionalProperties from allOf members (e.g., DecayFunction)
-				if (additionalPropsType is null && resolved.AdditionalProperties is not null)
-					additionalPropsType = Map(resolved.AdditionalProperties);
+					// Capture additionalProperties from allOf members (e.g., DecayFunction)
+					if (additionalPropsType is null && resolved.AdditionalProperties is not null)
+						additionalPropsType = Map(resolved.AdditionalProperties);
+				}
+			}
+			else
+			{
+				CollectFields(schema, fields, required);
 			}
 		}
-		else
+		finally
 		{
-			CollectFields(schema, fields, required);
+			_mappingContext.Pop();
 		}
 
 		// Top-level additionalProperties takes precedence
@@ -1054,7 +1085,16 @@ public sealed class TypeMapper
 				continue;
 			}
 
-			var fieldType = MapField(name, propSchema);
+			_mappingContext.Push(name);
+			TypeRef fieldType;
+			try
+			{
+				fieldType = MapField(name, propSchema);
+			}
+			finally
+			{
+				_mappingContext.Pop();
+			}
 			fields.Add(new Field
 			{
 				Name = pascalName,
@@ -1142,6 +1182,22 @@ public sealed class TypeMapper
 		// "#/components/schemas/IndexName" → "IndexName"
 		var lastSlash = refString.LastIndexOf('/');
 		return lastSlash >= 0 ? refString[(lastSlash + 1)..] : refString;
+	}
+
+	/// <summary>
+	/// Whether two schemas denote the same type for single-or-array purposes: the same $ref,
+	/// or the same map shape (object whose additionalProperties $ref the same schema, e.g.
+	/// put_mapping's dynamic_templates: a map of DynamicTemplate or an array of such maps).
+	/// </summary>
+	private static bool IsSameSchema(OpenApiSchema a, OpenApiSchema b)
+	{
+		if (a.Ref is not null && b.Ref is not null)
+			return string.Equals(a.Ref, b.Ref, StringComparison.Ordinal);
+		if (a.Type is "object" && b.Type is "object"
+			&& a.Properties.Count == 0 && b.Properties.Count == 0
+			&& a.AdditionalProperties?.Ref is { } aRef && b.AdditionalProperties?.Ref is { } bRef)
+			return string.Equals(aRef, bRef, StringComparison.Ordinal);
+		return false;
 	}
 
 	/// <summary>

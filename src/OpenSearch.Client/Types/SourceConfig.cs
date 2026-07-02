@@ -36,8 +36,10 @@ public sealed class SourceConfig
 }
 
 /// <summary>
-/// Filters which source fields to include or exclude.
+/// Filters which source fields to include or exclude. On the wire this may also appear as a
+/// bare field string or field array (shorthand for includes).
 /// </summary>
+[JsonConverter(typeof(SourceFilterConverter))]
 public sealed class SourceFilter
 {
 	/// <summary>Fields to include in the response.</summary>
@@ -47,4 +49,7 @@ public sealed class SourceFilter
 	/// <summary>Fields to exclude from the response.</summary>
 	[JsonPropertyName("excludes")]
 	public List<string>? Excludes { get; set; }
+
+	public static implicit operator SourceFilter(string field) => new() { Includes = [field] };
+	public static implicit operator SourceFilter(string[] fields) => new() { Includes = [.. fields] };
 }

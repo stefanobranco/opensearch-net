@@ -39,6 +39,20 @@ public static class CodegenValidator
 		"RecoveryCatResponse", "RepositoriesCatResponse", "SegmentsCatResponse",
 		"ShardsCatResponse", "SnapshotsCatResponse", "TasksCatResponse",
 		"TemplatesCatResponse", "ThreadPoolCatResponse",
+		// The rank_feature linear function is an empty marker object in the spec ("linear": {}).
+		"RankFeatureFunctionLinear",
+	};
+
+	/// <summary>
+	/// Types whose JsonElement-heavy shape is faithful to the spec, not a generator gap.
+	/// </summary>
+	private static readonly HashSet<string> s_justifiedStubs = new(StringComparer.OrdinalIgnoreCase)
+	{
+		// The spec types the ISM action timeout as a bare `object` with no properties.
+		"ActionTimeout",
+		// GeoJSON: `properties` is a freeform per-feature bag by definition, and `coordinates`
+		// nesting depth varies per geometry type.
+		"GeoJSONData", "Geometry",
 	};
 
 	/// <summary>
@@ -61,10 +75,12 @@ public static class CodegenValidator
 		{
 			foreach (var obj in result.Objects)
 			{
-				objectsByName.TryAdd(obj.ClassName, obj);
+				// Shared Common shapes appear in every namespace's result — census each type once.
+				if (!objectsByName.TryAdd(obj.ClassName, obj))
+					continue;
 
 				// Check 1: JsonElement ratio
-				if (obj.Fields.Count > 0)
+				if (obj.Fields.Count > 0 && !s_justifiedStubs.Contains(obj.ClassName))
 				{
 					var jsonElementCount = obj.Fields.Count(f =>
 						f.Type.CSharpName == "System.Text.Json.JsonElement");
@@ -165,8 +181,11 @@ public static class CodegenValidator
 			}
 		}
 
-		// Check 4: Unresolved oneOf fallbacks
-		var fallbacks = typeMapper.OneOfFallbacks;
+		// Check 4: Unresolved oneOf fallbacks (recorded per encounter — census distinct schemas)
+		var fallbacks = typeMapper.OneOfFallbacks
+			.Distinct(StringComparer.Ordinal)
+			.OrderBy(f => f, StringComparer.Ordinal)
+			.ToList();
 		if (fallbacks.Count > 0)
 		{
 			Console.WriteLine($"\n[INFO] {fallbacks.Count} oneOf schemas fell back to JsonElement:");

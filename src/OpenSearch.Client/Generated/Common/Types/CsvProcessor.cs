@@ -27,6 +27,7 @@ public sealed class CsvProcessor
 		public string? Quote { get; set; }
 	/// <summary>Separator used in CSV, has to be single character string.</summary>
 		public string? Separator { get; set; }
+	[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	public List<string>? TargetFields { get; set; }
 	/// <summary>Trim white spaces in unquoted fields.</summary>
 		public bool? Trim { get; set; }

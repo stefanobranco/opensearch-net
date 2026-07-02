@@ -12,6 +12,7 @@ namespace OpenSearch.Client;
 
 public partial class FieldCapsResponse : OpenSearch.Net.OpenSearchResponse
 {
+	[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	public List<string>? Indices { get; set; }
 	public Dictionary<string, Dictionary<string, FieldCapability>>? Fields { get; set; }
 }

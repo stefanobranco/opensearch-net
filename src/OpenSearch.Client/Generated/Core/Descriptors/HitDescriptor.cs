@@ -26,7 +26,7 @@ public sealed class HitDescriptor<TDocument>
 	public HitDescriptor<TDocument> Highlight(Dictionary<string, List<string>>? value) { _value.Highlight = value; return this; }
 	public HitDescriptor<TDocument> InnerHits(Dictionary<string, InnerHitsResult<TDocument>>? value) { _value.InnerHits = value; return this; }
 	/// <summary>The names of queries that matched the document. When `include_named_queries_score` is false (default), returns an array of query names. When true, returns an object mapping query names to their scores.</summary>
-		public HitDescriptor<TDocument> MatchedQueries(System.Text.Json.JsonElement? value) { _value.MatchedQueries = value; return this; }
+		public HitDescriptor<TDocument> MatchedQueries(MatchedQueries? value) { _value.MatchedQueries = value; return this; }
 	public HitDescriptor<TDocument> Nested(NestedIdentity? value) { _value.Nested = value; return this; }
 	public HitDescriptor<TDocument> Nested(Action<NestedIdentityDescriptor> configure)
 	{

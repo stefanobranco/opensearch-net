@@ -14,6 +14,7 @@ public sealed class DoubleRangeProperty
 	public int? IgnoreAbove { get; set; }
 	public string? Dynamic { get; set; }
 	public Dictionary<string, Property>? Fields { get; set; }
+	[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	public List<string>? CopyTo { get; set; }
 	public string? Similarity { get; set; }
 	public bool? Store { get; set; }

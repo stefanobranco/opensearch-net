@@ -41,5 +41,6 @@ public sealed class HighlightField
 	/// <summary>By default, only fields that contains a query match are highlighted. Set to `false` to highlight all fields.</summary>
 		public bool? RequireFieldMatch { get; set; }
 	public HighlighterTagsSchema? TagsSchema { get; set; }
+	[JsonConverter(typeof(SingleOrManyConverterFactory))]
 	public List<string>? MatchedFields { get; set; }
 }

@@ -9,6 +9,6 @@ namespace OpenSearch.Client;
 public sealed class GeoJSONData
 {
 	public GeoJSONDataType? Type { get; set; }
-	public System.Text.Json.JsonElement? Geometry { get; set; }
+	public Geometry? Geometry { get; set; }
 	public System.Text.Json.JsonElement? Properties { get; set; }
 }

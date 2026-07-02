@@ -188,6 +188,8 @@ public static class TemplateHelpers
 			// User-document fields (Hit<TDocument>.Source, UpdateRequest doc/upsert, ...) route
 			// through the source serializer — every generic-parameter field carries a user document.
 			f["is_source_document"] = field.Type.IsGenericParameter;
+			// Single-or-array wire forms mapped to List<T> need the tolerant read converter.
+			f["is_single_or_many"] = field.Type.IsSingleOrMany;
 			arr.Add(f);
 		}
 		return arr;

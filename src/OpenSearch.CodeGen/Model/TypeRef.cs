@@ -38,12 +38,19 @@ public sealed class TypeRef
 	public static TypeRef FieldPath() => new() { Kind = TypeRefKind.Primitive, Name = "Field", CSharpName = "string" };
 	public static TypeRef Void() => new() { Kind = TypeRefKind.Void, Name = "void", CSharpName = "void" };
 
-	public static TypeRef ListOf(TypeRef itemType) => new()
+	/// <summary>
+	/// Whether the wire form may be either a single item or an array (a spec single-or-array
+	/// union mapped to the list form). Read-side needs <c>SingleOrManyConverterFactory</c>.
+	/// </summary>
+	public bool IsSingleOrMany { get; init; }
+
+	public static TypeRef ListOf(TypeRef itemType, bool singleOrMany = false) => new()
 	{
 		Kind = TypeRefKind.List,
 		Name = $"List<{itemType.Name}>",
 		CSharpName = $"List<{itemType.CSharpName}>",
-		ItemType = itemType
+		ItemType = itemType,
+		IsSingleOrMany = singleOrMany
 	};
 
 	public static TypeRef DictOf(TypeRef keyType, TypeRef valueType) => new()
@@ -86,6 +93,7 @@ public sealed class TypeRef
 		ValueType = ValueType,
 		IsNullable = nullable,
 		IsEnum = IsEnum,
+		IsSingleOrMany = IsSingleOrMany,
 		Shape = Shape
 	};
 

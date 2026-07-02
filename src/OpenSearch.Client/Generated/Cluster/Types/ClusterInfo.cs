@@ -9,7 +9,7 @@ namespace OpenSearch.Client;
 public sealed class ClusterInfo
 {
 	public Dictionary<string, NodeDiskUsage>? Nodes { get; set; }
-	public Dictionary<string, System.Text.Json.JsonElement>? ShardSizes { get; set; }
+	public Dictionary<string, ByteSize>? ShardSizes { get; set; }
 	public Dictionary<string, string>? ShardDataSetSizes { get; set; }
 	public Dictionary<string, string>? ShardPaths { get; set; }
 	public List<ReservedSize>? ReservedSizes { get; set; }
