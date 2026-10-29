@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -69,8 +70,8 @@ public sealed class AwsSigV4HttpMessageHandler : DelegatingHandler
 	{
 		var immutableCredentials = await _credentials.GetCredentialsAsync().ConfigureAwait(false);
 		var now = DateTime.UtcNow;
-		var dateStamp = now.ToString("yyyyMMdd");
-		var amzDate = now.ToString("yyyyMMddTHHmmssZ");
+		var dateStamp = now.ToString("yyyyMMdd", CultureInfo.InvariantCulture);
+		var amzDate = now.ToString("yyyyMMddTHHmmssZ", CultureInfo.InvariantCulture);
 
 		byte[] bodyBytes = [];
 		if (request.Content is not null)
