@@ -41,7 +41,7 @@ public sealed class TrainModelKnnEndpoint : IEndpoint<TrainModelKnnRequest, Trai
 	public string RequestUrl(TrainModelKnnRequest r)
 	{
 		var path = r.ModelId is not null
-			? $"/_plugins/_knn/models/{Uri.EscapeDataString(r.ModelId!.ToString()!)}/_train" : true
+			? $"/_plugins/_knn/models/{Uri.EscapeDataString(r.ModelId!)}/_train" : true
 			? $"/_plugins/_knn/models/_train"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

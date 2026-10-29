@@ -30,8 +30,8 @@ public sealed class GetFeaturesetLtrEndpoint : IEndpoint<GetFeaturesetLtrRequest
 	public string RequestUrl(GetFeaturesetLtrRequest r)
 	{
 		var path = r.Store is not null && r.Id is not null
-			? $"/_ltr/{Uri.EscapeDataString(r.Store!.ToString()!)}/_featureset/{Uri.EscapeDataString(r.Id!.ToString()!)}" : r.Id is not null
-			? $"/_ltr/_featureset/{Uri.EscapeDataString(r.Id!.ToString()!)}"
+			? $"/_ltr/{Uri.EscapeDataString(r.Store!)}/_featureset/{Uri.EscapeDataString(r.Id!)}" : r.Id is not null
+			? $"/_ltr/_featureset/{Uri.EscapeDataString(r.Id!)}"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		return path;
 	}

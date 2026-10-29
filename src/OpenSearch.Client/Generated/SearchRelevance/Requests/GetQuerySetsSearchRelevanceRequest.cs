@@ -27,7 +27,7 @@ public sealed class GetQuerySetsSearchRelevanceEndpoint<TDocument> : IEndpoint<G
 	public string RequestUrl(GetQuerySetsSearchRelevanceRequest r)
 	{
 		var path = r.QuerySetId is not null
-			? $"/_plugins/_search_relevance/query_sets/{Uri.EscapeDataString(r.QuerySetId!.ToString()!)}" : true
+			? $"/_plugins/_search_relevance/query_sets/{Uri.EscapeDataString(r.QuerySetId!)}" : true
 			? $"/_plugins/_search_relevance/query_sets"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		return path;

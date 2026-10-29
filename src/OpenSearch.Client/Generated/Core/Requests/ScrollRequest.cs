@@ -31,12 +31,12 @@ public sealed class ScrollEndpoint<TDocument> : IEndpoint<ScrollRequest, ScrollR
 	public string RequestUrl(ScrollRequest r)
 	{
 		var path = r.ScrollId is not null
-			? $"/_search/scroll/{Uri.EscapeDataString(r.ScrollId!.ToString()!)}" : true
+			? $"/_search/scroll/{Uri.EscapeDataString(r.ScrollId!)}" : true
 			? $"/_search/scroll"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();
 		if (r.RestTotalHitsAsInt is not null)
-			queryParts.Add($"rest_total_hits_as_int={Uri.EscapeDataString((r.RestTotalHitsAsInt.Value ? "true" : "false"))}");
+			queryParts.Add($"rest_total_hits_as_int={Uri.EscapeDataString((r.RestTotalHitsAsInt!.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

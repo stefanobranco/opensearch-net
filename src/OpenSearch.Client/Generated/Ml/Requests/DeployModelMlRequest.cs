@@ -26,7 +26,7 @@ public sealed class DeployModelMlEndpoint : IEndpoint<DeployModelMlRequest, Depl
 
 	public string RequestUrl(DeployModelMlRequest r)
 	{
-		var path = $"/_plugins/_ml/models/{Uri.EscapeDataString(r.ModelId!.ToString()!)}/_deploy";
+		var path = $"/_plugins/_ml/models/{Uri.EscapeDataString(r.ModelId!)}/_deploy";
 		return path;
 	}
 

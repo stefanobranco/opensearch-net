@@ -44,7 +44,7 @@ public sealed class CreatePitEndpoint : IEndpoint<CreatePitRequest, CreatePitRes
 		var path = $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}/_search/point_in_time";
 		var queryParts = new List<string>();
 		if (r.AllowPartialPitCreation is not null)
-			queryParts.Add($"allow_partial_pit_creation={Uri.EscapeDataString((r.AllowPartialPitCreation.Value ? "true" : "false"))}");
+			queryParts.Add($"allow_partial_pit_creation={Uri.EscapeDataString((r.AllowPartialPitCreation!.Value ? "true" : "false"))}");
 		if (r.ExpandWildcards is not null)
 			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(string.Join(",", r.ExpandWildcards!))}");
 		if (r.KeepAlive is not null)

@@ -26,7 +26,7 @@ public sealed class GetTenantSecurityEndpoint : IEndpoint<GetTenantSecurityReque
 
 	public string RequestUrl(GetTenantSecurityRequest r)
 	{
-		var path = $"/_plugins/_security/api/tenants/{Uri.EscapeDataString(r.Tenant!.ToString()!)}";
+		var path = $"/_plugins/_security/api/tenants/{Uri.EscapeDataString(r.Tenant!)}";
 		return path;
 	}
 

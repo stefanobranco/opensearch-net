@@ -53,7 +53,7 @@ public sealed class CreateEndpoint : IEndpoint<CreateRequest, CreateResponse>
 
 	public string RequestUrl(CreateRequest r)
 	{
-		var path = $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_create/{Uri.EscapeDataString(r.Id!.ToString()!)}";
+		var path = $"/{Uri.EscapeDataString(r.Index!)}/_create/{Uri.EscapeDataString(r.Id!)}";
 		var queryParts = new List<string>();
 		if (r.Pipeline is not null)
 			queryParts.Add($"pipeline={Uri.EscapeDataString(r.Pipeline!)}");
@@ -64,7 +64,7 @@ public sealed class CreateEndpoint : IEndpoint<CreateRequest, CreateResponse>
 		if (r.Timeout is not null)
 			queryParts.Add($"timeout={Uri.EscapeDataString(r.Timeout!)}");
 		if (r.Version is not null)
-			queryParts.Add($"version={Uri.EscapeDataString(r.Version.ToString()!)}");
+			queryParts.Add($"version={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.Version!.Value))}");
 		if (r.VersionType is not null)
 			queryParts.Add($"version_type={Uri.EscapeDataString(r.VersionType!)}");
 		if (r.WaitForActiveShards is not null)

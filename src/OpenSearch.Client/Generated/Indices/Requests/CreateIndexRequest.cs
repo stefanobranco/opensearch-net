@@ -39,7 +39,7 @@ public sealed class CreateIndexEndpoint : IEndpoint<CreateIndexRequest, CreateIn
 
 	public string RequestUrl(CreateIndexRequest r)
 	{
-		var path = $"/{Uri.EscapeDataString(r.Index!.ToString()!)}";
+		var path = $"/{Uri.EscapeDataString(r.Index!)}";
 		var queryParts = new List<string>();
 		if (r.ClusterManagerTimeout is not null)
 			queryParts.Add($"cluster_manager_timeout={Uri.EscapeDataString(r.ClusterManagerTimeout!)}");

@@ -34,7 +34,7 @@ public sealed class ResumeIngestionEndpoint : IEndpoint<ResumeIngestionRequest, 
 
 	public string RequestUrl(ResumeIngestionRequest r)
 	{
-		var path = $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/ingestion/_resume";
+		var path = $"/{Uri.EscapeDataString(r.Index!)}/ingestion/_resume";
 		var queryParts = new List<string>();
 		if (r.ClusterManagerTimeout is not null)
 			queryParts.Add($"cluster_manager_timeout={Uri.EscapeDataString(r.ClusterManagerTimeout!)}");

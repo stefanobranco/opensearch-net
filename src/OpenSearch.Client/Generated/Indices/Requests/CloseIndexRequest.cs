@@ -47,13 +47,13 @@ public sealed class CloseIndexEndpoint : IEndpoint<CloseIndexRequest, CloseIndex
 		var path = $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}/_close";
 		var queryParts = new List<string>();
 		if (r.AllowNoIndices is not null)
-			queryParts.Add($"allow_no_indices={Uri.EscapeDataString((r.AllowNoIndices.Value ? "true" : "false"))}");
+			queryParts.Add($"allow_no_indices={Uri.EscapeDataString((r.AllowNoIndices!.Value ? "true" : "false"))}");
 		if (r.ClusterManagerTimeout is not null)
 			queryParts.Add($"cluster_manager_timeout={Uri.EscapeDataString(r.ClusterManagerTimeout!)}");
 		if (r.ExpandWildcards is not null)
 			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(string.Join(",", r.ExpandWildcards!))}");
 		if (r.IgnoreUnavailable is not null)
-			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable.Value ? "true" : "false"))}");
+			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable!.Value ? "true" : "false"))}");
 		if (r.Timeout is not null)
 			queryParts.Add($"timeout={Uri.EscapeDataString(r.Timeout!)}");
 		if (r.WaitForActiveShards is not null)

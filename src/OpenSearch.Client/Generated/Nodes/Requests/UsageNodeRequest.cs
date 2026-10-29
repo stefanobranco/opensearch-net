@@ -33,8 +33,8 @@ public sealed class UsageNodeEndpoint : IEndpoint<UsageNodeRequest, UsageNodeRes
 	public string RequestUrl(UsageNodeRequest r)
 	{
 		var path = r.NodeId is not null && r.Metric is not null
-			? $"/_nodes/{Uri.EscapeDataString(string.Join(",", r.NodeId!))}/usage/{Uri.EscapeDataString(string.Join(",", r.Metric!))}" : r.Metric is not null
-			? $"/_nodes/usage/{Uri.EscapeDataString(string.Join(",", r.Metric!))}" : r.NodeId is not null
+			? $"/_nodes/{Uri.EscapeDataString(string.Join(",", r.NodeId!))}/usage/{Uri.EscapeDataString(QueryParamSerializer.Serialize(r.Metric!))}" : r.Metric is not null
+			? $"/_nodes/usage/{Uri.EscapeDataString(QueryParamSerializer.Serialize(r.Metric!))}" : r.NodeId is not null
 			? $"/_nodes/{Uri.EscapeDataString(string.Join(",", r.NodeId!))}/usage" : true
 			? $"/_nodes/usage"
 			: throw new InvalidOperationException("No valid path for the given parameters.");

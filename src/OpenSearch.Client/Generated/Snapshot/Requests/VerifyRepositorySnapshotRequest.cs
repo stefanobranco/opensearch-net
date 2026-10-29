@@ -32,7 +32,7 @@ public sealed class VerifyRepositorySnapshotEndpoint : IEndpoint<VerifyRepositor
 
 	public string RequestUrl(VerifyRepositorySnapshotRequest r)
 	{
-		var path = $"/_snapshot/{Uri.EscapeDataString(r.Repository!.ToString()!)}/_verify";
+		var path = $"/_snapshot/{Uri.EscapeDataString(r.Repository!)}/_verify";
 		var queryParts = new List<string>();
 		if (r.ClusterManagerTimeout is not null)
 			queryParts.Add($"cluster_manager_timeout={Uri.EscapeDataString(r.ClusterManagerTimeout!)}");

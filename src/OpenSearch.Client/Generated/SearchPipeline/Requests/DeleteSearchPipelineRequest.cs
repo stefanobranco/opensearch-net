@@ -32,7 +32,7 @@ public sealed class DeleteSearchPipelineEndpoint : IEndpoint<DeleteSearchPipelin
 
 	public string RequestUrl(DeleteSearchPipelineRequest r)
 	{
-		var path = $"/_search/pipeline/{Uri.EscapeDataString(r.Id!.ToString()!)}";
+		var path = $"/_search/pipeline/{Uri.EscapeDataString(r.Id!)}";
 		var queryParts = new List<string>();
 		if (r.ClusterManagerTimeout is not null)
 			queryParts.Add($"cluster_manager_timeout={Uri.EscapeDataString(r.ClusterManagerTimeout!)}");

@@ -40,7 +40,7 @@ public sealed class GetRepositorySnapshotEndpoint : IEndpoint<GetRepositorySnaps
 		if (r.ClusterManagerTimeout is not null)
 			queryParts.Add($"cluster_manager_timeout={Uri.EscapeDataString(r.ClusterManagerTimeout!)}");
 		if (r.Local is not null)
-			queryParts.Add($"local={Uri.EscapeDataString((r.Local.Value ? "true" : "false"))}");
+			queryParts.Add($"local={Uri.EscapeDataString((r.Local!.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

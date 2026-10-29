@@ -32,7 +32,7 @@ public sealed class CreateActionGroupSecurityEndpoint : IEndpoint<CreateActionGr
 
 	public string RequestUrl(CreateActionGroupSecurityRequest r)
 	{
-		var path = $"/_plugins/_security/api/actiongroups/{Uri.EscapeDataString(r.ActionGroup!.ToString()!)}";
+		var path = $"/_plugins/_security/api/actiongroups/{Uri.EscapeDataString(r.ActionGroup!)}";
 		return path;
 	}
 

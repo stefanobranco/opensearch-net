@@ -26,7 +26,7 @@ public sealed class DeleteUserLegacySecurityEndpoint : IEndpoint<DeleteUserLegac
 
 	public string RequestUrl(DeleteUserLegacySecurityRequest r)
 	{
-		var path = $"/_plugins/_security/api/user/{Uri.EscapeDataString(r.Username!.ToString()!)}";
+		var path = $"/_plugins/_security/api/user/{Uri.EscapeDataString(r.Username!)}";
 		return path;
 	}
 

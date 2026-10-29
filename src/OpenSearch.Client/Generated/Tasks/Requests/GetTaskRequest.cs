@@ -32,12 +32,12 @@ public sealed class GetTaskEndpoint : IEndpoint<GetTaskRequest, GetTaskResponse>
 
 	public string RequestUrl(GetTaskRequest r)
 	{
-		var path = $"/_tasks/{Uri.EscapeDataString(r.TaskId!.ToString()!)}";
+		var path = $"/_tasks/{Uri.EscapeDataString(r.TaskId!)}";
 		var queryParts = new List<string>();
 		if (r.Timeout is not null)
 			queryParts.Add($"timeout={Uri.EscapeDataString(r.Timeout!)}");
 		if (r.WaitForCompletion is not null)
-			queryParts.Add($"wait_for_completion={Uri.EscapeDataString((r.WaitForCompletion.Value ? "true" : "false"))}");
+			queryParts.Add($"wait_for_completion={Uri.EscapeDataString((r.WaitForCompletion!.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

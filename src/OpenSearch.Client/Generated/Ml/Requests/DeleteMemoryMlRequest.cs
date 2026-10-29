@@ -26,7 +26,7 @@ public sealed class DeleteMemoryMlEndpoint : IEndpoint<DeleteMemoryMlRequest, De
 
 	public string RequestUrl(DeleteMemoryMlRequest r)
 	{
-		var path = $"/_plugins/_ml/memory/{Uri.EscapeDataString(r.MemoryId!.ToString()!)}";
+		var path = $"/_plugins/_ml/memory/{Uri.EscapeDataString(r.MemoryId!)}";
 		return path;
 	}
 

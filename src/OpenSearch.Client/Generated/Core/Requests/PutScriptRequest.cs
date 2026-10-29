@@ -37,8 +37,8 @@ public sealed class PutScriptEndpoint : IEndpoint<PutScriptRequest, PutScriptRes
 	public string RequestUrl(PutScriptRequest r)
 	{
 		var path = r.Id is not null && r.Context is not null
-			? $"/_scripts/{Uri.EscapeDataString(r.Id!.ToString()!)}/{Uri.EscapeDataString(r.Context!.ToString()!)}" : r.Id is not null
-			? $"/_scripts/{Uri.EscapeDataString(r.Id!.ToString()!)}"
+			? $"/_scripts/{Uri.EscapeDataString(r.Id!)}/{Uri.EscapeDataString(r.Context!)}" : r.Id is not null
+			? $"/_scripts/{Uri.EscapeDataString(r.Id!)}"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();
 		if (r.ClusterManagerTimeout is not null)

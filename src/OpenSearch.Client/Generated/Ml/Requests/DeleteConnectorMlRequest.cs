@@ -26,7 +26,7 @@ public sealed class DeleteConnectorMlEndpoint : IEndpoint<DeleteConnectorMlReque
 
 	public string RequestUrl(DeleteConnectorMlRequest r)
 	{
-		var path = $"/_plugins/_ml/connectors/{Uri.EscapeDataString(r.ConnectorId!.ToString()!)}";
+		var path = $"/_plugins/_ml/connectors/{Uri.EscapeDataString(r.ConnectorId!)}";
 		return path;
 	}
 

@@ -29,7 +29,7 @@ public sealed class UpdateMemoryContainerMlEndpoint : IEndpoint<UpdateMemoryCont
 
 	public string RequestUrl(UpdateMemoryContainerMlRequest r)
 	{
-		var path = $"/_plugins/_ml/memory_containers/{Uri.EscapeDataString(r.MemoryContainerId!.ToString()!)}";
+		var path = $"/_plugins/_ml/memory_containers/{Uri.EscapeDataString(r.MemoryContainerId!)}";
 		return path;
 	}
 

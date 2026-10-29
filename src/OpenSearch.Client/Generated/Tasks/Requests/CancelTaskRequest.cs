@@ -39,7 +39,7 @@ public sealed class CancelTaskEndpoint : IEndpoint<CancelTaskRequest, CancelTask
 	public string RequestUrl(CancelTaskRequest r)
 	{
 		var path = r.TaskId is not null
-			? $"/_tasks/{Uri.EscapeDataString(r.TaskId!.ToString()!)}/_cancel" : true
+			? $"/_tasks/{Uri.EscapeDataString(r.TaskId!)}/_cancel" : true
 			? $"/_tasks/_cancel"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();
@@ -50,7 +50,7 @@ public sealed class CancelTaskEndpoint : IEndpoint<CancelTaskRequest, CancelTask
 		if (r.ParentTaskId is not null)
 			queryParts.Add($"parent_task_id={Uri.EscapeDataString(r.ParentTaskId!)}");
 		if (r.WaitForCompletion is not null)
-			queryParts.Add($"wait_for_completion={Uri.EscapeDataString((r.WaitForCompletion.Value ? "true" : "false"))}");
+			queryParts.Add($"wait_for_completion={Uri.EscapeDataString((r.WaitForCompletion!.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

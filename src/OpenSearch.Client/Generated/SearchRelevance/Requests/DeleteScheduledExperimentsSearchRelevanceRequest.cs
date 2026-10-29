@@ -26,7 +26,7 @@ public sealed class DeleteScheduledExperimentsSearchRelevanceEndpoint : IEndpoin
 
 	public string RequestUrl(DeleteScheduledExperimentsSearchRelevanceRequest r)
 	{
-		var path = $"/_plugins/_search_relevance/experiments/schedule/{Uri.EscapeDataString(r.ExperimentId!.ToString()!)}";
+		var path = $"/_plugins/_search_relevance/experiments/schedule/{Uri.EscapeDataString(r.ExperimentId!)}";
 		return path;
 	}
 

@@ -29,7 +29,7 @@ public sealed class ProcessorGrokIngestEndpoint : IEndpoint<ProcessorGrokIngestR
 		var path = $"/_ingest/processor/grok";
 		var queryParts = new List<string>();
 		if (r.S is not null)
-			queryParts.Add($"s={Uri.EscapeDataString((r.S.Value ? "true" : "false"))}");
+			queryParts.Add($"s={Uri.EscapeDataString((r.S!.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

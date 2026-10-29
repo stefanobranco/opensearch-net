@@ -27,7 +27,7 @@ public sealed class PredictModelStreamMlEndpoint : IEndpoint<PredictModelStreamM
 
 	public string RequestUrl(PredictModelStreamMlRequest r)
 	{
-		var path = $"/_plugins/_ml/models/{Uri.EscapeDataString(r.ModelId!.ToString()!)}/_predict/stream";
+		var path = $"/_plugins/_ml/models/{Uri.EscapeDataString(r.ModelId!)}/_predict/stream";
 		return path;
 	}
 

@@ -35,10 +35,10 @@ public sealed class ImportDanglingIndexDanglingIndexEndpoint : IEndpoint<ImportD
 
 	public string RequestUrl(ImportDanglingIndexDanglingIndexRequest r)
 	{
-		var path = $"/_dangling/{Uri.EscapeDataString(r.IndexUuid!.ToString()!)}";
+		var path = $"/_dangling/{Uri.EscapeDataString(r.IndexUuid!)}";
 		var queryParts = new List<string>();
 		if (r.AcceptDataLoss is not null)
-			queryParts.Add($"accept_data_loss={Uri.EscapeDataString((r.AcceptDataLoss.Value ? "true" : "false"))}");
+			queryParts.Add($"accept_data_loss={Uri.EscapeDataString((r.AcceptDataLoss!.Value ? "true" : "false"))}");
 		if (r.ClusterManagerTimeout is not null)
 			queryParts.Add($"cluster_manager_timeout={Uri.EscapeDataString(r.ClusterManagerTimeout!)}");
 		if (r.Timeout is not null)

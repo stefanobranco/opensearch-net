@@ -27,7 +27,7 @@ public sealed class ClearCacheLtrEndpoint : IEndpoint<ClearCacheLtrRequest, Clea
 	public string RequestUrl(ClearCacheLtrRequest r)
 	{
 		var path = r.Store is not null
-			? $"/_ltr/{Uri.EscapeDataString(r.Store!.ToString()!)}/_clearcache" : true
+			? $"/_ltr/{Uri.EscapeDataString(r.Store!)}/_clearcache" : true
 			? $"/_ltr/_clearcache"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		return path;

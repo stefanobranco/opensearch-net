@@ -29,7 +29,7 @@ public sealed class PatchDistinguishedNameSecurityEndpoint : IEndpoint<PatchDist
 
 	public string RequestUrl(PatchDistinguishedNameSecurityRequest r)
 	{
-		var path = $"/_plugins/_security/api/nodesdn/{Uri.EscapeDataString(r.ClusterName!.ToString()!)}";
+		var path = $"/_plugins/_security/api/nodesdn/{Uri.EscapeDataString(r.ClusterName!)}";
 		return path;
 	}
 

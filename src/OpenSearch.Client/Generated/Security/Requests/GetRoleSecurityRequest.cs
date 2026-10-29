@@ -26,7 +26,7 @@ public sealed class GetRoleSecurityEndpoint : IEndpoint<GetRoleSecurityRequest, 
 
 	public string RequestUrl(GetRoleSecurityRequest r)
 	{
-		var path = $"/_plugins/_security/api/roles/{Uri.EscapeDataString(r.Role!.ToString()!)}";
+		var path = $"/_plugins/_security/api/roles/{Uri.EscapeDataString(r.Role!)}";
 		return path;
 	}
 

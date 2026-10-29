@@ -42,16 +42,16 @@ public sealed class AddFeaturesToSetByQueryLtrEndpoint : IEndpoint<AddFeaturesTo
 	public string RequestUrl(AddFeaturesToSetByQueryLtrRequest r)
 	{
 		var path = r.Store is not null && r.Name is not null && r.Query is not null
-			? $"/_ltr/{Uri.EscapeDataString(r.Store!.ToString()!)}/_featureset/{Uri.EscapeDataString(r.Name!.ToString()!)}/_addfeatures/{Uri.EscapeDataString(r.Query!.ToString()!)}" : r.Name is not null && r.Query is not null
-			? $"/_ltr/_featureset/{Uri.EscapeDataString(r.Name!.ToString()!)}/_addfeatures/{Uri.EscapeDataString(r.Query!.ToString()!)}"
+			? $"/_ltr/{Uri.EscapeDataString(r.Store!)}/_featureset/{Uri.EscapeDataString(r.Name!)}/_addfeatures/{Uri.EscapeDataString(r.Query!)}" : r.Name is not null && r.Query is not null
+			? $"/_ltr/_featureset/{Uri.EscapeDataString(r.Name!)}/_addfeatures/{Uri.EscapeDataString(r.Query!)}"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();
 		if (r.Merge is not null)
-			queryParts.Add($"merge={Uri.EscapeDataString((r.Merge.Value ? "true" : "false"))}");
+			queryParts.Add($"merge={Uri.EscapeDataString((r.Merge!.Value ? "true" : "false"))}");
 		if (r.Routing is not null)
 			queryParts.Add($"routing={Uri.EscapeDataString(r.Routing!)}");
 		if (r.Version is not null)
-			queryParts.Add($"version={Uri.EscapeDataString(r.Version.ToString()!)}");
+			queryParts.Add($"version={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.Version!.Value))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

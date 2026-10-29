@@ -30,7 +30,7 @@ public sealed class GetSearchPipelineEndpoint : IEndpoint<GetSearchPipelineReque
 	public string RequestUrl(GetSearchPipelineRequest r)
 	{
 		var path = r.Id is not null
-			? $"/_search/pipeline/{Uri.EscapeDataString(r.Id!.ToString()!)}" : true
+			? $"/_search/pipeline/{Uri.EscapeDataString(r.Id!)}" : true
 			? $"/_search/pipeline"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

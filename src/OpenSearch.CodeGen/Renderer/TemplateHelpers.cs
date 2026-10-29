@@ -221,26 +221,37 @@ public static class TemplateHelpers
 		return arr;
 	}
 
+	private static string ComputeQueryValueExpr(Field field) => ComputeUrlValueExpr(field, isNullable: true);
+
 	/// <summary>
-	/// Returns the C# expression to convert a query parameter value to a string
-	/// suitable for Uri.EscapeDataString. Handles enums, bools, and general types.
+	/// Returns the C# expression that renders a path or query value as URL text (before escaping).
+	/// Enums render their wire names and numbers format culture-invariantly via QueryParamSerializer.
 	/// </summary>
-	private static string ComputeQueryValueExpr(Field field)
+	private static string ComputeUrlValueExpr(Field field, bool isNullable)
 	{
-		if (field.Type.Name is "string" or "Field")
+		var type = field.Type;
+		var value = isNullable && (type.IsValueType || type.IsEnum) ? $"r.{field.Name}!.Value" : $"r.{field.Name}";
+
+		if (type.Kind == TypeRefKind.List)
+		{
+			if (type.ItemType is { IsEnum: true })
+				return $"QueryParamSerializer.Serialize(r.{field.Name}!)";
+			if (type.ItemType?.CSharpName == "string")
+				return $"string.Join(\",\", r.{field.Name}!)";
+			throw new InvalidOperationException(
+				$"No URL rendering for list parameter '{field.WireName}' of {type.CSharpName}.");
+		}
+
+		if (type.CSharpName == "string")
 			return $"r.{field.Name}!";
 
-		if (field.Type.Name == "bool")
-			return $"(r.{field.Name}.Value ? \"true\" : \"false\")";
+		if (type.Name == "bool")
+			return $"({value} ? \"true\" : \"false\")";
 
-		if (field.Type.IsEnum)
-			return $"QueryParamSerializer.Serialize(r.{field.Name}!.Value)";
+		if (type.IsEnum || type.Name is "int" or "long" or "float" or "double")
+			return $"QueryParamSerializer.Serialize({value})";
 
-		if (field.Type.Kind == Model.TypeRefKind.List)
-			return $"string.Join(\",\", r.{field.Name}!)";
-
-		// int, long, float, double, JsonElement, etc.
-		return $"r.{field.Name}.ToString()!";
+		return $"r.{field.Name}!.ToString()!";
 	}
 
 	/// <summary>
@@ -305,9 +316,8 @@ public static class TemplateHelpers
 			foreach (var pname in path.ParameterNames)
 			{
 				var csharpName = paramLookup.GetValueOrDefault(pname, NamingConventions.ToPascalCase(pname));
-				var isListParam = paramFieldLookup.TryGetValue(pname, out var paramField) && paramField.Type.Kind == TypeRefKind.List;
-				var valueExpr = isListParam
-					? "string.Join(\",\", r." + csharpName + "!)"
+				var valueExpr = paramFieldLookup.TryGetValue(pname, out var paramField)
+					? ComputeUrlValueExpr(paramField, ComputePropertyType(paramField).EndsWith('?'))
 					: "r." + csharpName + "!.ToString()!";
 				interpolated = interpolated.Replace(
 					"{" + pname + "}",

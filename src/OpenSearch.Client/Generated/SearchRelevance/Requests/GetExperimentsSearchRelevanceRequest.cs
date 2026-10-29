@@ -27,7 +27,7 @@ public sealed class GetExperimentsSearchRelevanceEndpoint<TDocument> : IEndpoint
 	public string RequestUrl(GetExperimentsSearchRelevanceRequest r)
 	{
 		var path = r.ExperimentId is not null
-			? $"/_plugins/_search_relevance/experiments/{Uri.EscapeDataString(r.ExperimentId!.ToString()!)}" : true
+			? $"/_plugins/_search_relevance/experiments/{Uri.EscapeDataString(r.ExperimentId!)}" : true
 			? $"/_plugins/_search_relevance/experiments"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		return path;

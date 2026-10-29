@@ -36,16 +36,16 @@ public sealed class GetComponentTemplateClusterEndpoint : IEndpoint<GetComponent
 	public string RequestUrl(GetComponentTemplateClusterRequest r)
 	{
 		var path = r.Name is not null
-			? $"/_component_template/{Uri.EscapeDataString(r.Name!.ToString()!)}" : true
+			? $"/_component_template/{Uri.EscapeDataString(r.Name!)}" : true
 			? $"/_component_template"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();
 		if (r.ClusterManagerTimeout is not null)
 			queryParts.Add($"cluster_manager_timeout={Uri.EscapeDataString(r.ClusterManagerTimeout!)}");
 		if (r.FlatSettings is not null)
-			queryParts.Add($"flat_settings={Uri.EscapeDataString((r.FlatSettings.Value ? "true" : "false"))}");
+			queryParts.Add($"flat_settings={Uri.EscapeDataString((r.FlatSettings!.Value ? "true" : "false"))}");
 		if (r.Local is not null)
-			queryParts.Add($"local={Uri.EscapeDataString((r.Local.Value ? "true" : "false"))}");
+			queryParts.Add($"local={Uri.EscapeDataString((r.Local!.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

@@ -26,7 +26,7 @@ public sealed class GetPolicyIsmEndpoint : IEndpoint<GetPolicyIsmRequest, GetPol
 
 	public string RequestUrl(GetPolicyIsmRequest r)
 	{
-		var path = $"/_plugins/_ism/policies/{Uri.EscapeDataString(r.PolicyId!.ToString()!)}";
+		var path = $"/_plugins/_ism/policies/{Uri.EscapeDataString(r.PolicyId!)}";
 		return path;
 	}
 

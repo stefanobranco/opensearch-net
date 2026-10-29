@@ -26,7 +26,7 @@ public sealed class DeleteModelKnnEndpoint : IEndpoint<DeleteModelKnnRequest, De
 
 	public string RequestUrl(DeleteModelKnnRequest r)
 	{
-		var path = $"/_plugins/_knn/models/{Uri.EscapeDataString(r.ModelId!.ToString()!)}";
+		var path = $"/_plugins/_knn/models/{Uri.EscapeDataString(r.ModelId!)}";
 		return path;
 	}
 

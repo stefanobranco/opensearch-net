@@ -29,7 +29,7 @@ public sealed class PatchRoleSecurityEndpoint : IEndpoint<PatchRoleSecurityReque
 
 	public string RequestUrl(PatchRoleSecurityRequest r)
 	{
-		var path = $"/_plugins/_security/api/roles/{Uri.EscapeDataString(r.Role!.ToString()!)}";
+		var path = $"/_plugins/_security/api/roles/{Uri.EscapeDataString(r.Role!)}";
 		return path;
 	}
 

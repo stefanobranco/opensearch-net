@@ -26,7 +26,7 @@ public sealed class DeleteTaskMlEndpoint : IEndpoint<DeleteTaskMlRequest, Delete
 
 	public string RequestUrl(DeleteTaskMlRequest r)
 	{
-		var path = $"/_plugins/_ml/tasks/{Uri.EscapeDataString(r.TaskId!.ToString()!)}";
+		var path = $"/_plugins/_ml/tasks/{Uri.EscapeDataString(r.TaskId!)}";
 		return path;
 	}
 

@@ -26,7 +26,7 @@ public sealed class DeleteActionGroupSecurityEndpoint : IEndpoint<DeleteActionGr
 
 	public string RequestUrl(DeleteActionGroupSecurityRequest r)
 	{
-		var path = $"/_plugins/_security/api/actiongroups/{Uri.EscapeDataString(r.ActionGroup!.ToString()!)}";
+		var path = $"/_plugins/_security/api/actiongroups/{Uri.EscapeDataString(r.ActionGroup!)}";
 		return path;
 	}
 

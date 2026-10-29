@@ -26,7 +26,7 @@ public sealed class LoadModelMlEndpoint : IEndpoint<LoadModelMlRequest, LoadMode
 
 	public string RequestUrl(LoadModelMlRequest r)
 	{
-		var path = $"/_plugins/_ml/models/{Uri.EscapeDataString(r.ModelId!.ToString()!)}/_load";
+		var path = $"/_plugins/_ml/models/{Uri.EscapeDataString(r.ModelId!)}/_load";
 		return path;
 	}
 

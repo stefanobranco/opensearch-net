@@ -26,7 +26,7 @@ public sealed class DeleteQuerySetsSearchRelevanceEndpoint : IEndpoint<DeleteQue
 
 	public string RequestUrl(DeleteQuerySetsSearchRelevanceRequest r)
 	{
-		var path = $"/_plugins/_search_relevance/query_sets/{Uri.EscapeDataString(r.QuerySetId!.ToString()!)}";
+		var path = $"/_plugins/_search_relevance/query_sets/{Uri.EscapeDataString(r.QuerySetId!)}";
 		return path;
 	}
 

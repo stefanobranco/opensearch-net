@@ -29,10 +29,10 @@ public sealed class GetDistinguishedNameSecurityEndpoint : IEndpoint<GetDistingu
 
 	public string RequestUrl(GetDistinguishedNameSecurityRequest r)
 	{
-		var path = $"/_plugins/_security/api/nodesdn/{Uri.EscapeDataString(r.ClusterName!.ToString()!)}";
+		var path = $"/_plugins/_security/api/nodesdn/{Uri.EscapeDataString(r.ClusterName!)}";
 		var queryParts = new List<string>();
 		if (r.ShowAll is not null)
-			queryParts.Add($"show_all={Uri.EscapeDataString((r.ShowAll.Value ? "true" : "false"))}");
+			queryParts.Add($"show_all={Uri.EscapeDataString((r.ShowAll!.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

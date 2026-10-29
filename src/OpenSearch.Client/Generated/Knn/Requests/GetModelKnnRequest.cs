@@ -26,7 +26,7 @@ public sealed class GetModelKnnEndpoint : IEndpoint<GetModelKnnRequest, GetModel
 
 	public string RequestUrl(GetModelKnnRequest r)
 	{
-		var path = $"/_plugins/_knn/models/{Uri.EscapeDataString(r.ModelId!.ToString()!)}";
+		var path = $"/_plugins/_knn/models/{Uri.EscapeDataString(r.ModelId!)}";
 		return path;
 	}
 

@@ -31,7 +31,7 @@ public sealed class ChunkModelMlEndpoint : IEndpoint<ChunkModelMlRequest, ChunkM
 
 	public string RequestUrl(ChunkModelMlRequest r)
 	{
-		var path = $"/_plugins/_ml/models/{Uri.EscapeDataString(r.ModelId!.ToString()!)}/chunk/{Uri.EscapeDataString(r.ChunkNumber!.ToString()!)}";
+		var path = $"/_plugins/_ml/models/{Uri.EscapeDataString(r.ModelId!)}/chunk/{Uri.EscapeDataString(QueryParamSerializer.Serialize(r.ChunkNumber))}";
 		return path;
 	}
 

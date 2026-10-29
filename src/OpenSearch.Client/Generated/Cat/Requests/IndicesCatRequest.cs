@@ -85,19 +85,19 @@ public sealed class IndicesCatEndpoint : IEndpoint<IndicesCatRequest, IndicesCat
 		if (r.Health is not null)
 			queryParts.Add($"health={Uri.EscapeDataString(r.Health!)}");
 		if (r.Help is not null)
-			queryParts.Add($"help={Uri.EscapeDataString((r.Help.Value ? "true" : "false"))}");
+			queryParts.Add($"help={Uri.EscapeDataString((r.Help!.Value ? "true" : "false"))}");
 		if (r.IncludeUnloadedSegments is not null)
-			queryParts.Add($"include_unloaded_segments={Uri.EscapeDataString((r.IncludeUnloadedSegments.Value ? "true" : "false"))}");
+			queryParts.Add($"include_unloaded_segments={Uri.EscapeDataString((r.IncludeUnloadedSegments!.Value ? "true" : "false"))}");
 		if (r.Local is not null)
-			queryParts.Add($"local={Uri.EscapeDataString((r.Local.Value ? "true" : "false"))}");
+			queryParts.Add($"local={Uri.EscapeDataString((r.Local!.Value ? "true" : "false"))}");
 		if (r.Pri is not null)
-			queryParts.Add($"pri={Uri.EscapeDataString((r.Pri.Value ? "true" : "false"))}");
+			queryParts.Add($"pri={Uri.EscapeDataString((r.Pri!.Value ? "true" : "false"))}");
 		if (r.S is not null)
 			queryParts.Add($"s={Uri.EscapeDataString(string.Join(",", r.S!))}");
 		if (r.Time is not null)
 			queryParts.Add($"time={Uri.EscapeDataString(r.Time!)}");
 		if (r.V is not null)
-			queryParts.Add($"v={Uri.EscapeDataString((r.V.Value ? "true" : "false"))}");
+			queryParts.Add($"v={Uri.EscapeDataString((r.V!.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

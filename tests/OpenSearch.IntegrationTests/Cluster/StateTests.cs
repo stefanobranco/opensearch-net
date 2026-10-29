@@ -15,4 +15,13 @@ public class StateTests : IntegrationTestBase
 		response.ExtensionData!.Should().ContainKey("cluster_name");
 		response.ExtensionData.Should().ContainKey("nodes");
 	}
+
+	[SkipIfNoCluster]
+	public void ClusterStateFiltersByMetric()
+	{
+		var response = Client.Cluster.State(new StateClusterRequest { Metric = [ClusterStateMetric.Metadata] });
+
+		response.ExtensionData.Should().ContainKey("metadata");
+		response.ExtensionData.Should().NotContainKey("nodes");
+	}
 }

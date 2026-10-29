@@ -29,7 +29,7 @@ public sealed class UndeployModelMlEndpoint : IEndpoint<UndeployModelMlRequest, 
 	public string RequestUrl(UndeployModelMlRequest r)
 	{
 		var path = r.ModelId is not null
-			? $"/_plugins/_ml/models/{Uri.EscapeDataString(r.ModelId!.ToString()!)}/_undeploy" : true
+			? $"/_plugins/_ml/models/{Uri.EscapeDataString(r.ModelId!)}/_undeploy" : true
 			? $"/_plugins/_ml/models/_undeploy"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		return path;

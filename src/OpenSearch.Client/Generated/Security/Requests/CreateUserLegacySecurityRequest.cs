@@ -35,7 +35,7 @@ public sealed class CreateUserLegacySecurityEndpoint : IEndpoint<CreateUserLegac
 
 	public string RequestUrl(CreateUserLegacySecurityRequest r)
 	{
-		var path = $"/_plugins/_security/api/user/{Uri.EscapeDataString(r.Username!.ToString()!)}";
+		var path = $"/_plugins/_security/api/user/{Uri.EscapeDataString(r.Username!)}";
 		return path;
 	}
 

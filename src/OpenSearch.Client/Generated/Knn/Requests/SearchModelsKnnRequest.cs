@@ -161,17 +161,17 @@ public sealed class SearchModelsKnnEndpoint : IEndpoint<SearchModelsKnnRequest, 
 		if (r.SourceIncludes is not null)
 			queryParts.Add($"_source_includes={Uri.EscapeDataString(string.Join(",", r.SourceIncludes!))}");
 		if (r.AllowNoIndices is not null)
-			queryParts.Add($"allow_no_indices={Uri.EscapeDataString((r.AllowNoIndices.Value ? "true" : "false"))}");
+			queryParts.Add($"allow_no_indices={Uri.EscapeDataString((r.AllowNoIndices!.Value ? "true" : "false"))}");
 		if (r.AllowPartialSearchResults is not null)
-			queryParts.Add($"allow_partial_search_results={Uri.EscapeDataString((r.AllowPartialSearchResults.Value ? "true" : "false"))}");
+			queryParts.Add($"allow_partial_search_results={Uri.EscapeDataString((r.AllowPartialSearchResults!.Value ? "true" : "false"))}");
 		if (r.AnalyzeWildcard is not null)
-			queryParts.Add($"analyze_wildcard={Uri.EscapeDataString((r.AnalyzeWildcard.Value ? "true" : "false"))}");
+			queryParts.Add($"analyze_wildcard={Uri.EscapeDataString((r.AnalyzeWildcard!.Value ? "true" : "false"))}");
 		if (r.Analyzer is not null)
 			queryParts.Add($"analyzer={Uri.EscapeDataString(r.Analyzer!)}");
 		if (r.BatchedReduceSize is not null)
-			queryParts.Add($"batched_reduce_size={Uri.EscapeDataString(r.BatchedReduceSize.ToString()!)}");
+			queryParts.Add($"batched_reduce_size={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.BatchedReduceSize!.Value))}");
 		if (r.CcsMinimizeRoundtrips is not null)
-			queryParts.Add($"ccs_minimize_roundtrips={Uri.EscapeDataString((r.CcsMinimizeRoundtrips.Value ? "true" : "false"))}");
+			queryParts.Add($"ccs_minimize_roundtrips={Uri.EscapeDataString((r.CcsMinimizeRoundtrips!.Value ? "true" : "false"))}");
 		if (r.DefaultOperator is not null)
 			queryParts.Add($"default_operator={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.DefaultOperator!.Value))}");
 		if (r.Df is not null)
@@ -181,27 +181,27 @@ public sealed class SearchModelsKnnEndpoint : IEndpoint<SearchModelsKnnRequest, 
 		if (r.ExpandWildcards is not null)
 			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(string.Join(",", r.ExpandWildcards!))}");
 		if (r.Explain is not null)
-			queryParts.Add($"explain={Uri.EscapeDataString((r.Explain.Value ? "true" : "false"))}");
+			queryParts.Add($"explain={Uri.EscapeDataString((r.Explain!.Value ? "true" : "false"))}");
 		if (r.From is not null)
-			queryParts.Add($"from={Uri.EscapeDataString(r.From.ToString()!)}");
+			queryParts.Add($"from={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.From!.Value))}");
 		if (r.IgnoreThrottled is not null)
-			queryParts.Add($"ignore_throttled={Uri.EscapeDataString((r.IgnoreThrottled.Value ? "true" : "false"))}");
+			queryParts.Add($"ignore_throttled={Uri.EscapeDataString((r.IgnoreThrottled!.Value ? "true" : "false"))}");
 		if (r.IgnoreUnavailable is not null)
-			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable.Value ? "true" : "false"))}");
+			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable!.Value ? "true" : "false"))}");
 		if (r.Lenient is not null)
-			queryParts.Add($"lenient={Uri.EscapeDataString((r.Lenient.Value ? "true" : "false"))}");
+			queryParts.Add($"lenient={Uri.EscapeDataString((r.Lenient!.Value ? "true" : "false"))}");
 		if (r.MaxConcurrentShardRequests is not null)
-			queryParts.Add($"max_concurrent_shard_requests={Uri.EscapeDataString(r.MaxConcurrentShardRequests.ToString()!)}");
+			queryParts.Add($"max_concurrent_shard_requests={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.MaxConcurrentShardRequests!.Value))}");
 		if (r.PreFilterShardSize is not null)
-			queryParts.Add($"pre_filter_shard_size={Uri.EscapeDataString(r.PreFilterShardSize.ToString()!)}");
+			queryParts.Add($"pre_filter_shard_size={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.PreFilterShardSize!.Value))}");
 		if (r.Preference is not null)
 			queryParts.Add($"preference={Uri.EscapeDataString(r.Preference!)}");
 		if (r.Q is not null)
 			queryParts.Add($"q={Uri.EscapeDataString(r.Q!)}");
 		if (r.RequestCache is not null)
-			queryParts.Add($"request_cache={Uri.EscapeDataString((r.RequestCache.Value ? "true" : "false"))}");
+			queryParts.Add($"request_cache={Uri.EscapeDataString((r.RequestCache!.Value ? "true" : "false"))}");
 		if (r.RestTotalHitsAsInt is not null)
-			queryParts.Add($"rest_total_hits_as_int={Uri.EscapeDataString((r.RestTotalHitsAsInt.Value ? "true" : "false"))}");
+			queryParts.Add($"rest_total_hits_as_int={Uri.EscapeDataString((r.RestTotalHitsAsInt!.Value ? "true" : "false"))}");
 		if (r.Routing is not null)
 			queryParts.Add($"routing={Uri.EscapeDataString(string.Join(",", r.Routing!))}");
 		if (r.Scroll is not null)
@@ -209,9 +209,9 @@ public sealed class SearchModelsKnnEndpoint : IEndpoint<SearchModelsKnnRequest, 
 		if (r.SearchType is not null)
 			queryParts.Add($"search_type={Uri.EscapeDataString(r.SearchType!)}");
 		if (r.SeqNoPrimaryTerm is not null)
-			queryParts.Add($"seq_no_primary_term={Uri.EscapeDataString((r.SeqNoPrimaryTerm.Value ? "true" : "false"))}");
+			queryParts.Add($"seq_no_primary_term={Uri.EscapeDataString((r.SeqNoPrimaryTerm!.Value ? "true" : "false"))}");
 		if (r.Size is not null)
-			queryParts.Add($"size={Uri.EscapeDataString(r.Size.ToString()!)}");
+			queryParts.Add($"size={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.Size!.Value))}");
 		if (r.Sort is not null)
 			queryParts.Add($"sort={Uri.EscapeDataString(string.Join(",", r.Sort!))}");
 		if (r.Stats is not null)
@@ -223,21 +223,21 @@ public sealed class SearchModelsKnnEndpoint : IEndpoint<SearchModelsKnnRequest, 
 		if (r.SuggestMode is not null)
 			queryParts.Add($"suggest_mode={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.SuggestMode!.Value))}");
 		if (r.SuggestSize is not null)
-			queryParts.Add($"suggest_size={Uri.EscapeDataString(r.SuggestSize.ToString()!)}");
+			queryParts.Add($"suggest_size={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.SuggestSize!.Value))}");
 		if (r.SuggestText is not null)
 			queryParts.Add($"suggest_text={Uri.EscapeDataString(r.SuggestText!)}");
 		if (r.TerminateAfter is not null)
-			queryParts.Add($"terminate_after={Uri.EscapeDataString(r.TerminateAfter.ToString()!)}");
+			queryParts.Add($"terminate_after={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.TerminateAfter!.Value))}");
 		if (r.Timeout is not null)
 			queryParts.Add($"timeout={Uri.EscapeDataString(r.Timeout!)}");
 		if (r.TrackScores is not null)
-			queryParts.Add($"track_scores={Uri.EscapeDataString((r.TrackScores.Value ? "true" : "false"))}");
+			queryParts.Add($"track_scores={Uri.EscapeDataString((r.TrackScores!.Value ? "true" : "false"))}");
 		if (r.TrackTotalHits is not null)
-			queryParts.Add($"track_total_hits={Uri.EscapeDataString((r.TrackTotalHits.Value ? "true" : "false"))}");
+			queryParts.Add($"track_total_hits={Uri.EscapeDataString((r.TrackTotalHits!.Value ? "true" : "false"))}");
 		if (r.TypedKeys is not null)
-			queryParts.Add($"typed_keys={Uri.EscapeDataString((r.TypedKeys.Value ? "true" : "false"))}");
+			queryParts.Add($"typed_keys={Uri.EscapeDataString((r.TypedKeys!.Value ? "true" : "false"))}");
 		if (r.Version is not null)
-			queryParts.Add($"version={Uri.EscapeDataString((r.Version.Value ? "true" : "false"))}");
+			queryParts.Add($"version={Uri.EscapeDataString((r.Version!.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

@@ -75,9 +75,9 @@ public sealed class CountEndpoint : IEndpoint<CountRequest, CountResponse>
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();
 		if (r.AllowNoIndices is not null)
-			queryParts.Add($"allow_no_indices={Uri.EscapeDataString((r.AllowNoIndices.Value ? "true" : "false"))}");
+			queryParts.Add($"allow_no_indices={Uri.EscapeDataString((r.AllowNoIndices!.Value ? "true" : "false"))}");
 		if (r.AnalyzeWildcard is not null)
-			queryParts.Add($"analyze_wildcard={Uri.EscapeDataString((r.AnalyzeWildcard.Value ? "true" : "false"))}");
+			queryParts.Add($"analyze_wildcard={Uri.EscapeDataString((r.AnalyzeWildcard!.Value ? "true" : "false"))}");
 		if (r.Analyzer is not null)
 			queryParts.Add($"analyzer={Uri.EscapeDataString(r.Analyzer!)}");
 		if (r.DefaultOperator is not null)
@@ -87,13 +87,13 @@ public sealed class CountEndpoint : IEndpoint<CountRequest, CountResponse>
 		if (r.ExpandWildcards is not null)
 			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(string.Join(",", r.ExpandWildcards!))}");
 		if (r.IgnoreThrottled is not null)
-			queryParts.Add($"ignore_throttled={Uri.EscapeDataString((r.IgnoreThrottled.Value ? "true" : "false"))}");
+			queryParts.Add($"ignore_throttled={Uri.EscapeDataString((r.IgnoreThrottled!.Value ? "true" : "false"))}");
 		if (r.IgnoreUnavailable is not null)
-			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable.Value ? "true" : "false"))}");
+			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable!.Value ? "true" : "false"))}");
 		if (r.Lenient is not null)
-			queryParts.Add($"lenient={Uri.EscapeDataString((r.Lenient.Value ? "true" : "false"))}");
+			queryParts.Add($"lenient={Uri.EscapeDataString((r.Lenient!.Value ? "true" : "false"))}");
 		if (r.MinScore is not null)
-			queryParts.Add($"min_score={Uri.EscapeDataString(r.MinScore.ToString()!)}");
+			queryParts.Add($"min_score={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.MinScore!.Value))}");
 		if (r.Preference is not null)
 			queryParts.Add($"preference={Uri.EscapeDataString(r.Preference!)}");
 		if (r.Q is not null)
@@ -101,7 +101,7 @@ public sealed class CountEndpoint : IEndpoint<CountRequest, CountResponse>
 		if (r.Routing is not null)
 			queryParts.Add($"routing={Uri.EscapeDataString(string.Join(",", r.Routing!))}");
 		if (r.TerminateAfter is not null)
-			queryParts.Add($"terminate_after={Uri.EscapeDataString(r.TerminateAfter.ToString()!)}");
+			queryParts.Add($"terminate_after={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.TerminateAfter!.Value))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

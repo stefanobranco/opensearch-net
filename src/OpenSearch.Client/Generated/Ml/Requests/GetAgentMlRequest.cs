@@ -26,7 +26,7 @@ public sealed class GetAgentMlEndpoint : IEndpoint<GetAgentMlRequest, GetAgentMl
 
 	public string RequestUrl(GetAgentMlRequest r)
 	{
-		var path = $"/_plugins/_ml/agents/{Uri.EscapeDataString(r.AgentId!.ToString()!)}";
+		var path = $"/_plugins/_ml/agents/{Uri.EscapeDataString(r.AgentId!)}";
 		return path;
 	}
 

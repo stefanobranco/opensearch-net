@@ -26,7 +26,7 @@ public sealed class DeleteIp2geoDatasourceGeospatialEndpoint : IEndpoint<DeleteI
 
 	public string RequestUrl(DeleteIp2geoDatasourceGeospatialRequest r)
 	{
-		var path = $"/_plugins/geospatial/ip2geo/datasource/{Uri.EscapeDataString(r.Name!.ToString()!)}";
+		var path = $"/_plugins/geospatial/ip2geo/datasource/{Uri.EscapeDataString(r.Name!)}";
 		return path;
 	}
 

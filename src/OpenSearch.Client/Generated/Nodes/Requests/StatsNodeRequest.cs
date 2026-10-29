@@ -57,10 +57,10 @@ public sealed class StatsNodeEndpoint : IEndpoint<StatsNodeRequest, StatsNodeRes
 	public string RequestUrl(StatsNodeRequest r)
 	{
 		var path = r.NodeId is not null && r.Metric is not null && r.IndexMetric is not null
-			? $"/_nodes/{Uri.EscapeDataString(string.Join(",", r.NodeId!))}/stats/{Uri.EscapeDataString(string.Join(",", r.Metric!))}/{Uri.EscapeDataString(string.Join(",", r.IndexMetric!))}" : r.Metric is not null && r.IndexMetric is not null
-			? $"/_nodes/stats/{Uri.EscapeDataString(string.Join(",", r.Metric!))}/{Uri.EscapeDataString(string.Join(",", r.IndexMetric!))}" : r.NodeId is not null && r.Metric is not null
-			? $"/_nodes/{Uri.EscapeDataString(string.Join(",", r.NodeId!))}/stats/{Uri.EscapeDataString(string.Join(",", r.Metric!))}" : r.Metric is not null
-			? $"/_nodes/stats/{Uri.EscapeDataString(string.Join(",", r.Metric!))}" : r.NodeId is not null
+			? $"/_nodes/{Uri.EscapeDataString(string.Join(",", r.NodeId!))}/stats/{Uri.EscapeDataString(QueryParamSerializer.Serialize(r.Metric!))}/{Uri.EscapeDataString(QueryParamSerializer.Serialize(r.IndexMetric!))}" : r.Metric is not null && r.IndexMetric is not null
+			? $"/_nodes/stats/{Uri.EscapeDataString(QueryParamSerializer.Serialize(r.Metric!))}/{Uri.EscapeDataString(QueryParamSerializer.Serialize(r.IndexMetric!))}" : r.NodeId is not null && r.Metric is not null
+			? $"/_nodes/{Uri.EscapeDataString(string.Join(",", r.NodeId!))}/stats/{Uri.EscapeDataString(QueryParamSerializer.Serialize(r.Metric!))}" : r.Metric is not null
+			? $"/_nodes/stats/{Uri.EscapeDataString(QueryParamSerializer.Serialize(r.Metric!))}" : r.NodeId is not null
 			? $"/_nodes/{Uri.EscapeDataString(string.Join(",", r.NodeId!))}/stats" : true
 			? $"/_nodes/stats"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
@@ -74,7 +74,7 @@ public sealed class StatsNodeEndpoint : IEndpoint<StatsNodeRequest, StatsNodeRes
 		if (r.Groups is not null)
 			queryParts.Add($"groups={Uri.EscapeDataString(string.Join(",", r.Groups!))}");
 		if (r.IncludeSegmentFileSizes is not null)
-			queryParts.Add($"include_segment_file_sizes={Uri.EscapeDataString((r.IncludeSegmentFileSizes.Value ? "true" : "false"))}");
+			queryParts.Add($"include_segment_file_sizes={Uri.EscapeDataString((r.IncludeSegmentFileSizes!.Value ? "true" : "false"))}");
 		if (r.Level is not null)
 			queryParts.Add($"level={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.Level!.Value))}");
 		if (r.Timeout is not null)

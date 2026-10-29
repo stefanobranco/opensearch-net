@@ -26,7 +26,7 @@ public sealed class DeleteControllerMlEndpoint : IEndpoint<DeleteControllerMlReq
 
 	public string RequestUrl(DeleteControllerMlRequest r)
 	{
-		var path = $"/_plugins/_ml/controllers/{Uri.EscapeDataString(r.ModelId!.ToString()!)}";
+		var path = $"/_plugins/_ml/controllers/{Uri.EscapeDataString(r.ModelId!)}";
 		return path;
 	}
 

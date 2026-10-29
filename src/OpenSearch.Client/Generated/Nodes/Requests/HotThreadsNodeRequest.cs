@@ -50,13 +50,13 @@ public sealed class HotThreadsNodeEndpoint : IEndpoint<HotThreadsNodeRequest, Ho
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();
 		if (r.IgnoreIdleThreads is not null)
-			queryParts.Add($"ignore_idle_threads={Uri.EscapeDataString((r.IgnoreIdleThreads.Value ? "true" : "false"))}");
+			queryParts.Add($"ignore_idle_threads={Uri.EscapeDataString((r.IgnoreIdleThreads!.Value ? "true" : "false"))}");
 		if (r.Interval is not null)
 			queryParts.Add($"interval={Uri.EscapeDataString(r.Interval!)}");
 		if (r.Snapshots is not null)
-			queryParts.Add($"snapshots={Uri.EscapeDataString(r.Snapshots.ToString()!)}");
+			queryParts.Add($"snapshots={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.Snapshots!.Value))}");
 		if (r.Threads is not null)
-			queryParts.Add($"threads={Uri.EscapeDataString(r.Threads.ToString()!)}");
+			queryParts.Add($"threads={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.Threads!.Value))}");
 		if (r.Timeout is not null)
 			queryParts.Add($"timeout={Uri.EscapeDataString(r.Timeout!)}");
 		if (r.Type is not null)

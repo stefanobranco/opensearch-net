@@ -26,7 +26,7 @@ public sealed class GetToolMlEndpoint : IEndpoint<GetToolMlRequest, GetToolMlRes
 
 	public string RequestUrl(GetToolMlRequest r)
 	{
-		var path = $"/_plugins/_ml/tools/{Uri.EscapeDataString(r.ToolName!.ToString()!)}";
+		var path = $"/_plugins/_ml/tools/{Uri.EscapeDataString(QueryParamSerializer.Serialize(r.ToolName!.Value))}";
 		return path;
 	}
 

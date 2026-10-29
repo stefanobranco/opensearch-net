@@ -32,7 +32,7 @@ public sealed class CleanupRepositorySnapshotEndpoint : IEndpoint<CleanupReposit
 
 	public string RequestUrl(CleanupRepositorySnapshotRequest r)
 	{
-		var path = $"/_snapshot/{Uri.EscapeDataString(r.Repository!.ToString()!)}/_cleanup";
+		var path = $"/_snapshot/{Uri.EscapeDataString(r.Repository!)}/_cleanup";
 		var queryParts = new List<string>();
 		if (r.ClusterManagerTimeout is not null)
 			queryParts.Add($"cluster_manager_timeout={Uri.EscapeDataString(r.ClusterManagerTimeout!)}");

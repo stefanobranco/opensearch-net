@@ -30,7 +30,7 @@ public sealed class PutIp2geoDatasourceSettingsGeospatialEndpoint : IEndpoint<Pu
 
 	public string RequestUrl(PutIp2geoDatasourceSettingsGeospatialRequest r)
 	{
-		var path = $"/_plugins/geospatial/ip2geo/datasource/{Uri.EscapeDataString(r.Name!.ToString()!)}/_settings";
+		var path = $"/_plugins/geospatial/ip2geo/datasource/{Uri.EscapeDataString(r.Name!)}/_settings";
 		return path;
 	}
 

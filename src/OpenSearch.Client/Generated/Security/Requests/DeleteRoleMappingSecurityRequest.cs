@@ -26,7 +26,7 @@ public sealed class DeleteRoleMappingSecurityEndpoint : IEndpoint<DeleteRoleMapp
 
 	public string RequestUrl(DeleteRoleMappingSecurityRequest r)
 	{
-		var path = $"/_plugins/_security/api/rolesmapping/{Uri.EscapeDataString(r.Role!.ToString()!)}";
+		var path = $"/_plugins/_security/api/rolesmapping/{Uri.EscapeDataString(r.Role!)}";
 		return path;
 	}
 

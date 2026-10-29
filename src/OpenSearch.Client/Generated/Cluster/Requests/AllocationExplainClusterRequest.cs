@@ -39,9 +39,9 @@ public sealed class AllocationExplainClusterEndpoint : IEndpoint<AllocationExpla
 		var path = $"/_cluster/allocation/explain";
 		var queryParts = new List<string>();
 		if (r.IncludeDiskInfo is not null)
-			queryParts.Add($"include_disk_info={Uri.EscapeDataString((r.IncludeDiskInfo.Value ? "true" : "false"))}");
+			queryParts.Add($"include_disk_info={Uri.EscapeDataString((r.IncludeDiskInfo!.Value ? "true" : "false"))}");
 		if (r.IncludeYesDecisions is not null)
-			queryParts.Add($"include_yes_decisions={Uri.EscapeDataString((r.IncludeYesDecisions.Value ? "true" : "false"))}");
+			queryParts.Add($"include_yes_decisions={Uri.EscapeDataString((r.IncludeYesDecisions!.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

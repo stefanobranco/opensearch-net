@@ -57,8 +57,8 @@ public sealed class StatsIndexEndpoint : IEndpoint<StatsIndexRequest, StatsIndex
 	public string RequestUrl(StatsIndexRequest r)
 	{
 		var path = r.Index is not null && r.Metric is not null
-			? $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}/_stats/{Uri.EscapeDataString(string.Join(",", r.Metric!))}" : r.Metric is not null
-			? $"/_stats/{Uri.EscapeDataString(string.Join(",", r.Metric!))}" : r.Index is not null
+			? $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}/_stats/{Uri.EscapeDataString(QueryParamSerializer.Serialize(r.Metric!))}" : r.Metric is not null
+			? $"/_stats/{Uri.EscapeDataString(QueryParamSerializer.Serialize(r.Metric!))}" : r.Index is not null
 			? $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}/_stats" : true
 			? $"/_stats"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
@@ -72,13 +72,13 @@ public sealed class StatsIndexEndpoint : IEndpoint<StatsIndexRequest, StatsIndex
 		if (r.Fields is not null)
 			queryParts.Add($"fields={Uri.EscapeDataString(string.Join(",", r.Fields!))}");
 		if (r.ForbidClosedIndices is not null)
-			queryParts.Add($"forbid_closed_indices={Uri.EscapeDataString((r.ForbidClosedIndices.Value ? "true" : "false"))}");
+			queryParts.Add($"forbid_closed_indices={Uri.EscapeDataString((r.ForbidClosedIndices!.Value ? "true" : "false"))}");
 		if (r.Groups is not null)
 			queryParts.Add($"groups={Uri.EscapeDataString(string.Join(",", r.Groups!))}");
 		if (r.IncludeSegmentFileSizes is not null)
-			queryParts.Add($"include_segment_file_sizes={Uri.EscapeDataString((r.IncludeSegmentFileSizes.Value ? "true" : "false"))}");
+			queryParts.Add($"include_segment_file_sizes={Uri.EscapeDataString((r.IncludeSegmentFileSizes!.Value ? "true" : "false"))}");
 		if (r.IncludeUnloadedSegments is not null)
-			queryParts.Add($"include_unloaded_segments={Uri.EscapeDataString((r.IncludeUnloadedSegments.Value ? "true" : "false"))}");
+			queryParts.Add($"include_unloaded_segments={Uri.EscapeDataString((r.IncludeUnloadedSegments!.Value ? "true" : "false"))}");
 		if (r.Level is not null)
 			queryParts.Add($"level={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.Level!.Value))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;

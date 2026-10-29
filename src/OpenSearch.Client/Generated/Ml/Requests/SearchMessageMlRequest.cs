@@ -31,7 +31,7 @@ public sealed class SearchMessageMlEndpoint : IEndpoint<SearchMessageMlRequest, 
 
 	public string RequestUrl(SearchMessageMlRequest r)
 	{
-		var path = $"/_plugins/_ml/memory/{Uri.EscapeDataString(r.MemoryId!.ToString()!)}/_search";
+		var path = $"/_plugins/_ml/memory/{Uri.EscapeDataString(r.MemoryId!)}/_search";
 		return path;
 	}
 

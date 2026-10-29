@@ -26,7 +26,7 @@ public sealed class GetTaskMlEndpoint : IEndpoint<GetTaskMlRequest, GetTaskMlRes
 
 	public string RequestUrl(GetTaskMlRequest r)
 	{
-		var path = $"/_plugins/_ml/tasks/{Uri.EscapeDataString(r.TaskId!.ToString()!)}";
+		var path = $"/_plugins/_ml/tasks/{Uri.EscapeDataString(r.TaskId!)}";
 		return path;
 	}
 

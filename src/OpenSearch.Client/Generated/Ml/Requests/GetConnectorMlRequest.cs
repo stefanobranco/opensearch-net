@@ -26,7 +26,7 @@ public sealed class GetConnectorMlEndpoint : IEndpoint<GetConnectorMlRequest, Ge
 
 	public string RequestUrl(GetConnectorMlRequest r)
 	{
-		var path = $"/_plugins/_ml/connectors/{Uri.EscapeDataString(r.ConnectorId!.ToString()!)}";
+		var path = $"/_plugins/_ml/connectors/{Uri.EscapeDataString(r.ConnectorId!)}";
 		return path;
 	}
 

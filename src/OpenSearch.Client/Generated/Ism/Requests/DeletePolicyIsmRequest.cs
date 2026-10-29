@@ -26,7 +26,7 @@ public sealed class DeletePolicyIsmEndpoint : IEndpoint<DeletePolicyIsmRequest, 
 
 	public string RequestUrl(DeletePolicyIsmRequest r)
 	{
-		var path = $"/_plugins/_ism/policies/{Uri.EscapeDataString(r.PolicyId!.ToString()!)}";
+		var path = $"/_plugins/_ism/policies/{Uri.EscapeDataString(r.PolicyId!)}";
 		return path;
 	}
 

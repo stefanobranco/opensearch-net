@@ -66,14 +66,14 @@ public sealed class IndexEndpoint : IEndpoint<IndexRequest, IndexResponse>
 	public string RequestUrl(IndexRequest r)
 	{
 		var path = r.Index is not null && r.Id is not null
-			? $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_doc/{Uri.EscapeDataString(r.Id!.ToString()!)}" : r.Index is not null
-			? $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_doc"
+			? $"/{Uri.EscapeDataString(r.Index!)}/_doc/{Uri.EscapeDataString(r.Id!)}" : r.Index is not null
+			? $"/{Uri.EscapeDataString(r.Index!)}/_doc"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();
 		if (r.IfPrimaryTerm is not null)
-			queryParts.Add($"if_primary_term={Uri.EscapeDataString(r.IfPrimaryTerm.ToString()!)}");
+			queryParts.Add($"if_primary_term={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.IfPrimaryTerm!.Value))}");
 		if (r.IfSeqNo is not null)
-			queryParts.Add($"if_seq_no={Uri.EscapeDataString(r.IfSeqNo.ToString()!)}");
+			queryParts.Add($"if_seq_no={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.IfSeqNo!.Value))}");
 		if (r.OpType is not null)
 			queryParts.Add($"op_type={Uri.EscapeDataString(r.OpType!)}");
 		if (r.Pipeline is not null)
@@ -81,13 +81,13 @@ public sealed class IndexEndpoint : IEndpoint<IndexRequest, IndexResponse>
 		if (r.Refresh is not null)
 			queryParts.Add($"refresh={Uri.EscapeDataString(r.Refresh!)}");
 		if (r.RequireAlias is not null)
-			queryParts.Add($"require_alias={Uri.EscapeDataString((r.RequireAlias.Value ? "true" : "false"))}");
+			queryParts.Add($"require_alias={Uri.EscapeDataString((r.RequireAlias!.Value ? "true" : "false"))}");
 		if (r.Routing is not null)
 			queryParts.Add($"routing={Uri.EscapeDataString(string.Join(",", r.Routing!))}");
 		if (r.Timeout is not null)
 			queryParts.Add($"timeout={Uri.EscapeDataString(r.Timeout!)}");
 		if (r.Version is not null)
-			queryParts.Add($"version={Uri.EscapeDataString(r.Version.ToString()!)}");
+			queryParts.Add($"version={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.Version!.Value))}");
 		if (r.VersionType is not null)
 			queryParts.Add($"version_type={Uri.EscapeDataString(r.VersionType!)}");
 		if (r.WaitForActiveShards is not null)

@@ -32,12 +32,12 @@ public sealed class DeleteMemoryContainerMlEndpoint : IEndpoint<DeleteMemoryCont
 
 	public string RequestUrl(DeleteMemoryContainerMlRequest r)
 	{
-		var path = $"/_plugins/_ml/memory_containers/{Uri.EscapeDataString(r.MemoryContainerId!.ToString()!)}";
+		var path = $"/_plugins/_ml/memory_containers/{Uri.EscapeDataString(r.MemoryContainerId!)}";
 		var queryParts = new List<string>();
 		if (r.DeleteAllMemories is not null)
-			queryParts.Add($"delete_all_memories={Uri.EscapeDataString((r.DeleteAllMemories.Value ? "true" : "false"))}");
+			queryParts.Add($"delete_all_memories={Uri.EscapeDataString((r.DeleteAllMemories!.Value ? "true" : "false"))}");
 		if (r.DeleteMemories is not null)
-			queryParts.Add($"delete_memories={Uri.EscapeDataString(string.Join(",", r.DeleteMemories!))}");
+			queryParts.Add($"delete_memories={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.DeleteMemories!))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

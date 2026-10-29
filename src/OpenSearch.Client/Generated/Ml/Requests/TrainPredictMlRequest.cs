@@ -31,7 +31,7 @@ public sealed class TrainPredictMlEndpoint : IEndpoint<TrainPredictMlRequest, Tr
 
 	public string RequestUrl(TrainPredictMlRequest r)
 	{
-		var path = $"/_plugins/_ml/_train_predict/{Uri.EscapeDataString(r.AlgorithmName!.ToString()!)}";
+		var path = $"/_plugins/_ml/_train_predict/{Uri.EscapeDataString(r.AlgorithmName!)}";
 		return path;
 	}
 

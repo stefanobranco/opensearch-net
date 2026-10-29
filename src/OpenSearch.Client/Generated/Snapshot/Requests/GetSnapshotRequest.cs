@@ -38,14 +38,14 @@ public sealed class GetSnapshotEndpoint : IEndpoint<GetSnapshotRequest, GetSnaps
 
 	public string RequestUrl(GetSnapshotRequest r)
 	{
-		var path = $"/_snapshot/{Uri.EscapeDataString(r.Repository!.ToString()!)}/{Uri.EscapeDataString(string.Join(",", r.Snapshot!))}";
+		var path = $"/_snapshot/{Uri.EscapeDataString(r.Repository!)}/{Uri.EscapeDataString(string.Join(",", r.Snapshot!))}";
 		var queryParts = new List<string>();
 		if (r.ClusterManagerTimeout is not null)
 			queryParts.Add($"cluster_manager_timeout={Uri.EscapeDataString(r.ClusterManagerTimeout!)}");
 		if (r.IgnoreUnavailable is not null)
-			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable.Value ? "true" : "false"))}");
+			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable!.Value ? "true" : "false"))}");
 		if (r.Verbose is not null)
-			queryParts.Add($"verbose={Uri.EscapeDataString((r.Verbose.Value ? "true" : "false"))}");
+			queryParts.Add($"verbose={Uri.EscapeDataString((r.Verbose!.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

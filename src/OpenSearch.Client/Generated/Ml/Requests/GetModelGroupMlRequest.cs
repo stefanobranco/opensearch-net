@@ -26,7 +26,7 @@ public sealed class GetModelGroupMlEndpoint : IEndpoint<GetModelGroupMlRequest, 
 
 	public string RequestUrl(GetModelGroupMlRequest r)
 	{
-		var path = $"/_plugins/_ml/model_groups/{Uri.EscapeDataString(r.ModelGroupId!.ToString()!)}";
+		var path = $"/_plugins/_ml/model_groups/{Uri.EscapeDataString(r.ModelGroupId!)}";
 		return path;
 	}
 

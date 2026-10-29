@@ -26,7 +26,7 @@ public sealed class ExistsPolicyIsmEndpoint : IEndpoint<ExistsPolicyIsmRequest, 
 
 	public string RequestUrl(ExistsPolicyIsmRequest r)
 	{
-		var path = $"/_plugins/_ism/policies/{Uri.EscapeDataString(r.PolicyId!.ToString()!)}";
+		var path = $"/_plugins/_ism/policies/{Uri.EscapeDataString(r.PolicyId!)}";
 		return path;
 	}
 

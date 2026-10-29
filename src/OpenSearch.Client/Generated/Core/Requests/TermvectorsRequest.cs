@@ -68,30 +68,30 @@ public sealed class TermvectorsEndpoint : IEndpoint<TermvectorsRequest, Termvect
 	public string RequestUrl(TermvectorsRequest r)
 	{
 		var path = r.Index is not null && r.Id is not null
-			? $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_termvectors/{Uri.EscapeDataString(r.Id!.ToString()!)}" : r.Index is not null
-			? $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_termvectors"
+			? $"/{Uri.EscapeDataString(r.Index!)}/_termvectors/{Uri.EscapeDataString(r.Id!)}" : r.Index is not null
+			? $"/{Uri.EscapeDataString(r.Index!)}/_termvectors"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();
 		if (r.FieldStatistics is not null)
-			queryParts.Add($"field_statistics={Uri.EscapeDataString((r.FieldStatistics.Value ? "true" : "false"))}");
+			queryParts.Add($"field_statistics={Uri.EscapeDataString((r.FieldStatistics!.Value ? "true" : "false"))}");
 		if (r.Fields is not null)
 			queryParts.Add($"fields={Uri.EscapeDataString(string.Join(",", r.Fields!))}");
 		if (r.Offsets is not null)
-			queryParts.Add($"offsets={Uri.EscapeDataString((r.Offsets.Value ? "true" : "false"))}");
+			queryParts.Add($"offsets={Uri.EscapeDataString((r.Offsets!.Value ? "true" : "false"))}");
 		if (r.Payloads is not null)
-			queryParts.Add($"payloads={Uri.EscapeDataString((r.Payloads.Value ? "true" : "false"))}");
+			queryParts.Add($"payloads={Uri.EscapeDataString((r.Payloads!.Value ? "true" : "false"))}");
 		if (r.Positions is not null)
-			queryParts.Add($"positions={Uri.EscapeDataString((r.Positions.Value ? "true" : "false"))}");
+			queryParts.Add($"positions={Uri.EscapeDataString((r.Positions!.Value ? "true" : "false"))}");
 		if (r.Preference is not null)
 			queryParts.Add($"preference={Uri.EscapeDataString(r.Preference!)}");
 		if (r.Realtime is not null)
-			queryParts.Add($"realtime={Uri.EscapeDataString((r.Realtime.Value ? "true" : "false"))}");
+			queryParts.Add($"realtime={Uri.EscapeDataString((r.Realtime!.Value ? "true" : "false"))}");
 		if (r.Routing is not null)
 			queryParts.Add($"routing={Uri.EscapeDataString(string.Join(",", r.Routing!))}");
 		if (r.TermStatistics is not null)
-			queryParts.Add($"term_statistics={Uri.EscapeDataString((r.TermStatistics.Value ? "true" : "false"))}");
+			queryParts.Add($"term_statistics={Uri.EscapeDataString((r.TermStatistics!.Value ? "true" : "false"))}");
 		if (r.Version is not null)
-			queryParts.Add($"version={Uri.EscapeDataString(r.Version.ToString()!)}");
+			queryParts.Add($"version={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.Version!.Value))}");
 		if (r.VersionType is not null)
 			queryParts.Add($"version_type={Uri.EscapeDataString(r.VersionType!)}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;

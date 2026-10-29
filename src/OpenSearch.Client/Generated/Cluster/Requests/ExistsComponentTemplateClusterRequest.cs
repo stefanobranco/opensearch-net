@@ -32,12 +32,12 @@ public sealed class ExistsComponentTemplateClusterEndpoint : IEndpoint<ExistsCom
 
 	public string RequestUrl(ExistsComponentTemplateClusterRequest r)
 	{
-		var path = $"/_component_template/{Uri.EscapeDataString(r.Name!.ToString()!)}";
+		var path = $"/_component_template/{Uri.EscapeDataString(r.Name!)}";
 		var queryParts = new List<string>();
 		if (r.ClusterManagerTimeout is not null)
 			queryParts.Add($"cluster_manager_timeout={Uri.EscapeDataString(r.ClusterManagerTimeout!)}");
 		if (r.Local is not null)
-			queryParts.Add($"local={Uri.EscapeDataString((r.Local.Value ? "true" : "false"))}");
+			queryParts.Add($"local={Uri.EscapeDataString((r.Local!.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

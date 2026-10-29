@@ -33,8 +33,8 @@ public sealed class StatsKnnEndpoint : IEndpoint<StatsKnnRequest, StatsKnnRespon
 	public string RequestUrl(StatsKnnRequest r)
 	{
 		var path = r.NodeId is not null && r.Stat is not null
-			? $"/_plugins/_knn/{Uri.EscapeDataString(string.Join(",", r.NodeId!))}/stats/{Uri.EscapeDataString(string.Join(",", r.Stat!))}" : r.Stat is not null
-			? $"/_plugins/_knn/stats/{Uri.EscapeDataString(string.Join(",", r.Stat!))}" : r.NodeId is not null
+			? $"/_plugins/_knn/{Uri.EscapeDataString(string.Join(",", r.NodeId!))}/stats/{Uri.EscapeDataString(QueryParamSerializer.Serialize(r.Stat!))}" : r.Stat is not null
+			? $"/_plugins/_knn/stats/{Uri.EscapeDataString(QueryParamSerializer.Serialize(r.Stat!))}" : r.NodeId is not null
 			? $"/_plugins/_knn/{Uri.EscapeDataString(string.Join(",", r.NodeId!))}/stats" : true
 			? $"/_plugins/_knn/stats"
 			: throw new InvalidOperationException("No valid path for the given parameters.");

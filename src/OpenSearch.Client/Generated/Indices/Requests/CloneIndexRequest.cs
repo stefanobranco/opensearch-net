@@ -48,7 +48,7 @@ public sealed class CloneIndexEndpoint : IEndpoint<CloneIndexRequest, CloneIndex
 
 	public string RequestUrl(CloneIndexRequest r)
 	{
-		var path = $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_clone/{Uri.EscapeDataString(r.Target!.ToString()!)}";
+		var path = $"/{Uri.EscapeDataString(r.Index!)}/_clone/{Uri.EscapeDataString(r.Target!)}";
 		var queryParts = new List<string>();
 		if (r.ClusterManagerTimeout is not null)
 			queryParts.Add($"cluster_manager_timeout={Uri.EscapeDataString(r.ClusterManagerTimeout!)}");
@@ -59,7 +59,7 @@ public sealed class CloneIndexEndpoint : IEndpoint<CloneIndexRequest, CloneIndex
 		if (r.WaitForActiveShards is not null)
 			queryParts.Add($"wait_for_active_shards={Uri.EscapeDataString(r.WaitForActiveShards!)}");
 		if (r.WaitForCompletion is not null)
-			queryParts.Add($"wait_for_completion={Uri.EscapeDataString((r.WaitForCompletion.Value ? "true" : "false"))}");
+			queryParts.Add($"wait_for_completion={Uri.EscapeDataString((r.WaitForCompletion!.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

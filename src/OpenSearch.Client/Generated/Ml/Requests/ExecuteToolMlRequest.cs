@@ -27,7 +27,7 @@ public sealed class ExecuteToolMlEndpoint : IEndpoint<ExecuteToolMlRequest, Exec
 
 	public string RequestUrl(ExecuteToolMlRequest r)
 	{
-		var path = $"/_plugins/_ml/tools/_execute/{Uri.EscapeDataString(r.ToolName!.ToString()!)}";
+		var path = $"/_plugins/_ml/tools/_execute/{Uri.EscapeDataString(QueryParamSerializer.Serialize(r.ToolName!.Value))}";
 		return path;
 	}
 

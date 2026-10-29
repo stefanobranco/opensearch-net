@@ -64,15 +64,15 @@ public sealed class SnapshotsCatEndpoint : IEndpoint<SnapshotsCatRequest, Snapsh
 		if (r.H is not null)
 			queryParts.Add($"h={Uri.EscapeDataString(string.Join(",", r.H!))}");
 		if (r.Help is not null)
-			queryParts.Add($"help={Uri.EscapeDataString((r.Help.Value ? "true" : "false"))}");
+			queryParts.Add($"help={Uri.EscapeDataString((r.Help!.Value ? "true" : "false"))}");
 		if (r.IgnoreUnavailable is not null)
-			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable.Value ? "true" : "false"))}");
+			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable!.Value ? "true" : "false"))}");
 		if (r.S is not null)
 			queryParts.Add($"s={Uri.EscapeDataString(string.Join(",", r.S!))}");
 		if (r.Time is not null)
 			queryParts.Add($"time={Uri.EscapeDataString(r.Time!)}");
 		if (r.V is not null)
-			queryParts.Add($"v={Uri.EscapeDataString((r.V.Value ? "true" : "false"))}");
+			queryParts.Add($"v={Uri.EscapeDataString((r.V!.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

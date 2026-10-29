@@ -26,7 +26,7 @@ public sealed class DeleteAgentMlEndpoint : IEndpoint<DeleteAgentMlRequest, Dele
 
 	public string RequestUrl(DeleteAgentMlRequest r)
 	{
-		var path = $"/_plugins/_ml/agents/{Uri.EscapeDataString(r.AgentId!.ToString()!)}";
+		var path = $"/_plugins/_ml/agents/{Uri.EscapeDataString(r.AgentId!)}";
 		return path;
 	}
 

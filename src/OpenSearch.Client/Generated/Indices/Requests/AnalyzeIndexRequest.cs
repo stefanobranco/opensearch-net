@@ -42,7 +42,7 @@ public sealed class AnalyzeIndexEndpoint : IEndpoint<AnalyzeIndexRequest, Analyz
 	public string RequestUrl(AnalyzeIndexRequest r)
 	{
 		var path = r.Index is not null
-			? $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_analyze" : true
+			? $"/{Uri.EscapeDataString(r.Index!)}/_analyze" : true
 			? $"/_analyze"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		return path;

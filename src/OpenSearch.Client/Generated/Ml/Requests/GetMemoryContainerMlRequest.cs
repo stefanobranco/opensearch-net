@@ -26,7 +26,7 @@ public sealed class GetMemoryContainerMlEndpoint : IEndpoint<GetMemoryContainerM
 
 	public string RequestUrl(GetMemoryContainerMlRequest r)
 	{
-		var path = $"/_plugins/_ml/memory_containers/{Uri.EscapeDataString(r.MemoryContainerId!.ToString()!)}";
+		var path = $"/_plugins/_ml/memory_containers/{Uri.EscapeDataString(r.MemoryContainerId!)}";
 		return path;
 	}
 

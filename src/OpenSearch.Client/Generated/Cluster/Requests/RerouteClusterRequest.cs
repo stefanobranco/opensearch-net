@@ -48,13 +48,13 @@ public sealed class RerouteClusterEndpoint : IEndpoint<RerouteClusterRequest, Re
 		if (r.ClusterManagerTimeout is not null)
 			queryParts.Add($"cluster_manager_timeout={Uri.EscapeDataString(r.ClusterManagerTimeout!)}");
 		if (r.DryRun is not null)
-			queryParts.Add($"dry_run={Uri.EscapeDataString((r.DryRun.Value ? "true" : "false"))}");
+			queryParts.Add($"dry_run={Uri.EscapeDataString((r.DryRun!.Value ? "true" : "false"))}");
 		if (r.Explain is not null)
-			queryParts.Add($"explain={Uri.EscapeDataString((r.Explain.Value ? "true" : "false"))}");
+			queryParts.Add($"explain={Uri.EscapeDataString((r.Explain!.Value ? "true" : "false"))}");
 		if (r.Metric is not null)
 			queryParts.Add($"metric={Uri.EscapeDataString(string.Join(",", r.Metric!))}");
 		if (r.RetryFailed is not null)
-			queryParts.Add($"retry_failed={Uri.EscapeDataString((r.RetryFailed.Value ? "true" : "false"))}");
+			queryParts.Add($"retry_failed={Uri.EscapeDataString((r.RetryFailed!.Value ? "true" : "false"))}");
 		if (r.Timeout is not null)
 			queryParts.Add($"timeout={Uri.EscapeDataString(r.Timeout!)}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;

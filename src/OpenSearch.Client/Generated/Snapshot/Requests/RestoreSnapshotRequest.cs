@@ -61,12 +61,12 @@ public sealed class RestoreSnapshotEndpoint : IEndpoint<RestoreSnapshotRequest, 
 
 	public string RequestUrl(RestoreSnapshotRequest r)
 	{
-		var path = $"/_snapshot/{Uri.EscapeDataString(r.Repository!.ToString()!)}/{Uri.EscapeDataString(r.Snapshot!.ToString()!)}/_restore";
+		var path = $"/_snapshot/{Uri.EscapeDataString(r.Repository!)}/{Uri.EscapeDataString(r.Snapshot!)}/_restore";
 		var queryParts = new List<string>();
 		if (r.ClusterManagerTimeout is not null)
 			queryParts.Add($"cluster_manager_timeout={Uri.EscapeDataString(r.ClusterManagerTimeout!)}");
 		if (r.WaitForCompletion is not null)
-			queryParts.Add($"wait_for_completion={Uri.EscapeDataString((r.WaitForCompletion.Value ? "true" : "false"))}");
+			queryParts.Add($"wait_for_completion={Uri.EscapeDataString((r.WaitForCompletion!.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

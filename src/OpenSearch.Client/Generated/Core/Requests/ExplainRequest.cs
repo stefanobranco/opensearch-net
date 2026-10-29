@@ -66,16 +66,16 @@ public sealed class ExplainEndpoint<TDocument> : IEndpoint<ExplainRequest, Expla
 
 	public string RequestUrl(ExplainRequest r)
 	{
-		var path = $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_explain/{Uri.EscapeDataString(r.Id!.ToString()!)}";
+		var path = $"/{Uri.EscapeDataString(r.Index!)}/_explain/{Uri.EscapeDataString(r.Id!)}";
 		var queryParts = new List<string>();
 		if (r.Source is not null)
-			queryParts.Add($"_source={Uri.EscapeDataString(r.Source.ToString()!)}");
+			queryParts.Add($"_source={Uri.EscapeDataString(r.Source!.ToString()!)}");
 		if (r.SourceExcludes is not null)
 			queryParts.Add($"_source_excludes={Uri.EscapeDataString(string.Join(",", r.SourceExcludes!))}");
 		if (r.SourceIncludes is not null)
 			queryParts.Add($"_source_includes={Uri.EscapeDataString(string.Join(",", r.SourceIncludes!))}");
 		if (r.AnalyzeWildcard is not null)
-			queryParts.Add($"analyze_wildcard={Uri.EscapeDataString((r.AnalyzeWildcard.Value ? "true" : "false"))}");
+			queryParts.Add($"analyze_wildcard={Uri.EscapeDataString((r.AnalyzeWildcard!.Value ? "true" : "false"))}");
 		if (r.Analyzer is not null)
 			queryParts.Add($"analyzer={Uri.EscapeDataString(r.Analyzer!)}");
 		if (r.DefaultOperator is not null)
@@ -83,7 +83,7 @@ public sealed class ExplainEndpoint<TDocument> : IEndpoint<ExplainRequest, Expla
 		if (r.Df is not null)
 			queryParts.Add($"df={Uri.EscapeDataString(r.Df!)}");
 		if (r.Lenient is not null)
-			queryParts.Add($"lenient={Uri.EscapeDataString((r.Lenient.Value ? "true" : "false"))}");
+			queryParts.Add($"lenient={Uri.EscapeDataString((r.Lenient!.Value ? "true" : "false"))}");
 		if (r.Preference is not null)
 			queryParts.Add($"preference={Uri.EscapeDataString(r.Preference!)}");
 		if (r.Q is not null)

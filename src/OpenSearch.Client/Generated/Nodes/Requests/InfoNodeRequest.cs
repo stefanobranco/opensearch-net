@@ -40,12 +40,12 @@ public sealed class InfoNodeEndpoint : IEndpoint<InfoNodeRequest, InfoNodeRespon
 	{
 		var path = r.NodeId is not null && r.Metric is not null
 			? $"/_nodes/{Uri.EscapeDataString(string.Join(",", r.NodeId!))}/{Uri.EscapeDataString(string.Join(",", r.Metric!))}" : r.NodeIdOrMetric is not null
-			? $"/_nodes/{Uri.EscapeDataString(r.NodeIdOrMetric!.ToString()!)}" : true
+			? $"/_nodes/{Uri.EscapeDataString(r.NodeIdOrMetric!)}" : true
 			? $"/_nodes"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();
 		if (r.FlatSettings is not null)
-			queryParts.Add($"flat_settings={Uri.EscapeDataString((r.FlatSettings.Value ? "true" : "false"))}");
+			queryParts.Add($"flat_settings={Uri.EscapeDataString((r.FlatSettings!.Value ? "true" : "false"))}");
 		if (r.Timeout is not null)
 			queryParts.Add($"timeout={Uri.EscapeDataString(r.Timeout!)}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;

@@ -26,7 +26,7 @@ public sealed class GetActionGroupSecurityEndpoint : IEndpoint<GetActionGroupSec
 
 	public string RequestUrl(GetActionGroupSecurityRequest r)
 	{
-		var path = $"/_plugins/_security/api/actiongroups/{Uri.EscapeDataString(r.ActionGroup!.ToString()!)}";
+		var path = $"/_plugins/_security/api/actiongroups/{Uri.EscapeDataString(r.ActionGroup!)}";
 		return path;
 	}
 

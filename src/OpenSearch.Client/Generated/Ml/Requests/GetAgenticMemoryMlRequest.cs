@@ -32,7 +32,7 @@ public sealed class GetAgenticMemoryMlEndpoint : IEndpoint<GetAgenticMemoryMlReq
 
 	public string RequestUrl(GetAgenticMemoryMlRequest r)
 	{
-		var path = $"/_plugins/_ml/memory_containers/{Uri.EscapeDataString(r.MemoryContainerId!.ToString()!)}/memories/{Uri.EscapeDataString(r.Type!.ToString()!)}/{Uri.EscapeDataString(r.Id!.ToString()!)}";
+		var path = $"/_plugins/_ml/memory_containers/{Uri.EscapeDataString(r.MemoryContainerId!)}/memories/{Uri.EscapeDataString(QueryParamSerializer.Serialize(r.Type!.Value))}/{Uri.EscapeDataString(r.Id!)}";
 		return path;
 	}
 

@@ -29,7 +29,7 @@ public sealed class PatchActionGroupSecurityEndpoint : IEndpoint<PatchActionGrou
 
 	public string RequestUrl(PatchActionGroupSecurityRequest r)
 	{
-		var path = $"/_plugins/_security/api/actiongroups/{Uri.EscapeDataString(r.ActionGroup!.ToString()!)}";
+		var path = $"/_plugins/_security/api/actiongroups/{Uri.EscapeDataString(r.ActionGroup!)}";
 		return path;
 	}
 

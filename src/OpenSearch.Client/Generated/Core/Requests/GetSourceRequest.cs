@@ -56,10 +56,10 @@ public sealed class GetSourceEndpoint<TDocument> : IEndpoint<GetSourceRequest, G
 
 	public string RequestUrl(GetSourceRequest r)
 	{
-		var path = $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_source/{Uri.EscapeDataString(r.Id!.ToString()!)}";
+		var path = $"/{Uri.EscapeDataString(r.Index!)}/_source/{Uri.EscapeDataString(r.Id!)}";
 		var queryParts = new List<string>();
 		if (r.Source is not null)
-			queryParts.Add($"_source={Uri.EscapeDataString(r.Source.ToString()!)}");
+			queryParts.Add($"_source={Uri.EscapeDataString(r.Source!.ToString()!)}");
 		if (r.SourceExcludes is not null)
 			queryParts.Add($"_source_excludes={Uri.EscapeDataString(string.Join(",", r.SourceExcludes!))}");
 		if (r.SourceIncludes is not null)
@@ -67,13 +67,13 @@ public sealed class GetSourceEndpoint<TDocument> : IEndpoint<GetSourceRequest, G
 		if (r.Preference is not null)
 			queryParts.Add($"preference={Uri.EscapeDataString(r.Preference!)}");
 		if (r.Realtime is not null)
-			queryParts.Add($"realtime={Uri.EscapeDataString((r.Realtime.Value ? "true" : "false"))}");
+			queryParts.Add($"realtime={Uri.EscapeDataString((r.Realtime!.Value ? "true" : "false"))}");
 		if (r.Refresh is not null)
 			queryParts.Add($"refresh={Uri.EscapeDataString(r.Refresh!)}");
 		if (r.Routing is not null)
 			queryParts.Add($"routing={Uri.EscapeDataString(string.Join(",", r.Routing!))}");
 		if (r.Version is not null)
-			queryParts.Add($"version={Uri.EscapeDataString(r.Version.ToString()!)}");
+			queryParts.Add($"version={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.Version!.Value))}");
 		if (r.VersionType is not null)
 			queryParts.Add($"version_type={Uri.EscapeDataString(r.VersionType!)}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;

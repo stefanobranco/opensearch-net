@@ -59,9 +59,9 @@ public sealed class ReindexEndpoint : IEndpoint<ReindexRequest, ReindexResponse>
 		if (r.Refresh is not null)
 			queryParts.Add($"refresh={Uri.EscapeDataString(r.Refresh!)}");
 		if (r.RequestsPerSecond is not null)
-			queryParts.Add($"requests_per_second={Uri.EscapeDataString(r.RequestsPerSecond.ToString()!)}");
+			queryParts.Add($"requests_per_second={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.RequestsPerSecond!.Value))}");
 		if (r.RequireAlias is not null)
-			queryParts.Add($"require_alias={Uri.EscapeDataString((r.RequireAlias.Value ? "true" : "false"))}");
+			queryParts.Add($"require_alias={Uri.EscapeDataString((r.RequireAlias!.Value ? "true" : "false"))}");
 		if (r.Scroll is not null)
 			queryParts.Add($"scroll={Uri.EscapeDataString(r.Scroll!)}");
 		if (r.Slices is not null)
@@ -71,7 +71,7 @@ public sealed class ReindexEndpoint : IEndpoint<ReindexRequest, ReindexResponse>
 		if (r.WaitForActiveShards is not null)
 			queryParts.Add($"wait_for_active_shards={Uri.EscapeDataString(r.WaitForActiveShards!)}");
 		if (r.WaitForCompletion is not null)
-			queryParts.Add($"wait_for_completion={Uri.EscapeDataString((r.WaitForCompletion.Value ? "true" : "false"))}");
+			queryParts.Add($"wait_for_completion={Uri.EscapeDataString((r.WaitForCompletion!.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 
