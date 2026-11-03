@@ -6,7 +6,7 @@ on:
   push:
     tags: ['[0-9]+.[0-9]+.[0-9]+*']
 
-# Least privilege by default; the publish job opts up to contents: write.
+# Least privilege by default; the publish job opts up to contents: write and id-token: write.
 permissions:
   contents: read
 
@@ -21,6 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write   # create the GitHub Release
+      id-token: write   # NuGet Trusted Publishing (OIDC)
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
@@ -36,12 +37,20 @@ jobs:
           dotnet pack src/OpenSearch.Net.Auth.AwsSigV4/OpenSearch.Net.Auth.AwsSigV4.csproj \
             -c Release -o artifacts -p:CurrentVersion="${GITHUB_REF_NAME}"
 
+      # Trusted Publishing: exchanges the GitHub OIDC token for a NuGet API key valid for one hour.
+      # Requires a trusted publishing policy on nuget.org for this repo and release.yml.
+      - name: NuGet login
+        id: nuget-login
+        uses: NuGet/login@v1
+        with:
+          user: stefano.branco
+
       # Pushing each .nupkg also pushes its adjacent .snupkg symbol package automatically.
       - name: Push to NuGet
         run: >-
           dotnet nuget push "artifacts/*.nupkg"
           -s https://api.nuget.org/v3/index.json
-          -k "${{ secrets.NUGET_API_KEY }}"
+          -k "${{ steps.nuget-login.outputs.NUGET_API_KEY }}"
           --skip-duplicate
 
       - name: GitHub Release
