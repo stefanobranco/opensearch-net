@@ -49,7 +49,7 @@ public sealed class SimulateTemplateIndexEndpoint : IEndpoint<SimulateTemplateIn
 	public string RequestUrl(SimulateTemplateIndexRequest r)
 	{
 		var path = r.Name is not null
-			? $"/_index_template/_simulate/{Uri.EscapeDataString(r.Name!.ToString()!)}" : true
+			? $"/_index_template/_simulate/{Uri.EscapeDataString(r.Name!)}" : true
 			? $"/_index_template/_simulate"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();
@@ -58,7 +58,7 @@ public sealed class SimulateTemplateIndexEndpoint : IEndpoint<SimulateTemplateIn
 		if (r.ClusterManagerTimeout is not null)
 			queryParts.Add($"cluster_manager_timeout={Uri.EscapeDataString(r.ClusterManagerTimeout!)}");
 		if (r.Create is not null)
-			queryParts.Add($"create={Uri.EscapeDataString((r.Create.Value ? "true" : "false"))}");
+			queryParts.Add($"create={Uri.EscapeDataString((r.Create!.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

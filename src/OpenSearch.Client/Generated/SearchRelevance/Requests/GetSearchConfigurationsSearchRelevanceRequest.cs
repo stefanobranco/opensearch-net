@@ -27,7 +27,7 @@ public sealed class GetSearchConfigurationsSearchRelevanceEndpoint<TDocument> : 
 	public string RequestUrl(GetSearchConfigurationsSearchRelevanceRequest r)
 	{
 		var path = r.SearchConfigurationId is not null
-			? $"/_plugins/_search_relevance/search_configurations/{Uri.EscapeDataString(r.SearchConfigurationId!.ToString()!)}" : true
+			? $"/_plugins/_search_relevance/search_configurations/{Uri.EscapeDataString(r.SearchConfigurationId!)}" : true
 			? $"/_plugins/_search_relevance/search_configurations"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		return path;

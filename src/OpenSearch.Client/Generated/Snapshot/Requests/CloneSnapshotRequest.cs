@@ -36,7 +36,7 @@ public sealed class CloneSnapshotEndpoint : IEndpoint<CloneSnapshotRequest, Clon
 
 	public string RequestUrl(CloneSnapshotRequest r)
 	{
-		var path = $"/_snapshot/{Uri.EscapeDataString(r.Repository!.ToString()!)}/{Uri.EscapeDataString(r.Snapshot!.ToString()!)}/_clone/{Uri.EscapeDataString(r.TargetSnapshot!.ToString()!)}";
+		var path = $"/_snapshot/{Uri.EscapeDataString(r.Repository!)}/{Uri.EscapeDataString(r.Snapshot!)}/_clone/{Uri.EscapeDataString(r.TargetSnapshot!)}";
 		var queryParts = new List<string>();
 		if (r.ClusterManagerTimeout is not null)
 			queryParts.Add($"cluster_manager_timeout={Uri.EscapeDataString(r.ClusterManagerTimeout!)}");

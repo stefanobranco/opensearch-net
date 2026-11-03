@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Net;
 using System.Text;
 using Amazon.Runtime;
@@ -33,6 +34,29 @@ public class AwsSigV4HttpMessageHandlerTests
 
 		capturedRequest.Message!.Headers.TryGetValues("x-amz-date", out var dateValues).Should().BeTrue();
 		dateValues!.First().Should().MatchRegex(@"^\d{8}T\d{6}Z$");
+	}
+
+	[Theory]
+	[InlineData("th-TH")]
+	[InlineData("ar-SA")]
+	public async Task SignedRequest_DatesAreGregorianUnderNonGregorianCulture(string culture)
+	{
+		var original = CultureInfo.CurrentCulture;
+		CultureInfo.CurrentCulture = new CultureInfo(culture);
+		try
+		{
+			var (capturedRequest, client) = CreateSigningClient(TestCredentials, "us-east-1");
+			using (client) await client.GetAsync(TestEndpoint);
+
+			var dateStamp = DateTime.UtcNow.ToString("yyyyMMdd", CultureInfo.InvariantCulture);
+			capturedRequest.Message!.Headers.GetValues("x-amz-date").First().Should().StartWith(dateStamp);
+			capturedRequest.Message.Headers.GetValues("Authorization").First()
+				.Should().Contain($"/{dateStamp}/us-east-1/es/aws4_request");
+		}
+		finally
+		{
+			CultureInfo.CurrentCulture = original;
+		}
 	}
 
 	[Fact]

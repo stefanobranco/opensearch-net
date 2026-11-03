@@ -32,7 +32,7 @@ public sealed class DeleteComponentTemplateClusterEndpoint : IEndpoint<DeleteCom
 
 	public string RequestUrl(DeleteComponentTemplateClusterRequest r)
 	{
-		var path = $"/_component_template/{Uri.EscapeDataString(r.Name!.ToString()!)}";
+		var path = $"/_component_template/{Uri.EscapeDataString(r.Name!)}";
 		var queryParts = new List<string>();
 		if (r.ClusterManagerTimeout is not null)
 			queryParts.Add($"cluster_manager_timeout={Uri.EscapeDataString(r.ClusterManagerTimeout!)}");

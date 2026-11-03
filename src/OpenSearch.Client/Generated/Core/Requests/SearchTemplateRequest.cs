@@ -80,21 +80,21 @@ public sealed class SearchTemplateEndpoint<TDocument> : IEndpoint<SearchTemplate
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();
 		if (r.AllowNoIndices is not null)
-			queryParts.Add($"allow_no_indices={Uri.EscapeDataString((r.AllowNoIndices.Value ? "true" : "false"))}");
+			queryParts.Add($"allow_no_indices={Uri.EscapeDataString((r.AllowNoIndices!.Value ? "true" : "false"))}");
 		if (r.CcsMinimizeRoundtrips is not null)
-			queryParts.Add($"ccs_minimize_roundtrips={Uri.EscapeDataString((r.CcsMinimizeRoundtrips.Value ? "true" : "false"))}");
+			queryParts.Add($"ccs_minimize_roundtrips={Uri.EscapeDataString((r.CcsMinimizeRoundtrips!.Value ? "true" : "false"))}");
 		if (r.ExpandWildcards is not null)
 			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(string.Join(",", r.ExpandWildcards!))}");
 		if (r.IgnoreThrottled is not null)
-			queryParts.Add($"ignore_throttled={Uri.EscapeDataString((r.IgnoreThrottled.Value ? "true" : "false"))}");
+			queryParts.Add($"ignore_throttled={Uri.EscapeDataString((r.IgnoreThrottled!.Value ? "true" : "false"))}");
 		if (r.IgnoreUnavailable is not null)
-			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable.Value ? "true" : "false"))}");
+			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable!.Value ? "true" : "false"))}");
 		if (r.PhaseTook is not null)
-			queryParts.Add($"phase_took={Uri.EscapeDataString((r.PhaseTook.Value ? "true" : "false"))}");
+			queryParts.Add($"phase_took={Uri.EscapeDataString((r.PhaseTook!.Value ? "true" : "false"))}");
 		if (r.Preference is not null)
 			queryParts.Add($"preference={Uri.EscapeDataString(r.Preference!)}");
 		if (r.RestTotalHitsAsInt is not null)
-			queryParts.Add($"rest_total_hits_as_int={Uri.EscapeDataString((r.RestTotalHitsAsInt.Value ? "true" : "false"))}");
+			queryParts.Add($"rest_total_hits_as_int={Uri.EscapeDataString((r.RestTotalHitsAsInt!.Value ? "true" : "false"))}");
 		if (r.Routing is not null)
 			queryParts.Add($"routing={Uri.EscapeDataString(string.Join(",", r.Routing!))}");
 		if (r.Scroll is not null)
@@ -104,7 +104,7 @@ public sealed class SearchTemplateEndpoint<TDocument> : IEndpoint<SearchTemplate
 		if (r.SearchType is not null)
 			queryParts.Add($"search_type={Uri.EscapeDataString(r.SearchType!)}");
 		if (r.TypedKeys is not null)
-			queryParts.Add($"typed_keys={Uri.EscapeDataString((r.TypedKeys.Value ? "true" : "false"))}");
+			queryParts.Add($"typed_keys={Uri.EscapeDataString((r.TypedKeys!.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

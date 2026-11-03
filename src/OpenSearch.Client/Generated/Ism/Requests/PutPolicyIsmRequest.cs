@@ -33,12 +33,12 @@ public sealed class PutPolicyIsmEndpoint : IEndpoint<PutPolicyIsmRequest, PutPol
 
 	public string RequestUrl(PutPolicyIsmRequest r)
 	{
-		var path = $"/_plugins/_ism/policies/{Uri.EscapeDataString(r.PolicyId!.ToString()!)}";
+		var path = $"/_plugins/_ism/policies/{Uri.EscapeDataString(r.PolicyId!)}";
 		var queryParts = new List<string>();
 		if (r.IfPrimaryTerm is not null)
-			queryParts.Add($"if_primary_term={Uri.EscapeDataString(r.IfPrimaryTerm.ToString()!)}");
+			queryParts.Add($"if_primary_term={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.IfPrimaryTerm!.Value))}");
 		if (r.IfSeqNo is not null)
-			queryParts.Add($"if_seq_no={Uri.EscapeDataString(r.IfSeqNo.ToString()!)}");
+			queryParts.Add($"if_seq_no={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.IfSeqNo!.Value))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

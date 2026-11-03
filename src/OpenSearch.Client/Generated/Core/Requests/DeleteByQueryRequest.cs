@@ -129,15 +129,15 @@ public sealed class DeleteByQueryEndpoint : IEndpoint<DeleteByQueryRequest, Dele
 		var path = $"/{Uri.EscapeDataString(string.Join(",", r.Index!))}/_delete_by_query";
 		var queryParts = new List<string>();
 		if (r.Source is not null)
-			queryParts.Add($"_source={Uri.EscapeDataString(r.Source.ToString()!)}");
+			queryParts.Add($"_source={Uri.EscapeDataString(r.Source!.ToString()!)}");
 		if (r.SourceExcludes is not null)
 			queryParts.Add($"_source_excludes={Uri.EscapeDataString(string.Join(",", r.SourceExcludes!))}");
 		if (r.SourceIncludes is not null)
 			queryParts.Add($"_source_includes={Uri.EscapeDataString(string.Join(",", r.SourceIncludes!))}");
 		if (r.AllowNoIndices is not null)
-			queryParts.Add($"allow_no_indices={Uri.EscapeDataString((r.AllowNoIndices.Value ? "true" : "false"))}");
+			queryParts.Add($"allow_no_indices={Uri.EscapeDataString((r.AllowNoIndices!.Value ? "true" : "false"))}");
 		if (r.AnalyzeWildcard is not null)
-			queryParts.Add($"analyze_wildcard={Uri.EscapeDataString((r.AnalyzeWildcard.Value ? "true" : "false"))}");
+			queryParts.Add($"analyze_wildcard={Uri.EscapeDataString((r.AnalyzeWildcard!.Value ? "true" : "false"))}");
 		if (r.Analyzer is not null)
 			queryParts.Add($"analyzer={Uri.EscapeDataString(r.Analyzer!)}");
 		if (r.Conflicts is not null)
@@ -149,11 +149,11 @@ public sealed class DeleteByQueryEndpoint : IEndpoint<DeleteByQueryRequest, Dele
 		if (r.ExpandWildcards is not null)
 			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(string.Join(",", r.ExpandWildcards!))}");
 		if (r.From is not null)
-			queryParts.Add($"from={Uri.EscapeDataString(r.From.ToString()!)}");
+			queryParts.Add($"from={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.From!.Value))}");
 		if (r.IgnoreUnavailable is not null)
-			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable.Value ? "true" : "false"))}");
+			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable!.Value ? "true" : "false"))}");
 		if (r.Lenient is not null)
-			queryParts.Add($"lenient={Uri.EscapeDataString((r.Lenient.Value ? "true" : "false"))}");
+			queryParts.Add($"lenient={Uri.EscapeDataString((r.Lenient!.Value ? "true" : "false"))}");
 		if (r.Preference is not null)
 			queryParts.Add($"preference={Uri.EscapeDataString(r.Preference!)}");
 		if (r.Q is not null)
@@ -161,21 +161,21 @@ public sealed class DeleteByQueryEndpoint : IEndpoint<DeleteByQueryRequest, Dele
 		if (r.Refresh is not null)
 			queryParts.Add($"refresh={Uri.EscapeDataString(r.Refresh!)}");
 		if (r.RequestCache is not null)
-			queryParts.Add($"request_cache={Uri.EscapeDataString((r.RequestCache.Value ? "true" : "false"))}");
+			queryParts.Add($"request_cache={Uri.EscapeDataString((r.RequestCache!.Value ? "true" : "false"))}");
 		if (r.RequestsPerSecond is not null)
-			queryParts.Add($"requests_per_second={Uri.EscapeDataString(r.RequestsPerSecond.ToString()!)}");
+			queryParts.Add($"requests_per_second={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.RequestsPerSecond!.Value))}");
 		if (r.Routing is not null)
 			queryParts.Add($"routing={Uri.EscapeDataString(string.Join(",", r.Routing!))}");
 		if (r.Scroll is not null)
 			queryParts.Add($"scroll={Uri.EscapeDataString(r.Scroll!)}");
 		if (r.ScrollSize is not null)
-			queryParts.Add($"scroll_size={Uri.EscapeDataString(r.ScrollSize.ToString()!)}");
+			queryParts.Add($"scroll_size={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.ScrollSize!.Value))}");
 		if (r.SearchTimeout is not null)
 			queryParts.Add($"search_timeout={Uri.EscapeDataString(r.SearchTimeout!)}");
 		if (r.SearchType is not null)
 			queryParts.Add($"search_type={Uri.EscapeDataString(r.SearchType!)}");
 		if (r.Size is not null)
-			queryParts.Add($"size={Uri.EscapeDataString(r.Size.ToString()!)}");
+			queryParts.Add($"size={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.Size!.Value))}");
 		if (r.Slices is not null)
 			queryParts.Add($"slices={Uri.EscapeDataString(r.Slices!)}");
 		if (r.Sort is not null)
@@ -183,15 +183,15 @@ public sealed class DeleteByQueryEndpoint : IEndpoint<DeleteByQueryRequest, Dele
 		if (r.Stats is not null)
 			queryParts.Add($"stats={Uri.EscapeDataString(string.Join(",", r.Stats!))}");
 		if (r.TerminateAfter is not null)
-			queryParts.Add($"terminate_after={Uri.EscapeDataString(r.TerminateAfter.ToString()!)}");
+			queryParts.Add($"terminate_after={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.TerminateAfter!.Value))}");
 		if (r.Timeout is not null)
 			queryParts.Add($"timeout={Uri.EscapeDataString(r.Timeout!)}");
 		if (r.Version is not null)
-			queryParts.Add($"version={Uri.EscapeDataString((r.Version.Value ? "true" : "false"))}");
+			queryParts.Add($"version={Uri.EscapeDataString((r.Version!.Value ? "true" : "false"))}");
 		if (r.WaitForActiveShards is not null)
 			queryParts.Add($"wait_for_active_shards={Uri.EscapeDataString(r.WaitForActiveShards!)}");
 		if (r.WaitForCompletion is not null)
-			queryParts.Add($"wait_for_completion={Uri.EscapeDataString((r.WaitForCompletion.Value ? "true" : "false"))}");
+			queryParts.Add($"wait_for_completion={Uri.EscapeDataString((r.WaitForCompletion!.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

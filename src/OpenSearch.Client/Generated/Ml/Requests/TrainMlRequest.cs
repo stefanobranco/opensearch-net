@@ -30,7 +30,7 @@ public sealed class TrainMlEndpoint : IEndpoint<TrainMlRequest, TrainMlResponse>
 
 	public string RequestUrl(TrainMlRequest r)
 	{
-		var path = $"/_plugins/_ml/_train/{Uri.EscapeDataString(r.AlgorithmName!.ToString()!)}";
+		var path = $"/_plugins/_ml/_train/{Uri.EscapeDataString(r.AlgorithmName!)}";
 		return path;
 	}
 

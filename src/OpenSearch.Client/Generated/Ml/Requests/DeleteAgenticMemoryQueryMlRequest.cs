@@ -30,7 +30,7 @@ public sealed class DeleteAgenticMemoryQueryMlEndpoint : IEndpoint<DeleteAgentic
 
 	public string RequestUrl(DeleteAgenticMemoryQueryMlRequest r)
 	{
-		var path = $"/_plugins/_ml/memory_containers/{Uri.EscapeDataString(r.MemoryContainerId!.ToString()!)}/memories/{Uri.EscapeDataString(r.Type!.ToString()!)}/_delete_by_query";
+		var path = $"/_plugins/_ml/memory_containers/{Uri.EscapeDataString(r.MemoryContainerId!)}/memories/{Uri.EscapeDataString(QueryParamSerializer.Serialize(r.Type!.Value))}/_delete_by_query";
 		return path;
 	}
 

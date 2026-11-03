@@ -30,7 +30,7 @@ public sealed class GetPipelineIngestEndpoint : IEndpoint<GetPipelineIngestReque
 	public string RequestUrl(GetPipelineIngestRequest r)
 	{
 		var path = r.Id is not null
-			? $"/_ingest/pipeline/{Uri.EscapeDataString(r.Id!.ToString()!)}" : true
+			? $"/_ingest/pipeline/{Uri.EscapeDataString(r.Id!)}" : true
 			? $"/_ingest/pipeline"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

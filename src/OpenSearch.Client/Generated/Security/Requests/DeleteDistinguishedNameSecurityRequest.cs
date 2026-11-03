@@ -26,7 +26,7 @@ public sealed class DeleteDistinguishedNameSecurityEndpoint : IEndpoint<DeleteDi
 
 	public string RequestUrl(DeleteDistinguishedNameSecurityRequest r)
 	{
-		var path = $"/_plugins/_security/api/nodesdn/{Uri.EscapeDataString(r.ClusterName!.ToString()!)}";
+		var path = $"/_plugins/_security/api/nodesdn/{Uri.EscapeDataString(r.ClusterName!)}";
 		return path;
 	}
 

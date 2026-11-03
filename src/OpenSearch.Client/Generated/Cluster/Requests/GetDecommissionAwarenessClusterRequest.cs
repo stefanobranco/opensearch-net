@@ -26,7 +26,7 @@ public sealed class GetDecommissionAwarenessClusterEndpoint : IEndpoint<GetDecom
 
 	public string RequestUrl(GetDecommissionAwarenessClusterRequest r)
 	{
-		var path = $"/_cluster/decommission/awareness/{Uri.EscapeDataString(r.AwarenessAttributeName!.ToString()!)}/_status";
+		var path = $"/_cluster/decommission/awareness/{Uri.EscapeDataString(r.AwarenessAttributeName!)}/_status";
 		return path;
 	}
 

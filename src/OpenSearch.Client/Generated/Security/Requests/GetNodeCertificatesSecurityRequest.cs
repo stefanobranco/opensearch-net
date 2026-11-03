@@ -32,7 +32,7 @@ public sealed class GetNodeCertificatesSecurityEndpoint : IEndpoint<GetNodeCerti
 
 	public string RequestUrl(GetNodeCertificatesSecurityRequest r)
 	{
-		var path = $"/_plugins/_security/api/certificates/{Uri.EscapeDataString(r.NodeId!.ToString()!)}";
+		var path = $"/_plugins/_security/api/certificates/{Uri.EscapeDataString(r.NodeId!)}";
 		var queryParts = new List<string>();
 		if (r.CertType is not null)
 			queryParts.Add($"cert_type={Uri.EscapeDataString(r.CertType!)}");

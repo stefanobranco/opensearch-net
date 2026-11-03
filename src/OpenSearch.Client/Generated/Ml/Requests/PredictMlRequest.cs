@@ -38,7 +38,7 @@ public sealed class PredictMlEndpoint : IEndpoint<PredictMlRequest, PredictMlRes
 
 	public string RequestUrl(PredictMlRequest r)
 	{
-		var path = $"/_plugins/_ml/_predict/{Uri.EscapeDataString(r.AlgorithmName!.ToString()!)}/{Uri.EscapeDataString(r.ModelId!.ToString()!)}";
+		var path = $"/_plugins/_ml/_predict/{Uri.EscapeDataString(r.AlgorithmName!)}/{Uri.EscapeDataString(r.ModelId!)}";
 		return path;
 	}
 

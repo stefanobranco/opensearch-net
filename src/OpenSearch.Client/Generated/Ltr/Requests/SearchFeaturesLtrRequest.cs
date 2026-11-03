@@ -36,16 +36,16 @@ public sealed class SearchFeaturesLtrEndpoint : IEndpoint<SearchFeaturesLtrReque
 	public string RequestUrl(SearchFeaturesLtrRequest r)
 	{
 		var path = r.Store is not null
-			? $"/_ltr/{Uri.EscapeDataString(r.Store!.ToString()!)}/_feature" : true
+			? $"/_ltr/{Uri.EscapeDataString(r.Store!)}/_feature" : true
 			? $"/_ltr/_feature"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();
 		if (r.From is not null)
-			queryParts.Add($"from={Uri.EscapeDataString(r.From.ToString()!)}");
+			queryParts.Add($"from={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.From!.Value))}");
 		if (r.Prefix is not null)
 			queryParts.Add($"prefix={Uri.EscapeDataString(r.Prefix!)}");
 		if (r.Size is not null)
-			queryParts.Add($"size={Uri.EscapeDataString(r.Size.ToString()!)}");
+			queryParts.Add($"size={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.Size!.Value))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

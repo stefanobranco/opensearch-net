@@ -27,7 +27,7 @@ public sealed class GetJudgmentsSearchRelevanceEndpoint<TDocument> : IEndpoint<G
 	public string RequestUrl(GetJudgmentsSearchRelevanceRequest r)
 	{
 		var path = r.JudgmentId is not null
-			? $"/_plugins/_search_relevance/judgments/{Uri.EscapeDataString(r.JudgmentId!.ToString()!)}" : true
+			? $"/_plugins/_search_relevance/judgments/{Uri.EscapeDataString(r.JudgmentId!)}" : true
 			? $"/_plugins/_search_relevance/judgments"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		return path;

@@ -26,7 +26,7 @@ public sealed class DeleteModelGroupMlEndpoint : IEndpoint<DeleteModelGroupMlReq
 
 	public string RequestUrl(DeleteModelGroupMlRequest r)
 	{
-		var path = $"/_plugins/_ml/model_groups/{Uri.EscapeDataString(r.ModelGroupId!.ToString()!)}";
+		var path = $"/_plugins/_ml/model_groups/{Uri.EscapeDataString(r.ModelGroupId!)}";
 		return path;
 	}
 

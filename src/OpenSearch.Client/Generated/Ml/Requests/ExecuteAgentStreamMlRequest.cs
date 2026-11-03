@@ -27,7 +27,7 @@ public sealed class ExecuteAgentStreamMlEndpoint : IEndpoint<ExecuteAgentStreamM
 
 	public string RequestUrl(ExecuteAgentStreamMlRequest r)
 	{
-		var path = $"/_plugins/_ml/agents/{Uri.EscapeDataString(r.AgentId!.ToString()!)}/_execute/stream";
+		var path = $"/_plugins/_ml/agents/{Uri.EscapeDataString(r.AgentId!)}/_execute/stream";
 		return path;
 	}
 

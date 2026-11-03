@@ -27,7 +27,7 @@ public sealed class UpdateDistinguishedNameSecurityEndpoint : IEndpoint<UpdateDi
 
 	public string RequestUrl(UpdateDistinguishedNameSecurityRequest r)
 	{
-		var path = $"/_plugins/_security/api/nodesdn/{Uri.EscapeDataString(r.ClusterName!.ToString()!)}";
+		var path = $"/_plugins/_security/api/nodesdn/{Uri.EscapeDataString(r.ClusterName!)}";
 		return path;
 	}
 

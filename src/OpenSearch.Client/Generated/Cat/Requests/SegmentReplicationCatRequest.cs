@@ -82,15 +82,15 @@ public sealed class SegmentReplicationCatEndpoint : IEndpoint<SegmentReplication
 		if (r.Format is null)
 			queryParts.Add("format=json");
 		if (r.ActiveOnly is not null)
-			queryParts.Add($"active_only={Uri.EscapeDataString((r.ActiveOnly.Value ? "true" : "false"))}");
+			queryParts.Add($"active_only={Uri.EscapeDataString((r.ActiveOnly!.Value ? "true" : "false"))}");
 		if (r.AllowNoIndices is not null)
-			queryParts.Add($"allow_no_indices={Uri.EscapeDataString((r.AllowNoIndices.Value ? "true" : "false"))}");
+			queryParts.Add($"allow_no_indices={Uri.EscapeDataString((r.AllowNoIndices!.Value ? "true" : "false"))}");
 		if (r.Bytes is not null)
 			queryParts.Add($"bytes={Uri.EscapeDataString(r.Bytes!)}");
 		if (r.CompletedOnly is not null)
-			queryParts.Add($"completed_only={Uri.EscapeDataString((r.CompletedOnly.Value ? "true" : "false"))}");
+			queryParts.Add($"completed_only={Uri.EscapeDataString((r.CompletedOnly!.Value ? "true" : "false"))}");
 		if (r.Detailed is not null)
-			queryParts.Add($"detailed={Uri.EscapeDataString((r.Detailed.Value ? "true" : "false"))}");
+			queryParts.Add($"detailed={Uri.EscapeDataString((r.Detailed!.Value ? "true" : "false"))}");
 		if (r.ExpandWildcards is not null)
 			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(string.Join(",", r.ExpandWildcards!))}");
 		if (r.Format is not null)
@@ -98,11 +98,11 @@ public sealed class SegmentReplicationCatEndpoint : IEndpoint<SegmentReplication
 		if (r.H is not null)
 			queryParts.Add($"h={Uri.EscapeDataString(string.Join(",", r.H!))}");
 		if (r.Help is not null)
-			queryParts.Add($"help={Uri.EscapeDataString((r.Help.Value ? "true" : "false"))}");
+			queryParts.Add($"help={Uri.EscapeDataString((r.Help!.Value ? "true" : "false"))}");
 		if (r.IgnoreThrottled is not null)
-			queryParts.Add($"ignore_throttled={Uri.EscapeDataString((r.IgnoreThrottled.Value ? "true" : "false"))}");
+			queryParts.Add($"ignore_throttled={Uri.EscapeDataString((r.IgnoreThrottled!.Value ? "true" : "false"))}");
 		if (r.IgnoreUnavailable is not null)
-			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable.Value ? "true" : "false"))}");
+			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable!.Value ? "true" : "false"))}");
 		if (r.S is not null)
 			queryParts.Add($"s={Uri.EscapeDataString(string.Join(",", r.S!))}");
 		if (r.Shards is not null)
@@ -112,7 +112,7 @@ public sealed class SegmentReplicationCatEndpoint : IEndpoint<SegmentReplication
 		if (r.Timeout is not null)
 			queryParts.Add($"timeout={Uri.EscapeDataString(r.Timeout!)}");
 		if (r.V is not null)
-			queryParts.Add($"v={Uri.EscapeDataString((r.V.Value ? "true" : "false"))}");
+			queryParts.Add($"v={Uri.EscapeDataString((r.V!.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

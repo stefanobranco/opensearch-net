@@ -32,7 +32,7 @@ public sealed class DeleteSnapshotEndpoint : IEndpoint<DeleteSnapshotRequest, De
 
 	public string RequestUrl(DeleteSnapshotRequest r)
 	{
-		var path = $"/_snapshot/{Uri.EscapeDataString(r.Repository!.ToString()!)}/{Uri.EscapeDataString(r.Snapshot!.ToString()!)}";
+		var path = $"/_snapshot/{Uri.EscapeDataString(r.Repository!)}/{Uri.EscapeDataString(r.Snapshot!)}";
 		var queryParts = new List<string>();
 		if (r.ClusterManagerTimeout is not null)
 			queryParts.Add($"cluster_manager_timeout={Uri.EscapeDataString(r.ClusterManagerTimeout!)}");

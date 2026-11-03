@@ -27,7 +27,7 @@ public sealed class RemovePolicyIsmEndpoint : IEndpoint<RemovePolicyIsmRequest, 
 	public string RequestUrl(RemovePolicyIsmRequest r)
 	{
 		var path = r.Index is not null
-			? $"/_plugins/_ism/remove/{Uri.EscapeDataString(r.Index!.ToString()!)}" : true
+			? $"/_plugins/_ism/remove/{Uri.EscapeDataString(r.Index!)}" : true
 			? $"/_plugins/_ism/remove"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		return path;

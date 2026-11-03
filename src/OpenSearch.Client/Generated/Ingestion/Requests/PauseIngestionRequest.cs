@@ -32,7 +32,7 @@ public sealed class PauseIngestionEndpoint : IEndpoint<PauseIngestionRequest, Pa
 
 	public string RequestUrl(PauseIngestionRequest r)
 	{
-		var path = $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/ingestion/_pause";
+		var path = $"/{Uri.EscapeDataString(r.Index!)}/ingestion/_pause";
 		var queryParts = new List<string>();
 		if (r.ClusterManagerTimeout is not null)
 			queryParts.Add($"cluster_manager_timeout={Uri.EscapeDataString(r.ClusterManagerTimeout!)}");

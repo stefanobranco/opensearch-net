@@ -30,9 +30,9 @@ public sealed class GetStatsMlEndpoint : IEndpoint<GetStatsMlRequest, GetStatsMl
 	public string RequestUrl(GetStatsMlRequest r)
 	{
 		var path = r.NodeId is not null && r.Stat is not null
-			? $"/_plugins/_ml/{Uri.EscapeDataString(r.NodeId!.ToString()!)}/stats/{Uri.EscapeDataString(string.Join(",", r.Stat!))}" : r.Stat is not null
-			? $"/_plugins/_ml/stats/{Uri.EscapeDataString(string.Join(",", r.Stat!))}" : r.NodeId is not null
-			? $"/_plugins/_ml/{Uri.EscapeDataString(r.NodeId!.ToString()!)}/stats" : true
+			? $"/_plugins/_ml/{Uri.EscapeDataString(r.NodeId!)}/stats/{Uri.EscapeDataString(QueryParamSerializer.Serialize(r.Stat!))}" : r.Stat is not null
+			? $"/_plugins/_ml/stats/{Uri.EscapeDataString(QueryParamSerializer.Serialize(r.Stat!))}" : r.NodeId is not null
+			? $"/_plugins/_ml/{Uri.EscapeDataString(r.NodeId!)}/stats" : true
 			? $"/_plugins/_ml/stats"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		return path;

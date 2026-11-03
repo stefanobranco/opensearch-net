@@ -35,12 +35,12 @@ public sealed class GetStateIngestionEndpoint : IEndpoint<GetStateIngestionReque
 
 	public string RequestUrl(GetStateIngestionRequest r)
 	{
-		var path = $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/ingestion/_state";
+		var path = $"/{Uri.EscapeDataString(r.Index!)}/ingestion/_state";
 		var queryParts = new List<string>();
 		if (r.NextToken is not null)
 			queryParts.Add($"next_token={Uri.EscapeDataString(r.NextToken!)}");
 		if (r.Size is not null)
-			queryParts.Add($"size={Uri.EscapeDataString(r.Size.ToString()!)}");
+			queryParts.Add($"size={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.Size!.Value))}");
 		if (r.Timeout is not null)
 			queryParts.Add($"timeout={Uri.EscapeDataString(r.Timeout!)}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;

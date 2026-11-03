@@ -40,9 +40,9 @@ public sealed class ExistsTemplateIndexEndpoint : IEndpoint<ExistsTemplateIndexR
 		if (r.ClusterManagerTimeout is not null)
 			queryParts.Add($"cluster_manager_timeout={Uri.EscapeDataString(r.ClusterManagerTimeout!)}");
 		if (r.FlatSettings is not null)
-			queryParts.Add($"flat_settings={Uri.EscapeDataString((r.FlatSettings.Value ? "true" : "false"))}");
+			queryParts.Add($"flat_settings={Uri.EscapeDataString((r.FlatSettings!.Value ? "true" : "false"))}");
 		if (r.Local is not null)
-			queryParts.Add($"local={Uri.EscapeDataString((r.Local.Value ? "true" : "false"))}");
+			queryParts.Add($"local={Uri.EscapeDataString((r.Local!.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

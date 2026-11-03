@@ -41,12 +41,12 @@ public sealed class PutComponentTemplateClusterEndpoint : IEndpoint<PutComponent
 
 	public string RequestUrl(PutComponentTemplateClusterRequest r)
 	{
-		var path = $"/_component_template/{Uri.EscapeDataString(r.Name!.ToString()!)}";
+		var path = $"/_component_template/{Uri.EscapeDataString(r.Name!)}";
 		var queryParts = new List<string>();
 		if (r.ClusterManagerTimeout is not null)
 			queryParts.Add($"cluster_manager_timeout={Uri.EscapeDataString(r.ClusterManagerTimeout!)}");
 		if (r.Create is not null)
-			queryParts.Add($"create={Uri.EscapeDataString((r.Create.Value ? "true" : "false"))}");
+			queryParts.Add($"create={Uri.EscapeDataString((r.Create!.Value ? "true" : "false"))}");
 		if (r.Timeout is not null)
 			queryParts.Add($"timeout={Uri.EscapeDataString(r.Timeout!)}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;

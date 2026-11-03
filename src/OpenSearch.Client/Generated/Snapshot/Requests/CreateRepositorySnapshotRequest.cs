@@ -37,14 +37,14 @@ public sealed class CreateRepositorySnapshotEndpoint : IEndpoint<CreateRepositor
 
 	public string RequestUrl(CreateRepositorySnapshotRequest r)
 	{
-		var path = $"/_snapshot/{Uri.EscapeDataString(r.Repository!.ToString()!)}";
+		var path = $"/_snapshot/{Uri.EscapeDataString(r.Repository!)}";
 		var queryParts = new List<string>();
 		if (r.ClusterManagerTimeout is not null)
 			queryParts.Add($"cluster_manager_timeout={Uri.EscapeDataString(r.ClusterManagerTimeout!)}");
 		if (r.Timeout is not null)
 			queryParts.Add($"timeout={Uri.EscapeDataString(r.Timeout!)}");
 		if (r.Verify is not null)
-			queryParts.Add($"verify={Uri.EscapeDataString((r.Verify.Value ? "true" : "false"))}");
+			queryParts.Add($"verify={Uri.EscapeDataString((r.Verify!.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

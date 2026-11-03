@@ -49,7 +49,7 @@ public sealed class ListTaskEndpoint : IEndpoint<ListTaskRequest, ListTaskRespon
 		if (r.Actions is not null)
 			queryParts.Add($"actions={Uri.EscapeDataString(string.Join(",", r.Actions!))}");
 		if (r.Detailed is not null)
-			queryParts.Add($"detailed={Uri.EscapeDataString((r.Detailed.Value ? "true" : "false"))}");
+			queryParts.Add($"detailed={Uri.EscapeDataString((r.Detailed!.Value ? "true" : "false"))}");
 		if (r.GroupBy is not null)
 			queryParts.Add($"group_by={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.GroupBy!.Value))}");
 		if (r.Nodes is not null)
@@ -59,7 +59,7 @@ public sealed class ListTaskEndpoint : IEndpoint<ListTaskRequest, ListTaskRespon
 		if (r.Timeout is not null)
 			queryParts.Add($"timeout={Uri.EscapeDataString(r.Timeout!)}");
 		if (r.WaitForCompletion is not null)
-			queryParts.Add($"wait_for_completion={Uri.EscapeDataString((r.WaitForCompletion.Value ? "true" : "false"))}");
+			queryParts.Add($"wait_for_completion={Uri.EscapeDataString((r.WaitForCompletion!.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

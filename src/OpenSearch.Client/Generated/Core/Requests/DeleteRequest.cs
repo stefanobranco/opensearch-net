@@ -53,12 +53,12 @@ public sealed class DeleteEndpoint : IEndpoint<DeleteRequest, DeleteResponse>
 
 	public string RequestUrl(DeleteRequest r)
 	{
-		var path = $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_doc/{Uri.EscapeDataString(r.Id!.ToString()!)}";
+		var path = $"/{Uri.EscapeDataString(r.Index!)}/_doc/{Uri.EscapeDataString(r.Id!)}";
 		var queryParts = new List<string>();
 		if (r.IfPrimaryTerm is not null)
-			queryParts.Add($"if_primary_term={Uri.EscapeDataString(r.IfPrimaryTerm.ToString()!)}");
+			queryParts.Add($"if_primary_term={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.IfPrimaryTerm!.Value))}");
 		if (r.IfSeqNo is not null)
-			queryParts.Add($"if_seq_no={Uri.EscapeDataString(r.IfSeqNo.ToString()!)}");
+			queryParts.Add($"if_seq_no={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.IfSeqNo!.Value))}");
 		if (r.Refresh is not null)
 			queryParts.Add($"refresh={Uri.EscapeDataString(r.Refresh!)}");
 		if (r.Routing is not null)
@@ -66,7 +66,7 @@ public sealed class DeleteEndpoint : IEndpoint<DeleteRequest, DeleteResponse>
 		if (r.Timeout is not null)
 			queryParts.Add($"timeout={Uri.EscapeDataString(r.Timeout!)}");
 		if (r.Version is not null)
-			queryParts.Add($"version={Uri.EscapeDataString(r.Version.ToString()!)}");
+			queryParts.Add($"version={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.Version!.Value))}");
 		if (r.VersionType is not null)
 			queryParts.Add($"version_type={Uri.EscapeDataString(r.VersionType!)}");
 		if (r.WaitForActiveShards is not null)

@@ -56,21 +56,21 @@ public sealed class ForcemergeIndexEndpoint : IEndpoint<ForcemergeIndexRequest, 
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();
 		if (r.AllowNoIndices is not null)
-			queryParts.Add($"allow_no_indices={Uri.EscapeDataString((r.AllowNoIndices.Value ? "true" : "false"))}");
+			queryParts.Add($"allow_no_indices={Uri.EscapeDataString((r.AllowNoIndices!.Value ? "true" : "false"))}");
 		if (r.ExpandWildcards is not null)
 			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(string.Join(",", r.ExpandWildcards!))}");
 		if (r.Flush is not null)
-			queryParts.Add($"flush={Uri.EscapeDataString((r.Flush.Value ? "true" : "false"))}");
+			queryParts.Add($"flush={Uri.EscapeDataString((r.Flush!.Value ? "true" : "false"))}");
 		if (r.IgnoreUnavailable is not null)
-			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable.Value ? "true" : "false"))}");
+			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable!.Value ? "true" : "false"))}");
 		if (r.MaxNumSegments is not null)
-			queryParts.Add($"max_num_segments={Uri.EscapeDataString(r.MaxNumSegments.ToString()!)}");
+			queryParts.Add($"max_num_segments={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.MaxNumSegments!.Value))}");
 		if (r.OnlyExpungeDeletes is not null)
-			queryParts.Add($"only_expunge_deletes={Uri.EscapeDataString((r.OnlyExpungeDeletes.Value ? "true" : "false"))}");
+			queryParts.Add($"only_expunge_deletes={Uri.EscapeDataString((r.OnlyExpungeDeletes!.Value ? "true" : "false"))}");
 		if (r.PrimaryOnly is not null)
-			queryParts.Add($"primary_only={Uri.EscapeDataString((r.PrimaryOnly.Value ? "true" : "false"))}");
+			queryParts.Add($"primary_only={Uri.EscapeDataString((r.PrimaryOnly!.Value ? "true" : "false"))}");
 		if (r.WaitForCompletion is not null)
-			queryParts.Add($"wait_for_completion={Uri.EscapeDataString((r.WaitForCompletion.Value ? "true" : "false"))}");
+			queryParts.Add($"wait_for_completion={Uri.EscapeDataString((r.WaitForCompletion!.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

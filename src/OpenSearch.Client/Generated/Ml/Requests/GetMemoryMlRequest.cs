@@ -26,7 +26,7 @@ public sealed class GetMemoryMlEndpoint : IEndpoint<GetMemoryMlRequest, GetMemor
 
 	public string RequestUrl(GetMemoryMlRequest r)
 	{
-		var path = $"/_plugins/_ml/memory/{Uri.EscapeDataString(r.MemoryId!.ToString()!)}";
+		var path = $"/_plugins/_ml/memory/{Uri.EscapeDataString(r.MemoryId!)}";
 		return path;
 	}
 

@@ -26,7 +26,7 @@ public sealed class DeleteSearchConfigurationsSearchRelevanceEndpoint : IEndpoin
 
 	public string RequestUrl(DeleteSearchConfigurationsSearchRelevanceRequest r)
 	{
-		var path = $"/_plugins/_search_relevance/search_configurations/{Uri.EscapeDataString(r.SearchConfigurationId!.ToString()!)}";
+		var path = $"/_plugins/_search_relevance/search_configurations/{Uri.EscapeDataString(r.SearchConfigurationId!)}";
 		return path;
 	}
 

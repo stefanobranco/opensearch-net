@@ -26,7 +26,7 @@ public sealed class DeleteJudgmentsSearchRelevanceEndpoint : IEndpoint<DeleteJud
 
 	public string RequestUrl(DeleteJudgmentsSearchRelevanceRequest r)
 	{
-		var path = $"/_plugins/_search_relevance/judgments/{Uri.EscapeDataString(r.JudgmentId!.ToString()!)}";
+		var path = $"/_plugins/_search_relevance/judgments/{Uri.EscapeDataString(r.JudgmentId!)}";
 		return path;
 	}
 

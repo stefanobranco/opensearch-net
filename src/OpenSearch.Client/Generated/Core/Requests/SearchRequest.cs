@@ -186,19 +186,19 @@ public sealed class SearchEndpoint<TDocument> : IEndpoint<SearchRequest, SearchR
 		if (r.SourceIncludes is not null)
 			queryParts.Add($"_source_includes={Uri.EscapeDataString(string.Join(",", r.SourceIncludes!))}");
 		if (r.AllowNoIndices is not null)
-			queryParts.Add($"allow_no_indices={Uri.EscapeDataString((r.AllowNoIndices.Value ? "true" : "false"))}");
+			queryParts.Add($"allow_no_indices={Uri.EscapeDataString((r.AllowNoIndices!.Value ? "true" : "false"))}");
 		if (r.AllowPartialSearchResults is not null)
-			queryParts.Add($"allow_partial_search_results={Uri.EscapeDataString((r.AllowPartialSearchResults.Value ? "true" : "false"))}");
+			queryParts.Add($"allow_partial_search_results={Uri.EscapeDataString((r.AllowPartialSearchResults!.Value ? "true" : "false"))}");
 		if (r.AnalyzeWildcard is not null)
-			queryParts.Add($"analyze_wildcard={Uri.EscapeDataString((r.AnalyzeWildcard.Value ? "true" : "false"))}");
+			queryParts.Add($"analyze_wildcard={Uri.EscapeDataString((r.AnalyzeWildcard!.Value ? "true" : "false"))}");
 		if (r.Analyzer is not null)
 			queryParts.Add($"analyzer={Uri.EscapeDataString(r.Analyzer!)}");
 		if (r.BatchedReduceSize is not null)
-			queryParts.Add($"batched_reduce_size={Uri.EscapeDataString(r.BatchedReduceSize.ToString()!)}");
+			queryParts.Add($"batched_reduce_size={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.BatchedReduceSize!.Value))}");
 		if (r.CancelAfterTimeInterval is not null)
 			queryParts.Add($"cancel_after_time_interval={Uri.EscapeDataString(r.CancelAfterTimeInterval!)}");
 		if (r.CcsMinimizeRoundtrips is not null)
-			queryParts.Add($"ccs_minimize_roundtrips={Uri.EscapeDataString((r.CcsMinimizeRoundtrips.Value ? "true" : "false"))}");
+			queryParts.Add($"ccs_minimize_roundtrips={Uri.EscapeDataString((r.CcsMinimizeRoundtrips!.Value ? "true" : "false"))}");
 		if (r.DefaultOperator is not null)
 			queryParts.Add($"default_operator={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.DefaultOperator!.Value))}");
 		if (r.Df is not null)
@@ -206,25 +206,25 @@ public sealed class SearchEndpoint<TDocument> : IEndpoint<SearchRequest, SearchR
 		if (r.ExpandWildcards is not null)
 			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(string.Join(",", r.ExpandWildcards!))}");
 		if (r.IgnoreThrottled is not null)
-			queryParts.Add($"ignore_throttled={Uri.EscapeDataString((r.IgnoreThrottled.Value ? "true" : "false"))}");
+			queryParts.Add($"ignore_throttled={Uri.EscapeDataString((r.IgnoreThrottled!.Value ? "true" : "false"))}");
 		if (r.IgnoreUnavailable is not null)
-			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable.Value ? "true" : "false"))}");
+			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable!.Value ? "true" : "false"))}");
 		if (r.Lenient is not null)
-			queryParts.Add($"lenient={Uri.EscapeDataString((r.Lenient.Value ? "true" : "false"))}");
+			queryParts.Add($"lenient={Uri.EscapeDataString((r.Lenient!.Value ? "true" : "false"))}");
 		if (r.MaxConcurrentShardRequests is not null)
-			queryParts.Add($"max_concurrent_shard_requests={Uri.EscapeDataString(r.MaxConcurrentShardRequests.ToString()!)}");
+			queryParts.Add($"max_concurrent_shard_requests={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.MaxConcurrentShardRequests!.Value))}");
 		if (r.PhaseTook is not null)
-			queryParts.Add($"phase_took={Uri.EscapeDataString((r.PhaseTook.Value ? "true" : "false"))}");
+			queryParts.Add($"phase_took={Uri.EscapeDataString((r.PhaseTook!.Value ? "true" : "false"))}");
 		if (r.PreFilterShardSize is not null)
-			queryParts.Add($"pre_filter_shard_size={Uri.EscapeDataString(r.PreFilterShardSize.ToString()!)}");
+			queryParts.Add($"pre_filter_shard_size={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.PreFilterShardSize!.Value))}");
 		if (r.Preference is not null)
 			queryParts.Add($"preference={Uri.EscapeDataString(r.Preference!)}");
 		if (r.Q is not null)
 			queryParts.Add($"q={Uri.EscapeDataString(r.Q!)}");
 		if (r.RequestCache is not null)
-			queryParts.Add($"request_cache={Uri.EscapeDataString((r.RequestCache.Value ? "true" : "false"))}");
+			queryParts.Add($"request_cache={Uri.EscapeDataString((r.RequestCache!.Value ? "true" : "false"))}");
 		if (r.RestTotalHitsAsInt is not null)
-			queryParts.Add($"rest_total_hits_as_int={Uri.EscapeDataString((r.RestTotalHitsAsInt.Value ? "true" : "false"))}");
+			queryParts.Add($"rest_total_hits_as_int={Uri.EscapeDataString((r.RestTotalHitsAsInt!.Value ? "true" : "false"))}");
 		if (r.Routing is not null)
 			queryParts.Add($"routing={Uri.EscapeDataString(string.Join(",", r.Routing!))}");
 		if (r.Scroll is not null)
@@ -236,11 +236,11 @@ public sealed class SearchEndpoint<TDocument> : IEndpoint<SearchRequest, SearchR
 		if (r.SuggestMode is not null)
 			queryParts.Add($"suggest_mode={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.SuggestMode!.Value))}");
 		if (r.SuggestSize is not null)
-			queryParts.Add($"suggest_size={Uri.EscapeDataString(r.SuggestSize.ToString()!)}");
+			queryParts.Add($"suggest_size={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.SuggestSize!.Value))}");
 		if (r.SuggestText is not null)
 			queryParts.Add($"suggest_text={Uri.EscapeDataString(r.SuggestText!)}");
 		if (r.TypedKeys is not null)
-			queryParts.Add($"typed_keys={Uri.EscapeDataString((r.TypedKeys.Value ? "true" : "false"))}");
+			queryParts.Add($"typed_keys={Uri.EscapeDataString((r.TypedKeys!.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

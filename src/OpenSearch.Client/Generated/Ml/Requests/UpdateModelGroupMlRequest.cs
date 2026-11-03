@@ -38,7 +38,7 @@ public sealed class UpdateModelGroupMlEndpoint : IEndpoint<UpdateModelGroupMlReq
 
 	public string RequestUrl(UpdateModelGroupMlRequest r)
 	{
-		var path = $"/_plugins/_ml/model_groups/{Uri.EscapeDataString(r.ModelGroupId!.ToString()!)}";
+		var path = $"/_plugins/_ml/model_groups/{Uri.EscapeDataString(r.ModelGroupId!)}";
 		return path;
 	}
 

@@ -33,12 +33,12 @@ public sealed class SimulateIngestEndpoint : IEndpoint<SimulateIngestRequest, Si
 	public string RequestUrl(SimulateIngestRequest r)
 	{
 		var path = r.Id is not null
-			? $"/_ingest/pipeline/{Uri.EscapeDataString(r.Id!.ToString()!)}/_simulate" : true
+			? $"/_ingest/pipeline/{Uri.EscapeDataString(r.Id!)}/_simulate" : true
 			? $"/_ingest/pipeline/_simulate"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();
 		if (r.Verbose is not null)
-			queryParts.Add($"verbose={Uri.EscapeDataString((r.Verbose.Value ? "true" : "false"))}");
+			queryParts.Add($"verbose={Uri.EscapeDataString((r.Verbose!.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

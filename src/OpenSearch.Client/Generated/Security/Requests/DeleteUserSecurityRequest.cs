@@ -26,7 +26,7 @@ public sealed class DeleteUserSecurityEndpoint : IEndpoint<DeleteUserSecurityReq
 
 	public string RequestUrl(DeleteUserSecurityRequest r)
 	{
-		var path = $"/_plugins/_security/api/internalusers/{Uri.EscapeDataString(r.Username!.ToString()!)}";
+		var path = $"/_plugins/_security/api/internalusers/{Uri.EscapeDataString(r.Username!)}";
 		return path;
 	}
 

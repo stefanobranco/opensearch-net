@@ -42,7 +42,7 @@ public sealed class SimulateIndexTemplateIndexEndpoint : IEndpoint<SimulateIndex
 
 	public string RequestUrl(SimulateIndexTemplateIndexRequest r)
 	{
-		var path = $"/_index_template/_simulate_index/{Uri.EscapeDataString(r.Name!.ToString()!)}";
+		var path = $"/_index_template/_simulate_index/{Uri.EscapeDataString(r.Name!)}";
 		var queryParts = new List<string>();
 		if (r.ClusterManagerTimeout is not null)
 			queryParts.Add($"cluster_manager_timeout={Uri.EscapeDataString(r.ClusterManagerTimeout!)}");

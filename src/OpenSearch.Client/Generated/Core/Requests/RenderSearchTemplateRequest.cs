@@ -31,7 +31,7 @@ public sealed class RenderSearchTemplateEndpoint : IEndpoint<RenderSearchTemplat
 	public string RequestUrl(RenderSearchTemplateRequest r)
 	{
 		var path = r.Id is not null
-			? $"/_render/template/{Uri.EscapeDataString(r.Id!.ToString()!)}" : true
+			? $"/_render/template/{Uri.EscapeDataString(r.Id!)}" : true
 			? $"/_render/template"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		return path;

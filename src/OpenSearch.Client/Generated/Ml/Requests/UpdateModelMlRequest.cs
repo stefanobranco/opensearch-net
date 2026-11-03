@@ -41,7 +41,7 @@ public sealed class UpdateModelMlEndpoint : IEndpoint<UpdateModelMlRequest, Upda
 
 	public string RequestUrl(UpdateModelMlRequest r)
 	{
-		var path = $"/_plugins/_ml/models/{Uri.EscapeDataString(r.ModelId!.ToString()!)}";
+		var path = $"/_plugins/_ml/models/{Uri.EscapeDataString(r.ModelId!)}";
 		return path;
 	}
 

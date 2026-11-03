@@ -32,7 +32,7 @@ public sealed class CreateMemoryContainerSessionMlEndpoint : IEndpoint<CreateMem
 
 	public string RequestUrl(CreateMemoryContainerSessionMlRequest r)
 	{
-		var path = $"/_plugins/_ml/memory_containers/{Uri.EscapeDataString(r.MemoryContainerId!.ToString()!)}/memories/sessions";
+		var path = $"/_plugins/_ml/memory_containers/{Uri.EscapeDataString(r.MemoryContainerId!)}/memories/sessions";
 		return path;
 	}
 

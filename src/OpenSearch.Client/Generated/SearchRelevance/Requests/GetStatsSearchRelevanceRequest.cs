@@ -42,7 +42,7 @@ public sealed class GetStatsSearchRelevanceEndpoint : IEndpoint<GetStatsSearchRe
 	public string RequestUrl(GetStatsSearchRelevanceRequest r)
 	{
 		var path = r.Stat is not null
-			? $"/_plugins/_search_relevance/stats/{Uri.EscapeDataString(r.Stat!.ToString()!)}" : true
+			? $"/_plugins/_search_relevance/stats/{Uri.EscapeDataString(r.Stat!)}" : true
 			? $"/_plugins/_search_relevance/stats"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();

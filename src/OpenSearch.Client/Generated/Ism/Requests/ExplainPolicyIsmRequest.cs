@@ -27,7 +27,7 @@ public sealed class ExplainPolicyIsmEndpoint : IEndpoint<ExplainPolicyIsmRequest
 	public string RequestUrl(ExplainPolicyIsmRequest r)
 	{
 		var path = r.Index is not null
-			? $"/_plugins/_ism/explain/{Uri.EscapeDataString(r.Index!.ToString()!)}" : true
+			? $"/_plugins/_ism/explain/{Uri.EscapeDataString(r.Index!)}" : true
 			? $"/_plugins/_ism/explain"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		return path;

@@ -33,7 +33,7 @@ public sealed class CreateRoleMappingSecurityEndpoint : IEndpoint<CreateRoleMapp
 
 	public string RequestUrl(CreateRoleMappingSecurityRequest r)
 	{
-		var path = $"/_plugins/_security/api/rolesmapping/{Uri.EscapeDataString(r.Role!.ToString()!)}";
+		var path = $"/_plugins/_security/api/rolesmapping/{Uri.EscapeDataString(r.Role!)}";
 		return path;
 	}
 

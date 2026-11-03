@@ -31,7 +31,7 @@ public sealed class UploadChunkMlEndpoint : IEndpoint<UploadChunkMlRequest, Uplo
 
 	public string RequestUrl(UploadChunkMlRequest r)
 	{
-		var path = $"/_plugins/_ml/models/{Uri.EscapeDataString(r.ModelId!.ToString()!)}/upload_chunk/{Uri.EscapeDataString(r.ChunkNumber!.ToString()!)}";
+		var path = $"/_plugins/_ml/models/{Uri.EscapeDataString(r.ModelId!)}/upload_chunk/{Uri.EscapeDataString(QueryParamSerializer.Serialize(r.ChunkNumber))}";
 		return path;
 	}
 

@@ -29,7 +29,7 @@ public sealed class CreateDataStreamIndexEndpoint : IEndpoint<CreateDataStreamIn
 
 	public string RequestUrl(CreateDataStreamIndexRequest r)
 	{
-		var path = $"/_data_stream/{Uri.EscapeDataString(r.Name!.ToString()!)}";
+		var path = $"/_data_stream/{Uri.EscapeDataString(r.Name!)}";
 		return path;
 	}
 

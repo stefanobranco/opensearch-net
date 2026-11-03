@@ -29,7 +29,7 @@ public sealed class PutDecommissionAwarenessClusterEndpoint : IEndpoint<PutDecom
 
 	public string RequestUrl(PutDecommissionAwarenessClusterRequest r)
 	{
-		var path = $"/_cluster/decommission/awareness/{Uri.EscapeDataString(r.AwarenessAttributeName!.ToString()!)}/{Uri.EscapeDataString(r.AwarenessAttributeValue!.ToString()!)}";
+		var path = $"/_cluster/decommission/awareness/{Uri.EscapeDataString(r.AwarenessAttributeName!)}/{Uri.EscapeDataString(r.AwarenessAttributeValue!)}";
 		return path;
 	}
 

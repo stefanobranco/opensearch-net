@@ -35,7 +35,7 @@ public sealed class CreateMessageMlEndpoint : IEndpoint<CreateMessageMlRequest, 
 
 	public string RequestUrl(CreateMessageMlRequest r)
 	{
-		var path = $"/_plugins/_ml/memory/{Uri.EscapeDataString(r.MemoryId!.ToString()!)}/messages";
+		var path = $"/_plugins/_ml/memory/{Uri.EscapeDataString(r.MemoryId!)}/messages";
 		return path;
 	}
 

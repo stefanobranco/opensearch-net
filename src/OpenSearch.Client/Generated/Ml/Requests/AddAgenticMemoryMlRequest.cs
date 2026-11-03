@@ -37,7 +37,7 @@ public sealed class AddAgenticMemoryMlEndpoint : IEndpoint<AddAgenticMemoryMlReq
 
 	public string RequestUrl(AddAgenticMemoryMlRequest r)
 	{
-		var path = $"/_plugins/_ml/memory_containers/{Uri.EscapeDataString(r.MemoryContainerId!.ToString()!)}/memories";
+		var path = $"/_plugins/_ml/memory_containers/{Uri.EscapeDataString(r.MemoryContainerId!)}/memories";
 		return path;
 	}
 

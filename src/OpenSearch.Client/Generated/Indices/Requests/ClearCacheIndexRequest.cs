@@ -56,21 +56,21 @@ public sealed class ClearCacheIndexEndpoint : IEndpoint<ClearCacheIndexRequest, 
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();
 		if (r.AllowNoIndices is not null)
-			queryParts.Add($"allow_no_indices={Uri.EscapeDataString((r.AllowNoIndices.Value ? "true" : "false"))}");
+			queryParts.Add($"allow_no_indices={Uri.EscapeDataString((r.AllowNoIndices!.Value ? "true" : "false"))}");
 		if (r.ExpandWildcards is not null)
 			queryParts.Add($"expand_wildcards={Uri.EscapeDataString(string.Join(",", r.ExpandWildcards!))}");
 		if (r.Fielddata is not null)
-			queryParts.Add($"fielddata={Uri.EscapeDataString((r.Fielddata.Value ? "true" : "false"))}");
+			queryParts.Add($"fielddata={Uri.EscapeDataString((r.Fielddata!.Value ? "true" : "false"))}");
 		if (r.Fields is not null)
 			queryParts.Add($"fields={Uri.EscapeDataString(string.Join(",", r.Fields!))}");
 		if (r.File is not null)
-			queryParts.Add($"file={Uri.EscapeDataString((r.File.Value ? "true" : "false"))}");
+			queryParts.Add($"file={Uri.EscapeDataString((r.File!.Value ? "true" : "false"))}");
 		if (r.IgnoreUnavailable is not null)
-			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable.Value ? "true" : "false"))}");
+			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable!.Value ? "true" : "false"))}");
 		if (r.Query is not null)
-			queryParts.Add($"query={Uri.EscapeDataString((r.Query.Value ? "true" : "false"))}");
+			queryParts.Add($"query={Uri.EscapeDataString((r.Query!.Value ? "true" : "false"))}");
 		if (r.Request is not null)
-			queryParts.Add($"request={Uri.EscapeDataString((r.Request.Value ? "true" : "false"))}");
+			queryParts.Add($"request={Uri.EscapeDataString((r.Request!.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

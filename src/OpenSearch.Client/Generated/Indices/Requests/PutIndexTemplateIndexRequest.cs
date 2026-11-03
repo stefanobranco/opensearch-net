@@ -46,14 +46,14 @@ public sealed class PutIndexTemplateIndexEndpoint : IEndpoint<PutIndexTemplateIn
 
 	public string RequestUrl(PutIndexTemplateIndexRequest r)
 	{
-		var path = $"/_index_template/{Uri.EscapeDataString(r.Name!.ToString()!)}";
+		var path = $"/_index_template/{Uri.EscapeDataString(r.Name!)}";
 		var queryParts = new List<string>();
 		if (r.Cause is not null)
 			queryParts.Add($"cause={Uri.EscapeDataString(r.Cause!)}");
 		if (r.ClusterManagerTimeout is not null)
 			queryParts.Add($"cluster_manager_timeout={Uri.EscapeDataString(r.ClusterManagerTimeout!)}");
 		if (r.Create is not null)
-			queryParts.Add($"create={Uri.EscapeDataString((r.Create.Value ? "true" : "false"))}");
+			queryParts.Add($"create={Uri.EscapeDataString((r.Create!.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

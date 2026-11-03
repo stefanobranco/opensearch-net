@@ -29,7 +29,7 @@ public sealed class PatchTenantSecurityEndpoint : IEndpoint<PatchTenantSecurityR
 
 	public string RequestUrl(PatchTenantSecurityRequest r)
 	{
-		var path = $"/_plugins/_security/api/tenants/{Uri.EscapeDataString(r.Tenant!.ToString()!)}";
+		var path = $"/_plugins/_security/api/tenants/{Uri.EscapeDataString(r.Tenant!)}";
 		return path;
 	}
 

@@ -26,7 +26,7 @@ public sealed class GetUserSecurityEndpoint : IEndpoint<GetUserSecurityRequest, 
 
 	public string RequestUrl(GetUserSecurityRequest r)
 	{
-		var path = $"/_plugins/_security/api/internalusers/{Uri.EscapeDataString(r.Username!.ToString()!)}";
+		var path = $"/_plugins/_security/api/internalusers/{Uri.EscapeDataString(r.Username!)}";
 		return path;
 	}
 

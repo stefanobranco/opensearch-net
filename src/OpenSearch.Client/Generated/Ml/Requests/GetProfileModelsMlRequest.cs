@@ -34,7 +34,7 @@ public sealed class GetProfileModelsMlEndpoint : IEndpoint<GetProfileModelsMlReq
 	public string RequestUrl(GetProfileModelsMlRequest r)
 	{
 		var path = r.ModelId is not null
-			? $"/_plugins/_ml/profile/models/{Uri.EscapeDataString(r.ModelId!.ToString()!)}" : true
+			? $"/_plugins/_ml/profile/models/{Uri.EscapeDataString(r.ModelId!)}" : true
 			? $"/_plugins/_ml/profile/models"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		return path;

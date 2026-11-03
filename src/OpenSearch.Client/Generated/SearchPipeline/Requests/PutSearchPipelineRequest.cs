@@ -37,7 +37,7 @@ public sealed class PutSearchPipelineEndpoint : IEndpoint<PutSearchPipelineReque
 
 	public string RequestUrl(PutSearchPipelineRequest r)
 	{
-		var path = $"/_search/pipeline/{Uri.EscapeDataString(r.Id!.ToString()!)}";
+		var path = $"/_search/pipeline/{Uri.EscapeDataString(r.Id!)}";
 		var queryParts = new List<string>();
 		if (r.ClusterManagerTimeout is not null)
 			queryParts.Add($"cluster_manager_timeout={Uri.EscapeDataString(r.ClusterManagerTimeout!)}");

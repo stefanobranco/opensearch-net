@@ -45,8 +45,8 @@ public sealed class GetNodeStatsSearchRelevanceEndpoint : IEndpoint<GetNodeStats
 	public string RequestUrl(GetNodeStatsSearchRelevanceRequest r)
 	{
 		var path = r.NodeId is not null && r.Stat is not null
-			? $"/_plugins/_search_relevance/{Uri.EscapeDataString(r.NodeId!.ToString()!)}/stats/{Uri.EscapeDataString(r.Stat!.ToString()!)}" : r.NodeId is not null
-			? $"/_plugins/_search_relevance/{Uri.EscapeDataString(r.NodeId!.ToString()!)}/stats"
+			? $"/_plugins/_search_relevance/{Uri.EscapeDataString(r.NodeId!)}/stats/{Uri.EscapeDataString(r.Stat!)}" : r.NodeId is not null
+			? $"/_plugins/_search_relevance/{Uri.EscapeDataString(r.NodeId!)}/stats"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();
 		if (r.FlatStatPaths is not null)

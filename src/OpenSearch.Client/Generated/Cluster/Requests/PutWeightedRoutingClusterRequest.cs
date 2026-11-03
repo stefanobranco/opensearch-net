@@ -29,7 +29,7 @@ public sealed class PutWeightedRoutingClusterEndpoint : IEndpoint<PutWeightedRou
 
 	public string RequestUrl(PutWeightedRoutingClusterRequest r)
 	{
-		var path = $"/_cluster/routing/awareness/{Uri.EscapeDataString(r.Attribute!.ToString()!)}/weights";
+		var path = $"/_cluster/routing/awareness/{Uri.EscapeDataString(r.Attribute!)}/weights";
 		return path;
 	}
 

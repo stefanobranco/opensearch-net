@@ -32,12 +32,12 @@ public sealed class GetMessageTracesMlEndpoint : IEndpoint<GetMessageTracesMlReq
 
 	public string RequestUrl(GetMessageTracesMlRequest r)
 	{
-		var path = $"/_plugins/_ml/memory/message/{Uri.EscapeDataString(r.MessageId!.ToString()!)}/traces";
+		var path = $"/_plugins/_ml/memory/message/{Uri.EscapeDataString(r.MessageId!)}/traces";
 		var queryParts = new List<string>();
 		if (r.MaxResults is not null)
-			queryParts.Add($"max_results={Uri.EscapeDataString(r.MaxResults.ToString()!)}");
+			queryParts.Add($"max_results={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.MaxResults!.Value))}");
 		if (r.NextToken is not null)
-			queryParts.Add($"next_token={Uri.EscapeDataString(r.NextToken.ToString()!)}");
+			queryParts.Add($"next_token={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.NextToken!.Value))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

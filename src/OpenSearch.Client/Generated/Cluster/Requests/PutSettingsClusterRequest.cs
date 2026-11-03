@@ -39,7 +39,7 @@ public sealed class PutSettingsClusterEndpoint : IEndpoint<PutSettingsClusterReq
 		if (r.ClusterManagerTimeout is not null)
 			queryParts.Add($"cluster_manager_timeout={Uri.EscapeDataString(r.ClusterManagerTimeout!)}");
 		if (r.FlatSettings is not null)
-			queryParts.Add($"flat_settings={Uri.EscapeDataString((r.FlatSettings.Value ? "true" : "false"))}");
+			queryParts.Add($"flat_settings={Uri.EscapeDataString((r.FlatSettings!.Value ? "true" : "false"))}");
 		if (r.Timeout is not null)
 			queryParts.Add($"timeout={Uri.EscapeDataString(r.Timeout!)}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;

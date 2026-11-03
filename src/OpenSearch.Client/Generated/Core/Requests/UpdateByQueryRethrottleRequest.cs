@@ -29,10 +29,10 @@ public sealed class UpdateByQueryRethrottleEndpoint : IEndpoint<UpdateByQueryRet
 
 	public string RequestUrl(UpdateByQueryRethrottleRequest r)
 	{
-		var path = $"/_update_by_query/{Uri.EscapeDataString(r.TaskId!.ToString()!)}/_rethrottle";
+		var path = $"/_update_by_query/{Uri.EscapeDataString(r.TaskId!)}/_rethrottle";
 		var queryParts = new List<string>();
 		if (r.RequestsPerSecond is not null)
-			queryParts.Add($"requests_per_second={Uri.EscapeDataString(r.RequestsPerSecond.ToString()!)}");
+			queryParts.Add($"requests_per_second={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.RequestsPerSecond!.Value))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

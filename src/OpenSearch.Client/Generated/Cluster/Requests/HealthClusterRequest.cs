@@ -76,7 +76,7 @@ public sealed class HealthClusterEndpoint : IEndpoint<HealthClusterRequest, Heal
 		if (r.Level is not null)
 			queryParts.Add($"level={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.Level!.Value))}");
 		if (r.Local is not null)
-			queryParts.Add($"local={Uri.EscapeDataString((r.Local.Value ? "true" : "false"))}");
+			queryParts.Add($"local={Uri.EscapeDataString((r.Local!.Value ? "true" : "false"))}");
 		if (r.Timeout is not null)
 			queryParts.Add($"timeout={Uri.EscapeDataString(r.Timeout!)}");
 		if (r.WaitForActiveShards is not null)
@@ -84,9 +84,9 @@ public sealed class HealthClusterEndpoint : IEndpoint<HealthClusterRequest, Heal
 		if (r.WaitForEvents is not null)
 			queryParts.Add($"wait_for_events={Uri.EscapeDataString(r.WaitForEvents!)}");
 		if (r.WaitForNoInitializingShards is not null)
-			queryParts.Add($"wait_for_no_initializing_shards={Uri.EscapeDataString((r.WaitForNoInitializingShards.Value ? "true" : "false"))}");
+			queryParts.Add($"wait_for_no_initializing_shards={Uri.EscapeDataString((r.WaitForNoInitializingShards!.Value ? "true" : "false"))}");
 		if (r.WaitForNoRelocatingShards is not null)
-			queryParts.Add($"wait_for_no_relocating_shards={Uri.EscapeDataString((r.WaitForNoRelocatingShards.Value ? "true" : "false"))}");
+			queryParts.Add($"wait_for_no_relocating_shards={Uri.EscapeDataString((r.WaitForNoRelocatingShards!.Value ? "true" : "false"))}");
 		if (r.WaitForNodes is not null)
 			queryParts.Add($"wait_for_nodes={Uri.EscapeDataString(r.WaitForNodes!)}");
 		if (r.WaitForStatus is not null)

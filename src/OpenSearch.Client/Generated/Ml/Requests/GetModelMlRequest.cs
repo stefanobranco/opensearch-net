@@ -26,7 +26,7 @@ public sealed class GetModelMlEndpoint : IEndpoint<GetModelMlRequest, GetModelMl
 
 	public string RequestUrl(GetModelMlRequest r)
 	{
-		var path = $"/_plugins/_ml/models/{Uri.EscapeDataString(r.ModelId!.ToString()!)}";
+		var path = $"/_plugins/_ml/models/{Uri.EscapeDataString(r.ModelId!)}";
 		return path;
 	}
 

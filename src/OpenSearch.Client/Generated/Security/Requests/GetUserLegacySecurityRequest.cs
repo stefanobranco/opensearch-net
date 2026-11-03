@@ -26,7 +26,7 @@ public sealed class GetUserLegacySecurityEndpoint : IEndpoint<GetUserLegacySecur
 
 	public string RequestUrl(GetUserLegacySecurityRequest r)
 	{
-		var path = $"/_plugins/_security/api/user/{Uri.EscapeDataString(r.Username!.ToString()!)}";
+		var path = $"/_plugins/_security/api/user/{Uri.EscapeDataString(r.Username!)}";
 		return path;
 	}
 

@@ -33,7 +33,7 @@ public sealed class ChangePolicyIsmEndpoint : IEndpoint<ChangePolicyIsmRequest, 
 	public string RequestUrl(ChangePolicyIsmRequest r)
 	{
 		var path = r.Index is not null
-			? $"/_plugins/_ism/change_policy/{Uri.EscapeDataString(r.Index!.ToString()!)}" : true
+			? $"/_plugins/_ism/change_policy/{Uri.EscapeDataString(r.Index!)}" : true
 			? $"/_plugins/_ism/change_policy"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		return path;

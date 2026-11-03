@@ -26,7 +26,7 @@ public sealed class GetStoreLtrEndpoint : IEndpoint<GetStoreLtrRequest, GetStore
 
 	public string RequestUrl(GetStoreLtrRequest r)
 	{
-		var path = $"/_ltr/{Uri.EscapeDataString(r.Store!.ToString()!)}";
+		var path = $"/_ltr/{Uri.EscapeDataString(r.Store!)}";
 		return path;
 	}
 

@@ -27,7 +27,7 @@ public sealed class GetScheduledExperimentsSearchRelevanceEndpoint<TDocument> : 
 	public string RequestUrl(GetScheduledExperimentsSearchRelevanceRequest r)
 	{
 		var path = r.ExperimentId is not null
-			? $"/_plugins/_search_relevance/experiments/schedule/{Uri.EscapeDataString(r.ExperimentId!.ToString()!)}" : true
+			? $"/_plugins/_search_relevance/experiments/schedule/{Uri.EscapeDataString(r.ExperimentId!)}" : true
 			? $"/_plugins/_search_relevance/experiments/schedule"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		return path;

@@ -34,7 +34,7 @@ public sealed class AuthinfoSecurityEndpoint : IEndpoint<AuthinfoSecurityRequest
 		if (r.AuthType is not null)
 			queryParts.Add($"auth_type={Uri.EscapeDataString(r.AuthType!)}");
 		if (r.Verbose is not null)
-			queryParts.Add($"verbose={Uri.EscapeDataString((r.Verbose.Value ? "true" : "false"))}");
+			queryParts.Add($"verbose={Uri.EscapeDataString((r.Verbose!.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

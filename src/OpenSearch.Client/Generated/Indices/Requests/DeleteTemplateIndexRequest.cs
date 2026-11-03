@@ -32,7 +32,7 @@ public sealed class DeleteTemplateIndexEndpoint : IEndpoint<DeleteTemplateIndexR
 
 	public string RequestUrl(DeleteTemplateIndexRequest r)
 	{
-		var path = $"/_template/{Uri.EscapeDataString(r.Name!.ToString()!)}";
+		var path = $"/_template/{Uri.EscapeDataString(r.Name!)}";
 		var queryParts = new List<string>();
 		if (r.ClusterManagerTimeout is not null)
 			queryParts.Add($"cluster_manager_timeout={Uri.EscapeDataString(r.ClusterManagerTimeout!)}");

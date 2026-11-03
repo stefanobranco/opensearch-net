@@ -29,7 +29,7 @@ public sealed class UnloadModelMlEndpoint : IEndpoint<UnloadModelMlRequest, Unlo
 	public string RequestUrl(UnloadModelMlRequest r)
 	{
 		var path = r.ModelId is not null
-			? $"/_plugins/_ml/models/{Uri.EscapeDataString(r.ModelId!.ToString()!)}/_unload" : true
+			? $"/_plugins/_ml/models/{Uri.EscapeDataString(r.ModelId!)}/_unload" : true
 			? $"/_plugins/_ml/models/_unload"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		return path;

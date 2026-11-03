@@ -53,11 +53,11 @@ public sealed class CountCatEndpoint : IEndpoint<CountCatRequest, CountCatRespon
 		if (r.H is not null)
 			queryParts.Add($"h={Uri.EscapeDataString(string.Join(",", r.H!))}");
 		if (r.Help is not null)
-			queryParts.Add($"help={Uri.EscapeDataString((r.Help.Value ? "true" : "false"))}");
+			queryParts.Add($"help={Uri.EscapeDataString((r.Help!.Value ? "true" : "false"))}");
 		if (r.S is not null)
 			queryParts.Add($"s={Uri.EscapeDataString(string.Join(",", r.S!))}");
 		if (r.V is not null)
-			queryParts.Add($"v={Uri.EscapeDataString((r.V.Value ? "true" : "false"))}");
+			queryParts.Add($"v={Uri.EscapeDataString((r.V!.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

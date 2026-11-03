@@ -36,8 +36,8 @@ public sealed class CreateModelLtrEndpoint : IEndpoint<CreateModelLtrRequest, Cr
 	public string RequestUrl(CreateModelLtrRequest r)
 	{
 		var path = r.Store is not null && r.Id is not null
-			? $"/_ltr/{Uri.EscapeDataString(r.Store!.ToString()!)}/_model/{Uri.EscapeDataString(r.Id!.ToString()!)}" : r.Id is not null
-			? $"/_ltr/_model/{Uri.EscapeDataString(r.Id!.ToString()!)}"
+			? $"/_ltr/{Uri.EscapeDataString(r.Store!)}/_model/{Uri.EscapeDataString(r.Id!)}" : r.Id is not null
+			? $"/_ltr/_model/{Uri.EscapeDataString(r.Id!)}"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();
 		if (r.Routing is not null)

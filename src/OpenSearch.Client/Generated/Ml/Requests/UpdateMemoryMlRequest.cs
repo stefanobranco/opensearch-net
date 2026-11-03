@@ -27,7 +27,7 @@ public sealed class UpdateMemoryMlEndpoint : IEndpoint<UpdateMemoryMlRequest, Up
 
 	public string RequestUrl(UpdateMemoryMlRequest r)
 	{
-		var path = $"/_plugins/_ml/memory/{Uri.EscapeDataString(r.MemoryId!.ToString()!)}";
+		var path = $"/_plugins/_ml/memory/{Uri.EscapeDataString(r.MemoryId!)}";
 		return path;
 	}
 

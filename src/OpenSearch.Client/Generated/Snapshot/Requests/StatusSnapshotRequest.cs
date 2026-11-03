@@ -36,15 +36,15 @@ public sealed class StatusSnapshotEndpoint : IEndpoint<StatusSnapshotRequest, St
 	public string RequestUrl(StatusSnapshotRequest r)
 	{
 		var path = r.Repository is not null && r.Snapshot is not null
-			? $"/_snapshot/{Uri.EscapeDataString(r.Repository!.ToString()!)}/{Uri.EscapeDataString(string.Join(",", r.Snapshot!))}/_status" : r.Repository is not null
-			? $"/_snapshot/{Uri.EscapeDataString(r.Repository!.ToString()!)}/_status" : true
+			? $"/_snapshot/{Uri.EscapeDataString(r.Repository!)}/{Uri.EscapeDataString(string.Join(",", r.Snapshot!))}/_status" : r.Repository is not null
+			? $"/_snapshot/{Uri.EscapeDataString(r.Repository!)}/_status" : true
 			? $"/_snapshot/_status"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();
 		if (r.ClusterManagerTimeout is not null)
 			queryParts.Add($"cluster_manager_timeout={Uri.EscapeDataString(r.ClusterManagerTimeout!)}");
 		if (r.IgnoreUnavailable is not null)
-			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable.Value ? "true" : "false"))}");
+			queryParts.Add($"ignore_unavailable={Uri.EscapeDataString((r.IgnoreUnavailable!.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

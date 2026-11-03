@@ -47,7 +47,7 @@ public sealed class ExecuteAlgorithmMlEndpoint : IEndpoint<ExecuteAlgorithmMlReq
 
 	public string RequestUrl(ExecuteAlgorithmMlRequest r)
 	{
-		var path = $"/_plugins/_ml/_execute/{Uri.EscapeDataString(r.AlgorithmName!.ToString()!)}";
+		var path = $"/_plugins/_ml/_execute/{Uri.EscapeDataString(QueryParamSerializer.Serialize(r.AlgorithmName!.Value))}";
 		return path;
 	}
 

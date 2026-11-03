@@ -34,7 +34,7 @@ public sealed class GetProfileTasksMlEndpoint : IEndpoint<GetProfileTasksMlReque
 	public string RequestUrl(GetProfileTasksMlRequest r)
 	{
 		var path = r.TaskId is not null
-			? $"/_plugins/_ml/profile/tasks/{Uri.EscapeDataString(r.TaskId!.ToString()!)}" : true
+			? $"/_plugins/_ml/profile/tasks/{Uri.EscapeDataString(r.TaskId!)}" : true
 			? $"/_plugins/_ml/profile/tasks"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		return path;

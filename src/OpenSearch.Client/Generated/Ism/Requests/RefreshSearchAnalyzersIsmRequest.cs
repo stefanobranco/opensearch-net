@@ -26,7 +26,7 @@ public sealed class RefreshSearchAnalyzersIsmEndpoint : IEndpoint<RefreshSearchA
 
 	public string RequestUrl(RefreshSearchAnalyzersIsmRequest r)
 	{
-		var path = $"/_plugins/_refresh_search_analyzers/{Uri.EscapeDataString(r.Index!.ToString()!)}";
+		var path = $"/_plugins/_refresh_search_analyzers/{Uri.EscapeDataString(r.Index!)}";
 		return path;
 	}
 

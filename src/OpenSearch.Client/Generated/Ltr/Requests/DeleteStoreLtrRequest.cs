@@ -26,7 +26,7 @@ public sealed class DeleteStoreLtrEndpoint : IEndpoint<DeleteStoreLtrRequest, De
 
 	public string RequestUrl(DeleteStoreLtrRequest r)
 	{
-		var path = $"/_ltr/{Uri.EscapeDataString(r.Store!.ToString()!)}";
+		var path = $"/_ltr/{Uri.EscapeDataString(r.Store!)}";
 		return path;
 	}
 

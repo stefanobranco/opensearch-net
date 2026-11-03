@@ -29,7 +29,7 @@ public sealed class DeleteVotingConfigExclusionsClusterEndpoint : IEndpoint<Dele
 		var path = $"/_cluster/voting_config_exclusions";
 		var queryParts = new List<string>();
 		if (r.WaitForRemoval is not null)
-			queryParts.Add($"wait_for_removal={Uri.EscapeDataString((r.WaitForRemoval.Value ? "true" : "false"))}");
+			queryParts.Add($"wait_for_removal={Uri.EscapeDataString((r.WaitForRemoval!.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

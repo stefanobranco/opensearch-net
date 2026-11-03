@@ -77,24 +77,24 @@ public sealed class UpdateEndpoint<TDocument, TPartialDocument> : IEndpoint<Upda
 
 	public string RequestUrl(UpdateRequest<TDocument, TPartialDocument> r)
 	{
-		var path = $"/{Uri.EscapeDataString(r.Index!.ToString()!)}/_update/{Uri.EscapeDataString(r.Id!.ToString()!)}";
+		var path = $"/{Uri.EscapeDataString(r.Index!)}/_update/{Uri.EscapeDataString(r.Id!)}";
 		var queryParts = new List<string>();
 		if (r.SourceExcludes is not null)
 			queryParts.Add($"_source_excludes={Uri.EscapeDataString(string.Join(",", r.SourceExcludes!))}");
 		if (r.SourceIncludes is not null)
 			queryParts.Add($"_source_includes={Uri.EscapeDataString(string.Join(",", r.SourceIncludes!))}");
 		if (r.IfPrimaryTerm is not null)
-			queryParts.Add($"if_primary_term={Uri.EscapeDataString(r.IfPrimaryTerm.ToString()!)}");
+			queryParts.Add($"if_primary_term={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.IfPrimaryTerm!.Value))}");
 		if (r.IfSeqNo is not null)
-			queryParts.Add($"if_seq_no={Uri.EscapeDataString(r.IfSeqNo.ToString()!)}");
+			queryParts.Add($"if_seq_no={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.IfSeqNo!.Value))}");
 		if (r.Lang is not null)
 			queryParts.Add($"lang={Uri.EscapeDataString(r.Lang!)}");
 		if (r.Refresh is not null)
 			queryParts.Add($"refresh={Uri.EscapeDataString(r.Refresh!)}");
 		if (r.RequireAlias is not null)
-			queryParts.Add($"require_alias={Uri.EscapeDataString((r.RequireAlias.Value ? "true" : "false"))}");
+			queryParts.Add($"require_alias={Uri.EscapeDataString((r.RequireAlias!.Value ? "true" : "false"))}");
 		if (r.RetryOnConflict is not null)
-			queryParts.Add($"retry_on_conflict={Uri.EscapeDataString(r.RetryOnConflict.ToString()!)}");
+			queryParts.Add($"retry_on_conflict={Uri.EscapeDataString(QueryParamSerializer.Serialize(r.RetryOnConflict!.Value))}");
 		if (r.Routing is not null)
 			queryParts.Add($"routing={Uri.EscapeDataString(string.Join(",", r.Routing!))}");
 		if (r.Timeout is not null)

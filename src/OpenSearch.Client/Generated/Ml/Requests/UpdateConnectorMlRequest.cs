@@ -37,7 +37,7 @@ public sealed class UpdateConnectorMlEndpoint : IEndpoint<UpdateConnectorMlReque
 
 	public string RequestUrl(UpdateConnectorMlRequest r)
 	{
-		var path = $"/_plugins/_ml/connectors/{Uri.EscapeDataString(r.ConnectorId!.ToString()!)}";
+		var path = $"/_plugins/_ml/connectors/{Uri.EscapeDataString(r.ConnectorId!)}";
 		return path;
 	}
 

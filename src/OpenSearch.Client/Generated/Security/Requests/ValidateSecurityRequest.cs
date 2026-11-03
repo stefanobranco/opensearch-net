@@ -29,7 +29,7 @@ public sealed class ValidateSecurityEndpoint : IEndpoint<ValidateSecurityRequest
 		var path = $"/_plugins/_security/api/validate";
 		var queryParts = new List<string>();
 		if (r.AcceptInvalid is not null)
-			queryParts.Add($"accept_invalid={Uri.EscapeDataString((r.AcceptInvalid.Value ? "true" : "false"))}");
+			queryParts.Add($"accept_invalid={Uri.EscapeDataString((r.AcceptInvalid!.Value ? "true" : "false"))}");
 		return queryParts.Count > 0 ? $"{path}?{string.Join("&", queryParts)}" : path;
 	}
 

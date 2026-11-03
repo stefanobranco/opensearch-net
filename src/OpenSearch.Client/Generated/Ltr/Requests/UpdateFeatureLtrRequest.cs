@@ -36,8 +36,8 @@ public sealed class UpdateFeatureLtrEndpoint : IEndpoint<UpdateFeatureLtrRequest
 	public string RequestUrl(UpdateFeatureLtrRequest r)
 	{
 		var path = r.Store is not null && r.Id is not null
-			? $"/_ltr/{Uri.EscapeDataString(r.Store!.ToString()!)}/_feature/{Uri.EscapeDataString(r.Id!.ToString()!)}" : r.Id is not null
-			? $"/_ltr/_feature/{Uri.EscapeDataString(r.Id!.ToString()!)}"
+			? $"/_ltr/{Uri.EscapeDataString(r.Store!)}/_feature/{Uri.EscapeDataString(r.Id!)}" : r.Id is not null
+			? $"/_ltr/_feature/{Uri.EscapeDataString(r.Id!)}"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		var queryParts = new List<string>();
 		if (r.Routing is not null)

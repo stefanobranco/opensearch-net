@@ -26,7 +26,7 @@ public sealed class GetControllerMlEndpoint : IEndpoint<GetControllerMlRequest, 
 
 	public string RequestUrl(GetControllerMlRequest r)
 	{
-		var path = $"/_plugins/_ml/controllers/{Uri.EscapeDataString(r.ModelId!.ToString()!)}";
+		var path = $"/_plugins/_ml/controllers/{Uri.EscapeDataString(r.ModelId!)}";
 		return path;
 	}
 

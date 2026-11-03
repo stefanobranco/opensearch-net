@@ -26,7 +26,7 @@ public sealed class GenerateUserTokenLegacySecurityEndpoint : IEndpoint<Generate
 
 	public string RequestUrl(GenerateUserTokenLegacySecurityRequest r)
 	{
-		var path = $"/_plugins/_security/api/user/{Uri.EscapeDataString(r.Username!.ToString()!)}/authtoken";
+		var path = $"/_plugins/_security/api/user/{Uri.EscapeDataString(r.Username!)}/authtoken";
 		return path;
 	}
 

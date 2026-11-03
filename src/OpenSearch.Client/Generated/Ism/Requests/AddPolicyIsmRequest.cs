@@ -29,7 +29,7 @@ public sealed class AddPolicyIsmEndpoint : IEndpoint<AddPolicyIsmRequest, AddPol
 	public string RequestUrl(AddPolicyIsmRequest r)
 	{
 		var path = r.Index is not null
-			? $"/_plugins/_ism/add/{Uri.EscapeDataString(r.Index!.ToString()!)}" : true
+			? $"/_plugins/_ism/add/{Uri.EscapeDataString(r.Index!)}" : true
 			? $"/_plugins/_ism/add"
 			: throw new InvalidOperationException("No valid path for the given parameters.");
 		return path;
