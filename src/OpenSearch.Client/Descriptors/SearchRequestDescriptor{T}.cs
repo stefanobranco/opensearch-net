@@ -56,6 +56,8 @@ public sealed class SearchRequestDescriptor<TDocument>
 		return this;
 	}
 
+	public SearchRequestDescriptor<TDocument> Aggs(Dictionary<string, AggregationContainer>? value) { _value.Aggs = value; return this; }
+
 	public SearchRequestDescriptor<TDocument> Highlight(Action<HighlightDescriptor> configure)
 	{
 		var descriptor = new HighlightDescriptor();
@@ -91,10 +93,16 @@ public sealed class SearchRequestDescriptor<TDocument>
 	public SearchRequestDescriptor<TDocument> TerminateAfter(int? value) { _value.TerminateAfter = value; return this; }
 	public SearchRequestDescriptor<TDocument> IncludeNamedQueriesScore(bool? value) { _value.IncludeNamedQueriesScore = value; return this; }
 	public SearchRequestDescriptor<TDocument> SearchPipeline(string? value) { _value.SearchPipeline = value; return this; }
+	public SearchRequestDescriptor<TDocument> VerbosePipeline(bool? value) { _value.VerbosePipeline = value; return this; }
+	public SearchRequestDescriptor<TDocument> SearchAfter(List<FieldValue>? value) { _value.SearchAfter = value; return this; }
 	public SearchRequestDescriptor<TDocument> StoredFields(List<string>? value) { _value.StoredFields = value; return this; }
+	public SearchRequestDescriptor<TDocument> StoredFields(string value) { _value.StoredFields = [value]; return this; }
+	public SearchRequestDescriptor<TDocument> DocvalueFields(List<FieldAndFormat>? value) { _value.DocvalueFields = value; return this; }
+	public SearchRequestDescriptor<TDocument> Fields(List<FieldAndFormat>? value) { _value.Fields = value; return this; }
 	public SearchRequestDescriptor<TDocument> IndicesBoost(List<Dictionary<string, float>>? value) { _value.IndicesBoost = value; return this; }
 	public SearchRequestDescriptor<TDocument> ScriptFields(Dictionary<string, ScriptField>? value) { _value.ScriptFields = value; return this; }
 	public SearchRequestDescriptor<TDocument> Stats(List<string>? value) { _value.Stats = value; return this; }
+	public SearchRequestDescriptor<TDocument> Stats(string value) { _value.Stats = [value]; return this; }
 	public SearchRequestDescriptor<TDocument> Ext(Dictionary<string, object>? value) { _value.Ext = value; return this; }
 	public SearchRequestDescriptor<TDocument> Derived(Dictionary<string, DerivedField>? value) { _value.Derived = value; return this; }
 
@@ -111,6 +119,8 @@ public sealed class SearchRequestDescriptor<TDocument>
 		return this;
 	}
 
+	public SearchRequestDescriptor<TDocument> Rescore(List<Rescore>? value) { _value.Rescore = value; return this; }
+
 	public SearchRequestDescriptor<TDocument> Collapse(Action<FieldCollapseDescriptor> configure)
 	{
 		var descriptor = new FieldCollapseDescriptor();
@@ -118,6 +128,8 @@ public sealed class SearchRequestDescriptor<TDocument>
 		_value.Collapse = descriptor;
 		return this;
 	}
+
+	public SearchRequestDescriptor<TDocument> Collapse(FieldCollapse? value) { _value.Collapse = value; return this; }
 
 	public SearchRequestDescriptor<TDocument> Suggest(Action<SuggesterDescriptor> configure)
 	{
@@ -127,6 +139,8 @@ public sealed class SearchRequestDescriptor<TDocument>
 		return this;
 	}
 
+	public SearchRequestDescriptor<TDocument> Suggest(Suggester? value) { _value.Suggest = value; return this; }
+
 	public SearchRequestDescriptor<TDocument> Pit(Action<PointInTimeReferenceDescriptor> configure)
 	{
 		var descriptor = new PointInTimeReferenceDescriptor();
@@ -134,6 +148,18 @@ public sealed class SearchRequestDescriptor<TDocument>
 		_value.Pit = descriptor;
 		return this;
 	}
+
+	public SearchRequestDescriptor<TDocument> Pit(PointInTimeReference? value) { _value.Pit = value; return this; }
+
+	public SearchRequestDescriptor<TDocument> Slice(Action<SlicedScrollDescriptor> configure)
+	{
+		var descriptor = new SlicedScrollDescriptor();
+		configure(descriptor);
+		_value.Slice = descriptor;
+		return this;
+	}
+
+	public SearchRequestDescriptor<TDocument> Slice(SlicedScroll? value) { _value.Slice = value; return this; }
 
 	// ── Query-string parameters ──
 
@@ -146,7 +172,33 @@ public sealed class SearchRequestDescriptor<TDocument>
 	public SearchRequestDescriptor<TDocument> AllowNoIndices(bool? value) { _value.AllowNoIndices = value; return this; }
 	public SearchRequestDescriptor<TDocument> IgnoreUnavailable(bool? value) { _value.IgnoreUnavailable = value; return this; }
 	public SearchRequestDescriptor<TDocument> ExpandWildcards(List<string>? value) { _value.ExpandWildcards = value; return this; }
+	public SearchRequestDescriptor<TDocument> ExpandWildcards(string value) { _value.ExpandWildcards = [value]; return this; }
 	public SearchRequestDescriptor<TDocument> TypedKeys(bool? value) { _value.TypedKeys = value; return this; }
+	public SearchRequestDescriptor<TDocument> SourceExcludes(List<string>? value) { _value.SourceExcludes = value; return this; }
+	public SearchRequestDescriptor<TDocument> SourceExcludes(string value) { _value.SourceExcludes = [value]; return this; }
+	public SearchRequestDescriptor<TDocument> SourceIncludes(List<string>? value) { _value.SourceIncludes = value; return this; }
+	public SearchRequestDescriptor<TDocument> SourceIncludes(string value) { _value.SourceIncludes = [value]; return this; }
+	public SearchRequestDescriptor<TDocument> AllowPartialSearchResults(bool? value) { _value.AllowPartialSearchResults = value; return this; }
+	public SearchRequestDescriptor<TDocument> AnalyzeWildcard(bool? value) { _value.AnalyzeWildcard = value; return this; }
+	public SearchRequestDescriptor<TDocument> Analyzer(string? value) { _value.Analyzer = value; return this; }
+	public SearchRequestDescriptor<TDocument> BatchedReduceSize(int? value) { _value.BatchedReduceSize = value; return this; }
+	public SearchRequestDescriptor<TDocument> CancelAfterTimeInterval(string? value) { _value.CancelAfterTimeInterval = value; return this; }
+	public SearchRequestDescriptor<TDocument> CcsMinimizeRoundtrips(bool? value) { _value.CcsMinimizeRoundtrips = value; return this; }
+	public SearchRequestDescriptor<TDocument> DefaultOperator(Operator? value) { _value.DefaultOperator = value; return this; }
+	public SearchRequestDescriptor<TDocument> Df(string? value) { _value.Df = value; return this; }
+	public SearchRequestDescriptor<TDocument> IgnoreThrottled(bool? value) { _value.IgnoreThrottled = value; return this; }
+	public SearchRequestDescriptor<TDocument> Lenient(bool? value) { _value.Lenient = value; return this; }
+	public SearchRequestDescriptor<TDocument> MaxConcurrentShardRequests(int? value) { _value.MaxConcurrentShardRequests = value; return this; }
+	public SearchRequestDescriptor<TDocument> PhaseTook(bool? value) { _value.PhaseTook = value; return this; }
+	public SearchRequestDescriptor<TDocument> PreFilterShardSize(int? value) { _value.PreFilterShardSize = value; return this; }
+	public SearchRequestDescriptor<TDocument> Q(string? value) { _value.Q = value; return this; }
+	public SearchRequestDescriptor<TDocument> RequestCache(bool? value) { _value.RequestCache = value; return this; }
+	public SearchRequestDescriptor<TDocument> RestTotalHitsAsInt(bool? value) { _value.RestTotalHitsAsInt = value; return this; }
+	public SearchRequestDescriptor<TDocument> SearchType(string? value) { _value.SearchType = value; return this; }
+	public SearchRequestDescriptor<TDocument> SuggestField(string? value) { _value.SuggestField = value; return this; }
+	public SearchRequestDescriptor<TDocument> SuggestMode(SuggestMode? value) { _value.SuggestMode = value; return this; }
+	public SearchRequestDescriptor<TDocument> SuggestSize(int? value) { _value.SuggestSize = value; return this; }
+	public SearchRequestDescriptor<TDocument> SuggestText(string? value) { _value.SuggestText = value; return this; }
 
 	public static implicit operator SearchRequest(SearchRequestDescriptor<TDocument> d) => d._value;
 }
