@@ -21,10 +21,14 @@ contribute it upstream; the honest "unofficial package" framing is deliberate.
 
 ## Status
 
-**Release candidate** — integration-tested in CI against OpenSearch **3.0.0, 3.4.0, and 3.7.0** on every
-commit (see [`build-test.yml`](.github/workflows/build-test.yml)), benchmarked at parity with the official
-client on time and 25–55% lower on allocations (see [`benchmarks/`](benchmarks/README.md)). The API surface
-below is stable; further breaking changes are not planned before 3.4.0 final.
+**Release candidate** — integration-tested in CI against OpenSearch **3.0.0, 3.4.0, 3.7.0, 3.8.0, and
+3.9.0** on every commit (see [`build-test.yml`](.github/workflows/build-test.yml)), benchmarked at parity with
+the official client on time and 25–55% lower on allocations (see [`benchmarks/`](benchmarks/README.md)). The
+API surface below is stable; further breaking changes are not planned before 3.0.0 final.
+
+**Versioning:** the major version follows the OpenSearch major it targets (3.x for OpenSearch 3.x); minor and
+patch are this package's own and don't track server releases. The earlier `3.4.0-*` prereleases are superseded
+by `3.0.0-rc.1`.
 
 What works:
 - Transport with retry logic, dead-node tracking, handler rotation for DNS refresh

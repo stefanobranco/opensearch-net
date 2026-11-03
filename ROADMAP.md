@@ -29,8 +29,8 @@ well-engineered **on its own terms**, with no push for upstream adoption.
       tests self-skip via `[SkipIfNoCluster]`, so no hardcoded project list) + an integration job
       against an OpenSearch service container (mirrors `docker-compose.yaml`). `ci.yml` calls it on
       push/PR. A composite action (`.github/actions/setup`) centralizes SDK setup + NuGet caching.
-      The integration job matrixes over OpenSearch 3.0.0 / 3.4.0 / 3.7.0 (`fail-fast: false`);
-      2.x is an opt-in addition once its tests are validated.
+      The integration job matrixes over OpenSearch 3.0.0 / 3.4.0 / 3.7.0 / 3.8.0 / 3.9.0
+      (`fail-fast: false`); 2.x is an opt-in addition once its tests are validated.
 - [x] **A2. Automated publish** — `release.yml`: on a semver tag, gates on the same `build-test.yml`,
       then packs (version derived from the tag) + `nuget push` + GitHub Release.
       _Requires `NUGET_API_KEY` repo secret._
@@ -219,7 +219,7 @@ well-engineered **on its own terms**, with no push for upstream adoption.
         operations write action metadata directly. Bulk went 1,412 → 1,086 μs (legacy: 1,038)
         and 1,996 → 954 KB.
 
-## Phase E — RC soak (3.4.0-rc.1 → final)
+## Phase E — RC soak (3.4.0-rc.1 → 3.0.0 final)
 
 - [x] **E1. Response completeness (from the README "incomplete" list, 2026-07-02).** Auditing the
       list found most items stale or worse than documented; fixed at the root:
@@ -255,6 +255,13 @@ well-engineered **on its own terms**, with no push for upstream adoption.
         to the transport, but the security plugin's `{"status":"NOT_FOUND"}` body cannot
         deserialize as `Dictionary<string, User>`. Dictionary/list endpoints now return empty on
         non-2xx instead of throwing.
+- [x] **E3. Versioning reset (decided 2026-11-03 → 3.0.0-rc.1).** The `3.4.0` numbering suggested
+      a link to the OpenSearch 3.4 server release that doesn't exist. From now on the major version
+      follows the OpenSearch major, and minor/patch are the package's own. The `3.4.0-*`
+      prereleases are unlisted on nuget.org, so they no longer outrank `3.0.0-rc.x`. Also in
+      this RC: CI covers 3.8.0/3.9.0; path and query values render enum wire names and
+      culture-invariant numbers; SigV4 signing dates are culture-invariant (#36); and
+      `SearchRequestDescriptor<T>` has every member the generated descriptor has (#37).
 
 ## Phase D — Package identity (decided 2026-07-02: keep `SB.*`)
 
