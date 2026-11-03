@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using FluentAssertions;
@@ -173,5 +174,42 @@ public class GenericDescriptorTests
 		must.GetArrayLength().Should().Be(1);
 		boolQ.TryGetProperty("filter", out var filter).Should().BeTrue();
 		filter.GetArrayLength().Should().Be(1);
+	}
+
+	[Fact]
+	public void Generic_Descriptor_Covers_Every_Generated_Descriptor_Member()
+	{
+		static Type Map(Type t) =>
+			t == typeof(Action<QueryContainerDescriptor>) ? typeof(Action<QueryContainerDescriptor<Product>>) : t;
+
+		var genericMethods = typeof(SearchRequestDescriptor<Product>)
+			.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+
+		var missing = typeof(SearchRequestDescriptor)
+			.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)
+			.Where(m => m.ReturnType == typeof(SearchRequestDescriptor))
+			.Where(m => !genericMethods.Any(g =>
+			{
+				if (g.Name != m.Name) return false;
+				var gp = g.GetParameters();
+				var mp = m.GetParameters();
+				return gp.Length == mp.Length
+					&& gp.Zip(mp).All(p => p.First.ParameterType.IsAssignableFrom(Map(p.Second.ParameterType)));
+			}))
+			.Select(m => $"{m.Name}({string.Join(", ", m.GetParameters().Select(p => p.ParameterType.Name))})")
+			.ToList();
+
+		string.Join(", ", missing).Should().BeEmpty();
+	}
+
+	[Fact]
+	public void AllowPartialSearchResults_Renders_Query_Param()
+	{
+		SearchRequest request = new SearchRequestDescriptor<Product>()
+			.Index("docs")
+			.AllowPartialSearchResults(false);
+
+		SearchEndpoint<Product>.Instance.RequestUrl(request)
+			.Should().Be("/docs/_search?allow_partial_search_results=false");
 	}
 }
