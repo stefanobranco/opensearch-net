@@ -33,7 +33,7 @@ well-engineered **on its own terms**, with no push for upstream adoption.
       (`fail-fast: false`); 2.x is an opt-in addition once its tests are validated.
 - [x] **A2. Automated publish** — `release.yml`: on a semver tag, gates on the same `build-test.yml`,
       then packs (version derived from the tag) + `nuget push` + GitHub Release.
-      _Requires `NUGET_API_KEY` repo secret._
+      _Publishes via NuGet Trusted Publishing (OIDC); needs the trusted publishing policy on nuget.org._
 - [x] **A3. Release hygiene** in `Directory.Build.props` — SourceLink (built into the .NET 8+ SDK,
       no package reference), `PublishRepositoryUrl`, `EmbedUntrackedSources`, `IncludeSymbols` +
       `snupkg`, `Deterministic`, and `ContinuousIntegrationBuild` (CI only). Verified: pack produces
