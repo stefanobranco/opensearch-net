@@ -44,4 +44,15 @@ public abstract class OpenSearchResponse
 	[JsonIgnore]
 	public string DebugInformation =>
 		ApiCall?.DebugInformation() ?? "No transport details available.";
+
+	/// <summary>
+	/// Whether a successful (2xx) response carries failures that OpenSearch would answer with
+	/// 502/503/504 as a single request. The transport then marks the node dead and retries the
+	/// next one, as it does for those status codes. Multi-item responses such as msearch override this.
+	/// </summary>
+	protected internal virtual bool HasRetryableFailure() => false;
+
+	/// <summary>Whether <paramref name="statusCode"/> makes the transport retry on another node.</summary>
+	protected static bool IsRetryableStatusCode(int statusCode) =>
+		HttpClientTransport.IsRetryableStatusCode(statusCode);
 }

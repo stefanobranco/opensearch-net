@@ -112,13 +112,12 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 					// Last attempt: fall through to server error handling below
 					// (node stays dead, but we return the response instead of always throwing)
 				}
-				else
-				{
-					nodePool.MarkAlive(node);
-				}
 
 				if (IsServerError(statusCode, method))
 				{
+					if (!IsRetryableStatusCode(statusCode))
+						nodePool.MarkAlive(node);
+
 					var errorBytes = ReadAllBytes(responseMessage.Content.ReadAsStream());
 					var serverError = ParseServerError(statusCode, errorBytes);
 
@@ -150,6 +149,24 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 				{
 					var contentType = responseMessage.Content.Headers.ContentType?.MediaType;
 					var response = endpoint.DeserializeResponse(statusCode, contentType, deserializationStream, _serializer);
+
+					// A multi-item response can report per-item failures that a single request would return as 502/503/504
+					if (response is OpenSearchResponse openSearchResponse && openSearchResponse.HasRetryableFailure())
+					{
+						GetAuditTrail(ref auditTrail).Add(AuditEventType.BadResponse, node, statusCode);
+						nodePool.MarkDead(node);
+						GetAuditTrail(ref auditTrail).Add(AuditEventType.DeadNode, node);
+
+						if (attempt < maxRetries)
+						{
+							lastException = null;
+							continue;
+						}
+					}
+					else
+					{
+						nodePool.MarkAlive(node);
+					}
 
 					AttachApiCallDetails(response, method, requestMessage.RequestUri!, node, statusCode,
 						sw.Elapsed, auditTrail, requestBodyBytes, responseBodyBytes, exception: null, serverError: null);
@@ -239,13 +256,12 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 
 					// Last attempt: fall through to server error handling below
 				}
-				else
-				{
-					nodePool.MarkAlive(node);
-				}
 
 				if (IsServerError(statusCode, method))
 				{
+					if (!IsRetryableStatusCode(statusCode))
+						nodePool.MarkAlive(node);
+
 					var errorBytes = await ReadAllBytesAsync(
 						await responseMessage.Content.ReadAsStreamAsync(ct).ConfigureAwait(false), ct)
 						.ConfigureAwait(false);
@@ -282,6 +298,24 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 					var contentType = responseMessage.Content.Headers.ContentType?.MediaType;
 					var response = endpoint.DeserializeResponse(statusCode, contentType, deserializationStream, _serializer);
 
+					// A multi-item response can report per-item failures that a single request would return as 502/503/504
+					if (response is OpenSearchResponse openSearchResponse && openSearchResponse.HasRetryableFailure())
+					{
+						GetAuditTrail(ref auditTrail).Add(AuditEventType.BadResponse, node, statusCode);
+						nodePool.MarkDead(node);
+						GetAuditTrail(ref auditTrail).Add(AuditEventType.DeadNode, node);
+
+						if (attempt < maxRetries)
+						{
+							lastException = null;
+							continue;
+						}
+					}
+					else
+					{
+						nodePool.MarkAlive(node);
+					}
+
 					AttachApiCallDetails(response, method, requestMessage.RequestUri!, node, statusCode,
 						sw.Elapsed, auditTrail, requestBodyBytes, responseBodyBytes, exception: null, serverError: null);
 
@@ -308,6 +342,8 @@ public sealed class HttpClientTransport : IOpenSearchTransport, IDisposable
 	/// Returns true for 4xx/5xx responses that should be treated as server errors, excluding HEAD requests
 	/// (status conveyed via deserialization) and GET/DELETE 404 (valid "not found" with Found=false).
 	/// </summary>
+	internal static bool IsRetryableStatusCode(int statusCode) => RetryableStatusCodes.Contains(statusCode);
+
 	private static bool IsServerError(int statusCode, HttpMethod method) =>
 		statusCode >= 400
 		&& method != HttpMethod.Head

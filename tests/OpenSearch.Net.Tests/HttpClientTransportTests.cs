@@ -932,6 +932,103 @@ public class HttpClientTransportTests : IDisposable
 
 	// --- Helpers ---
 
+	// ── Retryable failures inside a 200 (msearch/mget items) ──
+
+	[Fact]
+	public void RetryableFailureIn200_MarksNodeDead_RetriesNextNode()
+	{
+		var calls = 0;
+		var handler = new MockHttpMessageHandler(_ => MultiItem(failed: ++calls == 1));
+		var config = TransportConfiguration.Create(new Uri("http://node1:9200"), new Uri("http://node2:9200")).Build();
+		var transport = CreateTransport(handler, config);
+
+		var response = transport.PerformRequest("request", CreateMultiItemEndpoint());
+
+		response.Failed.Should().BeFalse();
+		handler.Requests.Should().HaveCount(2);
+		var firstNode = config.NodePool.Nodes.Single(n => n.Host.Host == handler.Requests[0].RequestUri!.Host);
+		handler.Requests[1].RequestUri!.Host.Should().NotBe(firstNode.Host.Host);
+		config.NodePool.IsAlive(firstNode).Should().BeFalse();
+		response.ApiCall!.AuditTrail!.Events.Select(e => e.Type).Should().Contain(AuditEventType.DeadNode);
+	}
+
+	[Fact]
+	public async Task AsyncRetryableFailureIn200_MarksNodeDead_RetriesNextNode()
+	{
+		var calls = 0;
+		var handler = new MockHttpMessageHandler(_ => MultiItem(failed: ++calls == 1));
+		var config = TransportConfiguration.Create(new Uri("http://node1:9200"), new Uri("http://node2:9200")).Build();
+		var transport = CreateTransport(handler, config);
+
+		var response = await transport.PerformRequestAsync("request", CreateMultiItemEndpoint());
+
+		response.Failed.Should().BeFalse();
+		handler.Requests.Should().HaveCount(2);
+		var firstNode = config.NodePool.Nodes.Single(n => n.Host.Host == handler.Requests[0].RequestUri!.Host);
+		config.NodePool.IsAlive(firstNode).Should().BeFalse();
+	}
+
+	[Fact]
+	public void RetryableFailureIn200_OnFinalAttempt_ReturnsResponse_AndNodesStayDead()
+	{
+		var handler = new MockHttpMessageHandler(_ => MultiItem(failed: true));
+		var config = TransportConfiguration.Create(new Uri("http://node1:9200"), new Uri("http://node2:9200")).Build();
+		var transport = CreateTransport(handler, config);
+
+		var response = transport.PerformRequest("request", CreateMultiItemEndpoint());
+
+		response.Failed.Should().BeTrue();
+		response.ApiCall!.HttpStatusCode.Should().Be(200);
+		handler.Requests.Should().HaveCount(2);
+		config.NodePool.Nodes.Should().OnlyContain(n => !config.NodePool.IsAlive(n));
+	}
+
+	[Fact]
+	public void SuccessfulResponse_RevivesDeadNode()
+	{
+		var config = TransportConfiguration.Create(new Uri("http://node1:9200")).Build();
+		var node = config.NodePool.Nodes[0];
+		config.NodePool.MarkDead(node);
+		var transport = CreateTransport(new MockHttpMessageHandler(_ => MultiItem(failed: false)), config);
+
+		transport.PerformRequest("request", CreateMultiItemEndpoint());
+
+		config.NodePool.IsAlive(node).Should().BeTrue();
+	}
+
+	[Fact]
+	public void RetryableFailureIn200_DoesNotReviveDeadNode()
+	{
+		var config = TransportConfiguration.Create(new Uri("http://node1:9200")).Build();
+		var node = config.NodePool.Nodes[0];
+		config.NodePool.MarkDead(node);
+		var transport = CreateTransport(new MockHttpMessageHandler(_ => MultiItem(failed: true)), config);
+
+		transport.PerformRequest("request", CreateMultiItemEndpoint());
+
+		config.NodePool.IsAlive(node).Should().BeFalse();
+	}
+
+	private static HttpResponseMessage MultiItem(bool failed) =>
+		new(HttpStatusCode.OK)
+		{
+			Content = new StringContent(failed ? "{\"failed\":true}" : "{\"failed\":false}", Encoding.UTF8, "application/json")
+		};
+
+	private static SimpleEndpoint<string, MultiItemResponse> CreateMultiItemEndpoint() =>
+		new(
+			method: _ => HttpMethod.Post,
+			requestUrl: _ => "/_msearch",
+			deserialize: (_, _, body, serializer) =>
+				serializer.Deserialize<MultiItemResponse>(body) ?? new MultiItemResponse());
+
+	public class MultiItemResponse : OpenSearchResponse
+	{
+		public bool Failed { get; set; }
+
+		protected internal override bool HasRetryableFailure() => Failed;
+	}
+
 	private HttpClientTransport CreateTransport(MockHttpMessageHandler handler, params Uri[] uris)
 	{
 		var config = TransportConfiguration.Create(uris).Build();
