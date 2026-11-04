@@ -262,6 +262,13 @@ well-engineered **on its own terms**, with no push for upstream adoption.
       this RC: CI covers 3.8.0/3.9.0; path and query values render enum wire names and
       culture-invariant numbers; SigV4 signing dates are culture-invariant (#36); and
       `SearchRequestDescriptor<T>` has every member the generated descriptor has (#37).
+- [x] **E4. Failover on multi-item responses (2026-11-04 → 3.0.0-rc.2).** `_msearch`,
+      `_msearch_template` and `_mget` answer 200 when items hit a red index, so the transport
+      marked the node alive and never tried the next one. Responses now report such item failures
+      (`OpenSearchResponse.HasRetryableFailure()`): an msearch item with status 502/503/504, or an
+      mget item with `no_shard_available_action_exception`. The transport treats them like a 503,
+      and marks a node alive only after that check (#40). The opensearch-java transport has the
+      same gap; this goes beyond its design.
 
 ## Phase D — Package identity (decided 2026-07-02: keep `SB.*`)
 
