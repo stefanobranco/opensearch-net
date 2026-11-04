@@ -14,6 +14,13 @@ public sealed class MsearchResponse : OpenSearchResponse
 	public List<MsearchResponseItem>? Responses { get; set; }
 
 	/// <summary>
+	/// A search item fails with 503 when its shards are unavailable (e.g. a red index with partial
+	/// results disallowed), while the msearch itself still returns 200.
+	/// </summary>
+	protected override bool HasRetryableFailure() =>
+		Responses?.Any(r => r.Status is { } status && IsRetryableStatusCode(status)) == true;
+
+	/// <summary>
 	/// Returns typed search responses for all items in the multi-search response.
 	/// Each item's hits are deserialized into <typeparamref name="T"/>.
 	/// </summary>
