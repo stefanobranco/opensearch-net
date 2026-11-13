@@ -219,7 +219,7 @@ well-engineered **on its own terms**, with no push for upstream adoption.
         operations write action metadata directly. Bulk went 1,412 → 1,086 μs (legacy: 1,038)
         and 1,996 → 954 KB.
 
-## Phase E — RC soak (3.4.0-rc.1 → 3.0.0 final)
+## Phase E — RC soak (3.4.0-rc.1 → 3.0.0 final, done)
 
 - [x] **E1. Response completeness (from the README "incomplete" list, 2026-07-02).** Auditing the
       list found most items stale or worse than documented; fixed at the root:
@@ -269,6 +269,7 @@ well-engineered **on its own terms**, with no push for upstream adoption.
       mget item with `no_shard_available_action_exception`. The transport treats them like a 503,
       and marks a node alive only after that check (#40). The opensearch-java transport has the
       same gap; this goes beyond its design.
+- [x] **E5. 3.0.0 (2026-11-13).** Same code as 3.0.0-rc.2; no issues came up during the soak.
 
 ## Phase D — Package identity (decided 2026-07-02: keep `SB.*`)
 

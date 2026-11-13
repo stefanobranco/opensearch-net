@@ -1,7 +1,7 @@
 # OpenSearch .NET Client (Unofficial)
 
 [![CI](https://github.com/stefanobranco/opensearch-net/actions/workflows/ci.yml/badge.svg)](https://github.com/stefanobranco/opensearch-net/actions/workflows/ci.yml)
-[![SB.OpenSearch.Client](https://img.shields.io/nuget/vpre/SB.OpenSearch.Client.svg?label=SB.OpenSearch.Client)](https://www.nuget.org/packages/SB.OpenSearch.Client)
+[![SB.OpenSearch.Client](https://img.shields.io/nuget/v/SB.OpenSearch.Client.svg?label=SB.OpenSearch.Client)](https://www.nuget.org/packages/SB.OpenSearch.Client)
 
 > **This is an AI-written ground-up rebuild of the OpenSearch .NET client.**
 > It is **not** the official [opensearch-project/opensearch-net](https://github.com/opensearch-project/opensearch-net) client
@@ -21,14 +21,14 @@ contribute it upstream; the honest "unofficial package" framing is deliberate.
 
 ## Status
 
-**Release candidate** — integration-tested in CI against OpenSearch **3.0.0, 3.4.0, 3.7.0, 3.8.0, and
+**Stable (3.0.0)** — integration-tested in CI against OpenSearch **3.0.0, 3.4.0, 3.7.0, 3.8.0, and
 3.9.0** on every commit (see [`build-test.yml`](.github/workflows/build-test.yml)), benchmarked at parity with
 the official client on time and 25–55% lower on allocations (see [`benchmarks/`](benchmarks/README.md)). The
-API surface below is stable; further breaking changes are not planned before 3.0.0 final.
+API surface below follows semantic versioning: breaking changes only in a new major.
 
 **Versioning:** the major version follows the OpenSearch major it targets (3.x for OpenSearch 3.x); minor and
 patch are this package's own and don't track server releases. The earlier `3.4.0-*` prereleases are superseded
-by `3.0.0-rc.1`.
+by `3.0.0`.
 
 What works:
 - Transport with retry logic, dead-node tracking, handler rotation for DNS refresh
